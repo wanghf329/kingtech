@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:c="http://www.springframework.org/schema/c" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+	<!-- dataSource  主库  读写操作-->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close"
+		p:driverClassName="${jdbc.driverClassName}"
+		p:url="${jdbc.url_rw}"
+		p:username="${jdbc.username_rw}"
+		p:password="${jdbc.password_rw}"
+		p:initialSize="${jdbc.pool.initialSize}"
+		p:minIdle="${jdbc.pool.minIdle}"
+		p:maxActive="${jdbc.pool.maxActive}"
+		p:maxWait="${jdbc.pool.maxWait}"
+		p:timeBetweenEvictionRunsMillis="${jdbc.pool.timeBetweenEvictionRunsMillis}"
+		p:minEvictableIdleTimeMillis="${jdbc.pool.minEvictableIdleTimeMillis}"
+		p:validationQuery="SELECT 1 FROM DUAL"
+		p:testWhileIdle="true"
+		p:testOnBorrow="false"
+		p:testOnReturn="false"
+		p:poolPreparedStatements="${jdbc.pool.poolPreparedStatements}"
+		p:maxPoolPreparedStatementPerConnectionSize="${jdbc.pool.maxPoolPreparedStatementPerConnectionSize}"
+		p:filters="stat" />
+		
+	<!-- dataSource  从库 读操作--> 
+<!-- 	<bean id="slavedataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close" -->
+<!-- 		p:driverClassName="${jdbc.driverClassName}" -->
+<!-- 		p:url="${jdbc.url_re}" -->
+<!-- 		p:username="${jdbc.username_re}" -->
+<!-- 		p:password="${jdbc.password_re}" -->
+<!-- 		p:initialSize="${jdbc.pool.initialSize}" -->
+<!-- 		p:minIdle="${jdbc.pool.minIdle}" -->
+<!-- 		p:maxActive="${jdbc.pool.maxActive}" -->
+<!-- 		p:maxWait="${jdbc.pool.maxWait}" -->
+<!-- 		p:timeBetweenEvictionRunsMillis="${jdbc.pool.timeBetweenEvictionRunsMillis}" -->
+<!-- 		p:minEvictableIdleTimeMillis="${jdbc.pool.minEvictableIdleTimeMillis}" -->
+<!-- 		p:validationQuery="SELECT 1 FROM DUAL" -->
+<!-- 		p:testWhileIdle="true" -->
+<!-- 		p:testOnBorrow="false" -->
+<!-- 		p:testOnReturn="false" -->
+<!-- 		p:poolPreparedStatements="${jdbc.pool.poolPreparedStatements}" -->
+<!-- 		p:maxPoolPreparedStatementPerConnectionSize="${jdbc.pool.maxPoolPreparedStatementPerConnectionSize}" -->
+<!-- 		p:filters="stat" /> -->
+		
+		
+<!--    <bean id="dataSource" class="com.coamctech.eastlending.commons.datasorce.DynamicDataSource"> -->
+<!-- 		<property name="targetDataSources"> -->
+<!-- 			<map key-type="java.lang.String"> -->
+<!-- 				<entry key="master" value-ref="masterdataSource" /> -->
+<!-- 				<entry key="slave" value-ref="slavedataSource" /> -->
+<!-- 			</map> -->
+<!-- 		</property> -->
+<!-- 		<property name="defaultTargetDataSource" ref="masterdataSource" /> -->
+<!-- 	</bean> -->
+
+
+	<!-- Jpa Entity Manager 配置 -->
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" 
+		p:dataSource-ref="dataSource"
+		p:jpaVendorAdapter-ref="hibernateJpaVendorAdapter"
+		p:packagesToScan="com.kingtech.dao.entity"
+		p:jpaProperties-ref="jpaProperties" />
+	
+	<util:map id="jpaProperties">
+		<entry key="hibernate.hbm2ddl.auto" value="none" />
+	</util:map>
+
+	<bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" 
+		p:databasePlatform="org.hibernate.dialect.MySQL5InnoDBDialect" />
+
+	<!-- Spring Data Jpa配置 -->
+	<jpa:repositories base-package="com.coamctech.eastlending.entity.*.rdbms"
+		transaction-manager-ref="transactionManager" entity-manager-factory-ref="entityManagerFactory" />
+
+	<!-- Jpa 事务配置 -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager" 
+		p:entityManagerFactory-ref="entityManagerFactory" />
+
+	<!-- 使用annotation定义事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+	
+	<!--  1、dataSourceAdvice采用aop判断方法名称前缀，决定使用的数据源
+      2、service层方法名称加注解形式配置数据源 ，DataSourceKey注解   
+                     两种形式： @DataSourceKey(lookupKey="master") or   @DataSourceKey(lookupKey="slave")
+      3、优先注解，如方法名称上加入  @DataSourceKey注解后，不进行方法名称判断
+      4、默认采用master数据库 
+      5、如只需要单独数据源、注释bean：dataSource 与 aop:config  修改masterdataSource id名为：dataSource
+      6、 开启 配置aop切面范围、执行方法 doBefore 
+      7、dataSourceAdvice-配置slave库的service层方法前缀 -->
+      
+	
+<!-- 	<aop:config expose-proxy="true">   -->
+<!-- 		<aop:aspect ref="dataSourceAdvice" order="0">   -->
+<!-- 			<aop:pointcut id="dateSourcePointcut"  expression="execution(* com.coamctech.eastlending.service.impl..*.*(..))"/>   -->
+<!--    			<aop:before pointcut-ref="dateSourcePointcut" method="doBefore" />   -->
+<!--         </aop:aspect>   -->
+<!-- 	</aop:config>   -->
+
+<!-- 	<bean id="dataSourceAdvice"  class="com.coamctech.eastlending.commons.datasorce.DataSourceAdvice"> -->
+<!-- 		<property name="slaveMethodList"> -->
+<!-- 			<list> -->
+<!-- 				<value>query*</value> -->
+<!-- 				<value>count*</value> -->
+<!-- 				<value>find*</value> -->
+<!-- 				<value>get*</value> -->
+<!-- 				<value>list*</value> -->
+<!-- 			</list> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
+</beans>
