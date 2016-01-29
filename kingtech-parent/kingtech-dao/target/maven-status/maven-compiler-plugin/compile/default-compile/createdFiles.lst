@@ -1,0 +1,3 @@
+com\kingtech\dao\entity\base\BaseEntity.class
+com\kingtech\dao\entity\base\embedded\CreatorInfo.class
+com\kingtech\dao\entity\TrafficPrive.class

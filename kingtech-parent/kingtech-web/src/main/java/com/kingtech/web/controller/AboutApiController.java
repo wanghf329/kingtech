@@ -14,11 +14,11 @@ public class AboutApiController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.GET,value="help")
-	public String list(Model model) {
+	@RequestMapping(method = RequestMethod.GET,value="/help")
+	public String list(Model model) { 
 		System.out.println("-------------");
 		return "/about/help";
-	}
+	}  
 	
 	/**
 	 * 关于我们
@@ -27,7 +27,7 @@ public class AboutApiController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/about")
 	public String about(Model model){
-		return "about/about";
+		return "about/about"; 
 	}
 	
 	/**
