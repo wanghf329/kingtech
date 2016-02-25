@@ -24,7 +24,7 @@
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu">
         <li class="active">
-            <a href="index.html">
+            <a href="home">
                 <i class="fa fa-dashboard"></i> <span>账户总览</span>
             </a>
         </li>
@@ -34,8 +34,8 @@
                 <span>业务办理</span>
                 <i class="fa fa-angle-left pull-right"></i>
             </a>
-            <ul class="treeview-menu">
-                <li><a href="pages/charts/morris.html"><i class="fa fa-angle-double-right"></i>线上充值</a></li>
+            <ul class="treeview-menu" id="yewubanli">
+                <li id="rechargeonline"><a href="recharge/list"><i class="fa fa-angle-double-right"></i>线上充值</a></li>
                 <li><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>线上订购</a></li>
             </ul>
         </li>
@@ -55,8 +55,8 @@
                 <i class="fa fa-edit"></i> <span>信息维护</span>
                 <i class="fa fa-angle-left pull-right"></i>
             </a>
-            <ul class="treeview-menu">
-                <li><a href="traffic/price"><i class="fa fa-angle-double-right"></i>流量单价维护</a></li> 
+            <ul class="treeview-menu" id="xinxiwh">
+                <li id="lldjwh"><a href="traffic/price"><i class="fa fa-angle-double-right"></i>流量单价维护</a></li> 
             </ul>
         </li>
         <%-- 

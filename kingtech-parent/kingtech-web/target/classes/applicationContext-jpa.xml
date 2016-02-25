@@ -73,14 +73,14 @@
 		p:jpaProperties-ref="jpaProperties" />
 	
 	<util:map id="jpaProperties">
-		<entry key="hibernate.hbm2ddl.auto" value="none" />
+		<entry key="hibernate.hbm2ddl.auto" value="update" />
 	</util:map>
 
 	<bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" 
 		p:databasePlatform="org.hibernate.dialect.MySQL5InnoDBDialect" />
 
 	<!-- Spring Data Jpa配置 -->
-	<jpa:repositories base-package="com.coamctech.eastlending.entity.*.rdbms"
+	<jpa:repositories base-package="com.kingtech.dao.rdbms"
 		transaction-manager-ref="transactionManager" entity-manager-factory-ref="entityManagerFactory" />
 
 	<!-- Jpa 事务配置 -->
