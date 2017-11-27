@@ -35,13 +35,13 @@
                 <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="treeview-menu">
-                <li><a href="recharge/list"><i class="fa fa-angle-double-right"></i>基本信息</a></li>
+                <li id="baseInfo"><a href="recharge/list"><i class="fa fa-angle-double-right"></i>基本信息</a></li>
                 <li id=""><a href="recharge/list"><i class="fa fa-angle-double-right"></i>人员信息</a></li>
                 <li id=""><a href="recharge/list"><i class="fa fa-angle-double-right"></i>股东信息</a></li>
                 <li id=""><a href="recharge/list"><i class="fa fa-angle-double-right"></i>资本信息</a></li>
             </ul>
         </li>
-        <li class="treeview" id="yewubanli">
+        <li class="treeview">
             <a href="#">
                 <i class="fa fa-laptop"></i>
                 <span>合同信息</span>
@@ -52,19 +52,19 @@
                 <li id="rechargeonline"><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>合同信息</a></li>
             </ul>
         </li>
-        <li class="treeview" id="yewubanli">
+        <li class="treeview">
             <a href="#">s
                 <i class="fa fa-laptop"></i>
                 <span>贷后信息</span>
                 <i class="fa fa-angle-left pull-right"></i> 
             </a>
             <ul class="treeview-menu">
-                <li id=""><a href="postLoan/repayinfo"><i class="fa fa-angle-double-right"></i>还款信息</a></li>
-                <li id=""><a href="postLoan/extensionrepayplaninfo"><i class="fa fa-angle-double-right"></i>展期还款计划信息</a></li>
-                <li id=""><a href="postLoan/extensionrepayinfo"><i class="fa fa-angle-double-right"></i>展期还款信息</a></li>
-                <li id=""><a href="postLoan/baddebtsinfo"><i class="fa fa-angle-double-right"></i>坏账信息</a></li>
-                <li id=""><a href="postLoan/overdueinfo"><i class="fa fa-angle-double-right"></i>逾期信息</a></li>
-                <li id=""><a href="postLoan/repayinfo"><i class="fa fa-angle-double-right"></i>计提信息</a></li> 
+                <li id="repayinfo"><a href="postLoan/repayinfo"><i class="fa fa-angle-double-right"></i>还款信息</a></li>
+                <li id="extensionrepayplaninfo"><a href="postLoan/extensionrepayplaninfo"><i class="fa fa-angle-double-right"></i>展期还款计划信息</a></li>
+                <li id="extensionrepayinfo"><a href="postLoan/extensionrepayinfo"><i class="fa fa-angle-double-right"></i>展期还款信息</a></li>
+                <li id="baddebtsinfo"><a href="postLoan/baddebtsinfo"><i class="fa fa-angle-double-right"></i>坏账信息</a></li>
+                <li id="overdueinfo"><a href="postLoan/overdueinfo"><i class="fa fa-angle-double-right"></i>逾期信息</a></li>
+                <li id="repayinfo"><a href="postLoan/repayinfo"><i class="fa fa-angle-double-right"></i>计提信息</a></li> 
             </ul>
         </li>        
         <li class="treeview">
