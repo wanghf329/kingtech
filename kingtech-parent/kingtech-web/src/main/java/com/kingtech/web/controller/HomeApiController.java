@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@RequestMapping("/home")
+@RequestMapping("/")
 @Controller
 public class HomeApiController {
 
@@ -16,6 +16,6 @@ public class HomeApiController {
 	 */
 	@RequestMapping(method = RequestMethod.GET,value="")
 	public String dashborad(Model model) { 
-		return "/dashborad";
+		return "redirect:/branch";
 	}  
 }
