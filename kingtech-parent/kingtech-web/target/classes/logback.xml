@@ -8,9 +8,9 @@
 	</appender>
 
 	<appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>logs/eastlending-core.log</file>
+		<file>logs/kind-web.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>logs/eastlending-core.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<fileNamePattern>logs/kind-web.%d{yyyy-MM-dd}.log</fileNamePattern>
 		</rollingPolicy>
 		<encoder>
 			<pattern>%date %level %logger:%line - %msg%n</pattern>
