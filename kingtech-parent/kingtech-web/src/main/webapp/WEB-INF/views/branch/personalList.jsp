@@ -332,6 +332,82 @@
 								</div>
 								
 								<div class="form-group">
+									<label for="#postalAddress" class="col-sm-2 control-label">通讯地址</label>
+									<div class="col-sm-8 input-group">
+									<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+									<input type="text" class="form-control " id="postalAddress">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="#department" class="col-sm-2 control-label">部门</label>
+									<div class="col-sm-8 input-group">
+									<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+									<input type="text" class="form-control " id="department">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="#department" class="col-sm-2 control-label">性别</label>
+									<div class="col-sm-8 input-group">
+					                  <div class="radio">
+					                      <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">男
+					                   	  <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">女
+					                  </div>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="#idNumber" class="col-sm-2 control-label">身份证号</label>
+									<div class="col-sm-8 input-group">
+									<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+									<input type="text" class="form-control " id="idNumber">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="#education" class="col-sm-2 control-label">学历</label>
+									<div class="col-sm-8 input-group ">
+										<select class="form-control" id="education">
+						                   <option>小学</option>
+						                   <option>高中</option>
+						                   <option>大学</option>
+						                   <option>研究生</option>
+						                   <option>博士</option>
+						                 </select>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="#executiveFlag" class="col-sm-2 control-label">是否董监高</label>
+									<div class="col-sm-8 input-group">
+										<div class="radio">
+					                      <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">是
+					                   	  <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">否
+					                  </div>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="#post" class="col-sm-2 control-label">职务</label>
+									<div class="col-sm-8 input-group">
+										<select class="form-control" id ="post">
+						                   <option>董事长</option>
+						                   <option>执行董事</option>
+						                   <option>董事</option>
+						                   <option>监事长</option>
+						                   <option>监事</option>
+						                   <option>总经理</option>
+						                   <option>副总经理</option>
+						                   <option>风控总监</option>
+						                   <option>财务总监</option>
+						                   <option>业务总监</option>
+						                   <option>其他高管</option>
+						                 </select>
+									</div>
+								</div>
+								
+								<div class="form-group">
 									<label for="replyTime" class="col-sm-2 control-label">批复时间</label>
 									<div class="col-sm-8 input-group date">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -351,16 +427,15 @@
 								<div class="form-group">
 									<label for="entryTime" class="col-sm-2 control-label">是否在职</label>
 									<div class="col-sm-8 input-group date">
-									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										<input type="text" class="form-control pull-right datepicker"
-											id="entryTime">
+									<div class="radio">
+					                      <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">是
+					                   	  <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">否
+					                  </div>
 									</div>
 								</div>
 								
-								
-								
 								<div class="form-group">
-									<label for="quitTime" class="col-sm-2 control-label">入职时间</label>
+									<label for="quitTime" class="col-sm-2 control-label">离职时间</label>
 									<div class="col-sm-8 input-group date">
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										<input type="text" class="form-control pull-right datepicker"
@@ -368,60 +443,6 @@
 									</div>
 								</div>
 								
-								<div class="form-group">
-									<label for="siteArea" class="col-sm-2 control-label">场所面积</label>
-									<div class="col-sm-8 input-group">
-										<input type="text"  class="form-control"
-											id="siteArea"></input>
-										<span class="input-group-addon"><i class="fa ">平方米</i></span>
-									</div>
-								</div> 	
-								<div class="form-group">
-									<label for="businessaddr" class="col-sm-2 control-label">经营地址</label>
-									<div class="col-sm-8 input-group">
-										<input type="text"  class="form-control"
-											id="businessaddr"></input>
-									</div>
-								</div> 
-								<div class="form-group ">
-									<label for="organizationCode" class="col-sm-2 control-label">组织机构代码</label>
-									<div class="col-sm-8 input-group">
-										<input type="text"  class="form-control"
-											id="organizationCode"></input>
-									</div>
-								</div> 
-								<div class="form-group ">
-									<label for="licence" class="col-sm-2 control-label">营业执照</label>
-									<div class="col-sm-8 input-group">
-										<input type="text"  class="form-control"
-											id="licence"></input>
-									</div>
-								</div>
-								
-								<div class="form-group ">
-									<label for="nationalRegNum" class="col-sm-2 control-label">国税编码</label>
-									<div class="col-sm-8 input-group">
-										<input type="text"  class="form-control"
-											id="nationalRegNum"></input>
-									</div>
-								</div>
-								
-								<div class="form-group ">
-									<label for="landRegNum" class="col-sm-2 control-label">地税编码</label>
-									<div class="col-sm-8 input-group">
-										<input type="text"  class="form-control"
-											id="landRegNum"></input>
-									</div>
-								</div>
-								
-								
-								<div class="form-group ">
-									<label for="businessScope" class="col-sm-2 control-label">经营范围</label>
-									<div class="col-sm-8 input-group">
-										<input type="text"  class="form-control"
-											id="businessScope"></input>
-									</div>
-								</div>
 							</form>								
 						</div>
 						<div class="modal-footer">
@@ -497,6 +518,8 @@
         <!-- AdminLTE App -->
         <script src="js/AdminLTE/app.js" type="text/javascript"></script>
         
+        <script src="js/plugins/datepicker/bootstrap-datepicker.min.js"></script>
+        
         <script type="text/javascript">
         	$("#yewubanli").show();      
         	$("#rechargeonline a").css("font-weight",700).addClass("text-green");
@@ -515,6 +538,11 @@
         		$.post("recharge/create",data,function(res){
         			alert(res);
         		});
+        	});
+        	
+        	$(function () {  
+        		$('.datepicker').datepicker({autoclose: true,formart :"YYYY-MM-DD" });
+        		
         	});
         </script>
 
