@@ -19,18 +19,15 @@
 	<beans profile="development">
 		<context:property-placeholder location="classpath:env/application-development.properties" />
 		<util:properties id="constants" location="classpath:env/constants-development.properties" />
-		<util:properties id="message" location="classpath:env/message.properties" />
 	</beans>
 	
 	<beans profile="test">
 		<context:property-placeholder location="classpath:env/application-test.properties" />
 		<util:properties id="constants" location="classpath:env/constants-test.properties" />
-		<util:properties id="message" location="classpath:env/message.properties" />
 	</beans>
 
 	<beans profile="production">
 		<context:property-placeholder location="classpath:env/application-production.properties" />
 		<util:properties id="constants" location="classpath:env/constants-production.properties" />
-		<util:properties id="message" location="classpath:env/message.properties" />
 	</beans>
 </beans>
