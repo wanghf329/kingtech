@@ -39,9 +39,11 @@
                 <li id=""><a href="branch/personalList"><i class="fa fa-angle-double-right"></i>人员信息</a></li>
                 <li id=""><a href="branch/shareholderList"><i class="fa fa-angle-double-right"></i>股东信息</a></li>
                 <li id=""><a href="branch/capitalList"><i class="fa fa-angle-double-right"></i>资本信息</a></li>
+
             </ul>
         </li>
-        <li class="treeview" id="yewubanli">
+        <!-- 
+        <li class="treeview">
             <a href="#">
                 <i class="fa fa-laptop"></i>
                 <span>合同信息</span>
@@ -52,19 +54,19 @@
                 <li id="rechargeonline"><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>合同信息</a></li>
             </ul>
         </li>
-        <li class="treeview" id="yewubanli">
-            <a href="#">
+        <li class="treeview">
+            <a href="#">s
                 <i class="fa fa-laptop"></i>
                 <span>贷后信息</span>
                 <i class="fa fa-angle-left pull-right"></i> 
             </a>
             <ul class="treeview-menu">
-                <li id=""><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>还款信息</a></li>
-                <li id=""><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>展期还款计划信息</a></li>
-                <li id=""><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>展期还款信息</a></li>
-                <li id=""><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>坏账还款信息</a></li>
-                <li id=""><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>逾期信息</a></li>
-                <li id=""><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>计提信息</a></li> 
+                <li id="repayinfo"><a href="postLoan/repayinfo"><i class="fa fa-angle-double-right"></i>还款信息</a></li>
+                <li id="extensionrepayplaninfo"><a href="postLoan/extensionrepayplaninfo"><i class="fa fa-angle-double-right"></i>展期还款计划信息</a></li>
+                <li id="extensionrepayinfo"><a href="postLoan/extensionrepayinfo"><i class="fa fa-angle-double-right"></i>展期还款信息</a></li>
+                <li id="baddebtsinfo"><a href="postLoan/baddebtsinfo"><i class="fa fa-angle-double-right"></i>坏账信息</a></li>
+                <li id="overdueinfo"><a href="postLoan/overdueinfo"><i class="fa fa-angle-double-right"></i>逾期信息</a></li>
+                <li id="repayinfo"><a href="postLoan/repayinfo"><i class="fa fa-angle-double-right"></i>计提信息</a></li> 
             </ul>
         </li>        
         <li class="treeview">
@@ -76,44 +78,6 @@
                 <li id="lldjwh"><a href="traffic/price"><i class="fa fa-angle-double-right"></i>日清对账</a></li> 
             </ul>
         </li>
-        <%-- 
-        <li class="treeview">
-            <a href="#">
-                <i class="fa fa-table"></i> <span>Tables</span>
-                <i class="fa fa-angle-left pull-right"></i>
-            </a>
-            <ul class="treeview-menu">
-                <li><a href="pages/tables/simple.html"><i class="fa fa-angle-double-right"></i> Simple tables</a></li>
-                <li><a href="pages/tables/data.html"><i class="fa fa-angle-double-right"></i> Data tables</a></li>
-            </ul>
-        </li>
-        <li>
-            <a href="pages/calendar.html">
-                <i class="fa fa-calendar"></i> <span>Calendar</span>
-                <small class="badge pull-right bg-red">3</small>
-            </a>
-        </li>
-        <li>
-            <a href="pages/mailbox.html">
-                <i class="fa fa-envelope"></i> <span>Mailbox</span>
-                <small class="badge pull-right bg-yellow">12</small>
-            </a>
-        </li>
-        <li class="treeview">
-            <a href="#">
-                <i class="fa fa-folder"></i> <span>Examples</span>
-                <i class="fa fa-angle-left pull-right"></i>
-            </a>
-            <ul class="treeview-menu">
-                <li><a href="pages/examples/invoice.html"><i class="fa fa-angle-double-right"></i> Invoice</a></li>
-                <li><a href="pages/examples/login.html"><i class="fa fa-angle-double-right"></i> Login</a></li>
-                <li><a href="pages/examples/register.html"><i class="fa fa-angle-double-right"></i> Register</a></li>
-                <li><a href="pages/examples/lockscreen.html"><i class="fa fa-angle-double-right"></i> Lockscreen</a></li>
-                <li><a href="pages/examples/404.html"><i class="fa fa-angle-double-right"></i> 404 Error</a></li>
-                <li><a href="pages/examples/500.html"><i class="fa fa-angle-double-right"></i> 500 Error</a></li>
-                <li><a href="pages/examples/blank.html"><i class="fa fa-angle-double-right"></i> Blank Page</a></li>
-            </ul>
-        </li>
-         --%>
+         -->
     </ul>
 </section>

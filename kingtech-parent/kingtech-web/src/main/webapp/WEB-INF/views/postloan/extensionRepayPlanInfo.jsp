@@ -425,12 +425,11 @@
         <script src="js/bootstrap.min.js" type="text/javascript"></script>
         <!-- AdminLTE App -->
         <script src="js/AdminLTE/app.js" type="text/javascript"></script>
-        
         <script src="bujs/main.js" type="text/javascript"></script>
         
-        
         <script type="text/javascript">
-        	menuChecked("#baseInfo");
+        	$("#yewubanli").show();      
+        	$("#rechargeonline a").css("font-weight",700).addClass("text-green");
         	
         	$(".saveRecordBtn").click(function(){
         		var data = {
