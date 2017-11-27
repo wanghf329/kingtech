@@ -285,13 +285,13 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                                                                        充值列表
-                        <small>充值情况预览</small>
+                                                                        合同列表
+                        <small>合同情况预览</small>
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
                         <li><a href="#">业务办理</a></li>
-                        <li class="active">充值列表</li>
+                        <li class="active">合同列表</li>
                     </ol>
                 </section>
 
@@ -305,7 +305,7 @@
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
-							<h4 class="modal-title" id="myModalLabel">充值录入</h4>
+							<h4 class="modal-title" id="myModalLabel">合同录入</h4>
 						</div>
 						<div class="modal-body">
 							<form class="form-horizontal">
@@ -368,42 +368,38 @@
                         <div class="col-md-12 no-padding">
                             <div class="box">
                                 <div class="box-header">
-                                    <h3 class="box-title">线上充值</h3>
+                                    <h3 class="box-title">合同信息</h3>
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
-                                	<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#rechargeModel">充&nbsp;值</button> 
-                                	<button class="btn btn-primary btn-sm">单价维护</button> 
+                                	<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#rechargeModel">新增借款人 </button>  
+                                	<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#rechargeModel">新增合同 </button>  
                                     <table class="table">
                                         <tr>
-                                            <th>合同名称</th> 
-                                            <th>订单号</th>
-                                            <th>订单名</th>
-                                            <th>充值金额</th>
-                                            <th>流量规格</th>
-                                            <th>对应流量包个数</th>
-                                            <th>生效用户数</th>
-                                            <th>剩余金额</th>
-                                            <th>是否审核</th>
-                                            <th>是否生效</th>
-                                            <th>操作人</th>
-                                            <th>操作时间</th>
+                                            <th>合同编号</th> 
+                                            <th>合同名称</th>
+                                            <th>借款金额</th>
+                                            <th>借款人</th>
+                                            <th>放款时间</th>
+                                            <th>本笔放款债项开始日</th>
+                                            <th>本笔放款债项结束日</th>
+                                            <th>抵押物信息</th>
+                                            <th>保证人信息</th>
+                                            <th>还款计划</th>
+                                            <th>操作</th>
                                         </tr>
-                                        <c:forEach var="record" items="${pageResult.results}">
-	                                        <tr>
-	                                            <td>${record.contractName}</td> 
-	                                            <td>1000001</td>
-	                                            <td>充值000001</td>
-	                                            <td class="text-red"><i class="fa fa-jpy"></i> <strong>2510.00</strong></td>
-	                                            <td>5M</td>
-	                                            <td>20</td>
-	                                            <td>10</td>
-	                                            <td>5</td>
-	                                            <td>是</td>
-	                                            <td>是</td>
-	                                            <td>张三</td>
-	                                            <td>2015-12-16 12:25:21</td>
-	                                        </tr>
-                                        </c:forEach>
+                                        <tr>
+                                            <td>HT00000000000001</td> 
+                                            <td>XX借款合同</td>
+                                            <td class="text-red"><i class="fa fa-jpy">200000</td>
+                                            <td class="text-blue"><a><strong>张三</strong></a></td>
+                                            <td>2015-12-16 12:25:21</td>
+                                            <td>2015-12-16 12:25:21</td>
+                                            <td>2016-12-16 12:25:21</td>
+                                            <td><a><strong>张力的</strong></a></td>
+                                            <td><a><strong>网贷</strong></a></td>
+                                            <td><a><strong>还款计划<a><strong></td> 
+                                            <td><a><strong>推送<a><strong></td> 
+                                        </tr>
                                     </table>
                                 </div><!-- /.box-body -->
                                 <div class="box-footer clearfix">

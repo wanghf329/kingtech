@@ -31,32 +31,48 @@
         <li class="treeview">
             <a href="#">
                 <i class="fa fa-bar-chart-o"></i>
-                <span>业务办理</span>
-                <i class="fa fa-angle-left pull-right"></i>
-            </a>
-            <ul class="treeview-menu" id="yewubanli">
-                <li id="rechargeonline"><a href="recharge/list"><i class="fa fa-angle-double-right"></i>线上充值</a></li>
-                <li><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>线上订购</a></li>
-            </ul>
-        </li>
-        <li class="treeview">
-            <a href="#">
-                <i class="fa fa-laptop"></i>
-                <span>业务审核</span>
+                <span>机构信息</span>
                 <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="treeview-menu">
-                <li><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>充值审核</a></li>
-                <li><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>订购审核</a></li>
+                <li><a href="recharge/list"><i class="fa fa-angle-double-right"></i>基本信息</a></li>
+                <li id=""><a href="recharge/list"><i class="fa fa-angle-double-right"></i>人员信息</a></li>
+                <li id=""><a href="recharge/list"><i class="fa fa-angle-double-right"></i>股东信息</a></li>
+                <li id=""><a href="recharge/list"><i class="fa fa-angle-double-right"></i>资本信息</a></li>
             </ul>
         </li>
+        <li class="treeview" id="yewubanli">
+            <a href="#">
+                <i class="fa fa-laptop"></i>
+                <span>合同信息</span>
+                <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu">
+            	<li id=""><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>借款人信息</a></li>
+                <li id="rechargeonline"><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>合同信息</a></li>
+            </ul>
+        </li>
+        <li class="treeview" id="yewubanli">
+            <a href="#">
+                <i class="fa fa-laptop"></i>
+                <span>贷后信息</span>
+                <i class="fa fa-angle-left pull-right"></i> 
+            </a>
+            <ul class="treeview-menu">
+                <li id=""><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>还款信息</a></li>
+                <li id=""><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>展期还款信息</a></li>
+                <li id=""><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>坏账还款信息</a></li>
+                <li id=""><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>逾期信息</a></li>
+                <li id=""><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>计提信息</a></li>
+            </ul>
+        </li>        
         <li class="treeview">
             <a href="#">
-                <i class="fa fa-edit"></i> <span>信息维护</span>
+                <i class="fa fa-edit"></i> <span>日清</span>
                 <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="treeview-menu" id="xinxiwh">
-                <li id="lldjwh"><a href="traffic/price"><i class="fa fa-angle-double-right"></i>流量单价维护</a></li> 
+                <li id="lldjwh"><a href="traffic/price"><i class="fa fa-angle-double-right"></i>日清对账</a></li> 
             </ul>
         </li>
         <%-- 
