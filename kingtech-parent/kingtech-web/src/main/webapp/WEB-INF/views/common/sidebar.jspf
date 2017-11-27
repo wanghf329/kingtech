@@ -59,12 +59,12 @@
                 <i class="fa fa-angle-left pull-right"></i> 
             </a>
             <ul class="treeview-menu">
-                <li id=""><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>还款信息</a></li>
-                <li id=""><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>展期还款计划信息</a></li>
-                <li id=""><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>展期还款信息</a></li>
-                <li id=""><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>坏账还款信息</a></li>
-                <li id=""><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>逾期信息</a></li>
-                <li id=""><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>计提信息</a></li> 
+                <li id=""><a href="postLoan/repayinfo"><i class="fa fa-angle-double-right"></i>还款信息</a></li>
+                <li id=""><a href="postLoan/extensionrepayplaninfo"><i class="fa fa-angle-double-right"></i>展期还款计划信息</a></li>
+                <li id=""><a href="postLoan/extensionrepayinfo"><i class="fa fa-angle-double-right"></i>展期还款信息</a></li>
+                <li id=""><a href="postLoan/baddebtsinfo"><i class="fa fa-angle-double-right"></i>坏账信息</a></li>
+                <li id=""><a href="postLoan/overdueinfo"><i class="fa fa-angle-double-right"></i>逾期信息</a></li>
+                <li id=""><a href="postLoan/repayinfo"><i class="fa fa-angle-double-right"></i>计提信息</a></li> 
             </ul>
         </li>        
         <li class="treeview">
