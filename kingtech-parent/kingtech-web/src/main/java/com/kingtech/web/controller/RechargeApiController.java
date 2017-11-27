@@ -39,6 +39,7 @@ public class RechargeApiController {
 	 * @param model
 	 * @return
 	 */
+	
 	@RequestMapping(method = RequestMethod.POST,value="/create")
 	public String create(Model model,@ModelAttribute RechargeRecordModel rechargeModel) { 
 		rechargeRecordService.add(OTDUtils.getRechargeRecord(rechargeModel));

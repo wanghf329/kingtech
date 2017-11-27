@@ -7,7 +7,28 @@
 *.jar
 *.war
 *.ear
-target/
+
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+
+# eclipse conf
+.classpath
+.project
+.settings/
+.pydevproject
+.externalToolBuilders/
+
+# idea conf
+*.iml
+target/
+bin/
+.idea/
+
+# logs
+logs/
+pm2logs/
+node_modules/
+
+/pom.xml
