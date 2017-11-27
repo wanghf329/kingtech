@@ -5,6 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.kingtech.common.config.BaseConfig;
+
 @RequestMapping("/home")
 @Controller
 public class HomeApiController {
@@ -17,5 +19,13 @@ public class HomeApiController {
 	@RequestMapping(method = RequestMethod.GET,value="")
 	public String dashborad(Model model) { 
 		return "/dashborad";
-	}  
+	} 
+	
+	
+	@RequestMapping(method = RequestMethod.GET,value="/hello")
+	public String hello(Model model) { 
+		
+		System.out.println(BaseConfig.REQUEST_URL);
+		return null;
+	} 
 }
