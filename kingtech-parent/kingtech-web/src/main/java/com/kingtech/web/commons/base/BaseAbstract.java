@@ -22,10 +22,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class BaseAbstract {
 	
+	/**
+	 * 获取请求数据
+	 * @param obj
+	 * @return
+	 */
 	
 	public static  Map<String, String> getDataAndSign(BaseModel obj){
-		
-		
 		
 		String dataStr = JSON.toJSONString( obj); //请求数据
 		String dataSign =JSON.toJSONString( obj,Labels.includes("sign")); //验签数据
@@ -38,7 +41,12 @@ public class BaseAbstract {
 		return dataMap;
 		
 	}
-	
+	/**
+	 * 排序组装验签数据
+	 * @param info
+	 * @param key
+	 * @return
+	 */
 	
 	 public static String getCheckStr(Map<String, String> info,String key) {
 
