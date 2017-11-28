@@ -42,7 +42,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 						Integer.valueOf(executiveFlag),post,
 						replyTime == null ? null : DateUtils.parseDate(replyTime, "yyyy-MM-dd"),
 						DateUtils.parseDate(entryTime, "yyyy-MM-dd"),
-						Enum.valueOf(EmployeeStatus.class, status),
+						EmployeeStatus.getValue(status),
 						quitTime == null ? null : DateUtils.parseDate(quitTime, "yyyy-MM-dd"),
 						branchId,creatRequstId.getReqId(),PushStatus.INPROSESS);
 			} else {

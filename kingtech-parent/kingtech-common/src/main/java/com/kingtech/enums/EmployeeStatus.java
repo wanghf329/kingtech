@@ -16,4 +16,14 @@ public enum EmployeeStatus implements BaseEnum {
 		this.key = key;
 	}
 	
+	public static EmployeeStatus getValue(String value) {
+		switch(value) {
+		case "0":
+			return EmployeeStatus.NUM0;
+		case "1":
+			return EmployeeStatus.NUM1;
+		}
+		return null;
+	}
+	
 }

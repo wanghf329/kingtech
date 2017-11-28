@@ -219,7 +219,8 @@
                                             	<span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span>
                                             	<span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span>
                                             </td>
-                                            <td><a href="javascript:void(0)"><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a></td>
+                                            <td><a href="javascript:void(0)" onclick="getCapital('${it.id}')"><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a></td>
+                                            <a href="javascript:void(0)" onclick="delConfirm('${it.id}')"><i class="text-red fa  fa-minus-circle"></i><strong>删除</strong></a>
                                         </tr>
                                     </table>
                                 </div><!-- /.box-body -->

@@ -120,7 +120,7 @@ public class BranchApiController {
 							  String department, String sex, String idNumber, String education,
 							  String executiveFlag, String post, String replyTime, String entryTime,
 							  String status, String quitTime, String branchId) {
-		employeeService.addNew(id, name, loginName, phone, email, postalAddress,
+		employeeService.addNew(id, name, phone, email, postalAddress,
 							   department, sex, idNumber, education,
 							   executiveFlag, post, replyTime, entryTime,
 							   status, quitTime, "BRANCHID");
