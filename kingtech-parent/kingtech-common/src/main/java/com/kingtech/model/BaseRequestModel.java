@@ -11,7 +11,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BaseModel implements Serializable {
+public class BaseRequestModel implements Serializable {
 	/**
 	 * 非现场监管系统分配给接入方的账号
 	 */

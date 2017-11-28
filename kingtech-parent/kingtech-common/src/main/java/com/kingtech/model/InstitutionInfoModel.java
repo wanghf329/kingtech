@@ -14,7 +14,7 @@ import com.kingtech.common.utils.SignUtils;
  */
 
 @Data
-public class InstitutionInfoModel extends BaseModel {
+public class InstitutionInfoModel extends BaseRequestModel {
 	
 	/**
 	 * 公司名称
@@ -44,13 +44,13 @@ public class InstitutionInfoModel extends BaseModel {
 	/**
 	 * 经营地址
 	 */
-	@JSONField(name="businessAddr")
-	private String business_addr;
+	@JSONField(name="business_addr")
+	private String businessAddr;
 	/**
 	 * 场所面积
 	 */
-	@JSONField(name="siteArea")
-	private String site_area;
+	@JSONField(name="site_area")
+	private String siteArea;
 	/**
 	 * 组织机构代码
 	 */
@@ -79,8 +79,8 @@ public class InstitutionInfoModel extends BaseModel {
 	/**
 	 * 创建时间，如2016-01-01 11:12:30
 	 */
-	@JSONField(name="createTime")
-	private String create_time;
+	@JSONField(name="create_time")
+	private String createTime;
 	/**
 	 * 修改时间，如2016-01-01 11:12:30
 	 */
@@ -92,23 +92,23 @@ public class InstitutionInfoModel extends BaseModel {
 	public InstitutionInfoModel(String roundStr,String identifier, String reqId,
 			String sign, String corporateName, String legalRepresentative,
 			String regCapital, String buildDate, String openingDate,
-			String business_addr, String site_area, String organizationCode,
+			String businessAddr, String siteArea, String organizationCode,
 			String licence, String nationalRegNum, String landRegNum,
-			String businessScope, String create_time, String updateTime) {
+			String businessScope, String createTime, String updateTime) {
 		super(BaseConfig.CLIENTID, roundStr,BaseConfig.APPKEY,SignUtils.getToken(roundStr), identifier, reqId, sign);
 		this.corporateName = corporateName;
 		this.legalRepresentative = legalRepresentative;
 		this.regCapital = regCapital;
 		this.buildDate = buildDate;
 		this.openingDate = openingDate;
-		this.business_addr = business_addr;
-		this.site_area = site_area;
+		this.businessAddr = businessAddr;
+		this.siteArea = siteArea;
 		this.organizationCode = organizationCode;
 		this.licence = licence;
 		this.nationalRegNum = nationalRegNum;
 		this.landRegNum = landRegNum;
 		this.businessScope = businessScope;
-		this.create_time = create_time;
+		this.createTime = createTime;
 		this.updateTime = updateTime;
 	}
 
