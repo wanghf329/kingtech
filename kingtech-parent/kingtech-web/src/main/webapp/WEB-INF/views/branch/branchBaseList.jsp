@@ -37,82 +37,80 @@
 						<div class="modal-body">
 							<form class="form-horizontal">
 								<div class="form-group" >
-									<label for="#corporateName" class="col-sm-2 control-label">公司名称</label>
-									<div class="col-sm-8 input-group">
-										<input type="text" class="form-control" id="corporateName">
+									<label for="#corporateName" class="col-sm-3 control-label">公司名称</label> 
+									<div class="col-sm-6 input-group">
+										<input type="text" class="form-control" id="corporateName" required>
+									</div>   
+								</div>
+								<div class="form-group">
+									<label for="#legalRepresentative" class="col-sm-3 control-label">法人</label>
+									<div class="col-sm-6 input-group">
+										<input type="text" class="form-control" id="legalRepresentative" required>
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="#legalRepresentative" class="col-sm-2 control-label">法人</label>
-									<div class="col-sm-8 input-group">
-										<input type="text" class="form-control"
-											id="legalRepresentative">
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="#regCapital" class="col-sm-2 control-label">注册资本</label>
-									<div class="col-sm-8 input-group">
+									<label for="#regCapital" class="col-sm-3 control-label">注册资本</label>
+									<div class="col-sm-6 input-group">
 									<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-									<input type="text" class="form-control " id="regCapital">
+										<input type="text" class="form-control" id="regCapital" required>
 									</div>
-									
 								</div>
 								<div class="form-group">
-									<label for="buildDate" class="col-sm-2 control-label">成立日期</label>
-									<div class="col-sm-8 input-group date">
+									<label for="buildDate" class="col-sm-3 control-label">成立日期</label>
+									<div class="col-sm-6 input-group date">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										<input type="text" class="form-control pull-right datepicker" id="buildDate">
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="openingDate" class="col-sm-2 control-label">开业日期</label>
-									<div class="col-sm-8 input-group date">
+									<label for="openingDate" class="col-sm-3 control-label">开业日期</label>
+									<div class="col-sm-6 input-group date">
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										<input type="text" class="form-control pull-right datepicker"
 											id="openingDate">
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="siteArea" class="col-sm-2 control-label">场所面积</label>
-									<div class="col-sm-8 input-group">
+									<label for="siteArea" class="col-sm-3 control-label">场所面积</label>
+									<div class="col-sm-6 input-group">
 										<input type="text"  class="form-control"
 											id="siteArea"></input>
 										<span class="input-group-addon"><i class="fa ">平方米</i></span>
 									</div>
 								</div> 	
 								<div class="form-group">
-									<label for="businessaddr" class="col-sm-2 control-label">经营地址</label>
-									<div class="col-sm-8 input-group">
+									<label for="businessaddr" class="col-sm-3 control-label">经营地址</label>
+									<div class="col-sm-6 input-group">
 										<input type="text"  class="form-control"
 											id="businessaddr"></input>
 									</div>
 								</div> 
 								<div class="form-group ">
-									<label for="organizationCode" class="col-sm-2 control-label">组织机构代码</label>
-									<div class="col-sm-8 input-group">
+									<label for="organizationCode" class="col-sm-3 control-label">组织机构代码</label>
+									<div class="col-sm-6 input-group">
 										<input type="text"  class="form-control"
 											id="organizationCode"></input>
 									</div>
 								</div> 
 								<div class="form-group ">
-									<label for="licence" class="col-sm-2 control-label">营业执照</label>
-									<div class="col-sm-8 input-group">
+									<label for="licence" class="col-sm-3 control-label">营业执照</label>
+									<div class="col-sm-6 input-group">
 										<input type="text"  class="form-control"
 											id="licence"></input>
 									</div>
 								</div>
 								
 								<div class="form-group ">
-									<label for="nationalRegNum" class="col-sm-2 control-label">国税编码</label>
-									<div class="col-sm-8 input-group">
+									<label for="nationalRegNum" class="col-sm-3 control-label">国税编码</label>
+									<div class="col-sm-6 input-group">
 										<input type="text"  class="form-control"
 											id="nationalRegNum"></input>
-									</div>
+									</div> 
 								</div>
 								
 								<div class="form-group ">
-									<label for="landRegNum" class="col-sm-2 control-label">地税编码</label>
-									<div class="col-sm-8 input-group">
+									<label for="landRegNum" class="col-sm-3 control-label">地税编码</label>
+									<div class="col-sm-6 input-group">
 										<input type="text"  class="form-control"
 											id="landRegNum"></input>
 									</div>
@@ -120,8 +118,8 @@
 								
 								
 								<div class="form-group ">
-									<label for="businessScope" class="col-sm-2 control-label">经营范围</label>
-									<div class="col-sm-8 input-group">
+									<label for="businessScope" class="col-sm-3 control-label">经营范围</label> 
+									<div class="col-sm-6 input-group">
 										<input type="text"  class="form-control"
 											id="businessScope"></input>
 									</div>
@@ -199,7 +197,9 @@
         </div><!-- ./wrapper -->
         <%@include file="../common/footer.jspf" %>
         <script type="text/javascript">
-        	menuChecked("#branch1");  
+        	menuChecked("#branch1"); 
+        	$(".form-horizontal").validator()
+
         	
         	
         	$('#datepicker').datepicker({ autoclose: true});
