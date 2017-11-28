@@ -22,7 +22,7 @@
     <body class="bg-gray"> 
 
         <div class="form-box" id="login-box">  
-            <div class="header">数据对接平台</div> 
+            <div class="header">数据对接平台 Beta1.0</div>
             <form action="../../index.html" method="post">
                 <div class="body">
 				  	<div class="form-group">
@@ -45,8 +45,8 @@
                     </div> 
                 </div>
                 <div class="footer">
-                    <button type="submit" class="btn btn-info bg-olive btn-block">登录</button> 
-                </div>
+                    <button type="submit" class="btn btn-info btn-block">登&nbsp;录</button>  
+                </div> 
             </form>
         </div>
 
