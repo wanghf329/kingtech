@@ -9,10 +9,13 @@ import com.alibaba.fastjson.JSON;
 import com.kingtech.common.utils.DateUtil;
 import com.kingtech.common.utils.RandomUtil;
 import com.kingtech.dao.entity.Branch;
+import com.kingtech.dao.entity.Capital;
 import com.kingtech.dao.rdbms.BranchDAO;
+import com.kingtech.dao.rdbms.CapitalDAO;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.model.BranchInfoModel;
+import com.kingtech.model.CapitalModel;
 import com.kingtech.model.SynResponseModel;
 import com.kingtech.web.commons.base.CreatRequstId;
 import com.kingtech.web.commons.http.service.FinanceService;
@@ -29,6 +32,9 @@ public class PaymentApiImpl implements PaymentApi {
 	
 	@Autowired
 	private CreatRequstId creatRequstId;
+	
+	@Autowired
+	private CapitalDAO capitalDAO;
 
 	@Override
 	public void branchInfoApi(String branchId, IdentifierType type) {
@@ -40,12 +46,11 @@ public class PaymentApiImpl implements PaymentApi {
 	   
 	   String roundStr =  RandomUtil.random8Len();
 	   BranchInfoModel branchInfoModel =null;
-	   String reqId = creatRequstId.getReqId();
 	   if ("A".equals(type)||"U".equals(type)) {
 		        branchInfoModel = new BranchInfoModel(
 		           roundStr, 
                    type.name(), 
-                   reqId, 
+                   branch.getReqId(), 
                    null, 
                    branch.getCorporateName(),
                    branch.getLegalRepresentative(),
@@ -62,18 +67,53 @@ public class PaymentApiImpl implements PaymentApi {
                    DateUtil.getDateStr(branch.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT),
                    branch.getUpdateTime() == null? null:DateUtil.getDateStr(branch.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT));
 		}else {
-			branchInfoModel = new BranchInfoModel( roundStr, type.name(), reqId, branch.getLicence());
+			branchInfoModel = new BranchInfoModel( roundStr, type.name(), branch.getReqId(), branch.getLicence());
 			
 		}
 		   
 	   SynResponseModel responseModel= financeService.branchInfoFacade(branchInfoModel);
 	   if (responseModel.isSuccess()) {
-		   branch.setReqId(reqId);
 		   branch.setPushStatus(PushStatus.INPROSESS);
+		   branchDAO.save(branch);
 	   }
 	   
-		
+	  
 
+	}
+
+	@Override
+	public void CapitalInfoApi(String capitalId, IdentifierType type) {
+		Capital capital = capitalDAO.findOne(capitalId);
+		if (capital ==null) {
+			  return ;
+		  }
+		String roundStr =  RandomUtil.random8Len();
+	    CapitalModel  capitalModel =null;
+		if (IdentifierType.A.equals(type)||IdentifierType.U.equals(type)) {
+			capitalModel = new CapitalModel(
+					roundStr,
+					type.name(), 
+					capital.getReqId(),
+					null, 
+					capital.getFinancingChannel(),
+					capital.getFinancingMoney().setScale(2).toPlainString(),
+					DateUtil.getDateStr(capital.getFinancingTime(), JSON.DEFFAULT_DATE_FORMAT), 
+					DateUtil.getDateStr(capital.getExpirationTime(), JSON.DEFFAULT_DATE_FORMAT),
+					capital.getReplyTime() == null ? null:DateUtil.getDateStr(capital.getReplyTime(), JSON.DEFFAULT_DATE_FORMAT), 
+				    DateUtil.getDateStr(capital.getCreateTime(), JSON.DEFFAULT_DATE_FORMAT),
+				    capital.getUpdateTime() == null ? null:DateUtil.getDateStr(capital.getUpdateTime(), JSON.DEFFAULT_DATE_FORMAT));
+			
+			
+		}else {
+			capitalModel = new CapitalModel(roundStr, type.name(), capital.getReqId());
+		}
+		
+		SynResponseModel responseModel= financeService.branchCapitalFacade(capitalModel);
+		   if (responseModel.isSuccess()) {
+			   capital.setPushStatus(PushStatus.INPROSESS);
+			   capitalDAO.save(capital);
+		   }
+		   
 	}
 
 }

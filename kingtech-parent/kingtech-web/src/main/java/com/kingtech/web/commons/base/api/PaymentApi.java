@@ -10,6 +10,12 @@ public interface PaymentApi {
 	 * @param type
 	 */
 	public void branchInfoApi(String branchId,IdentifierType type);
+	/**
+	 * 资本信息
+	 * @param capitalId
+	 * @param type
+	 */
+	public void CapitalInfoApi(String capitalId,IdentifierType type);
 	
 
 }
