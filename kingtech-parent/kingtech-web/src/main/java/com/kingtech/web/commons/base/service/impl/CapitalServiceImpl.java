@@ -52,4 +52,9 @@ public class CapitalServiceImpl implements CapitalService{
 				DateFormatUtils.format(capital.getReplyTime(), "yyyy-MM-dd"));
 	}
 
+	@Override
+	public void delById(String id) {
+		capitalDao.delete(id);
+	}
+
 }

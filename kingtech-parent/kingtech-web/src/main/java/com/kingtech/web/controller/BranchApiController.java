@@ -132,4 +132,10 @@ public class BranchApiController {
 	public CapitalModel addCapital(Model model,@PathVariable("id") String id) {
 		return capitalService.getById(id);
 	}
+	
+	@RequestMapping(value = "/delCapital/{id}", method = RequestMethod.GET)
+	public String delCapital(Model model,@PathVariable("id") String id) {
+		capitalService.delById(id);
+		return "redirect:/branch/capitalList";
+	}
 }
