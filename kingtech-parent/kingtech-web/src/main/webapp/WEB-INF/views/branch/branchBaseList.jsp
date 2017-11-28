@@ -161,6 +161,7 @@
                                             <th>国税编码</th>
                                             <th>地税编码</th>
                                             <th>经营范围</th>
+                                            <th>状态</th>
                                             <th>操作</th>
                                         </tr>
                                         <tr>
@@ -179,7 +180,8 @@
                                             <td><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span>
                                             	<span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span>
                                             	<span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span>
-                                            </td> 
+                                            </td>
+                                            <td><a href="javascript:void(0)"><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a></td>
                                         </tr>
                                     </table>
                                 </div><!-- /.box-body -->

@@ -95,14 +95,15 @@
                                     <h3 class="box-title">资本信息列表</h3>
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
-                                	<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#rechargeModel">新增人员信息</button>  
-                                    <table class="table">
+                                	<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#rechargeModel">新增资本信息</button>  
+                                    <table class="table"> 
                                         <tr>
                                             <th>融资渠道</th> 
                                             <th>融资金额（万元）</th>
                                             <th>融资时间</th>
                                             <th>到期时间</th>
                                             <th>实际还款时间</th>
+                                            <th>状态</th>
                                             <th>操作</th>
                                         </tr>
                                         <tr>
@@ -110,8 +111,12 @@
                                             <td class="text-red"><i class="fa fa-jpy"/>20.6</td>
                                             <td>2009-04-15 14：25：30</td>
                                             <td>2016-04-15 14：25：30</td>
-                                            <td></td>
-                                            <td><a><strong>修改<a><strong></td> 
+                                            <td></td> 
+                                            <td><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span>
+                                            	<span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span>
+                                            	<span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span>
+                                            </td>
+                                            <td><a href="javascript:void(0)"><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a></td>
                                         </tr>
                                     </table>
                                 </div><!-- /.box-body -->

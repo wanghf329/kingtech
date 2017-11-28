@@ -204,6 +204,7 @@
                                             <th>学历</th>
                                             <th>是否董监高</th>
                                             <th>是否在职</th>
+                                            <th>状态</th>
                                             <th>操作</th>
                                         </tr>
                                         <tr>
@@ -217,7 +218,11 @@
                                             <td>本科</td>
                                             <td>是</td>
                                             <td>是</td> 
-                                            <td><a><strong>修改<a><strong></td> 
+                                            <td><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span>
+                                            	<span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span>
+                                            	<span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span>
+                                            </td>
+                                            <td><a href="javascript:void(0)"><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a></td>
                                         </tr>
                                     </table>
                                 </div><!-- /.box-body -->
