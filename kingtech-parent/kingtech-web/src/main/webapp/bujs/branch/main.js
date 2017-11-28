@@ -1,4 +1,4 @@
- function initTable() {  
+function initTable() {  
 	 this.dt = $("#branchBaseList").dataTable({
 			searching : false, // 禁用dataTables自带的查询框
 			ordering : false, // 禁用排序
@@ -74,11 +74,10 @@ $(document).ready(function () {
       //调用函数，初始化表格  
       initTable();  
       $('.datepicker').datepicker({autoclose: true });
-      
+      menuChecked("#branch1"); 
+      $(".form-horizontal").validator()
 });
 
-menuChecked("#branch1"); 
-$(".form-horizontal").validator()
 
 
 

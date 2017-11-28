@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kingtech.common.utils.DataTablesResponse;
 import com.kingtech.dao.entity.Branch;
+import com.kingtech.model.InstitutionInfoModel;
 import com.kingtech.web.commons.base.service.BranchService;
 
 
@@ -64,7 +65,7 @@ public class BranchApiController {
     @RequestMapping(value = "/add/branch", method = RequestMethod.POST)
     @ResponseBody
     public boolean addBranchInfo(InstitutionInfoModel model) {
-    	
+    	return false;
     }
 	
 

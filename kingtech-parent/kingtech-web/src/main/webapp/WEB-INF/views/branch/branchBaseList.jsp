@@ -176,7 +176,6 @@
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
         <%@include file="../common/footer.jspf" %>
-        <script src="js/validator.min.js" type="text/javascript"></script>
-        <script src="js/branch/main.js" type="text/javascript"></script>
+        <script src="bujs/branch/main.js" type="text/javascript"></script>
     </body>
 </html>
