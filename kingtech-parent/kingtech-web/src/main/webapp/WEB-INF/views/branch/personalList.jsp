@@ -35,18 +35,17 @@
 							<h4 class="modal-title" id="myModalLabel">机构人员录入</h4>
 						</div>
 						<div class="modal-body">
-							<form class="form-horizontal">
+							<form class="form-horizontal" id="form-horizontal" action="branch/add/employee" method="POST">
 								<div class="form-group" >
 									<label for="#name" class="col-sm-2 control-label">姓名</label>
 									<div class="col-sm-8 input-group">
-										<input type="text" class="form-control" id="name">
+										<input type="text" class="form-control" name="name">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="#phone" class="col-sm-2 control-label">电话</label>
 									<div class="col-sm-8 input-group">
-										<input type="text" class="form-control"
-											id="phone">
+										<input type="text" class="form-control" name="phone">
 									</div>
 								</div>
 								
@@ -54,7 +53,7 @@
 									<label for="#email" class="col-sm-2 control-label">电子邮件</label>
 									<div class="col-sm-8 input-group">
 									<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-									<input type="text" class="form-control " id="email">
+									<input type="text" class="form-control " name="email">
 									</div>
 								</div>
 								
@@ -62,7 +61,7 @@
 									<label for="#postalAddress" class="col-sm-2 control-label">通讯地址</label>
 									<div class="col-sm-8 input-group">
 									<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-									<input type="text" class="form-control " id="postalAddress">
+									<input type="text" class="form-control " name="postalAddress">
 									</div>
 								</div>
 								
@@ -70,16 +69,16 @@
 									<label for="#department" class="col-sm-2 control-label">部门</label>
 									<div class="col-sm-8 input-group">
 									<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-									<input type="text" class="form-control " id="department">
+									<input type="text" class="form-control " name="department">
 									</div>
 								</div>
 								
 								<div class="form-group">
-									<label for="#department" class="col-sm-2 control-label">性别</label>
+									<label for="#sex" class="col-sm-2 control-label">性别</label>
 									<div class="col-sm-8 input-group">
 					                  <div class="radio">
-					                      <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">男
-					                   	  <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">女
+					                      <input type="radio" name="sex" value="1" checked="">男
+					                   	  <input type="radio" name="sex" value="2" checked="">女
 					                  </div>
 									</div>
 								</div>
@@ -88,14 +87,14 @@
 									<label for="#idNumber" class="col-sm-2 control-label">身份证号</label>
 									<div class="col-sm-8 input-group">
 									<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-									<input type="text" class="form-control " id="idNumber">
+									<input type="text" class="form-control " name="idNumber">
 									</div>
 								</div>
 								
 								<div class="form-group">
 									<label for="#education" class="col-sm-2 control-label">学历</label>
 									<div class="col-sm-8 input-group ">
-										<select class="form-control" id="education">
+										<select class="form-control" name="education">
 						                   <option>小学</option>
 						                   <option>高中</option>
 						                   <option>大学</option>
@@ -109,8 +108,8 @@
 									<label for="#executiveFlag" class="col-sm-2 control-label">是否董监高</label>
 									<div class="col-sm-8 input-group">
 										<div class="radio">
-					                      <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">是
-					                   	  <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">否
+					                      <input type="radio" name="executiveFlag" value="1" checked="">是
+					                   	  <input type="radio" name="executiveFlag" value="0" checked="">否
 					                  </div>
 									</div>
 								</div>
@@ -118,7 +117,7 @@
 								<div class="form-group">
 									<label for="#post" class="col-sm-2 control-label">职务</label>
 									<div class="col-sm-8 input-group">
-										<select class="form-control" id ="post">
+										<select class="form-control" name="post">
 						                   <option>董事长</option>
 						                   <option>执行董事</option>
 						                   <option>董事</option>
@@ -135,38 +134,36 @@
 								</div>
 								
 								<div class="form-group">
-									<label for="replyTime" class="col-sm-2 control-label">批复时间</label>
+									<label for="#replyTime" class="col-sm-2 control-label">批复时间</label>
 									<div class="col-sm-8 input-group date">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										<input type="text" class="form-control pull-right datepicker" id="replyTime">
+										<input type="text" class="form-control pull-right datepicker" name="replyTime">
 									</div>
 								</div>
 								
 								<div class="form-group">
-									<label for="entryTime" class="col-sm-2 control-label">入职时间</label>
+									<label for="#entryTime" class="col-sm-2 control-label">入职时间</label>
 									<div class="col-sm-8 input-group date">
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										<input type="text" class="form-control pull-right datepicker"
-											id="entryTime">
+										<input type="text" class="form-control pull-right datepicker" name="entryTime">
 									</div>
 								</div>
 								
 								<div class="form-group">
-									<label for="entryTime" class="col-sm-2 control-label">是否在职</label>
+									<label for="#entryTime" class="col-sm-2 control-label">是否在职</label>
 									<div class="col-sm-8 input-group date">
 									<div class="radio">
-					                      <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">是
-					                   	  <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">否
+					                      <input type="radio" name="entryTime" value="1" checked="">是
+					                   	  <input type="radio" name="entryTime" value="0" checked="">否
 					                  </div>
 									</div>
 								</div>
 								
 								<div class="form-group">
-									<label for="quitTime" class="col-sm-2 control-label">离职时间</label>
+									<label for="#quitTime" class="col-sm-2 control-label">离职时间</label>
 									<div class="col-sm-8 input-group date">
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										<input type="text" class="form-control pull-right datepicker"
-											id="quitTime">
+										<input type="text" class="form-control pull-right datepicker" name="quitTime">
 									</div>
 								</div>
 								
@@ -244,8 +241,9 @@
 
 
         <%@include file="../common/footer.jspf" %>
+        <script src="bujs/employee/main.js" type="text/javascript"></script>
         
-        <script type="text/javascript">
+        <!-- <script type="text/javascript">
         	menuChecked("#personalList");
         	
         	$(".saveRecordBtn").click(function(){
@@ -268,7 +266,7 @@
         		$('.datepicker').datepicker({autoclose: true,formart :"YYYY-MM-DD" });
         		
         	});
-        </script>
+        </script> -->
 
     </body>
 </html>

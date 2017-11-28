@@ -89,7 +89,7 @@ public class EmployeeModel extends BaseRequestModel {
 			String idNumber, String education, int executiveFlag, String post,
 			String replyTime, String entryTime, String status,
 			String quitTime, String createTime, String updateTime) {
-		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId, sign);
+		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId, sign,null);
 		this.name = name;
 		this.loginName = loginName;
 		this.phone = phone;
@@ -112,7 +112,7 @@ public class EmployeeModel extends BaseRequestModel {
 	public EmployeeModel(String clientId, String roundStr,
 			String appKey, String token, String identifier, String reqId,
 			String sign) {
-		super(clientId, roundStr, appKey, token, identifier, reqId, sign);
+		super(clientId, roundStr, appKey, token, identifier, reqId, sign,null);
 	}
 	
 }

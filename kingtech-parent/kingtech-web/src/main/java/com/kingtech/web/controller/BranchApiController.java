@@ -19,7 +19,12 @@ import com.kingtech.dao.entity.Capital;
 import com.kingtech.model.CapitalModel;
 import com.kingtech.web.commons.base.service.BranchService;
 import com.kingtech.web.commons.base.service.CapitalService;
+import com.kingtech.web.commons.base.service.EmployeeService;
 import com.kingtech.web.commons.base.service.ShareholderService;
+
+
+@RequestMapping("/branch")
+@Controller
 public class BranchApiController {
 	
 	@Autowired
@@ -30,6 +35,9 @@ public class BranchApiController {
 	
 	@Autowired
 	private ShareholderService shareholderService;
+	
+	@Autowired
+	private EmployeeService employeeService;
 	
 	
 	@RequestMapping(method = RequestMethod.GET,value="")
@@ -102,12 +110,22 @@ public class BranchApiController {
 	public String addShareholder(Model model, String partnerType,
 								String holder, String holdingScale, String contributionAmount,
 								String joinTime, String gender, String quitTime, String branchId) {
-		
-		System.out.println("holdingScale:  " + holdingScale);
 		shareholderService.addNew(partnerType, holder, holdingScale, contributionAmount,
-								joinTime, gender, quitTime, "BRANCHID");
+								  joinTime, gender, quitTime, "BRANCHID");
 		return "redirect:/branch/shareholderList";
-}
+	}
+	
+	@RequestMapping(value = "/add/employee", method = RequestMethod.POST)
+	public String addEmployee(Model model, String name, String loginName, String phone, String email, String postalAddress,
+							  String department, String sex, String idNumber, String education,
+							  String executiveFlag, String post, String replyTime, String entryTime,
+							  String status, String quitTime, String branchId) {
+		employeeService.addNew(name, loginName, phone, email, postalAddress,
+							   department, sex, idNumber, education,
+							   executiveFlag, post, replyTime, entryTime,
+							   status, quitTime, "BRANCHID");
+		return "redirect:/branch/personalList";
+	}
 
 	@ResponseBody
 	@RequestMapping(value = "/getCapital/{id}", method = RequestMethod.GET)

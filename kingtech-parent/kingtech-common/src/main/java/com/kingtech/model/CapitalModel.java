@@ -1,5 +1,7 @@
 package com.kingtech.model;
 
+import java.math.BigDecimal;
+
 import lombok.Data;
 
 import com.alibaba.fastjson.annotation.JSONField;
@@ -59,7 +61,7 @@ public class CapitalModel extends BaseRequestModel {
 	}
 
 
-	public CapitalModel(String id,String financingChannel, Double financingMoney,
+	public CapitalModel(String id,String financingChannel, String financingMoney,
 			String financingTime, String expirationTime, String replyTime) {
 		super(id);
 		this.financingChannel = financingChannel;
