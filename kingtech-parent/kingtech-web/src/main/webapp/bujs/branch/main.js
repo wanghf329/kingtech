@@ -74,7 +74,7 @@ $(document).ready(function () {
       //调用函数，初始化表格  
       initTable();  
       $('.datepicker').datepicker({autoclose: true });
-      menuChecked("#branch1"); 
+      menuChecked("#addBranchForm"); 
       $(".form-horizontal").validator()
 });
 
@@ -83,38 +83,29 @@ $(document).ready(function () {
 
 $('#datepicker').datepicker({ autoclose: true});
 $(".saveRecordBtn").click(function(){
-	var self = this;
-	if (!self.validate()) {
-        return;
-    }
-    var data=new FormData($('#addBranchForm')[0]);
-    $.ajax({
-        url: $$myCtx +'/settings/changePwd',
-        data: data,
-        processData: false,
-        contentType: false,
-        type: 'POST',
-        success: function(data) {
-         	bootbox.alert(data.msg);
-        }
-    }).fail(function() {
-    	bootbox.alert(data.msg);
-    });
-    
-    
-    return false; 
-	var data = {
-			id:'',	
-			contractName:$("#contractName").val(),
-			activityName:$("#activityName").val(),
-			orderId:$("#orderId").val(),
-			orderName:$("#orderName").val(),
-			amount:$("#amount").val(),
-			discription:$("#discription").val()
-	};
+	alert("aaa");
 	
-	$.post("recharge/create",data,function(res){
-		alert(res);
+	var data =  {
+			corporateName:$("#corporateName").val(),
+			legalRepresentative:$("#corporateName").val(),
+			regCapital:$("#regCapital").val(),
+			buildDate:$("#buildDate").val(),
+			openingDate:$("#openingDate").val(),
+			siteArea:$("#siteArea").val(),
+			businessAddr:$("#businessAddr").val(),
+			organizationCode:$("#organizationCode").val(),
+			licence:$("#licence").val(),
+			nationalRegNum:$("#nationalRegNum").val(),
+			landRegNum:$("#landRegNum").val(),
+			businessScope:$("#businessScope").val()
+	}
+	$.post( $$ctx+"/branch/add/branch",data,function(res){
+		if(res.data) {
+			bootbox.alert(data.msg);
+		}else {
+			bootbox.alert("修改失败");
+		}
+		
 	});
 });
   
