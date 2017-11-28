@@ -35,31 +35,31 @@
 							<h4 class="modal-title" >机构基本信息录入</h4>
 						</div>
 						<div class="modal-body">
-							<form class="form-horizontal">
+							<form class="form-horizontal" id = "addBranchForm">
 								<div class="form-group" >
 									<label for="#corporateName" class="col-sm-3 control-label">公司名称</label> 
 									<div class="col-sm-6 input-group">
-										<input type="text" class="form-control" id="corporateName" required>
+										<input type="text" class="form-control" name="corporateName" id="corporateName" required>
 									</div>   
 								</div>
 								<div class="form-group">
 									<label for="#legalRepresentative" class="col-sm-3 control-label">法人</label>
 									<div class="col-sm-6 input-group">
-										<input type="text" class="form-control" id="legalRepresentative" required>
+										<input type="text" class="form-control"  name ="legalRepresentative" id="legalRepresentative" required>
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="#regCapital" class="col-sm-3 control-label">注册资本</label>
 									<div class="col-sm-6 input-group">
 									<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-										<input type="text" class="form-control" id="regCapital" required>
+										<input type="text" class="form-control" name = "regCapital" id="regCapital" required>
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="buildDate" class="col-sm-3 control-label">成立日期</label>
 									<div class="col-sm-6 input-group date">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										<input type="text" class="form-control pull-right datepicker" id="buildDate">
+										<input type="text" class="form-control pull-right datepicker" name="buildDate" id="buildDate">
 									</div>
 								</div>
 								<div class="form-group">
@@ -67,14 +67,14 @@
 									<div class="col-sm-6 input-group date">
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										<input type="text" class="form-control pull-right datepicker"
-											id="openingDate">
+										 name="openingDate"	id="openingDate">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="siteArea" class="col-sm-3 control-label">场所面积</label>
 									<div class="col-sm-6 input-group">
 										<input type="text"  class="form-control"
-											id="siteArea"></input>
+											id="siteArea" name ="siteArea"></input>
 										<span class="input-group-addon"><i class="fa ">平方米</i></span>
 									</div>
 								</div> 	
@@ -82,21 +82,21 @@
 									<label for="businessaddr" class="col-sm-3 control-label">经营地址</label>
 									<div class="col-sm-6 input-group">
 										<input type="text"  class="form-control"
-											id="businessaddr"></input>
+											name = "businessaddr" id="businessaddr"></input>
 									</div>
 								</div> 
 								<div class="form-group ">
 									<label for="organizationCode" class="col-sm-3 control-label">组织机构代码</label>
 									<div class="col-sm-6 input-group">
 										<input type="text"  class="form-control"
-											id="organizationCode"></input>
+											name ="organizationCode" id="organizationCode"></input>
 									</div>
 								</div> 
 								<div class="form-group ">
 									<label for="licence" class="col-sm-3 control-label">营业执照</label>
 									<div class="col-sm-6 input-group">
 										<input type="text"  class="form-control"
-											id="licence"></input>
+											name = "licence" id="licence"></input>
 									</div>
 								</div>
 								
@@ -104,7 +104,7 @@
 									<label for="nationalRegNum" class="col-sm-3 control-label">国税编码</label>
 									<div class="col-sm-6 input-group">
 										<input type="text"  class="form-control"
-											id="nationalRegNum"></input>
+											name = "nationalRegNum" id="nationalRegNum"></input>
 									</div> 
 								</div>
 								
@@ -112,7 +112,7 @@
 									<label for="landRegNum" class="col-sm-3 control-label">地税编码</label>
 									<div class="col-sm-6 input-group">
 										<input type="text"  class="form-control"
-											id="landRegNum"></input>
+											name = "landRegNum" id="landRegNum"></input>
 									</div>
 								</div>
 								
@@ -121,7 +121,7 @@
 									<label for="businessScope" class="col-sm-3 control-label">经营范围</label> 
 									<div class="col-sm-6 input-group">
 										<input type="text"  class="form-control"
-											id="businessScope"></input>
+											name = "businessScope" id="businessScope"></input>
 									</div>
 								</div>
 								 																										
@@ -147,48 +147,28 @@
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
                                 	<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#newBranchBaseInfo">新增机构基本信息</button>  
-                                    <table class="table">
-                                        <tr>
-                                            <th>公司名称</th> 
-                                            <th>法人</th>
-                                            <th>注册资本</th>
-                                            <th>成立日期</th>
-                                            <th>开业日期</th>
-                                            <th>经营地址</th>
-                                            <th>场所面积</th>
-                                            <th>组织机构代码</th>
-                                            <th>营业执照</th>
-                                            <th>国税编码</th>
-                                            <th>地税编码</th>
-                                            <th>经营范围</th>
-                                            <th>操作</th>
-                                        </tr>
-                                        <tr>
-                                            <td >阿尔法</td> 
-                                            <td class="text-blue" ><a><strong>桥本<a><strong></td>
-                                            <td class="text-red"><i class="fa fa-jpy">200000</td>
-                                            <td>2009-10-25</td>
-                                            <td>2010-10-25</td>
-                                            <td>陕西西安</td>
-                                            <td>100<a><strong>(平)<a><strong></td>
-                                            <td>610526*********9112</td>
-                                            <td>5325******6302</td>
-                                            <td>320102</td>
-                                            <td>A124254BC</td> 
-                                            <td>放贷</td> 
-                                            <td><a><strong>修改<a><strong></td>
-                                        </tr>
+                                    <table class="table table-striped table-bordered table-hover" id="branchBaseList">
+                                    	<thead>
+	                                       <tr>
+	                                           <th>公司名称</th> 
+	                                           <th>法人</th>
+	                                           <th>注册资本</th>
+	                                           <th>成立日期</th>
+	                                           <th>开业日期</th>
+	                                           <th>经营地址</th>
+	                                           <th>场所面积</th>
+	                                           <th>组织机构代码</th>
+	                                           <th>营业执照</th>
+	                                           <th>国税编码</th>
+	                                           <th>地税编码</th>
+	                                           <th>经营范围</th>
+	                                           <th>操作</th>
+	                                       </tr>
+	                                    </thead>
+                                        <tbody>
+				    					</tbody>
                                     </table>
                                 </div><!-- /.box-body -->
-                                <div class="box-footer clearfix">
-                                    <ul class="pagination pagination-sm no-margin pull-right">
-                                        <li><a href="#">&laquo;</a></li>
-                                        <li><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">&raquo;</a></li>
-                                    </ul>
-                                </div> 
                             </div><!-- /.box -->
                         </div><!-- /.col -->
                     </div><!-- /.row --> 
@@ -196,34 +176,7 @@
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
         <%@include file="../common/footer.jspf" %>
-        <script type="text/javascript">
-        	menuChecked("#branch1"); 
-        	$(".form-horizontal").validator()
-
-        	
-        	
-        	$('#datepicker').datepicker({ autoclose: true});
-        	$(".saveRecordBtn").click(function(){
-        		var data = {
-        			id:'',	
-       				contractName:$("#contractName").val(),
-       				activityName:$("#activityName").val(),
-       				orderId:$("#orderId").val(),
-       				orderName:$("#orderName").val(),
-       				amount:$("#amount").val(),
-       				discription:$("#discription").val()
-        		};
-        		
-        		$.post("recharge/create",data,function(res){
-        			alert(res);
-        		});
-        	});
-        	
-        	$(function () {  
-        		$('.datepicker').datepicker({autoclose: true });
-        		
-        	});
-        </script>
-
+        <script src="js/validator.min.js" type="text/javascript"></script>
+        <script src="js/branch/main.js" type="text/javascript"></script>
     </body>
 </html>
