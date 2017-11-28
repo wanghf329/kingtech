@@ -20,4 +20,6 @@ public interface CapitalService {
 	
 	
 	public CapitalModel getById(String id);
+	
+	public void delById(String id);
 }

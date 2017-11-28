@@ -24,11 +24,11 @@ public class ShareholderModel extends BaseRequestModel {
 
 	// 持股比例（%）
 	@JSONField(name="holding_scale",label="sign")
-	private Double holdingScale;
+	private String holdingScale;
 
 	// 出资金额（万元）
 	@JSONField(name="contribution_amount",label="sign")
-	private Double contributionAmount;
+	private String contributionAmount;
 
 	// 入股时间
 	@JSONField(name="join_time",label="sign")
@@ -52,10 +52,10 @@ public class ShareholderModel extends BaseRequestModel {
 
 	public ShareholderModel(String clientId, String roundStr, String appKey,
 			String token, String identifier, String reqId, String sign,
-			String partnerType, String holder, Double holdingScale,
-			Double contributionAmount, String joinTime, int gender,
+			String partnerType, String holder, String holdingScale,
+			String contributionAmount, String joinTime, int gender,
 			String quitTime, String createTime, String updateTime) {
-		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId, sign);
+		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId, sign,null);
 		this.partnerType = partnerType;
 		this.holder = holder;
 		this.holdingScale = holdingScale;
@@ -70,7 +70,7 @@ public class ShareholderModel extends BaseRequestModel {
 	public ShareholderModel(String clientId, String roundStr,
 			String appKey, String token, String identifier, String reqId,
 			String partnerType, String sign) {
-		super(clientId, roundStr, appKey, token, identifier, reqId, sign);
+		super(clientId, roundStr, appKey, token, identifier, reqId, sign,null);
 		this.partnerType = partnerType;
 	}
 	

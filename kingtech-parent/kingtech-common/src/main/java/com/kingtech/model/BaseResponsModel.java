@@ -44,5 +44,9 @@ public class BaseResponsModel {
 	
 	private String sign;
 	
+	
+	public boolean isSuccess(){
+		return "0000".equals(this.resultCode);
+	}
 
 }

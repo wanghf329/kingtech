@@ -1,5 +1,6 @@
 package com.kingtech.web.commons.base.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -25,7 +26,7 @@ public class CapitalServiceImpl implements CapitalService{
 	public Capital addNew(String id,String financingChannel, double financingMoney,
 			String financingTime, String expirationTime, String replyTime,String branchId) {
 		try {
-			Capital capital = new Capital(financingChannel,financingMoney,
+			Capital capital = new Capital(financingChannel,new BigDecimal(financingMoney),
 					DateUtils.parseDate(financingTime, "yyyy-MM-dd"),
 					DateUtils.parseDate(financingTime, "yyyy-MM-dd"),
 					DateUtils.parseDate(financingTime, "yyyy-MM-dd"),branchId,"11100011",PushStatus.INPROSESS);
@@ -46,10 +47,15 @@ public class CapitalServiceImpl implements CapitalService{
 	@Override
 	public CapitalModel getById(String id) {
 		Capital capital =  capitalDao.findOne(id);
-		return new CapitalModel(capital.getId(),capital.getFinancingChannel(), capital.getFinancingMoney(), 
+		return new CapitalModel(capital.getId(),capital.getFinancingChannel(),capital.getFinancingMoney().setScale(2).toPlainString(), 
 				DateFormatUtils.format(capital.getFinancingTime(), "yyyy-MM-dd"), 
 				DateFormatUtils.format(capital.getExpirationTime(), "yyyy-MM-dd"),
 				DateFormatUtils.format(capital.getReplyTime(), "yyyy-MM-dd"));
+	}
+
+	@Override
+	public void delById(String id) {
+		capitalDao.delete(id);
 	}
 
 }

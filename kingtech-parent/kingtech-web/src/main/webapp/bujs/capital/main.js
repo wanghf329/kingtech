@@ -19,6 +19,7 @@ $(".saveRecordBtn").click(function(){
 
 function getCapital(id){
 	$.get('branch/getCapital/'+id,null,function(res){
+		$("input[name='id']").val(res.id);
 		$("input[name='financingChannel']").val(res.financingChannel);
 		$("input[name='financingMoney']").val(res.financingMoney);
 		$("input[name='financingTime']").val(res.financingTime);
@@ -27,3 +28,12 @@ function getCapital(id){
 		$("#rechargeModel").modal();
 	});
 }
+
+function delConfirm(id){
+	$("#confirmModel").modal();
+	$("#del-id").val(id); 
+}
+
+function delCapital(){
+	window.location.href = "branch/delCapital/"+$("#del-id").val();
+};

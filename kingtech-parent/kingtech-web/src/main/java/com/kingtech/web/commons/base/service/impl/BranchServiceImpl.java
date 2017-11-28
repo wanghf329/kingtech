@@ -1,6 +1,10 @@
 package com.kingtech.web.commons.base.service.impl;
 
+<<<<<<< HEAD
 import java.util.List;
+=======
+import java.math.BigDecimal;
+>>>>>>> 7fc9a74cc15335d88ba1fee66b2362f19cf9ab91
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,7 +42,11 @@ public class BranchServiceImpl implements  BranchService {
 									PushStatus.INPROSESS,
 									corporateName, 
 									legalRepresentative,
+<<<<<<< HEAD
 									regCapital, 
+=======
+									new BigDecimal(regCapital) , 
+>>>>>>> 7fc9a74cc15335d88ba1fee66b2362f19cf9ab91
 									DateUtil.dateFormate(buildDate, "YYYY-MM-DD"), 
 									DateUtil.dateFormate(openingDate,"YYYY-MM-DD"), 
 									businessaddr,

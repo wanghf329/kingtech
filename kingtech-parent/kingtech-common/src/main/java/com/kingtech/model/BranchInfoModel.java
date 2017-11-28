@@ -14,7 +14,7 @@ import com.kingtech.common.utils.SignUtils;
  */
 
 @Data
-public class InstitutionInfoModel extends BaseRequestModel {
+public class BranchInfoModel extends BaseRequestModel {
 	
 	/**
 	 * 公司名称
@@ -89,13 +89,13 @@ public class InstitutionInfoModel extends BaseRequestModel {
 	
 	
 	
-	public InstitutionInfoModel(String roundStr,String identifier, String reqId,
+	public BranchInfoModel(String roundStr,String identifier, String reqId,
 			String sign, String corporateName, String legalRepresentative,
 			String regCapital, String buildDate, String openingDate,
 			String businessAddr, String siteArea, String organizationCode,
 			String licence, String nationalRegNum, String landRegNum,
 			String businessScope, String createTime, String updateTime) {
-		super(BaseConfig.CLIENTID, roundStr,BaseConfig.APPKEY,SignUtils.getToken(roundStr), identifier, reqId, sign);
+		super(BaseConfig.CLIENTID, roundStr,BaseConfig.APPKEY,SignUtils.getToken(roundStr), identifier, reqId, sign,null);
 		this.corporateName = corporateName;
 		this.legalRepresentative = legalRepresentative;
 		this.regCapital = regCapital;
@@ -114,12 +114,32 @@ public class InstitutionInfoModel extends BaseRequestModel {
 
 
 
-	public InstitutionInfoModel(String clientId, String roundStr,
+	public BranchInfoModel(String clientId, String roundStr,
 			String appKey, String token, String identifier, String reqId,
 			String licence, String sign) {
-		super(clientId, roundStr, appKey, token, identifier, reqId, sign);
+		super(clientId, roundStr, appKey, token, identifier, reqId, sign,null);
 		this.licence = licence;
 	}
+
+
+
+	/**
+	 * 删除
+	 * @param clientId
+	 * @param roundStr
+	 * @param appKey
+	 * @param token
+	 * @param identifier
+	 * @param reqId
+	 * @param licence
+	 */
+	public BranchInfoModel( String roundStr, String identifier, String reqId, String licence) {
+		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId);
+		this.licence = licence;
+	}
+	
+	
+	
 
 
 

@@ -46,7 +46,7 @@
 								<div class="form-group">
 									<label for="#financingMoney" class="col-sm-3 control-label">融资金额</label>
 									<div class="col-sm-6 input-group">
-										<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+										<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
 										<input type="text" class="form-control validate[required,custom[number]]" data-errormessage="融资金额只能为数字"
 											name="financingMoney">
 										<span class="input-group-addon"><i class="fa">万元</i></span>
@@ -121,28 +121,21 @@
 	                                            	<c:if test="${it.pushStatus=='INPROSESS'}"><span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span></c:if>
 	                                            	<c:if test="${it.pushStatus=='FAILED'}"><span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span></c:if>
 	                                            </td>
-	                                            <td><a href="javascript:void(0)" onclick="getCapital('${it.id}')"><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a></td>
+	                                            <td>
+	                                            	<a href="javascript:void(0)" onclick="getCapital('${it.id}')"><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a>
+	                                            	<a href="javascript:void(0)" onclick="delConfirm('${it.id}')"><i class="text-red fa  fa-minus-circle"></i><strong>删除</strong></a>
+	                                            </td>
 	                                        </tr>
                                         </c:forEach>
                                     </table>
-                                </div><!-- /.box-body -->
-                                <div class="box-footer clearfix">
-                                    <ul class="pagination pagination-sm no-margin pull-right">
-                                        <li><a href="#">&laquo;</a></li>
-                                        <li><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">&raquo;</a></li>
-                                    </ul>
-                                </div> 
+                                </div>
                             </div><!-- /.box -->
                         </div><!-- /.col -->
                     </div><!-- /.row --> 
                 </section><!-- /.content -->                
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
-
-        <%@include file="../common/footer.jspf" %>   
+	<%@include file="../common/footer.jspf" %>   
         <script src="bujs/capital/main.js" type="text/javascript"></script>       
     </body>
 </html>

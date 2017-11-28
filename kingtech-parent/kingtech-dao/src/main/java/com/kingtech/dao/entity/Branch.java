@@ -1,5 +1,6 @@
 package com.kingtech.dao.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -36,7 +37,7 @@ public class Branch extends RecordEntity {
 
 	// 注册资本
 	@Column(name="REG_DAPITAL")
-	private Double regDapital;
+	private BigDecimal regDapital;
 
 	// 成立日期
 	@Column(name="BUILD_DATE")
