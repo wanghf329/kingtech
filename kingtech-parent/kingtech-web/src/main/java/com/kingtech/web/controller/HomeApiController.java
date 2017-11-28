@@ -16,6 +16,7 @@ public class HomeApiController {
 	 */
 	@RequestMapping(method = RequestMethod.GET,value="")
 	public String dashborad(Model model) { 
+		System.out.println("sssssssssssssssss");
 		return "redirect:/branch";
 	}  
 }
