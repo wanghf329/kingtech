@@ -18,10 +18,6 @@ public class EmployeeModel extends BaseRequestModel {
 	@JSONField(name="name",label="sign")
 	private String name;
 
-	// 登录名
-	@JSONField(name="phone",label="sign")
-	private String loginName;
-
 	// 联系电话
 	@JSONField(name="phone")
 	private String phone;
@@ -82,16 +78,14 @@ public class EmployeeModel extends BaseRequestModel {
 	@JSONField(name="update_time")
 	private String updateTime;
 
-	public EmployeeModel(String clientId, String roundStr, String appKey,
-			String token, String identifier, String reqId, String sign,
-			String name, String loginName, String phone, String email,
+	public EmployeeModel(String roundStr, String identifier, String reqId, String sign,
+			String name, String phone, String email,
 			String postalAddress, String department, String sex,
 			String idNumber, String education, int executiveFlag, String post,
 			String replyTime, String entryTime, String status,
 			String quitTime, String createTime, String updateTime) {
 		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId, sign,null);
 		this.name = name;
-		this.loginName = loginName;
 		this.phone = phone;
 		this.email = email;
 		this.postalAddress = postalAddress;

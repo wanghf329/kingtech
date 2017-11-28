@@ -2,30 +2,40 @@ package com.kingtech.web.commons.base.api;
 
 import java.util.Random;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
 import com.kingtech.common.utils.DateUtil;
 import com.kingtech.common.utils.RandomUtil;
 import com.kingtech.dao.entity.Branch;
 import com.kingtech.dao.entity.Capital;
+import com.kingtech.dao.entity.Employee;
+import com.kingtech.dao.entity.Shareholder;
 import com.kingtech.dao.rdbms.BranchDAO;
 import com.kingtech.dao.rdbms.CapitalDAO;
+import com.kingtech.dao.rdbms.EmployeeDAO;
+import com.kingtech.dao.rdbms.ShareholderDAO;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.model.BranchInfoModel;
 import com.kingtech.model.CapitalModel;
+import com.kingtech.model.EmployeeModel;
+import com.kingtech.model.ShareholderModel;
 import com.kingtech.model.SynResponseModel;
 import com.kingtech.web.commons.base.CreatRequstId;
 import com.kingtech.web.commons.http.service.FinanceService;
 
 
 @Service
+@Slf4j
 public class PaymentApiImpl implements PaymentApi {
 	
 	@Autowired
-	 BranchDAO branchDAO;
+	private BranchDAO branchDAO;
 	
 	@Autowired
 	private FinanceService financeService;
@@ -35,6 +45,12 @@ public class PaymentApiImpl implements PaymentApi {
 	
 	@Autowired
 	private CapitalDAO capitalDAO;
+	
+	@Autowired
+	private EmployeeDAO employeeDAO;
+	
+	@Autowired
+	private ShareholderDAO shareholderDAO;
 
 	@Override
 	public void branchInfoApi(String branchId, IdentifierType type) {
@@ -46,7 +62,7 @@ public class PaymentApiImpl implements PaymentApi {
 	   
 	   String roundStr =  RandomUtil.random8Len();
 	   BranchInfoModel branchInfoModel =null;
-	   if ("A".equals(type)||"U".equals(type)) {
+	   if (IdentifierType.A.equals(type)||IdentifierType.U.equals(type)) {
 		        branchInfoModel = new BranchInfoModel(
 		           roundStr, 
                    type.name(), 
@@ -67,7 +83,9 @@ public class PaymentApiImpl implements PaymentApi {
                    DateUtil.getDateStr(branch.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT),
                    branch.getUpdateTime() == null? null:DateUtil.getDateStr(branch.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT));
 		}else {
-			branchInfoModel = new BranchInfoModel( roundStr, type.name(), branch.getReqId(), branch.getLicence());
+//			branchInfoModel = new BranchInfoModel( roundStr, type.name(), branch.getReqId(), branch.getLicence());
+			log.info("机构基本信息暂时不支持删除");
+			return;
 			
 		}
 		   
@@ -82,7 +100,7 @@ public class PaymentApiImpl implements PaymentApi {
 	}
 
 	@Override
-	public void CapitalInfoApi(String capitalId, IdentifierType type) {
+	public void capitalInfoApi(String capitalId, IdentifierType type) {
 		Capital capital = capitalDAO.findOne(capitalId);
 		if (capital ==null) {
 			  return ;
@@ -105,7 +123,10 @@ public class PaymentApiImpl implements PaymentApi {
 			
 			
 		}else {
-			capitalModel = new CapitalModel(roundStr, type.name(), capital.getReqId());
+//			capitalModel = new CapitalModel(roundStr, type.name(), capital.getReqId());
+			
+			log.info("机构资本信息暂时不支持删除");
+			return;
 		}
 		
 		SynResponseModel responseModel= financeService.branchCapitalFacade(capitalModel);
@@ -114,6 +135,89 @@ public class PaymentApiImpl implements PaymentApi {
 			   capitalDAO.save(capital);
 		   }
 		   
+	}
+
+	@Override
+	@Transactional
+	public void employeeInfoApi(String capitalId, IdentifierType type) {
+		
+		
+		   Employee employee = employeeDAO.findOne(capitalId);
+		   if (employee ==null) {
+				  return ;
+			 }
+		   
+		   String roundStr =  RandomUtil.random8Len();
+		   
+		   EmployeeModel employeeModel = null;
+		   if (IdentifierType.A.equals(type)||IdentifierType.U.equals(type)) {
+			   employeeModel = new EmployeeModel(roundStr,
+					   type.name(),
+					   employee.getReqId(), 
+					   null, 
+					   employee.getName(), 
+					   employee.getPhone(),
+					   employee.getEmail(),
+					   employee.getPostalAddress(),
+					   employee.getDepartment(),
+					   employee.getSex(), 
+					   employee.getIdNumber(),
+					   employee.getEducation(),
+					   employee.getExecutiveFlag(),
+					   employee.getPost(),
+					   DateUtil.getDateStr(employee.getReplyTime(), JSON.DEFFAULT_DATE_FORMAT), 
+					   DateUtil.getDateStr(employee.getEntryTime(), JSON.DEFFAULT_DATE_FORMAT),
+					   employee.getStatus().name(), 
+					   DateUtil.getDateStr(employee.getQuitTime(), "yyyy-MM-dd"), 
+					   DateUtil.getDateStr(employee.getCreateTime(), JSON.DEFFAULT_DATE_FORMAT), 
+					   DateUtil.getDateStr(employee.getUpdateTime(), JSON.DEFFAULT_DATE_FORMAT));
+		}else {
+			log.info("机构人员信息暂时不支持删除");
+			return;
+		}
+		   
+		   SynResponseModel responseModel= financeService.branchEmployeeFacade(employeeModel);
+		   if (responseModel.isSuccess()) {
+			   employee.setPushStatus(PushStatus.INPROSESS);
+			   employeeDAO.save(employee);
+		   }
+	}
+
+	@Override
+	@Transactional
+	public void shareholderInfoApi(String holderId, IdentifierType type) {
+		Shareholder shareholder =shareholderDAO.findOne(holderId) ;
+		 if (shareholder ==null) {
+			  return ;
+		 }
+		  String roundStr =  RandomUtil.random8Len();
+		   
+		  ShareholderModel shareholderModel = null;
+		   if (IdentifierType.A.equals(type)||IdentifierType.U.equals(type)) {
+			   shareholderModel = new ShareholderModel(roundStr, 
+					   type.name(), 
+					   shareholder.getReqId(), 
+					   null,
+					   shareholder.getPartnerType(), 
+					   shareholder.getHolder(),
+					   shareholder.getHoldingScale().setScale(2).toPlainString(),
+					   shareholder.getContributionAmount().setScale(2).toPlainString(), 
+					   DateUtil.getDateStr(shareholder.getJoinTime(), "yyyy-MM-dd"),
+					   shareholder.getGender(), 
+					   DateUtil.getDateStr(shareholder.getQuitTime(), "yyyy-MM-dd"), 
+					   DateUtil.getDateStr(shareholder.getCreateTime(), JSON.DEFFAULT_DATE_FORMAT), 
+					   DateUtil.getDateStr(shareholder.getUpdateTime(), JSON.DEFFAULT_DATE_FORMAT));
+		   }else {
+				log.info("机构股东信息暂时不支持删除");
+				return;
+			}
+		 
+		   SynResponseModel responseModel= financeService.branchShareholderFacade(shareholderModel);
+		   if (responseModel.isSuccess()) {
+			   shareholder.setPushStatus(PushStatus.INPROSESS);
+			   shareholderDAO.save(shareholder);
+		   }
+		
 	}
 
 }

@@ -15,7 +15,21 @@ public interface PaymentApi {
 	 * @param capitalId
 	 * @param type
 	 */
-	public void CapitalInfoApi(String capitalId,IdentifierType type);
+	public void capitalInfoApi(String capitalId,IdentifierType type);
+	
+	/**
+	 * 机构人员信息
+	 * @param capitalId
+	 * @param type
+	 */
+	public void employeeInfoApi(String capitalId,IdentifierType type);
+	/**
+	 * 机构股东信息
+	 * @param holder
+	 * @param type
+	 */
+	
+	public void shareholderInfoApi(String holder,IdentifierType type);
 	
 
 }
