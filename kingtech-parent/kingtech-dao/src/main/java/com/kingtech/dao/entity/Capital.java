@@ -1,5 +1,6 @@
 package com.kingtech.dao.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -28,7 +29,7 @@ public class Capital extends RecordEntity {
 
 	// 融资金额
 	@Column(name="FINANCING_MONEY")
-	private Double financingMoney;
+	private BigDecimal financingMoney;
 
 	// 融资时间
 	@Column(name="FINANCING_TIME")
@@ -47,7 +48,7 @@ public class Capital extends RecordEntity {
 	private String branchId;
 
 	
-	public Capital(String financingChannel, Double financingMoney,
+	public Capital(String financingChannel, BigDecimal financingMoney,
 				   Date financingTime, Date expirationTime, Date replyTime,
 				   String branchId,String reqId,PushStatus status) {
 		super(reqId,status);

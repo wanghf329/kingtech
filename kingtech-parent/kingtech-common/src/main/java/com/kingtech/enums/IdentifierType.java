@@ -1,6 +1,6 @@
 package com.kingtech.enums;
 
-public enum IdentifierEnum  implements BaseEnum{
+public enum IdentifierType  implements BaseEnum{
 	
 	A("新增"),
 	U("更新"),
@@ -13,7 +13,7 @@ public enum IdentifierEnum  implements BaseEnum{
 		return key;
 	}
 
-	private IdentifierEnum(String key) {
+	private IdentifierType(String key) {
 		this.key = key;
 	}
 

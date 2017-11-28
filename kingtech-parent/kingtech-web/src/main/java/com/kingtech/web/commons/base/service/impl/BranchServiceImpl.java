@@ -1,5 +1,7 @@
 package com.kingtech.web.commons.base.service.impl;
 
+import java.math.BigDecimal;
+
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +35,7 @@ public class BranchServiceImpl implements  BranchService {
 			String licence, String nationalRegNum,String landRegNum, String businessScope) {
 		Branch branch = new Branch( corporateName, 
 									legalRepresentative,
-									Double.valueOf(regCapital), 
+									new BigDecimal(regCapital) , 
 									DateUtil.dateFormate(buildDate, "YYYY-MM-DD"), 
 									DateUtil.dateFormate(openingDate,"YYYY-MM-DD"), 
 									businessaddr,

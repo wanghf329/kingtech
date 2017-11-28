@@ -1,5 +1,7 @@
 package com.kingtech.model;
 
+import java.math.BigDecimal;
+
 import lombok.Data;
 
 import com.alibaba.fastjson.annotation.JSONField;

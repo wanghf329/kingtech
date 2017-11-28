@@ -6,9 +6,7 @@ import javax.annotation.PostConstruct;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -26,6 +24,10 @@ public class BaseConfig    {
 	
 	public static String USERNAME;
 	public static String PASSWORD;
+	/**
+	 * 社会信用代码
+	 */
+	public static String CREDITCODE;
 	
 	@PostConstruct
 	public void init(){
@@ -34,6 +36,7 @@ public class BaseConfig    {
 		CLIENTID = constants.getProperty("clientId");
 		USERNAME = constants.getProperty("username");
 		PASSWORD = constants.getProperty("password");
+		CREDITCODE = constants.getProperty("creditcode");
 	}
 
 	

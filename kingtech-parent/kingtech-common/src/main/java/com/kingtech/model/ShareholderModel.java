@@ -55,7 +55,7 @@ public class ShareholderModel extends BaseRequestModel {
 			String partnerType, String holder, String holdingScale,
 			String contributionAmount, String joinTime, int gender,
 			String quitTime, String createTime, String updateTime) {
-		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId, sign);
+		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId, sign,null);
 		this.partnerType = partnerType;
 		this.holder = holder;
 		this.holdingScale = holdingScale;
@@ -70,7 +70,7 @@ public class ShareholderModel extends BaseRequestModel {
 	public ShareholderModel(String clientId, String roundStr,
 			String appKey, String token, String identifier, String reqId,
 			String partnerType, String sign) {
-		super(clientId, roundStr, appKey, token, identifier, reqId, sign);
+		super(clientId, roundStr, appKey, token, identifier, reqId, sign,null);
 		this.partnerType = partnerType;
 	}
 	
