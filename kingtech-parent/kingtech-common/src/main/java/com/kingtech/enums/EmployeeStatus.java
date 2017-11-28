@@ -15,5 +15,5 @@ public enum EmployeeStatus implements BaseEnum {
 	private EmployeeStatus(String key) {
 		this.key = key;
 	}
-
+	
 }

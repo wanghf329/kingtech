@@ -150,11 +150,11 @@
 								</div>
 								
 								<div class="form-group">
-									<label for="#entryTime" class="col-sm-2 control-label">是否在职</label>
+									<label for="#status" class="col-sm-2 control-label">是否在职</label>
 									<div class="col-sm-8 input-group date">
 									<div class="radio">
-					                      <input type="radio" name="entryTime" value="1" checked="">是
-					                   	  <input type="radio" name="entryTime" value="0" checked="">否
+					                      <input type="radio" name="status" value="1" checked="">是
+					                   	  <input type="radio" name="status" value="0" checked="">否
 					                  </div>
 									</div>
 								</div>
