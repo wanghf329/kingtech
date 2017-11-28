@@ -1,6 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html class="bg-black">
+<html class="bg-gray">
     <head>
         <meta charset="UTF-8">
         <title>AdminLTE | Log in</title>
@@ -19,21 +19,33 @@
           <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
     </head>
-    <body class="bg-black"> 
+    <body class="bg-gray"> 
 
-        <div class="form-box" id="login-box">
-            <div class="header">数据对接平台</div>
+        <div class="form-box" id="login-box">  
+            <div class="header">数据对接平台</div> 
             <form action="../../index.html" method="post">
-                <div class="body bg-gray">
-                    <div class="form-group">
-                        <input type="text" name="userid" class="form-control" placeholder="User ID"/>
+                <div class="body">
+				  	<div class="form-group">
+                         <label>用户名：</label>
+                         <div class="input-group">
+                             <div class="input-group-addon">
+                                 <i class="fa fa-user"></i>
+                             </div>
+                             <input type="text" class="form-control">
+                         </div><!-- /.input group -->
                     </div>
-                    <div class="form-group">
-                        <input type="password" name="password" class="form-control" placeholder="Password"/>
-                    </div>
+				    <div class="form-group">
+                         <label>密码：</label>
+                         <div class="input-group">
+                             <div class="input-group-addon">
+                                 <i class="fa fa-key"></i>
+                             </div>
+                             <input type="text" class="form-control">
+                         </div><!-- /.input group -->
+                    </div> 
                 </div>
                 <div class="footer">
-                    <button type="submit" class="btn bg-olive btn-block">登录</button> 
+                    <button type="submit" class="btn btn-info bg-olive btn-block">登录</button> 
                 </div>
             </form>
         </div>
