@@ -16,8 +16,8 @@
                         <small></small>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
-                        <li><a href="#">机构信息</a></li>
+                        <li><a href="branch"><i class="fa fa-dashboard"></i> 首页</a></li>
+                        <li><a href="branch">机构管理</a></li>
                         <li class="active">机构资本信息</li>
                     </ol>
                 </section>

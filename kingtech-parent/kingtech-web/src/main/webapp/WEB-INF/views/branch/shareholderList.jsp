@@ -16,8 +16,8 @@
                         <small>股东列表预览</small>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i>首页</a></li>
-                        <li><a href="#">机构信息</a></li>
+                        <li><a href="branch"><i class="fa fa-dashboard"></i> 首页</a></li>
+                        <li><a href="branch">机构管理</a></li>
                         <li class="active">股东列表</li>
                     </ol>
                 </section>

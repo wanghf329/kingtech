@@ -10,7 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import com.kingtech.dao.entity.base.UuidEntity;
+import com.kingtech.dao.entity.base.RecordEntity;
 
 /**
  * 机构基本信息表
@@ -21,7 +21,7 @@ import com.kingtech.dao.entity.base.UuidEntity;
 @Table(name="TB_BRANCH")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Branch extends UuidEntity {
+public class Branch extends RecordEntity {
 	
 	// 公司名称
 	@Column(name="CORPORATE_NAME")
@@ -70,13 +70,4 @@ public class Branch extends UuidEntity {
 	// 经营范围
 	@Column(name="BUSINESS_SCOPE")
 	private String businessScope;
-		
-	// 创建时间
-	@Column(name="CREATE_TIME")
-	private Date createTime;
-	
-	// 修改时间
-	@Column(name="UPDATE_TIME")
-	private Date updateTime;
-	
 }

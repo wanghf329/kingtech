@@ -15,9 +15,9 @@
                                                                         机构基本列表
                         <small>机构基本列表预览</small>
                     </h1>
-                    <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
-                        <li><a href="#">业务办理</a></li>
+                    <ol class="breadcrumb"> 
+                        <li><a href="branch"><i class="fa fa-dashboard"></i> 首页</a></li>
+                        <li><a href="branch">机构管理</a></li>
                         <li class="active">机构基本列表</li>
                     </ol>
                 </section>
@@ -176,7 +176,10 @@
                                             <td>320102</td>
                                             <td>A124254BC</td> 
                                             <td>放贷</td> 
-                                            <td><a><strong>修改<a><strong></td>
+                                            <td><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span>
+                                            	<span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span>
+                                            	<span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span>
+                                            </td> 
                                         </tr>
                                     </table>
                                 </div><!-- /.box-body -->
