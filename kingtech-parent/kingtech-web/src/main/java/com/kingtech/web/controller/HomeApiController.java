@@ -7,11 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.kingtech.common.config.BaseConfig;
-import com.kingtech.web.commons.base.service.FinanceService;
+import com.kingtech.web.commons.http.service.FinanceService;
 
 @Controller
 public class HomeApiController {
@@ -29,13 +28,6 @@ public class HomeApiController {
 		return "/dashborad";
 	} 
 	
-	
-	@RequestMapping(method = RequestMethod.GET,value="/hello")
-	public String hello(Model model) { 
-		
-		financeService.inputInstitutionInfo();
-		return null;
-	}  
 	
 	
 	@RequestMapping(method = RequestMethod.GET,value="/login")

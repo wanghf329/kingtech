@@ -15,4 +15,8 @@ public class RandomUtil {
             System.out.println(randomNumDefault());
         }
     }
+    
+    public static String random8Len(){
+    	return String.format("%08d", randomNumDefault());
+    }
 }

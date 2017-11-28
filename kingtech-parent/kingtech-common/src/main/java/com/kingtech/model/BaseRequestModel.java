@@ -45,7 +45,19 @@ public class BaseRequestModel implements Serializable {
 	
 	@JSONField(name="sign")
 	private String sign;
-	
+
+	public BaseRequestModel(String clientId, String roundStr, String appKey,
+			String token, String identifier, String reqId) {
+		super();
+		this.clientId = clientId;
+		this.roundStr = roundStr;
+		this.appKey = appKey;
+		this.token = token;
+		this.identifier = identifier;
+		this.reqId = reqId;
+	}
+
+
 	
 	
 	

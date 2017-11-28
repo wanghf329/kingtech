@@ -40,9 +40,31 @@ public class SignUtils {
 	        }
 	      String  result = ret.substring(0, ret.length() - 1)+"&app_key="+BaseConfig.APPKEY;
 	      log.info("计算验证签名的原始数据result={}",result);
-	      return MD5.MD5Encode(result).toLowerCase();
+	      return MD5.MD5Encode(result);
 	    }
 	 
+	 
+	 public static String getReponseSignStr(Map<String, String> info) {
+
+	        List<Map.Entry<String, String>> infoIds = new ArrayList<Map.Entry<String, String>>(info.entrySet());
+	        Collections.sort(infoIds, new Comparator<Map.Entry<String, String>>() {
+	            @Override
+	            public int compare(Entry<String, String> arg0, Entry<String, String> arg1) {
+	                return (arg0.getKey()).compareTo(arg1.getKey());
+	            }
+	        });
+	        StringBuilder ret = new StringBuilder();
+
+	        for (Map.Entry<String, String> entry : infoIds) {
+	        	ret .append(entry.getKey()) ;
+	        	ret .append("=") ;
+	        	ret .append(entry.getValue()) ;
+	        	ret .append("&") ;
+	        }
+	      String  result = ret.substring(0, ret.length() - 1)+"&appKey="+BaseConfig.APPKEY;
+	      log.info("计算验证签名的原始数据result={}",result);
+	      return MD5.MD5Encode(result);
+	    }
 	 public static  String getToken(String roundStr ){
 		 
 		 Map<String, String> map = new HashMap<String, String>();
