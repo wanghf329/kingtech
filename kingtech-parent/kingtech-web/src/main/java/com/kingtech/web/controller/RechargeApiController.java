@@ -19,7 +19,7 @@ import com.kingtech.utils.OTDUtils;
 @Slf4j
 public class RechargeApiController {
 	
-	@Autowired
+//	@Autowired
 	private RechargeRecordService rechargeRecordService;
 
 	/**
