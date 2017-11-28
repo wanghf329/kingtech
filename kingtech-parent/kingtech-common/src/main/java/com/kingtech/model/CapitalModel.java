@@ -59,7 +59,7 @@ public class CapitalModel extends BaseRequestModel {
 	}
 
 
-	public CapitalModel(String id,String financingChannel, Double financingMoney,
+	public CapitalModel(String id,String financingChannel, String financingMoney,
 			String financingTime, String expirationTime, String replyTime) {
 		super(id);
 		this.financingChannel = financingChannel;
