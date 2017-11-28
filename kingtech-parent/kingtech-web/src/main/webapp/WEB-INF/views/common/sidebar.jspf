@@ -1,4 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<aside class="left-side sidebar-offcanvas">   
 <section class="sidebar">
     <!-- Sidebar user panel -->
     <div class="user-panel">
@@ -81,3 +82,4 @@
          -->
     </ul>
 </section>
+</aside>
