@@ -46,7 +46,7 @@
 								<div class="form-group">
 									<label for="#financingMoney" class="col-sm-3 control-label">融资金额</label>
 									<div class="col-sm-6 input-group">
-										<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+										<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
 										<input type="text" class="form-control validate[required,custom[number]]" data-errormessage="融资金额只能为数字"
 											name="financingMoney">
 										<span class="input-group-addon"><i class="fa">万元</i></span>
@@ -128,16 +128,7 @@
 	                                        </tr>
                                         </c:forEach>
                                     </table>
-                                </div><!-- /.box-body -->
-                                <div class="box-footer clearfix">
-                                    <ul class="pagination pagination-sm no-margin pull-right">
-                                        <li><a href="#">&laquo;</a></li>
-                                        <li><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">&raquo;</a></li>
-                                    </ul>
-                                </div> 
+                                </div>
                             </div><!-- /.box -->
                         </div><!-- /.col -->
                     </div><!-- /.row --> 
