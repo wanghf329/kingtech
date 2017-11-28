@@ -15,9 +15,9 @@
                                                                         机构基本列表
                         <small>机构基本列表预览</small>
                     </h1>
-                    <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
-                        <li><a href="#">业务办理</a></li>
+                    <ol class="breadcrumb"> 
+                        <li><a href="branch"><i class="fa fa-dashboard"></i> 首页</a></li>
+                        <li><a href="branch">机构管理</a></li>
                         <li class="active">机构基本列表</li>
                     </ol>
                 </section>
@@ -37,82 +37,80 @@
 						<div class="modal-body">
 							<form class="form-horizontal">
 								<div class="form-group" >
-									<label for="#corporateName" class="col-sm-2 control-label">公司名称</label>
-									<div class="col-sm-8 input-group">
-										<input type="text" class="form-control" id="corporateName">
+									<label for="#corporateName" class="col-sm-3 control-label">公司名称</label> 
+									<div class="col-sm-6 input-group">
+										<input type="text" class="form-control" id="corporateName" required>
+									</div>   
+								</div>
+								<div class="form-group">
+									<label for="#legalRepresentative" class="col-sm-3 control-label">法人</label>
+									<div class="col-sm-6 input-group">
+										<input type="text" class="form-control" id="legalRepresentative" required>
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="#legalRepresentative" class="col-sm-2 control-label">法人</label>
-									<div class="col-sm-8 input-group">
-										<input type="text" class="form-control"
-											id="legalRepresentative">
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="#regCapital" class="col-sm-2 control-label">注册资本</label>
-									<div class="col-sm-8 input-group">
+									<label for="#regCapital" class="col-sm-3 control-label">注册资本</label>
+									<div class="col-sm-6 input-group">
 									<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-									<input type="text" class="form-control " id="regCapital">
+										<input type="text" class="form-control" id="regCapital" required>
 									</div>
-									
 								</div>
 								<div class="form-group">
-									<label for="buildDate" class="col-sm-2 control-label">成立日期</label>
-									<div class="col-sm-8 input-group date">
+									<label for="buildDate" class="col-sm-3 control-label">成立日期</label>
+									<div class="col-sm-6 input-group date">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										<input type="text" class="form-control pull-right datepicker" id="buildDate">
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="openingDate" class="col-sm-2 control-label">开业日期</label>
-									<div class="col-sm-8 input-group date">
+									<label for="openingDate" class="col-sm-3 control-label">开业日期</label>
+									<div class="col-sm-6 input-group date">
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										<input type="text" class="form-control pull-right datepicker"
 											id="openingDate">
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="siteArea" class="col-sm-2 control-label">场所面积</label>
-									<div class="col-sm-8 input-group">
+									<label for="siteArea" class="col-sm-3 control-label">场所面积</label>
+									<div class="col-sm-6 input-group">
 										<input type="text"  class="form-control"
 											id="siteArea"></input>
 										<span class="input-group-addon"><i class="fa ">平方米</i></span>
 									</div>
 								</div> 	
 								<div class="form-group">
-									<label for="businessaddr" class="col-sm-2 control-label">经营地址</label>
-									<div class="col-sm-8 input-group">
+									<label for="businessaddr" class="col-sm-3 control-label">经营地址</label>
+									<div class="col-sm-6 input-group">
 										<input type="text"  class="form-control"
 											id="businessaddr"></input>
 									</div>
 								</div> 
 								<div class="form-group ">
-									<label for="organizationCode" class="col-sm-2 control-label">组织机构代码</label>
-									<div class="col-sm-8 input-group">
+									<label for="organizationCode" class="col-sm-3 control-label">组织机构代码</label>
+									<div class="col-sm-6 input-group">
 										<input type="text"  class="form-control"
 											id="organizationCode"></input>
 									</div>
 								</div> 
 								<div class="form-group ">
-									<label for="licence" class="col-sm-2 control-label">营业执照</label>
-									<div class="col-sm-8 input-group">
+									<label for="licence" class="col-sm-3 control-label">营业执照</label>
+									<div class="col-sm-6 input-group">
 										<input type="text"  class="form-control"
 											id="licence"></input>
 									</div>
 								</div>
 								
 								<div class="form-group ">
-									<label for="nationalRegNum" class="col-sm-2 control-label">国税编码</label>
-									<div class="col-sm-8 input-group">
+									<label for="nationalRegNum" class="col-sm-3 control-label">国税编码</label>
+									<div class="col-sm-6 input-group">
 										<input type="text"  class="form-control"
 											id="nationalRegNum"></input>
-									</div>
+									</div> 
 								</div>
 								
 								<div class="form-group ">
-									<label for="landRegNum" class="col-sm-2 control-label">地税编码</label>
-									<div class="col-sm-8 input-group">
+									<label for="landRegNum" class="col-sm-3 control-label">地税编码</label>
+									<div class="col-sm-6 input-group">
 										<input type="text"  class="form-control"
 											id="landRegNum"></input>
 									</div>
@@ -120,8 +118,8 @@
 								
 								
 								<div class="form-group ">
-									<label for="businessScope" class="col-sm-2 control-label">经营范围</label>
-									<div class="col-sm-8 input-group">
+									<label for="businessScope" class="col-sm-3 control-label">经营范围</label> 
+									<div class="col-sm-6 input-group">
 										<input type="text"  class="form-control"
 											id="businessScope"></input>
 									</div>
@@ -163,6 +161,7 @@
                                             <th>国税编码</th>
                                             <th>地税编码</th>
                                             <th>经营范围</th>
+                                            <th>状态</th>
                                             <th>操作</th>
                                         </tr>
                                         <tr>
@@ -178,7 +177,11 @@
                                             <td>320102</td>
                                             <td>A124254BC</td> 
                                             <td>放贷</td> 
-                                            <td><a><strong>修改<a><strong></td>
+                                            <td><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span>
+                                            	<span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span>
+                                            	<span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span>
+                                            </td>
+                                            <td><a href="javascript:void(0)"><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a></td>
                                         </tr>
                                     </table>
                                 </div><!-- /.box-body -->
@@ -199,7 +202,9 @@
         </div><!-- ./wrapper -->
         <%@include file="../common/footer.jspf" %>
         <script type="text/javascript">
-        	menuChecked("#branch1");  
+        	menuChecked("#branch1"); 
+        	$(".form-horizontal").validator()
+
         	
         	
         	$('#datepicker').datepicker({ autoclose: true});

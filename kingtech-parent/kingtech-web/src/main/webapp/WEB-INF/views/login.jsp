@@ -23,7 +23,7 @@
 
         <div class="form-box" id="login-box">  
             <div class="header">数据对接平台 Beta1.0</div>
-            <form action="../../index.html" method="post">
+            <form action="login" method="post">
                 <div class="body">
 				  	<div class="form-group">
                          <label>用户名：</label>
@@ -31,7 +31,7 @@
                              <div class="input-group-addon">
                                  <i class="fa fa-user"></i>
                              </div>
-                             <input type="text" class="form-control">
+                             <input type="text" name="username" class="form-control">
                          </div><!-- /.input group -->
                     </div>
 				    <div class="form-group">
@@ -40,7 +40,7 @@
                              <div class="input-group-addon">
                                  <i class="fa fa-key"></i>
                              </div>
-                             <input type="password" class="form-control">
+                             <input type="password" name="password" class="form-control">
                          </div><!-- /.input group -->
                     </div> 
                 </div>

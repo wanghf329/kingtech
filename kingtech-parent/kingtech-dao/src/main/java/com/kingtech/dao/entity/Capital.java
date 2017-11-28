@@ -5,14 +5,12 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import com.kingtech.dao.entity.base.UuidEntity;
+import com.kingtech.dao.entity.base.RecordEntity;
 
 /**
  * 机构资本信息表
@@ -23,7 +21,7 @@ import com.kingtech.dao.entity.base.UuidEntity;
 @Table(name="TB_CAPITAL")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Capital extends UuidEntity {
+public class Capital extends RecordEntity {
 	
 	// 融资渠道
 	@Column(name="FINANCING_CHANNEL")
@@ -45,12 +43,7 @@ public class Capital extends UuidEntity {
 	@Column(name="REPLY_TIME")
 	private Date replyTime;
 	
-	// 创建时间
-	@Column(name="CREATE_TIME")
-	private Date createTime;
-	
-	// 修改时间
-	@Column(name="UPDATE_TIME")
-	private Date updateTime;
-	
+	// 机构编号
+	@Column(name="BRANCH_ID")
+	private String branchId;
 }
