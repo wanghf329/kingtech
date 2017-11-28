@@ -11,7 +11,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import com.kingtech.dao.entity.base.UuidEntity;
-import com.kingtech.dao.entity.enums.EmployeeStatus;
 
 /**
  * 机构基本信息表

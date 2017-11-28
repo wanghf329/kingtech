@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -11,7 +13,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import com.kingtech.dao.entity.base.UuidEntity;
-import com.kingtech.dao.entity.enums.EmployeeStatus;
+import com.kingtech.enums.EmployeeStatus;
 
 /**
  * 员工信息表
@@ -62,7 +64,7 @@ public class Employee extends UuidEntity {
 	
 	// 是否懂监高，0-否，1-是
 	@Column(name="EXECUTIVE_FLAG")
-	private String executiveFlag;
+	private int executiveFlag;
 	
 	// 职务
 	@Column(name="POST")
@@ -77,6 +79,7 @@ public class Employee extends UuidEntity {
 	private Date entryTime;
 	
 	// 是否在职，0-离职，1-在职
+	@Enumerated(EnumType.ORDINAL)
 	@Column(name="STATUS")
 	private EmployeeStatus status;
 	

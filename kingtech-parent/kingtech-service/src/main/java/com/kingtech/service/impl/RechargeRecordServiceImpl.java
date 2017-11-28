@@ -15,7 +15,7 @@ import com.kingtech.model.misc.PagedResult;
 import com.kingtech.service.RechargeRecordService;
 import com.kingtech.utils.DTOUtils;
 
-@Service
+//@Service
 public class RechargeRecordServiceImpl implements RechargeRecordService{
 
 	@Autowired

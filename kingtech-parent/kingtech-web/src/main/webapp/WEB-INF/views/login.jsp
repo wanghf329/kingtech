@@ -19,7 +19,7 @@
           <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
     </head>
-    <body class="bg-gray"> 
+     <body class="bg-gray"> 
 
         <div class="form-box" id="login-box">  
             <div class="header">数据对接平台 Beta1.0</div>

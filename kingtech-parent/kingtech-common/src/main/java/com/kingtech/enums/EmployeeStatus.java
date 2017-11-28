@@ -1,4 +1,4 @@
-package com.kingtech.dao.entity.enums;
+package com.kingtech.enums;
 
 public enum EmployeeStatus implements BaseEnum {
 	

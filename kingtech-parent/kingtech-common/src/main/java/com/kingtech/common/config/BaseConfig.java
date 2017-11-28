@@ -24,11 +24,16 @@ public class BaseConfig    {
 	
 	public static String CLIENTID;
 	
+	public static String USERNAME;
+	public static String PASSWORD;
+	
 	@PostConstruct
 	public void init(){
 		REQUEST_URL = constants.getProperty("requset.url");
 		APPKEY = constants.getProperty("appKey");
 		CLIENTID = constants.getProperty("clientId");
+		USERNAME = constants.getProperty("username");
+		PASSWORD = constants.getProperty("password");
 	}
 
 	
