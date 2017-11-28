@@ -48,11 +48,11 @@ public class HomeApiController {
 		
 		JSONObject jsonObject = new JSONObject();
 		
-		if (username.equals(BaseConfig.PASSWORD)&&password.equals(BaseConfig.PASSWORD)) {
+		if (username.equals(BaseConfig.USERNAME)&&password.equals(BaseConfig.PASSWORD)) {
 			session.setAttribute("username", username);  
 			jsonObject.put("result", "success");
 			jsonObject.put("resultDesc", "成功");
-			
+			return "redirect:/branch";
 		}else  {
 			jsonObject.put("result", "failed");
 			jsonObject.put("resultDesc", "登陆名或密码错误");
