@@ -6,10 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.kingtech.common.config.BaseConfig;
 import com.kingtech.web.commons.base.service.FinanceService;
 
-@RequestMapping("/home")
 @Controller
 public class HomeApiController {
 
@@ -32,5 +30,5 @@ public class HomeApiController {
 		
 		financeService.inputInstitutionInfo();
 		return null;
-	} 
+	}  
 }

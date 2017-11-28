@@ -23,11 +23,12 @@
     <!-- /.search form -->
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu">
-        <li class="active">
+        <!-- <li class="active">
             <a href="home">
                 <i class="fa fa-dashboard"></i> <span>账户总览</span>
             </a>
         </li>
+         -->
         <li class="treeview">
             <a href="branch">
                 <i class="fa fa-bar-chart-o"></i> 
