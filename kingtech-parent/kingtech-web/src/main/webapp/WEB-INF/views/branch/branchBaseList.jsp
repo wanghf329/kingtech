@@ -16,6 +16,8 @@
         <link href="../../css/ionicons.min.css" rel="stylesheet" type="text/css" />
         <!-- Theme style -->
         <link href="css/AdminLTE.css" rel="stylesheet" type="text/css" />
+        
+         <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -250,13 +252,16 @@
         <!-- AdminLTE App -->  
         <script src="js/AdminLTE/app.js" type="text/javascript"></script>
         <script src="bujs/main.js" type="text/javascript"></script>
-        <script src="js/plugins/datepicker/bootstrap-datepicker.min.js"></script>
+        
+        <script src="js/plugins/datepicker/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+        
+        <script src="js/plugins/datepicker/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"/></script>
         
         <script type="text/javascript">
         	menuChecked("#branch1");  
         	
         	
-        	$('#datepicker').datepicker({ autoclose: true});
+        
         	$(".saveRecordBtn").click(function(){
         		var data = {
         			id:'',	
@@ -274,7 +279,13 @@
         	});
         	
         	$(function () {  
-        		$('.datepicker').datepicker({autoclose: true });
+        		$('.datepicker').datetimepicker({
+        		    minView: "month", //选择日期后，不会再跳转去选择时分秒 
+        		    language:  'zh-CN',
+        		    format: 'yyyy-mm-dd',
+        		    todayBtn:  1,
+        		    autoclose: 1,
+        		});
         		
         	});
         </script>
