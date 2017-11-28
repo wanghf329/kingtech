@@ -8,9 +8,10 @@
 <!-- font Awesome -->
 <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 <!-- Ionicons -->
-<link href="../../css/ionicons.min.css" rel="stylesheet" type="text/css" />
+<link href="css/ionicons.min.css" rel="stylesheet" type="text/css" />
 <!-- Theme style -->
 <link href="css/AdminLTE.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="css/validationEngine.jquery.css">
 <c:set var="ctx" value="${pageContext.request.contextPath}" scope="request" />
 
 

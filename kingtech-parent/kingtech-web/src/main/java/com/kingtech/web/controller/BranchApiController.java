@@ -1,7 +1,5 @@
 package com.kingtech.web.controller;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +15,7 @@ import com.kingtech.common.utils.DataTablesResponse;
 import com.kingtech.common.utils.Response;
 import com.kingtech.dao.entity.Branch;
 import com.kingtech.web.commons.base.service.BranchService;
+import com.kingtech.web.commons.base.service.CapitalService;
 
 
 @RequestMapping("/branch")
@@ -25,6 +24,9 @@ public class BranchApiController {
 	
 	@Autowired
 	private BranchService branchService;
+	
+	@Autowired
+	private CapitalService capitalService;
 	
 	
 	@RequestMapping(method = RequestMethod.GET,value="")
@@ -81,5 +83,14 @@ public class BranchApiController {
     	return Response.success();
     	
     }
-   
+	
+    
+	@RequestMapping(value = "/add/capital", method = RequestMethod.POST)
+	public String addCapital(Model model, String financingChannel,
+							 double financingMoney, String financingTime, 
+							 String expirationTime,
+							 String replyTime) {
+		capitalService.addNew(financingChannel, financingMoney, financingTime, expirationTime, replyTime, "BRANCHID");
+		return "/branch/branchBaseList";
+	}
 }

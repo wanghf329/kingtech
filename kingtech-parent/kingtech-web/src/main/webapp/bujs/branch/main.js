@@ -74,8 +74,13 @@ $(document).ready(function () {
       //调用函数，初始化表格  
       initTable();  
       $('.datepicker').datepicker({autoclose: true });
-      menuChecked("#addBranchForm"); 
-      $(".form-horizontal").validator()
+      menuChecked("#branch1"); 
+      $("#addBranchForm").validationEngine({ 
+    	  validationEventTriggers:"keyup blur",
+    	  inlineValidation: true,
+    	  success :  false,
+    	  failure : function() { callFailFunction()  } 
+      })
 });
 
 
@@ -83,8 +88,6 @@ $(document).ready(function () {
 
 $('#datepicker').datepicker({ autoclose: true});
 $(".saveRecordBtn").click(function(){
-	alert("aaa");
-	
 	var data =  {
 			corporateName:$("#corporateName").val(),
 			legalRepresentative:$("#corporateName").val(),
