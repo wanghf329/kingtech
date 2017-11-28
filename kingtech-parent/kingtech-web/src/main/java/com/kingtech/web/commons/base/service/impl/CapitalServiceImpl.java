@@ -9,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.druid.util.StringUtils;
 import com.kingtech.dao.entity.Capital;
 import com.kingtech.dao.rdbms.CapitalDAO;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.model.CapitalModel;
+import com.kingtech.web.commons.base.CreatRequstId;
 import com.kingtech.web.commons.base.service.CapitalService;
 
 @Service
@@ -20,16 +22,30 @@ public class CapitalServiceImpl implements CapitalService{
 	
 	@Autowired
 	private CapitalDAO capitalDao;
+	
+	@Autowired
+	private CreatRequstId creatRequstId;
 
 	@Override
 	@Transactional
 	public Capital addNew(String id,String financingChannel, double financingMoney,
 			String financingTime, String expirationTime, String replyTime,String branchId) {
 		try {
-			Capital capital = new Capital(financingChannel,new BigDecimal(financingMoney),
-					DateUtils.parseDate(financingTime, "yyyy-MM-dd"),
-					DateUtils.parseDate(financingTime, "yyyy-MM-dd"),
-					DateUtils.parseDate(financingTime, "yyyy-MM-dd"),branchId,"11100011",PushStatus.INPROSESS);
+			Capital capital = null;
+			if(StringUtils.isEmpty(id)){
+				capital = new Capital(financingChannel,new BigDecimal(financingMoney),
+						DateUtils.parseDate(financingTime, "yyyy-MM-dd"),
+						DateUtils.parseDate(expirationTime, "yyyy-MM-dd"),
+						replyTime == null ? null : DateUtils.parseDate(replyTime, "yyyy-MM-dd"),
+								branchId,creatRequstId.getReqId(),PushStatus.INPROSESS);
+			}else{
+				capital = capitalDao.findOne(id);
+				capital.setFinancingChannel(financingChannel);
+				capital.setFinancingMoney(new BigDecimal(financingMoney));
+				capital.setFinancingTime(DateUtils.parseDate(financingTime, "yyyy-MM-dd"));
+				capital.setExpirationTime(DateUtils.parseDate(expirationTime, "yyyy-MM-dd"));
+				capital.setReplyTime(replyTime == null ? null : DateUtils.parseDate(replyTime, "yyyy-MM-dd"));
+			}
 			capital.setId(id);
 			capital = capitalDao.save(capital);
 			return capital;
