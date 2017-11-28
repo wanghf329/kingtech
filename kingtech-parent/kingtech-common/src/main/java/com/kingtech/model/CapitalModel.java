@@ -20,7 +20,7 @@ public class CapitalModel extends BaseModel {
 
 	// 融资金额
 	@JSONField(name="financing_money",label="sign")
-	private Double financingMoney;
+	private String financingMoney;
 
 	// 融资时间
 	@JSONField(name="financing_time",label="sign")
@@ -45,7 +45,7 @@ public class CapitalModel extends BaseModel {
 	
 	public CapitalModel(String clientId, String roundStr, String appKey,
 			String token, String identifier, String reqId, String sign,
-			String financingChannel, Double financingMoney, String financingTime,
+			String financingChannel, String financingMoney, String financingTime,
 			String expirationTime, String replyTime, String createTime,
 			String updateTime) {
 		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId, sign);
