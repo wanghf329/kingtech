@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @SuppressWarnings("serial")
 @NoArgsConstructor
-public class RechargeRecordModel extends BaseModel {
+public class RechargeRecordModel extends BaseRequestModel {
 	
 	private String id;
 	

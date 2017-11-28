@@ -16,7 +16,7 @@ import com.kingtech.enums.SpecificationsEnum;
 @Data
 @SuppressWarnings("serial")
 @NoArgsConstructor
-public class TrafficPriceModel extends BaseModel {
+public class TrafficPriceModel extends BaseRequestModel {
 	
 	private String id;
 	

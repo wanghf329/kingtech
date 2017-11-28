@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kingtech.common.utils.DataTablesResponse;
+import com.kingtech.common.utils.Response;
 import com.kingtech.dao.entity.Branch;
-import com.kingtech.dao.entity.Capital;
-import com.kingtech.model.InstitutionInfoModel;
 import com.kingtech.web.commons.base.service.BranchService;
 import com.kingtech.web.commons.base.service.CapitalService;
 
@@ -67,10 +66,22 @@ public class BranchApiController {
 		return DataTablesResponse.format(draw, page);
     }
     
-    @RequestMapping(value = "/add/branch", method = RequestMethod.POST)
+    @RequestMapping(value = "/add/branch", method=RequestMethod.POST )
     @ResponseBody
-    public boolean addBranchInfo(InstitutionInfoModel model) {
-    	return false;
+    public Response addBranchInfo(@RequestParam("corporateName") String corporateName,
+    							 @RequestParam("legalRepresentative") String legalRepresentative,
+						   		 @RequestParam("regCapital") String regCapital,
+						   		 @RequestParam("buildDate") String buildDate,
+						   		 @RequestParam("openingDate") String openingDate,
+						   		 @RequestParam("siteArea") String siteArea,
+						   		 @RequestParam("businessAddr") String businessAddr,
+						   		 @RequestParam("organizationCode") String organizationCode,
+						   		 @RequestParam("licence") String licence,
+						   		 @RequestParam("nationalRegNum") String nationalRegNum,
+						   		 @RequestParam("landRegNum") String landRegNum,
+						   		 @RequestParam("businessScope") String businessScope) {
+    	return Response.success();
+    	
     }
 	
     
@@ -82,5 +93,4 @@ public class BranchApiController {
 		capitalService.addNew(financingChannel, financingMoney, financingTime, expirationTime, replyTime, "BRANCHID");
 		return "/branch/branchBaseList";
 	}
-
 }

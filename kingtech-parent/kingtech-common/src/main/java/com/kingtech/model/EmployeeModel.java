@@ -12,7 +12,7 @@ import com.kingtech.common.utils.SignUtils;
  * @version: v1.0
  */
 @Data
-public class EmployeeModel extends BaseModel {
+public class EmployeeModel extends BaseRequestModel {
 	
 	// 机构名称
 	@JSONField(name="name",label="sign")
