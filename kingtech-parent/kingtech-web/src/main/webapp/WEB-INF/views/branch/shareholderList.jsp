@@ -16,6 +16,8 @@
         <link href="../../css/ionicons.min.css" rel="stylesheet" type="text/css" />
         <!-- Theme style -->
         <link href="css/AdminLTE.css" rel="stylesheet" type="text/css" />
+        
+         <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -229,7 +231,12 @@
         	});
         	
         	$(function () {  
-        		$('.datepicker').datepicker({autoclose: true,formart :"YYYY-MM-DD" });
+        		$('.datepicker').datetimepicker({
+        			minView: "2", //选择日期后，不会再跳转去选择时分秒 
+    			    language:  'zh-CN',
+    			    format: 'yyyy-mm-dd hh:ii:ss',
+    			    todayBtn:  1,
+    			    autoclose: 1,});
         		
         	});
         </script>
