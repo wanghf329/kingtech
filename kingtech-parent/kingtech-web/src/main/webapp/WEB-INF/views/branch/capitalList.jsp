@@ -121,7 +121,10 @@
 	                                            	<c:if test="${it.pushStatus=='INPROSESS'}"><span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span></c:if>
 	                                            	<c:if test="${it.pushStatus=='FAILED'}"><span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span></c:if>
 	                                            </td>
-	                                            <td><a href="javascript:void(0)" onclick="getCapital('${it.id}')"><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a></td>
+	                                            <td>
+	                                            	<a href="javascript:void(0)" onclick="getCapital('${it.id}')"><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a>
+	                                            	<a href="javascript:void(0)" onclick="delConfirm('${it.id}')"><i class="text-red fa  fa-minus-circle"></i><strong>删除</strong></a>
+	                                            </td>
 	                                        </tr>
                                         </c:forEach>
                                     </table>
@@ -141,8 +144,7 @@
                 </section><!-- /.content -->                
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
-
-        <%@include file="../common/footer.jspf" %>   
+	<%@include file="../common/footer.jspf" %>   
         <script src="bujs/capital/main.js" type="text/javascript"></script>       
     </body>
 </html>

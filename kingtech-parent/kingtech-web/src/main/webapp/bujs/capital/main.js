@@ -28,3 +28,12 @@ function getCapital(id){
 		$("#rechargeModel").modal();
 	});
 }
+
+function delConfirm(id){
+	$("#confirmModel").modal();
+	$("#del-id").val(id); 
+}
+
+function delCapital(){
+	window.location.href = "branch/delCapital/"+$("#del-id").val();
+};
