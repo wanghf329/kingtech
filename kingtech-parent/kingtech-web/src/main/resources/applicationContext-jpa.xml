@@ -73,7 +73,7 @@
 		p:jpaProperties-ref="jpaProperties" />
 	
 	<util:map id="jpaProperties">
-		<entry key="hibernate.hbm2ddl.auto" value="update" />
+		<entry key="hibernate.hbm2ddl.auto" value="none" />
 	</util:map>
 
 	<bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" 

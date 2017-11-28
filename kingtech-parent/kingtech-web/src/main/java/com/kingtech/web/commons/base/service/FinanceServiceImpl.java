@@ -2,18 +2,20 @@ package com.kingtech.web.commons.base.service;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.stereotype.Service;
+
 import com.kingtech.model.InstitutionInfoModel;
 import com.kingtech.model.SynResponseModel;
 import com.kingtech.web.commons.base.BaseAbstract;
 
-//@Service
+@Service
 @Slf4j
 public class FinanceServiceImpl  extends BaseAbstract implements FinanceService {
 
 	@Override
 	public SynResponseModel inputInstitutionInfo() {
 		
-		InstitutionInfoModel institutionInfoModel = new InstitutionInfoModel("a", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b");
+		InstitutionInfoModel institutionInfoModel = new InstitutionInfoModel("b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b");
 		
 		System.err.println(getDataAndSign(institutionInfoModel));
 	
