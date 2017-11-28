@@ -15,7 +15,7 @@ public class FinanceServiceImpl  extends BaseAbstract implements FinanceService 
 	@Override
 	public SynResponseModel inputInstitutionInfo() {
 		
-		InstitutionInfoModel institutionInfoModel = new InstitutionInfoModel("a", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b");
+		InstitutionInfoModel institutionInfoModel = new InstitutionInfoModel("b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b", "b");
 		
 		System.err.println(getDataAndSign(institutionInfoModel));
 	

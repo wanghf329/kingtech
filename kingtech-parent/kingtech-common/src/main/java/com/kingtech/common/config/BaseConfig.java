@@ -20,9 +20,15 @@ public class BaseConfig    {
 	
 	public static String REQUEST_URL;
 	
+	public static String APPKEY;
+	
+	public static String CLIENTID;
+	
 	@PostConstruct
 	public void init(){
 		REQUEST_URL = constants.getProperty("requset.url");
+		APPKEY = constants.getProperty("appKey");
+		CLIENTID = constants.getProperty("clientId");
 	}
 
 	

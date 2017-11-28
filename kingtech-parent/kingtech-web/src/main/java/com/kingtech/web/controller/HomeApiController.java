@@ -1,16 +1,21 @@
 package com.kingtech.web.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.kingtech.common.config.BaseConfig;
+import com.kingtech.web.commons.base.service.FinanceService;
 
 @RequestMapping("/home")
 @Controller
 public class HomeApiController {
 
+
+	@Autowired
+	FinanceService financeService;
 	/**
 	 * 使用帮助页面
 	 * @param model
@@ -25,7 +30,7 @@ public class HomeApiController {
 	@RequestMapping(method = RequestMethod.GET,value="/hello")
 	public String hello(Model model) { 
 		
-		System.out.println(BaseConfig.REQUEST_URL);
+		financeService.inputInstitutionInfo();
 		return null;
 	} 
 }
