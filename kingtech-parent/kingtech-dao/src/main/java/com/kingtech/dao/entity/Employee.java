@@ -12,7 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import com.kingtech.dao.entity.base.UuidEntity;
+import com.kingtech.dao.entity.base.RecordEntity;
 import com.kingtech.enums.EmployeeStatus;
 
 /**
@@ -24,7 +24,7 @@ import com.kingtech.enums.EmployeeStatus;
 @Table(name="TB_EMPLOYEE")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Employee extends UuidEntity {
+public class Employee extends RecordEntity {
 	
 	// 机构名称
 	@Column(name="NAME")
@@ -87,12 +87,7 @@ public class Employee extends UuidEntity {
 	@Column(name="QUIT_TIME")
 	private Date quitTime;
 	
-	// 创建时间
-	@Column(name="CREATE_TIME")
-	private Date createTime;
-	
-	// 修改时间
-	@Column(name="UPDATE_TIME")
-	private Date updateTime;
-	
+	// 机构编号
+	@Column(name="BRANCH_ID")
+	private String branchId;
 }

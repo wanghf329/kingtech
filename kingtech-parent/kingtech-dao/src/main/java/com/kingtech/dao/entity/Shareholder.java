@@ -10,8 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import com.kingtech.dao.entity.base.UuidEntity;
-import com.kingtech.enums.SpecificationsEnum;
+import com.kingtech.dao.entity.base.RecordEntity;
 
 /**
  * 股东信息表
@@ -22,7 +21,7 @@ import com.kingtech.enums.SpecificationsEnum;
 @Table(name="TB_SHAREHOLDER")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Shareholder extends UuidEntity {
+public class Shareholder extends RecordEntity {
 	
 	// 股东类型
 	@Column(name="PARTNER_TYPE")
@@ -52,12 +51,7 @@ public class Shareholder extends UuidEntity {
 	@Column(name="QUIT_TIME")
 	private Date quitTime;
 	
-	// 创建时间
-	@Column(name="CREATE_TIME")
-	private Date createTime;
-	
-	// 修改时间
-	@Column(name="UPDATE_TIME")
-	private Date updateTime;
-	
+	// 机构编号
+	@Column(name="BRANCH_ID")
+	private String branchId;
 }
