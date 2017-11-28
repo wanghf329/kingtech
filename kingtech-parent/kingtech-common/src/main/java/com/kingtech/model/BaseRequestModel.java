@@ -45,6 +45,7 @@ public class BaseRequestModel implements Serializable {
 	
 	@JSONField(name="sign")
 	private String sign;
+<<<<<<< HEAD
 
 	public BaseRequestModel(String clientId, String roundStr, String appKey,
 			String token, String identifier, String reqId) {
@@ -61,4 +62,12 @@ public class BaseRequestModel implements Serializable {
 	
 	
 	
+=======
+	
+	private String id;
+
+	public BaseRequestModel(String id) {
+		this.id = id;
+	}
+>>>>>>> 175b8411bd13aad06cb7bf3200bbccfc858896bb
 }

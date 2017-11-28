@@ -35,51 +35,54 @@
 							<h4 class="modal-title" id="myModalLabel">机构资本信息录入</h4>
 						</div>
 						<div class="modal-body">
-							<form class="form-horizontal">
+							<form class="form-horizontal" id="form-horizontal" action="branch/add/capital" method="POST">
+								<input type="hidden" name="id" value="">
 								<div class="form-group">
-									<label for="#financingChannel" class="col-sm-2 control-label">融资渠道</label>
-									<div class="col-sm-8 input-group">
-										<input type="text" class="form-control" id="financingChannel">
+									<label for="#financingChannel" class="col-sm-3 control-label">融资渠道</label>
+									<div class="col-sm-6 input-group">
+										<input type="text" class="form-control validate[required]" name="financingChannel" data-errormessage="融资渠道不能为空">
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="#financingMoney" class="col-sm-2 control-label">融资金额</label>
-									<div class="col-sm-8 input-group">
+									<label for="#financingMoney" class="col-sm-3 control-label">融资金额</label>
+									<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-										<input type="text" class="form-control"
-											id="financingMoney">
+										<input type="text" class="form-control validate[required,custom[number]]" data-errormessage="融资金额只能为数字"
+											name="financingMoney">
 										<span class="input-group-addon"><i class="fa">万元</i></span>
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="financingTime" class="col-sm-2 control-label">融资时间</label>
-									<div class="col-sm-8 input-group">
+									<label for="financingTime" class="col-sm-3 control-label">融资时间</label>
+									<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										<input type="text" class="form-control pull-right timepicker" id="financingTime">
+										<input type="text" class="form-control pull-right datepicker validate[required]"
+										readonly name="financingTime" data-errormessage="融资时间不能为空">
 									</div>
 								</div>
 								
 								<div class="form-group">
-									<label for="expirationTime" class="col-sm-2 control-label">到期时间</label>
-									<div class="col-sm-8 input-group">
+									<label for="expirationTime" class="col-sm-3 control-label">到期时间</label>
+									<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										<input type="text" class="form-control pull-right timepicker" id="expirationTime">
+										<input type="text" class="form-control pull-right datepicker validate[required]"
+										readonly name="expirationTime" data-errormessage="到期时间不能为空">
 									</div>
 								</div>
 								
-								<div class="form-group">
-									<label for="replyTime" class="col-sm-2 control-label">实际还款时间</label>
-									<div class="col-sm-8 input-group">
-										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										<input type="text" class="form-control pull-right timepicker" id="replyTime">
+								<div class="form-group">  
+									<label for="replyTime" class="col-sm-3 control-label">实际还款时间</label>
+									<div class="col-sm-6 input-group">
+										<span class="input-group-addon"><i class="fa fa-calendar"></i></span> 
+										<input type="text" class="form-control pull-right datepicker validate[required]" name="replyTime"
+										readonly data-errormessage="实际还款时间不能为空"> 
 									</div>
 								</div>
 							</form>						
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default"
-								data-dismiss="modal">关闭</button> 
-							<button type="button" class="btn btn-danger">重置</button>								
+								data-dismiss="modal">关闭</button>
 							<button type="button" class="btn btn-primary saveRecordBtn">保存</button>
 						</div>
 					</div>
@@ -106,18 +109,24 @@
                                             <th>状态</th>
                                             <th>操作</th>
                                         </tr>
-                                        <tr>
-                                            <td>网络</td> 
-                                            <td class="text-red"><i class="fa fa-jpy"/>20.6</td>
-                                            <td>2009-04-15 14：25：30</td>
-                                            <td>2016-04-15 14：25：30</td>
-                                            <td></td> 
-                                            <td><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span>
-                                            	<span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span>
-                                            	<span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span>
-                                            </td>
-                                            <td><a href="javascript:void(0)"><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a></td>
-                                        </tr>
+                                        <c:forEach var="it" items="${list}">
+	                                        <tr>
+	                                            <td>${it.financingChannel}</td>  
+	                                            <td class="text-red"><i class="fa fa-jpy"/><strong>${it.financingMoney}</strong></td> 
+	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.financingTime}"></fmt:formatDate></td>
+	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.expirationTime}"></fmt:formatDate></td>
+	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.replyTime}"></fmt:formatDate></td> 
+	                                            <td>
+	                                            	<c:if test="${it.pushStatus=='SUCCESS'}"><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span></c:if>
+	                                            	<c:if test="${it.pushStatus=='INPROSESS'}"><span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span></c:if>
+	                                            	<c:if test="${it.pushStatus=='FAILED'}"><span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span></c:if>
+	                                            </td>
+	                                            <td>
+	                                            	<a href="javascript:void(0)" onclick="getCapital('${it.id}')"><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a>
+	                                            	<a href="javascript:void(0)" onclick="delConfirm('${it.id}')"><i class="text-red fa  fa-minus-circle"></i><strong>删除</strong></a>
+	                                            </td>
+	                                        </tr>
+                                        </c:forEach>
                                     </table>
                                 </div><!-- /.box-body -->
                                 <div class="box-footer clearfix">
@@ -135,38 +144,7 @@
                 </section><!-- /.content -->                
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
-
-        <%@include file="../common/footer.jspf" %>        
-        <script type="text/javascript">
-        	menuChecked("#capitalList");
-        	
-        	$(".saveRecordBtn").click(function(){
-        		var data = {
-        			id:'',	
-       				contractName:$("#contractName").val(),
-       				activityName:$("#activityName").val(),
-       				orderId:$("#orderId").val(),
-       				orderName:$("#orderName").val(),
-       				amount:$("#amount").val(),
-       				discription:$("#discription").val()
-        		};
-        		
-        		$.post("recharge/create",data,function(res){
-        			alert(res);
-        		});
-        	});
-        	
-        	$(function () {  
-        		 $(".timepicker").datetimepicker({
-        			 	minView: "0", //选择日期后，不会再跳转去选择时分秒 
-        			    language:  'zh-CN',
-        			    format: 'yyyy-mm-dd hh:ii:ss',
-        			    todayBtn:  1,
-        			    autoclose: 1,
-        		    });
-        		
-        	});
-        </script>
-
+	<%@include file="../common/footer.jspf" %>   
+        <script src="bujs/capital/main.js" type="text/javascript"></script>       
     </body>
 </html>

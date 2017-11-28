@@ -6,11 +6,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import com.kingtech.dao.entity.base.RecordEntity;
+import com.kingtech.enums.PushStatus;
 
 /**
  * 机构资本信息表
@@ -20,7 +20,6 @@ import com.kingtech.dao.entity.base.RecordEntity;
 @Entity
 @Table(name="TB_CAPITAL")
 @NoArgsConstructor
-@AllArgsConstructor
 public class Capital extends RecordEntity {
 	
 	// 融资渠道
@@ -46,4 +45,17 @@ public class Capital extends RecordEntity {
 	// 机构编号
 	@Column(name="BRANCH_ID")
 	private String branchId;
+
+	
+	public Capital(String financingChannel, Double financingMoney,
+				   Date financingTime, Date expirationTime, Date replyTime,
+				   String branchId,String reqId,PushStatus status) {
+		super(reqId,status);
+		this.financingChannel = financingChannel;
+		this.financingMoney = financingMoney;
+		this.financingTime = financingTime;
+		this.expirationTime = expirationTime;
+		this.replyTime = replyTime;
+		this.branchId = branchId;
+	}
 }

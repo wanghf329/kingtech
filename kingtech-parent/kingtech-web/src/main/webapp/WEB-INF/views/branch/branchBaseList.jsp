@@ -39,7 +39,7 @@
 								<div class="form-group" >
 									<label for="#corporateName" class="col-sm-3 control-label">公司名称</label> 
 									<div class="col-sm-6 input-group">
-										<input type="text" class="form-control" name="corporateName" id="corporateName" required>
+										<input type="text" class="form-control validate[required]" name="corporateName" id="corporateName">
 									</div>   
 								</div>
 								<div class="form-group">
@@ -82,7 +82,7 @@
 									<label for="businessaddr" class="col-sm-3 control-label">经营地址</label>
 									<div class="col-sm-6 input-group">
 										<input type="text"  class="form-control"
-											name = "businessaddr" id="businessaddr"></input>
+											name = "businessAddr" id="businessaddr"></input>
 									</div>
 								</div> 
 								<div class="form-group ">
@@ -131,7 +131,7 @@
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal">关闭</button> 
 							<button type="button" class="btn btn-danger">重置</button>								
-							<button type="button" class="btn btn-primary saveRecordBtn">保存</button>
+							<button type="submit" class="btn btn-primary saveRecordBtn">保存</button>
 						</div>
 					</div>
 				</div>
