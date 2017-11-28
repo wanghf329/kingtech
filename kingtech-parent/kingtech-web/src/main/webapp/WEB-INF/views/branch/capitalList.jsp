@@ -35,11 +35,11 @@
 							<h4 class="modal-title" id="myModalLabel">机构资本信息录入</h4>
 						</div>
 						<div class="modal-body">
-							<form class="form-horizontal" id="form-horizontal">
+							<form class="form-horizontal" id="form-horizontal" action="branch/add/capital" method="POST">
 								<div class="form-group">
 									<label for="#financingChannel" class="col-sm-3 control-label">融资渠道</label>
 									<div class="col-sm-6 input-group">
-										<input type="text" class="form-control validate[required]" id="financingChannel" data-errormessage="融资渠道不能为空">
+										<input type="text" class="form-control validate[required]" name="financingChannel" data-errormessage="融资渠道不能为空">
 									</div>
 								</div>
 								<div class="form-group">
@@ -47,7 +47,7 @@
 									<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
 										<input type="text" class="form-control validate[required,custom[number]]" data-errormessage="融资金额只能为数字"
-											id="financingMoney">
+											name="financingMoney">
 										<span class="input-group-addon"><i class="fa">万元</i></span>
 									</div>
 								</div>
@@ -56,7 +56,7 @@
 									<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										<input type="text" class="form-control pull-right datepicker validate[required]"
-										readonly id="financingTime" data-errormessage="融资时间不能为空">
+										readonly name="financingTime" data-errormessage="融资时间不能为空">
 									</div>
 								</div>
 								
@@ -65,7 +65,7 @@
 									<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										<input type="text" class="form-control pull-right datepicker validate[required]"
-										readonly id="expirationTime" data-errormessage="到期时间不能为空">
+										readonly name="expirationTime" data-errormessage="到期时间不能为空">
 									</div>
 								</div>
 								
@@ -73,7 +73,7 @@
 									<label for="replyTime" class="col-sm-3 control-label">实际还款时间</label>
 									<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span> 
-										<input type="text" class="form-control pull-right datepicker validate[required]" id="replyTime"
+										<input type="text" class="form-control pull-right datepicker validate[required]" name="replyTime"
 										readonly data-errormessage="实际还款时间不能为空"> 
 									</div>
 								</div>
@@ -81,8 +81,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default"
-								data-dismiss="modal">关闭</button> 
-							<button type="button" class="btn btn-danger">重置</button>								
+								data-dismiss="modal">关闭</button>
 							<button type="button" class="btn btn-primary saveRecordBtn">保存</button>
 						</div>
 					</div>
