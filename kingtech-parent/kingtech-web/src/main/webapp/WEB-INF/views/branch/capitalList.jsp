@@ -74,7 +74,7 @@
 									<label for="replyTime" class="col-sm-3 control-label">实际还款时间</label>
 									<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span> 
-										<input type="text" class="form-control pull-right datepicker validate[required]" name="replyTime"
+										<input type="text" class="form-control pull-right datepicker" name="replyTime"
 										readonly data-errormessage="实际还款时间不能为空"> 
 									</div>
 								</div>
