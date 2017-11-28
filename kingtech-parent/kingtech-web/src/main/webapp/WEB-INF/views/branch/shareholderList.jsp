@@ -35,28 +35,27 @@
 							<h4 class="modal-title" id="myModalLabel">机构股东信息录入</h4>
 						</div>
 						<div class="modal-body">
-							<form class="form-horizontal">
+							<form class="form-horizontal" id="form-horizontal" action="branch/add/shareholder" method="POST">
 								<div class="form-group">
 									<label for="#partnerType" class="col-sm-2 control-label">股东类型</label>
 									<div class="col-sm-8 input-group">
 					                  <div class="radio">
-					                      <input type="radio" name="optionsRadios" id="partnerType" value="1" checked="">自然人股东
-					                   	  <input type="radio" name="optionsRadios" id="partnerType" value="2" checked="">企业股东
+					                      <input type="radio" name="partnerType" value="1" checked="">自然人股东
+					                   	  <input type="radio" name="partnerType" value="2" checked="">企业股东
 					                  </div>
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="#holder" class="col-sm-2 control-label">持股人</label>
 									<div class="col-sm-8 input-group">
-										<input type="text" class="form-control"
-											id="holder">
+										<input type="text" class="form-control" name="holder">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="#holdingScale" class="col-sm-2 control-label">持股比例</label>
 									<div class="col-sm-8 input-group">
-										<input type="text" class="form-control"
-											id="holdingScale">
+										<input type="text" class="form-control validate[required,custom[number]]" data-errormessage="持股比例只能为数字"
+											name="holdingScale">
 										<span class="input-group-addon"><i class="fa">%</i></span>
 									</div>
 								</div>
@@ -64,8 +63,8 @@
 									<label for="#contributionAmount" class="col-sm-2 control-label">出资金额</label>
 									<div class="col-sm-8 input-group">
 										<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-										<input type="text" class="form-control"
-											id="contributionAmount">
+										<input type="text" class="form-control validate[required,custom[number]]" data-errormessage="出资金额只能为数字"
+											name="contributionAmount">
 										<span class="input-group-addon"><i class="fa">万元</i></span>
 									</div>
 								</div>
@@ -73,7 +72,7 @@
 									<label for="#joinTime" class="col-sm-2 control-label">入股时间</label>
 									<div class="col-sm-8 input-group">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										<input type="text" class="form-control pull-right datepicker" id="joinTime">
+										<input type="text" class="form-control pull-right datepicker" name="joinTime">
 									</div>
 								</div>
 								
@@ -81,8 +80,8 @@
 									<label for="#gender" class="col-sm-2 control-label">性别</label>
 									<div class="col-sm-8">
 										<div class="radio input-group">
-					                      <input type="radio" name="optionsRadios" id="gender" value="1" checked="">男	
-					                   	  <input type="radio" name="optionsRadios" id="gender" value="2" checked="">女
+					                      <input type="radio" name="gender" value="1" checked="">男	
+					                   	  <input type="radio" name="gender" value="2" checked="">女
 					                  </div>
 									</div>
 								</div>
@@ -91,7 +90,7 @@
 									<label for="#quitTime" class="col-sm-2 control-label">退出时间</label>
 									<div class="col-sm-8 input-group">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										<input type="text" class="form-control pull-right datepicker" id="quitTime">
+										<input type="text" class="form-control pull-right datepicker" name="quitTime">
 									</div>
 								</div>
 																																
@@ -161,8 +160,9 @@
 
 
         <%@include file="../common/footer.jspf" %>
+        <script src="bujs/shareholder/main.js" type="text/javascript"></script>
         
-        <script type="text/javascript">
+        <!-- <script type="text/javascript">
         	menuChecked("#shareholderList");
         	
         	$(".saveRecordBtn").click(function(){
@@ -190,7 +190,7 @@
     			    autoclose: 1,});
         		
         	});
-        </script>
+        </script> -->
 
     </body>
 </html>

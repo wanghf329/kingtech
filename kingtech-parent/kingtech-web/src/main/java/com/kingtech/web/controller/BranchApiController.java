@@ -16,6 +16,7 @@ import com.kingtech.common.utils.Response;
 import com.kingtech.dao.entity.Branch;
 import com.kingtech.web.commons.base.service.BranchService;
 import com.kingtech.web.commons.base.service.CapitalService;
+import com.kingtech.web.commons.base.service.ShareholderService;
 
 
 @RequestMapping("/branch")
@@ -27,6 +28,9 @@ public class BranchApiController {
 	
 	@Autowired
 	private CapitalService capitalService;
+	
+	@Autowired
+	private ShareholderService shareholderService;
 	
 	
 	@RequestMapping(method = RequestMethod.GET,value="")
@@ -92,5 +96,16 @@ public class BranchApiController {
 							 String replyTime) {
 		capitalService.addNew(financingChannel, financingMoney, financingTime, expirationTime, replyTime, "BRANCHID");
 		return "/branch/branchBaseList";
+	}
+	
+	@RequestMapping(value = "/add/shareholder", method = RequestMethod.POST)
+	public String addShareholder(Model model, String partnerType,
+								String holder, String holdingScale, String contributionAmount,
+								String joinTime, String gender, String quitTime, String branchId) {
+		
+		System.out.println("holdingScale:  " + holdingScale);
+		shareholderService.addNew(partnerType, holder, holdingScale, contributionAmount,
+								joinTime, gender, quitTime, "BRANCHID");
+		return "/branch/shareholderList";
 	}
 }
