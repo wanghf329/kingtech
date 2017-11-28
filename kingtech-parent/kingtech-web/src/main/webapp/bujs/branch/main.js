@@ -75,7 +75,12 @@ $(document).ready(function () {
       initTable();  
       $('.datepicker').datepicker({autoclose: true });
       menuChecked("#branch1"); 
-      $(".form-horizontal").validator()
+      $("#addBranchForm").validationEngine({ 
+    	  validationEventTriggers:"keyup blur",
+    	  inlineValidation: true,
+    	  success :  false,
+    	  failure : function() { callFailFunction()  } 
+      })
 });
 
 
@@ -83,6 +88,7 @@ $(document).ready(function () {
 
 $('#datepicker').datepicker({ autoclose: true});
 $(".saveRecordBtn").click(function(){
+	$("#addBranchForm").submit();
 	var self = this;
 	if (!self.validate()) {
         return;

@@ -35,43 +35,46 @@
 							<h4 class="modal-title" id="myModalLabel">机构资本信息录入</h4>
 						</div>
 						<div class="modal-body">
-							<form class="form-horizontal">
+							<form class="form-horizontal" id="form-horizontal">
 								<div class="form-group">
-									<label for="#financingChannel" class="col-sm-2 control-label">融资渠道</label>
-									<div class="col-sm-8 input-group">
-										<input type="text" class="form-control" id="financingChannel">
+									<label for="#financingChannel" class="col-sm-3 control-label">融资渠道</label>
+									<div class="col-sm-6 input-group">
+										<input type="text" class="form-control validate[required]" id="financingChannel" data-errormessage="融资渠道不能为空">
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="#financingMoney" class="col-sm-2 control-label">融资金额</label>
-									<div class="col-sm-8 input-group">
+									<label for="#financingMoney" class="col-sm-3 control-label">融资金额</label>
+									<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-										<input type="text" class="form-control"
+										<input type="text" class="form-control validate[required,custom[number]]" data-errormessage="融资金额只能为数字"
 											id="financingMoney">
 										<span class="input-group-addon"><i class="fa">万元</i></span>
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="financingTime" class="col-sm-2 control-label">融资时间</label>
-									<div class="col-sm-8 input-group">
+									<label for="financingTime" class="col-sm-3 control-label">融资时间</label>
+									<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										<input type="text" class="form-control pull-right timepicker" id="financingTime">
+										<input type="text" class="form-control pull-right datepicker validate[required]"
+										readonly id="financingTime" data-errormessage="融资时间不能为空">
 									</div>
 								</div>
 								
 								<div class="form-group">
-									<label for="expirationTime" class="col-sm-2 control-label">到期时间</label>
-									<div class="col-sm-8 input-group">
+									<label for="expirationTime" class="col-sm-3 control-label">到期时间</label>
+									<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										<input type="text" class="form-control pull-right timepicker" id="expirationTime">
+										<input type="text" class="form-control pull-right datepicker validate[required]"
+										readonly id="expirationTime" data-errormessage="到期时间不能为空">
 									</div>
 								</div>
 								
-								<div class="form-group">
-									<label for="replyTime" class="col-sm-2 control-label">实际还款时间</label>
-									<div class="col-sm-8 input-group">
-										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										<input type="text" class="form-control pull-right timepicker" id="replyTime">
+								<div class="form-group">  
+									<label for="replyTime" class="col-sm-3 control-label">实际还款时间</label>
+									<div class="col-sm-6 input-group">
+										<span class="input-group-addon"><i class="fa fa-calendar"></i></span> 
+										<input type="text" class="form-control pull-right datepicker validate[required]" id="replyTime"
+										readonly data-errormessage="实际还款时间不能为空"> 
 									</div>
 								</div>
 							</form>						
@@ -136,37 +139,7 @@
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
 
-        <%@include file="../common/footer.jspf" %>        
-        <script type="text/javascript">
-        	menuChecked("#capitalList");
-        	
-        	$(".saveRecordBtn").click(function(){
-        		var data = {
-        			id:'',	
-       				contractName:$("#contractName").val(),
-       				activityName:$("#activityName").val(),
-       				orderId:$("#orderId").val(),
-       				orderName:$("#orderName").val(),
-       				amount:$("#amount").val(),
-       				discription:$("#discription").val()
-        		};
-        		
-        		$.post("recharge/create",data,function(res){
-        			alert(res);
-        		});
-        	});
-        	
-        	$(function () {  
-        		 $(".timepicker").datetimepicker({
-        			 	minView: "0", //选择日期后，不会再跳转去选择时分秒 
-        			    language:  'zh-CN',
-        			    format: 'yyyy-mm-dd hh:ii:ss',
-        			    todayBtn:  1,
-        			    autoclose: 1,
-        		    });
-        		
-        	});
-        </script>
-
+        <%@include file="../common/footer.jspf" %>   
+        <script src="bujs/capital/main.js" type="text/javascript"></script>       
     </body>
 </html>
