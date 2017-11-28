@@ -192,6 +192,9 @@ public class DateUtil {
 	 * 
 	 * */
 	public static String getDateStr(Date date, String formate) {
+		if (date == null) {
+			return null;
+		}
 		SimpleDateFormat sdf = new SimpleDateFormat(formate);
 		return sdf.format(date);
 	}
