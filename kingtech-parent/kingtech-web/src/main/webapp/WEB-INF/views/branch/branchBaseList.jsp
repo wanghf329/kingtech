@@ -15,9 +15,9 @@
                                                                         机构基本列表
                         <small>机构基本列表预览</small>
                     </h1>
-                    <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
-                        <li><a href="#">业务办理</a></li>
+                    <ol class="breadcrumb"> 
+                        <li><a href="branch"><i class="fa fa-dashboard"></i> 首页</a></li>
+                        <li><a href="branch">机构管理</a></li>
                         <li class="active">机构基本列表</li>
                     </ol>
                 </section>
