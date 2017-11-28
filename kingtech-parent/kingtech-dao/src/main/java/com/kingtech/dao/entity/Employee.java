@@ -11,7 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import com.kingtech.dao.entity.base.UuidEntity;
-import com.kingtech.dao.entity.enums.EmployeeStatus;
+import com.kingtech.enums.EmployeeStatus;
 
 /**
  * 员工信息表
@@ -62,7 +62,7 @@ public class Employee extends UuidEntity {
 	
 	// 是否懂监高，0-否，1-是
 	@Column(name="EXECUTIVE_FLAG")
-	private String executiveFlag;
+	private int executiveFlag;
 	
 	// 职务
 	@Column(name="POST")

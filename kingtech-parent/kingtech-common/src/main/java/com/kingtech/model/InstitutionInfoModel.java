@@ -1,14 +1,10 @@
 package com.kingtech.model;
 
 
-import java.util.Map;
-import java.util.Random;
-
 import lombok.Data;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.kingtech.common.config.BaseConfig;
-import com.kingtech.common.utils.RandomUtil;
 import com.kingtech.common.utils.SignUtils;
 
 /**
@@ -120,8 +116,9 @@ public class InstitutionInfoModel extends BaseModel {
 
 	public InstitutionInfoModel(String clientId, String roundStr,
 			String appKey, String token, String identifier, String reqId,
-			String sign) {
+			String licence, String sign) {
 		super(clientId, roundStr, appKey, token, identifier, reqId, sign);
+		this.licence = licence;
 	}
 
 
