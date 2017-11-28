@@ -40,7 +40,7 @@
                              <div class="input-group-addon">
                                  <i class="fa fa-key"></i>
                              </div>
-                             <input type="text" class="form-control">
+                             <input type="password" class="form-control">
                          </div><!-- /.input group -->
                     </div> 
                 </div>
