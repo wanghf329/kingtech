@@ -31,5 +31,10 @@ public class HomeApiController {
 		financeService.inputInstitutionInfo();
 		return null;
 	}  
+	
+	
+	@RequestMapping(method = RequestMethod.GET,value="/login")
+	public String login(Model model) { 
+		return "/login";
+	} 
 }
-
