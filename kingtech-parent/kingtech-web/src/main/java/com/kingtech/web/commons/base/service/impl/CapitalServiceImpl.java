@@ -1,5 +1,7 @@
 package com.kingtech.web.commons.base.service.impl;
 
+import java.util.List;
+
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,16 +20,23 @@ public class CapitalServiceImpl implements CapitalService{
 
 	@Override
 	@Transactional
-	public void addNew(String financingChannel, double financingMoney,
+	public Capital addNew(String financingChannel, double financingMoney,
 			String financingTime, String expirationTime, String replyTime,String branchId) {
 		try {
-			capitalDao.save(new Capital(financingChannel,financingMoney,
+			Capital capital = capitalDao.save(new Capital(financingChannel,financingMoney,
 					DateUtils.parseDate(financingTime, "yyyy-MM-dd"),
 					DateUtils.parseDate(financingTime, "yyyy-MM-dd"),
 					DateUtils.parseDate(financingTime, "yyyy-MM-dd"),branchId,"11100011",PushStatus.INPROSESS));
+			return capital;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return null;
+	}
+
+	@Override
+	public List<Capital> listAll() {
+		return (List)capitalDao.findAll();
 	}
 
 }

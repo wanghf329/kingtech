@@ -108,18 +108,21 @@
                                             <th>状态</th>
                                             <th>操作</th>
                                         </tr>
-                                        <tr>
-                                            <td>网络</td> 
-                                            <td class="text-red"><i class="fa fa-jpy"/>20.6</td>
-                                            <td>2009-04-15 14：25：30</td>
-                                            <td>2016-04-15 14：25：30</td>
-                                            <td></td> 
-                                            <td><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span>
-                                            	<span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span>
-                                            	<span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span>
-                                            </td>
-                                            <td><a href="javascript:void(0)"><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a></td>
-                                        </tr>
+                                        <c:forEach var="it" items="${list}">
+	                                        <tr>
+	                                            <td>${it.financingChannel}</td>  
+	                                            <td class="text-red"><i class="fa fa-jpy"/><strong>${it.financingMoney}</strong></td> 
+	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.financingTime}"></fmt:formatDate></td>
+	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.expirationTime}"></fmt:formatDate></td>
+	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.replyTime}"></fmt:formatDate></td> 
+	                                            <td>
+	                                            	<c:if test="${it.pushStatus=='SUCCESS'}"><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span></c:if>
+	                                            	<c:if test="${it.pushStatus=='INPROSESS'}"><span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span></c:if>
+	                                            	<c:if test="${it.pushStatus=='FAILED'}"><span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span></c:if>
+	                                            </td>
+	                                            <td><a href="javascript:void(0)"><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a></td>
+	                                        </tr>
+                                        </c:forEach>
                                     </table>
                                 </div><!-- /.box-body -->
                                 <div class="box-footer clearfix">

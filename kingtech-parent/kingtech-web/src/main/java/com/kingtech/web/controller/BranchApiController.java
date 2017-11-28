@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kingtech.common.utils.DataTablesResponse;
 import com.kingtech.common.utils.Response;
 import com.kingtech.dao.entity.Branch;
+import com.kingtech.dao.entity.Capital;
 import com.kingtech.web.commons.base.service.BranchService;
 import com.kingtech.web.commons.base.service.CapitalService;
 
@@ -46,6 +47,7 @@ public class BranchApiController {
 	
 	@RequestMapping(method = RequestMethod.GET,value="/capitalList")
 	public String capitalList(Model model) { 
+		model.addAttribute("list",capitalService.listAll());
 		return "/branch/capitalList";
 	}  
 	
@@ -90,7 +92,7 @@ public class BranchApiController {
 							 double financingMoney, String financingTime, 
 							 String expirationTime,
 							 String replyTime) {
-		capitalService.addNew(financingChannel, financingMoney, financingTime, expirationTime, replyTime, "BRANCHID");
-		return "/branch/branchBaseList";
+		Capital cap = capitalService.addNew(financingChannel, financingMoney, financingTime, expirationTime, replyTime, "BRANCHID");
+		return "redirect:/branch/capitalList";
 	}
 }
