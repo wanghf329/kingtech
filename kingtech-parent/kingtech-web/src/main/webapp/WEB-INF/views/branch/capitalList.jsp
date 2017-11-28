@@ -10,6 +10,9 @@
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         <!-- bootstrap 3.0.2 -->
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        
+        <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
+        
         <!-- font Awesome -->
         <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
         <!-- Ionicons -->
@@ -56,13 +59,13 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                                                                        资本信息列表
+                                                                        机构资本信息列表
                         <small></small>
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
-                        <li><a href="#">业务办理</a></li>
-                        <li class="active">资本信息</li>
+                        <li><a href="#">机构信息</a></li>
+                        <li class="active">机构资本信息</li>
                     </ol>
                 </section>
 
@@ -76,51 +79,48 @@
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
-							<h4 class="modal-title" id="myModalLabel">合同录入</h4>
+							<h4 class="modal-title" id="myModalLabel">机构资本信息录入</h4>
 						</div>
 						<div class="modal-body">
 							<form class="form-horizontal">
 								<div class="form-group">
-									<label for="inputEmail3" class="col-sm-2 control-label">合同名称</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="contractName">
+									<label for="#financingChannel" class="col-sm-2 control-label">融资渠道</label>
+									<div class="col-sm-8 input-group">
+										<input type="text" class="form-control" id="financingChannel">
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="inputPassword3" class="col-sm-2 control-label">活动名称</label>
-									<div class="col-sm-8">
+									<label for="#financingMoney" class="col-sm-2 control-label">融资金额</label>
+									<div class="col-sm-8 input-group">
+										<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
 										<input type="text" class="form-control"
-											id="activityName">
+											id="financingMoney">
+										<span class="input-group-addon"><i class="fa">万元</i></span>
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="inputPassword3" class="col-sm-2 control-label">订单号</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control"
-											id="orderId">
+									<label for="financingTime" class="col-sm-2 control-label">融资时间</label>
+									<div class="col-sm-8 input-group">
+										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+										<input type="text" class="form-control pull-right timepicker" id="financingTime">
 									</div>
 								</div>
+								
 								<div class="form-group">
-									<label for="inputPassword3" class="col-sm-2 control-label">订单名称</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control"
-											id="orderName">
+									<label for="expirationTime" class="col-sm-2 control-label">到期时间</label>
+									<div class="col-sm-8 input-group">
+										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+										<input type="text" class="form-control pull-right timepicker" id="expirationTime">
 									</div>
 								</div>
+								
 								<div class="form-group">
-									<label for="inputPassword3" class="col-sm-2 control-label">充值金额</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control"
-											id="amount">
+									<label for="replyTime" class="col-sm-2 control-label">实际还款时间</label>
+									<div class="col-sm-8 input-group">
+										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+										<input type="text" class="form-control pull-right timepicker" id="replyTime">
 									</div>
 								</div>
-								<div class="form-group">
-									<label for="inputPassword3" class="col-sm-2 control-label">备注</label>
-									<div class="col-sm-8">
-										<textarea class="form-control"
-											id="discription"></textarea>
-									</div>
-								</div> 																											
 							</form>						
 						</div>
 						<div class="modal-footer">
@@ -155,8 +155,8 @@
                                         <tr>
                                             <td>网络</td> 
                                             <td class="text-red"><i class="fa fa-jpy"/>20.6</td>
-                                            <td>2009-04-15</td>
-                                            <td>2016-04-15</td>
+                                            <td>2009-04-15 14：25：30</td>
+                                            <td>2016-04-15 14：25：30</td>
                                             <td></td>
                                             <td><a><strong>修改<a><strong></td> 
                                         </tr>
@@ -187,6 +187,10 @@
         <script src="js/AdminLTE/app.js" type="text/javascript"></script>
         <script src="bujs/main.js" type="text/javascript"></script>
         
+        <script src="js/plugins/datepicker/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+        
+        <script src="js/plugins/datepicker/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"/></script>
+        
         <script type="text/javascript">
         	menuChecked("#capitalList");
         	
@@ -204,6 +208,17 @@
         		$.post("recharge/create",data,function(res){
         			alert(res);
         		});
+        	});
+        	
+        	$(function () {  
+        		 $(".timepicker").datetimepicker({
+        			 	minView: "0", //选择日期后，不会再跳转去选择时分秒 
+        			    language:  'zh-CN',
+        			    format: 'yyyy-mm-dd hh:ii:ss',
+        			    todayBtn:  1,
+        			    autoclose: 1,
+        		    });
+        		
         	});
         </script>
 

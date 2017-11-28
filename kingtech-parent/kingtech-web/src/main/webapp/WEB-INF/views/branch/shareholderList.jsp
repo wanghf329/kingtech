@@ -16,6 +16,8 @@
         <link href="../../css/ionicons.min.css" rel="stylesheet" type="text/css" />
         <!-- Theme style -->
         <link href="css/AdminLTE.css" rel="stylesheet" type="text/css" />
+        
+         <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -76,51 +78,69 @@
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
-							<h4 class="modal-title" id="myModalLabel">合同录入</h4>
+							<h4 class="modal-title" id="myModalLabel">机构股东信息录入</h4>
 						</div>
 						<div class="modal-body">
 							<form class="form-horizontal">
 								<div class="form-group">
-									<label for="inputEmail3" class="col-sm-2 control-label">合同名称</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="contractName">
+									<label for="#partnerType" class="col-sm-2 control-label">股东类型</label>
+									<div class="col-sm-8 input-group">
+					                  <div class="radio">
+					                      <input type="radio" name="optionsRadios" id="partnerType" value="1" checked="">自然人股东
+					                   	  <input type="radio" name="optionsRadios" id="partnerType" value="2" checked="">企业股东
+					                  </div>
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="inputPassword3" class="col-sm-2 control-label">活动名称</label>
-									<div class="col-sm-8">
+									<label for="#holder" class="col-sm-2 control-label">持股人</label>
+									<div class="col-sm-8 input-group">
 										<input type="text" class="form-control"
-											id="activityName">
+											id="holder">
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="inputPassword3" class="col-sm-2 control-label">订单号</label>
-									<div class="col-sm-8">
+									<label for="#holdingScale" class="col-sm-2 control-label">持股比例</label>
+									<div class="col-sm-8 input-group">
 										<input type="text" class="form-control"
-											id="orderId">
+											id="holdingScale">
+										<span class="input-group-addon"><i class="fa">%</i></span>
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="inputPassword3" class="col-sm-2 control-label">订单名称</label>
-									<div class="col-sm-8">
+									<label for="#contributionAmount" class="col-sm-2 control-label">出资金额</label>
+									<div class="col-sm-8 input-group">
+										<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
 										<input type="text" class="form-control"
-											id="orderName">
+											id="contributionAmount">
+										<span class="input-group-addon"><i class="fa">万元</i></span>
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="inputPassword3" class="col-sm-2 control-label">充值金额</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control"
-											id="amount">
+									<label for="#joinTime" class="col-sm-2 control-label">入股时间</label>
+									<div class="col-sm-8 input-group">
+										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+										<input type="text" class="form-control pull-right datepicker" id="joinTime">
 									</div>
 								</div>
+								
 								<div class="form-group">
-									<label for="inputPassword3" class="col-sm-2 control-label">备注</label>
+									<label for="#gender" class="col-sm-2 control-label">性别</label>
 									<div class="col-sm-8">
-										<textarea class="form-control"
-											id="discription"></textarea>
+										<div class="radio input-group">
+					                      <input type="radio" name="optionsRadios" id="gender" value="1" checked="">男	
+					                   	  <input type="radio" name="optionsRadios" id="gender" value="2" checked="">女
+					                  </div>
 									</div>
-								</div> 																											
+								</div>
+								
+								<div class="form-group">
+									<label for="#quitTime" class="col-sm-2 control-label">退出时间</label>
+									<div class="col-sm-8 input-group">
+										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+										<input type="text" class="form-control pull-right datepicker" id="quitTime">
+									</div>
+								</div>
+																																
 							</form>						
 						</div>
 						<div class="modal-footer">
@@ -189,6 +209,8 @@
         <script src="js/AdminLTE/app.js" type="text/javascript"></script>
         <script src="bujs/main.js" type="text/javascript"></script>
         
+        <script src="js/plugins/datepicker/bootstrap-datepicker.min.js"></script>
+        
         <script type="text/javascript">
         	menuChecked("#shareholderList");
         	
@@ -206,6 +228,16 @@
         		$.post("recharge/create",data,function(res){
         			alert(res);
         		});
+        	});
+        	
+        	$(function () {  
+        		$('.datepicker').datetimepicker({
+        			minView: "2", //选择日期后，不会再跳转去选择时分秒 
+    			    language:  'zh-CN',
+    			    format: 'yyyy-mm-dd hh:ii:ss',
+    			    todayBtn:  1,
+    			    autoclose: 1,});
+        		
         	});
         </script>
 

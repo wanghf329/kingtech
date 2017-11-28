@@ -1,9 +1,15 @@
 package com.kingtech.model;
 
 
+import java.util.Map;
+import java.util.Random;
+
 import lombok.Data;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.kingtech.common.config.BaseConfig;
+import com.kingtech.common.utils.RandomUtil;
+import com.kingtech.common.utils.SignUtils;
 
 /**
  * 机构基本信息
@@ -87,14 +93,13 @@ public class InstitutionInfoModel extends BaseModel {
 	
 	
 	
-	public InstitutionInfoModel(String clientId, String roundStr,
-			String appKey, String token, String identifier, String reqId,
+	public InstitutionInfoModel(String roundStr,String identifier, String reqId,
 			String sign, String corporateName, String legalRepresentative,
 			String regCapital, String buildDate, String openingDate,
 			String business_addr, String site_area, String organizationCode,
 			String licence, String nationalRegNum, String landRegNum,
 			String businessScope, String create_time, String updateTime) {
-		super(clientId, roundStr, appKey, token, identifier, reqId, sign);
+		super(BaseConfig.CLIENTID, roundStr,BaseConfig.APPKEY,SignUtils.getToken(roundStr), identifier, reqId, sign);
 		this.corporateName = corporateName;
 		this.legalRepresentative = legalRepresentative;
 		this.regCapital = regCapital;
@@ -121,9 +126,6 @@ public class InstitutionInfoModel extends BaseModel {
 
 
 
-	public InstitutionInfoModel() {
-	}
-	
 	
 	
 	
