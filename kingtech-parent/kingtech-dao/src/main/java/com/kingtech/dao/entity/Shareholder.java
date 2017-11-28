@@ -11,6 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import com.kingtech.dao.entity.base.RecordEntity;
+import com.kingtech.enums.PushStatus;
 
 /**
  * 股东信息表
@@ -20,7 +21,6 @@ import com.kingtech.dao.entity.base.RecordEntity;
 @Entity
 @Table(name="TB_SHAREHOLDER")
 @NoArgsConstructor
-@AllArgsConstructor
 public class Shareholder extends RecordEntity {
 	
 	// 股东类型
@@ -54,4 +54,19 @@ public class Shareholder extends RecordEntity {
 	// 机构编号
 	@Column(name="BRANCH_ID")
 	private String branchId;
+
+	public Shareholder(String partnerType, String holder, Double holdingScale, Double contributionAmount,
+			Date joinTime, int gender, Date quitTime, String branchId, String reqId, PushStatus pushStatus) {
+		super(reqId, pushStatus);
+		this.partnerType = partnerType;
+		this.holder = holder;
+		this.holdingScale = holdingScale;
+		this.contributionAmount = contributionAmount;
+		this.joinTime = joinTime;
+		this.gender = gender;
+		this.quitTime = quitTime;
+		this.branchId = branchId;
+	}
+	
+	
 }
