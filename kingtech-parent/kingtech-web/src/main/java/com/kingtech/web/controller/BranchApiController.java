@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +16,7 @@ import com.kingtech.common.utils.DataTablesResponse;
 import com.kingtech.common.utils.Response;
 import com.kingtech.dao.entity.Branch;
 import com.kingtech.dao.entity.Capital;
+import com.kingtech.model.CapitalModel;
 import com.kingtech.web.commons.base.service.BranchService;
 import com.kingtech.web.commons.base.service.CapitalService;
 import com.kingtech.web.commons.base.service.ShareholderService;
@@ -92,11 +94,11 @@ public class BranchApiController {
 	
     
 	@RequestMapping(value = "/add/capital", method = RequestMethod.POST)
-	public String addCapital(Model model, String financingChannel,
+	public String addCapital(Model model, String id,String financingChannel,
 							 double financingMoney, String financingTime, 
 							 String expirationTime,
 							 String replyTime) {
-		Capital cap = capitalService.addNew(financingChannel, financingMoney, financingTime, expirationTime, replyTime, "BRANCHID");
+		Capital cap = capitalService.addNew(id,financingChannel, financingMoney, financingTime, expirationTime, replyTime, "BRANCHID");
 		return "redirect:/branch/capitalList";
 	}
 	
@@ -108,6 +110,12 @@ public class BranchApiController {
 		System.out.println("holdingScale:  " + holdingScale);
 		shareholderService.addNew(partnerType, holder, holdingScale, contributionAmount,
 								joinTime, gender, quitTime, "BRANCHID");
-		return "/branch/shareholderList";
+		return "redirect:/branch/shareholderList";
+}
+
+	@ResponseBody
+	@RequestMapping(value = "/getCapital/{id}", method = RequestMethod.GET)
+	public CapitalModel addCapital(Model model,@PathVariable("id") String id) {
+		return capitalService.getById(id);
 	}
 }

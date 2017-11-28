@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 
 import com.kingtech.dao.entity.base.RecordEntity;
 import com.kingtech.enums.EmployeeStatus;
+import com.kingtech.enums.PushStatus;
 
 /**
  * 员工信息表
@@ -23,7 +24,6 @@ import com.kingtech.enums.EmployeeStatus;
 @Entity
 @Table(name="TB_EMPLOYEE")
 @NoArgsConstructor
-@AllArgsConstructor
 public class Employee extends RecordEntity {
 	
 	// 机构名称
@@ -90,4 +90,29 @@ public class Employee extends RecordEntity {
 	// 机构编号
 	@Column(name="BRANCH_ID")
 	private String branchId;
+
+	public Employee(String name, String loginName, String phone, String email, String postalAddress,
+			String department, String sex, String idNumber, String education,
+			int executiveFlag, String post, Date replyTime, Date entryTime,
+			EmployeeStatus status, Date quitTime, String branchId, String reqId, PushStatus pushStatus) {
+		super(reqId, pushStatus);
+		this.name = name;
+		this.loginName = loginName;
+		this.phone = phone;
+		this.email = email;
+		this.postalAddress = postalAddress;
+		this.department = department;
+		this.sex = sex;
+		this.idNumber = idNumber;
+		this.education = education;
+		this.executiveFlag = executiveFlag;
+		this.post = post;
+		this.replyTime = replyTime;
+		this.entryTime = entryTime;
+		this.status = status;
+		this.quitTime = quitTime;
+		this.branchId = branchId;
+	}
+	
+	
 }

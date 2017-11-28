@@ -48,7 +48,7 @@ public class CapitalModel extends BaseRequestModel {
 			String financingChannel, String financingMoney, String financingTime,
 			String expirationTime, String replyTime, String createTime,
 			String updateTime) {
-		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId, sign);
+		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId, sign,null);
 		this.financingChannel = financingChannel;
 		this.financingMoney = financingMoney;
 		this.financingTime = financingTime;
@@ -57,11 +57,15 @@ public class CapitalModel extends BaseRequestModel {
 		this.createTime = createTime;
 		this.updateTime = updateTime;
 	}
-	
-	public CapitalModel(String clientId, String roundStr,
-			String appKey, String token, String identifier, String reqId,
-			String sign) {
-		super(clientId, roundStr, appKey, token, identifier, reqId, sign);
+
+
+	public CapitalModel(String id,String financingChannel, Double financingMoney,
+			String financingTime, String expirationTime, String replyTime) {
+		super(id);
+		this.financingChannel = financingChannel;
+		this.financingMoney = financingMoney;
+		this.financingTime = financingTime;
+		this.expirationTime = expirationTime;
+		this.replyTime = replyTime;
 	}
-	
 }
