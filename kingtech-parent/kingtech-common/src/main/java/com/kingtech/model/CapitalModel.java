@@ -12,7 +12,7 @@ import com.kingtech.common.utils.SignUtils;
  * @version: v1.0
  */
 @Data
-public class CapitalModel extends BaseModel {
+public class CapitalModel extends BaseRequestModel {
 	
 	// 融资渠道
 	@JSONField(name="financing_channel",label="sign")

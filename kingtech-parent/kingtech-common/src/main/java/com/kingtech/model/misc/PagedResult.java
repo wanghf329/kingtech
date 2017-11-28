@@ -6,13 +6,13 @@ package com.kingtech.model.misc;
 
 import java.util.List;
 
-import com.kingtech.model.BaseModel;
+import com.kingtech.model.BaseRequestModel;
 
 /**
  *
  * @author whf
  */
-public class PagedResult<T> extends BaseModel {
+public class PagedResult<T> extends BaseRequestModel {
 
 	private static final long rserialVersionUID = 20131015L;
 
