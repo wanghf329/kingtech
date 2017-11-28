@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -77,6 +79,7 @@ public class Employee extends UuidEntity {
 	private Date entryTime;
 	
 	// 是否在职，0-离职，1-在职
+	@Enumerated(EnumType.ORDINAL)
 	@Column(name="STATUS")
 	private EmployeeStatus status;
 	

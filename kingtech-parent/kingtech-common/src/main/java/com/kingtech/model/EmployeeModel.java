@@ -1,15 +1,10 @@
 package com.kingtech.model;
 
-import java.util.Date;
-
-import javax.persistence.Column;
-
 import lombok.Data;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.kingtech.common.config.BaseConfig;
 import com.kingtech.common.utils.SignUtils;
-import com.kingtech.enums.EmployeeStatus;
 
 /**
  * 员工信息表
@@ -65,35 +60,35 @@ public class EmployeeModel extends BaseModel {
 	
 	// 批复时间
 	@JSONField(name="reply_time")
-	private Date replyTime;
+	private String replyTime;
 		
 	// 入职时间
 	@JSONField(name="entry_time")
-	private Date entryTime;
+	private String entryTime;
 	
 	// 是否在职，0-离职，1-在职
 	@JSONField(name="status")
-	private EmployeeStatus status;
+	private String status;
 	
 	// 离职时间
 	@JSONField(name="quit_time")
-	private Date quitTime;
+	private String quitTime;
 	
 	// 创建时间
 	@JSONField(name="create_time")
-	private Date createTime;
+	private String createTime;
 	
 	// 修改时间
 	@JSONField(name="update_time")
-	private Date updateTime;
+	private String updateTime;
 
 	public EmployeeModel(String clientId, String roundStr, String appKey,
 			String token, String identifier, String reqId, String sign,
 			String name, String loginName, String phone, String email,
 			String postalAddress, String department, String sex,
 			String idNumber, String education, int executiveFlag, String post,
-			Date replyTime, Date entryTime, EmployeeStatus status,
-			Date quitTime, Date createTime, Date updateTime) {
+			String replyTime, String entryTime, String status,
+			String quitTime, String createTime, String updateTime) {
 		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId, sign);
 		this.name = name;
 		this.loginName = loginName;

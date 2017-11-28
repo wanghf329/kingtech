@@ -1,7 +1,5 @@
 package com.kingtech.model;
 
-import java.util.Date;
-
 import lombok.Data;
 
 import com.alibaba.fastjson.annotation.JSONField;
@@ -34,7 +32,7 @@ public class ShareholderModel extends BaseModel {
 
 	// 入股时间
 	@JSONField(name="join_time",label="sign")
-	private Date joinTime;
+	private String joinTime;
 	
 	// 性别
 	@JSONField(name="gender")
@@ -42,21 +40,21 @@ public class ShareholderModel extends BaseModel {
 	
 	// 离职时间
 	@JSONField(name="quit_time")
-	private Date quitTime;
+	private String quitTime;
 	
 	// 创建时间
 	@JSONField(name="create_time")
-	private Date createTime;
+	private String createTime;
 	
 	// 修改时间
 	@JSONField(name="update_time")
-	private Date updateTime;
+	private String updateTime;
 
 	public ShareholderModel(String clientId, String roundStr, String appKey,
 			String token, String identifier, String reqId, String sign,
 			String partnerType, String holder, Double holdingScale,
-			Double contributionAmount, Date joinTime, int gender,
-			Date quitTime, Date createTime, Date updateTime) {
+			Double contributionAmount, String joinTime, int gender,
+			String quitTime, String createTime, String updateTime) {
 		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId, sign);
 		this.partnerType = partnerType;
 		this.holder = holder;

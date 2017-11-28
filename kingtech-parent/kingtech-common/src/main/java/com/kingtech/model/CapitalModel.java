@@ -1,7 +1,5 @@
 package com.kingtech.model;
 
-import java.util.Date;
-
 import lombok.Data;
 
 import com.alibaba.fastjson.annotation.JSONField;
@@ -26,30 +24,30 @@ public class CapitalModel extends BaseModel {
 
 	// 融资时间
 	@JSONField(name="financing_time",label="sign")
-	private Date financingTime;
+	private String financingTime;
 
 	// 到期时间
 	@JSONField(name="expiration_time",label="sign")
-	private Date expirationTime;
+	private String expirationTime;
 
 	// 实际还款时间
 	@JSONField(name="reply_time")
-	private Date replyTime;
+	private String replyTime;
 	
 	// 创建时间
 	@JSONField(name="create_time")
-	private Date createTime;
+	private String createTime;
 	
 	// 修改时间
 	@JSONField(name="update_time")
-	private Date updateTime;
+	private String updateTime;
 	
 	
 	public CapitalModel(String clientId, String roundStr, String appKey,
 			String token, String identifier, String reqId, String sign,
-			String financingChannel, Double financingMoney, Date financingTime,
-			Date expirationTime, Date replyTime, Date createTime,
-			Date updateTime) {
+			String financingChannel, Double financingMoney, String financingTime,
+			String expirationTime, String replyTime, String createTime,
+			String updateTime) {
 		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId, sign);
 		this.financingChannel = financingChannel;
 		this.financingMoney = financingMoney;
