@@ -82,7 +82,7 @@
 									<label for="businessaddr" class="col-sm-3 control-label">经营地址</label>
 									<div class="col-sm-6 input-group">
 										<input type="text"  class="form-control"
-											name = "businessaddr" id="businessaddr"></input>
+											name = "businessAddr" id="businessaddr"></input>
 									</div>
 								</div> 
 								<div class="form-group ">
