@@ -1,16 +1,20 @@
 package com.kingtech.web.commons.base.service.impl;
 
+import java.util.Date;
+
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kingtech.common.utils.DateUtil;
 import com.kingtech.common.utils.Response;
 import com.kingtech.dao.entity.Branch;
 import com.kingtech.dao.rdbms.BranchDAO;
+import com.kingtech.enums.PushStatus;
 import com.kingtech.web.commons.base.service.BranchService;
 
 @Service
@@ -27,13 +31,16 @@ public class BranchServiceImpl implements  BranchService {
 	}
 
 	@Override
-	public Response addNewBranchInfo(String corporateName,String legalRepresentative,
-			String regCapital, String buildDate, String openingDate,
+	@Transactional
+	public void addNewBranchInfo(String corporateName,String legalRepresentative,
+			double regCapital, String buildDate, String openingDate,
 			String siteArea, String businessaddr, String organizationCode,
 			String licence, String nationalRegNum,String landRegNum, String businessScope) {
-		Branch branch = new Branch( corporateName, 
+		Branch branch = new Branch( "111111",
+									PushStatus.INPROSESS,
+									corporateName, 
 									legalRepresentative,
-									Double.valueOf(regCapital), 
+									regCapital, 
 									DateUtil.dateFormate(buildDate, "YYYY-MM-DD"), 
 									DateUtil.dateFormate(openingDate,"YYYY-MM-DD"), 
 									businessaddr,
@@ -43,12 +50,12 @@ public class BranchServiceImpl implements  BranchService {
 									nationalRegNum, 
 									landRegNum, 
 									businessScope);
-		branch = branchDao.save(branch);
-		if(branch.getId() == null ) {
-			return Response.failure(null, "添加失败");
+		try {
+			branch = branchDao.save(branch);
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
-		
-		return Response.success();
+
 		
 	}
 }

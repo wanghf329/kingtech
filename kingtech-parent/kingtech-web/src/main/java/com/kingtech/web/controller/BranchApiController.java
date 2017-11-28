@@ -52,7 +52,8 @@ public class BranchApiController {
 	
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
-    public DataTablesResponse findAssetList(Integer draw, 
+    public DataTablesResponse findAssetList(Model model,
+    										Integer draw, 
 									    	@RequestParam("start") Integer firstIndex,
 									        @RequestParam("length") Integer pageSize) {
 		
@@ -67,10 +68,10 @@ public class BranchApiController {
     }
     
     @RequestMapping(value = "/add/branch", method=RequestMethod.POST )
-    @ResponseBody
-    public Response addBranchInfo(@RequestParam("corporateName") String corporateName,
+    public String addBranchInfo(Model model,
+    							 @RequestParam("corporateName") String corporateName,
     							 @RequestParam("legalRepresentative") String legalRepresentative,
-						   		 @RequestParam("regCapital") String regCapital,
+    							 double regCapital,
 						   		 @RequestParam("buildDate") String buildDate,
 						   		 @RequestParam("openingDate") String openingDate,
 						   		 @RequestParam("siteArea") String siteArea,
@@ -80,7 +81,8 @@ public class BranchApiController {
 						   		 @RequestParam("nationalRegNum") String nationalRegNum,
 						   		 @RequestParam("landRegNum") String landRegNum,
 						   		 @RequestParam("businessScope") String businessScope) {
-    	return Response.success();
+    	branchService.addNewBranchInfo(corporateName, legalRepresentative, regCapital, buildDate, openingDate, siteArea, businessAddr, organizationCode, licence, nationalRegNum, landRegNum, businessScope);
+    	return "/branch/branchBaseList";
     	
     }
 	

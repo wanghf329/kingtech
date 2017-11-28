@@ -14,9 +14,9 @@ public interface BranchService {
 	public Page<Branch> listByInstitutionInfo(Pageable pageable);
 	
 	
-	public Response addNewBranchInfo(String corporateName,
+	public void addNewBranchInfo(String corporateName,
 									String legalRepresentative,
-									String regCapital,
+									double regCapital,
 									String buildDate,
 									String openingDate,
 									String siteArea,
