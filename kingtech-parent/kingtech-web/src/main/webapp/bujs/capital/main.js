@@ -16,3 +16,14 @@ $(document).ready(function () {
 $(".saveRecordBtn").click(function(){ 
 	$("#form-horizontal").submit();
 });
+
+function getCapital(id){
+	$.get('branch/getCapital/'+id,null,function(res){
+		$("input[name='financingChannel']").val(res.financingChannel);
+		$("input[name='financingMoney']").val(res.financingMoney);
+		$("input[name='financingTime']").val(res.financingTime);
+		$("input[name='expirationTime']").val(res.expirationTime);
+		$("input[name='replyTime']").val(res.replyTime);
+		$("#rechargeModel").modal();
+	});
+}
