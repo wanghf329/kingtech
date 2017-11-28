@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kingtech.common.utils.DataTablesResponse;
-import com.kingtech.common.utils.Response;
 import com.kingtech.dao.entity.Branch;
 import com.kingtech.dao.entity.Capital;
 import com.kingtech.model.CapitalModel;
+import com.kingtech.model.InstitutionInfoModel;
 import com.kingtech.web.commons.base.service.BranchService;
 import com.kingtech.web.commons.base.service.CapitalService;
 
@@ -34,6 +34,7 @@ public class BranchApiController {
 	
 	@RequestMapping(method = RequestMethod.GET,value="")
 	public String branchBaseInfo(Model model) { 
+		model.addAttribute("list",branchService.listByInstitutionInfo());
 		return "/branch/branchBaseList";
 	} 
 	
@@ -44,6 +45,7 @@ public class BranchApiController {
 	
 	@RequestMapping(method = RequestMethod.GET,value="/shareholderList")
 	public String shareholderList(Model model) { 
+		model.addAttribute("list",capitalService.listAll());
 		return "/branch/shareholderList";
 	}  
 	
@@ -53,24 +55,6 @@ public class BranchApiController {
 		return "/branch/capitalList";
 	}  
 	
-	
-    @RequestMapping(value = "/list", method = RequestMethod.POST)
-    @ResponseBody
-    public DataTablesResponse findAssetList(Model model,
-    										Integer draw, 
-									    	@RequestParam("start") Integer firstIndex,
-									        @RequestParam("length") Integer pageSize) {
-		
-		Pageable pageable;
-		if(pageSize == -1){ //不分页
-			pageable = null;
-		}else{
-			pageable = new PageRequest(firstIndex/pageSize,pageSize);
-		}
-		Page<Branch> page = branchService.listByInstitutionInfo(pageable);
-		return DataTablesResponse.format(draw, page);
-    }
-    
     @RequestMapping(value = "/add/branch", method=RequestMethod.POST )
     public String addBranchInfo(Model model,
     							 @RequestParam("corporateName") String corporateName,
@@ -105,4 +89,12 @@ public class BranchApiController {
 	public CapitalModel addCapital(Model model,@PathVariable("id") String id) {
 		return capitalService.getById(id);
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/getBranchInfo/{id}", method = RequestMethod.GET)
+	public InstitutionInfoModel changeBranch(Model model,@PathVariable("id") String id) {
+		return capitalService.getById(id);
+	}
+	
 }

@@ -1,20 +1,18 @@
 package com.kingtech.web.commons.base.service.impl;
 
-import java.util.Date;
+import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kingtech.common.utils.DateUtil;
-import com.kingtech.common.utils.Response;
 import com.kingtech.dao.entity.Branch;
 import com.kingtech.dao.rdbms.BranchDAO;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.model.InstitutionInfoModel;
 import com.kingtech.web.commons.base.service.BranchService;
 
 @Service
@@ -25,8 +23,8 @@ public class BranchServiceImpl implements  BranchService {
 	private BranchDAO branchDao;
 	
 	@Override
-	public Page<Branch> listByInstitutionInfo(Pageable pageable) {
-		Page<Branch> branchs = branchDao.findAll(pageable);
+	public List listByInstitutionInfo() {
+		List branchs = (List)branchDao.findAll();
 		return branchs;
 	}
 
@@ -57,5 +55,14 @@ public class BranchServiceImpl implements  BranchService {
 		}
 
 		
+	}
+
+	@Override
+	public InstitutionInfoModel getBranchById(String id) {
+		Branch branch = branchDao.findOne(id);
+		if(branch == null) {
+			return null;
+		}
+		return  new InstitutionInfoModel()
 	}
 }

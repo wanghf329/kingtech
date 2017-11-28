@@ -1,17 +1,16 @@
 package com.kingtech.web.commons.base.service;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import java.util.List;
 
-import com.kingtech.common.utils.Response;
 import com.kingtech.dao.entity.Branch;
+import com.kingtech.model.InstitutionInfoModel;
 
 
 
 public interface BranchService {
 	
 	
-	public Page<Branch> listByInstitutionInfo(Pageable pageable);
+	public List<Branch> listByInstitutionInfo();
 	
 	
 	public void addNewBranchInfo(String corporateName,
@@ -26,4 +25,7 @@ public interface BranchService {
 									String nationalRegNum,
 									String landRegNum,
 									String businessScope);
+	
+	
+	public InstitutionInfoModel getBranchById(String id);
 }
