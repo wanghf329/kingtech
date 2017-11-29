@@ -15,6 +15,7 @@ import com.kingtech.dao.entity.Branch;
 import com.kingtech.dao.entity.Capital;
 import com.kingtech.model.BranchInfoModel;
 import com.kingtech.model.CapitalModel;
+import com.kingtech.model.EmployeeModel;
 import com.kingtech.model.ShareholderModel;
 import com.kingtech.web.commons.base.service.BranchService;
 import com.kingtech.web.commons.base.service.CapitalService;
@@ -46,6 +47,7 @@ public class BranchApiController {
 	
 	@RequestMapping(method = RequestMethod.GET,value="/personalList")
 	public String personalList(Model model) { 
+		model.addAttribute("list", employeeService.listAll());
 		return "/branch/personalList";
 	}  
 	
@@ -125,8 +127,6 @@ public class BranchApiController {
 		return capitalService.getById(id);
 	}
 	
-
-	
 	@ResponseBody
 	@RequestMapping(value = "/getBranchInfo/{id}", method = RequestMethod.GET)
 	public BranchInfoModel changeBranch(Model model,@PathVariable("id") String id) {
@@ -138,5 +138,17 @@ public class BranchApiController {
 		//capitalService.delById(id);
 		return "redirect:/branch/capitalList";
 	}
-
+	
+	@ResponseBody
+	@RequestMapping(value = "/getEmployee/{id}", method = RequestMethod.GET)
+	public EmployeeModel getEmployee(Model model,@PathVariable("id") String id) {
+		return employeeService.getById(id);
+	}
+	
+	@RequestMapping(value = "/delEmployee/{id}", method = RequestMethod.GET)
+	public String delEmployee(Model model,@PathVariable("id") String id) {
+		employeeService.delById(id);
+		return "redirect:/branch/personalList";
+	}
+	
 }
