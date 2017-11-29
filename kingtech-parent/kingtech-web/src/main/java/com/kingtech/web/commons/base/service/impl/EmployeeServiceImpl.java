@@ -44,10 +44,10 @@ public class EmployeeServiceImpl implements EmployeeService{
 				employee = new Employee(name,phone,phone,email,
 						postalAddress,department,sex,idNumber,education,
 						Integer.valueOf(executiveFlag),post,
-						replyTime == null ? null : DateUtils.parseDate(replyTime, "yyyy-MM-dd"),
+						StringUtils.isEmpty(replyTime) ? null : DateUtils.parseDate(replyTime, "yyyy-MM-dd"),
 						DateUtils.parseDate(entryTime, "yyyy-MM-dd"),
 						EmployeeStatus.getValue(status),
-						quitTime == null ? null : DateUtils.parseDate(quitTime, "yyyy-MM-dd"),
+						StringUtils.isEmpty(quitTime) ? null : DateUtils.parseDate(quitTime, "yyyy-MM-dd"),
 						branchId,creatRequstId.getReqId(),PushStatus.INITATION);
 			} else {
 				employee = employeeDao.findOne(id);
@@ -62,10 +62,10 @@ public class EmployeeServiceImpl implements EmployeeService{
 				employee.setEducation(education);
 				employee.setExecutiveFlag(Integer.valueOf(executiveFlag));
 				employee.setPost(post);
-				employee.setReplyTime(replyTime == null ? null : DateUtils.parseDate(replyTime, "yyyy-MM-dd"));
+				employee.setReplyTime(StringUtils.isEmpty(replyTime) ? null : DateUtils.parseDate(replyTime, "yyyy-MM-dd"));
 				employee.setEntryTime(DateUtils.parseDate(entryTime, "yyyy-MM-dd"));
 				employee.setStatus(EmployeeStatus.getValue(status));
-				employee.setQuitTime(quitTime == null ? null : DateUtils.parseDate(quitTime, "yyyy-MM-dd"));
+				employee.setQuitTime(StringUtils.isEmpty(quitTime) ? null : DateUtils.parseDate(quitTime, "yyyy-MM-dd"));
 				employee.setUpdateTime(new Date());
 				employee.setPushStatus(PushStatus.INITATION);
 			}
