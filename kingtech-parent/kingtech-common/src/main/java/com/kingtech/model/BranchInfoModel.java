@@ -137,6 +137,30 @@ public class BranchInfoModel extends BaseRequestModel {
 		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId);
 		this.licence = licence;
 	}
+
+
+
+	public BranchInfoModel(String id, String corporateName,
+			String legalRepresentative, String regCapital, String buildDate,
+			String openingDate, String businessAddr, String siteArea,
+			String organizationCode, String licence, String nationalRegNum,
+			String landRegNum, String businessScope) {
+		super(id);
+		this.corporateName = corporateName;
+		this.legalRepresentative = legalRepresentative;
+		this.regCapital = regCapital;
+		this.buildDate = buildDate;
+		this.openingDate = openingDate;
+		this.businessAddr = businessAddr;
+		this.siteArea = siteArea;
+		this.organizationCode = organizationCode;
+		this.licence = licence;
+		this.nationalRegNum = nationalRegNum;
+		this.landRegNum = landRegNum;
+		this.businessScope = businessScope;
+	}
+	
+	
 	
 	
 	
