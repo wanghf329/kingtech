@@ -9,12 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.druid.util.StringUtils;
-import com.kingtech.dao.entity.Capital;
 import com.kingtech.dao.entity.Employee;
 import com.kingtech.dao.rdbms.EmployeeDAO;
 import com.kingtech.enums.EmployeeStatus;
 import com.kingtech.enums.PushStatus;
-import com.kingtech.model.CapitalModel;
 import com.kingtech.model.EmployeeModel;
 import com.kingtech.web.commons.base.CreatRequstId;
 import com.kingtech.web.commons.base.service.EmployeeService;
@@ -44,7 +42,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 						DateUtils.parseDate(entryTime, "yyyy-MM-dd"),
 						EmployeeStatus.getValue(status),
 						quitTime == null ? null : DateUtils.parseDate(quitTime, "yyyy-MM-dd"),
-						branchId,creatRequstId.getReqId(),PushStatus.INPROSESS);
+						branchId,creatRequstId.getReqId(),PushStatus.INITATION);
 			} else {
 				employee = employeeDao.findOne(id);
 				employee.setName(name);
@@ -74,7 +72,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	
 	@Override
 	public List<Employee> listAll() {
-		return (List)employeeDao.findAll();
+		return (List<Employee>)employeeDao.findAll();
 	}
 
 	@Override

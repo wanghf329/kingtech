@@ -1,8 +1,15 @@
 $(document).ready(function () {          
       //调用函数，初始化表格  
       //initTable();  
-	  $('.datepicker').datepicker({autoclose: true });
+	  $('.datepicker').datetimepicker({
+  		minView: "2", //选择日期后，不会再跳转去选择时分秒 
+  	    language:  'zh-CN',
+  	    format: 'yyyy-mm-dd',
+  	    todayBtn:  1,
+  	    autoclose: 1,});
+	  
       menuChecked("#personalList"); 
+      
       $("#form-horizontal").validationEngine({ 
     	  validationEventTriggers:"keyup blur",
     	  inlineValidation: true,
@@ -11,6 +18,10 @@ $(document).ready(function () {
     	  autoHidePrompt:true,
     	  failure : function() { callFailFunction()  } 
       })
+});
+
+$("#resetBtn").click(function(){ 
+	$("#form-horizontal")[0].reset();
 });
 
 $(".saveRecordBtn").click(function(){ 
@@ -26,9 +37,9 @@ function getEmployee(id){
 		$("input[name='postalAddress']").val(res.postalAddress);
 		$("input[name='department']").val(res.department);
 		
-		console.log("res.sex2: " +res.sex);
-//		$("input[name='sex'][value='1']").attr("checked",true);
-		setRadio("sex",res.sex);
+//		$("input[name='sex']").parent().removeClass("checked");
+		$("input[name='sex'][value='"+res.sex+"']").parent().addClass("checked");
+		$("input[name='sex'][value='"+res.sex+"']").attr("checked",true);
 		$("input[name='idNumber']").val(res.idNumber);
 		$("input[name='education'][text="+res.education+"]").attr("selected",true);
 		$("input[name='executiveFlag'][value="+res.executiveFlag+"]").attr("checked",true);
@@ -39,17 +50,6 @@ function getEmployee(id){
 		$("input[name='quitTime']").val(res.quitTime);
 		$("#rechargeModel").modal();
 	});
-}
-
-function setRadio(rName,rValue){
-    var rObj = document.getElementsByName(rName);
-
-    for(var i = 0;i < rObj.length;i++){
-        if(rObj[i].value == rValue){
-        	console.log("set 1: ");
-            rObj[i].checked = true;
-        }
-    }
 }
 
 function delConfirm(id){

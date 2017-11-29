@@ -78,7 +78,7 @@
 									<label for="#sex" class="col-sm-2 control-label">性别</label>
 									<div class="col-sm-8 input-group">
 					                  <div class="radio">
-					                      <input type="radio" name="sex" value="1" >男
+					                      <input type="radio" name="sex" value="1" checked="">男
 					                   	  <input type="radio" name="sex" value="2" >女
 					                  </div>
 									</div>
@@ -176,8 +176,8 @@
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal">关闭</button> 
-							<button type="button" class="btn btn-danger">重置</button>								
-							<button type="button" class="btn btn-primary saveRecordBtn">保存</button>
+							<button type="reset" id="resetBtn" class="btn btn-danger">重置</button>								
+							<button type="submit" class="btn btn-primary saveRecordBtn">保存</button>
 						</div>
 					</div>
 				</div>
@@ -230,13 +230,14 @@
 	                                            	<c:if test="${it.status=='NUM0'}">离职</c:if>
 	                                            </td>
 	                                            <td>
+	                                            	<c:if test="${it.pushStatus=='INITATION'}"><span class="text-gray"><i class="text-gray fa fa-info-circle"></i>初始</span></c:if>
 	                                            	<c:if test="${it.pushStatus=='SUCCESS'}"><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span></c:if>
 	                                            	<c:if test="${it.pushStatus=='INPROSESS'}"><span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span></c:if>
 	                                            	<c:if test="${it.pushStatus=='FAILED'}"><span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span></c:if>
 	                                            </td>
 	                                            <td>
 	                                            	<a href="javascript:void(0)" onclick="getEmployee('${it.id}')"><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a>
-	                                            	<a href="javascript:void(0)" onclick="delConfirm('${it.id}')"><i class="text-red fa  fa-minus-circle"></i><strong>删除</strong></a>
+	                                            	<!-- <a href="javascript:void(0)" onclick="delConfirm('${it.id}')"><i class="text-red fa  fa-minus-circle"></i><strong>删除</strong></a> -->
 	                                            </td>
 	                                        </tr>
                                         </c:forEach>
