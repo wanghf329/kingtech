@@ -61,7 +61,8 @@
 									<label for="buildDate" class="col-sm-3 control-label">成立日期</label>
 									<div class="col-sm-6 input-group date">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										<input type="text" class="form-control pull-right datepicker validate[required]" name="buildDate" id="buildDate" data-errormessage="成立日期不能为空">
+										<input type="text" class="form-control pull-right datepicker validate[required]" name="buildDate"
+											readonly id="buildDate" data-errormessage="成立日期不能为空">
 									</div>
 								</div>
 								<div class="form-group">
@@ -69,7 +70,7 @@
 									<div class="col-sm-6 input-group date">
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										<input type="text" class="form-control pull-right datepicker validate[required]"
-										 name="openingDate"	id="openingDate" data-errormessage="开业日期不能为空">
+										 name="openingDate" readonly id="openingDate" data-errormessage="开业日期不能为空">
 									</div>
 								</div>
 								<div class="form-group">

@@ -1,8 +1,6 @@
 $(document).ready(function () {          
       //调用函数，初始化表格  
-      //initTable();  
-	  $('.datepicker').datepicker({autoclose: true });
-      menuChecked("#personalList"); 
+	  menuChecked("#personalList"); 
       $("#form-horizontal").validationEngine({ 
     	  validationEventTriggers:"keyup blur",
     	  inlineValidation: true,
