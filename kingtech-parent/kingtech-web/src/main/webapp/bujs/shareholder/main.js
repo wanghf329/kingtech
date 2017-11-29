@@ -17,8 +17,14 @@ $(".saveRecordBtn").click(function(){
 	$("#form-horizontal").submit(); 
 });
 
+$("#editModelBtn").click(function(){ 
+	reset();
+	$("#editModel").modal();
+});
 
-function getShareHolder(id){
+
+
+function getShareHolder(id){ 
 	$.get('branch/getShareholder/'+id,null,function(res){
 		$("input[name='id']").val(res.id);
 		$("input[name='partnerType']").val(res.partnerType);
@@ -30,4 +36,15 @@ function getShareHolder(id){
 		$("input[name='quitTime']").val(res.quitTime);  
 		$("#editModel").modal();
 	});
+}
+
+function reset(){
+	$("input[name='id']").val("");
+	$("input[name='partnerType']").val("1");
+	$("input[name='holder']").val("");
+	$("input[name='holdingScale']").val("");
+	$("input[name='contributionAmount']").val("");
+	$("input[name='joinTime']").val("");
+	$("input[name='gender']").val("1");
+	$("input[name='quitTime']").val("");  
 }

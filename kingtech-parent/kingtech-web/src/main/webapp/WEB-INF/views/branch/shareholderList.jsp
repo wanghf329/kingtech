@@ -23,7 +23,7 @@
                 </section>
 
 			<!-- Modal -->
-			<div class="modal fade" id="editModel" tabindex="-1" role="dialog"
+			<div class="modal fade" id="editModel" tabindex="-1" role="dialog" 
 				aria-labelledby="myModalLabel">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
@@ -115,7 +115,7 @@
                                     <h3 class="box-title">股东列表</h3>
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
-                                	<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#rechargeModel">新增股东</button>  
+                                	<button class="btn btn-primary btn-sm" id="editModelBtn" data-toggle="modal">新增股东</button>   
                                     <table class="table">
                                         <tr>
                                             <th>持股人</th>
