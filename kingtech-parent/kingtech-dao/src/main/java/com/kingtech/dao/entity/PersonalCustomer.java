@@ -19,7 +19,7 @@ import com.kingtech.enums.YesNoEnum;
 
 @Data
 @Entity
-@Table(name="TB_ENTERPRISE_CUSTOMER")
+@Table(name="TB_PERSONAL_CUSTOMER")
 @NoArgsConstructor
 public class PersonalCustomer extends PackageEntity{
 	//姓名
