@@ -23,7 +23,7 @@
                 </section>
 
 			<!-- Modal -->
-			<div class="modal fade" id="rechargeModel" tabindex="-1" role="dialog"
+			<div class="modal fade" id="addCapitalModel" tabindex="-1" role="dialog"
 				aria-labelledby="myModalLabel">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
@@ -98,7 +98,7 @@
                                     <h3 class="box-title">资本信息列表</h3>
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
-                                	<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#rechargeModel">新增资本信息</button>  
+                                	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addCapitalBtn">新增资本信息</button>  
                                     <table class="table"> 
                                         <tr>
                                             <th>融资渠道</th> 
