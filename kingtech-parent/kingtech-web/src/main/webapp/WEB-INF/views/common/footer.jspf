@@ -44,6 +44,12 @@ function radioChecked(name,value){
 	$("input[name='"+name+"'][value='"+value+"']").attr("checked",true);
 	$("input[name='"+name+"'][value='"+value+"']").parent().addClass("checked");
 }
+$('.datepicker').datetimepicker({
+	minView: "2", //选择日期后，不会再跳转去选择时分秒 
+    language:  'zh-CN',
+    format: 'yyyy-mm-dd',
+    todayBtn:  1,
+    autoclose: 1,}); 
 </script>
 
 

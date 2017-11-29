@@ -52,7 +52,7 @@
 								<div class="form-group">
 									<label for="#regCapital" class="col-sm-3 control-label">注册资本</label>
 									<div class="col-sm-6 input-group">
-									<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+									<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
 									<input type="text" class="form-control validate[required,custom[number]]" name = "regCapital" id="regCapital"  data-errormessage="注册资本只能是数字">
 									<span class="input-group-addon"><i class="fa ">元</i></span>
 									</div>
@@ -61,14 +61,14 @@
 									<label for="buildDate" class="col-sm-3 control-label">成立日期</label>
 									<div class="col-sm-6 input-group date">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										<input type="text" class="form-control pull-right datepicker1 validate[required]" name="buildDate" id="buildDate" data-errormessage="成立日期不能为空">
+										<input type="text" class="form-control pull-right datepicker validate[required]" name="buildDate" id="buildDate" data-errormessage="成立日期不能为空">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="openingDate" class="col-sm-3 control-label">开业日期</label>
 									<div class="col-sm-6 input-group date">
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										<input type="text" class="form-control pull-right datepicker1 validate[required]"
+										<input type="text" class="form-control pull-right datepicker validate[required]"
 										 name="openingDate"	id="openingDate" data-errormessage="开业日期不能为空">
 									</div>
 								</div>
@@ -130,9 +130,7 @@
 							</form>						
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default"
-								data-dismiss="modal">关闭</button> 
-							<button type="reset" id="resetBtn"class="btn btn-danger">重置</button>								
+							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button> 
 							<button type="submit" class="btn btn-primary saveRecordBtn">保存</button>
 						</div>
 					</div>
@@ -148,7 +146,7 @@
                                     <h3 class="box-title">机构基本信息</h3>
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
-                                	<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#newBranchBaseInfo">新增机构基本信息</button>  
+                                	<button class="btn btn-primary btn-sm" data-toggle="modal" id="newBranchBaseBtn">新增机构基本信息</button>  
                                     <table class="table" id="branchBaseList">
                                     	<thead>
 	                                       <tr>

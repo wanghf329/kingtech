@@ -1,7 +1,4 @@
 $(document).ready(function () {          
-      //调用函数，初始化表格  
-      //initTable();  
-	  $('.datepicker').datepicker({autoclose: true });
       menuChecked("#shareholderList"); 
       $("#form-horizontal").validationEngine({ 
     	  validationEventTriggers:"keyup blur",
@@ -18,7 +15,7 @@ $(".saveRecordBtn").click(function(){
 });
 
 $("#editModelBtn").click(function(){ 
-	reset();
+	$("#form-horizontal")[0].reset();
 	$("#editModel").modal();
 });
 
@@ -43,15 +40,4 @@ function getShareHolder(id){
 		$("input[name='quitTime']").val(res.quitTime);  
 		$("#editModel").modal();
 	});
-}
-
-function reset(){
-	$("input[name='id']").val("");
-	$("input[name='partnerType']").val("1");
-	$("input[name='holder']").val("");
-	$("input[name='holdingScale']").val("");
-	$("input[name='contributionAmount']").val("");
-	$("input[name='joinTime']").val("");
-	$("input[name='gender']").val("1");
-	$("input[name='quitTime']").val("");  
 }
