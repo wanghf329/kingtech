@@ -1,5 +1,6 @@
 package com.kingtech.dao.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -33,11 +34,11 @@ public class Shareholder extends RecordEntity {
 
 	// 持股比例（%）
 	@Column(name="HOLDING_SCALE")
-	private Double holdingScale;
+	private BigDecimal holdingScale;
 
 	// 出资金额（万元）
 	@Column(name="CONTRIBUTION_AMOUNT")
-	private Double contributionAmount;
+	private BigDecimal contributionAmount;
 
 	// 入股时间
 	@Column(name="JOIN_TIME")
@@ -55,7 +56,7 @@ public class Shareholder extends RecordEntity {
 	@Column(name="BRANCH_ID")
 	private String branchId;
 
-	public Shareholder(String partnerType, String holder, Double holdingScale, Double contributionAmount,
+	public Shareholder(String partnerType, String holder, BigDecimal holdingScale, BigDecimal contributionAmount,
 			Date joinTime, int gender, Date quitTime, String branchId, String reqId, PushStatus pushStatus) {
 		super(reqId, pushStatus);
 		this.partnerType = partnerType;

@@ -55,7 +55,7 @@ public class CapitalServiceImpl implements CapitalService{
 			capital.setId(id);
 			capital = capitalDao.save(capital);
 			
-			paymentApi.CapitalInfoApi(capital.getId(), StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
+			paymentApi.capitalInfoApi(capital.getId(), StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
 			
 			return capital;
 		} catch (Exception e) {
@@ -80,7 +80,7 @@ public class CapitalServiceImpl implements CapitalService{
 
 	@Override
 	public void delById(String id) {
-		paymentApi.CapitalInfoApi(id, IdentifierType.D);
+		paymentApi.capitalInfoApi(id, IdentifierType.D);
 		capitalDao.delete(id);
 	}
 

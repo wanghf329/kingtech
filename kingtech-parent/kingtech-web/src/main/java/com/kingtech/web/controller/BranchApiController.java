@@ -107,20 +107,20 @@ public class BranchApiController {
 	}
 	
 	@RequestMapping(value = "/add/shareholder", method = RequestMethod.POST)
-	public String addShareholder(Model model, String partnerType,
+	public String addShareholder(Model model, String id, String partnerType,
 								String holder, String holdingScale, String contributionAmount,
 								String joinTime, String gender, String quitTime, String branchId) {
-		shareholderService.addNew(partnerType, holder, holdingScale, contributionAmount,
+		shareholderService.addNew(id, partnerType, holder, holdingScale, contributionAmount,
 								  joinTime, gender, quitTime, "BRANCHID");
 		return "redirect:/branch/shareholderList";
 	}
 	
 	@RequestMapping(value = "/add/employee", method = RequestMethod.POST)
-	public String addEmployee(Model model, String name, String loginName, String phone, String email, String postalAddress,
+	public String addEmployee(Model model, String id, String name, String loginName, String phone, String email, String postalAddress,
 							  String department, String sex, String idNumber, String education,
 							  String executiveFlag, String post, String replyTime, String entryTime,
 							  String status, String quitTime, String branchId) {
-		employeeService.addNew(name, loginName, phone, email, postalAddress,
+		employeeService.addNew(id, name, phone, email, postalAddress,
 							   department, sex, idNumber, education,
 							   executiveFlag, post, replyTime, entryTime,
 							   status, quitTime, "BRANCHID");
