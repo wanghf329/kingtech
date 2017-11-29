@@ -29,7 +29,7 @@ public interface PaymentApi {
 	 * @param type
 	 */
 	
-	public void shareholderInfoApi(String holder,IdentifierType type);
+	public void shareholderInfoApi(String holderId,IdentifierType type);
 	
 
 }

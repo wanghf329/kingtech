@@ -17,7 +17,7 @@ import com.kingtech.common.utils.Response;
 import com.kingtech.dao.entity.Branch;
 import com.kingtech.dao.entity.Capital;
 import com.kingtech.model.CapitalModel;
-import com.kingtech.web.commons.base.api.PaymentApi;
+import com.kingtech.model.ShareholderModel;
 import com.kingtech.web.commons.base.service.BranchService;
 import com.kingtech.web.commons.base.service.CapitalService;
 import com.kingtech.web.commons.base.service.EmployeeService;
@@ -52,8 +52,16 @@ public class BranchApiController {
 	
 	@RequestMapping(method = RequestMethod.GET,value="/shareholderList")
 	public String shareholderList(Model model) { 
+		model.addAttribute("list",shareholderService.listAll());
 		return "/branch/shareholderList";
 	}  
+	
+	@ResponseBody
+	@RequestMapping(value = "/getShareholder/{id}", method = RequestMethod.GET)
+	public ShareholderModel getShareholder(Model model,@PathVariable("id") String id) {
+		return shareholderService.getById(id);
+	}
+	
 	
 	@RequestMapping(method = RequestMethod.GET,value="/capitalList")
 	public String capitalList(Model model) { 
