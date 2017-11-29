@@ -168,7 +168,7 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 					   employee.getSex(), 
 					   employee.getIdNumber(),
 					   employee.getEducation(),
-					   employee.getExecutiveFlag(),
+					   employee.getExecutiveFlag()+"",
 					   employee.getPost(),
 					   DateUtil.getDateStr(employee.getReplyTime(), JSON.DEFFAULT_DATE_FORMAT), 
 					   DateUtil.getDateStr(employee.getEntryTime(), JSON.DEFFAULT_DATE_FORMAT),
