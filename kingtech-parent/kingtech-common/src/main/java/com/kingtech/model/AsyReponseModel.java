@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
  */
 @NoArgsConstructor
 @Data
-public class AsyReponseModel extends BaseResponsModel{
+public class AsyReponseModel extends BaseResponsModel {
 	
 	/**
 	 * 接口名称：见文档后面2.19 附录：API字典

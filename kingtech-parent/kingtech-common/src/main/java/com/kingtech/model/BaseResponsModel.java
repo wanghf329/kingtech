@@ -1,5 +1,8 @@
 package com.kingtech.model;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import com.alibaba.fastjson.annotation.JSONField;
 
 import lombok.AllArgsConstructor;
@@ -10,6 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class BaseResponsModel {
+	
 	
 	/**
 	 * 非现场监管系统分配给接入方的账号
@@ -50,4 +54,11 @@ public class BaseResponsModel {
 		return "0000".equals(this.resultCode);
 	}
 
+	
+
+	  @Override
+	  @JSONField(serialize = false)
+	   public String toString() {
+	        return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE, false);
+	  }
 }

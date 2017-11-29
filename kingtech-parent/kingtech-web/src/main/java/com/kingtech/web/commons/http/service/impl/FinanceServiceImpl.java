@@ -23,25 +23,6 @@ public class FinanceServiceImpl  extends BaseAbstract implements FinanceService 
 	@Override
 	public SynResponseModel branchInfoFacade(BranchInfoModel institutionInfoModel) {
 		
-		 institutionInfoModel = new BranchInfoModel("0000000001", 
-				"U", 
-				"91310000775785552H38101", 
-				null, 
-				"宝鸡小贷", 
-				"tgt",
-				"1500.2", 
-				"1980-01-01",
-				"1980-01-02", 
-				"中国台湾", 
-				"100平方千米", 
-				"asdfas14564",
-				"13254681451", 
-				"ASFADF1325456", 
-				"ASD156468541", 
-				"收复台湾", 
-				DateUtil.getDateStr(new Date(), "yyyy-MM-dd HH:mm:ss"), 
-				null);
-		
 		Map<String, String> data = getDataAndSign(institutionInfoModel);
 		SynResponseModel responseModel = getResponse(data, "pushCompanyInformationData");
 		
