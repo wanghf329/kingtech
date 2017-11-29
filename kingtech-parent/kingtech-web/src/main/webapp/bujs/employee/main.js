@@ -29,6 +29,14 @@ $(".saveRecordBtn").click(function(){
 	$("#form-horizontal").submit();
 });
 
+$("input[name='executiveFlag'][value='0']").on("ifChecked", function(event){
+	$("select[name='post']").css("display","none");
+});
+$("input[name='executiveFlag'][value='1']").on("ifChecked", function(event){
+	$("select[name='post']").css("display","");
+	$("select[name='post']").attr("disabled",false);
+});
+
 function getEmployee(id){
 	$.get('branch/getEmployee/'+id,null,function(res){
 		$("input[name='id']").val(res.id);
