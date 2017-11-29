@@ -48,7 +48,7 @@ public class EmployeeModel extends BaseRequestModel {
 	
 	// 是否懂监高，0-否，1-是
 	@JSONField(name="executive_flag",label="sign")
-	private int executiveFlag;
+	private String executiveFlag;
 	
 	// 职务
 	@JSONField(name="post",label="sign")
@@ -81,7 +81,7 @@ public class EmployeeModel extends BaseRequestModel {
 	public EmployeeModel(String roundStr, String identifier, String reqId, String sign,
 			String name, String phone, String email,
 			String postalAddress, String department, String sex,
-			String idNumber, String education, int executiveFlag, String post,
+			String idNumber, String education, String executiveFlag, String post,
 			String replyTime, String entryTime, String status,
 			String quitTime, String createTime, String updateTime) {
 		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId, sign,null);
@@ -105,7 +105,7 @@ public class EmployeeModel extends BaseRequestModel {
 	
 	public EmployeeModel(String id, String name, String phone, String email,
 			String postalAddress, String department, String sex,
-			String idNumber, String education, int executiveFlag, String post,
+			String idNumber, String education, String executiveFlag, String post,
 			String replyTime, String entryTime, String status,
 			String quitTime) {
 		super(id);

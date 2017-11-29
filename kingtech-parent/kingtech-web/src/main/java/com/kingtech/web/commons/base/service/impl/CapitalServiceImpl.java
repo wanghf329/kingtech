@@ -39,17 +39,17 @@ public class CapitalServiceImpl implements CapitalService{
 			Capital capital = null;
 			if(StringUtils.isEmpty(id)){
 				capital = new Capital(financingChannel,new BigDecimal(financingMoney),
-						DateUtils.parseDate(financingTime, "yyyy-MM-dd"),
-						DateUtils.parseDate(expirationTime, "yyyy-MM-dd"),
-						replyTime == null ? null : DateUtils.parseDate(replyTime, "yyyy-MM-dd"),
+						DateUtils.parseDate(financingTime, "yyyy-MM-dd HH:mm:ss"),
+						DateUtils.parseDate(expirationTime, "yyyy-MM-dd HH:mm:ss"),
+						replyTime == null ? null : DateUtils.parseDate(replyTime, "yyyy-MM-dd HH:mm:ss"),
 								branchId,creatRequstId.getReqId(),PushStatus.INITATION);
 			}else{
 				capital = capitalDao.findOne(id);
 				capital.setFinancingChannel(financingChannel);
 				capital.setFinancingMoney(new BigDecimal(financingMoney));
-				capital.setFinancingTime(DateUtils.parseDate(financingTime, "yyyy-MM-dd"));
-				capital.setExpirationTime(DateUtils.parseDate(expirationTime, "yyyy-MM-dd"));
-				capital.setReplyTime(replyTime == null ? null : DateUtils.parseDate(replyTime, "yyyy-MM-dd"));
+				capital.setFinancingTime(DateUtils.parseDate(financingTime, "yyyy-MM-dd HH:mm:ss"));
+				capital.setExpirationTime(DateUtils.parseDate(expirationTime, "yyyy-MM-dd HH:mm:ss"));
+				capital.setReplyTime(replyTime == null ? null : DateUtils.parseDate(replyTime, "yyyy-MM-dd HH:mm:ss"));
 				capital.setPushStatus(PushStatus.INITATION);
 			}
 			capital.setId(id);

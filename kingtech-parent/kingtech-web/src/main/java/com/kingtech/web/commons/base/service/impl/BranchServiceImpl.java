@@ -51,7 +51,7 @@ public class BranchServiceImpl implements  BranchService {
 		Branch branch = null;
 		if(StringUtils.isEmpty(id)) {
 			branch = new Branch(creatRequstId.getReqId(),
-								PushStatus.INPROSESS,
+								PushStatus.INITATION,
 								corporateName, 
 								legalRepresentative,
 								regCapital, 

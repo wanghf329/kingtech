@@ -82,7 +82,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 		Employee employee =  employeeDao.findOne(id);
 		return new EmployeeModel(employee.getId(),employee.getName(),employee.getPhone(),
 				employee.getEmail(),employee.getPostalAddress(),employee.getDepartment(),employee.getSex(),
-				employee.getIdNumber(),employee.getEducation(),employee.getExecutiveFlag(),employee.getPost(),
+				employee.getIdNumber(),employee.getEducation(),employee.getExecutiveFlag()+"",employee.getPost(),
 				DateFormatUtils.format(employee.getReplyTime(), "yyyy-MM-dd"),
 				DateFormatUtils.format(employee.getEntryTime(), "yyyy-MM-dd"),
 				employee.getStatus().getKey(),
