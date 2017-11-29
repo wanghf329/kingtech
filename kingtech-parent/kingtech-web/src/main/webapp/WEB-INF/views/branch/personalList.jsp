@@ -126,18 +126,19 @@
 								<div class="form-group">
 									<label for="#post" class="col-sm-3 control-label">职务</label>
 									<div class="col-sm-6 input-group">
-										<select class="form-control" name="post">
-						                   <option>董事长</option>
-						                   <option>执行董事</option>
-						                   <option>董事</option>
-						                   <option>监事长</option>
-						                   <option>监事</option>
-						                   <option>总经理</option>
-						                   <option>副总经理</option>
-						                   <option>风控总监</option>
-						                   <option>财务总监</option>
-						                   <option>业务总监</option>
-						                   <option>其他高管</option>
+										<select class="form-control validate[required]" name="post">
+										   <option value="">请选择</option>
+						                   <option value="董事长">董事长</option>
+						                   <option value="执行董事">执行董事</option>
+						                   <option value="董事">董事</option>
+						                   <option value="监事长">监事长</option>
+						                   <option value="监事">监事</option>
+						                   <option value="总经理">总经理</option>
+						                   <option value="副总经理">副总经理</option>
+						                   <option value="风控总监">风控总监</option>
+						                   <option value="财务总监">财务总监</option>
+						                   <option value="业务总监">业务总监</option>
+						                   <option value="其他高管">其他高管</option>
 						                 </select>
 									</div>
 								</div>

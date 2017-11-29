@@ -92,10 +92,10 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return new EmployeeModel(employee.getId(),employee.getName(),employee.getPhone(),
 				employee.getEmail(),employee.getPostalAddress(),employee.getDepartment(),employee.getSex(),
 				employee.getIdNumber(),employee.getEducation(),employee.getExecutiveFlag()+"",employee.getPost(),
-				DateFormatUtils.format(employee.getReplyTime(), "yyyy-MM-dd"),
+				employee.getReplyTime() == null ? null : DateFormatUtils.format(employee.getReplyTime(), "yyyy-MM-dd"),
 				DateFormatUtils.format(employee.getEntryTime(), "yyyy-MM-dd"),
 				employee.getStatus().getKey(),
-				DateFormatUtils.format(employee.getQuitTime(), "yyyy-MM-dd"));
+				employee.getQuitTime() == null ? null : DateFormatUtils.format(employee.getQuitTime(), "yyyy-MM-dd"));
 	}
 
 	@Override
