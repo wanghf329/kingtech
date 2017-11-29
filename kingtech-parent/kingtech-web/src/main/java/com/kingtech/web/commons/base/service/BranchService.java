@@ -1,22 +1,24 @@
 package com.kingtech.web.commons.base.service;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import java.math.BigDecimal;
+import java.util.List;
 
-import com.kingtech.common.utils.Response;
 import com.kingtech.dao.entity.Branch;
+import com.kingtech.model.BranchInfoModel;
+import com.kingtech.web.model.BranchModel;
 
 
 
 public interface BranchService {
 	
 	
-	public Page<Branch> listByInstitutionInfo(Pageable pageable);
+	public List<Branch> listByInstitutionInfo();
 	
 	
-	public Response addNewBranchInfo(String corporateName,
+	public Branch addNewBranchInfo( String id,
+									String corporateName,
 									String legalRepresentative,
-									String regCapital,
+									BigDecimal regCapital,
 									String buildDate,
 									String openingDate,
 									String siteArea,
@@ -26,4 +28,7 @@ public interface BranchService {
 									String nationalRegNum,
 									String landRegNum,
 									String businessScope);
+	
+	
+	public BranchInfoModel getBranchInfoById(String id);
 }

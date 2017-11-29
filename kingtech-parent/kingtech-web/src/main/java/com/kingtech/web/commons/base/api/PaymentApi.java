@@ -1,6 +1,7 @@
 package com.kingtech.web.commons.base.api;
 
 import com.kingtech.enums.IdentifierType;
+import com.kingtech.model.AsyReponseModel;
 
 public interface PaymentApi {
 	
@@ -30,6 +31,12 @@ public interface PaymentApi {
 	 */
 	
 	public void shareholderInfoApi(String holderId,IdentifierType type);
+	
+	/**
+	 * 处理回调数据
+	 * @param reponseModel
+	 */
+	public void handleResult(AsyReponseModel reponseModel);
 	
 
 }

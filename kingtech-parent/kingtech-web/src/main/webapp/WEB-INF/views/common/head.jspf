@@ -12,9 +12,6 @@
 <!-- Theme style -->
 <link href="css/AdminLTE.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="css/validationEngine.jquery.css">
-<c:set var="ctx" value="${pageContext.request.contextPath}" scope="request" />
+<link rel="stylesheet" href="css/bootstrap-datetimepicker.css">
+<link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
 
-
-<script type="text/javascript">
-      var $$ctx = '${ctx}';
-</script>
