@@ -103,6 +103,29 @@ public class EmployeeModel extends BaseRequestModel {
 		this.updateTime = updateTime;
 	}
 	
+	public EmployeeModel(String id, String name, String loginName, String phone, String email,
+			String postalAddress, String department, String sex,
+			String idNumber, String education, int executiveFlag, String post,
+			String replyTime, String entryTime, String status,
+			String quitTime) {
+		super(id);
+		this.name = name;
+		this.loginName = loginName;
+		this.phone = phone;
+		this.email = email;
+		this.postalAddress = postalAddress;
+		this.department = department;
+		this.sex = sex;
+		this.idNumber = idNumber;
+		this.education = education;
+		this.executiveFlag = executiveFlag;
+		this.post = post;
+		this.replyTime = replyTime;
+		this.entryTime = entryTime;
+		this.status = status;
+		this.quitTime = quitTime;
+	}
+	
 	public EmployeeModel(String clientId, String roundStr,
 			String appKey, String token, String identifier, String reqId,
 			String sign) {

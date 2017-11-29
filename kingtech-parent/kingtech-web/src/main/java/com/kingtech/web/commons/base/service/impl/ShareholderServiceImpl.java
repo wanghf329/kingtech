@@ -20,7 +20,7 @@ public class ShareholderServiceImpl implements ShareholderService{
 
 	@Override
 	@Transactional
-	public void addNew(String partnerType, String holder, String holdingScale, String contributionAmount,
+	public void addNew(String id, String partnerType, String holder, String holdingScale, String contributionAmount,
 			String joinTime, String gender, String quitTime, String branchId) {
 		try {
 			shareholderDao.save(new Shareholder(partnerType,holder,
