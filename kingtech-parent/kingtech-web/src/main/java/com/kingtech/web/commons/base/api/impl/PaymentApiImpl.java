@@ -1,4 +1,4 @@
-package com.kingtech.web.commons.base.api;
+package com.kingtech.web.commons.base.api.impl;
 
 import java.util.Random;
 
@@ -27,6 +27,7 @@ import com.kingtech.model.EmployeeModel;
 import com.kingtech.model.ShareholderModel;
 import com.kingtech.model.SynResponseModel;
 import com.kingtech.web.commons.base.CreatRequstId;
+import com.kingtech.web.commons.base.api.PaymentApi;
 import com.kingtech.web.commons.http.service.FinanceService;
 
 
