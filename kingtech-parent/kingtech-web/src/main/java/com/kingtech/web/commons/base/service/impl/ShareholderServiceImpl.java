@@ -89,7 +89,7 @@ public class ShareholderServiceImpl implements ShareholderService {
 				sh.getHoldingScale().toPlainString(), 
 				sh.getContributionAmount().toPlainString(),
 				DateFormatUtils.format(sh.getJoinTime(), "yyyy-MM-dd"),
-				sh.getGender().getKey(), 
+				sh.getGender() == null ? null : sh.getGender().getKey(), 
 				sh.getQuitTime()==null ? null : DateFormatUtils.format(sh.getQuitTime(), "yyyy-MM-dd"));
 	}
 

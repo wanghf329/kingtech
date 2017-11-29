@@ -23,7 +23,7 @@
                 </section>
 
 			<!-- Modal -->
-			<div class="modal fade" id="rechargeModel" tabindex="-1" role="dialog"
+			<div class="modal fade" id="addCapitalModel" tabindex="-1" role="dialog"
 				aria-labelledby="myModalLabel">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
@@ -37,6 +37,16 @@
 						<div class="modal-body">
 							<form class="form-horizontal" id="form-horizontal" action="branch/add/capital" method="POST">
 								<input type="hidden" name="id" value="">
+								<div class="form-group">
+									<label for="#branch" class="col-sm-3 control-label">所属机构</label>
+									<div class="col-sm-6 input-group">
+										<select class="form-control validate[required]" id="branch" name="branch" data-errormessage="机构不能为空">
+											<c:forEach var="it" items="${branchs}">
+		  										<option value ="${it.id}">${it.corporateName}</option>
+											</c:forEach>
+										</select>
+									</div>
+								</div>
 								<div class="form-group">
 									<label for="#financingChannel" class="col-sm-3 control-label">融资渠道</label>
 									<div class="col-sm-6 input-group">
@@ -56,7 +66,7 @@
 									<label for="financingTime" class="col-sm-3 control-label">融资时间</label>
 									<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										<input type="text" class="form-control pull-right datepicker validate[required]"
+										<input type="text" class="form-control pull-right datepicker-time validate[required]"
 										readonly name="financingTime" data-errormessage="融资时间不能为空">
 									</div>
 								</div>
@@ -65,7 +75,7 @@
 									<label for="expirationTime" class="col-sm-3 control-label">到期时间</label>
 									<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										<input type="text" class="form-control pull-right datepicker validate[required]"
+										<input type="text" class="form-control pull-right datepicker-time validate[required]"
 										readonly name="expirationTime" data-errormessage="到期时间不能为空">
 									</div>
 								</div>
@@ -74,7 +84,7 @@
 									<label for="replyTime" class="col-sm-3 control-label">实际还款时间</label>
 									<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span> 
-										<input type="text" class="form-control pull-right datepicker" name="replyTime"
+										<input type="text" class="form-control pull-right datepicker-time" name="replyTime"
 										readonly data-errormessage="实际还款时间不能为空"> 
 									</div>
 								</div>
@@ -98,7 +108,7 @@
                                     <h3 class="box-title">资本信息列表</h3>
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
-                                	<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#rechargeModel">新增资本信息</button>  
+                                	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addCapitalBtn">新增资本信息</button>  
                                     <table class="table"> 
                                         <tr>
                                             <th>融资渠道</th> 
@@ -137,7 +147,7 @@
                 </section><!-- /.content -->                
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
-	<%@include file="../common/footer.jspf" %>   
+		<%@include file="../common/footer.jspf" %>   
         <script src="bujs/capital/main.js" type="text/javascript"></script>       
     </body>
 </html>

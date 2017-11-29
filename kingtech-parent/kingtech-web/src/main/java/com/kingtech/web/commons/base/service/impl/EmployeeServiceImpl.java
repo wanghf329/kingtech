@@ -1,6 +1,7 @@
 package com.kingtech.web.commons.base.service.impl;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -13,15 +14,15 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.druid.util.StringUtils;
 import com.alibaba.fastjson.JSON;
 import com.kingtech.common.utils.HttpUtil;
-import com.kingtech.dao.entity.Capital;
 import com.kingtech.dao.entity.Employee;
 import com.kingtech.dao.rdbms.EmployeeDAO;
 import com.kingtech.enums.EmployeeStatus;
+import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.model.AsyReponseModel;
-import com.kingtech.model.CapitalModel;
 import com.kingtech.model.EmployeeModel;
 import com.kingtech.web.commons.base.CreatRequstId;
+import com.kingtech.web.commons.base.api.PaymentApi;
 import com.kingtech.web.commons.base.service.EmployeeService;
 
 @Service
@@ -32,6 +33,9 @@ public class EmployeeServiceImpl implements EmployeeService{
 	
 	@Autowired
 	private CreatRequstId creatRequstId;
+	
+	@Autowired
+	private PaymentApi paymentApi;
 
 	@Override
 	@Transactional
@@ -45,11 +49,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 				employee = new Employee(name,phone,phone,email,
 						postalAddress,department,sex,idNumber,education,
 						Integer.valueOf(executiveFlag),post,
-						replyTime == null ? null : DateUtils.parseDate(replyTime, "yyyy-MM-dd"),
+						StringUtils.isEmpty(replyTime) ? null : DateUtils.parseDate(replyTime, "yyyy-MM-dd"),
 						DateUtils.parseDate(entryTime, "yyyy-MM-dd"),
 						EmployeeStatus.getValue(status),
-						quitTime == null ? null : DateUtils.parseDate(quitTime, "yyyy-MM-dd"),
-						branchId,creatRequstId.getReqId(),PushStatus.INPROSESS);
+						StringUtils.isEmpty(quitTime) ? null : DateUtils.parseDate(quitTime, "yyyy-MM-dd"),
+						branchId,creatRequstId.getReqId(),PushStatus.INITATION);
 			} else {
 				employee = employeeDao.findOne(id);
 				employee.setName(name);
@@ -63,13 +67,18 @@ public class EmployeeServiceImpl implements EmployeeService{
 				employee.setEducation(education);
 				employee.setExecutiveFlag(Integer.valueOf(executiveFlag));
 				employee.setPost(post);
-				employee.setReplyTime(replyTime == null ? null : DateUtils.parseDate(replyTime, "yyyy-MM-dd"));
+				employee.setReplyTime(StringUtils.isEmpty(replyTime) ? null : DateUtils.parseDate(replyTime, "yyyy-MM-dd"));
 				employee.setEntryTime(DateUtils.parseDate(entryTime, "yyyy-MM-dd"));
 				employee.setStatus(EmployeeStatus.getValue(status));
-				employee.setQuitTime(quitTime == null ? null : DateUtils.parseDate(quitTime, "yyyy-MM-dd"));
+				employee.setQuitTime(StringUtils.isEmpty(quitTime) ? null : DateUtils.parseDate(quitTime, "yyyy-MM-dd"));
+				employee.setUpdateTime(new Date());
+				employee.setPushStatus(PushStatus.INITATION);
 			}
 			employee.setId(id);	
+			
 			employee = employeeDao.save(employee);
+			
+			paymentApi.employeeInfoApi(employee.getId(), StringUtils.isEmpty(id) ?  IdentifierType.A : IdentifierType.U);
 			return employee;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -79,7 +88,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	
 	@Override
 	public List<Employee> listAll() {
-		return (List)employeeDao.findAll();
+		return (List<Employee>)employeeDao.findAll();
 	}
 
 	@Override

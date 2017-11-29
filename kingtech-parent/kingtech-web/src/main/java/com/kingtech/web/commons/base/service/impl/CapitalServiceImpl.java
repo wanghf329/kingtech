@@ -39,10 +39,12 @@ public class CapitalServiceImpl implements CapitalService{
 			Capital capital = null;
 			if(StringUtils.isEmpty(id)){
 				capital = new Capital(financingChannel,new BigDecimal(financingMoney),
-						DateUtils.parseDate(financingTime, "yyyy-MM-dd HH:mm:ss"),
-						DateUtils.parseDate(expirationTime, "yyyy-MM-dd HH:mm:ss"),
-						replyTime == null ? null : DateUtils.parseDate(replyTime, "yyyy-MM-dd HH:mm:ss"),
-								branchId,creatRequstId.getReqId(),PushStatus.INITATION);
+									  DateUtils.parseDate(financingTime, "yyyy-MM-dd HH:mm:ss"),
+									  DateUtils.parseDate(expirationTime, "yyyy-MM-dd HH:mm:ss"),
+									  replyTime == null ? null : DateUtils.parseDate(replyTime, "yyyy-MM-dd HH:mm:ss"),
+									  branchId,
+									  creatRequstId.getReqId(),
+									  PushStatus.INITATION);
 			}else{
 				capital = capitalDao.findOne(id);
 				capital.setFinancingChannel(financingChannel);
@@ -73,9 +75,9 @@ public class CapitalServiceImpl implements CapitalService{
 	public CapitalModel getById(String id) {
 		Capital capital =  capitalDao.findOne(id);
 		return new CapitalModel(capital.getId(),capital.getFinancingChannel(),capital.getFinancingMoney().setScale(2).toPlainString(), 
-				DateFormatUtils.format(capital.getFinancingTime(), "yyyy-MM-dd"), 
-				DateFormatUtils.format(capital.getExpirationTime(), "yyyy-MM-dd"),
-				DateFormatUtils.format(capital.getReplyTime(), "yyyy-MM-dd"));
+				DateFormatUtils.format(capital.getFinancingTime(), "yyyy-MM-dd HH:mm:ss"), 
+				DateFormatUtils.format(capital.getExpirationTime(), "yyyy-MM-dd HH:mm:ss"),
+				DateFormatUtils.format(capital.getReplyTime(), "yyyy-MM-dd HH:mm:ss"));
 	}
 
 	@Override

@@ -1,8 +1,15 @@
 $(document).ready(function () {          
       //调用函数，初始化表格  
       //initTable();  
-	  $('.datepicker').datepicker({autoclose: true });
+	  $('.datepicker').datetimepicker({
+  		minView: "2", //选择日期后，不会再跳转去选择时分秒 
+  	    language:  'zh-CN',
+  	    format: 'yyyy-mm-dd',
+  	    todayBtn:  1,
+  	    autoclose: 1,});
+	  
       menuChecked("#personalList"); 
+      
       $("#form-horizontal").validationEngine({ 
     	  validationEventTriggers:"keyup blur",
     	  inlineValidation: true,
@@ -11,6 +18,11 @@ $(document).ready(function () {
     	  autoHidePrompt:true,
     	  failure : function() { callFailFunction()  } 
       })
+});
+
+$("#rechargeModelBtn").click(function(){ 
+	$("#form-horizontal")[0].reset();
+	$("#rechargeModel").modal();
 });
 
 $(".saveRecordBtn").click(function(){ 
@@ -25,38 +37,25 @@ function getEmployee(id){
 		$("input[name='email']").val(res.email);
 		$("input[name='postalAddress']").val(res.postalAddress);
 		$("input[name='department']").val(res.department);
-		
-		console.log("res.sex2: " +res.sex);
-//		$("input[name='sex'][value='1']").attr("checked",true);
-		setRadio("sex",res.sex);
+		radioChecked('sex',res.sex);
 		$("input[name='idNumber']").val(res.idNumber);
-		$("input[name='education'][text="+res.education+"]").attr("selected",true);
-		$("input[name='executiveFlag'][value="+res.executiveFlag+"]").attr("checked",true);
-		$("input[name='post'][text="+res.post+"]").attr("selected",true);
+		optionSelected('education', res.education);
+		radioChecked('executiveFlag',res.executiveFlag);
+		optionSelected('post', res.post);
 		$("input[name='replyTime']").val(res.replyTime);
 		$("input[name='entryTime']").val(res.entryTime);
-		$("input[name='status'][value="+res.status+"]").attr("checked",true);
+		radioChecked('status',res.status);
 		$("input[name='quitTime']").val(res.quitTime);
 		$("#rechargeModel").modal();
 	});
 }
 
-function setRadio(rName,rValue){
-    var rObj = document.getElementsByName(rName);
-
-    for(var i = 0;i < rObj.length;i++){
-        if(rObj[i].value == rValue){
-        	console.log("set 1: ");
-            rObj[i].checked = true;
-        }
-    }
+function optionSelected(name, value){
+	var all_options = document.getElementsByName(name)[0].options;
+	for (i=0; i<all_options.length; i++) {
+		if (all_options[i].text == value) {
+			all_options[i].selected = true;
+		}
+	}
 }
 
-function delConfirm(id){
-	$("#confirmModel").modal();
-	$("#del-id").val(id); 
-}
-
-function delCapital(){
-	window.location.href = "branch/delEmployee/"+$("#del-id").val();
-};

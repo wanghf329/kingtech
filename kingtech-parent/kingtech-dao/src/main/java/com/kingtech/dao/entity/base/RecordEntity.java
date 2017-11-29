@@ -40,7 +40,7 @@ public abstract class RecordEntity extends BaseEntity {
 	private Date createTime;
 	
 	// 修改时间
-	@Column(name="UPDATE_TIME")
+	@Column(name="UPDATE_TIME", insertable = false, updatable = true)
 	private Date updateTime;
 	
 	// reqId
@@ -52,9 +52,11 @@ public abstract class RecordEntity extends BaseEntity {
 	@Column(name="PUSH_STATUS")
 	private PushStatus pushStatus;
 	
+	
 	@PrePersist
-	public void setCreateTime(){
+	public void setTime(){
 		this.createTime = new Date();
+		this.updateTime = new Date();
 	}
 
 	public RecordEntity(String reqId, PushStatus pushStatus) {

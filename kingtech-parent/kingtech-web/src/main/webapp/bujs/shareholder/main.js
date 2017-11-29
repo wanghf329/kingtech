@@ -1,7 +1,4 @@
 $(document).ready(function () {          
-      //调用函数，初始化表格  
-      //initTable();  
-	  $('.datepicker').datepicker({autoclose: true });
       menuChecked("#shareholderList"); 
       $("#form-horizontal").validationEngine({ 
     	  validationEventTriggers:"keyup blur",
@@ -17,17 +14,39 @@ $(".saveRecordBtn").click(function(){
 	$("#form-horizontal").submit(); 
 });
 
+$("#editModelBtn").click(function(){ 
+	$("#form-horizontal")[0].reset();
+	$("#editModel").modal();
+});
 
-function getShareHolder(id){
+$("input[name='partnerType']").on('ifChecked', function(){
+	  if($(this).val()=="2"){
+		  $("input[name='gender']").iCheck('uncheck');
+		  $("#sexDiv").hide();
+	  }else{
+		  $("#sexDiv").show();
+	  }
+}); 
+
+
+
+function getShareHolder(id){ 
 	$.get('branch/getShareholder/'+id,null,function(res){
 		$("input[name='id']").val(res.id);
-		$("input[name='partnerType']").val(res.partnerType);
-		$("input[name='holder']").val(res.holder);
+		$("input[name='gender'][value='"+res.partnerType+"']").iCheck('check');
+		$("input[name='holder']").val(res.holder); 
 		$("input[name='holdingScale']").val(res.holdingScale);
 		$("input[name='contributionAmount']").val(res.contributionAmount);
 		$("input[name='joinTime']").val(res.joinTime);
-		$("input[name='gender']").val(res.gender);
+		$("input[name='gender'][value='"+res.gender+"']").iCheck('check');
 		$("input[name='quitTime']").val(res.quitTime);  
+		
+		if($("input[name='partnerType']:checked").val()=="2"){
+			$("input[name='gender']").iCheck('uncheck');
+			$("#sexDiv").hide();
+		}else{
+			$("#sexDiv").show();
+		}
 		$("#editModel").modal();
 	});
 }

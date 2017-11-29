@@ -42,18 +42,21 @@ public class BranchApiController {
 	@RequestMapping(method = RequestMethod.GET,value="")
 	public String branchBaseInfo(Model model) { 
 		model.addAttribute("list",branchService.listByInstitutionInfo());
+		model.addAttribute("branchs",branchService.listByInstitutionInfo());
 		return "/branch/branchBaseList";
 	} 
 	
 	@RequestMapping(method = RequestMethod.GET,value="/personalList")
 	public String personalList(Model model) { 
 		model.addAttribute("list", employeeService.listAll());
+		model.addAttribute("branchs",branchService.listByInstitutionInfo());
 		return "/branch/personalList";
 	}  
 	
 	@RequestMapping(method = RequestMethod.GET,value="/shareholderList")
 	public String shareholderList(Model model) { 
 		model.addAttribute("list",shareholderService.listAll());
+		model.addAttribute("branchs",branchService.listByInstitutionInfo());
 		return "/branch/shareholderList";
 	}  
 	
@@ -67,6 +70,7 @@ public class BranchApiController {
 	@RequestMapping(method = RequestMethod.GET,value="/capitalList")
 	public String capitalList(Model model) { 
 		model.addAttribute("list",capitalService.listAll());
+		model.addAttribute("branchs",branchService.listByInstitutionInfo());
 		return "/branch/capitalList";
 	}  
 	
@@ -95,17 +99,18 @@ public class BranchApiController {
 	public String addCapital(Model model, String id,String financingChannel,
 							 double financingMoney, String financingTime, 
 							 String expirationTime,
-							 String replyTime) {
-		Capital cap = capitalService.addNew(id,financingChannel, financingMoney, financingTime, expirationTime, replyTime, "BRANCHID");
+							 String replyTime,
+							 String branch) {
+		Capital cap = capitalService.addNew(id,financingChannel, financingMoney, financingTime, expirationTime, replyTime,branch);
 		return "redirect:/branch/capitalList";
 	}
 	
 	@RequestMapping(value = "/add/shareholder", method = RequestMethod.POST)
 	public String addShareholder(Model model, String id, String partnerType,
 								String holder, String holdingScale, String contributionAmount,
-								String joinTime, String gender, String quitTime, String branchId) {
+								String joinTime, String gender, String quitTime, String branch) {
 		shareholderService.addNew(id, partnerType, holder, holdingScale, contributionAmount,
-								  joinTime, gender, quitTime, "BRANCHID");
+								  joinTime, gender, quitTime, branch);
 		return "redirect:/branch/shareholderList";
 	}
 	
@@ -113,11 +118,11 @@ public class BranchApiController {
 	public String addEmployee(Model model, String id, String name, String loginName, String phone, String email, String postalAddress,
 							  String department, String sex, String idNumber, String education,
 							  String executiveFlag, String post, String replyTime, String entryTime,
-							  String status, String quitTime, String branchId) {
+							  String status, String quitTime, String branch) {
 		employeeService.addNew(id, name, phone, email, postalAddress,
 							   department, sex, idNumber, education,
 							   executiveFlag, post, replyTime, entryTime,
-							   status, quitTime, "BRANCHID");
+							   status, quitTime, branch);
 		return "redirect:/branch/personalList";
 	}
 
