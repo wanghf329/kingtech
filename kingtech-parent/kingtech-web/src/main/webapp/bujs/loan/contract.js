@@ -23,6 +23,16 @@ $("#addContractBtn").click(function(){
 	window.location.href = "loan/edit";
 });
 
+$("#addEnterPriseBtn").click(function(){ 
+	window.location.href = "loan/enterprise/edit";
+});
+
+$("#addPersonnelBtn").click(function(){ 
+	window.location.href = "loan/personnel/edit";
+});
+
+
+
 
 function getCapital(id){
 	$.get('branch/getCapital/'+id,null,function(res){
