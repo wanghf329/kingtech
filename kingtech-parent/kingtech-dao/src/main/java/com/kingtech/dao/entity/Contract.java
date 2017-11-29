@@ -27,7 +27,7 @@ import com.kingtech.enums.UnionFlagEnum;
  */
 @Data
 @Entity
-@Table(name="TB_CAPITAL")
+@Table(name="TB_LOAN_CONTRACT")
 @NoArgsConstructor
 public class Contract extends RecordEntity{
 	/**

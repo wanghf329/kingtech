@@ -4,12 +4,16 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import com.kingtech.dao.entity.base.PackageEntity;
+import com.kingtech.enums.CollateralTypeEnum;
+import com.kingtech.enums.PledgeTypeEnum;
 
 /**
  * 抵质押物表
@@ -22,13 +26,15 @@ import com.kingtech.dao.entity.base.PackageEntity;
 public class Collateral extends PackageEntity {
 	
 	// 担保类型 1-抵押 2-质押
+	@Enumerated(EnumType.ORDINAL)
 	@Column(name="PLEDGE_TYPE")
-	private int pledgeType;
+	private PledgeTypeEnum pledgeType;
 
 	// 抵质押物类型：抵押选项：1-存货抵押, 2-客账抵押, 3-证券抵押, 4-设备抵押, 5-不动产抵押, 6-人寿险抵押, 7-其他 
     // 质押选项：1-股权质押, 2-定期存单质押, 3-专利权质押,4-应收账款质押,5-其他
+	@Enumerated(EnumType.STRING)
 	@Column(name="COLLATERAL_TYPE")
-	private int collateralType;
+	private CollateralTypeEnum collateralType;
 
 	// 抵质押物名称
 	@Column(name="COLLATERAL_NAME")
@@ -54,8 +60,8 @@ public class Collateral extends PackageEntity {
 	@Column(name="HANDLE_DATE")
 	private Date handleDate;
 
-	public Collateral(String loanContractId, int pledgeType,
-			int collateralType, String collateralName, String warrantNum,
+	public Collateral(String loanContractId, PledgeTypeEnum pledgeType,
+			CollateralTypeEnum collateralType, String collateralName, String warrantNum,
 			Double evaluationValue, String warrantHolder,
 			String collateralAddr, Date handleDate) {
 		super(loanContractId);
