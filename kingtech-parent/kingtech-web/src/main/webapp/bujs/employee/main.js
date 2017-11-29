@@ -20,8 +20,9 @@ $(document).ready(function () {
       })
 });
 
-$("#resetBtn").click(function(){ 
+$("#rechargeModelBtn").click(function(){ 
 	$("#form-horizontal")[0].reset();
+	$("#rechargeModel").modal();
 });
 
 $(".saveRecordBtn").click(function(){ 
@@ -36,27 +37,18 @@ function getEmployee(id){
 		$("input[name='email']").val(res.email);
 		$("input[name='postalAddress']").val(res.postalAddress);
 		$("input[name='department']").val(res.department);
-		
-//		$("input[name='sex']").parent().removeClass("checked");
-		$("input[name='sex'][value='"+res.sex+"']").parent().addClass("checked");
-		$("input[name='sex'][value='"+res.sex+"']").attr("checked",true);
+		radioChecked('sex',res.sex);
 		$("input[name='idNumber']").val(res.idNumber);
 		$("input[name='education'][text="+res.education+"]").attr("selected",true);
-		$("input[name='executiveFlag'][value="+res.executiveFlag+"]").attr("checked",true);
+		radioChecked('executiveFlag',res.executiveFlag);
 		$("input[name='post'][text="+res.post+"]").attr("selected",true);
 		$("input[name='replyTime']").val(res.replyTime);
 		$("input[name='entryTime']").val(res.entryTime);
-		$("input[name='status'][value="+res.status+"]").attr("checked",true);
+		radioChecked('status',res.status);
 		$("input[name='quitTime']").val(res.quitTime);
 		$("#rechargeModel").modal();
 	});
 }
 
-function delConfirm(id){
-	$("#confirmModel").modal();
-	$("#del-id").val(id); 
-}
 
-function delCapital(){
-	window.location.href = "branch/delEmployee/"+$("#del-id").val();
-};
+

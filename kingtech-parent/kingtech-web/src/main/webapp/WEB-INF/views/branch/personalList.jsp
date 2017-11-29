@@ -46,6 +46,7 @@
 								<div class="form-group">
 									<label for="#phone" class="col-sm-2 control-label">电话</label>
 									<div class="col-sm-8 input-group">
+										<span class="input-group-addon"><i class="fa   fa-phone"></i></span>
 										<input type="text" class="form-control validate[custom[phone]]" name="phone">
 									</div>
 								</div>
@@ -53,7 +54,7 @@
 								<div class="form-group">
 									<label for="#email" class="col-sm-2 control-label">电子邮件</label>
 									<div class="col-sm-8 input-group">
-									<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+									<span class="input-group-addon"><i class="fa  fa-envelope-o"></i></span>
 									<input type="text" class="form-control validate[custom[email]]" name="email">
 									</div>
 								</div>
@@ -61,7 +62,6 @@
 								<div class="form-group">
 									<label for="#postalAddress" class="col-sm-2 control-label">通讯地址</label>
 									<div class="col-sm-8 input-group">
-									<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
 									<input type="text" class="form-control validate[required]" name="postalAddress" data-errormessage="通讯地址不能为空">
 									</div>
 								</div>
@@ -69,7 +69,6 @@
 								<div class="form-group">
 									<label for="#department" class="col-sm-2 control-label">部门</label>
 									<div class="col-sm-8 input-group">
-									<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
 									<input type="text" class="form-control validate[required]" name="department" data-errormessage="部门不能为空">
 									</div>
 								</div>
@@ -87,7 +86,6 @@
 								<div class="form-group">
 									<label for="#idNumber" class="col-sm-2 control-label">身份证号</label>
 									<div class="col-sm-8 input-group">
-									<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
 									<input type="text" class="form-control validate[required]" name="idNumber" data-errormessage="身份证号不能为空">
 									</div>
 								</div>
@@ -109,7 +107,7 @@
 									<label for="#executiveFlag" class="col-sm-2 control-label">是否董监高</label>
 									<div class="col-sm-8 input-group">
 										<div class="radio">
-					                      <input type="radio" name="executiveFlag" value="1" checked="">是
+					                      <input type="radio" name="executiveFlag" value="1" >是
 					                   	  <input type="radio" name="executiveFlag" value="0" checked="">否
 					                  </div>
 									</div>
@@ -139,7 +137,7 @@
 									<div class="col-sm-8 input-group date">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										<input type="text" class="form-control pull-right datepicker" name="replyTime"
-											readonly data-errormessage="批复时间不能为空">
+											 data-errormessage="批复时间不能为空">
 									</div>
 								</div>
 								
@@ -148,7 +146,7 @@
 									<div class="col-sm-8 input-group date">
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										<input type="text" class="form-control pull-right datepicker validate[required]" name="entryTime"
-											readonly data-errormessage="批复时间不能为空">
+											 data-errormessage="批复时间不能为空">
 									</div>
 								</div>
 								
@@ -167,7 +165,7 @@
 									<div class="col-sm-8 input-group date">
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										<input type="text" class="form-control pull-right datepicker" name="quitTime"
-											readonly data-errormessage="批复时间不能为空">
+											 data-errormessage="批复时间不能为空">
 									</div>
 								</div>
 								
@@ -176,7 +174,6 @@
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal">关闭</button> 
-							<button type="reset" id="resetBtn" class="btn btn-danger">重置</button>								
 							<button type="submit" class="btn btn-primary saveRecordBtn">保存</button>
 						</div>
 					</div>
@@ -192,7 +189,7 @@
                                     <h3 class="box-title">人员信息</h3>
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
-                                	<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#rechargeModel">新增人员信息</button>  
+                                	<button class="btn btn-primary btn-sm" data-toggle="modal" id = "rechargeModelBtn" data-target="#rechargeModel">新增人员信息</button>  
                                     <table class="table">
                                         <tr>
                                             <th>姓名</th> 
