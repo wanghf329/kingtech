@@ -103,14 +103,13 @@ public class EmployeeModel extends BaseRequestModel {
 		this.updateTime = updateTime;
 	}
 	
-	public EmployeeModel(String id, String name, String loginName, String phone, String email,
+	public EmployeeModel(String id, String name, String phone, String email,
 			String postalAddress, String department, String sex,
 			String idNumber, String education, int executiveFlag, String post,
 			String replyTime, String entryTime, String status,
 			String quitTime) {
 		super(id);
 		this.name = name;
-		this.loginName = loginName;
 		this.phone = phone;
 		this.email = email;
 		this.postalAddress = postalAddress;

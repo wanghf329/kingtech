@@ -80,7 +80,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	public EmployeeModel getById(String id) {
 		Employee employee =  employeeDao.findOne(id);
-		return new EmployeeModel(employee.getId(),employee.getName(),employee.getLoginName(),employee.getPhone(),
+		return new EmployeeModel(employee.getId(),employee.getName(),employee.getPhone(),
 				employee.getEmail(),employee.getPostalAddress(),employee.getDepartment(),employee.getSex(),
 				employee.getIdNumber(),employee.getEducation(),employee.getExecutiveFlag(),employee.getPost(),
 				DateFormatUtils.format(employee.getReplyTime(), "yyyy-MM-dd"),

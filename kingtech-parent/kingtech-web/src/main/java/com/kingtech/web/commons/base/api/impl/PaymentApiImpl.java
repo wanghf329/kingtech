@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
+import com.kingtech.common.config.BaseConfig;
 import com.kingtech.common.utils.DateUtil;
 import com.kingtech.common.utils.RandomUtil;
 import com.kingtech.dao.entity.Branch;
@@ -19,13 +20,16 @@ import com.kingtech.dao.rdbms.BranchDAO;
 import com.kingtech.dao.rdbms.CapitalDAO;
 import com.kingtech.dao.rdbms.EmployeeDAO;
 import com.kingtech.dao.rdbms.ShareholderDAO;
+import com.kingtech.enums.Cmd;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.model.AsyReponseModel;
 import com.kingtech.model.BranchInfoModel;
 import com.kingtech.model.CapitalModel;
 import com.kingtech.model.EmployeeModel;
 import com.kingtech.model.ShareholderModel;
 import com.kingtech.model.SynResponseModel;
+import com.kingtech.web.commons.base.BaseAbstract;
 import com.kingtech.web.commons.base.CreatRequstId;
 import com.kingtech.web.commons.base.api.PaymentApi;
 import com.kingtech.web.commons.http.service.FinanceService;
@@ -33,7 +37,7 @@ import com.kingtech.web.commons.http.service.FinanceService;
 
 @Service
 @Slf4j
-public class PaymentApiImpl implements PaymentApi {
+public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 	
 	@Autowired
 	private BranchDAO branchDAO;
@@ -218,6 +222,41 @@ public class PaymentApiImpl implements PaymentApi {
 			   shareholder.setPushStatus(PushStatus.INPROSESS);
 			   shareholderDAO.save(shareholder);
 		   }
+		
+	}
+
+	@Override
+	@Transactional
+	public void handleResult(AsyReponseModel reponseModel) {
+		
+		if(!verifyResponse(reponseModel)){
+			log.info("验签未通过,reponseModel={}",reponseModel);
+			return ;
+		}
+		
+		PushStatus pushStatus = reponseModel.isSuccess() ? PushStatus.SUCCESS : PushStatus.FAILED;
+		
+		Cmd cmd = Cmd.valueOf(reponseModel.getApi());
+		String reqId = reponseModel.getReqId();
+		
+		switch (cmd) {
+		
+		case pushCompanyInformation:  //机构基本信息
+			branchDAO.updateStatusByReqId(reqId, pushStatus);
+			break;
+		case pushEmployee:  //机构人员信息
+			employeeDAO.updateStatusByReqId(reqId, pushStatus);
+			break;
+		case pushInstitutionStockholder: //机构股东信息
+			shareholderDAO.updateStatusByReqId(reqId, pushStatus);
+			break;
+		case pushInstitutionCapital:  //机构资本信息
+			capitalDAO.updateStatusByReqId(reqId, pushStatus);
+			break;
+		
+		default:
+			break;
+		}
 		
 	}
 
