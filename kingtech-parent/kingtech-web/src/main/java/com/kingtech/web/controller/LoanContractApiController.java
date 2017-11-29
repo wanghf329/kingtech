@@ -6,6 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.kingtech.enums.IndustryEnum;
+import com.kingtech.enums.IndustryType;
+import com.kingtech.enums.ScaleType;
 import com.kingtech.web.commons.base.service.ContractService;
 
 @RequestMapping("/loan")
@@ -29,5 +32,14 @@ public class LoanContractApiController {
 	public String edit(Model model) { 
 		model.addAttribute("list",contractService.listAll());
 		return "/loan/loanEdit";
-	}  
+	} 
+	
+	@RequestMapping(method = RequestMethod.GET,value="/enterprise/edit")
+	public String enterpriseEdit(Model model) { 
+		model.addAttribute("list",contractService.listAll());
+		model.addAttribute("scaleTypes",ScaleType.values());
+		model.addAttribute("industryTypes",IndustryType.values());
+		model.addAttribute("industryinvolveds",IndustryEnum.values());
+		return "/loan/enterpriseEdit";
+	} 
 }
