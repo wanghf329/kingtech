@@ -208,7 +208,7 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 					   shareholder.getHoldingScale().setScale(2).toPlainString(),
 					   shareholder.getContributionAmount().setScale(2).toPlainString(), 
 					   DateUtil.getDateStr(shareholder.getJoinTime(), "yyyy-MM-dd"),
-					   shareholder.getGender().getKey(), 
+					   shareholder.getGender() == null ? null : shareholder.getGender().getKey(), 
 					   DateUtil.getDateStr(shareholder.getQuitTime(), "yyyy-MM-dd"), 
 					   DateUtil.getDateStr(shareholder.getCreateTime(), JSON.DEFFAULT_DATE_FORMAT), 
 					   DateUtil.getDateStr(shareholder.getUpdateTime(), JSON.DEFFAULT_DATE_FORMAT));

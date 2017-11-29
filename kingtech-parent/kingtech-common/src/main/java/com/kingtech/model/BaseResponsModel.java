@@ -45,6 +45,7 @@ public class BaseResponsModel {
 	private String sign;
 	
 	
+	@JSONField(serialize = false)
 	public boolean isSuccess(){
 		return "0000".equals(this.resultCode);
 	}
