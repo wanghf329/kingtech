@@ -26,6 +26,12 @@ $(".saveRecordBtn").click(function(){
 	$("#form-horizontal").submit();
 });
 
+$("#addCapitalBtn").click(function(){ 
+	$("#form-horizontal")[0].reset();
+	$("#addCapitalModel").modal();
+});
+
+
 function getCapital(id){
 	$.get('branch/getCapital/'+id,null,function(res){
 		$("input[name='id']").val(res.id);
@@ -34,7 +40,7 @@ function getCapital(id){
 		$("input[name='financingTime']").val(res.financingTime);
 		$("input[name='expirationTime']").val(res.expirationTime);
 		$("input[name='replyTime']").val(res.replyTime);
-		$("#rechargeModel").modal();
+		$("#addCapitalModel").modal();
 	});
 }
 
