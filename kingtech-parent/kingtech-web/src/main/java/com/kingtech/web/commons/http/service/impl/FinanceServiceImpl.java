@@ -25,9 +25,8 @@ public class FinanceServiceImpl  extends BaseAbstract implements FinanceService 
 		
 		Map<String, String> data = getDataAndSign(institutionInfoModel);
 		SynResponseModel responseModel = getResponse(data, "pushCompanyInformationData");
-		
-		log.info("responseMode={}",responseModel);
-		log.info("verfy={}",verifyResponse(responseModel));
+//		log.info("responseMode={}",responseModel);
+//		log.info("verfy={}",verifyResponse(responseModel));
 		return responseModel;
 	}
 	
