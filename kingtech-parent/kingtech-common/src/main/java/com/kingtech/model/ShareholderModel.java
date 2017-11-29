@@ -36,7 +36,7 @@ public class ShareholderModel extends BaseRequestModel {
 	
 	// 性别
 	@JSONField(name="gender")
-	private int gender;
+	private String gender;
 	
 	// 离职时间
 	@JSONField(name="quit_time")
@@ -52,7 +52,7 @@ public class ShareholderModel extends BaseRequestModel {
 
 	public ShareholderModel( String roundStr, String identifier, String reqId, String sign,
 			String partnerType, String holder, String holdingScale,
-			String contributionAmount, String joinTime, int gender,
+			String contributionAmount, String joinTime, String gender,
 			String quitTime, String createTime, String updateTime) {
 		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId, sign,null);
 		this.partnerType = partnerType;
@@ -66,11 +66,17 @@ public class ShareholderModel extends BaseRequestModel {
 		this.updateTime = updateTime;
 	}
 	
-	public ShareholderModel(String clientId, String roundStr,
-			String appKey, String token, String identifier, String reqId,
-			String partnerType, String sign) {
-		super(clientId, roundStr, appKey, token, identifier, reqId, sign,null);
+
+	public ShareholderModel(String id, String partnerType, String holder,
+			String holdingScale, String contributionAmount, String joinTime,
+			String gender, String quitTime) {
+		super(id);
 		this.partnerType = partnerType;
+		this.holder = holder;
+		this.holdingScale = holdingScale;
+		this.contributionAmount = contributionAmount;
+		this.joinTime = joinTime;
+		this.gender = gender;
+		this.quitTime = quitTime;
 	}
-	
 }

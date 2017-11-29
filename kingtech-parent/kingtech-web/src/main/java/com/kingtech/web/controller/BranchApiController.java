@@ -15,7 +15,8 @@ import com.kingtech.dao.entity.Branch;
 import com.kingtech.dao.entity.Capital;
 import com.kingtech.model.BranchInfoModel;
 import com.kingtech.model.CapitalModel;
-import com.kingtech.web.commons.base.api.PaymentApi;
+import com.kingtech.model.EmployeeModel;
+import com.kingtech.model.ShareholderModel;
 import com.kingtech.web.commons.base.service.BranchService;
 import com.kingtech.web.commons.base.service.CapitalService;
 import com.kingtech.web.commons.base.service.EmployeeService;
@@ -46,14 +47,22 @@ public class BranchApiController {
 	
 	@RequestMapping(method = RequestMethod.GET,value="/personalList")
 	public String personalList(Model model) { 
+		model.addAttribute("list", employeeService.listAll());
 		return "/branch/personalList";
 	}  
 	
 	@RequestMapping(method = RequestMethod.GET,value="/shareholderList")
 	public String shareholderList(Model model) { 
-		model.addAttribute("list",capitalService.listAll());
+		model.addAttribute("list",shareholderService.listAll());
 		return "/branch/shareholderList";
 	}  
+	
+	@ResponseBody
+	@RequestMapping(value = "/getShareholder/{id}", method = RequestMethod.GET)
+	public ShareholderModel getShareholder(Model model,@PathVariable("id") String id) {
+		return shareholderService.getById(id);
+	}
+	
 	
 	@RequestMapping(method = RequestMethod.GET,value="/capitalList")
 	public String capitalList(Model model) { 
@@ -118,8 +127,6 @@ public class BranchApiController {
 		return capitalService.getById(id);
 	}
 	
-
-	
 	@ResponseBody
 	@RequestMapping(value = "/getBranchInfo/{id}", method = RequestMethod.GET)
 	public BranchInfoModel changeBranch(Model model,@PathVariable("id") String id) {
@@ -131,5 +138,17 @@ public class BranchApiController {
 		//capitalService.delById(id);
 		return "redirect:/branch/capitalList";
 	}
-
+	
+	@ResponseBody
+	@RequestMapping(value = "/getEmployee/{id}", method = RequestMethod.GET)
+	public EmployeeModel getEmployee(Model model,@PathVariable("id") String id) {
+		return employeeService.getById(id);
+	}
+	
+	@RequestMapping(value = "/delEmployee/{id}", method = RequestMethod.GET)
+	public String delEmployee(Model model,@PathVariable("id") String id) {
+		employeeService.delById(id);
+		return "redirect:/branch/personalList";
+	}
+	
 }

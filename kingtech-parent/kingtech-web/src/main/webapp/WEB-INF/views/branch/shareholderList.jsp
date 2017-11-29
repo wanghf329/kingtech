@@ -23,7 +23,7 @@
                 </section>
 
 			<!-- Modal -->
-			<div class="modal fade" id="rechargeModel" tabindex="-1" role="dialog"
+			<div class="modal fade" id="editModel" tabindex="-1" role="dialog"
 				aria-labelledby="myModalLabel">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
@@ -36,25 +36,26 @@
 						</div>
 						<div class="modal-body">
 							<form class="form-horizontal" id="form-horizontal" action="branch/add/shareholder" method="POST">
+								<input type="hidden" name="id" value="">
 								<div class="form-group">
 									<label for="#partnerType" class="col-sm-2 control-label">股东类型</label>
 									<div class="col-sm-8 input-group">
 					                  <div class="radio">
-					                      <input type="radio" name="partnerType" value="1" checked="">自然人股东
-					                   	  <input type="radio" name="partnerType" value="2" checked="">企业股东
+					                      <input type="radio" name="partnerType" value="1" checked>自然人股东
+					                   	  <input type="radio" name="partnerType" value="2" >企业股东 
 					                  </div>
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="#holder" class="col-sm-2 control-label">持股人</label>
 									<div class="col-sm-8 input-group">
-										<input type="text" class="form-control" name="holder">
+										<input type="text" class="form-control validate[required]" name="holder" data-errormessage="持股人不能为空"> 
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="#holdingScale" class="col-sm-2 control-label">持股比例</label>
 									<div class="col-sm-8 input-group">
-										<input type="text" class="form-control validate[required,custom[number]]" data-errormessage="持股比例只能为数字"
+										<input type="text" class="form-control validate[required,custom[number],max[100]]" data-errormessage="持股比例只能为数字"
 											name="holdingScale">
 										<span class="input-group-addon"><i class="fa">%</i></span>
 									</div>
@@ -62,7 +63,7 @@
 								<div class="form-group">
 									<label for="#contributionAmount" class="col-sm-2 control-label">出资金额</label>
 									<div class="col-sm-8 input-group">
-										<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
+										<span class="input-group-addon"><i class="fa fa-rmb"></i></span> 
 										<input type="text" class="form-control validate[required,custom[number]]" data-errormessage="出资金额只能为数字"
 											name="contributionAmount">
 										<span class="input-group-addon"><i class="fa">万元</i></span>
@@ -72,17 +73,18 @@
 									<label for="#joinTime" class="col-sm-2 control-label">入股时间</label>
 									<div class="col-sm-8 input-group">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										<input type="text" class="form-control pull-right datepicker" name="joinTime">
+										<input type="text" class="form-control pull-right datepicker validate[required]" name="joinTime"
+											readonly data-errormessage="入股时间不能为空">
 									</div>
 								</div>
 								
 								<div class="form-group">
 									<label for="#gender" class="col-sm-2 control-label">性别</label>
 									<div class="col-sm-8">
-										<div class="radio input-group">
-					                      <input type="radio" name="gender" value="1" checked="">男	
-					                   	  <input type="radio" name="gender" value="2" checked="">女
-					                  </div>
+										<div class="radio">
+										  <input type="radio" name="gender" value="1" checked>男	
+					                      <input type="radio" name="gender" value="2">女 
+					                  	</div>
 									</div>
 								</div>
 								
@@ -90,16 +92,14 @@
 									<label for="#quitTime" class="col-sm-2 control-label">退出时间</label>
 									<div class="col-sm-8 input-group">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										<input type="text" class="form-control pull-right datepicker" name="quitTime">
+										<input type="text" class="form-control pull-right datepicker" name="quitTime" readonly> 
 									</div>
 								</div>
 																																
 							</form>						
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default"
-								data-dismiss="modal">关闭</button> 
-							<button type="button" class="btn btn-danger">重置</button>								
+							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button> 
 							<button type="button" class="btn btn-primary saveRecordBtn">保存</button>
 						</div>
 					</div>
@@ -118,28 +118,36 @@
                                 	<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#rechargeModel">新增股东</button>  
                                     <table class="table">
                                         <tr>
-                                            <th>股东类型</th> 
                                             <th>持股人</th>
+                                            <th>股东类型</th> 
                                             <th>持股比例</th>
-                                            <th>出资金额</th>
+                                            <th>出资金额（万元）</th>
                                             <th>入股时间</th>
                                             <th>性别</th>
+                                            <th>离职时间</th>
                                             <th>状态</th>
                                             <th>操作</th>
                                         </tr>
-                                        <tr>
-                                            <td >自然人股东</td> 
-                                            <td class="text-blue" ><a><strong>大山哥<a><strong></td>
-                                            <td class="text-red">25%</td>
-                                            <td class="text-blue" ><i class="fa fa-jpy">100000</td>
-                                            <td>2010-10-25</td>
-                                            <td>男</td>
-                                            <td><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span>
-                                            	<span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span>
-                                            	<span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span>
-                                            </td> 
-                                            <td><a href="javascript:void(0)"><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a></td> 
-                                        </tr>
+                                        <c:forEach var="it" items="${list}">
+	                                        <tr>
+	                                            <td>${it.holder}</td>  
+	                                            <td>${it.partnerType.getTips()}</td>
+	                                            <td class="text-green">${it.holdingScale}%</td>
+	                                            <td class="text-red"><i class="fa fa-jpy"></i><strong>${it.contributionAmount}</strong></td>
+	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.joinTime}"></fmt:formatDate></td>
+	                                            <td>${it.gender.getTips()}</td>
+	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.quitTime}"></fmt:formatDate></td>
+	                                            <td>
+	                                            	<c:if test="${it.pushStatus=='INITATION'}"><span class="text-gray"><i class="text-gray fa fa-info-circle"></i>初始</span></c:if>
+	                                            	<c:if test="${it.pushStatus=='SUCCESS'}"><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span></c:if>
+	                                            	<c:if test="${it.pushStatus=='INPROSESS'}"><span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span></c:if>
+	                                            	<c:if test="${it.pushStatus=='FAILED'}"><span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span></c:if>
+	                                            </td>	                                            
+	                                            <td>
+	                                            	<a href="javascript:void(0)" onclick="getShareHolder('${it.id}')"><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a>
+	                                            </td>
+	                                        </tr>
+                                        </c:forEach>
                                     </table>
                                 </div><!-- /.box-body -->
                                 <div class="box-footer clearfix">
@@ -161,36 +169,5 @@
 
         <%@include file="../common/footer.jspf" %>
         <script src="bujs/shareholder/main.js" type="text/javascript"></script>
-        
-        <!-- <script type="text/javascript">
-        	menuChecked("#shareholderList");
-        	
-        	$(".saveRecordBtn").click(function(){
-        		var data = {
-        			id:'',	
-       				contractName:$("#contractName").val(),
-       				activityName:$("#activityName").val(),
-       				orderId:$("#orderId").val(),
-       				orderName:$("#orderName").val(),
-       				amount:$("#amount").val(),
-       				discription:$("#discription").val()
-        		};
-        		
-        		$.post("recharge/create",data,function(res){
-        			alert(res);
-        		});
-        	});
-        	
-        	$(function () {  
-        		$('.datepicker').datetimepicker({
-        			minView: "2", //选择日期后，不会再跳转去选择时分秒 
-    			    language:  'zh-CN',
-    			    format: 'yyyy-mm-dd hh:ii:ss',
-    			    todayBtn:  1,
-    			    autoclose: 1,});
-        		
-        	});
-        </script> -->
-
     </body>
 </html>
