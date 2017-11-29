@@ -23,6 +23,10 @@ $("#addContractBtn").click(function(){
 	window.location.href = "loan/edit";
 });
 
+$("#loanSupplementBtn").click(function(){ 
+	window.location.href = "loan/supplement";
+});
+
 
 function getCapital(id){
 	$.get('branch/getCapital/'+id,null,function(res){
