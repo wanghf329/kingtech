@@ -39,9 +39,9 @@ function getEmployee(id){
 		$("input[name='department']").val(res.department);
 		radioChecked('sex',res.sex);
 		$("input[name='idNumber']").val(res.idNumber);
-		$("input[name='education'][text="+res.education+"]").attr("selected",true);
+		optionSelected('education', res.education);
 		radioChecked('executiveFlag',res.executiveFlag);
-		$("input[name='post'][text="+res.post+"]").attr("selected",true);
+		optionSelected('post', res.post);
 		$("input[name='replyTime']").val(res.replyTime);
 		$("input[name='entryTime']").val(res.entryTime);
 		radioChecked('status',res.status);
@@ -50,5 +50,12 @@ function getEmployee(id){
 	});
 }
 
-
+function optionSelected(name, value){
+	var all_options = document.getElementsByName(name)[0].options;
+	for (i=0; i<all_options.length; i++) {
+		if (all_options[i].text == value) {
+			all_options[i].selected = true;
+		}
+	}
+}
 

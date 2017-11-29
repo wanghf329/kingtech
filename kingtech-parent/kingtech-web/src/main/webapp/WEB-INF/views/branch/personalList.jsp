@@ -94,11 +94,11 @@
 									<label for="#education" class="col-sm-2 control-label">学历</label>
 									<div class="col-sm-8 input-group ">
 										<select class="form-control" name="education">
-						                   <option>小学</option>
-						                   <option>高中</option>
-						                   <option>大学</option>
-						                   <option>研究生</option>
-						                   <option>博士</option>
+						                   <option value="小学">小学</option>
+						                   <option value="高中">高中</option>
+						                   <option value="大学">大学</option>
+						                   <option value="研究生">研究生</option>
+						                   <option value="博士">博士</option>
 						                 </select>
 									</div>
 								</div>
