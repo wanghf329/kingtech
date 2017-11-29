@@ -156,13 +156,10 @@
 	                                           <th>注册资本</th>
 	                                           <th>成立日期</th>
 	                                           <th>开业日期</th>
-	                                           <th>经营地址</th>
-	                                           <th>场所面积</th>
 	                                           <th>组织机构代码</th>
 	                                           <th>营业执照</th>
 	                                           <th>国税编码</th>
 	                                           <th>地税编码</th>
-	                                           <th>经营范围</th>
 	                                           <th>状态</th>
 	                                           <th>操作</th>
 	                                       </tr>
@@ -173,13 +170,10 @@
 	                                            <td class="text-red"><strong><fmt:formatNumber  type="currency" value="${it.regDapital}"></fmt:formatNumber>元</strong></td> 
 	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.buildDate}"></fmt:formatDate></td>
 	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.openingDate}"></fmt:formatDate></td>
-	                                            <td>${it.businessAddr}</td>
-	                                            <td>${it.siteArea}</td>
 	                                            <td>${it.organizationCode}</td>
 	                                            <td>${it.licence}</td>
 	                                            <td>${it.nationalRegNum}</td>
 	                                            <td>${it.landRegNum}</td>
-	                                            <td>${it.businessScope}</td>
 	                                            <td>
 	                                            	<c:if test="${it.pushStatus=='INITATION'}"><span class="text-gray"><i class="text-gray fa fa-info-circle"></i>初始</span></c:if>
 	                                            	<c:if test="${it.pushStatus=='SUCCESS'}"><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span></c:if>
