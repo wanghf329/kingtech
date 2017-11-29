@@ -2,13 +2,6 @@ $(document).ready(function () {
       //调用函数，初始化表格  
       //initTable();  
 	
-	$('.datepicker').datetimepicker({
-		minView: "0", //选择日期后，不会再跳转去选择时分秒 
-	    language:  'zh-CN',
-	    format: 'yyyy-mm-dd hh:ii:ss',
-	    minuteStep:1,
-	    todayBtn:  1,
-	    autoclose: true});
 	
       menuChecked("#capitalList"); 
       
