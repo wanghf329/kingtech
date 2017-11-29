@@ -123,7 +123,7 @@
 	                                            </td>
 	                                            <td>
 	                                            	<a href="javascript:void(0)" onclick="getCapital('${it.id}')"><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a>
-	                                            	<a href="javascript:void(0)" onclick="delConfirm('${it.id}')"><i class="text-red fa  fa-minus-circle"></i><strong>删除</strong></a>
+	                                            	<!-- <a href="javascript:void(0)" onclick="delConfirm('${it.id}')"><i class="text-red fa  fa-minus-circle"></i><strong>删除</strong></a> -->
 	                                            </td>
 	                                        </tr>
                                         </c:forEach>

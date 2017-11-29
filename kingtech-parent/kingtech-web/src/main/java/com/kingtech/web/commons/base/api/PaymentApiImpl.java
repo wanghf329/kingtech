@@ -4,6 +4,7 @@ import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
 import com.kingtech.common.utils.DateUtil;
@@ -82,6 +83,7 @@ public class PaymentApiImpl implements PaymentApi {
 	}
 
 	@Override
+	@Transactional
 	public void CapitalInfoApi(String capitalId, IdentifierType type) {
 		Capital capital = capitalDAO.findOne(capitalId);
 		if (capital ==null) {

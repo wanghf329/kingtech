@@ -17,6 +17,7 @@ import com.kingtech.common.utils.Response;
 import com.kingtech.dao.entity.Branch;
 import com.kingtech.dao.entity.Capital;
 import com.kingtech.model.CapitalModel;
+import com.kingtech.web.commons.base.api.PaymentApi;
 import com.kingtech.web.commons.base.service.BranchService;
 import com.kingtech.web.commons.base.service.CapitalService;
 import com.kingtech.web.commons.base.service.EmployeeService;
@@ -38,7 +39,6 @@ public class BranchApiController {
 	
 	@Autowired
 	private EmployeeService employeeService;
-	
 	
 	@RequestMapping(method = RequestMethod.GET,value="")
 	public String branchBaseInfo(Model model) { 
@@ -135,7 +135,7 @@ public class BranchApiController {
 	
 	@RequestMapping(value = "/delCapital/{id}", method = RequestMethod.GET)
 	public String delCapital(Model model,@PathVariable("id") String id) {
-		capitalService.delById(id);
+		//capitalService.delById(id);
 		return "redirect:/branch/capitalList";
 	}
 }

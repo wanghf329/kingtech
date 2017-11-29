@@ -12,9 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.druid.util.StringUtils;
 import com.kingtech.dao.entity.Capital;
 import com.kingtech.dao.rdbms.CapitalDAO;
+import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.model.CapitalModel;
 import com.kingtech.web.commons.base.CreatRequstId;
+import com.kingtech.web.commons.base.api.PaymentApi;
 import com.kingtech.web.commons.base.service.CapitalService;
 
 @Service
@@ -25,7 +27,10 @@ public class CapitalServiceImpl implements CapitalService{
 	
 	@Autowired
 	private CreatRequstId creatRequstId;
-
+	
+	@Autowired
+	private PaymentApi paymentApi;
+	
 	@Override
 	@Transactional
 	public Capital addNew(String id,String financingChannel, double financingMoney,
@@ -37,7 +42,7 @@ public class CapitalServiceImpl implements CapitalService{
 						DateUtils.parseDate(financingTime, "yyyy-MM-dd"),
 						DateUtils.parseDate(expirationTime, "yyyy-MM-dd"),
 						replyTime == null ? null : DateUtils.parseDate(replyTime, "yyyy-MM-dd"),
-								branchId,creatRequstId.getReqId(),PushStatus.INPROSESS);
+								branchId,creatRequstId.getReqId(),PushStatus.INITATION);
 			}else{
 				capital = capitalDao.findOne(id);
 				capital.setFinancingChannel(financingChannel);
@@ -45,9 +50,13 @@ public class CapitalServiceImpl implements CapitalService{
 				capital.setFinancingTime(DateUtils.parseDate(financingTime, "yyyy-MM-dd"));
 				capital.setExpirationTime(DateUtils.parseDate(expirationTime, "yyyy-MM-dd"));
 				capital.setReplyTime(replyTime == null ? null : DateUtils.parseDate(replyTime, "yyyy-MM-dd"));
+				capital.setPushStatus(PushStatus.INITATION);
 			}
 			capital.setId(id);
 			capital = capitalDao.save(capital);
+			
+			paymentApi.CapitalInfoApi(capital.getId(), StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
+			
 			return capital;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -71,6 +80,7 @@ public class CapitalServiceImpl implements CapitalService{
 
 	@Override
 	public void delById(String id) {
+		paymentApi.CapitalInfoApi(id, IdentifierType.D);
 		capitalDao.delete(id);
 	}
 
