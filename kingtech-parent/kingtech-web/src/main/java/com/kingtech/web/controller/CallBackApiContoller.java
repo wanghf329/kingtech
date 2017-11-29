@@ -41,6 +41,7 @@ public class CallBackApiContoller {
 		String data  = sb.toString();
 		AsyReponseModel reponseModel = JSON.parseObject(data, AsyReponseModel.class);
 		log.info("接受到异步回调信息 asyReponseModel ={}",reponseModel);
+		log.info("=========>result={},{},{},{},{}",reponseModel.getClientId(),reponseModel.getAppKey(),reponseModel.getResultCode(),reponseModel.getResultMsg(),reponseModel.getRoundStr());
 		paymentApi.handleResult(reponseModel);
 		
 	}

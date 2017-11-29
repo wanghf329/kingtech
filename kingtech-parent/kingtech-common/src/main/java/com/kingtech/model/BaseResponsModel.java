@@ -53,12 +53,4 @@ public class BaseResponsModel {
 	public boolean isSuccess(){
 		return "0000".equals(this.resultCode);
 	}
-
-	
-
-	  @Override
-	  @JSONField(serialize = false)
-	   public String toString() {
-	        return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE, false);
-	  }
 }
