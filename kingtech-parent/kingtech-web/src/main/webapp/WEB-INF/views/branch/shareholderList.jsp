@@ -23,7 +23,7 @@
                 </section>
 
 			<!-- Modal -->
-			<div class="modal fade" id="editModel" tabindex="-1" role="dialog"
+			<div class="modal fade" id="editModel" tabindex="-1" role="dialog" 
 				aria-labelledby="myModalLabel">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
@@ -70,7 +70,7 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="#joinTime" class="col-sm-2 control-label">入股时间</label>
+									<label for="#joinTime" class="col-sm-2 control-label">入股时间</label> 
 									<div class="col-sm-8 input-group">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										<input type="text" class="form-control pull-right datepicker validate[required]" name="joinTime"
@@ -81,9 +81,9 @@
 								<div class="form-group">
 									<label for="#gender" class="col-sm-2 control-label">性别</label>
 									<div class="col-sm-8">
-										<div class="radio">
-										  <input type="radio" name="gender" value="1" checked>男	
-					                      <input type="radio" name="gender" value="2">女 
+										<div class="radio">  
+										  <input type="radio" name="gender" value="1">男	
+					                      <input type="radio" name="gender" value="2">女     
 					                  	</div>
 									</div>
 								</div>
@@ -115,7 +115,7 @@
                                     <h3 class="box-title">股东列表</h3>
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
-                                	<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#rechargeModel">新增股东</button>  
+                                	<button class="btn btn-primary btn-sm" id="editModelBtn" data-toggle="modal">新增股东</button>   
                                     <table class="table">
                                         <tr>
                                             <th>持股人</th>
