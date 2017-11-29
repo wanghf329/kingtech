@@ -46,7 +46,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 						quitTime == null ? null : DateUtils.parseDate(quitTime, "yyyy-MM-dd"),
 						branchId,creatRequstId.getReqId(),PushStatus.INPROSESS);
 			} else {
-				employee = employeeDao.findOne(idNumber);
+				employee = employeeDao.findOne(id);
 				employee.setName(name);
 				employee.setLoginName(phone);
 				employee.setPhone(phone);
@@ -59,8 +59,8 @@ public class EmployeeServiceImpl implements EmployeeService{
 				employee.setExecutiveFlag(Integer.valueOf(executiveFlag));
 				employee.setPost(post);
 				employee.setReplyTime(replyTime == null ? null : DateUtils.parseDate(replyTime, "yyyy-MM-dd"));
-				employee.setEntryTime(DateUtils.parseDate(replyTime, "yyyy-MM-dd"));
-				employee.setStatus(EmployeeStatus.valueOf(status));
+				employee.setEntryTime(DateUtils.parseDate(entryTime, "yyyy-MM-dd"));
+				employee.setStatus(EmployeeStatus.getValue(status));
 				employee.setQuitTime(quitTime == null ? null : DateUtils.parseDate(quitTime, "yyyy-MM-dd"));
 			}
 			employee.setId(id);	
@@ -80,7 +80,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	public EmployeeModel getById(String id) {
 		Employee employee =  employeeDao.findOne(id);
-		return new EmployeeModel(employee.getId(),employee.getName(),employee.getLoginName(),employee.getPhone(),
+		return new EmployeeModel(employee.getId(),employee.getName(),employee.getPhone(),
 				employee.getEmail(),employee.getPostalAddress(),employee.getDepartment(),employee.getSex(),
 				employee.getIdNumber(),employee.getEducation(),employee.getExecutiveFlag(),employee.getPost(),
 				DateFormatUtils.format(employee.getReplyTime(), "yyyy-MM-dd"),

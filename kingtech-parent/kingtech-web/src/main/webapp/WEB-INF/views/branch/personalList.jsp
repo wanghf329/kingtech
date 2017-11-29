@@ -36,10 +36,11 @@
 						</div>
 						<div class="modal-body">
 							<form class="form-horizontal" id="form-horizontal" action="branch/add/employee" method="POST">
+								<input type="hidden" name="id" value="">
 								<div class="form-group" >
 									<label for="#name" class="col-sm-2 control-label">姓名</label>
 									<div class="col-sm-8 input-group">
-										<input type="text" class="form-control" name="name">
+										<input type="text" class="form-control validate[required]" name="name" data-errormessage="姓名不能为空">
 									</div>
 								</div>
 								<div class="form-group">
@@ -61,7 +62,7 @@
 									<label for="#postalAddress" class="col-sm-2 control-label">通讯地址</label>
 									<div class="col-sm-8 input-group">
 									<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-									<input type="text" class="form-control " name="postalAddress">
+									<input type="text" class="form-control validate[required]" name="postalAddress" data-errormessage="通讯地址不能为空">
 									</div>
 								</div>
 								
@@ -69,7 +70,7 @@
 									<label for="#department" class="col-sm-2 control-label">部门</label>
 									<div class="col-sm-8 input-group">
 									<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-									<input type="text" class="form-control " name="department">
+									<input type="text" class="form-control validate[required]" name="department" data-errormessage="部门不能为空">
 									</div>
 								</div>
 								
@@ -77,8 +78,8 @@
 									<label for="#sex" class="col-sm-2 control-label">性别</label>
 									<div class="col-sm-8 input-group">
 					                  <div class="radio">
-					                      <input type="radio" name="sex" value="1" checked="">男
-					                   	  <input type="radio" name="sex" value="2" checked="">女
+					                      <input type="radio" name="sex" value="1" >男
+					                   	  <input type="radio" name="sex" value="2" >女
 					                  </div>
 									</div>
 								</div>
@@ -87,7 +88,7 @@
 									<label for="#idNumber" class="col-sm-2 control-label">身份证号</label>
 									<div class="col-sm-8 input-group">
 									<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-									<input type="text" class="form-control " name="idNumber">
+									<input type="text" class="form-control validate[required]" name="idNumber" data-errormessage="身份证号不能为空">
 									</div>
 								</div>
 								
@@ -137,7 +138,8 @@
 									<label for="#replyTime" class="col-sm-2 control-label">批复时间</label>
 									<div class="col-sm-8 input-group date">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										<input type="text" class="form-control pull-right datepicker" name="replyTime">
+										<input type="text" class="form-control pull-right datepicker" name="replyTime"
+											readonly data-errormessage="批复时间不能为空">
 									</div>
 								</div>
 								
@@ -145,7 +147,8 @@
 									<label for="#entryTime" class="col-sm-2 control-label">入职时间</label>
 									<div class="col-sm-8 input-group date">
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										<input type="text" class="form-control pull-right datepicker" name="entryTime">
+										<input type="text" class="form-control pull-right datepicker validate[required]" name="entryTime"
+											readonly data-errormessage="批复时间不能为空">
 									</div>
 								</div>
 								
@@ -163,7 +166,8 @@
 									<label for="#quitTime" class="col-sm-2 control-label">离职时间</label>
 									<div class="col-sm-8 input-group date">
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										<input type="text" class="form-control pull-right datepicker" name="quitTime">
+										<input type="text" class="form-control pull-right datepicker" name="quitTime"
+											readonly data-errormessage="批复时间不能为空">
 									</div>
 								</div>
 								
@@ -204,35 +208,40 @@
                                             <th>状态</th>
                                             <th>操作</th>
                                         </tr>
-                                        <tr>
-                                            <td class="text-blue"><a><strong>王二小<a><strong></td> 
-                                            <td>158****6369</td>
-                                            <td>wangerxiao@163.com</td>
-                                            <td>陕西西安</td>
-                                            <td>技术部</td>
-                                            <td>男</td>
-                                            <td>610526*********9112</td>
-                                            <td>本科</td>
-                                            <td>是</td>
-                                            <td>是</td> 
-                                            <td><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span>
-                                            	<span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span>
-                                            	<span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span>
-                                            </td>
-                                            <td><a href="javascript:void(0)" onclick="getCapital('${it.id}')"><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a></td>
-                                            <a href="javascript:void(0)" onclick="delConfirm('${it.id}')"><i class="text-red fa  fa-minus-circle"></i><strong>删除</strong></a>
-                                        </tr>
+                                        <c:forEach var="it" items="${list}">
+	                                        <tr>
+	                                            <td class="text-blue">${it.name}</td>  
+	                                            <td>${it.phone}</td> 
+	                                            <td>${it.email}</td>
+	                                            <td>${it.postalAddress}</td>
+	                                            <td>${it.department}</td>
+	                                            <td>
+	                                            	<c:if test="${it.sex=='1'}">男</c:if>
+	                                            	<c:if test="${it.sex=='2'}">女</c:if>
+	                                            </td>
+	                                            <td>${it.idNumber}</td>
+	                                            <td>${it.education}</td>
+	                                            <td>
+	                                            	<c:if test="${it.executiveFlag=='1'}">是</c:if>
+	                                            	<c:if test="${it.executiveFlag=='0'}">否</c:if>
+	                                            </td>
+	                                            <td>
+	                                            	<c:if test="${it.status=='NUM1'}">在职</c:if>
+	                                            	<c:if test="${it.status=='NUM0'}">离职</c:if>
+	                                            </td>
+	                                            <td>
+	                                            	<c:if test="${it.pushStatus=='SUCCESS'}"><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span></c:if>
+	                                            	<c:if test="${it.pushStatus=='INPROSESS'}"><span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span></c:if>
+	                                            	<c:if test="${it.pushStatus=='FAILED'}"><span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span></c:if>
+	                                            </td>
+	                                            <td>
+	                                            	<a href="javascript:void(0)" onclick="getEmployee('${it.id}')"><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a>
+	                                            	<a href="javascript:void(0)" onclick="delConfirm('${it.id}')"><i class="text-red fa  fa-minus-circle"></i><strong>删除</strong></a>
+	                                            </td>
+	                                        </tr>
+                                        </c:forEach>
                                     </table>
                                 </div><!-- /.box-body -->
-                                <div class="box-footer clearfix">
-                                    <ul class="pagination pagination-sm no-margin pull-right">
-                                        <li><a href="#">&laquo;</a></li>
-                                        <li><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">&raquo;</a></li>
-                                    </ul>
-                                </div> 
                             </div><!-- /.box -->
                         </div><!-- /.col -->
                     </div><!-- /.row --> 
@@ -240,34 +249,8 @@
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
 
-
         <%@include file="../common/footer.jspf" %>
         <script src="bujs/employee/main.js" type="text/javascript"></script>
         
-        <!-- <script type="text/javascript">
-        	menuChecked("#personalList");
-        	
-        	$(".saveRecordBtn").click(function(){
-        		var data = {
-        			id:'',	
-       				contractName:$("#contractName").val(),
-       				activityName:$("#activityName").val(),
-       				orderId:$("#orderId").val(),
-       				orderName:$("#orderName").val(),
-       				amount:$("#amount").val(),
-       				discription:$("#discription").val()
-        		};
-        		
-        		$.post("recharge/create",data,function(res){
-        			alert(res);
-        		});
-        	});
-        	
-        	$(function () {  
-        		$('.datepicker').datepicker({autoclose: true,formart :"YYYY-MM-DD" });
-        		
-        	});
-        </script> -->
-
     </body>
 </html>
