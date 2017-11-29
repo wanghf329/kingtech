@@ -45,8 +45,7 @@ public class CapitalModel extends BaseRequestModel {
 	private String updateTime;
 	
 	
-	public CapitalModel(String clientId, String roundStr, String appKey,
-			String token, String identifier, String reqId, String sign,
+	public CapitalModel( String roundStr,String identifier, String reqId, String sign,
 			String financingChannel, String financingMoney, String financingTime,
 			String expirationTime, String replyTime, String createTime,
 			String updateTime) {
@@ -70,4 +69,17 @@ public class CapitalModel extends BaseRequestModel {
 		this.expirationTime = expirationTime;
 		this.replyTime = replyTime;
 	}
+
+	/**
+	 * 删除
+	 * @param roundStr
+	 * @param identifier
+	 * @param reqId
+	 */
+
+	public CapitalModel( String roundStr,String identifier, String reqId) {
+		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId);
+	}
+	
+	
 }

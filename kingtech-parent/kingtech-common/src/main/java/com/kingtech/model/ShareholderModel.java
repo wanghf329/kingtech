@@ -50,8 +50,7 @@ public class ShareholderModel extends BaseRequestModel {
 	@JSONField(name="update_time")
 	private String updateTime;
 
-	public ShareholderModel(String clientId, String roundStr, String appKey,
-			String token, String identifier, String reqId, String sign,
+	public ShareholderModel( String roundStr, String identifier, String reqId, String sign,
 			String partnerType, String holder, String holdingScale,
 			String contributionAmount, String joinTime, int gender,
 			String quitTime, String createTime, String updateTime) {
