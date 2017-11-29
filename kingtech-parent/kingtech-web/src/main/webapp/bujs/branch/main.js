@@ -70,6 +70,8 @@ $(document).ready(function () {
     	  failure : function() { callFailFunction()  } 
       })
       
+    
+      
       $('.datepicker1').datetimepicker({
     		minView: "2", //选择日期后，不会再跳转去选择时分秒 
     	    language:  'zh-CN',
@@ -119,6 +121,10 @@ function getBranchInfo(id){
 	});
 }
 
+
+$("#resetBtn").click(function(){ 
+	$("#addBranchForm")[0].reset();
+});
 
 
 

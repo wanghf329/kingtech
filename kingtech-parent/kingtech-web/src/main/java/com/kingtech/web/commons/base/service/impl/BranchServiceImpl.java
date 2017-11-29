@@ -2,6 +2,7 @@ package com.kingtech.web.commons.base.service.impl;
 
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
@@ -73,6 +74,7 @@ public class BranchServiceImpl implements  BranchService {
 			branch.setNationalRegNum(nationalRegNum);
 			branch.setLandRegNum(landRegNum);
 			branch.setBusinessScope(businessScope);
+			branch.setUpdateTime(new Date());
 		}
 		try {
 			branch = branchDao.save(branch);

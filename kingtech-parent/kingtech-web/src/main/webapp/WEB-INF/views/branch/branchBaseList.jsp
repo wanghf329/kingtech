@@ -131,7 +131,7 @@
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal">关闭</button> 
-							<button type="button" class="btn btn-danger">重置</button>								
+							<button type="reset" id="resetBtn"class="btn btn-danger">重置</button>								
 							<button type="submit" class="btn btn-primary saveRecordBtn">保存</button>
 						</div>
 					</div>
