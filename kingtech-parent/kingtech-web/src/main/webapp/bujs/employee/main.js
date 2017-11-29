@@ -31,6 +31,7 @@ $(".saveRecordBtn").click(function(){
 
 $("input[name='executiveFlag'][value='0']").on("ifChecked", function(event){
 	$("select[name='post']").css("display","none");
+	$("select[name='post']").val("");
 });
 $("input[name='executiveFlag'][value='1']").on("ifChecked", function(event){
 	$("select[name='post']").css("display","");
@@ -49,7 +50,11 @@ function getEmployee(id){
 		$("input[name='idNumber']").val(res.idNumber);
 		optionSelected('education', res.education);
 		radioChecked('executiveFlag',res.executiveFlag);
-		optionSelected('post', res.post);
+		if (res.executiveFlag == 0) {
+			$("select[name='post']").css("display","none");
+		} else {
+			optionSelected('post', res.post);
+		}
 		$("input[name='replyTime']").val(res.replyTime);
 		$("input[name='entryTime']").val(res.entryTime);
 		radioChecked('status',res.status);
