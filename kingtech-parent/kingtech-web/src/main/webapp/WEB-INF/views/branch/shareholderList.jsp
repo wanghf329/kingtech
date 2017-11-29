@@ -70,7 +70,7 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="#joinTime" class="col-sm-2 control-label">入股时间</label>
+									<label for="#joinTime" class="col-sm-2 control-label">入股时间</label> 
 									<div class="col-sm-8 input-group">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										<input type="text" class="form-control pull-right datepicker validate[required]" name="joinTime"
@@ -81,9 +81,9 @@
 								<div class="form-group">
 									<label for="#gender" class="col-sm-2 control-label">性别</label>
 									<div class="col-sm-8">
-										<div class="radio">
-										  <input type="radio" name="gender" value="1" checked>男	
-					                      <input type="radio" name="gender" value="2">女 
+										<div class="radio">  
+										  <input type="radio" name="gender" value="1">男	
+					                      <input type="radio" name="gender" value="2">女     
 					                  	</div>
 									</div>
 								</div>

@@ -23,16 +23,23 @@ $("#editModelBtn").click(function(){
 });
 
 
+$("input[name='genderText']").click(function(){  
+	alert();
+	$("#gender").val($("input[name='genderText':checked]").val());  
+});
+
+
+
 
 function getShareHolder(id){ 
 	$.get('branch/getShareholder/'+id,null,function(res){
 		$("input[name='id']").val(res.id);
 		$("input[name='partnerType']").val(res.partnerType);
-		$("input[name='holder']").val(res.holder);
+		$("input[name='holder']").val(res.holder); 
 		$("input[name='holdingScale']").val(res.holdingScale);
 		$("input[name='contributionAmount']").val(res.contributionAmount);
 		$("input[name='joinTime']").val(res.joinTime);
-		$("input[name='gender']").val(res.gender);
+		radioChecked('gender',res.gender);
 		$("input[name='quitTime']").val(res.quitTime);  
 		$("#editModel").modal();
 	});
