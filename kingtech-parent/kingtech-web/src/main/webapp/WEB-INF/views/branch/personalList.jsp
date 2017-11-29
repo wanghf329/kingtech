@@ -117,8 +117,8 @@
 									<label for="#executiveFlag" class="col-sm-3 control-label">是否董监高</label>
 									<div class="col-sm-6 input-group">
 										<div class="radio">
-					                      <input type="radio" name="executiveFlag" value="1" >是
-					                   	  <input type="radio" name="executiveFlag" value="0" checked="">否
+					                      <input type="radio" name="executiveFlag" value="1" checked="">是
+					                   	  <input type="radio" name="executiveFlag" value="0" >否
 					                  </div>
 									</div>
 								</div>
