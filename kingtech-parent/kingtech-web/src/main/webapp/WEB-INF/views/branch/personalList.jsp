@@ -77,7 +77,7 @@
 								</div>
 								
 								<div class="form-group">
-									<label for="#department" class="col-sm-6 control-label">部门</label>
+									<label for="#department" class="col-sm-3 control-label">部门</label>
 									<div class="col-sm-6 input-group">
 										<input type="text" class="form-control validate[required]" name="department" data-errormessage="部门不能为空">
 									</div>
@@ -94,9 +94,9 @@
 								</div>
 								
 								<div class="form-group">
-									<label for="#idNumber" class="col-sm-6 control-label">身份证号</label>
-										<div class="col-sm-6 input-group">
-									<input type="text" class="form-control validate[required]" name="idNumber" data-errormessage="身份证号不能为空">
+									<label for="#idNumber" class="col-sm-3 control-label">身份证号</label>
+									<div class="col-sm-6 input-group">
+										<input type="text" class="form-control validate[required]" name="idNumber" data-errormessage="身份证号不能为空">
 									</div>
 								</div>
 								
