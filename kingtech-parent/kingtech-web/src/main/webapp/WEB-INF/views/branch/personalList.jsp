@@ -46,7 +46,7 @@
 								<div class="form-group">
 									<label for="#phone" class="col-sm-2 control-label">电话</label>
 									<div class="col-sm-8 input-group">
-										<input type="text" class="form-control" name="phone">
+										<input type="text" class="form-control validate[custom[phone]]" name="phone">
 									</div>
 								</div>
 								
@@ -54,7 +54,7 @@
 									<label for="#email" class="col-sm-2 control-label">电子邮件</label>
 									<div class="col-sm-8 input-group">
 									<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-									<input type="text" class="form-control " name="email">
+									<input type="text" class="form-control validate[custom[email]]" name="email">
 									</div>
 								</div>
 								
