@@ -1,9 +1,8 @@
 package com.kingtech.web.controller;
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.kingtech.common.utils.DataTablesResponse;
-import com.kingtech.common.utils.Response;
 import com.kingtech.dao.entity.Branch;
 import com.kingtech.dao.entity.Capital;
+import com.kingtech.model.BranchInfoModel;
 import com.kingtech.model.CapitalModel;
 import com.kingtech.model.EmployeeModel;
+import com.kingtech.model.ShareholderModel;
 import com.kingtech.web.commons.base.service.BranchService;
 import com.kingtech.web.commons.base.service.CapitalService;
 import com.kingtech.web.commons.base.service.EmployeeService;
@@ -40,9 +39,9 @@ public class BranchApiController {
 	@Autowired
 	private EmployeeService employeeService;
 	
-	
 	@RequestMapping(method = RequestMethod.GET,value="")
 	public String branchBaseInfo(Model model) { 
+		model.addAttribute("list",branchService.listByInstitutionInfo());
 		return "/branch/branchBaseList";
 	} 
 	
@@ -54,8 +53,16 @@ public class BranchApiController {
 	
 	@RequestMapping(method = RequestMethod.GET,value="/shareholderList")
 	public String shareholderList(Model model) { 
+		model.addAttribute("list",shareholderService.listAll());
 		return "/branch/shareholderList";
 	}  
+	
+	@ResponseBody
+	@RequestMapping(value = "/getShareholder/{id}", method = RequestMethod.GET)
+	public ShareholderModel getShareholder(Model model,@PathVariable("id") String id) {
+		return shareholderService.getById(id);
+	}
+	
 	
 	@RequestMapping(method = RequestMethod.GET,value="/capitalList")
 	public String capitalList(Model model) { 
@@ -63,28 +70,12 @@ public class BranchApiController {
 		return "/branch/capitalList";
 	}  
 	
-	
-    @RequestMapping(value = "/list", method = RequestMethod.POST)
-    @ResponseBody
-    public DataTablesResponse findAssetList(Integer draw, 
-									    	@RequestParam("start") Integer firstIndex,
-									        @RequestParam("length") Integer pageSize) {
-		
-		Pageable pageable;
-		if(pageSize == -1){ //不分页
-			pageable = null;
-		}else{
-			pageable = new PageRequest(firstIndex/pageSize,pageSize);
-		}
-		Page<Branch> page = branchService.listByInstitutionInfo(pageable);
-		return DataTablesResponse.format(draw, page);
-    }
-    
     @RequestMapping(value = "/add/branch", method=RequestMethod.POST )
-    @ResponseBody
-    public Response addBranchInfo(@RequestParam("corporateName") String corporateName,
+    public String addBranchInfo(Model model,
+    							 String id,
+    							 @RequestParam("corporateName") String corporateName,
     							 @RequestParam("legalRepresentative") String legalRepresentative,
-						   		 @RequestParam("regCapital") String regCapital,
+    							 BigDecimal regCapital,
 						   		 @RequestParam("buildDate") String buildDate,
 						   		 @RequestParam("openingDate") String openingDate,
 						   		 @RequestParam("siteArea") String siteArea,
@@ -94,7 +85,8 @@ public class BranchApiController {
 						   		 @RequestParam("nationalRegNum") String nationalRegNum,
 						   		 @RequestParam("landRegNum") String landRegNum,
 						   		 @RequestParam("businessScope") String businessScope) {
-    	return Response.success();
+    	Branch branch = branchService.addNewBranchInfo(id,corporateName, legalRepresentative, regCapital, buildDate, openingDate, siteArea, businessAddr, organizationCode, licence, nationalRegNum, landRegNum, businessScope);
+    	return "redirect:/branch";
     	
     }
 	
@@ -135,9 +127,15 @@ public class BranchApiController {
 		return capitalService.getById(id);
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/getBranchInfo/{id}", method = RequestMethod.GET)
+	public BranchInfoModel changeBranch(Model model,@PathVariable("id") String id) {
+		return branchService.getBranchInfoById(id);
+	}
+
 	@RequestMapping(value = "/delCapital/{id}", method = RequestMethod.GET)
 	public String delCapital(Model model,@PathVariable("id") String id) {
-		capitalService.delById(id);
+		//capitalService.delById(id);
 		return "redirect:/branch/capitalList";
 	}
 	
@@ -152,4 +150,5 @@ public class BranchApiController {
 		employeeService.delById(id);
 		return "redirect:/branch/personalList";
 	}
+	
 }

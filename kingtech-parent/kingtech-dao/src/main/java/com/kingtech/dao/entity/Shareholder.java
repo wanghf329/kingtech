@@ -5,14 +5,17 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import com.kingtech.dao.entity.base.RecordEntity;
+import com.kingtech.enums.PartnerTypeEnum;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.enums.SexEnum;
 
 /**
  * 股东信息表
@@ -25,8 +28,9 @@ import com.kingtech.enums.PushStatus;
 public class Shareholder extends RecordEntity {
 	
 	// 股东类型
+	@Enumerated(EnumType.STRING)
 	@Column(name="PARTNER_TYPE")
-	private String partnerType;
+	private PartnerTypeEnum partnerType;
 
 	// 持股人
 	@Column(name="HOLDER")
@@ -45,8 +49,9 @@ public class Shareholder extends RecordEntity {
 	private Date joinTime;
 	
 	// 性别
+	@Enumerated(EnumType.STRING)
 	@Column(name="GENDER")
-	private int gender;
+	private SexEnum gender;
 	
 	// 离职时间
 	@Column(name="QUIT_TIME")
@@ -56,8 +61,8 @@ public class Shareholder extends RecordEntity {
 	@Column(name="BRANCH_ID")
 	private String branchId;
 
-	public Shareholder(String partnerType, String holder, BigDecimal holdingScale, BigDecimal contributionAmount,
-			Date joinTime, int gender, Date quitTime, String branchId, String reqId, PushStatus pushStatus) {
+	public Shareholder(PartnerTypeEnum partnerType, String holder, BigDecimal holdingScale, BigDecimal contributionAmount,
+			Date joinTime, SexEnum gender, Date quitTime, String branchId, String reqId, PushStatus pushStatus) {
 		super(reqId, pushStatus);
 		this.partnerType = partnerType;
 		this.holder = holder;

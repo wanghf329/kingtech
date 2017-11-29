@@ -35,84 +35,85 @@
 							<h4 class="modal-title" >机构基本信息录入</h4>
 						</div>
 						<div class="modal-body">
-							<form class="form-horizontal" id = "addBranchForm">
+							<form class="form-horizontal" id = "addBranchForm" action="branch/add/branch" method="POST">
+								<input type="hidden" name="id" value="">
 								<div class="form-group" >
 									<label for="#corporateName" class="col-sm-3 control-label">公司名称</label> 
 									<div class="col-sm-6 input-group">
-										<input type="text" class="form-control validate[required]" name="corporateName" id="corporateName">
+										<input type="text" class="form-control validate[required]" name="corporateName" id="corporateName" data-errormessage="公司名称不能为空">
 									</div>   
 								</div>
 								<div class="form-group">
 									<label for="#legalRepresentative" class="col-sm-3 control-label">法人</label>
 									<div class="col-sm-6 input-group">
-										<input type="text" class="form-control"  name ="legalRepresentative" id="legalRepresentative" required>
+										<input type="text" class="form-control validate[required]"  name ="legalRepresentative" id="legalRepresentative" data-errormessage="法人不能为空">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="#regCapital" class="col-sm-3 control-label">注册资本</label>
 									<div class="col-sm-6 input-group">
 									<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-										<input type="text" class="form-control" name = "regCapital" id="regCapital" required>
+										<input type="text" class="form-control validate[required,custom[number]]" name = "regCapital" id="regCapital"  data-errormessage="注册资本只能是数字">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="buildDate" class="col-sm-3 control-label">成立日期</label>
 									<div class="col-sm-6 input-group date">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										<input type="text" class="form-control pull-right datepicker" name="buildDate" id="buildDate">
+										<input type="text" class="form-control pull-right datepicker1 validate[required]" name="buildDate" id="buildDate" data-errormessage="成立日期不能为空">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="openingDate" class="col-sm-3 control-label">开业日期</label>
 									<div class="col-sm-6 input-group date">
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										<input type="text" class="form-control pull-right datepicker"
-										 name="openingDate"	id="openingDate">
+										<input type="text" class="form-control pull-right datepicker1 validate[required]"
+										 name="openingDate"	id="openingDate" data-errormessage="开业日期不能为空">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="siteArea" class="col-sm-3 control-label">场所面积</label>
 									<div class="col-sm-6 input-group">
-										<input type="text"  class="form-control"
-											id="siteArea" name ="siteArea"></input>
+										<input type="text"  class="form-control validate[required]"
+											id="siteArea" name ="siteArea" data-errormessage="场所面积不能为空"></input>
 										<span class="input-group-addon"><i class="fa ">平方米</i></span>
 									</div>
 								</div> 	
 								<div class="form-group">
 									<label for="businessaddr" class="col-sm-3 control-label">经营地址</label>
 									<div class="col-sm-6 input-group">
-										<input type="text"  class="form-control"
-											name = "businessAddr" id="businessaddr"></input>
+										<input type="text"  class="form-control validate[required]"
+											name = "businessAddr" id="businessaddr" data-errormessage="经营地址不能为空"></input>
 									</div>
 								</div> 
 								<div class="form-group ">
 									<label for="organizationCode" class="col-sm-3 control-label">组织机构代码</label>
 									<div class="col-sm-6 input-group">
-										<input type="text"  class="form-control"
-											name ="organizationCode" id="organizationCode"></input>
+										<input type="text"  class="form-control validate[required]"
+											name ="organizationCode" id="organizationCode" data-errormessage="组织机构代码不能为空"></input>
 									</div>
 								</div> 
 								<div class="form-group ">
 									<label for="licence" class="col-sm-3 control-label">营业执照</label>
 									<div class="col-sm-6 input-group">
-										<input type="text"  class="form-control"
-											name = "licence" id="licence"></input>
+										<input type="text"  class="form-control validate[required]"
+											name = "licence" id="licence" data-errormessage="营业执照不能为空"></input>
 									</div>
 								</div>
 								
 								<div class="form-group ">
 									<label for="nationalRegNum" class="col-sm-3 control-label">国税编码</label>
 									<div class="col-sm-6 input-group">
-										<input type="text"  class="form-control"
-											name = "nationalRegNum" id="nationalRegNum"></input>
+										<input type="text"  class="form-control validate[required]"
+											name = "nationalRegNum" id="nationalRegNum" data-errormessage="国税编码不能为空"></input>
 									</div> 
 								</div>
 								
 								<div class="form-group ">
 									<label for="landRegNum" class="col-sm-3 control-label">地税编码</label>
 									<div class="col-sm-6 input-group">
-										<input type="text"  class="form-control"
-											name = "landRegNum" id="landRegNum"></input>
+										<input type="text"  class="form-control validate[required]"
+											name = "landRegNum" id="landRegNum" data-errormessage="地税编码不能为空"></input>
 									</div>
 								</div>
 								
@@ -120,8 +121,8 @@
 								<div class="form-group ">
 									<label for="businessScope" class="col-sm-3 control-label">经营范围</label> 
 									<div class="col-sm-6 input-group">
-										<input type="text"  class="form-control"
-											name = "businessScope" id="businessScope"></input>
+										<input type="text"  class="form-control validate[required]" 
+											name = "businessScope" id="businessScope" data-errormessage="地税编码不能为空"></input>
 									</div>
 								</div>
 								 																										
@@ -130,7 +131,7 @@
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal">关闭</button> 
-							<button type="button" class="btn btn-danger">重置</button>								
+							<button type="reset" id="resetBtn"class="btn btn-danger">重置</button>								
 							<button type="submit" class="btn btn-primary saveRecordBtn">保存</button>
 						</div>
 					</div>
@@ -147,7 +148,7 @@
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
                                 	<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#newBranchBaseInfo">新增机构基本信息</button>  
-                                    <table class="table table-striped table-bordered table-hover" id="branchBaseList">
+                                    <table class="table" id="branchBaseList">
                                     	<thead>
 	                                       <tr>
 	                                           <th>公司名称</th> 
@@ -162,11 +163,31 @@
 	                                           <th>国税编码</th>
 	                                           <th>地税编码</th>
 	                                           <th>经营范围</th>
+	                                           <th>状态</th>
 	                                           <th>操作</th>
 	                                       </tr>
-	                                    </thead>
-                                        <tbody>
-				    					</tbody>
+	                                    <c:forEach var="it" items="${list}">
+	                                        <tr>
+	                                            <td>${it.corporateName}</td>
+	                                            <td>${it.legalRepresentative}</td>  
+	                                            <td class="text-red"><i class="fa fa-jpy"/><strong>${it.regDapital}</strong></td> 
+	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.buildDate}"></fmt:formatDate></td>
+	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.openingDate}"></fmt:formatDate></td>
+	                                            <td>${it.businessAddr}</td>
+	                                            <td>${it.siteArea}</td>
+	                                            <td>${it.organizationCode}</td>
+	                                            <td>${it.licence}</td>
+	                                            <td>${it.nationalRegNum}</td>
+	                                            <td>${it.landRegNum}</td>
+	                                            <td>${it.businessScope}</td>
+	                                            <td>
+	                                            	<c:if test="${it.pushStatus=='SUCCESS'}"><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span></c:if>
+	                                            	<c:if test="${it.pushStatus=='INPROSESS'}"><span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span></c:if>
+	                                            	<c:if test="${it.pushStatus=='FAILED'}"><span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span></c:if>
+	                                            </td>
+	                                            <td><a href="javascript:void(0)" onclick="getBranchInfo('${it.id}')"><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a></td>
+	                                        </tr>
+                                        </c:forEach>
                                     </table>
                                 </div><!-- /.box-body -->
                             </div><!-- /.box -->
