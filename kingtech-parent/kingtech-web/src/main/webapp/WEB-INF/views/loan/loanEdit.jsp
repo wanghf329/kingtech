@@ -30,7 +30,7 @@
                                     <h3 class="box-title">合同信息列表</h3>
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
-											<form class="form-horizontal" id="form-horizontal" action="branch/add/contract" method="POST">
+											<form class="form-horizontal" id="form-horizontal" action="loan/save" method="POST">
 												<input type="hidden" name="id" value="">
 												<div class="form-group">
 													<label for="#branch" class="col-sm-2 control-label">所属机构</label>
@@ -43,159 +43,161 @@
 													</div>
 												</div>
 												<div class="form-group">
-													<label for="#financingChannel" class="col-sm-2 control-label">合同编号</label>
+													<label for="#loanContractId" class="col-sm-2 control-label">合同编号</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" name="financingChannel" data-errormessage="融资渠道不能为空">
+														<input type="text" class="form-control validate[required]" name="loanContractId" data-errormessage="合同编号不能为空">
 													</div>
 												</div>
 												<div class="form-group">
-													<label for="#financingChannel" class="col-sm-2 control-label">合同名称</label>
+													<label for="#floanContractName" class="col-sm-2 control-label">合同名称</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" name="financingChannel" data-errormessage="融资渠道不能为空">
+														<input type="text" class="form-control validate[required]" name="loanContractName" data-errormessage="合同名称不能为空">
 													</div>
 												</div>
 												<div class="form-group">
-													<label for="#financingChannel" class="col-sm-2 control-label">营业执照号</label>
+													<label for="#customerId" class="col-sm-2 control-label">营业执照号</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" name="financingChannel" data-errormessage="融资渠道不能为空">
+														<input type="text" class="form-control validate[required]" name="customerId" data-errormessage="营业执照号不能为空">
 													</div>
 												</div>
 												<div class="form-group">
-													<label for="#financingChannel" class="col-sm-2 control-label">贷款金额（元）</label>
+													<label for="#loanAmount" class="col-sm-2 control-label">贷款金额（元）</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" name="financingChannel" data-errormessage="融资渠道不能为空">
+														<input type="text" class="form-control validate[required]" name="loanAmount" data-errormessage="贷款金额不能为空">
 													</div>
 												</div>
 												<div class="form-group">
-													<label for="#financingChannel" class="col-sm-2 control-label">贷款期限类型</label>
+													<label for="#periodType" class="col-sm-2 control-label">贷款期限类型</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" name="financingChannel" data-errormessage="融资渠道不能为空">
+														<select class="form-control validate[required]" id="periodType" name="periodType" data-errormessage="贷款期限类型不能为空">
+															<c:forEach var="it" items="${periodType}">
+						  										<option value ="${it.name()}">${it.getKey()}</option>
+															</c:forEach>
+														</select>
 													</div>
 												</div>										
 												<div class="form-group">
-													<label for="#financingChannel" class="col-sm-2 control-label">贷款期限</label>
+													<label for="#periodTerm" class="col-sm-2 control-label">贷款期限</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" name="financingChannel" data-errormessage="融资渠道不能为空">
+														<input type="text" class="form-control validate[required]" name="periodTerm" data-errormessage="贷款期限不能为空">
 													</div>
 												</div>			
 												<div class="form-group">
-													<label for="financingTime" class="col-sm-2 control-label">贷款开始日期</label>
+													<label for="#loanStartDate" class="col-sm-2 control-label">贷款开始日期</label>
 													<div class="col-sm-4 input-group">
 														<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-														<input type="text" class="form-control pull-right datepicker-time validate[required]"
-														readonly name="financingTime" data-errormessage="融资时间不能为空">
+														<input type="text" class="form-control pull-right datepicker validate[required]"
+														readonly name="loanStartDate" data-errormessage="贷款开始日期不能为空">
 													</div>
 												</div>
 												<div class="form-group">
-													<label for="financingTime" class="col-sm-2 control-label">贷款截止日期</label>
+													<label for="#loanEndDate" class="col-sm-2 control-label">贷款截止日期</label>
 													<div class="col-sm-4 input-group">
 														<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-														<input type="text" class="form-control pull-right datepicker-time validate[required]"
-														readonly name="financingTime" data-errormessage="融资时间不能为空">
+														<input type="text" class="form-control pull-right datepicker validate[required]"
+														readonly name="loanEndDate" data-errormessage="贷款截止日期不能为空">
 													</div>
 												</div>
 												<div class="form-group">
-													<label for="#financingChannel" class="col-sm-2 control-label">利率类型</label>
+													<label for="#rateType" class="col-sm-2 control-label">利率类型</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" name="financingChannel" data-errormessage="融资渠道不能为空">
-													</div>
+														<select class="form-control" id="rateType" name="rateType">
+															<c:forEach var="it" items="${rateType}">
+						  										<option value ="${it.name()}">${it.getKey()}</option>
+															</c:forEach>
+														</select>
+													</div>													
 												</div>	
 												<div class="form-group">
-													<label for="#financingChannel" class="col-sm-2 control-label">利率(%)</label>
+													<label for="#rate" class="col-sm-2 control-label">利率(%)</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" name="financingChannel" data-errormessage="融资渠道不能为空">
+														<input type="text" class="form-control validate[required]" name="rate" data-errormessage="利率不能为空">
 													</div>
 												</div>
 												<div class="form-group">
-													<label for="#financingChannel" class="col-sm-2 control-label">贷款用途</label>
+													<label for="#purpose" class="col-sm-2 control-label">贷款用途</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" name="financingChannel" data-errormessage="融资渠道不能为空">
-													</div>
+														<select class="form-control" id="purpose" name="purpose">
+															<c:forEach var="it" items="${purpose}">
+						  										<option value ="${it.name()}">${it.getKey()}</option>
+															</c:forEach>
+														</select>
+													</div>	
 												</div>										
 												<div class="form-group">
-													<label for="#financingChannel" class="col-sm-2 control-label">贷款投向</label>
+													<label for="#industry" class="col-sm-2 control-label">贷款投向</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" name="financingChannel" data-errormessage="融资渠道不能为空">
-													</div>
+														<select class="form-control" id="industry" name="industry">
+															<c:forEach var="it" items="${industry}">
+						  										<option value ="${it.name()}">${it.getKey()}</option>
+															</c:forEach>
+														</select>
+													</div>														
 												</div>								
 												<div class="form-group">
-													<label for="#financingChannel" class="col-sm-2 control-label">贷款方式</label>
+													<label for="#loanType" class="col-sm-2 control-label">贷款方式</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" name="financingChannel" data-errormessage="融资渠道不能为空">
-													</div>
+														<select class="form-control" id="loanType" name="loanType">
+															<c:forEach var="it" items="${loanType}"> 
+						  										<option value ="${it.name()}">${it.getKey()}</option>
+															</c:forEach>
+														</select>
+													</div>													
 												</div>								
 												<div class="form-group">
-													<label for="#financingChannel" class="col-sm-2 control-label">是否多户联合贷款</label>
+													<label for="#unionFlag" class="col-sm-2 control-label">是否多户联合贷款</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" name="financingChannel" data-errormessage="融资渠道不能为空">
-													</div>
+														<select class="form-control" id="unionFlag" name="unionFlag">
+															<c:forEach var="it" items="${unionFlag}">
+						  										<option value ="${it.name()}">${it.getKey()}</option>
+															</c:forEach>
+														</select>
+													</div>														
 												</div>
 												<div class="form-group">
-													<label for="#financingChannel" class="col-sm-2 control-label">还款方式</label>
+													<label for="#payType" class="col-sm-2 control-label">还款方式</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" name="financingChannel" data-errormessage="融资渠道不能为空">
-													</div>
+														<select class="form-control" id="payType" name="payType">
+															<c:forEach var="it" items="${payType}">
+						  										<option value ="${it.name()}">${it.getKey()}</option>
+															</c:forEach>
+														</select>
+													</div>														
 												</div>
 												<div class="form-group">
-													<label for="#financingChannel" class="col-sm-2 control-label">合同签订日期</label>
-													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" name="financingChannel" data-errormessage="融资渠道不能为空">
-													</div>
-												</div>																								
-												<div class="form-group">
-													<label for="#financingChannel" class="col-sm-2 control-label">还款来源</label>
-													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" name="financingChannel" data-errormessage="融资渠道不能为空">
-													</div>
-												</div>
-												<div class="form-group">
-													<label for="#financingChannel" class="col-sm-2 control-label">合同状态</label>
-													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" name="financingChannel" data-errormessage="融资渠道不能为空">
-													</div>
-												</div>
-												<div class="form-group">
-													<label for="#financingChannel" class="col-sm-2 control-label">是否展期	</label>
-													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" name="financingChannel" data-errormessage="融资渠道不能为空">
-													</div>
-												</div>																								
-												
-												<div class="form-group">
-													<label for="#financingMoney" class="col-sm-2 control-label">融资金额</label>
-													<div class="col-sm-4 input-group">
-														<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
-														<input type="text" class="form-control validate[required,custom[number]]" data-errormessage="融资金额只能为数字"
-															name="financingMoney">
-														<span class="input-group-addon"><i class="fa">万元</i></span>
-													</div>
-												</div>
-												<div class="form-group">
-													<label for="financingTime" class="col-sm-2 control-label">融资时间</label>
+													<label for="#signDate" class="col-sm-2 control-label">合同签订日期</label>
 													<div class="col-sm-4 input-group">
 														<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-														<input type="text" class="form-control pull-right datepicker-time validate[required]"
-														readonly name="financingTime" data-errormessage="融资时间不能为空">
-													</div>
-												</div>
-												
+														<input type="text" class="form-control pull-right datepicker validate[required]"
+														readonly name="signDate" data-errormessage="合同签订日期不能为空">
+													</div>													
+												</div>																								
 												<div class="form-group">
-													<label for="expirationTime" class="col-sm-2 control-label">到期时间</label>
+													<label for="#repaySource" class="col-sm-2 control-label">还款来源</label>
 													<div class="col-sm-4 input-group">
-														<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-														<input type="text" class="form-control pull-right datepicker-time validate[required]"
-														readonly name="expirationTime" data-errormessage="到期时间不能为空">
+														<input type="text" class="form-control validate[required]" name="repaySource" data-errormessage="还款来源不能为空">
 													</div>
 												</div>
-												
-												<div class="form-group">  
-													<label for="replyTime" class="col-sm-2 control-label">实际还款时间</label>
+												<div class="form-group"> 
+													<label for="#status" class="col-sm-2 control-label">合同状态</label>
 													<div class="col-sm-4 input-group">
-														<span class="input-group-addon"><i class="fa fa-calendar"></i></span> 
-														<input type="text" class="form-control pull-right datepicker-time" name="replyTime"
-														readonly data-errormessage="实际还款时间不能为空"> 
-													</div>
+														<select class="form-control" id="status" name="status">
+															<c:forEach var="it" items="${status}">
+						  										<option value ="${it.name()}">${it.getKey()}</option>
+															</c:forEach>
+														</select>
+													</div>													
 												</div>
+												<div class="form-group">
+													<label for="#isExtend" class="col-sm-2 control-label">是否展期</label>
+													<div class="col-sm-4 input-group">
+														<select class="form-control" id="isExtend" name="isExtend">
+															<c:forEach var="it" items="${isExtend}">
+						  										<option value ="${it.name()}">${it.getKey()}</option>
+															</c:forEach>
+														</select>
+													</div>														
+												</div>																								
 												<div class="form-group">
 													<label class="col-sm-5 control-label"></label> 
 													<button type="button" class="btn btn-primary saveRecordBtn">保&nbsp;存</button>
