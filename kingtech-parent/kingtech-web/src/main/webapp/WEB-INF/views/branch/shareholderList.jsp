@@ -38,8 +38,18 @@
 							<form class="form-horizontal" id="form-horizontal" action="branch/add/shareholder" method="POST">
 								<input type="hidden" name="id" value="">
 								<div class="form-group">
-									<label for="#partnerType" class="col-sm-2 control-label">股东类型</label>
-									<div class="col-sm-8 input-group">
+									<label for="#branch" class="col-sm-3 control-label">所属机构</label>
+									<div class="col-sm-6 input-group">
+										<select class="form-control validate[required]" id="branch" name="branch" data-errormessage="机构不能为空">
+											<c:forEach var="it" items="${branchs}">
+		  										<option value ="${it.id}">${it.corporateName}</option>
+											</c:forEach>
+										</select>
+									</div>
+								</div>								
+								<div class="form-group">
+									<label for="#partnerType" class="col-sm-3 control-label">股东类型</label>
+									<div class="col-sm-6 input-group">
 					                  <div class="radio">
 					                      <input type="radio" name="partnerType" value="1" checked>自然人股东
 					                   	  <input type="radio" name="partnerType" value="2" >企业股东 
@@ -47,22 +57,22 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="#holder" class="col-sm-2 control-label">持股人</label>
-									<div class="col-sm-8 input-group">
+									<label for="#holder" class="col-sm-3 control-label">持股人</label>
+									<div class="col-sm-6 input-group">
 										<input type="text" class="form-control validate[required]" name="holder" data-errormessage="持股人不能为空"> 
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="#holdingScale" class="col-sm-2 control-label">持股比例</label>
-									<div class="col-sm-8 input-group">
+									<label for="#holdingScale" class="col-sm-3 control-label">持股比例</label>
+									<div class="col-sm-6 input-group">
 										<input type="text" class="form-control validate[required,custom[number],max[100]]" data-errormessage="持股比例只能为数字"
 											name="holdingScale">
 										<span class="input-group-addon"><i class="fa">%</i></span>
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="#contributionAmount" class="col-sm-2 control-label">出资金额</label>
-									<div class="col-sm-8 input-group">
+									<label for="#contributionAmount" class="col-sm-3 control-label">出资金额</label>
+									<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-rmb"></i></span> 
 										<input type="text" class="form-control validate[required,custom[number]]" data-errormessage="出资金额只能为数字"
 											name="contributionAmount">
@@ -70,8 +80,8 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="#joinTime" class="col-sm-2 control-label">入股时间</label> 
-									<div class="col-sm-8 input-group">
+									<label for="#joinTime" class="col-sm-3 control-label">入股时间</label> 
+									<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										<input type="text" class="form-control pull-right datepicker validate[required]" name="joinTime"
 											readonly data-errormessage="入股时间不能为空">
@@ -79,8 +89,8 @@
 								</div>
 								
 								<div class="form-group">
-									<label for="#gender" class="col-sm-2 control-label">性别</label>
-									<div class="col-sm-8">
+									<label for="#gender" class="col-sm-3 control-label">性别</label>
+									<div class="col-sm-6">
 										<div class="radio">  
 										  <input type="radio" name="gender" value="1">男	
 					                      <input type="radio" name="gender" value="2">女     
@@ -89,8 +99,8 @@
 								</div>
 								
 								<div class="form-group">
-									<label for="#quitTime" class="col-sm-2 control-label">退出时间</label>
-									<div class="col-sm-8 input-group">
+									<label for="#quitTime" class="col-sm-3 control-label">退出时间</label>
+									<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										<input type="text" class="form-control pull-right datepicker" name="quitTime" readonly> 
 									</div>
@@ -150,15 +160,6 @@
                                         </c:forEach>
                                     </table>
                                 </div><!-- /.box-body -->
-                                <div class="box-footer clearfix">
-                                    <ul class="pagination pagination-sm no-margin pull-right">
-                                        <li><a href="#">&laquo;</a></li>
-                                        <li><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">&raquo;</a></li>
-                                    </ul>
-                                </div> 
                             </div><!-- /.box -->
                         </div><!-- /.col -->
                     </div><!-- /.row --> 

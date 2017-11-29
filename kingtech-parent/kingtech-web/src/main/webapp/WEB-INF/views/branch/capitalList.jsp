@@ -38,6 +38,16 @@
 							<form class="form-horizontal" id="form-horizontal" action="branch/add/capital" method="POST">
 								<input type="hidden" name="id" value="">
 								<div class="form-group">
+									<label for="#branch" class="col-sm-3 control-label">所属机构</label>
+									<div class="col-sm-6 input-group">
+										<select class="form-control validate[required]" id="branch" name="branch" data-errormessage="机构不能为空">
+											<c:forEach var="it" items="${branchs}">
+		  										<option value ="${it.id}">${it.corporateName}</option>
+											</c:forEach>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
 									<label for="#financingChannel" class="col-sm-3 control-label">融资渠道</label>
 									<div class="col-sm-6 input-group">
 										<input type="text" class="form-control validate[required]" name="financingChannel" data-errormessage="融资渠道不能为空">

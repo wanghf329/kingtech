@@ -37,46 +37,56 @@
 						<div class="modal-body">
 							<form class="form-horizontal" id="form-horizontal" action="branch/add/employee" method="POST">
 								<input type="hidden" name="id" value="">
+								<div class="form-group">
+									<label for="#branch" class="col-sm-3 control-label">所属机构</label>
+									<div class="col-sm-6 input-group">
+										<select class="form-control validate[required]" id="branch" name="branch" data-errormessage="机构不能为空">
+											<c:forEach var="it" items="${branchs}">
+		  										<option value ="${it.id}">${it.corporateName}</option>
+											</c:forEach>
+										</select>
+									</div>
+								</div>							
 								<div class="form-group" >
-									<label for="#name" class="col-sm-2 control-label">姓名</label>
-									<div class="col-sm-8 input-group">
+									<label for="#name" class="col-sm-3 control-label">姓名</label>
+									<div class="col-sm-6 input-group">
 										<input type="text" class="form-control validate[required]" name="name" data-errormessage="姓名不能为空">
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="#phone" class="col-sm-2 control-label">电话</label>
-									<div class="col-sm-8 input-group">
+									<label for="#phone" class="col-sm-3 control-label">电话</label>
+									<div class="col-sm-6 input-group">
 										<input type="text" class="form-control" name="phone">
 									</div>
 								</div>
 								
 								<div class="form-group">
-									<label for="#email" class="col-sm-2 control-label">电子邮件</label>
-									<div class="col-sm-8 input-group">
+									<label for="#email" class="col-sm-3 control-label">电子邮件</label>
+									<div class="col-sm-6 input-group">
 									<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
 									<input type="text" class="form-control " name="email">
 									</div>
 								</div>
 								
 								<div class="form-group">
-									<label for="#postalAddress" class="col-sm-2 control-label">通讯地址</label>
-									<div class="col-sm-8 input-group">
+									<label for="#postalAddress" class="col-sm-3 control-label">通讯地址</label>
+									<div class="col-sm-6 input-group">
 									<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
 									<input type="text" class="form-control validate[required]" name="postalAddress" data-errormessage="通讯地址不能为空">
 									</div>
 								</div>
 								
 								<div class="form-group">
-									<label for="#department" class="col-sm-2 control-label">部门</label>
-									<div class="col-sm-8 input-group">
+									<label for="#department" class="col-sm-3 control-label">部门</label>
+									<div class="col-sm-6 input-group">
 									<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
 									<input type="text" class="form-control validate[required]" name="department" data-errormessage="部门不能为空">
 									</div>
 								</div>
 								
 								<div class="form-group">
-									<label for="#sex" class="col-sm-2 control-label">性别</label>
-									<div class="col-sm-8 input-group">
+									<label for="#sex" class="col-sm-3 control-label">性别</label>
+									<div class="col-sm-6 input-group">
 					                  <div class="radio">
 					                      <input type="radio" name="sex" value="1" >男
 					                   	  <input type="radio" name="sex" value="2" >女
@@ -85,16 +95,16 @@
 								</div>
 								
 								<div class="form-group">
-									<label for="#idNumber" class="col-sm-2 control-label">身份证号</label>
-									<div class="col-sm-8 input-group">
+									<label for="#idNumber" class="col-sm-3 control-label">身份证号</label>
+									<div class="col-sm-6 input-group">
 									<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
 									<input type="text" class="form-control validate[required]" name="idNumber" data-errormessage="身份证号不能为空">
 									</div>
 								</div>
 								
 								<div class="form-group">
-									<label for="#education" class="col-sm-2 control-label">学历</label>
-									<div class="col-sm-8 input-group ">
+									<label for="#education" class="col-sm-3 control-label">学历</label>
+									<div class="col-sm-6 input-group ">
 										<select class="form-control" name="education">
 						                   <option>小学</option>
 						                   <option>高中</option>
@@ -106,8 +116,8 @@
 								</div>
 								
 								<div class="form-group">
-									<label for="#executiveFlag" class="col-sm-2 control-label">是否董监高</label>
-									<div class="col-sm-8 input-group">
+									<label for="#executiveFlag" class="col-sm-3 control-label">是否董监高</label>
+									<div class="col-sm-6 input-group">
 										<div class="radio">
 					                      <input type="radio" name="executiveFlag" value="1" checked="">是
 					                   	  <input type="radio" name="executiveFlag" value="0" checked="">否
@@ -116,8 +126,8 @@
 								</div>
 								
 								<div class="form-group">
-									<label for="#post" class="col-sm-2 control-label">职务</label>
-									<div class="col-sm-8 input-group">
+									<label for="#post" class="col-sm-3 control-label">职务</label>
+									<div class="col-sm-6 input-group">
 										<select class="form-control" name="post">
 						                   <option>董事长</option>
 						                   <option>执行董事</option>
@@ -135,8 +145,8 @@
 								</div>
 								
 								<div class="form-group">
-									<label for="#replyTime" class="col-sm-2 control-label">批复时间</label>
-									<div class="col-sm-8 input-group date">
+									<label for="#replyTime" class="col-sm-3 control-label">批复时间</label>
+									<div class="col-sm-6 input-group date">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										<input type="text" class="form-control pull-right datepicker" name="replyTime"
 											readonly data-errormessage="批复时间不能为空">
@@ -144,8 +154,8 @@
 								</div>
 								
 								<div class="form-group">
-									<label for="#entryTime" class="col-sm-2 control-label">入职时间</label>
-									<div class="col-sm-8 input-group date">
+									<label for="#entryTime" class="col-sm-3 control-label">入职时间</label>
+									<div class="col-sm-6 input-group date">
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										<input type="text" class="form-control pull-right datepicker validate[required]" name="entryTime"
 											readonly data-errormessage="批复时间不能为空">
@@ -153,8 +163,8 @@
 								</div>
 								
 								<div class="form-group">
-									<label for="#status" class="col-sm-2 control-label">是否在职</label>
-									<div class="col-sm-8 input-group date">
+									<label for="#status" class="col-sm-3 control-label">是否在职</label>
+									<div class="col-sm-6 input-group date">
 									<div class="radio">
 					                      <input type="radio" name="status" value="1" checked="">是
 					                   	  <input type="radio" name="status" value="0" checked="">否
@@ -163,8 +173,8 @@
 								</div>
 								
 								<div class="form-group">
-									<label for="#quitTime" class="col-sm-2 control-label">离职时间</label>
-									<div class="col-sm-8 input-group date">
+									<label for="#quitTime" class="col-sm-3 control-label">离职时间</label>
+									<div class="col-sm-6 input-group date">
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										<input type="text" class="form-control pull-right datepicker" name="quitTime"
 											readonly data-errormessage="批复时间不能为空">
