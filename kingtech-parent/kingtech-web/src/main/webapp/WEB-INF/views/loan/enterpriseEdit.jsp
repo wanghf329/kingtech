@@ -101,7 +101,7 @@
 													<label for="#regDate" class="col-sm-2 control-label">工商注册登记日期</label>
 													<div class="col-sm-4 input-group">
 														<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-														<input type="text" class="form-control pull-right datepicker-time "
+														<input type="text" class="form-control pull-right datepicker "
 														readonly name="regDate" >
 													</div>
 												</div>
@@ -133,7 +133,7 @@
 													<label for="#licenceEndDate" class="col-sm-2 control-label">营业执照截止日期</label>
 													<div class="col-sm-4 input-group">
 														<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-														<input type="text" class="form-control pull-right datepicker-time validate[required]"
+														<input type="text" class="form-control pull-right datepicker validate[required]"
 														readonly name="licenceEndDate" data-errormessage="营业执照截止日期不能为空">
 													</div>
 												</div>
@@ -163,7 +163,7 @@
 													<label for="#bulidDate" class="col-sm-2 control-label">成立日期</label>
 													<div class="col-sm-4 input-group">
 														<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-														<input type="text" class="form-control pull-right datepicker-time "
+														<input type="text" class="form-control pull-right datepicker "
 														readonly name="bulidDate">
 													</div>
 												</div>

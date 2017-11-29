@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.kingtech.enums.CertType;
 import com.kingtech.enums.IndustryEnum;
 import com.kingtech.enums.IndustryType;
 import com.kingtech.enums.ScaleType;
@@ -41,5 +42,11 @@ public class LoanContractApiController {
 		model.addAttribute("industryTypes",IndustryType.values());
 		model.addAttribute("industryinvolveds",IndustryEnum.values());
 		return "/loan/enterpriseEdit";
+	} 
+	
+	@RequestMapping(method = RequestMethod.GET,value="/personnel/edit")
+	public String personnelEdit(Model model) { 
+		model.addAttribute("certTypes",CertType.values());
+		return "/loan/personnelEdit";
 	} 
 }
