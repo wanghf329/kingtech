@@ -147,8 +147,7 @@
 									<label for="#replyTime" class="col-sm-3 control-label">批复时间</label>
 									<div class="col-sm-6 input-group date">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										<input type="text" class="form-control pull-right datepicker" name="replyTime"
-											 data-errormessage="批复时间不能为空">
+										<input type="text" class="form-control pull-right datepicker" name="replyTime">
 									</div>
 								</div>
 								
@@ -157,7 +156,7 @@
 									<div class="col-sm-6 input-group date">
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										<input type="text" class="form-control pull-right datepicker validate[required]" name="entryTime"
-											 data-errormessage="批复时间不能为空">
+											 data-errormessage="入职时间不能为空">
 									</div>
 								</div>
 								
@@ -175,8 +174,7 @@
 									<label for="#quitTime" class="col-sm-3 control-label">离职时间</label>
 									<div class="col-sm-6 input-group date">
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										<input type="text" class="form-control pull-right datepicker" name="quitTime"
-											 data-errormessage="批复时间不能为空">
+										<input type="text" class="form-control pull-right datepicker" name="quitTime">
 									</div>
 								</div>
 								
@@ -245,7 +243,6 @@
 	                                            </td>
 	                                            <td>
 	                                            	<a href="javascript:void(0)" onclick="getEmployee('${it.id}')"><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a>
-	                                            	<!-- <a href="javascript:void(0)" onclick="delConfirm('${it.id}')"><i class="text-red fa  fa-minus-circle"></i><strong>删除</strong></a> -->
 	                                            </td>
 	                                        </tr>
                                         </c:forEach>
