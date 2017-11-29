@@ -53,7 +53,8 @@
 									<label for="#regCapital" class="col-sm-3 control-label">注册资本</label>
 									<div class="col-sm-6 input-group">
 									<span class="input-group-addon"><i class="fa fa-dollar"></i></span>
-										<input type="text" class="form-control validate[required,custom[number]]" name = "regCapital" id="regCapital"  data-errormessage="注册资本只能是数字">
+									<input type="text" class="form-control validate[required,custom[number]]" name = "regCapital" id="regCapital"  data-errormessage="注册资本只能是数字">
+									<span class="input-group-addon"><i class="fa ">元</i></span>
 									</div>
 								</div>
 								<div class="form-group">
@@ -170,7 +171,7 @@
 	                                        <tr>
 	                                            <td>${it.corporateName}</td>
 	                                            <td>${it.legalRepresentative}</td>  
-	                                            <td class="text-red"><i class="fa fa-jpy"/><strong>${it.regDapital}</strong></td> 
+	                                            <td class="text-red"><strong><fmt:formatNumber  type="currency" value="${it.regDapital}"></fmt:formatNumber>元</strong></td> 
 	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.buildDate}"></fmt:formatDate></td>
 	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.openingDate}"></fmt:formatDate></td>
 	                                            <td>${it.businessAddr}</td>
@@ -181,7 +182,8 @@
 	                                            <td>${it.landRegNum}</td>
 	                                            <td>${it.businessScope}</td>
 	                                            <td>
-	                                            	<c:if test="${it.pushStatus=='SUCCESS'}"><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span></c:if>
+	                                            	<c:if test="${it.pushStatus=='INITATION'}"><span class="text-green"><i class="text-green fa fa-spinner"></i>初始</span></c:if>
+	                                            	<c:if test="${it.pushStatus=='SUCCESS'}"><span class="text-yellow"><i class="text-yellow fa fa-check-square"></i>推送成功</span></c:if>
 	                                            	<c:if test="${it.pushStatus=='INPROSESS'}"><span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span></c:if>
 	                                            	<c:if test="${it.pushStatus=='FAILED'}"><span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span></c:if>
 	                                            </td>
