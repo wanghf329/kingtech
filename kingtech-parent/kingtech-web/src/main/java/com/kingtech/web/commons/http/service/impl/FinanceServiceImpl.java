@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kingtech.common.utils.DateUtil;
 import com.kingtech.model.CapitalModel;
+import com.kingtech.model.ContractModel;
 import com.kingtech.model.EmployeeModel;
 import com.kingtech.model.BranchInfoModel;
 import com.kingtech.model.ShareholderModel;
@@ -49,6 +50,14 @@ public class FinanceServiceImpl  extends BaseAbstract implements FinanceService 
 	public SynResponseModel branchShareholderFacade(ShareholderModel shareholderModel) {
 		Map<String, String> data = getDataAndSign(shareholderModel);
 		SynResponseModel responseModel = getResponse(data, "pushCompanyPartnerData");
+		return responseModel;
+	}
+
+
+	@Override
+	public SynResponseModel contractFacade(ContractModel contractModel) {
+		Map<String, String> data = getDataAndSign(contractModel);
+		SynResponseModel responseModel = getResponse(data, "pushContractData");
 		return responseModel;
 	}
 

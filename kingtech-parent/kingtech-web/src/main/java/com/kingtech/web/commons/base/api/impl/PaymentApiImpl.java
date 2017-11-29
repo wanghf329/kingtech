@@ -260,4 +260,9 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 		
 	}
 
+	@Override
+	public void contractInfoApi(String loanIdContract, IdentifierType type) {
+		
+	}
+
 }

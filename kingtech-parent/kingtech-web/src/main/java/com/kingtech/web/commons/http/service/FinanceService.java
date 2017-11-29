@@ -1,6 +1,7 @@
 package com.kingtech.web.commons.http.service;
 
 import com.kingtech.model.CapitalModel;
+import com.kingtech.model.ContractModel;
 import com.kingtech.model.EmployeeModel;
 import com.kingtech.model.BranchInfoModel;
 import com.kingtech.model.ShareholderModel;
@@ -36,5 +37,12 @@ public interface FinanceService {
 	 * @return
 	 */
 	public SynResponseModel branchShareholderFacade(ShareholderModel shareholderModel);
+	
+	/**
+	 * 放贷业务合同信息接口
+	 * @param shareholderModel
+	 * @return
+	 */
+	public SynResponseModel contractFacade(ContractModel contractModel);
 
 }

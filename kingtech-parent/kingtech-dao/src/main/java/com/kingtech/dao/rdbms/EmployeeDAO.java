@@ -6,9 +6,10 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.kingtech.dao.entity.Contract;
+import com.kingtech.dao.entity.Employee;
 import com.kingtech.enums.PushStatus;
 
-public interface EmployeeDAO extends PagingAndSortingRepository<Contract, String> {
+public interface EmployeeDAO extends PagingAndSortingRepository<Employee, String> {
 	
 	
 	@Modifying
