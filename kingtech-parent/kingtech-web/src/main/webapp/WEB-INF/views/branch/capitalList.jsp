@@ -56,7 +56,7 @@
 									<label for="financingTime" class="col-sm-3 control-label">融资时间</label>
 									<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										<input type="text" class="form-control pull-right datepicker validate[required]"
+										<input type="text" class="form-control pull-right datepicker-time validate[required]"
 										readonly name="financingTime" data-errormessage="融资时间不能为空">
 									</div>
 								</div>
@@ -65,7 +65,7 @@
 									<label for="expirationTime" class="col-sm-3 control-label">到期时间</label>
 									<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-										<input type="text" class="form-control pull-right datepicker validate[required]"
+										<input type="text" class="form-control pull-right datepicker-time validate[required]"
 										readonly name="expirationTime" data-errormessage="到期时间不能为空">
 									</div>
 								</div>
@@ -74,7 +74,7 @@
 									<label for="replyTime" class="col-sm-3 control-label">实际还款时间</label>
 									<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span> 
-										<input type="text" class="form-control pull-right datepicker" name="replyTime"
+										<input type="text" class="form-control pull-right datepicker-time" name="replyTime"
 										readonly data-errormessage="实际还款时间不能为空"> 
 									</div>
 								</div>
@@ -137,7 +137,7 @@
                 </section><!-- /.content -->                
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
-	<%@include file="../common/footer.jspf" %>   
+		<%@include file="../common/footer.jspf" %>   
         <script src="bujs/capital/main.js" type="text/javascript"></script>       
     </body>
 </html>
