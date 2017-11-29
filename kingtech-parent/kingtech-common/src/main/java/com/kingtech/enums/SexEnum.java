@@ -16,13 +16,16 @@ public enum SexEnum implements BaseEnum {
 	}
 
 	public static SexEnum getValue(String key){
+		if(key==null){
+			return null;
+		}
 		switch (key) {
-		case "1":
-			return SexEnum.M;
-		case "2":
-			return SexEnum.F;
-		default:
-			break;
+			case "1":
+				return SexEnum.M;
+			case "2":
+				return SexEnum.F;
+			default:
+				break;
 		}
 		return null;
 	}

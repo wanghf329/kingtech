@@ -51,8 +51,8 @@
 									<label for="#partnerType" class="col-sm-3 control-label">股东类型</label>
 									<div class="col-sm-6 input-group">
 					                  <div class="radio">
-					                      <input type="radio" name="partnerType" value="1" checked>自然人股东
-					                   	  <input type="radio" name="partnerType" value="2" >企业股东 
+					                      <input type="radio" name="partnerType" value="1">自然人股东
+					                   	  <input type="radio" name="partnerType" value="2">企业股东 
 					                  </div>
 									</div>
 								</div>
@@ -88,7 +88,7 @@
 									</div>
 								</div>
 								
-								<div class="form-group">
+								<div class="form-group" id="sexDiv">
 									<label for="#gender" class="col-sm-3 control-label">性别</label>
 									<div class="col-sm-6">
 										<div class="radio">  

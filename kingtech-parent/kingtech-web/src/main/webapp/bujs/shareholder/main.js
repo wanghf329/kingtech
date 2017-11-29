@@ -19,25 +19,34 @@ $("#editModelBtn").click(function(){
 	$("#editModel").modal();
 });
 
-
-$("input[name='genderText']").click(function(){  
-	alert();
-	$("#gender").val($("input[name='genderText':checked]").val());  
-});
-
+$("input[name='partnerType']").on('ifChecked', function(){
+	  if($(this).val()=="2"){
+		  $("input[name='gender']").iCheck('uncheck');
+		  $("#sexDiv").hide();
+	  }else{
+		  $("#sexDiv").show();
+	  }
+}); 
 
 
 
 function getShareHolder(id){ 
 	$.get('branch/getShareholder/'+id,null,function(res){
 		$("input[name='id']").val(res.id);
-		$("input[name='partnerType']").val(res.partnerType);
+		$("input[name='gender'][value='"+res.partnerType+"']").iCheck('check');
 		$("input[name='holder']").val(res.holder); 
 		$("input[name='holdingScale']").val(res.holdingScale);
 		$("input[name='contributionAmount']").val(res.contributionAmount);
 		$("input[name='joinTime']").val(res.joinTime);
-		radioChecked('gender',res.gender);
+		$("input[name='gender'][value='"+res.gender+"']").iCheck('check');
 		$("input[name='quitTime']").val(res.quitTime);  
+		
+		if($("input[name='partnerType']:checked").val()=="2"){
+			$("input[name='gender']").iCheck('uncheck');
+			$("#sexDiv").hide();
+		}else{
+			$("#sexDiv").show();
+		}
 		$("#editModel").modal();
 	});
 }
