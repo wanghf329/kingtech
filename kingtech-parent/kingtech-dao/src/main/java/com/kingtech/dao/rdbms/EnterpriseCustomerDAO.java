@@ -6,7 +6,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.kingtech.dao.entity.EnterpriseCustomer;
 
-public interface EnterpriseCustomerDao extends PagingAndSortingRepository<EnterpriseCustomer, String> {
+public interface EnterpriseCustomerDAO extends PagingAndSortingRepository<EnterpriseCustomer, String> {
 	
 
 	@Query("select e from EnterpriseCustomer e where e.loanContractId =:loanContractId")

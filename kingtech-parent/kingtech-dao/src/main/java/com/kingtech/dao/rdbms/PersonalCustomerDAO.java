@@ -6,7 +6,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.kingtech.dao.entity.PersonalCustomer;
 
-public interface PersonalCustomerDao extends PagingAndSortingRepository<PersonalCustomer, String> {
+public interface PersonalCustomerDAO extends PagingAndSortingRepository<PersonalCustomer, String> {
 	
 	@Query("select  p from PersonalCustomer p where p.loanContractId =:loanContractId")
 	public PersonalCustomer getByloanContractId(@Param("loanContractId")String loanContractId);
