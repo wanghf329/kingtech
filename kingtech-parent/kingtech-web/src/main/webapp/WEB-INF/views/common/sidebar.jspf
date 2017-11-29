@@ -43,7 +43,6 @@
                 <li id="capitalList"><a href="branch/capitalList"><i class="fa fa-angle-double-right"></i>资本信息</a></li>
             </ul>
         </li>
-        <!-- 
         <li class="treeview">
             <a href="#">
                 <i class="fa fa-laptop"></i>
@@ -51,10 +50,10 @@
                 <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="treeview-menu">
-            	<li id=""><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>借款人信息</a></li>
-                <li id="rechargeonline"><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i>合同信息</a></li>
+                <li id="loanList"><a href="loan/list"><i class="fa fa-angle-double-right"></i>合同信息</a></li>
             </ul>
         </li>
+        <!-- 
         <li class="treeview">
             <a href="#">s
                 <i class="fa fa-laptop"></i>
