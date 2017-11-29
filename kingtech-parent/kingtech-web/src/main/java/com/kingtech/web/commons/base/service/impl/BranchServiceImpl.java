@@ -16,9 +16,11 @@ import org.springframework.util.StringUtils;
 import com.kingtech.common.utils.DateUtil;
 import com.kingtech.dao.entity.Branch;
 import com.kingtech.dao.rdbms.BranchDAO;
+import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.model.BranchInfoModel;
 import com.kingtech.web.commons.base.CreatRequstId;
+import com.kingtech.web.commons.base.api.PaymentApi;
 import com.kingtech.web.commons.base.service.BranchService;
 
 @Service
@@ -30,6 +32,9 @@ public class BranchServiceImpl implements  BranchService {
 	
 	@Autowired
 	private CreatRequstId creatRequstId;
+	
+	@Autowired
+	private PaymentApi paymentApi;
 	
 	@Override
 	public List<Branch> listByInstitutionInfo() {
@@ -78,6 +83,8 @@ public class BranchServiceImpl implements  BranchService {
 		}
 		try {
 			branch = branchDao.save(branch);
+			
+			paymentApi.branchInfoApi(branch.getId(), StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
 			return branch;
 		}catch (Exception e) {
 			e.printStackTrace();
