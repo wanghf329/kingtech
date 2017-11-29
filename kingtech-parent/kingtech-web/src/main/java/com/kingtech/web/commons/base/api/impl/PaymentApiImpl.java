@@ -304,7 +304,6 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 		
 		ContractModel contractModel = null;
 		if (IdentifierType.A.equals(type)||IdentifierType.U.equals(type)) {
-			contractModel = 
 		}
 		
 	}
