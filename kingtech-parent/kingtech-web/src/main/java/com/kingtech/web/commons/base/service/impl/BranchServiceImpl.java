@@ -80,6 +80,8 @@ public class BranchServiceImpl implements  BranchService {
 			branch.setLandRegNum(landRegNum);
 			branch.setBusinessScope(businessScope);
 			branch.setUpdateTime(new Date());
+			branch.setPushStatus(PushStatus.INITATION);
+			
 		}
 		try {
 			branch = branchDao.save(branch);
