@@ -55,8 +55,8 @@ public class BranchServiceImpl implements  BranchService {
 								corporateName, 
 								legalRepresentative,
 								regCapital, 
-								DateUtil.dateFormate(buildDate, "YYYY-MM-DD"), 
-								DateUtil.dateFormate(openingDate,"YYYY-MM-DD"), 
+								DateUtil.dateFormate(buildDate, "yyyy-MM-dd"), 
+								DateUtil.dateFormate(openingDate,"yyyy-MM-dd"), 
 								businessaddr,
 								siteArea, 
 								organizationCode,
@@ -70,8 +70,8 @@ public class BranchServiceImpl implements  BranchService {
 			branch.setCorporateName(corporateName);
 			branch.setLegalRepresentative(legalRepresentative);
 			branch.setRegDapital(regCapital);
-			branch.setBuildDate(DateUtil.dateFormate(buildDate, "YYYY-MM-DD"));
-			branch.setOpeningDate(DateUtil.dateFormate(openingDate,"YYYY-MM-DD"));
+			branch.setBuildDate(DateUtil.dateFormate(buildDate, "yyyy-MM-dd"));
+			branch.setOpeningDate(DateUtil.dateFormate(openingDate,"yyyy-MM-dd"));
 			branch.setBusinessAddr(businessaddr);
 			branch.setSiteArea(siteArea);
 			branch.setOrganizationCode(organizationCode);
@@ -80,6 +80,8 @@ public class BranchServiceImpl implements  BranchService {
 			branch.setLandRegNum(landRegNum);
 			branch.setBusinessScope(businessScope);
 			branch.setUpdateTime(new Date());
+			branch.setPushStatus(PushStatus.INITATION);
+			
 		}
 		try {
 			branch = branchDao.save(branch);
@@ -102,8 +104,8 @@ public class BranchServiceImpl implements  BranchService {
 									branch.getCorporateName(),
 									branch.getLegalRepresentative(),
 									branch.getRegDapital().toPlainString(),
-									DateFormatUtils.format(branch.getBuildDate(), "yyyy-mm-dd"),
-									DateFormatUtils.format(branch.getOpeningDate(), "yyyy-mm-dd"),
+									DateFormatUtils.format(branch.getBuildDate(), "yyyy-MM-dd"),
+									DateFormatUtils.format(branch.getOpeningDate(), "yyyy-MM-dd"),
 									branch.getBusinessAddr(),
 									branch.getSiteArea(),
 									branch.getOrganizationCode(),

@@ -1,5 +1,6 @@
 package com.kingtech.web.commons.base.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -12,9 +13,11 @@ import com.alibaba.druid.util.StringUtils;
 import com.kingtech.dao.entity.Employee;
 import com.kingtech.dao.rdbms.EmployeeDAO;
 import com.kingtech.enums.EmployeeStatus;
+import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.model.EmployeeModel;
 import com.kingtech.web.commons.base.CreatRequstId;
+import com.kingtech.web.commons.base.api.PaymentApi;
 import com.kingtech.web.commons.base.service.EmployeeService;
 
 @Service
@@ -25,6 +28,9 @@ public class EmployeeServiceImpl implements EmployeeService{
 	
 	@Autowired
 	private CreatRequstId creatRequstId;
+	
+	@Autowired
+	private PaymentApi paymentApi;
 
 	@Override
 	@Transactional
@@ -60,9 +66,14 @@ public class EmployeeServiceImpl implements EmployeeService{
 				employee.setEntryTime(DateUtils.parseDate(entryTime, "yyyy-MM-dd"));
 				employee.setStatus(EmployeeStatus.getValue(status));
 				employee.setQuitTime(quitTime == null ? null : DateUtils.parseDate(quitTime, "yyyy-MM-dd"));
+				employee.setUpdateTime(new Date());
+				employee.setPushStatus(PushStatus.INITATION);
 			}
 			employee.setId(id);	
+			
 			employee = employeeDao.save(employee);
+			
+			paymentApi.employeeInfoApi(employee.getId(), StringUtils.isEmpty(id) ?  IdentifierType.A : IdentifierType.U);
 			return employee;
 		} catch (Exception e) {
 			e.printStackTrace();
