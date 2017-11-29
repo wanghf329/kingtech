@@ -1,5 +1,7 @@
 package com.kingtech.web.commons.base.service.impl;
 
+import java.math.BigDecimal;
+
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +24,8 @@ public class ShareholderServiceImpl implements ShareholderService{
 			String joinTime, String gender, String quitTime, String branchId) {
 		try {
 			shareholderDao.save(new Shareholder(partnerType,holder,
-					Double.valueOf(holdingScale),
-					Double.valueOf(contributionAmount),
+					new BigDecimal(holdingScale),
+					new BigDecimal(contributionAmount),
 					DateUtils.parseDate(joinTime, "yyyy-MM-dd"),
 					Integer.valueOf(gender),
 					DateUtils.parseDate(quitTime, "yyyy-MM-dd"),branchId,
