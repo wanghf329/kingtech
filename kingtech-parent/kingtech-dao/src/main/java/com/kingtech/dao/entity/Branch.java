@@ -9,7 +9,6 @@ import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import com.kingtech.dao.entity.base.RecordEntity;
@@ -76,7 +75,7 @@ public class Branch extends RecordEntity {
 	private String businessScope;
 
 	public Branch(String reqId, PushStatus pushStatus, String corporateName,
-			String legalRepresentative, Double regDapital, Date buildDate,
+			String legalRepresentative, BigDecimal regDapital, Date buildDate,
 			Date openingDate, String businessAddr, String siteArea,
 			String organizationCode, String licence, String nationalRegNum,
 			String landRegNum, String businessScope) {

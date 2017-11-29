@@ -36,6 +36,7 @@
 						</div>
 						<div class="modal-body">
 							<form class="form-horizontal" id = "addBranchForm" action="branch/add/branch" method="POST">
+								<input type="hidden" name="id" value="">
 								<div class="form-group" >
 									<label for="#corporateName" class="col-sm-3 control-label">公司名称</label> 
 									<div class="col-sm-6 input-group">
@@ -147,7 +148,7 @@
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
                                 	<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#newBranchBaseInfo">新增机构基本信息</button>  
-                                    <table class="table table-striped table-bordered table-hover" id="branchBaseList">
+                                    <table class="table" id="branchBaseList">
                                     	<thead>
 	                                       <tr>
 	                                           <th>公司名称</th> 
@@ -184,7 +185,7 @@
 	                                            	<c:if test="${it.pushStatus=='INPROSESS'}"><span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span></c:if>
 	                                            	<c:if test="${it.pushStatus=='FAILED'}"><span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span></c:if>
 	                                            </td>
-	                                            <td><a href="javascript:void(0)" onclick="getBranchInfo'${it.id}')"><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a></td>
+	                                            <td><a href="javascript:void(0)" onclick="getBranchInfo('${it.id}')"><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a></td>
 	                                        </tr>
                                         </c:forEach>
                                     </table>

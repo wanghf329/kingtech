@@ -73,7 +73,7 @@ $(document).ready(function () {
       $('.datepicker1').datetimepicker({
     		minView: "2", //选择日期后，不会再跳转去选择时分秒 
     	    language:  'zh-CN',
-    	    format: 'yyyy-mm-dd hh:ii:ss',
+    	    format: 'yyyy-mm-dd',
     	    todayBtn:  1,
     	    autoclose: 1,});
 });
@@ -101,12 +101,20 @@ function formateDate(date, fmt) {
 
 
 function getBranchInfo(id){
-	$.get('branch/getCapital/'+id,null,function(res){
-		$("input[name='financingChannel']").val(res.financingChannel);
-		$("input[name='financingMoney']").val(res.financingMoney);
-		$("input[name='financingTime']").val(res.financingTime);
-		$("input[name='expirationTime']").val(res.expirationTime);
-		$("input[name='replyTime']").val(res.replyTime);
+	$.get('branch/getBranchInfo/'+id,null,function(res){
+		$("input[name='id']").val(res.id);
+		$("input[name='corporateName']").val(res.corporateName);
+		$("input[name='legalRepresentative']").val(res.legalRepresentative);
+		$("input[name='regCapital']").val(res.regCapital);
+		$("input[name='buildDate']").val(res.buildDate);
+		$("input[name='openingDate']").val(res.openingDate);
+		$("input[name='siteArea']").val(res.siteArea);
+		$("input[name='businessAddr']").val(res.businessAddr);
+		$("input[name='organizationCode']").val(res.organizationCode);
+		$("input[name='licence']").val(res.licence);
+		$("input[name='nationalRegNum']").val(res.nationalRegNum);
+		$("input[name='landRegNum']").val(res.landRegNum);
+		$("input[name='businessScope']").val(res.businessScope);
 		$("#newBranchBaseInfo").modal();
 	});
 }

@@ -1,9 +1,11 @@
 package com.kingtech.web.commons.base.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.kingtech.dao.entity.Branch;
-import com.kingtech.model.InstitutionInfoModel;
+import com.kingtech.model.BranchInfoModel;
+import com.kingtech.web.model.BranchModel;
 
 
 
@@ -13,9 +15,10 @@ public interface BranchService {
 	public List<Branch> listByInstitutionInfo();
 	
 	
-	public void addNewBranchInfo(String corporateName,
+	public Branch addNewBranchInfo( String id,
+									String corporateName,
 									String legalRepresentative,
-									double regCapital,
+									BigDecimal regCapital,
 									String buildDate,
 									String openingDate,
 									String siteArea,
@@ -27,5 +30,5 @@ public interface BranchService {
 									String businessScope);
 	
 	
-	public InstitutionInfoModel getBranchById(String id);
+	public BranchInfoModel getBranchInfoById(String id);
 }

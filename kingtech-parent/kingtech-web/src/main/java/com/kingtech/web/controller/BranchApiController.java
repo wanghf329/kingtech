@@ -1,9 +1,8 @@
 package com.kingtech.web.controller;
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,11 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.kingtech.common.utils.DataTablesResponse;
 import com.kingtech.dao.entity.Branch;
 import com.kingtech.dao.entity.Capital;
+import com.kingtech.model.BranchInfoModel;
 import com.kingtech.model.CapitalModel;
-import com.kingtech.model.InstitutionInfoModel;
 import com.kingtech.web.commons.base.service.BranchService;
 import com.kingtech.web.commons.base.service.CapitalService;
 import com.kingtech.web.commons.base.service.EmployeeService;
@@ -65,9 +63,10 @@ public class BranchApiController {
 	
     @RequestMapping(value = "/add/branch", method=RequestMethod.POST )
     public String addBranchInfo(Model model,
+    							 String id,
     							 @RequestParam("corporateName") String corporateName,
     							 @RequestParam("legalRepresentative") String legalRepresentative,
-    							 double regCapital,
+    							 BigDecimal regCapital,
 						   		 @RequestParam("buildDate") String buildDate,
 						   		 @RequestParam("openingDate") String openingDate,
 						   		 @RequestParam("siteArea") String siteArea,
@@ -77,8 +76,8 @@ public class BranchApiController {
 						   		 @RequestParam("nationalRegNum") String nationalRegNum,
 						   		 @RequestParam("landRegNum") String landRegNum,
 						   		 @RequestParam("businessScope") String businessScope) {
-    	branchService.addNewBranchInfo(corporateName, legalRepresentative, regCapital, buildDate, openingDate, siteArea, businessAddr, organizationCode, licence, nationalRegNum, landRegNum, businessScope);
-    	return "/branch/branchBaseList";
+    	Branch branch = branchService.addNewBranchInfo(id,corporateName, legalRepresentative, regCapital, buildDate, openingDate, siteArea, businessAddr, organizationCode, licence, nationalRegNum, landRegNum, businessScope);
+    	return "redirect:/branch";
     	
     }
 	
@@ -119,19 +118,18 @@ public class BranchApiController {
 		return capitalService.getById(id);
 	}
 	
-<<<<<<< HEAD
+
 	
 	@ResponseBody
 	@RequestMapping(value = "/getBranchInfo/{id}", method = RequestMethod.GET)
-	public InstitutionInfoModel changeBranch(Model model,@PathVariable("id") String id) {
-		return capitalService.getById(id);
+	public BranchInfoModel changeBranch(Model model,@PathVariable("id") String id) {
+		return branchService.getBranchInfoById(id);
 	}
-	
-=======
+
 	@RequestMapping(value = "/delCapital/{id}", method = RequestMethod.GET)
 	public String delCapital(Model model,@PathVariable("id") String id) {
 		capitalService.delById(id);
 		return "redirect:/branch/capitalList";
 	}
->>>>>>> 7fc9a74cc15335d88ba1fee66b2362f19cf9ab91
+
 }

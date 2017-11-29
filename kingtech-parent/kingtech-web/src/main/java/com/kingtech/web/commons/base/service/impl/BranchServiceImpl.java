@@ -1,22 +1,23 @@
 package com.kingtech.web.commons.base.service.impl;
 
-<<<<<<< HEAD
-import java.util.List;
-=======
+
 import java.math.BigDecimal;
->>>>>>> 7fc9a74cc15335d88ba1fee66b2362f19cf9ab91
+import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.kingtech.common.utils.DateUtil;
 import com.kingtech.dao.entity.Branch;
 import com.kingtech.dao.rdbms.BranchDAO;
 import com.kingtech.enums.PushStatus;
-import com.kingtech.model.InstitutionInfoModel;
+import com.kingtech.model.BranchInfoModel;
+import com.kingtech.web.commons.base.CreatRequstId;
 import com.kingtech.web.commons.base.service.BranchService;
 
 @Service
@@ -26,51 +27,83 @@ public class BranchServiceImpl implements  BranchService {
 	@Autowired
 	private BranchDAO branchDao;
 	
+	@Autowired
+	private CreatRequstId creatRequstId;
+	
 	@Override
-	public List listByInstitutionInfo() {
+	public List<Branch> listByInstitutionInfo() {
 		List branchs = (List)branchDao.findAll();
 		return branchs;
 	}
 
 	@Override
 	@Transactional
-	public void addNewBranchInfo(String corporateName,String legalRepresentative,
-			double regCapital, String buildDate, String openingDate,
+	public Branch addNewBranchInfo(String id,String corporateName,String legalRepresentative,
+			BigDecimal regCapital, String buildDate, String openingDate,
 			String siteArea, String businessaddr, String organizationCode,
 			String licence, String nationalRegNum,String landRegNum, String businessScope) {
-		Branch branch = new Branch( "111111",
-									PushStatus.INPROSESS,
-									corporateName, 
-									legalRepresentative,
-<<<<<<< HEAD
-									regCapital, 
-=======
-									new BigDecimal(regCapital) , 
->>>>>>> 7fc9a74cc15335d88ba1fee66b2362f19cf9ab91
-									DateUtil.dateFormate(buildDate, "YYYY-MM-DD"), 
-									DateUtil.dateFormate(openingDate,"YYYY-MM-DD"), 
-									businessaddr,
-									siteArea, 
-									organizationCode,
-									licence, 
-									nationalRegNum, 
-									landRegNum, 
-									businessScope);
+		Branch branch = null;
+		if(StringUtils.isEmpty(id)) {
+			branch = new Branch(creatRequstId.getReqId(),
+								PushStatus.INPROSESS,
+								corporateName, 
+								legalRepresentative,
+								regCapital, 
+								DateUtil.dateFormate(buildDate, "YYYY-MM-DD"), 
+								DateUtil.dateFormate(openingDate,"YYYY-MM-DD"), 
+								businessaddr,
+								siteArea, 
+								organizationCode,
+								licence, 
+								nationalRegNum, 
+								landRegNum, 
+								businessScope);
+			
+		} else {
+			branch = branchDao.findOne(id);
+			branch.setCorporateName(corporateName);
+			branch.setLegalRepresentative(legalRepresentative);
+			branch.setRegDapital(regCapital);
+			branch.setBuildDate(DateUtil.dateFormate(buildDate, "YYYY-MM-DD"));
+			branch.setOpeningDate(DateUtil.dateFormate(openingDate,"YYYY-MM-DD"));
+			branch.setBusinessAddr(businessaddr);
+			branch.setSiteArea(siteArea);
+			branch.setOrganizationCode(organizationCode);
+			branch.setLicence(licence);
+			branch.setNationalRegNum(nationalRegNum);
+			branch.setLandRegNum(landRegNum);
+			branch.setBusinessScope(businessScope);
+		}
 		try {
 			branch = branchDao.save(branch);
+			return branch;
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		
+		return null;
 	}
 
 	@Override
-	public InstitutionInfoModel getBranchById(String id) {
+	public BranchInfoModel getBranchInfoById(String id) {
 		Branch branch = branchDao.findOne(id);
 		if(branch == null) {
 			return null;
 		}
-		return  new InstitutionInfoModel()
+		return new BranchInfoModel(branch.getId(),
+									branch.getCorporateName(),
+									branch.getLegalRepresentative(),
+									branch.getRegDapital().toPlainString(),
+									DateFormatUtils.format(branch.getBuildDate(), "yyyy-mm-dd"),
+									DateFormatUtils.format(branch.getOpeningDate(), "yyyy-mm-dd"),
+									branch.getBusinessAddr(),
+									branch.getSiteArea(),
+									branch.getOrganizationCode(),
+									branch.getLicence(),
+									branch.getNationalRegNum(),
+									branch.getLandRegNum(),
+									branch.getBusinessScope()
+									);
 	}
+
+	
 }
