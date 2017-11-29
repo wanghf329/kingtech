@@ -1,5 +1,6 @@
 package com.kingtech.dao.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -23,7 +24,7 @@ public class SettledInfo extends PackageEntity {
 	
 	// 放款金额(元)
 	@Column(name="MONEY")
-	private Double money;
+	private BigDecimal money;
 
 	// 放款日期，格式YYYY-MM-DD
 	@Column(name="LOAN_DATE")
@@ -37,7 +38,7 @@ public class SettledInfo extends PackageEntity {
 	@Column(name="DEBT_END_DATE")
 	private Date debtEndDate;
 
-	public SettledInfo(String loanContractId, Double money, Date loanDate,
+	public SettledInfo(String loanContractId, BigDecimal money, Date loanDate,
 			Date debtStartDate, Date debtEndDate) {
 		super(loanContractId);
 		this.money = money;

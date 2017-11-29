@@ -1,0 +1,157 @@
+package com.kingtech.web.commons.base.utils;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.kingtech.common.utils.DateUtil;
+import com.kingtech.dao.entity.Collateral;
+import com.kingtech.dao.entity.EnterpriseCustomer;
+import com.kingtech.dao.entity.Guarantee;
+import com.kingtech.dao.entity.PersonalCustomer;
+import com.kingtech.dao.entity.RepayPlan;
+import com.kingtech.dao.entity.SettledInfo;
+import com.kingtech.model.CollateralModel;
+import com.kingtech.model.EnterpriseCustomerModel;
+import com.kingtech.model.GuaranteeModel;
+import com.kingtech.model.PersonalCustomerModel;
+import com.kingtech.model.RepayPlanModel;
+import com.kingtech.model.SettledInfoModel;
+
+public class DTOUtils {
+	
+	public static PersonalCustomerModel getPersonalCustomerModel(PersonalCustomer personalCustomer){
+		PersonalCustomerModel customerModel = null;
+		if (personalCustomer != null) {
+			customerModel = new PersonalCustomerModel(personalCustomer.getName(),
+					                                  personalCustomer.getSex().getKey(),
+					                                  getNewStr(personalCustomer.getCategory() ==null ? null:personalCustomer.getCategory().name()),
+					                                  personalCustomer.getCardNum(),
+					                                  personalCustomer.getPhone(), 
+					                                  getNewStr(personalCustomer.getFarmersFlag() ==null ? null :personalCustomer.getFarmersFlag().name()),
+					                                  personalCustomer.getEducation(), 
+					                                  personalCustomer.getFax(), 
+					                                  personalCustomer.getEmail(), 
+					                                  personalCustomer.getMarriage(), 
+					                                  personalCustomer.getNationality(),
+					                                  DateUtil.getDateStr(personalCustomer.getBirthDate(), "yyyy-MM-dd"),
+					                                  personalCustomer.getNation(), 
+					                                  personalCustomer.getAddressProvince(), 
+					                                  personalCustomer.getAddressCity(), 
+					                                  personalCustomer.getAddressDistrict(), 
+					                                  personalCustomer.getAddress(), 
+					                                  personalCustomer.getPostCode(), 
+					                                  personalCustomer.getResidence(), 
+					                                  personalCustomer.getNativePlace(), 
+					                                  personalCustomer.getWorkUnit(), 
+					                                  personalCustomer.getPost());
+		}
+		
+		return customerModel;
+	}
+	
+	public static EnterpriseCustomerModel getEnterpriseCustomerModel(EnterpriseCustomer enterpriseCustomer){
+		EnterpriseCustomerModel enterpriseCustomerModel = null;
+		if (enterpriseCustomer != null ) {
+			enterpriseCustomerModel = new EnterpriseCustomerModel(enterpriseCustomer.getCorporateName(),
+					                                              getNewStr(enterpriseCustomer.getScale().name()),
+					                                              getNewStr(enterpriseCustomer.getIndustryType().name()),
+					                                              getNewStr(enterpriseCustomer.getIndustryinvolved().name()),
+					                                              enterpriseCustomer.getOrganizationcode(),
+					                                              enterpriseCustomer.getRegCode(),
+					                                              enterpriseCustomer.getRegOffice(),
+					                                              DateUtil.getDateStr(enterpriseCustomer.getRegDate(), "yyyy-MM-dd"),
+					                                              enterpriseCustomer.getNationalregNum(), 
+					                                              enterpriseCustomer.getLandRegNum(), 
+					                                              enterpriseCustomer.getLicence(), 
+					                                              DateUtil.getDateStr(enterpriseCustomer.getLicenceEndDate(),"yyyy-MM-dd"), 
+					                                              enterpriseCustomer.getNature(),
+					                                              enterpriseCustomer.getEmployNum()+"",
+					                                              enterpriseCustomer.getLegalRepresentative(), 
+					                                              DateUtil.getDateStr(enterpriseCustomer.getBulidDate(),"yyyy-MM-dd"),
+					                                              enterpriseCustomer.getActualController(),
+					                                              enterpriseCustomer.getRegCapital().toPlainString(),
+					                                              enterpriseCustomer.getReallyCapital().toPlainString(),
+					                                              enterpriseCustomer.getBusinessScope(),
+					                                              enterpriseCustomer.getRegAddress(), 
+					                                              enterpriseCustomer.getContactAddressProvince(),
+					                                              enterpriseCustomer.getContactAddresscity(),
+					                                              enterpriseCustomer.getContactAddressDistrict(),
+					                                              enterpriseCustomer.getContactAddress(),
+					                                              enterpriseCustomer.getPostcode(),
+					                                              enterpriseCustomer.getPhone(), 
+					                                              enterpriseCustomer.getLinkman(),
+					                                              enterpriseCustomer.getFax(), 
+					                                              enterpriseCustomer.getEmail(),
+					                                              enterpriseCustomer.getWebSite());
+			
+		}
+		
+		return enterpriseCustomerModel;
+		
+	}
+	
+	
+	public static  List<GuaranteeModel> getGuaranteeModels(List<Guarantee> guarantees){
+		List<GuaranteeModel>  guaranteeModels = new ArrayList<GuaranteeModel>();
+			for (Guarantee guarantee :guarantees) {
+				guaranteeModels.add(new GuaranteeModel(guarantee.getName(), guarantee.getCardNum(), guarantee.getPhone(), guarantee.getAddress()));
+			}
+		
+		return guaranteeModels.isEmpty() ? null : guaranteeModels;
+	}
+	
+	
+	public static List<CollateralModel> getCollateralModels(List<Collateral> collaterals){
+		
+		 List<CollateralModel> collateralModels = new ArrayList<CollateralModel>();
+			 for (Collateral collateral :collaterals) {
+				 collateralModels.add(new CollateralModel(collateral.getPledgeType().getKey(),
+						  getNewStr(collateral.getCollateralType().name()),
+						  collateral.getCollateralName(), 
+						  collateral.getWarrantNum(), collateral.getEvaluationValue().toPlainString(),
+						  collateral.getWarrantHolder(),
+						  collateral.getCollateralAddr(),
+						  DateUtil.getDateStr(collateral.getHandleDate(), "yyyy-MM-dd")));
+			}
+			
+		 
+		 return collateralModels.isEmpty() ? null : collateralModels;
+	}
+	
+	
+	public static List<RepayPlanModel> getRepayPlanModels(List<RepayPlan> repayPlans){
+		
+		List<RepayPlanModel>  planModels = new ArrayList<RepayPlanModel>();
+		
+		for (RepayPlan repayPlan : repayPlans) {
+			planModels.add(new RepayPlanModel(DateUtil.getDateStr(repayPlan.getRepayDate(), "yyyy-MM-dd"),
+					repayPlan.getPrincipal().toPlainString(), repayPlan.getInterest().toPlainString()));
+		}
+		return planModels.isEmpty() ? null : planModels;
+	}
+	
+	
+	public static List<SettledInfoModel> getSettledInfoModels (List<SettledInfo> settledInfos){
+		List<SettledInfoModel> settledInfoModels = new ArrayList<SettledInfoModel>();
+		for (SettledInfo settledInfo :settledInfos) {
+			            settledInfoModels.add(new SettledInfoModel(settledInfo.getMoney().toPlainString(),
+					DateUtil.getDateStr(settledInfo.getLoanDate(), "yyyy-MM-dd"), 
+					DateUtil.getDateStr(settledInfo.getDebtStartDate(), "yyyy-MM-dd"),
+					DateUtil.getDateStr(settledInfo.getDebtEndDate(), "yyyy-MM-dd")));
+		}
+		
+		return settledInfoModels.isEmpty() ? null :settledInfoModels;
+	}
+	
+	
+	
+	public static String getNewStr(String olderStr){
+		if (StringUtils.isEmpty(olderStr)) {
+			return null;
+		}
+		return olderStr.replace("S_", "");
+	}
+
+}

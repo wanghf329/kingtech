@@ -23,12 +23,12 @@ public class PersonalCustomerModel {
 	//性别：1）男 2）女
 
 	@JSONField(name="sex")
-	private SexEnum sex;
+	private String sex;
 	
 	//证件类型：1）居民身份证 2）护照,  3）驾驶证
 	
 	@JSONField(name="category")
-	private CertType category;
+	private String category;
 	
 	// 证件号码
 	@JSONField(name="card_num")

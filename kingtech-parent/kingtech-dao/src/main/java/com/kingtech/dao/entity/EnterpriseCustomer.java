@@ -48,11 +48,11 @@ public class EnterpriseCustomer extends PackageEntity{
 		
 	//公司注册登记号
 	@Column(name="REG_CODE")
-	private String  regcode;
+	private String  regCode;
 		
 	//工商注册登记机关
 	@Column(name="REG_OFFICE")
-	private String  regoffice;
+	private String  regOffice;
 		
 	//工商注册登记日期，格式YYYY-MM-DD
 	@Column(name="REG_DATE")
@@ -64,7 +64,7 @@ public class EnterpriseCustomer extends PackageEntity{
 		
 	//地税税务登记号
 	@Column(name="LAND_REG_NUM")
-	private String  landregNum;
+	private String  landRegNum;
 		
 	//营业执照号
 	@Column(name="LICENCE",nullable = false)
@@ -72,7 +72,7 @@ public class EnterpriseCustomer extends PackageEntity{
 		
 	//营业执照截止日期，格式YYYY-MM-DD
 	@Column(name="LICENCE_END_DATE",nullable = false)
-	private String  licenceEndDate;
+	private Date  licenceEndDate;
 		
 	//企业性质
 	@Column(name="NATURE")
@@ -153,7 +153,7 @@ public class EnterpriseCustomer extends PackageEntity{
 	public EnterpriseCustomer(String loanContractId, String corporateName,
 			ScaleType scale, IndustryType industryType,
 			IndustryEnum industryinvolved, String licence,
-			String licenceEndDate, String contactAddressProvince,
+			Date licenceEndDate, String contactAddressProvince,
 			String contactAddresscity, String contactAddressDistrict) {
 		super(loanContractId);
 		this.corporateName = corporateName;

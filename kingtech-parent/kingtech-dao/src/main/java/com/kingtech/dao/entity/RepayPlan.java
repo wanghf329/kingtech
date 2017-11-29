@@ -1,5 +1,6 @@
 package com.kingtech.dao.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -27,14 +28,14 @@ public class RepayPlan extends PackageEntity {
 
 	// 还款本金（元）
 	@Column(name="PRINCIPAL")
-	private Double principal;
+	private BigDecimal principal;
 
 	// 还款利息（元）
 	@Column(name="INTEREST")
-	private Double interest;
+	private BigDecimal interest;
 
-	public RepayPlan(String loanContractId, Date repayDate, Double principal,
-			Double interest) {
+	public RepayPlan(String loanContractId, Date repayDate, BigDecimal principal,
+			BigDecimal interest) {
 		super(loanContractId);
 		this.repayDate = repayDate;
 		this.principal = principal;

@@ -1,7 +1,5 @@
 package com.kingtech.web.commons.base.api.impl;
 
-import java.util.Random;
-
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,16 +7,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
-import com.kingtech.common.config.BaseConfig;
 import com.kingtech.common.utils.DateUtil;
 import com.kingtech.common.utils.RandomUtil;
 import com.kingtech.dao.entity.Branch;
 import com.kingtech.dao.entity.Capital;
+import com.kingtech.dao.entity.Contract;
 import com.kingtech.dao.entity.Employee;
 import com.kingtech.dao.entity.Shareholder;
 import com.kingtech.dao.rdbms.BranchDAO;
 import com.kingtech.dao.rdbms.CapitalDAO;
+import com.kingtech.dao.rdbms.CollateralDAO;
+import com.kingtech.dao.rdbms.ContractDAO;
 import com.kingtech.dao.rdbms.EmployeeDAO;
+import com.kingtech.dao.rdbms.EnterpriseCustomerDAO;
+import com.kingtech.dao.rdbms.GuaranteeDAO;
+import com.kingtech.dao.rdbms.PersonalCustomerDAO;
+import com.kingtech.dao.rdbms.RepayPlanDAO;
+import com.kingtech.dao.rdbms.SettledInfoDAO;
 import com.kingtech.dao.rdbms.ShareholderDAO;
 import com.kingtech.enums.Cmd;
 import com.kingtech.enums.IdentifierType;
@@ -26,6 +31,7 @@ import com.kingtech.enums.PushStatus;
 import com.kingtech.model.AsyReponseModel;
 import com.kingtech.model.BranchInfoModel;
 import com.kingtech.model.CapitalModel;
+import com.kingtech.model.ContractModel;
 import com.kingtech.model.EmployeeModel;
 import com.kingtech.model.ShareholderModel;
 import com.kingtech.model.SynResponseModel;
@@ -56,6 +62,29 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 	
 	@Autowired
 	private ShareholderDAO shareholderDAO;
+	
+	@Autowired 
+	private ContractDAO contractDAO;
+	
+	@Autowired 
+	private CollateralDAO collateralDAO;
+	
+	@Autowired 
+	private EnterpriseCustomerDAO enterpriseCustomerDAO;
+	
+	@Autowired 
+	private GuaranteeDAO guaranteeDAO;
+	
+	@Autowired 
+	private PersonalCustomerDAO personalCustomerDao;
+	
+	@Autowired 
+	private RepayPlanDAO repayPlanDAO;
+	
+	@Autowired 
+	private SettledInfoDAO settledInfoDAO;
+	
+	
 
 	@Override
 	public void branchInfoApi(String branchId, IdentifierType type) {
@@ -261,7 +290,21 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 	}
 
 	@Override
-	public void contractInfoApi(String loanIdContract, IdentifierType type) {
+	public void contractInfoApi(String loanIdContractId, IdentifierType type) {
+		
+		Contract contract = contractDAO.findOne(loanIdContractId);
+		if (contract == null) {
+			log.info("未获取到相关数据loanIdContractId={}",loanIdContractId);
+			return;
+		}
+		
+		String roundStr =  RandomUtil.random8Len();
+		
+		
+		
+		ContractModel contractModel = null;
+		if (IdentifierType.A.equals(type)||IdentifierType.U.equals(type)) {
+		}
 		
 	}
 

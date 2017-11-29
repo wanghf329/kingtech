@@ -15,10 +15,14 @@ import lombok.NoArgsConstructor;
 import com.kingtech.dao.entity.base.RecordEntity;
 import com.kingtech.enums.BorrowerTypeEnum;
 import com.kingtech.enums.IndustryEnum;
+import com.kingtech.enums.LoanPurposeEnum;
 import com.kingtech.enums.LoanTypeEnum;
+import com.kingtech.enums.LoanstatusEnum;
+import com.kingtech.enums.PayTypeEnum;
 import com.kingtech.enums.PeriodTypeEnum;
 import com.kingtech.enums.RateTypeEnum;
 import com.kingtech.enums.UnionFlagEnum;
+import com.kingtech.enums.YesNoEnum;
 
 /**
  * 合同信息
@@ -98,8 +102,9 @@ public class Contract extends RecordEntity{
 	/**
 	 * 贷款用途：1-流动资金贷款  2-固定资产投资贷款  3-其他
 	 */
+	@Enumerated(EnumType.STRING)
 	@Column(name="PURPOSE")
-	private String  purpose;
+	private LoanPurposeEnum  purpose;
 	/**
 	 * 贷款投向：1-居民服务和其他服务业,2-建筑业, 3-交通运输、仓储和邮政业, 4-农、林、牧、渔业, 5-采矿业, 6-制造业, 7-电力、燃气及水的生产和供应业, 8-信息传输、计算机服务和软件业, 9-批发和零售业,10-住宿和餐饮业, 11-房地产业, 12-租赁和商务服务业, 13-其他（参与签名）
 	 */
@@ -116,32 +121,65 @@ public class Contract extends RecordEntity{
 	 * 是否多户联合贷款，只有当贷款方式为“保证”类是否多户联合贷款，只有当贷款方式为“保证”类
 	 */
 	@Enumerated(EnumType.STRING)
-	@Column(name="union_flag")
+	@Column(name="UNION_FLAG")
 	private UnionFlagEnum unionFlag;
 	
 	/**
 	 * 还款方式：1）等额本息  2）等额本金  3）先息后本   4）灵活还款
 	 */
-	@Column(name="pay_type")
-	private String payType;
+	@Column(name="PAY_TYPE")
+	private PayTypeEnum payType;
 	/**
 	 * 合同签订日期，格式YYYY-MM-DD HH:mm:SS
 	 */
-	@Column(name="sign_date")
-	private String signDate;
+	@Column(name="SIGN_DATE")
+	private Date signDate;
 	/**
 	 * 还款来源
 	 */
-	@Column(name="repay_source")
+	@Column(name="REPAY_SOURCE")
 	private String repaySource;
 	/**
-	 * 合同状态：未结清，已结清，逾期未结清，逾期已结清
+	 * 合同状态：
 	 */
-	@Column(name="status")
-	private String status;
+	@Enumerated(EnumType.STRING)
+	@Column(name="STATUS")
+	private LoanstatusEnum status;
 	/**
 	 * 是否展期：0-否，1-是
 	 */
-	@Column(name="is_extend")
-	private String isExtend;
+	@Enumerated(EnumType.STRING)
+	@Column(name="IS_EXTEND")
+	private YesNoEnum isExtend;
+	
+	public Contract(String loanContractId,
+			String loanContractName, BorrowerTypeEnum borrowerType,
+			String customerId, String guarantee, BigDecimal loanAmount,
+			PeriodTypeEnum periodType, int periodTerm, Date loanStartDate,
+			Date loanEndDate, RateTypeEnum rateType, BigDecimal rate,
+			LoanPurposeEnum purpose, IndustryEnum industry, LoanTypeEnum loanType,
+			UnionFlagEnum unionFlag, PayTypeEnum payType, Date signDate,
+			String repaySource, LoanstatusEnum status, YesNoEnum isExtend) {
+		this.loanContractId = loanContractId;
+		this.loanContractName = loanContractName;
+		this.borrowerType = borrowerType;
+		this.customerId = customerId;
+		this.guarantee = guarantee;
+		this.loanAmount = loanAmount;
+		this.periodType = periodType;
+		this.periodTerm = periodTerm;
+		this.loanStartDate = loanStartDate;
+		this.loanEndDate = loanEndDate;
+		this.rateType = rateType;
+		this.rate = rate;
+		this.purpose = purpose;
+		this.industry = industry;
+		this.loanType = loanType;
+		this.unionFlag = unionFlag;
+		this.payType = payType;
+		this.signDate = signDate;
+		this.repaySource = repaySource;
+		this.status = status;
+		this.isExtend = isExtend;
+	}
 }
