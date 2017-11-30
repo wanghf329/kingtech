@@ -12,6 +12,8 @@ import com.kingtech.dao.entity.Guarantee;
 import com.kingtech.dao.entity.PersonalCustomer;
 import com.kingtech.dao.entity.RepayPlan;
 import com.kingtech.dao.entity.SettledInfo;
+import com.kingtech.enums.BorrowerTypeEnum;
+import com.kingtech.enums.PayTypeEnum;
 import com.kingtech.model.CollateralModel;
 import com.kingtech.model.EnterpriseCustomerModel;
 import com.kingtech.model.GuaranteeModel;
@@ -26,10 +28,10 @@ public class DTOUtils {
 		if (personalCustomer != null) {
 			customerModel = new PersonalCustomerModel(personalCustomer.getName(),
 					                                  personalCustomer.getSex().getKey(),
-					                                  getNewStr(personalCustomer.getCategory() ==null ? null:personalCustomer.getCategory().name()),
+					                                  getNewStr(personalCustomer.getCategory()),
 					                                  personalCustomer.getCardNum(),
 					                                  personalCustomer.getPhone(), 
-					                                  getNewStr(personalCustomer.getFarmersFlag() ==null ? null :personalCustomer.getFarmersFlag().name()),
+					                                  getNewStr(personalCustomer.getFarmersFlag()),
 					                                  personalCustomer.getEducation(), 
 					                                  personalCustomer.getFax(), 
 					                                  personalCustomer.getEmail(), 
@@ -55,9 +57,9 @@ public class DTOUtils {
 		EnterpriseCustomerModel enterpriseCustomerModel = null;
 		if (enterpriseCustomer != null ) {
 			enterpriseCustomerModel = new EnterpriseCustomerModel(enterpriseCustomer.getCorporateName(),
-					                                              getNewStr(enterpriseCustomer.getScale().name()),
-					                                              getNewStr(enterpriseCustomer.getIndustryType().name()),
-					                                              getNewStr(enterpriseCustomer.getIndustryinvolved().name()),
+					                                              getNewStr(enterpriseCustomer.getScale()),
+					                                              getNewStr(enterpriseCustomer.getIndustryType()),
+					                                              getNewStr(enterpriseCustomer.getIndustryinvolved()),
 					                                              enterpriseCustomer.getOrganizationcode(),
 					                                              enterpriseCustomer.getRegCode(),
 					                                              enterpriseCustomer.getRegOffice(),
@@ -108,7 +110,7 @@ public class DTOUtils {
 		 List<CollateralModel> collateralModels = new ArrayList<CollateralModel>();
 			 for (Collateral collateral :collaterals) {
 				 collateralModels.add(new CollateralModel(collateral.getPledgeType().getKey(),
-						  getNewStr(collateral.getCollateralType().name()),
+						  getNewStr(collateral.getCollateralType()),
 						  collateral.getCollateralName(), 
 						  collateral.getWarrantNum(), collateral.getEvaluationValue().toPlainString(),
 						  collateral.getWarrantHolder(),
@@ -147,11 +149,12 @@ public class DTOUtils {
 	
 	
 	
-	public static String getNewStr(String olderStr){
-		if (StringUtils.isEmpty(olderStr)) {
+	public static String getNewStr(Enum<?> euEnum){
+		if (euEnum ==null ) {
 			return null;
 		}
-		return olderStr.replace("S_", "");
+		return euEnum.name().replace("S_", "");
 	}
+	
 
 }
