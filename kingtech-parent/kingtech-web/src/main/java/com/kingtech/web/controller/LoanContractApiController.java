@@ -153,7 +153,7 @@ public class LoanContractApiController {
 	}  
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/enterprise/add")
-	public String saveEnterprise(Model model, String constractId, String corporateName,
+	public String saveEnterprise(Model model,  String corporateName,
 			String scale, String industryType, String industryinvolved,
 			String organizationcode, String regCode, String regOffice,
 			String regDate, String nationalregNum, String landRegNum,
@@ -163,7 +163,7 @@ public class LoanContractApiController {
 			String contactAddresscity,String contactAddressDistrict,String contactAddress,String postcode,
 			String phone,String linkman,String fax,String email, String webSite)
 			throws ParseException {
-		contractService.addEnterprise(constractId, corporateName, scale, industryType, 
+		contractService.addEnterprise(corporateName, scale, industryType, 
 									 industryinvolved, organizationcode, regCode, regOffice, regDate, 
 									 nationalregNum, landRegNum, licence, licenceEndDate,
 									 nature, employNum, legalRepresentative, bulidDate,

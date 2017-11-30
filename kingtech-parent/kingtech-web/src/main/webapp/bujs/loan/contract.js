@@ -30,10 +30,10 @@ $("#loanSupplementBtn").click(function(e){
 
 
 function addCustomer(type,constractId) {
-	if(type == 'CORPORATION') {
-		window.location.href = "loan/enterprise/edit?constractId="+constractId;
-	}else if(type == 'PERSION'){
-		window.location.href = "loan/personnel/edit?constractId="+constractId;
+	if(type == 'S_1') {
+		window.location.href = "loan/enterprise/edit";
+	}else if(type == 'S_0'){
+		window.location.href = "loan/personnel/edit";
 	}else {
 		alert("请选择添加用户类型");
 	}

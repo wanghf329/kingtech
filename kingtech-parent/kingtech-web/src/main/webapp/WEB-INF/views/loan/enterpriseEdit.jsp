@@ -30,8 +30,7 @@
                                     <h3 class="box-title">企业客户信息</h3>
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
-											<form class="form-horizontal" id="enterpriseFrom" action="branch/add/enterprise" method="POST">
-												<input type="hidden" name="constractId" value="${constractId}">
+											<form class="form-horizontal" id="enterpriseFrom" action="loan/enterprise/add" method="POST">
 												<div class="form-group">
 													<label for="#corporateName" class="col-sm-2 control-label">企业名称</label>
 													<div class="col-sm-4 input-group">
@@ -41,7 +40,7 @@
 												<div class="form-group">
 													<label for="#scale" class="col-sm-2 control-label">企业规模</label>
 													<div class="col-sm-4 input-group">
-														<select class="form-control validate[required]" id="contract" name="contract" data-errormessage="企业规模不能为空">
+														<select class="form-control validate[required]" id="scale" name="scale" data-errormessage="企业规模不能为空">
 															<c:forEach var="it" items="${scaleTypes}">
 						  										<option value ="${it}">${it.key}</option>
 															</c:forEach>
@@ -52,7 +51,7 @@
 												<div class="form-group">
 													<label for="#industryType" class="col-sm-2 control-label">产业类型</label>
 													<div class="col-sm-4 input-group">
-														<select class="form-control validate[required]" id="contract" name="industryType" data-errormessage="产业类型不能为空">
+														<select class="form-control validate[required]" id="industryType" name="industryType" data-errormessage="产业类型不能为空">
 															<c:forEach var="it" items="${industryTypes}">
 						  										<option value ="${it}">${it.key}</option>
 															</c:forEach>
@@ -63,7 +62,7 @@
 												<div class="form-group">
 													<label for="#industryinvolved" class="col-sm-2 control-label">产业类型</label>
 													<div class="col-sm-4 input-group">
-														<select class="form-control validate[required]" id="contract" name="所属行业" data-errormessage="所属行业不能为空">
+														<select class="form-control validate[required]" id="contract" name="industryinvolved" data-errormessage="所属行业不能为空">
 															<c:forEach var="it" items="${industryinvolveds}">
 						  										<option value ="${it}">${it.key}</option>
 															</c:forEach>
