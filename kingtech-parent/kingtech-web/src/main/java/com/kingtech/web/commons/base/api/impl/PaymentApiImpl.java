@@ -1,6 +1,6 @@
 package com.kingtech.web.commons.base.api.impl;
 
-import java.util.Random;
+import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -9,29 +9,45 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
-import com.kingtech.common.config.BaseConfig;
 import com.kingtech.common.utils.DateUtil;
 import com.kingtech.common.utils.RandomUtil;
 import com.kingtech.dao.entity.Branch;
 import com.kingtech.dao.entity.Capital;
+import com.kingtech.dao.entity.Contract;
 import com.kingtech.dao.entity.Employee;
 import com.kingtech.dao.entity.Shareholder;
 import com.kingtech.dao.rdbms.BranchDAO;
 import com.kingtech.dao.rdbms.CapitalDAO;
+import com.kingtech.dao.rdbms.CollateralDAO;
+import com.kingtech.dao.rdbms.ContractDAO;
 import com.kingtech.dao.rdbms.EmployeeDAO;
+import com.kingtech.dao.rdbms.EnterpriseCustomerDAO;
+import com.kingtech.dao.rdbms.GuaranteeDAO;
+import com.kingtech.dao.rdbms.PersonalCustomerDAO;
+import com.kingtech.dao.rdbms.RepayPlanDAO;
+import com.kingtech.dao.rdbms.SettledInfoDAO;
 import com.kingtech.dao.rdbms.ShareholderDAO;
+import com.kingtech.enums.BorrowerTypeEnum;
 import com.kingtech.enums.Cmd;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.model.AsyReponseModel;
 import com.kingtech.model.BranchInfoModel;
 import com.kingtech.model.CapitalModel;
+import com.kingtech.model.CollateralModel;
+import com.kingtech.model.ContractModel;
 import com.kingtech.model.EmployeeModel;
+import com.kingtech.model.EnterpriseCustomerModel;
+import com.kingtech.model.GuaranteeModel;
+import com.kingtech.model.PersonalCustomerModel;
+import com.kingtech.model.RepayPlanModel;
+import com.kingtech.model.SettledInfoModel;
 import com.kingtech.model.ShareholderModel;
 import com.kingtech.model.SynResponseModel;
 import com.kingtech.web.commons.base.BaseAbstract;
 import com.kingtech.web.commons.base.CreatRequstId;
 import com.kingtech.web.commons.base.api.PaymentApi;
+import com.kingtech.web.commons.base.utils.DTOUtils;
 import com.kingtech.web.commons.http.service.FinanceService;
 
 
@@ -56,6 +72,29 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 	
 	@Autowired
 	private ShareholderDAO shareholderDAO;
+	
+	@Autowired 
+	private ContractDAO contractDAO;
+	
+	@Autowired 
+	private CollateralDAO collateralDAO;
+	
+	@Autowired 
+	private EnterpriseCustomerDAO enterpriseCustomerDAO;
+	
+	@Autowired 
+	private GuaranteeDAO guaranteeDAO;
+	
+	@Autowired 
+	private PersonalCustomerDAO personalCustomerDao;
+	
+	@Autowired 
+	private RepayPlanDAO repayPlanDAO;
+	
+	@Autowired 
+	private SettledInfoDAO settledInfoDAO;
+	
+	
 
 	@Override
 	public void branchInfoApi(String branchId, IdentifierType type) {
@@ -235,7 +274,6 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 		}
 		
 		PushStatus pushStatus = reponseModel.isSuccess() ? PushStatus.SUCCESS : PushStatus.FAILED;
-		
 		Cmd cmd = Cmd.valueOf(reponseModel.getApi());
 		String reqId = reponseModel.getReqId();
 		
@@ -253,6 +291,9 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 		case pushInstitutionCapital:  //机构资本信息
 			capitalDAO.updateStatusByReqId(reqId, pushStatus);
 			break;
+		case pushContract:	
+			contractDAO.updateStatusByReqId(reqId, pushStatus);
+			break;
 		
 		default:
 			break;
@@ -261,7 +302,81 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 	}
 
 	@Override
-	public void contractInfoApi(String loanIdContract, IdentifierType type) {
+	@Transactional
+	public void contractInfoApi(String loanIdContractId, IdentifierType type) {
+		
+		Contract contract = contractDAO.findOne(loanIdContractId);
+		if (contract == null) {
+			log.info("未获取到相关数据loanIdContractId={}",loanIdContractId);
+			return;
+		}
+		
+		String roundStr =  RandomUtil.random8Len();
+		
+		List<GuaranteeModel> guaranteeModels  = DTOUtils.getGuaranteeModels(guaranteeDAO.listByloanContractId(loanIdContractId));
+		
+	    SettledInfoModel settledInfoModel = DTOUtils.getSettledInfoModels(settledInfoDAO.getByloanContractId(loanIdContractId));
+		
+		List<RepayPlanModel> repayPlanModels = DTOUtils.getRepayPlanModels(repayPlanDAO.listByloanContractId(loanIdContractId));
+		
+		List<CollateralModel> collateralModels = DTOUtils.getCollateralModels(collateralDAO.listByloanContractId(loanIdContractId));
+		
+		PersonalCustomerModel personalCustomerModel = DTOUtils.getPersonalCustomerModel(personalCustomerDao.getByloanContractId(loanIdContractId));
+		
+		EnterpriseCustomerModel enterpriseCustomerModel = DTOUtils.getEnterpriseCustomerModel(enterpriseCustomerDAO.getByloanContractId(loanIdContractId));
+		
+		
+		ContractModel contractModel = null;
+		if (IdentifierType.A.equals(type)) {
+			contractModel = new ContractModel(roundStr,
+					                          IdentifierType.A.name(),
+					                          contract.getReqId(), 
+					                          null,
+					                          contract.getLoanContractId(),
+					                          contract.getLoanContractName(), 
+					                          contract.getBorrowerType().getKey(), 
+					                          contract.getCustomerId(),
+					                          contract.getGuarantee(), 
+					                          contract.getLoanAmount().toPlainString(),
+					                          DTOUtils.getNewStr(contract.getPayType().name()),
+					                          contract.getPeriodTerm()+"", 
+					                          DateUtil.getDateStr(contract.getLoanStartDate(), "yyyy-MM-dd"),
+					                          DateUtil.getDateStr(contract.getLoanEndDate(), "yyyy-MM-dd"),
+					                          DTOUtils.getNewStr(contract.getRateType().name()), 
+					                          contract.getRate().toPlainString(),
+					                          DTOUtils.getNewStr(contract.getPurpose().name()), 
+					                          DTOUtils.getNewStr(contract.getIndustry().name()),
+					                          DTOUtils.getNewStr(contract.getLoanType().name()),
+					                          DTOUtils.getNewStr(contract.getUnionFlag().name()),
+					                          DTOUtils.getNewStr(contract.getPayType().name()),
+					                          DateUtil.getDateStr(contract.getSignDate(),JSON.DEFFAULT_DATE_FORMAT), 
+					                          contract.getRepaySource(),
+					                          DTOUtils.getNewStr(contract.getStatus().name()),
+					                          DTOUtils.getNewStr(contract.getIsExtend().name()), 
+					                          DateUtil.getDateStr(contract.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT),
+					                          DateUtil.getDateStr(contract.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT),
+					                          null,
+					                          collateralModels.isEmpty()?null:JSON.toJSONString(collateralModels),
+					                          guaranteeModels.isEmpty()?null:JSON.toJSONString(guaranteeModels),
+					                          repayPlanModels.isEmpty()?null:JSON.toJSONString(repayPlanModels),
+					                          settledInfoModel == null ?null:JSON.toJSONString(settledInfoModel)) ;
+			
+			if (BorrowerTypeEnum.CORPORATION.equals(contract.getBorrowerType())) {
+				contractModel.setLoanCustomerPackage(enterpriseCustomerModel ==null ?null :JSON.toJSONString(enterpriseCustomerModel));
+			}else {
+				contractModel.setLoanCustomerPackage(personalCustomerModel ==null ?null :JSON.toJSONString(personalCustomerModel));
+			}
+			
+		}else {
+			log.info("暂不支持的操作 loanIdContractId={},IdentifierType={} ",loanIdContractId,type);
+			return;
+		}
+		
+		SynResponseModel responseModel = financeService.contractFacade(contractModel);
+		if (responseModel.isSuccess()) {
+			contract.setPushStatus(PushStatus.INPROSESS);
+			contractDAO.save(contract);
+		}
 		
 	}
 

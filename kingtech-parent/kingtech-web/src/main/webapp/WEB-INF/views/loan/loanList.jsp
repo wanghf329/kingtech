@@ -31,9 +31,10 @@
                                     <h3 class="box-title">合同信息列表</h3>
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
-                                	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addContractBtn">合同信息</button>
+                                	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addContractBtn">合同信息</button>  
                                 	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addEnterPriseBtn">信息</button>  
                                 	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addPersonnelBtn">信息</button>  
+                                	<button class="btn btn-primary btn-sm" data-toggle="modal" id="loanSupplementBtn">补充其他信息</button>
                                     <table class="table"> 
                                         <tr>
                                             <th>合同编号</th> 
@@ -80,6 +81,7 @@
                 </section><!-- /.content -->                
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
+
 		<%@include file="../common/footer.jspf" %>   
         <script src="bujs/loan/contract.js" type="text/javascript"></script>       
     </body>

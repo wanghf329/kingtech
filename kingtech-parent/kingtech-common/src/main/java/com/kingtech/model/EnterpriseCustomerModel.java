@@ -3,12 +3,19 @@ package com.kingtech.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import com.alibaba.fastjson.annotation.JSONField;
 import com.kingtech.enums.IndustryEnum;
 import com.kingtech.enums.IndustryType;
 import com.kingtech.enums.ScaleType;
 
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class EnterpriseCustomerModel {
 
 	
@@ -19,7 +26,7 @@ public class EnterpriseCustomerModel {
 	//企业规模：1) 个体工商户  2) 农村专业合作组织 3) 微型企业4)小型企业5)中型企业6)大型企业7)其他组织
 	
 	@JSONField(name="scale")
-	private ScaleType  scale;
+	private String  scale;
 	
 	//产业类型：1) 第一产业   2）第二产业  3）第三产业
 	
@@ -69,7 +76,7 @@ public class EnterpriseCustomerModel {
 		
 	//从业人数
 	@JSONField(name="employ_num")
-	private int  employNum;
+	private String  employNum;
 		
 	//法定代表人
 	@JSONField(name="legal_representative")

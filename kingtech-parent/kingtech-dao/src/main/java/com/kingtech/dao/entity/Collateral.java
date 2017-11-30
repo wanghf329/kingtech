@@ -1,5 +1,6 @@
 package com.kingtech.dao.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -46,7 +47,7 @@ public class Collateral extends PackageEntity {
 
 	// 评估值(元)
 	@Column(name="EVALUATION_VALUE")
-	private Double evaluationValue;
+	private BigDecimal evaluationValue;
 	
 	// 权证所有人
 	@Column(name="WARRANT_HOLDER")
@@ -62,7 +63,7 @@ public class Collateral extends PackageEntity {
 
 	public Collateral(String loanContractId, PledgeTypeEnum pledgeType,
 			CollateralTypeEnum collateralType, String collateralName, String warrantNum,
-			Double evaluationValue, String warrantHolder,
+			BigDecimal evaluationValue, String warrantHolder,
 			String collateralAddr, Date handleDate) {
 		super(loanContractId);
 		this.pledgeType = pledgeType;
