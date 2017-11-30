@@ -1,0 +1,37 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
+<div class="padding-15 repayPlan guaranteeTemplate hide">
+                               		<div class="col-md-8">   
+										<div class="box box-primary"> 
+				                                <div class="box-body"> 
+														<input type="hidden" name="id" value="">
+														<div class="form-group">
+															<label for="#name" class="col-sm-2 control-label">保证人名字</label>
+															<div class="col-sm-4 input-group">
+																<input type="text" class="form-control validate[required]" value="${it.name}" name="name" data-errormessage="保证人名字不能为空">
+															</div>
+														</div>
+														<div class="form-group">
+															<label for="#cardNum" class="col-sm-2 control-label">保证人证件号</label>
+															<div class="col-sm-4 input-group">
+																<input type="text" class="form-control validate[required]" value="${it.cardNum}" name="cardNum" data-errormessage="保证人证件号不能为空">
+															</div>
+														</div>
+														<div class="form-group">
+															<label for="#phone" class="col-sm-2 control-label">保证人联系方式</label>
+															<div class="col-sm-4 input-group">
+																<input type="text" class="form-control validate[required]" value="${it.phone}" name="phone" data-errormessage="保证人联系方式不能为空">
+															</div>
+														</div>
+														<div class="form-group">
+															<label for="#address" class="col-sm-2 control-label">联系地址</label>
+															<div class="col-sm-4 input-group">
+																<input type="text" class="form-control validate[required]" value="${it.address}" name="address" data-errormessage="联系地址不能为空">
+															</div>
+														</div>
+				                                </div><!-- /.box-body -->
+			                            </div>  
+                               		</div>
+		                            <div class="col-md-2"> 
+		                            	<a href="javascript:void(0)"><i class="text-red fa fa-minus delGuaranteeBtn">删除</i></a>  
+		                            </div>
+                            	</div>

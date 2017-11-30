@@ -14,9 +14,9 @@ $(document).ready(function () {
     	  failure : function() { callFailFunction()  } 
       })
       
-      if(canEdit=="false"){
-    	  $('#form-horizontal').find('input,textarea,select,button').attr('disabled',true);
-      }
+//      if(canEdit === undefined && canEdit=="false"){
+//    	  $('#form-horizontal').find('input,textarea,select,button').attr('disabled',true);
+//      } 
 });
 
 $(".saveRecordBtn").click(function(){ 
@@ -90,6 +90,23 @@ function delCapital(){
 };
 
 
+
+$(".addGuaranteeBtn").on("click",function(){
+	var clone = $(".guaranteeTemplate").clone(true).removeClass("guaranteeTemplate hide").addClass("repayPlan");
+	$(".guaranteeTemplate").parent().append(clone);   
+});
+$(".delGuaranteeBtn").on("click",function(){
+	$(this).closest(".repayPlan").remove();
+});
+
+
+$(".addCollateralBtn").on("click",function(){
+	var clone = $(".collateralTemplate").clone(true).removeClass("collateralTemplate").addClass("repayPlan");
+	$(".collateralTemplate").parent().append(clone);  
+});
+$(".delCollateralBtn").on("click",function(){
+	$(this).closest(".repayPlan").remove();
+});
 
  
 $(".addRepayPlanBtn").on("click",function(){

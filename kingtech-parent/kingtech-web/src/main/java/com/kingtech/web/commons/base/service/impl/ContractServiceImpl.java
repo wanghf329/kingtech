@@ -1,11 +1,13 @@
 package com.kingtech.web.commons.base.service.impl;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -142,42 +144,35 @@ public class ContractServiceImpl implements ContractService{
 	
 	@Override
 	@Transactional
-	public Collateral addCollateral(String id, String loanContractId, PledgeTypeEnum pledgeType,
-			CollateralTypeFor1Enum collateralType, String collateralName,
-			String warrantNum, BigDecimal evaluationValue, String warrantHolder,
-			String collateralAddr, Date handleDate) {
-		Collateral collateral = null;
-		if(StringUtils.isEmpty(id)){
-			collateral = new Collateral(loanContractId, pledgeType, collateralType, collateralName, warrantNum, evaluationValue, warrantHolder, collateralAddr, handleDate);
-		} else {
-			collateral = collateralDAO.findOne(id);
-			collateral.setPledgeType(pledgeType);
-			collateral.setCollateralType(collateralType);
-			collateral.setCollateralName(collateralName);
-			collateral.setWarrantNum(warrantNum);
-			collateral.setEvaluationValue(evaluationValue);
-			collateral.setWarrantHolder(warrantHolder);
-			collateral.setCollateralAddr(collateralAddr);
-			collateral.setHandleDate(handleDate);
+	public void addCollateral(String[] ids, String loanContractId, PledgeTypeEnum[] pledgeType,
+			CollateralTypeFor1Enum[] collateralType, String[] collateralName,
+			String[] warrantNum, BigDecimal[] evaluationValue, String[] warrantHolder,
+			String[] collateralAddr, String[] handleDate) {
+		
+		try {
+			collateralDAO.deleteByLoanContractId(loanContractId);
+			for (int i = 0; i < pledgeType.length; i++) {
+				Collateral collateral;
+					collateral = new Collateral(loanContractId, pledgeType[i], collateralType[i], collateralName[i],
+							warrantNum[i], evaluationValue[i], warrantHolder[i], collateralAddr[i], 
+							StringUtils.isEmpty(handleDate[i]) ? null : DateUtils.parseDate(handleDate[i], "yyyy-MM-dd"));
+				collateralDAO.save(collateral);
+			}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return collateralDAO.save(collateral);
 	}
 
 	@Override
 	@Transactional
-	public Guarantee addGuarantee(String id, String loanContractId, String name,
-			String cardNum, String phone, String address) {
-		Guarantee guarantee = null;
-		if(StringUtils.isEmpty(id)){
-			guarantee = new Guarantee(loanContractId, name, cardNum, phone, address);
-		} else {
-			guarantee = guaranteeDAO.findOne(id);
-			guarantee.setName(name);
-			guarantee.setCardNum(cardNum);
-			guarantee.setPhone(phone);
-			guarantee.setAddress(address);
+	public void addGuarantee(String loanContractId, String[] name,
+			String[] cardNum, String[] phone, String[] address) {
+		guaranteeDAO.deleteByLoanContractId(loanContractId);
+		for (int i = 1; i < name.length; i++) {
+			Guarantee guarantee = new Guarantee(loanContractId, name[i], cardNum[i], phone[i], address[i]);
+			guaranteeDAO.save(guarantee);
 		}
-		return guaranteeDAO.save(guarantee);
 	}
 
 	@Override
@@ -216,5 +211,10 @@ public class ContractServiceImpl implements ContractService{
 	@Override
 	public List<Collateral> listCollateralByloanContractId(String loanContractId) {
 		return collateralDAO.listByloanContractId(loanContractId);
+	}
+
+	@Override
+	public List<Guarantee> listByContractId(String loanContractId) {
+		return (List<Guarantee>)guaranteeDAO.listByloanContractId(loanContractId);
 	}
 }

@@ -38,16 +38,18 @@ public interface ContractService {
 	
 	public Contract getById(String id);
 	
-	public Collateral addCollateral(String id, String loanContractId, PledgeTypeEnum pledgeType, CollateralTypeFor1Enum collateralType, 
-						String collateralName, String warrantNum, BigDecimal evaluationValue, 
-						String warrantHolder,String collateralAddr, Date handleDate);
+	public void addCollateral(String id[], String loanContractId, PledgeTypeEnum[] pledgeType, CollateralTypeFor1Enum[] collateralType, 
+						String[] collateralName, String[] warrantNum, BigDecimal[] evaluationValue, 
+						String[] warrantHolder,String[] collateralAddr, String[] handleDate);
 	
-	public Guarantee addGuarantee(String id, String loanContractId, String name, String cardNum, String phone, String address);
+	public void addGuarantee(String loanContractId, String[] name, String[] cardNum, String[] phone, String[] address);
 	
 	public RepayPlan addRepayPlan(String id, String loanContractId, Date repayDate, BigDecimal principal, BigDecimal interest);
 	
 	public SettledInfo addSettledInfo(String id, String loanContractId, BigDecimal money, Date loanDate, Date debtStartDate, Date debtEndDate);
 	
 	public List<Collateral> listCollateralByloanContractId(String loanContractId);
+	
+	public List<Guarantee> listByContractId(String loanContractId);
 	
 }
