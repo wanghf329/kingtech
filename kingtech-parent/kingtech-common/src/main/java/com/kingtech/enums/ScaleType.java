@@ -1,7 +1,6 @@
 package com.kingtech.enums;
 
 public enum ScaleType implements BaseEnum {
-	
 	S_1("个体工商户"),
 	S_2("农村专业合作组织"),
 	S_3("微型企业"),

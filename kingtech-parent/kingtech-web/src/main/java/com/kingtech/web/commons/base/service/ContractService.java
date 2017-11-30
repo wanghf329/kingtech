@@ -41,7 +41,7 @@ public interface ContractService {
 	
 	public void addSettledInfo(String loanContractId, BigDecimal money, Date loanDate, Date debtStartDate, Date debtEndDate);
 	
-	public void addEnterprise(String constractId, String corporateName,
+	public void addEnterprise( String corporateName,
 			String scale, String industryType, String industryinvolved,
 			String organizationcode, String regCode, String regOffice,
 			String regDate, String nationalregNum, String landRegNum,

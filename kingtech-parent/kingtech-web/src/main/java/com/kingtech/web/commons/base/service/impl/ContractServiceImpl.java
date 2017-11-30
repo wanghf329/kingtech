@@ -161,7 +161,7 @@ public class ContractServiceImpl implements ContractService{
 	
 	@Override
 	@Transactional
-	public void addEnterprise(String constractId, String corporateName,
+	public void addEnterprise(String corporateName,
 			String scale, String industryType, String industryinvolved,
 			String organizationcode, String regCode, String regOffice,
 			String regDate, String nationalregNum, String landRegNum,
@@ -173,10 +173,6 @@ public class ContractServiceImpl implements ContractService{
 			String contactAddressDistrict, String contactAddress,
 			String postcode, String phone, String linkman, String fax,
 			String email, String webSite) {
-		Contract ct = contractDao.findOne(constractId);
-		if(ct == null) {
-			return ;
-		}
 		try {
 			EnterpriseCustomer enterprise = 
 					new EnterpriseCustomer(corporateName, ScaleType.valueOf(scale),IndustryType.valueOf(industryType),
@@ -191,8 +187,6 @@ public class ContractServiceImpl implements ContractService{
 							postcode,  phone,  linkman,  fax,email,  webSite);
 			
 			enterprise = enterpriseDao.save(enterprise);
-			ct.setCustomerId(enterprise.getId());
-			ct.setBorrowerType(BorrowerTypeEnum.S_1);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

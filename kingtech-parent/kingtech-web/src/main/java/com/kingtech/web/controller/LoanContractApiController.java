@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kingtech.enums.BorrowerTypeEnum;
 import com.kingtech.enums.CertType;
@@ -85,8 +84,8 @@ public class LoanContractApiController {
 		return "/loan/loanEdit";
 	}  
 	
-	@RequestMapping(method = RequestMethod.GET,value="/supplement/{loanContractId}")
-	public String supplement(@PathVariable String loanContractId, Model model) { 
+	@RequestMapping(method = RequestMethod.GET,value="/supplement")
+	public String supplement(Model model, @RequestParam("loanContractId") String loanContractId) { 
 		model.addAttribute("loanContractId", loanContractId);
 		return "/loan/loanSupplement";
 	}
@@ -152,13 +151,13 @@ public class LoanContractApiController {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET,value="/push/{id}")
-	public String supplement(Model model,@PathVariable("id") String id) { 
+	public String push(Model model,@PathVariable("id") String id) { 
 		paymentApi.contractInfoApi(id, IdentifierType.A);
 		return "redirect:/loan/list";
 	}  
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/enterprise/add")
-	public String saveEnterprise(Model model, String constractId, String corporateName,
+	public String saveEnterprise(Model model,  String corporateName,
 			String scale, String industryType, String industryinvolved,
 			String organizationcode, String regCode, String regOffice,
 			String regDate, String nationalregNum, String landRegNum,
@@ -168,7 +167,7 @@ public class LoanContractApiController {
 			String contactAddresscity,String contactAddressDistrict,String contactAddress,String postcode,
 			String phone,String linkman,String fax,String email, String webSite)
 			throws ParseException {
-		contractService.addEnterprise(constractId, corporateName, scale, industryType, 
+		contractService.addEnterprise(corporateName, scale, industryType, 
 									 industryinvolved, organizationcode, regCode, regOffice, regDate, 
 									 nationalregNum, landRegNum, licence, licenceEndDate,
 									 nature, employNum, legalRepresentative, bulidDate,
