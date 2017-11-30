@@ -70,7 +70,7 @@
 	                                            </td>
 	                                            <td> 
 	                                            	<a href="loan/edit?id=${it.id}"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>
-	                                            	<a href="javascript:void(0)" onclick="alert('${it.id}')"><i class="text-blue fa fa-exchange"></i><strong>推送</strong></a>
+	                                            	<a href="loan/push/${it.id}"><i class="text-blue fa fa-exchange"></i><strong>推送</strong></a>
 	                                            </td>
 	                                        </tr>
                                         </c:forEach>

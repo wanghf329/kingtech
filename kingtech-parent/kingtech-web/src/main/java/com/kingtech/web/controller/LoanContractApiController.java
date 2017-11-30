@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kingtech.enums.BorrowerTypeEnum;
 import com.kingtech.enums.CertType;
+import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.IndustryEnum;
 import com.kingtech.enums.IndustryType;
 import com.kingtech.enums.LoanPurposeEnum;
@@ -26,6 +27,7 @@ import com.kingtech.enums.RateTypeEnum;
 import com.kingtech.enums.ScaleType;
 import com.kingtech.enums.UnionFlagEnum;
 import com.kingtech.enums.YesNoEnum;
+import com.kingtech.web.commons.base.api.PaymentApi;
 import com.kingtech.web.commons.base.service.BranchService;
 import com.kingtech.web.commons.base.service.ContractService;
 
@@ -38,6 +40,9 @@ public class LoanContractApiController {
 
 	@Autowired
 	private BranchService branchService;
+
+	@Autowired
+	private PaymentApi paymentApi;
 
 	/**
 	 * 使用帮助页面
@@ -115,4 +120,10 @@ public class LoanContractApiController {
 		model.addAttribute("certTypes", CertType.values());
 		return "/loan/personnelEdit";
 	}
+	
+	@RequestMapping(method = RequestMethod.GET,value="/push/{id}")
+	public String supplement(Model model,@PathVariable("id") String id) { 
+		paymentApi.contractInfoApi(id, IdentifierType.A);
+		return "redirect:/loan/list";
+	}  
 }

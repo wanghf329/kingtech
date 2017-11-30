@@ -321,10 +321,6 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 		
 		List<CollateralModel> collateralModels = DTOUtils.getCollateralModels(collateralDAO.listByloanContractId(loanIdContractId));
 		
-		PersonalCustomerModel personalCustomerModel = DTOUtils.getPersonalCustomerModel(personalCustomerDao.getByloanContractId(loanIdContractId));
-		
-		EnterpriseCustomerModel enterpriseCustomerModel = DTOUtils.getEnterpriseCustomerModel(enterpriseCustomerDAO.getByloanContractId(loanIdContractId));
-		
 		
 		ContractModel contractModel = null;
 		if (IdentifierType.A.equals(type)) {
@@ -334,7 +330,7 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 					                          null,
 					                          contract.getLoanContractId(),
 					                          contract.getLoanContractName(), 
-					                          contract.getBorrowerType().getKey(), 
+					                          DTOUtils.getNewStr(contract.getBorrowerType().name()), 
 					                          contract.getCustomerId(),
 					                          contract.getGuarantee(), 
 					                          contract.getLoanAmount().toPlainString(),
@@ -361,11 +357,15 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 					                          repayPlanModels.isEmpty()?null:JSON.toJSONString(repayPlanModels),
 					                          settledInfoModel == null ?null:JSON.toJSONString(settledInfoModel)) ;
 			
-			if (BorrowerTypeEnum.CORPORATION.equals(contract.getBorrowerType())) {
+			if (BorrowerTypeEnum.S_1.equals(contract.getBorrowerType())) {
+				EnterpriseCustomerModel enterpriseCustomerModel = DTOUtils.getEnterpriseCustomerModel(enterpriseCustomerDAO.findOne(contract.getBorrowerId()));
 				contractModel.setLoanCustomerPackage(enterpriseCustomerModel ==null ?null :JSON.toJSONString(enterpriseCustomerModel));
 			}else {
+				PersonalCustomerModel personalCustomerModel = DTOUtils.getPersonalCustomerModel(personalCustomerDao.findOne(contract.getBorrowerId()));
 				contractModel.setLoanCustomerPackage(personalCustomerModel ==null ?null :JSON.toJSONString(personalCustomerModel));
 			}
+			
+			
 			
 		}else {
 			log.info("暂不支持的操作 loanIdContractId={},IdentifierType={} ",loanIdContractId,type);
