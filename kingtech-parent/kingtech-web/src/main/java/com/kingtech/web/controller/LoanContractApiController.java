@@ -136,20 +136,7 @@ public class LoanContractApiController {
 		return "redirect:/loan/list";
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/enterprise/edit")
-	public String enterpriseEdit(Model model) {
-		model.addAttribute("list", contractService.listAll());
-		model.addAttribute("scaleTypes", ScaleType.values());
-		model.addAttribute("industryTypes", IndustryType.values());
-		model.addAttribute("industryinvolveds", IndustryEnum.values());
-		return "/loan/enterpriseEdit";
-	}
-
-	@RequestMapping(method = RequestMethod.GET, value = "/personnel/edit")
-	public String personnelEdit(Model model) {
-		model.addAttribute("certTypes", CertType.values());
-		return "/loan/personnelEdit";
-	}
+	
 	
 	@RequestMapping(method = RequestMethod.GET,value="/push/{id}")
 	public String supplement(Model model,@PathVariable("id") String id) { 
@@ -157,26 +144,6 @@ public class LoanContractApiController {
 		return "redirect:/loan/list";
 	}  
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/enterprise/add")
-	public String saveEnterprise(Model model,  String corporateName,
-			String scale, String industryType, String industryinvolved,
-			String organizationcode, String regCode, String regOffice,
-			String regDate, String nationalregNum, String landRegNum,
-			String licence, String licenceEndDate, String nature, int employNum,
-			String legalRepresentative, String bulidDate, String actualController,BigDecimal regCapital,
-			BigDecimal reallyCapital, String businessScope, String regAddress,String contactAddressProvince,
-			String contactAddresscity,String contactAddressDistrict,String contactAddress,String postcode,
-			String phone,String linkman,String fax,String email, String webSite)
-			throws ParseException {
-		contractService.addEnterprise(corporateName, scale, industryType, 
-									 industryinvolved, organizationcode, regCode, regOffice, regDate, 
-									 nationalregNum, landRegNum, licence, licenceEndDate,
-									 nature, employNum, legalRepresentative, bulidDate,
-									 actualController, regCapital, reallyCapital, businessScope,
-									 regAddress, contactAddressProvince, contactAddresscity, 
-									 contactAddressDistrict, contactAddress, postcode, phone, 
-									 linkman, fax, email, webSite);
-		return "redirect:/loan/list";
-	}
+	
 }
 

@@ -65,8 +65,7 @@ public class ContractServiceImpl implements ContractService{
 	@Autowired
 	private CreatRequstId creatRequstId;
 	
-	@Autowired
-	private EnterpriseCustomerDAO enterpriseDao;
+
 	
 	@Override
 	public List<Contract> listAll(){
@@ -156,39 +155,5 @@ public class ContractServiceImpl implements ContractService{
 			Date loanDate, Date debtStartDate, Date debtEndDate) {
 		SettledInfo settledInfo = new SettledInfo(loanContractId, money, loanDate, debtStartDate, debtEndDate);
 		settledInfoDAO.save(settledInfo);
-	}
-	
-	@Override
-	@Transactional
-	public void addEnterprise(String corporateName,
-			String scale, String industryType, String industryinvolved,
-			String organizationcode, String regCode, String regOffice,
-			String regDate, String nationalregNum, String landRegNum,
-			String licence, String licenceEndDate, String nature,
-			int employNum, String legalRepresentative, String bulidDate,
-			String actualController, BigDecimal regCapital, BigDecimal reallyCapital,
-			String businessScope, String regAddress,
-			String contactAddressProvince, String contactAddresscity,
-			String contactAddressDistrict, String contactAddress,
-			String postcode, String phone, String linkman, String fax,
-			String email, String webSite) {
-		try {
-			EnterpriseCustomer enterprise = 
-					new EnterpriseCustomer(corporateName, ScaleType.valueOf(scale),IndustryType.valueOf(industryType),
-							IndustryEnum.valueOf(industryinvolved),organizationcode,regCode, regOffice,
-							StringUtils.isEmpty(regDate) ? null: DateUtils.parseDate(regDate, "yyyy-MM-dd"),
-							nationalregNum, landRegNum,licence,
-							StringUtils.isEmpty(licenceEndDate) ? null:DateUtils.parseDate(licenceEndDate, "yyyy-MM-dd"),
-							nature, employNum, legalRepresentative, 
-							StringUtils.isEmpty(bulidDate)?null:DateUtils.parseDate(bulidDate, "yyyy-MM-dd"),
-							actualController, regCapital, reallyCapital,businessScope,regAddress,
-							contactAddressProvince,  contactAddresscity,contactAddressDistrict,  contactAddress,
-							postcode,  phone,  linkman,  fax,email,  webSite);
-			
-			enterprise = enterpriseDao.save(enterprise);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }
