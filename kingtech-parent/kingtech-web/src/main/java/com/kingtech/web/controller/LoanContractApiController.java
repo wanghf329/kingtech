@@ -89,8 +89,10 @@ public class LoanContractApiController {
 		model.addAttribute("loanContractId", loanContractId);
 		model.addAttribute("collateralType1",CollateralTypeFor1Enum.values());
 		model.addAttribute("collateralType2",CollateralTypeFor2Enum.values());
-		model.addAttribute("listCollateral", contractService.listCollateralByloanContractId(loanContractId));
-		model.addAttribute("guaranteeList", contractService.listByContractId(loanContractId));
+		model.addAttribute("collateralList", contractService.listCollateralByLoanContractId(loanContractId));
+		model.addAttribute("guaranteeList", contractService.listGuaranteeByLoanContractId(loanContractId));
+		model.addAttribute("repayPlanList", contractService.listRepayPlanByLoanContractId(loanContractId));
+		model.addAttribute("settledInfoList", contractService.listSettledInfoByLoanContractId(loanContractId));
 		
 		return "/loan/loanSupplement";
 	}

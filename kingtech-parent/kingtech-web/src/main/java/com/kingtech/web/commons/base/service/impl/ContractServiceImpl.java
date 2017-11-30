@@ -209,12 +209,22 @@ public class ContractServiceImpl implements ContractService{
 	}
 	
 	@Override
-	public List<Collateral> listCollateralByloanContractId(String loanContractId) {
+	public List<Collateral> listCollateralByLoanContractId(String loanContractId) {
 		return collateralDAO.listByloanContractId(loanContractId);
 	}
 
 	@Override
-	public List<Guarantee> listByContractId(String loanContractId) {
+	public List<Guarantee> listGuaranteeByLoanContractId(String loanContractId) {
 		return (List<Guarantee>)guaranteeDAO.listByloanContractId(loanContractId);
+	}
+	
+	@Override
+	public List<RepayPlan> listRepayPlanByLoanContractId(String loanContractId) {
+		return (List<RepayPlan>)repayPlanDAO.listByloanContractId(loanContractId);
+	}
+	
+	@Override
+	public List<SettledInfo> listSettledInfoByLoanContractId(String loanContractId) {
+		return (List<SettledInfo>)settledInfoDAO.listByloanContractId(loanContractId);
 	}
 }

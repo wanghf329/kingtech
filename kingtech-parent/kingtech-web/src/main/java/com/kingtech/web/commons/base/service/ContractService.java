@@ -48,8 +48,12 @@ public interface ContractService {
 	
 	public SettledInfo addSettledInfo(String id, String loanContractId, BigDecimal money, Date loanDate, Date debtStartDate, Date debtEndDate);
 	
-	public List<Collateral> listCollateralByloanContractId(String loanContractId);
+	public List<Collateral> listCollateralByLoanContractId(String loanContractId);
 	
-	public List<Guarantee> listByContractId(String loanContractId);
+	public List<Guarantee> listGuaranteeByLoanContractId(String loanContractId);
+	
+	public List<RepayPlan> listRepayPlanByLoanContractId(String loanContractId);
+	
+	public List<SettledInfo> listSettledInfoByLoanContractId(String loanContractId);
 	
 }
