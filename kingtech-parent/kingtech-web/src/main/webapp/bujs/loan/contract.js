@@ -27,14 +27,18 @@ $("#loanSupplementBtn").click(function(e){
 	window.location.href = "loan/supplement?loanContractId=2121";
 });
 
-$("#addEnterPriseBtn").click(function(){ 
-	window.location.href = "loan/enterprise/edit";
-});
 
-$("#addPersonnelBtn").click(function(){ 
-	window.location.href = "loan/personnel/edit";
-});
 
+function addCustomer(type,constractId) {
+	if(type == 'S_1') {
+		window.location.href = "loan/enterprise/edit";
+	}else if(type == 'S_0'){
+		window.location.href = "loan/personnel/edit";
+	}else {
+		alert("请选择添加用户类型");
+	}
+		
+}
 
 
 function getCapital(id){

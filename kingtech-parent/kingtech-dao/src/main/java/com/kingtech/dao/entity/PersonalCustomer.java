@@ -12,6 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import com.kingtech.dao.entity.base.PackageEntity;
+import com.kingtech.dao.entity.base.UuidEntity;
 import com.kingtech.enums.CertType;
 import com.kingtech.enums.SexEnum;
 import com.kingtech.enums.YesNoEnum;
@@ -21,7 +22,7 @@ import com.kingtech.enums.YesNoEnum;
 @Entity
 @Table(name="TB_PERSONAL_CUSTOMER")
 @NoArgsConstructor
-public class PersonalCustomer extends PackageEntity{
+public class PersonalCustomer extends UuidEntity{
 	//姓名
 	@Column(name="NAME",nullable = false)
 	private String name;
@@ -113,11 +114,10 @@ public class PersonalCustomer extends PackageEntity{
 	@Column(name="POST")
 	private String post;
 
-	public PersonalCustomer(String loanContractId, String name, SexEnum sex,
+	public PersonalCustomer(String name, SexEnum sex,
 			CertType category, String cardNum, String phone,
 			YesNoEnum farmersFlag, String addressProvince, String addressCity,
 			String addressDistrict) {
-		super(loanContractId);
 		this.name = name;
 		this.sex = sex;
 		this.category = category;

@@ -34,39 +34,25 @@
                                 	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addContractBtn">新增企业借款人信息</button>
                                     <table class="table"> 
                                         <tr>
-                                            <th>企业借款人编号</th> 
-                                            <th>企业借款人名称</th>
-                                            <th>借款客户类型</th>
-                                            <th>借款客户</th>
-                                            <th>利率类型</th>
-                                            <th>利率</th>
-                                            <th>贷款金额（元）</th>
-                                            <th>贷款期限</th>
-                                            <th>贷款开始日期</th>
-                                            <th>贷款截止日期</th>
-                                            <th>状态</th>
+                                            <th>企业名称</th> 
+                                            <th>企业规模</th>
+                                            <th>产业类型</th>
+                                            <th>所属行业</th>
+                                            <th>营业执照号</th>
+                                            <th>营业执照截止日期</th>
+                                            <th>通讯地址</th>
                                             <th>操作</th>
                                         </tr>
                                         <c:forEach var="it" items="${list}">
 	                                        <tr>
-	                                            <td>${it.loanContractId}</td>  
-	                                            <td>${it.loanContractName}</td>  
-	                                            <td>${it.borrowerType.getKey()}</td> 
-	                                            <td>${it.borrowerId} </td>
-	                                            <td>${it.rateType.getKey()}</td> 
-	                                            <td class="text-green">${it.rate}%</td>    
-	                                            <td class="text-red"><Strong>${it.loanAmount}</Strong></td> 
-	                                            <td>${it.periodTerm}${it.periodType.getKey()}</td> 
-	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.loanStartDate}"></fmt:formatDate></td>
-	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.loanEndDate}"></fmt:formatDate></td> 
-	                                            <td>
-	                                            	<c:if test="${it.pushStatus=='INITATION'}"><span class="text-gray"><i class="text-gray fa fa-info-circle"></i>初始</span></c:if>
-	                                            	<c:if test="${it.pushStatus=='SUCCESS'}"><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span></c:if>
-	                                            	<c:if test="${it.pushStatus=='INPROSESS'}"><span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span></c:if>
-	                                            	<c:if test="${it.pushStatus=='FAILED'}"><span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span></c:if>
-	                                            </td>
+	                                            <td>${it.corporateName}</td>  
+	                                            <td>${it.scale}</td>  
+	                                            <td>${it.industryType.getKey()}</td> 
+	                                            <td>${it.industryinvolved} </td>
+	                                            <td>${it.licence}</td> 
+	                                            <td class="text-green">{it.contactAddresscity}{it.contactAddresscity}{it.contactAddressDistrict}{it.contactAddress}</td>    
 	                                            <td> 
-	                                            	<a href="javascript:void(0)" onclick="alert('${it.id}')"><i class="text-blue fa fa-exchange"></i><strong>推送</strong></a>
+	                                            	<td><a href="javascript:void(0)" ><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a>
 	                                            </td>
 	                                        </tr>
                                         </c:forEach>
