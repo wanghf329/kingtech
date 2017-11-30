@@ -10,7 +10,7 @@ import com.kingtech.dao.entity.Guarantee;
 import com.kingtech.dao.entity.RepayPlan;
 import com.kingtech.dao.entity.SettledInfo;
 import com.kingtech.enums.BorrowerTypeEnum;
-import com.kingtech.enums.CollateralTypeEnum;
+import com.kingtech.enums.CollateralTypeFor1Enum;
 import com.kingtech.enums.IndustryEnum;
 import com.kingtech.enums.LoanPurposeEnum;
 import com.kingtech.enums.LoanTypeEnum;
@@ -35,7 +35,7 @@ public interface ContractService {
 	
 	public Contract getById(String id);
 	
-	public Collateral addCollateral(String id, String loanContractId, PledgeTypeEnum pledgeType, CollateralTypeEnum collateralType, 
+	public Collateral addCollateral(String id, String loanContractId, PledgeTypeEnum pledgeType, CollateralTypeFor1Enum collateralType, 
 						String collateralName, String warrantNum, BigDecimal evaluationValue, 
 						String warrantHolder,String collateralAddr, Date handleDate);
 	
@@ -45,5 +45,6 @@ public interface ContractService {
 	
 	public SettledInfo addSettledInfo(String id, String loanContractId, BigDecimal money, Date loanDate, Date debtStartDate, Date debtEndDate);
 	
+	public List<Collateral> listCollateralByloanContractId(String loanContractId);
 	
 }

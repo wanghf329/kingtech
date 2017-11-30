@@ -40,7 +40,7 @@ public class PersonalCustomerModel {
 	
 	//是否农牧民：1）是   2）否
 	
-	@JSONField(name="phone")
+	@JSONField(name="farmers_flag")
 	private String farmersFlag;
 	
 	//学历
@@ -76,7 +76,7 @@ public class PersonalCustomerModel {
 	private String addressProvince;
 	
 	//固定住址（市）
-	@JSONField(name="address_province")
+	@JSONField(name="address_city")
 	private String addressCity;
 	
 	// 固定住址（区/县）
