@@ -14,6 +14,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import com.kingtech.dao.entity.base.PackageEntity;
+import com.kingtech.dao.entity.base.UuidEntity;
 import com.kingtech.enums.IndustryEnum;
 import com.kingtech.enums.IndustryType;
 import com.kingtech.enums.ScaleType;
@@ -22,7 +23,7 @@ import com.kingtech.enums.ScaleType;
 @Entity
 @Table(name="TB_ENTERPRISE_CUSTOMER")
 @NoArgsConstructor
-public class EnterpriseCustomer extends PackageEntity{
+public class EnterpriseCustomer extends UuidEntity{
 	
 	//企业名称
 	@Column(name="CORPORATE_NAME",nullable = false)
@@ -151,12 +152,11 @@ public class EnterpriseCustomer extends PackageEntity{
 	@Column(name="WEB_SITE")
 	private String  webSite;
 
-	public EnterpriseCustomer(String loanContractId, String corporateName,
+	public EnterpriseCustomer(String corporateName,
 			ScaleType scale, IndustryType industryType,
 			IndustryEnum industryinvolved, String licence,
 			Date licenceEndDate, String contactAddressProvince,
 			String contactAddresscity, String contactAddressDistrict) {
-		super(loanContractId);
 		this.corporateName = corporateName;
 		this.scale = scale;
 		this.industryType = industryType;

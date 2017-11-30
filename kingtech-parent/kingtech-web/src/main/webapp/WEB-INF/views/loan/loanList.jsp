@@ -39,8 +39,8 @@
                                         <tr>
                                             <th>合同编号</th> 
                                             <th>合同名称</th>
-                                            <th>借款客户类型</th>
                                             <th>借款客户</th>
+                                            
                                             <th>利率类型</th>
                                             <th>利率</th>
                                             <th>贷款金额（元）</th>
@@ -53,35 +53,16 @@
                                         <c:forEach var="it" items="${list}">
 	                                        <tr>
 	                                            <td>${it.loanContractId}</td>  
-	                                            <td>${it.loanContractName}</td>  
-<<<<<<< HEAD
-	                                            <td></td> 
-	                                            <td>
-	                                           
+	                                            <td>${it.loanContractName}</td>
+	                                            <td> 
+	                                            	<a href="javascript:void(0)" class="text-green" ><i class="text-green fa  fa-user"></i><strong>${it.borrowerId}</strong></a>
 	                                            </td>
-	                                            <td>${it.rateType}</td>
-	                                            <td>${it.rate}</td>    
-	                                            <td>${it.loanAmount}</td> 
-	                                            <td>${it.periodTerm}</td> 
-	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd HH:mm:ss" value="${it.loanStartDate}"></fmt:formatDate></td>
-	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd HH:mm:ss" value="${it.loanEndDate}"></fmt:formatDate></td> 
-	                                            <td>${it.borrowerType.getKey()}</td> 
-	                                            <td>
-		                                            <c:choose>
-			                                            <c:when test="${empty it.borrowerId}">
-				                                            	<a href="javascript:void(0)" class="text-blue" onclick="addCustomer('CORPORATION')"><i class="text-blue fa  fa-edit"></i><strong>添加企业</strong></a>
-				                                            	<a href="javascript:void(0)" class="text-green" onclick="addCustomer('PERSION')"><i class="text-green fa  fa-edit"></i><strong>添加个人</strong></a>
-			                                            </c:when>
-			                                            <c:otherwise>
-			                                            		<a href="javascript:void(0)" onclick="showCustomer('${it.borrowerType}','${it.borrowerId}')"><i class="text-blue fa  fa-edit"></i><strong>${it.borrowerId}</strong></a>
-			                                            </c:otherwise>
-		                                            </c:choose>
-	                                            </td>
-	                                            <td>${it.rateType.getKey()}</td> 
-	                                            <td class="text-green">${it.rate}%</td>    
-	                                            <td class="text-red"><Strong>${it.loanAmount}</Strong></td> 
+	                                            
+	                                            <td>${it.rateType.getKey()}</td>
+	                                            <td>${it.rate}%</td>    
+	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><Strong>${it.loanAmount}</Strong></td>
 	                                            <td>${it.periodTerm}${it.periodType.getKey()}</td> 
-	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.loanStartDate}"></fmt:formatDate></td>
+	                                           	<td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.loanStartDate}"></fmt:formatDate></td>
 	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.loanEndDate}"></fmt:formatDate></td> 
 
 	                                            <td>
