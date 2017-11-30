@@ -35,13 +35,33 @@
 												<div class="form-group">
 													<label for="#branch" class="col-sm-2 control-label">所属机构</label>
 													<div class="col-sm-4 input-group">
-														<select class="form-control validate[required]" id="branch" name="branch" data-errormessage="机构不能为空">
+														<select class="form-control validate[required]" id="branch" name="branch">
 															<c:forEach var="it" items="${branchs}">
 						  										<option value ="${it.id}">${it.corporateName}</option>
 															</c:forEach>
 														</select>
 													</div>
 												</div>
+												<div class="form-group">
+													<label for="#branch" class="col-sm-2 control-label">借款人类型</label>
+													<div class="col-sm-4 input-group">
+														<select class="form-control validate[required]" id="borrowerType" name="borrowerType">
+															<c:forEach var="it" items="${borrowerType}">
+						  										<option value ="${it.name()}">${it.getKey()}</option>
+															</c:forEach>
+														</select>
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="#branch" class="col-sm-2 control-label">借款人</label>
+													<div class="col-sm-4 input-group">
+														<select class="form-control validate[required]" id="borrowerType" name="borrowerType">
+															<c:forEach var="it" items="${borrowerType}">
+						  										<option value ="${it.name()}">${it.getKey()}</option>
+															</c:forEach>
+														</select>
+													</div>
+												</div>																									
 												<div class="form-group">
 													<label for="#loanContractId" class="col-sm-2 control-label">合同编号</label>
 													<div class="col-sm-4 input-group">

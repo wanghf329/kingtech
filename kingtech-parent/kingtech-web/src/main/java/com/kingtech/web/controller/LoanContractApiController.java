@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kingtech.enums.BorrowerTypeEnum;
 import com.kingtech.enums.CertType;
@@ -31,6 +32,7 @@ import com.kingtech.enums.ScaleType;
 import com.kingtech.enums.UnionFlagEnum;
 import com.kingtech.enums.YesNoEnum;
 import com.kingtech.web.commons.base.api.PaymentApi;
+import com.kingtech.web.commons.base.service.BorrowerService;
 import com.kingtech.web.commons.base.service.BranchService;
 import com.kingtech.web.commons.base.service.ContractService;
 
@@ -46,6 +48,9 @@ public class LoanContractApiController {
 
 	@Autowired
 	private PaymentApi paymentApi;
+	
+	@Autowired
+	private BorrowerService borrowerService;
 
 	/**
 	 * 使用帮助页面
