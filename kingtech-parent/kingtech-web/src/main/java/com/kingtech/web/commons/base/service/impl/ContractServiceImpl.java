@@ -39,7 +39,6 @@ import com.kingtech.enums.UnionFlagEnum;
 import com.kingtech.enums.YesNoEnum;
 import com.kingtech.web.commons.base.CreatRequstId;
 import com.kingtech.web.commons.base.service.ContractService;
-import com.sun.tools.example.debug.expr.ParseException;
 /**
  * 合同信息
  * @author XA_JKWHF
@@ -70,7 +69,7 @@ public class ContractServiceImpl implements ContractService{
 	
 	@Override
 	public List<Contract> listAll(){
-		return (List)contractDao.findAll();
+		return (List<Contract>)contractDao.findAll();
 	}
 
 	@Override
@@ -126,36 +125,77 @@ public class ContractServiceImpl implements ContractService{
 		return contractDao.findOne(id);
 	}
 	
+	@Override
 	@Transactional
-	public void addCollateral(String loanContractId, PledgeTypeEnum pledgeType,
+	public Collateral addCollateral(String id, String loanContractId, PledgeTypeEnum pledgeType,
 			CollateralTypeEnum collateralType, String collateralName,
 			String warrantNum, BigDecimal evaluationValue, String warrantHolder,
 			String collateralAddr, Date handleDate) {
-		Collateral collateral = new Collateral(loanContractId, pledgeType, collateralType, collateralName, warrantNum, evaluationValue, warrantHolder, collateralAddr, handleDate);
-		collateralDAO.save(collateral);
+		Collateral collateral = null;
+		if(StringUtils.isEmpty(id)){
+			collateral = new Collateral(loanContractId, pledgeType, collateralType, collateralName, warrantNum, evaluationValue, warrantHolder, collateralAddr, handleDate);
+		} else {
+			collateral = collateralDAO.findOne(id);
+			collateral.setPledgeType(pledgeType);
+			collateral.setCollateralType(collateralType);
+			collateral.setCollateralName(collateralName);
+			collateral.setWarrantNum(warrantNum);
+			collateral.setEvaluationValue(evaluationValue);
+			collateral.setWarrantHolder(warrantHolder);
+			collateral.setCollateralAddr(collateralAddr);
+			collateral.setHandleDate(handleDate);
+		}
+		return collateralDAO.save(collateral);
 	}
 
 	@Override
 	@Transactional
-	public void addGuarantee(String loanContractId, String name,
+	public Guarantee addGuarantee(String id, String loanContractId, String name,
 			String cardNum, String phone, String address) {
-		Guarantee guarantee = new Guarantee(loanContractId, name, cardNum, phone, address);
-		guaranteeDAO.save(guarantee);
-	}
-
-	@Override
-	public void addRepayPlan(String loanContractId, Date repayDate,
-			BigDecimal principal, BigDecimal interest) {
-		RepayPlan repayPlan = new RepayPlan(loanContractId, repayDate, principal, interest);
-		repayPlanDAO.save(repayPlan);
+		Guarantee guarantee = null;
+		if(StringUtils.isEmpty(id)){
+			guarantee = new Guarantee(loanContractId, name, cardNum, phone, address);
+		} else {
+			guarantee = guaranteeDAO.findOne(id);
+			guarantee.setName(name);
+			guarantee.setCardNum(cardNum);
+			guarantee.setPhone(phone);
+			guarantee.setAddress(address);
+		}
+		return guaranteeDAO.save(guarantee);
 	}
 
 	@Override
 	@Transactional
-	public void addSettledInfo(String loanContractId, BigDecimal money,
+	public RepayPlan addRepayPlan(String id, String loanContractId, Date repayDate,
+			BigDecimal principal, BigDecimal interest) {
+		RepayPlan repayPlan = null;
+		if(StringUtils.isEmpty(id)){
+			repayPlan = new RepayPlan(loanContractId, repayDate, principal, interest);
+		} else {
+			repayPlan = repayPlanDAO.findOne(id);
+			repayPlan.setRepayDate(repayDate);
+			repayPlan.setPrincipal(principal);
+			repayPlan.setInterest(interest);
+		}
+		return repayPlanDAO.save(repayPlan);
+	}
+
+	@Override
+	@Transactional
+	public SettledInfo addSettledInfo(String id, String loanContractId, BigDecimal money,
 			Date loanDate, Date debtStartDate, Date debtEndDate) {
-		SettledInfo settledInfo = new SettledInfo(loanContractId, money, loanDate, debtStartDate, debtEndDate);
-		settledInfoDAO.save(settledInfo);
+		SettledInfo settledInfo = null;
+		if(StringUtils.isEmpty(id)){
+			settledInfo = new SettledInfo(loanContractId, money, loanDate, debtStartDate, debtEndDate);
+		} else {
+			settledInfo = settledInfoDAO.findOne(id);
+			settledInfo.setMoney(money);
+			settledInfo.setLoanDate(loanDate);
+			settledInfo.setDebtStartDate(debtStartDate);
+			settledInfo.setDebtEndDate(debtEndDate);
+		}
+		return settledInfoDAO.save(settledInfo);
 	}
 	
 	@Override

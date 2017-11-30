@@ -90,26 +90,42 @@ public class LoanContractApiController {
 		return "/loan/loanSupplement";
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/add/supplement")
-	public String addSupplement(Model model, String loanContractId,
-			String pledgeType, String collateralType, String collateralName, String warrantNum, BigDecimal evaluationValue, String warrantHolder, String collateralAddr, String handleDate,
-			String name, String cardNum, String phone, String address,
-			String repayDate, BigDecimal principal, BigDecimal interest,
-			BigDecimal money, String loanDate, String debtStartDate, String debtEndDate) throws ParseException {
-		contractService.addCollateral(loanContractId, 
-				PledgeTypeEnum.valueOf(pledgeType), CollateralTypeEnum.valueOf(collateralType), 
+	@RequestMapping(method = RequestMethod.POST, value = "/supplement/addCollateral")
+	public String addCollateral(Model model, String id, String loanContractId,
+			String pledgeType, String collateralType, String collateralName, String warrantNum, 
+			BigDecimal evaluationValue, String warrantHolder, String collateralAddr, String handleDate) throws ParseException {
+		contractService.addCollateral(id, loanContractId, 
+				PledgeTypeEnum.valueOf(pledgeType), CollateralTypeEnum.valueOf(collateralType.replace(",", "")), 
 				collateralName, warrantNum, evaluationValue, warrantHolder, collateralAddr, 
 				StringUtils.isEmpty(handleDate) ? null : DateUtils.parseDate(handleDate, "yyyy-MM-dd"));
-		contractService.addGuarantee(loanContractId, 
+		return "/loan/loanSupplement";
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/supplement/addGuarantee")
+	public String addGuarantee(Model model, String id, String loanContractId,
+			String name, String cardNum, String phone, String address) throws ParseException {
+		contractService.addGuarantee(id, loanContractId, 
 				name, cardNum, phone, address);
-		contractService.addRepayPlan(loanContractId, 
+		return "/loan/loanSupplement";
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/supplement/addRepayPlan")
+	public String addRepayPlan(Model model, String id, String loanContractId,
+			String repayDate, BigDecimal principal, BigDecimal interest) throws ParseException {
+		contractService.addRepayPlan(id, loanContractId, 
 				DateUtils.parseDate(repayDate, "yyyy-MM-dd"), 
 				principal, interest);
-		contractService.addSettledInfo(loanContractId, money, 
+		return "/loan/loanSupplement";
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/supplement/addSettledInfo")
+	public String addSettledInfo(Model model, String id, String loanContractId,
+			BigDecimal money, String loanDate, String debtStartDate, String debtEndDate) throws ParseException {
+		contractService.addSettledInfo(id, loanContractId, money, 
 				DateUtils.parseDate(loanDate, "yyyy-MM-dd"), 
 				DateUtils.parseDate(debtStartDate, "yyyy-MM-dd"), 
 				DateUtils.parseDate(debtEndDate, "yyyy-MM-dd"));
-		return "redirect:/loan/list";
+		return "/loan/loanSupplement";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/save")

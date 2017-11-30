@@ -73,7 +73,8 @@
 											<div class="form-group">
 												<label for="#collateralType" class="col-sm-2 control-label">抵质押物类型</label>
 												<div class="col-sm-4 input-group ">
-													<select class="form-control validate[required]" name="collateralType">
+													<select class="form-control validate[required]" id="collateralType1" name="collateralType">
+														<option value="">请选择</option>
 										            	<option value="S_1">存货抵押</option>
 										            	<option value="S_2">客账抵押</option>
 										            	<option value="S_3">证券抵押</option>
@@ -82,7 +83,8 @@
 										            	<option value="S_6">人寿险抵押</option>
 										            	<option value="S_7">其他</option>
 										            </select>
-										            <select class="form-control validate[required]" name="collateralType" style="display:none">
+										            <select class="form-control validate[required]" id="collateralType2" name="collateralType" style="display:none">
+										            	<option value="">请选择</option>
 										            	<option value="S_1">股权质押</option>
 										            	<option value="S_2">定期存单质押</option>
 										            	<option value="S_3">专利权质押</option>
@@ -128,7 +130,7 @@
 												<div class="col-sm-4 input-group">
 													<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 													<input type="text"
-														class="form-control pull-right datepicker-time" name="handleDate">
+														class="form-control pull-right datepicker" name="handleDate">
 												</div>
 											</div>
 											<div class="form-group">

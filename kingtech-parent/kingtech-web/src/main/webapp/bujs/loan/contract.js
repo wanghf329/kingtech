@@ -27,7 +27,16 @@ $("#loanSupplementBtn").click(function(e){
 	window.location.href = "loan/supplement?loanContractId=2121";
 });
 
-
+$("input[name='pledgeType'][value='S_1']").on("ifChecked", function(event){
+	$("#collateralType1").css("display","");
+	$("#collateralType2").css("display","none");
+	$("#collateralType2").val("");
+});
+$("input[name='pledgeType'][value='S_2']").on("ifChecked", function(event){
+	$("#collateralType2").css("display","");
+	$("#collateralType1").css("display","none");
+	$("#collateralType1").val("");
+});
 
 function addCustomer(type,constractId) {
 	if(type == 'S_1') {
