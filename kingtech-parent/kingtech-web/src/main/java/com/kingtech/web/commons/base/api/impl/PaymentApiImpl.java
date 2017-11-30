@@ -358,15 +358,17 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 					                          repayPlanModels.isEmpty()?null:JSON.toJSONString(repayPlanModels),
 					                          settledInfoModel == null ?null:JSON.toJSONString(settledInfoModel)) ;
 			JSONObject jsonObject = new JSONObject();
+			String customerStr ="";
 			if (BorrowerTypeEnum.S_1.equals(contract.getBorrowerType())) {
 				EnterpriseCustomerModel enterpriseCustomerModel = DTOUtils.getEnterpriseCustomerModel(enterpriseCustomerDAO.findOne(contract.getBorrowerId()));
-				String dataStr = enterpriseCustomerModel ==null ?null :JSON.toJSONString(enterpriseCustomerModel);
-				jsonObject.put("E", dataStr);
+				customerStr = enterpriseCustomerModel ==null ?null :JSON.toJSONString(enterpriseCustomerModel);
+				jsonObject.put("customerType", "E");
 			}else {
 				PersonalCustomerModel personalCustomerModel = DTOUtils.getPersonalCustomerModel(personalCustomerDao.findOne(contract.getBorrowerId()));
-				String dataStr = personalCustomerModel ==null ?null :JSON.toJSONString(personalCustomerModel);
-				jsonObject.put("P", dataStr);
+				customerStr = personalCustomerModel ==null ?null :JSON.toJSONString(personalCustomerModel);
+				jsonObject.put("customerType", "P");
 			}
+			jsonObject.put("corporateCustomer", customerStr);
 			contractModel.setLoanCustomerPackage(JSON.toJSONString(jsonObject));
 			
 			
