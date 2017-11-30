@@ -96,7 +96,7 @@
 													<div class="col-sm-4 input-group">
 														<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 														<input type="text" class="form-control pull-right datepicker "
-														readonly name="regDate"  value=<fmt:formatDate type="date" pattern = "yyyy-MM-dd HH:mm:ss" value="${model.regDate}"></fmt:formatDate>>
+														readonly name="regDate"  value=<fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${model.regDate}"></fmt:formatDate>>
 													</div>
 												</div>
 												
@@ -128,7 +128,7 @@
 													<div class="col-sm-4 input-group">
 														<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 														<input type="text" class="form-control pull-right datepicker validate[required]"
-														readonly name="licenceEndDate" data-errormessage="营业执照截止日期不能为空" value=<fmt:formatDate type="date" pattern = "yyyy-MM-dd HH:mm:ss" value="${model.licenceEndDate}"></fmt:formatDate>>
+														readonly name="licenceEndDate" data-errormessage="营业执照截止日期不能为空" value=<fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${model.licenceEndDate}"></fmt:formatDate>>
 													</div>
 												</div>
 												
@@ -142,7 +142,7 @@
 												<div class="form-group">
 													<label for="#employNum" class="col-sm-2 control-label">从业人数</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control " name="employNum" value="${model.employNum}">
+														<input type="text" class="form-control validate[custom[integer]]" name="employNum" value="${model.employNum}" data-errormessage="从业人数必须是整数">
 													</div>
 												</div>
 												
@@ -172,14 +172,14 @@
 												<div class="form-group">
 													<label for="#regCapital" class="col-sm-2 control-label">注册资本</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control " name="regCapital" value="${model.regCapital}" >
+														<input type="text" class="form-control validate[custom[number]]" name="regCapital" value="${model.regCapital}" data-errormessage="注册资本必须是数字">
 													</div>
 												</div>
 												
 												<div class="form-group">
 													<label for="#reallyCapital" class="col-sm-2 control-label">实收资本</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control " name="reallyCapital" value="${model.reallyCapital}"  >
+														<input type="text" class="form-control validate[custom[number]]" name="reallyCapital" value="${model.reallyCapital}"  data-errormessage="实收资本必须是数字" >
 													</div>
 												</div>
 												
@@ -230,14 +230,14 @@
 												<div class="form-group">
 													<label for="#postcode" class="col-sm-2 control-label">邮政编码</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control " name="postcode" value="${model.contactAddress}" >
+														<input type="text" class="form-control 	validate[custom[number]]" name="postcode" value="${model.contactAddress}"  data-errormessage="必须为数字">
 													</div>
 												</div>
 												
 												<div class="form-group">
 													<label for="#phone" class="col-sm-2 control-label">联系电话</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control " name="phone"  value="${model.phone}">
+														<input type="text" class="form-control validate[custom[phone]]" name="phone"  value="${model.phone}" data-errormessage="联系电话电话格式不对">
 													</div>
 												</div>
 												
@@ -258,7 +258,7 @@
 												<div class="form-group">
 													<label for="#email" class="col-sm-2 control-label">公司邮箱</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control " name="email"  value="${model.email}">
+														<input type="text" class="form-control validate[custom[email]]" name="email"  value="${model.email}" data-errormessage="邮箱格式不对">
 													</div>
 												</div>
 												

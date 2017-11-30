@@ -73,7 +73,7 @@
 												<div class="form-group">
 													<label for="#phone" class="col-sm-2 control-label">联系电话</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" value ="${model.phone}"  name="phone" data-errormessage="联系电话不能为空" >
+														<input type="text" class="form-control validate[required,custom[phone]]" value ="${model.phone}"  name="phone" data-errormessage="联系电话不能为空" >
 													</div>
 												</div>
 												
@@ -104,7 +104,7 @@
 												<div class="form-group">
 													<label for="#email" class="col-sm-2 control-label">电子邮件</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control" value ="${model.email}"    name="email" >
+														<input type="text" class="form-control validate[custom[email]]" value ="${model.email}"   data-errormessage="邮件格式不正确" name="email" >
 													</div>
 												</div>
 												
@@ -128,7 +128,7 @@
 													<div class="col-sm-4 input-group">
 														<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 														<input type="text" class="form-control pull-right datepicker "
-														readonly name="birthDate"  value=<fmt:formatDate type="date" pattern = "yyyy-MM-dd HH:mm:ss" value="${model.birthDate}"></fmt:formatDate>>
+														readonly name="birthDate "   value=<fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${model.birthDate}"></fmt:formatDate> >
 													</div>
 												</div>
 												
@@ -172,7 +172,7 @@
 												<div class="form-group">
 													<label for="#postCode" class="col-sm-2 control-label">邮政编码</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control " name="postCode"  value ="${model.postCode}" >
+														<input type="text" class="form-control 	validate[custom[number]]" name="postCode"  value ="${model.postCode}" data-errormessage="邮政编码必须为数字">
 													</div>
 												</div>
 												

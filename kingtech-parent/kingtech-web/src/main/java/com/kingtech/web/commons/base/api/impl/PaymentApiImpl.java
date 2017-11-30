@@ -348,7 +348,7 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 					                          DTOUtils.getNewStr(contract.getPayType()),
 					                          DateUtil.getDateStr(contract.getSignDate(),JSON.DEFFAULT_DATE_FORMAT), 
 					                          contract.getRepaySource(),
-					                          DTOUtils.getNewStr(contract.getStatus()),
+					                          contract.getStatus().getKey(),
 					                          DTOUtils.getNewStr(contract.getIsExtend()), 
 					                          DateUtil.getDateStr(contract.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT),
 					                          DateUtil.getDateStr(contract.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT),
@@ -357,19 +357,19 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 					                          guaranteeModels.isEmpty()?null:JSON.toJSONString(guaranteeModels),
 					                          repayPlanModels.isEmpty()?null:JSON.toJSONString(repayPlanModels),
 					                          settledInfoModel == null ?null:JSON.toJSONString(settledInfoModel)) ;
-			JSONObject jsonObject = new JSONObject();
-			String customerStr ="";
+			String customerStr ="{\"customerType\":\"$1\",\"$3\":$2}";
+			String dataStr =null;
 			if (BorrowerTypeEnum.S_1.equals(contract.getBorrowerType())) {
 				EnterpriseCustomerModel enterpriseCustomerModel = DTOUtils.getEnterpriseCustomerModel(enterpriseCustomerDAO.findOne(contract.getBorrowerId()));
-				customerStr = enterpriseCustomerModel ==null ?null :JSON.toJSONString(enterpriseCustomerModel);
-				jsonObject.put("customerType", "E");
+				dataStr = enterpriseCustomerModel ==null ?null :JSON.toJSONString(enterpriseCustomerModel);
+				customerStr = customerStr.replace("$1", "E").replace("$3", "corporateCustomer");
 			}else {
 				PersonalCustomerModel personalCustomerModel = DTOUtils.getPersonalCustomerModel(personalCustomerDao.findOne(contract.getBorrowerId()));
-				customerStr = personalCustomerModel ==null ?null :JSON.toJSONString(personalCustomerModel);
-				jsonObject.put("customerType", "P");
+				dataStr = personalCustomerModel ==null ?null :JSON.toJSONString(personalCustomerModel);
+				customerStr = customerStr.replace("$1", "P").replace("$3", "personalCustomer");
 			}
-			jsonObject.put("corporateCustomer", customerStr);
-			contractModel.setLoanCustomerPackage(JSON.toJSONString(jsonObject));
+			customerStr = customerStr.replace("$2", dataStr);
+			contractModel.setLoanCustomerPackage(customerStr);
 			
 			
 		}else {

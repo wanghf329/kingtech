@@ -13,7 +13,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import com.kingtech.dao.entity.base.PackageEntity;
-import com.kingtech.enums.CollateralTypeEnum;
+import com.kingtech.enums.CollateralTypeFor1Enum;
 import com.kingtech.enums.PledgeTypeEnum;
 
 /**
@@ -27,7 +27,7 @@ import com.kingtech.enums.PledgeTypeEnum;
 public class Collateral extends PackageEntity {
 	
 	// 担保类型 1-抵押 2-质押
-	@Enumerated(EnumType.ORDINAL)
+	@Enumerated(EnumType.STRING)
 	@Column(name="PLEDGE_TYPE")
 	private PledgeTypeEnum pledgeType;
 
@@ -35,7 +35,7 @@ public class Collateral extends PackageEntity {
     // 质押选项：1-股权质押, 2-定期存单质押, 3-专利权质押,4-应收账款质押,5-其他
 	@Enumerated(EnumType.STRING)
 	@Column(name="COLLATERAL_TYPE")
-	private CollateralTypeEnum collateralType;
+	private CollateralTypeFor1Enum collateralType;
 
 	// 抵质押物名称
 	@Column(name="COLLATERAL_NAME")
@@ -62,7 +62,7 @@ public class Collateral extends PackageEntity {
 	private Date handleDate;
 
 	public Collateral(String loanContractId, PledgeTypeEnum pledgeType,
-			CollateralTypeEnum collateralType, String collateralName, String warrantNum,
+			CollateralTypeFor1Enum collateralType, String collateralName, String warrantNum,
 			BigDecimal evaluationValue, String warrantHolder,
 			String collateralAddr, Date handleDate) {
 		super(loanContractId);
