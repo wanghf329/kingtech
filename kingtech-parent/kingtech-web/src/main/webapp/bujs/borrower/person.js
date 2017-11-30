@@ -18,8 +18,12 @@ $(document).ready(function () {
 
 
 $("#addPersonnelBtn").click(function(){ 
-	window.location.href = "borrower/personnel/edit";
+	window.location.href = "borrower/personnel/edit?id=";
 });
+
+function getPerson(id) {
+	window.location.href = "borrower/personnel/edit?id="+id;
+}
 
 
 $(".saveRecordBtn").click(function(){ 
