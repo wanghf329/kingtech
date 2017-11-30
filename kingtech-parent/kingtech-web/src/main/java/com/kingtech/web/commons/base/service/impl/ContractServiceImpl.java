@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,16 +51,47 @@ public class ContractServiceImpl implements ContractService{
 					   BigDecimal rate, LoanPurposeEnum purpose, IndustryEnum industry,
 					   LoanTypeEnum loanType, UnionFlagEnum unionFlag, PayTypeEnum payType,
 					   Date signDate, String repaySource, LoanstatusEnum status, YesNoEnum isExtend) {
-		Contract ct = new Contract(loanContractId,
-				loanContractName,borrowerType,
-				customerId,guarantee,loanAmount,
-				periodType,periodTerm,loanStartDate,
-				loanEndDate,rateType,rate,
-				purpose,industry,loanType,
-				unionFlag,payType,signDate,
-				repaySource,status,isExtend);
-		ct.setPushStatus(PushStatus.INITATION);
-		ct.setReqId(creatRequstId.getReqId());
+		Contract ct = null;
+		if(StringUtils.isEmpty(id)){
+			ct = new Contract(loanContractId,
+					loanContractName,borrowerType,
+					customerId,guarantee,loanAmount,
+					periodType,periodTerm,loanStartDate,
+					loanEndDate,rateType,rate,
+					purpose,industry,loanType,
+					unionFlag,payType,signDate,
+					repaySource,status,isExtend);
+			ct.setReqId(creatRequstId.getReqId());
+			ct.setPushStatus(PushStatus.INITATION);
+		}else{
+			ct = contractDao.findOne(id);
+			ct.setLoanContractId(loanContractId);
+			ct.setLoanContractName(loanContractName);
+			ct.setBorrowerType(borrowerType);
+			ct.setCustomerId(customerId);
+			ct.setGuarantee(guarantee);
+			ct.setLoanAmount(loanAmount);
+			ct.setPeriodType(periodType);
+			ct.setPeriodTerm(periodTerm);
+			ct.setLoanStartDate(loanStartDate);
+			ct.setLoanEndDate(loanEndDate);
+			ct.setRateType(rateType);
+			ct.setRate(rate);
+			ct.setPurpose(purpose);
+			ct.setIndustry(industry);
+			ct.setLoanType(loanType);
+			ct.setUnionFlag(unionFlag);
+			ct.setPayType(payType);
+			ct.setSignDate(signDate);
+			ct.setRepaySource(repaySource);
+			ct.setStatus(status);
+			ct.setIsExtend(isExtend);
+		}
 		contractDao.save(ct);
+	}
+
+	@Override
+	public Contract getById(String id) {
+		return contractDao.findOne(id);
 	}
 }

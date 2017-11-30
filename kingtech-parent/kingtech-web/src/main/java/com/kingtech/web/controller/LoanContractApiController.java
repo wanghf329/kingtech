@@ -3,12 +3,15 @@ package com.kingtech.web.controller;
 import java.math.BigDecimal;
 import java.text.ParseException;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kingtech.enums.BorrowerTypeEnum;
 import com.kingtech.enums.CertType;
@@ -49,7 +52,7 @@ public class LoanContractApiController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/edit")
-	public String edit(Model model) {
+	public String edit(Model model,@RequestParam("id") String id) {
 		model.addAttribute("list", contractService.listAll());
 		model.addAttribute("borrowerType", BorrowerTypeEnum.values());
 		model.addAttribute("periodType", PeriodTypeEnum.values());
@@ -62,6 +65,10 @@ public class LoanContractApiController {
 		model.addAttribute("isExtend", YesNoEnum.values());
 		model.addAttribute("payType", PayTypeEnum.values());
 		model.addAttribute("branchs", branchService.listByInstitutionInfo());
+		
+		if(StringUtils.isNotEmpty(id)){
+			model.addAttribute("contract",contractService.getById(id));
+		}
 		return "/loan/loanEdit";
 	}  
 	

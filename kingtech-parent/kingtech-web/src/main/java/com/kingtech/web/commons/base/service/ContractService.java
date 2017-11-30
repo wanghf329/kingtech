@@ -26,4 +26,6 @@ public interface ContractService {
 						BigDecimal rate, LoanPurposeEnum purpose, IndustryEnum industry,
 						LoanTypeEnum loanType, UnionFlagEnum unionFlag, PayTypeEnum payType,
 						Date signDate, String repaySource, LoanstatusEnum status, YesNoEnum isExtend);
+	
+	public Contract getById(String id);
 }

@@ -31,7 +31,7 @@
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
 											<form class="form-horizontal" id="form-horizontal" action="loan/save" method="POST">
-												<input type="hidden" name="id" value="">
+												<input type="hidden" name="id" value="${contract.id}">
 												<div class="form-group">
 													<label for="#branch" class="col-sm-2 control-label">所属机构</label>
 													<div class="col-sm-4 input-group">
@@ -45,25 +45,25 @@
 												<div class="form-group">
 													<label for="#loanContractId" class="col-sm-2 control-label">合同编号</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" name="loanContractId" data-errormessage="合同编号不能为空">
+														<input type="text" class="form-control validate[required]" name="loanContractId" value="${contract.loanContractId}" data-errormessage="合同编号不能为空">
 													</div>
 												</div>
 												<div class="form-group">
 													<label for="#floanContractName" class="col-sm-2 control-label">合同名称</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" name="loanContractName" data-errormessage="合同名称不能为空">
+														<input type="text" class="form-control validate[required]" name="loanContractName" value="${contract.loanContractName}" data-errormessage="合同名称不能为空">
 													</div>
 												</div>
 												<div class="form-group">
 													<label for="#customerId" class="col-sm-2 control-label">营业执照号</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" name="customerId" data-errormessage="营业执照号不能为空">
+														<input type="text" class="form-control validate[required]" name="customerId" value="${contract.customerId}" data-errormessage="营业执照号不能为空">
 													</div>
 												</div>
 												<div class="form-group">
 													<label for="#loanAmount" class="col-sm-2 control-label">贷款金额（元）</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" name="loanAmount" data-errormessage="贷款金额不能为空">
+														<input type="text" class="form-control validate[required]" name="loanAmount" value="${contract.loanAmount}" data-errormessage="贷款金额不能为空">
 													</div>
 												</div>
 												<div class="form-group">
@@ -71,7 +71,7 @@
 													<div class="col-sm-4 input-group">
 														<select class="form-control validate[required]" id="periodType" name="periodType" data-errormessage="贷款期限类型不能为空">
 															<c:forEach var="it" items="${periodType}">
-						  										<option value ="${it.name()}">${it.getKey()}</option>
+						  										<option value ="${it.name()}" <c:if test="${it.name() eq contract.periodType}"></c:if> >${it.getKey()}</option>
 															</c:forEach>
 														</select>
 													</div>
@@ -79,7 +79,7 @@
 												<div class="form-group">
 													<label for="#periodTerm" class="col-sm-2 control-label">贷款期限</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" name="periodTerm" data-errormessage="贷款期限不能为空">
+														<input type="text" class="form-control validate[required]" name="periodTerm"  value="${contract.periodTerm}"  data-errormessage="贷款期限不能为空">
 													</div>
 												</div>			
 												<div class="form-group">
@@ -87,7 +87,7 @@
 													<div class="col-sm-4 input-group">
 														<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 														<input type="text" class="form-control pull-right datepicker validate[required]"
-														readonly name="loanStartDate" data-errormessage="贷款开始日期不能为空">
+														readonly name="loanStartDate" value="<fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${contract.loanStartDate}"></fmt:formatDate>" data-errormessage="贷款开始日期不能为空">
 													</div>
 												</div>
 												<div class="form-group">
@@ -95,7 +95,7 @@
 													<div class="col-sm-4 input-group">
 														<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 														<input type="text" class="form-control pull-right datepicker validate[required]"
-														readonly name="loanEndDate" data-errormessage="贷款截止日期不能为空">
+														readonly name="loanEndDate" value="<fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${contract.loanEndDate}"></fmt:formatDate>" data-errormessage="贷款截止日期不能为空">
 													</div>
 												</div>
 												<div class="form-group">
@@ -111,7 +111,7 @@
 												<div class="form-group">
 													<label for="#rate" class="col-sm-2 control-label">利率(%)</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" name="rate" data-errormessage="利率不能为空">
+														<input type="text" class="form-control validate[required]" name="rate" value="${contract.rate}" data-errormessage="利率不能为空">
 													</div>
 												</div>
 												<div class="form-group">
@@ -169,13 +169,13 @@
 													<div class="col-sm-4 input-group">
 														<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 														<input type="text" class="form-control pull-right datepicker validate[required]"
-														readonly name="signDate" data-errormessage="合同签订日期不能为空">
+														readonly name="signDate" value="<fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${contract.signDate}"></fmt:formatDate>" data-errormessage="合同签订日期不能为空">
 													</div>													
 												</div>																								
 												<div class="form-group">
 													<label for="#repaySource" class="col-sm-2 control-label">还款来源</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" name="repaySource" data-errormessage="还款来源不能为空">
+														<input type="text" class="form-control validate[required]" name="repaySource" value="${contract.repaySource}" data-errormessage="还款来源不能为空">
 													</div>
 												</div>
 												<div class="form-group"> 

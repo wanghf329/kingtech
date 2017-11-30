@@ -31,7 +31,7 @@
                                     <h3 class="box-title">合同信息列表</h3>
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
-                                	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addContractBtn">合同信息</button>  
+                                	<button class="btn btn-primary btn-sm" data-toggle="modal" id="editContractBtn">合同信息</button>  
                                 	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addEnterPriseBtn">信息</button>  
                                 	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addPersonnelBtn">信息</button>  
                                 	<button class="btn btn-primary btn-sm" data-toggle="modal" id="loanSupplementBtn">补充其他信息</button>
@@ -69,6 +69,7 @@
 	                                            	<c:if test="${it.pushStatus=='FAILED'}"><span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span></c:if>
 	                                            </td>
 	                                            <td> 
+	                                            	<a href="loan/edit?id=${it.id}"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>
 	                                            	<a href="javascript:void(0)" onclick="alert('${it.id}')"><i class="text-blue fa fa-exchange"></i><strong>推送</strong></a>
 	                                            </td>
 	                                        </tr>
