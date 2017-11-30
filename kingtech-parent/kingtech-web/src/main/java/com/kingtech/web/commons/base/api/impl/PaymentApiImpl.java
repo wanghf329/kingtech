@@ -357,7 +357,6 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 					                          guaranteeModels.isEmpty()?null:JSON.toJSONString(guaranteeModels),
 					                          repayPlanModels.isEmpty()?null:JSON.toJSONString(repayPlanModels),
 					                          settledInfoModel == null ?null:JSON.toJSONString(settledInfoModel)) ;
-			JSONObject jsonObject = new JSONObject();
 			String customerStr ="{\"customerType\":\"$1\",\"$3\":$2}";
 			String dataStr =null;
 			if (BorrowerTypeEnum.S_1.equals(contract.getBorrowerType())) {
