@@ -5,14 +5,18 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kingtech.dao.entity.EnterpriseCustomer;
+import com.kingtech.dao.entity.PersonalCustomer;
 import com.kingtech.dao.entity.EnterpriseCustomer;
 import com.kingtech.dao.entity.PersonalCustomer;
 import com.kingtech.enums.BorrowerTypeEnum;
@@ -20,6 +24,9 @@ import com.kingtech.enums.CertType;
 import com.kingtech.enums.IndustryEnum;
 import com.kingtech.enums.IndustryType;
 import com.kingtech.enums.ScaleType;
+
+import com.kingtech.enums.BorrowerTypeEnum;
+import com.kingtech.model.ShareholderModel;
 import com.kingtech.web.commons.base.service.BorrowerService;
 
 @RequestMapping("/borrower")
@@ -32,11 +39,12 @@ public class BorrowerApiController {
 
 	@RequestMapping(method = RequestMethod.GET,value="/corporationList")
 	public String corporationList(Model model) { 
-		System.out.println("-------------");
+		model.addAttribute("list",borrowerService.listAllEnterpries());
 		return "borrower/corporationBorrowerList";
 	}  
 	@RequestMapping(method = RequestMethod.GET, value = "/personList")
 	public String personList(Model model){
+		model.addAttribute("list",borrowerService.listAllPersonal());
 		return "borrower/personBorrowerList"; 
 	}
 	
@@ -54,15 +62,20 @@ public class BorrowerApiController {
 	
 
 	@RequestMapping(method = RequestMethod.GET, value = "/enterprise/edit")
-	public String enterpriseEdit(Model model) {
+	public String enterpriseEdit(Model model,@RequestParam("id") String id) {
+		
 		model.addAttribute("scaleTypes", ScaleType.values());
 		model.addAttribute("industryTypes", IndustryType.values());
 		model.addAttribute("industryinvolveds", IndustryEnum.values());
+		
+		if(StringUtils.isNotEmpty(id)){
+			model.addAttribute("model",borrowerService.getEnterprise(id));
+		}
 		return "/loan/enterpriseEdit";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/personnel/edit")
-	public String personnelEdit(Model model) {
+	public String personnelEdit(Model model,@RequestParam("id") String id) {
 		model.addAttribute("certTypes", CertType.values());
 		return "/loan/personnelEdit";
 	}
@@ -88,4 +101,47 @@ public class BorrowerApiController {
 									 linkman, fax, email, webSite);
 		return "redirect:/corporationList";
 	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/personenl/add")
+	public String savePersonenl(Model model,String name, String sex, String category,
+								String cardNum, String phone, String farmersFlag,
+								String education, String fax, String email, String marriage,
+								String nationality, String birthDate, String nation,
+								String addressProvince, String addressCity, String addressDistrict,
+								String address, String postCode, String residence,
+								String nativePlace, String workUnit, String post  ) throws ParseException {
+			
+		borrowerService.addPersonnel(name, sex, category, cardNum, phone, farmersFlag,
+									education, fax, email, marriage, nationality,
+									birthDate, nation, addressProvince, addressCity, 
+									addressDistrict, address, postCode, residence,
+									nativePlace, workUnit, post);
+				
+		return "redirect:/corporationList";
+	}
+	
+
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET,value="list/{type}")
+	public List listByType(@PathVariable("type") BorrowerTypeEnum type, Model model) {
+		if(BorrowerTypeEnum.S_1.equals(type)){
+			return borrowerService.listAllEnterpries();
+		}else{
+			return borrowerService.listAllPersonal();
+		}
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/getEnterprise/{id}", method = RequestMethod.GET)
+	public EnterpriseCustomer getEnterprise(Model model,@PathVariable("id") String id) {
+		return borrowerService.getEnterprise(id);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/getPersonal/{id}", method = RequestMethod.GET)
+	public PersonalCustomer getPersonal(Model model,@PathVariable("id") String id) {
+		return borrowerService.getPersonnel(id);
+	}
+
 }
