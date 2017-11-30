@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kingtech.enums.BorrowerTypeEnum;
 import com.kingtech.enums.CertType;
+import com.kingtech.enums.CollateralTypeEnum;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.IndustryEnum;
 import com.kingtech.enums.IndustryType;
@@ -23,6 +24,7 @@ import com.kingtech.enums.LoanTypeEnum;
 import com.kingtech.enums.LoanstatusEnum;
 import com.kingtech.enums.PayTypeEnum;
 import com.kingtech.enums.PeriodTypeEnum;
+import com.kingtech.enums.PledgeTypeEnum;
 import com.kingtech.enums.RateTypeEnum;
 import com.kingtech.enums.ScaleType;
 import com.kingtech.enums.UnionFlagEnum;
@@ -77,11 +79,33 @@ public class LoanContractApiController {
 		return "/loan/loanEdit";
 	}  
 	
-	@RequestMapping(method = RequestMethod.GET,value="/supplement")
-	public String supplement(Model model) { 
-		model.addAttribute("list",contractService.listAll());
+	@RequestMapping(method = RequestMethod.GET,value="/supplement/{loanContractId}")
+	public String supplement(@PathVariable String loanContractId, Model model) { 
+		model.addAttribute("loanContractId", loanContractId);
 		return "/loan/loanSupplement";
-	}  
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/add/supplement")
+	public String addSupplement(Model model, String loanContractId,
+			String pledgeType, String collateralType, String collateralName, String warrantNum, BigDecimal evaluationValue, String warrantHolder, String collateralAddr, String handleDate,
+			String name, String cardNum, String phone, String address,
+			String repayDate, BigDecimal principal, BigDecimal interest,
+			BigDecimal money, String loanDate, String debtStartDate, String debtEndDate) throws ParseException {
+		contractService.addCollateral(loanContractId, 
+				PledgeTypeEnum.valueOf(pledgeType), CollateralTypeEnum.valueOf(collateralType), 
+				collateralName, warrantNum, evaluationValue, warrantHolder, collateralAddr, 
+				StringUtils.isEmpty(handleDate) ? null : DateUtils.parseDate(handleDate, "yyyy-MM-dd"));
+		contractService.addGuarantee(loanContractId, 
+				name, cardNum, phone, address);
+		contractService.addRepayPlan(loanContractId, 
+				DateUtils.parseDate(repayDate, "yyyy-MM-dd"), 
+				principal, interest);
+		contractService.addSettledInfo(loanContractId, money, 
+				DateUtils.parseDate(loanDate, "yyyy-MM-dd"), 
+				DateUtils.parseDate(debtStartDate, "yyyy-MM-dd"), 
+				DateUtils.parseDate(debtEndDate, "yyyy-MM-dd"));
+		return "redirect:/loan/list";
+	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/save")
 	public String save(Model model, String id, String loanContractId,
