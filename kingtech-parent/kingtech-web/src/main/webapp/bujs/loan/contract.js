@@ -13,6 +13,10 @@ $(document).ready(function () {
     	  autoHidePrompt:true,
     	  failure : function() { callFailFunction()  } 
       })
+      
+      if(canEdit=="false"){
+    	  $('#form-horizontal').find('input,textarea,select,button').attr('disabled',true);
+      }
 });
 
 $(".saveRecordBtn").click(function(){ 
@@ -38,11 +42,11 @@ function getBorrower(){
 		success:function(res){
 			if(type=="S_1"){
 				for(var i in res){
-					html += "<option value='"+res[i].id+"'>'"+res[i].corporateName+"'</option>"
+					html += "<option value='"+res[i].id+"'>"+res[i].corporateName+"</option>"
 				}
 			}else{
 				for(var i in res){
-					html += "<option value='"+res[i].id+"'>'"+res[i].name+"'</option>"
+					html += "<option value='"+res[i].id+"'>"+res[i].name+"</option>" 
 				}
 			}
 			$("#borrowerId").html(html); 

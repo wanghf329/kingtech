@@ -1,6 +1,7 @@
 package com.kingtech.web.commons.base.service.impl;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -78,6 +79,11 @@ public class ContractServiceImpl implements ContractService{
 			}
 		}
 		return list;
+	}
+	
+	@Override
+	public List<Contract> listByUserIdAndPushstatus(String userId,PushStatus... pushStatus){
+		return (List<Contract>)contractDao.listByUserIdAndPushstatus(userId, Arrays.asList(pushStatus));
 	}
 
 	@Override

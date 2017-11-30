@@ -15,19 +15,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.kingtech.dao.entity.EnterpriseCustomer;
-import com.kingtech.dao.entity.PersonalCustomer;
+import com.kingtech.dao.entity.Contract;
 import com.kingtech.dao.entity.EnterpriseCustomer;
 import com.kingtech.dao.entity.PersonalCustomer;
 import com.kingtech.enums.BorrowerTypeEnum;
 import com.kingtech.enums.CertType;
 import com.kingtech.enums.IndustryEnum;
 import com.kingtech.enums.IndustryType;
+import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.ScaleType;
-
-import com.kingtech.enums.BorrowerTypeEnum;
-import com.kingtech.model.ShareholderModel;
 import com.kingtech.web.commons.base.service.BorrowerService;
+import com.kingtech.web.commons.base.service.ContractService;
 
 @RequestMapping("/borrower")
 @Controller
@@ -35,6 +33,9 @@ public class BorrowerApiController {
 	
 	@Autowired
 	private BorrowerService borrowerService;
+	
+	@Autowired
+	private ContractService contractService;
 	
 
 	@RequestMapping(method = RequestMethod.GET,value="/corporationList")
@@ -70,6 +71,8 @@ public class BorrowerApiController {
 		
 		if(StringUtils.isNotEmpty(id)){
 			model.addAttribute("model",borrowerService.getEnterprise(id));
+			List<Contract> list = contractService.listByUserIdAndPushstatus(id,PushStatus.INPROSESS, PushStatus.SUCCESS);
+			model.addAttribute("canEdit", list.size() == 0);
 		}
 		return "/loan/enterpriseEdit";
 	}
@@ -79,6 +82,8 @@ public class BorrowerApiController {
 		model.addAttribute("certTypes", CertType.values());
 		if(StringUtils.isNotEmpty(id)){
 			model.addAttribute("model",borrowerService.getPersonnel(id));
+			List<Contract> list = contractService.listByUserIdAndPushstatus(id,PushStatus.INPROSESS, PushStatus.SUCCESS);
+			model.addAttribute("canEdit", list.size() == 0);
 		}
 		return "/loan/personnelEdit";
 	}
