@@ -70,6 +70,7 @@
 	                                            </td>
 	                                            <td> 
 	                                            	<a href="loan/edit?id=${it.id}"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>
+	                                            	<a href="loan/supplement?loanContractId=${it.loanContractId}" ><i class="text-blue fa fa-plus-square-o"></i><strong>补充</strong></a>
 	                                            	<a href="loan/push/${it.id}"><i class="text-blue fa fa-exchange"></i><strong>推送</strong></a>
 	                                            </td>
 	                                        </tr>

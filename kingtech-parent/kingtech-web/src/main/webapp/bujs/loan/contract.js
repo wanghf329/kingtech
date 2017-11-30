@@ -24,7 +24,7 @@ $("#editContractBtn").click(function(){
 });
 
 $("#loanSupplementBtn").click(function(e){ 
-	window.location.href = "loan/supplement/" + e.loanContractId;
+	window.location.href = "loan/supplement?loanContractId=2121";
 });
 
 $("#addEnterPriseBtn").click(function(){ 

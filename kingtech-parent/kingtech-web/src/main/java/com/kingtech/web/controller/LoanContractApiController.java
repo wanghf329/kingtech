@@ -79,8 +79,8 @@ public class LoanContractApiController {
 		return "/loan/loanEdit";
 	}  
 	
-	@RequestMapping(method = RequestMethod.GET,value="/supplement/{loanContractId}")
-	public String supplement(@PathVariable String loanContractId, Model model) { 
+	@RequestMapping(method = RequestMethod.GET,value="/supplement")
+	public String supplement(Model model, @RequestParam("loanContractId") String loanContractId) { 
 		model.addAttribute("loanContractId", loanContractId);
 		return "/loan/loanSupplement";
 	}
@@ -146,7 +146,7 @@ public class LoanContractApiController {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET,value="/push/{id}")
-	public String supplement(Model model,@PathVariable("id") String id) { 
+	public String push(Model model,@PathVariable("id") String id) { 
 		paymentApi.contractInfoApi(id, IdentifierType.A);
 		return "redirect:/loan/list";
 	}  
