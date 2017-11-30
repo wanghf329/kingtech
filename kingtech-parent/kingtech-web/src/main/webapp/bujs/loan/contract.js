@@ -19,12 +19,12 @@ $(".saveRecordBtn").click(function(){
 	$("#form-horizontal").submit();
 });
 
-$("#addContractBtn").click(function(){ 
-	window.location.href = "loan/edit";
+$("#editContractBtn").click(function(){ 
+	window.location.href = "loan/edit?id=";
 });
 
-$("#loanSupplementBtn").click(function(){ 
-	window.location.href = "loan/supplement";
+$("#loanSupplementBtn").click(function(e){ 
+	window.location.href = "loan/supplement/" + e.loanContractId;
 });
 
 

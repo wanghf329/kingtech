@@ -155,8 +155,7 @@ public class ContractModel  extends BaseRequestModel{
 	@JSONField(name="lending_package")
 	private String lendingPackage;
 	
-	public ContractModel( String roundStr, String identifier, String reqId, String sign,
-			String id, String loanContractId, String loanContractName,
+	public ContractModel( String roundStr, String identifier, String reqId, String sign, String loanContractId, String loanContractName,
 			String borrowerType, String customerId, String guarantee,
 			String loanAmount, String periodType, String periodTerm,
 			String loanStartDate, String loanEndDate, String rateType,

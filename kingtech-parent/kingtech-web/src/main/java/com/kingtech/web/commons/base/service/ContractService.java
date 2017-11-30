@@ -5,14 +5,15 @@ import java.util.Date;
 import java.util.List;
 
 import com.kingtech.dao.entity.Contract;
-import com.kingtech.dao.entity.EnterpriseCustomer;
 import com.kingtech.enums.BorrowerTypeEnum;
+import com.kingtech.enums.CollateralTypeEnum;
 import com.kingtech.enums.IndustryEnum;
 import com.kingtech.enums.LoanPurposeEnum;
 import com.kingtech.enums.LoanTypeEnum;
 import com.kingtech.enums.LoanstatusEnum;
 import com.kingtech.enums.PayTypeEnum;
 import com.kingtech.enums.PeriodTypeEnum;
+import com.kingtech.enums.PledgeTypeEnum;
 import com.kingtech.enums.RateTypeEnum;
 import com.kingtech.enums.UnionFlagEnum;
 import com.kingtech.enums.YesNoEnum;
@@ -28,14 +29,25 @@ public interface ContractService {
 						LoanTypeEnum loanType, UnionFlagEnum unionFlag, PayTypeEnum payType,
 						Date signDate, String repaySource, LoanstatusEnum status, YesNoEnum isExtend);
 	
+	public Contract getById(String id);
+	
+	public void addCollateral(String loanContractId, PledgeTypeEnum pledgeType, CollateralTypeEnum collateralType, 
+						String collateralName, String warrantNum, BigDecimal evaluationValue, 
+						String warrantHolder,String collateralAddr, Date handleDate);
+	
+	public void addGuarantee(String loanContractId, String name, String cardNum, String phone, String address);
+	
+	public void addRepayPlan(String loanContractId, Date repayDate, BigDecimal principal, BigDecimal interest);
+	
+	public void addSettledInfo(String loanContractId, BigDecimal money, Date loanDate, Date debtStartDate, Date debtEndDate);
 	
 	public void addEnterprise(String constractId, String corporateName,
-							String scale, String industryType, String industryinvolved,
-							String organizationcode, String regCode, String regOffice,
-							String regDate, String nationalregNum, String landRegNum,
-							String licence, String licenceEndDate, String nature, int employNum,
-							String legalRepresentative, String bulidDate, String actualController, BigDecimal regCapital,
-							BigDecimal reallyCapital, String businessScope, String regAddress,String contactAddressProvince,
-							String contactAddresscity,String contactAddressDistrict,String contactAddress,String postcode,
-							String phone,String linkman,String fax,String email, String webSite);
+			String scale, String industryType, String industryinvolved,
+			String organizationcode, String regCode, String regOffice,
+			String regDate, String nationalregNum, String landRegNum,
+			String licence, String licenceEndDate, String nature, int employNum,
+			String legalRepresentative, String bulidDate, String actualController, BigDecimal regCapital,
+			BigDecimal reallyCapital, String businessScope, String regAddress,String contactAddressProvince,
+			String contactAddresscity,String contactAddressDistrict,String contactAddress,String postcode,
+			String phone,String linkman,String fax,String email, String webSite);
 }

@@ -31,7 +31,7 @@
                                     <h3 class="box-title">合同信息列表</h3>
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
-                                	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addContractBtn">合同信息</button>  
+                                	<button class="btn btn-primary btn-sm" data-toggle="modal" id="editContractBtn">合同信息</button>  
                                 	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addEnterPriseBtn">信息</button>  
                                 	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addPersonnelBtn">信息</button>  
                                 	<button class="btn btn-primary btn-sm" data-toggle="modal" id="loanSupplementBtn">补充其他信息</button>
@@ -43,7 +43,7 @@
                                             <th>借款客户</th>
                                             <th>利率类型</th>
                                             <th>利率</th>
-                                            <th>贷款金额</th>
+                                            <th>贷款金额（元）</th>
                                             <th>贷款期限</th>
                                             <th>贷款开始日期</th>
                                             <th>贷款截止日期</th>
@@ -54,17 +54,10 @@
 	                                        <tr>
 	                                            <td>${it.loanContractId}</td>  
 	                                            <td>${it.loanContractName}</td>  
+<<<<<<< HEAD
 	                                            <td></td> 
 	                                            <td>
-	                                            <c:choose>
-	                                            <c:when test="${empty it.customerId}">
-		                                            	<a href="javascript:void(0)" class="text-blue" onclick="addCustomer('CORPORATION')"><i class="text-blue fa  fa-edit"></i><strong>添加企业</strong></a>
-		                                            	<a href="javascript:void(0)" class="text-green" onclick="addCustomer('PERSION')"><i class="text-green fa  fa-edit"></i><strong>添加个人</strong></a>
-	                                            </c:when>
-	                                            <c:otherwise>
-	                                            		<a href="javascript:void(0)" onclick="showCustomer('${it.borrowerType}','${it.customerId}')"><i class="text-blue fa  fa-edit"></i><strong>${it.customerId}</strong></a>
-	                                            </c:otherwise>
-	                                            </c:choose>
+	                                           
 	                                            </td>
 	                                            <td>${it.rateType}</td>
 	                                            <td>${it.rate}</td>    
@@ -72,14 +65,34 @@
 	                                            <td>${it.periodTerm}</td> 
 	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd HH:mm:ss" value="${it.loanStartDate}"></fmt:formatDate></td>
 	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd HH:mm:ss" value="${it.loanEndDate}"></fmt:formatDate></td> 
+	                                            <td>${it.borrowerType.getKey()}</td> 
+	                                            <td>
+		                                            <c:choose>
+			                                            <c:when test="${empty it.borrowerId}">
+				                                            	<a href="javascript:void(0)" class="text-blue" onclick="addCustomer('CORPORATION')"><i class="text-blue fa  fa-edit"></i><strong>添加企业</strong></a>
+				                                            	<a href="javascript:void(0)" class="text-green" onclick="addCustomer('PERSION')"><i class="text-green fa  fa-edit"></i><strong>添加个人</strong></a>
+			                                            </c:when>
+			                                            <c:otherwise>
+			                                            		<a href="javascript:void(0)" onclick="showCustomer('${it.borrowerType}','${it.borrowerId}')"><i class="text-blue fa  fa-edit"></i><strong>${it.borrowerId}</strong></a>
+			                                            </c:otherwise>
+		                                            </c:choose>
+	                                            </td>
+	                                            <td>${it.rateType.getKey()}</td> 
+	                                            <td class="text-green">${it.rate}%</td>    
+	                                            <td class="text-red"><Strong>${it.loanAmount}</Strong></td> 
+	                                            <td>${it.periodTerm}${it.periodType.getKey()}</td> 
+	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.loanStartDate}"></fmt:formatDate></td>
+	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.loanEndDate}"></fmt:formatDate></td> 
+
 	                                            <td>
 	                                            	<c:if test="${it.pushStatus=='INITATION'}"><span class="text-gray"><i class="text-gray fa fa-info-circle"></i>初始</span></c:if>
 	                                            	<c:if test="${it.pushStatus=='SUCCESS'}"><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span></c:if>
 	                                            	<c:if test="${it.pushStatus=='INPROSESS'}"><span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span></c:if>
 	                                            	<c:if test="${it.pushStatus=='FAILED'}"><span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span></c:if>
 	                                            </td>
-	                                            <td>
-	                                            	<a href="javascript:void(0)" onclick="alert('${it.id}')"><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a>
+	                                            <td> 
+	                                            	<a href="loan/edit?id=${it.id}"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>
+	                                            	<a href="loan/push/${it.id}"><i class="text-blue fa fa-exchange"></i><strong>推送</strong></a>
 	                                            </td>
 	                                        </tr>
                                         </c:forEach>

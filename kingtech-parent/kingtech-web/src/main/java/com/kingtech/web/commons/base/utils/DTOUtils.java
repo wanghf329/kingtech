@@ -12,6 +12,8 @@ import com.kingtech.dao.entity.Guarantee;
 import com.kingtech.dao.entity.PersonalCustomer;
 import com.kingtech.dao.entity.RepayPlan;
 import com.kingtech.dao.entity.SettledInfo;
+import com.kingtech.enums.BorrowerTypeEnum;
+import com.kingtech.enums.PayTypeEnum;
 import com.kingtech.model.CollateralModel;
 import com.kingtech.model.EnterpriseCustomerModel;
 import com.kingtech.model.GuaranteeModel;
@@ -26,10 +28,10 @@ public class DTOUtils {
 		if (personalCustomer != null) {
 			customerModel = new PersonalCustomerModel(personalCustomer.getName(),
 					                                  personalCustomer.getSex().getKey(),
-					                                  getNewStr(personalCustomer.getCategory() ==null ? null:personalCustomer.getCategory().name()),
+					                                  getNewStr(personalCustomer.getCategory()),
 					                                  personalCustomer.getCardNum(),
 					                                  personalCustomer.getPhone(), 
-					                                  getNewStr(personalCustomer.getFarmersFlag() ==null ? null :personalCustomer.getFarmersFlag().name()),
+					                                  getNewStr(personalCustomer.getFarmersFlag()),
 					                                  personalCustomer.getEducation(), 
 					                                  personalCustomer.getFax(), 
 					                                  personalCustomer.getEmail(), 
@@ -55,9 +57,9 @@ public class DTOUtils {
 		EnterpriseCustomerModel enterpriseCustomerModel = null;
 		if (enterpriseCustomer != null ) {
 			enterpriseCustomerModel = new EnterpriseCustomerModel(enterpriseCustomer.getCorporateName(),
-					                                              getNewStr(enterpriseCustomer.getScale().name()),
-					                                              getNewStr(enterpriseCustomer.getIndustryType().name()),
-					                                              getNewStr(enterpriseCustomer.getIndustryinvolved().name()),
+					                                              getNewStr(enterpriseCustomer.getScale()),
+					                                              getNewStr(enterpriseCustomer.getIndustryType()),
+					                                              getNewStr(enterpriseCustomer.getIndustryinvolved()),
 					                                              enterpriseCustomer.getOrganizationcode(),
 					                                              enterpriseCustomer.getRegCode(),
 					                                              enterpriseCustomer.getRegOffice(),
@@ -99,7 +101,7 @@ public class DTOUtils {
 				guaranteeModels.add(new GuaranteeModel(guarantee.getName(), guarantee.getCardNum(), guarantee.getPhone(), guarantee.getAddress()));
 			}
 		
-		return guaranteeModels.isEmpty() ? null : guaranteeModels;
+		return  guaranteeModels;
 	}
 	
 	
@@ -108,7 +110,7 @@ public class DTOUtils {
 		 List<CollateralModel> collateralModels = new ArrayList<CollateralModel>();
 			 for (Collateral collateral :collaterals) {
 				 collateralModels.add(new CollateralModel(collateral.getPledgeType().getKey(),
-						  getNewStr(collateral.getCollateralType().name()),
+						  getNewStr(collateral.getCollateralType()),
 						  collateral.getCollateralName(), 
 						  collateral.getWarrantNum(), collateral.getEvaluationValue().toPlainString(),
 						  collateral.getWarrantHolder(),
@@ -117,7 +119,7 @@ public class DTOUtils {
 			}
 			
 		 
-		 return collateralModels.isEmpty() ? null : collateralModels;
+		 return  collateralModels;
 	}
 	
 	
@@ -129,29 +131,30 @@ public class DTOUtils {
 			planModels.add(new RepayPlanModel(DateUtil.getDateStr(repayPlan.getRepayDate(), "yyyy-MM-dd"),
 					repayPlan.getPrincipal().toPlainString(), repayPlan.getInterest().toPlainString()));
 		}
-		return planModels.isEmpty() ? null : planModels;
+		return planModels;
 	}
 	
 	
-	public static List<SettledInfoModel> getSettledInfoModels (List<SettledInfo> settledInfos){
-		List<SettledInfoModel> settledInfoModels = new ArrayList<SettledInfoModel>();
-		for (SettledInfo settledInfo :settledInfos) {
-			            settledInfoModels.add(new SettledInfoModel(settledInfo.getMoney().toPlainString(),
+	public static SettledInfoModel getSettledInfoModels (SettledInfo  settledInfo){
+		SettledInfoModel infoModel =null;
+		if (settledInfo !=null) {
+			infoModel = new SettledInfoModel(settledInfo.getMoney().toPlainString(),
 					DateUtil.getDateStr(settledInfo.getLoanDate(), "yyyy-MM-dd"), 
 					DateUtil.getDateStr(settledInfo.getDebtStartDate(), "yyyy-MM-dd"),
-					DateUtil.getDateStr(settledInfo.getDebtEndDate(), "yyyy-MM-dd")));
+					DateUtil.getDateStr(settledInfo.getDebtEndDate(), "yyyy-MM-dd"));
 		}
 		
-		return settledInfoModels.isEmpty() ? null :settledInfoModels;
+		return infoModel;
 	}
 	
 	
 	
-	public static String getNewStr(String olderStr){
-		if (StringUtils.isEmpty(olderStr)) {
+	public static String getNewStr(Enum<?> euEnum){
+		if (euEnum ==null ) {
 			return null;
 		}
-		return olderStr.replace("S_", "");
+		return euEnum.name().replace("S_", "");
 	}
+	
 
 }
