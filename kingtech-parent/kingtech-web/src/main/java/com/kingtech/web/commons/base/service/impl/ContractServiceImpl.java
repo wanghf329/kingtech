@@ -5,14 +5,12 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kingtech.dao.entity.Collateral;
 import com.kingtech.dao.entity.Contract;
-import com.kingtech.dao.entity.EnterpriseCustomer;
 import com.kingtech.dao.entity.Guarantee;
 import com.kingtech.dao.entity.RepayPlan;
 import com.kingtech.dao.entity.SettledInfo;
@@ -24,9 +22,8 @@ import com.kingtech.dao.rdbms.PersonalCustomerDAO;
 import com.kingtech.dao.rdbms.RepayPlanDAO;
 import com.kingtech.dao.rdbms.SettledInfoDAO;
 import com.kingtech.enums.BorrowerTypeEnum;
-import com.kingtech.enums.CollateralTypeEnum;
+import com.kingtech.enums.CollateralTypeFor1Enum;
 import com.kingtech.enums.IndustryEnum;
-import com.kingtech.enums.IndustryType;
 import com.kingtech.enums.LoanPurposeEnum;
 import com.kingtech.enums.LoanTypeEnum;
 import com.kingtech.enums.LoanstatusEnum;
@@ -35,7 +32,6 @@ import com.kingtech.enums.PeriodTypeEnum;
 import com.kingtech.enums.PledgeTypeEnum;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.RateTypeEnum;
-import com.kingtech.enums.ScaleType;
 import com.kingtech.enums.UnionFlagEnum;
 import com.kingtech.enums.YesNoEnum;
 import com.kingtech.web.commons.base.CreatRequstId;
@@ -141,7 +137,7 @@ public class ContractServiceImpl implements ContractService{
 	@Override
 	@Transactional
 	public Collateral addCollateral(String id, String loanContractId, PledgeTypeEnum pledgeType,
-			CollateralTypeEnum collateralType, String collateralName,
+			CollateralTypeFor1Enum collateralType, String collateralName,
 			String warrantNum, BigDecimal evaluationValue, String warrantHolder,
 			String collateralAddr, Date handleDate) {
 		Collateral collateral = null;
@@ -209,5 +205,10 @@ public class ContractServiceImpl implements ContractService{
 			settledInfo.setDebtEndDate(debtEndDate);
 		}
 		return settledInfoDAO.save(settledInfo);
+	}
+	
+	@Override
+	public List<Collateral> listCollateralByloanContractId(String loanContractId) {
+		return collateralDAO.listByloanContractId(loanContractId);
 	}
 }

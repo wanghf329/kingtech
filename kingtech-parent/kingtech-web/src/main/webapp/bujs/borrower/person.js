@@ -5,7 +5,7 @@ $(document).ready(function () {
 	
       menuChecked("#personBorrowerList"); 
       
-      $("#form-horizontal").validationEngine({ 
+      $("#personnelFrom").validationEngine({ 
     	  validationEventTriggers:"keyup blur",
     	  inlineValidation: true,
     	  showOneMessage:true,
@@ -13,4 +13,19 @@ $(document).ready(function () {
     	  autoHidePrompt:true,
     	  failure : function() { callFailFunction()  } 
       })
+});
+
+
+
+$("#addPersonnelBtn").click(function(){ 
+	window.location.href = "borrower/personnel/edit?id=";
+});
+
+function getPerson(id) {
+	window.location.href = "borrower/personnel/edit?id="+id;
+}
+
+
+$(".saveRecordBtn").click(function(){ 
+	$("#personnelFrom").submit();
 });

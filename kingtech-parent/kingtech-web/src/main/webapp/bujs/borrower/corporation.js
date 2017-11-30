@@ -3,7 +3,7 @@ $(document).ready(function () {
       //initTable();  
 	
 	
-      menuChecked("#loanList"); 
+      menuChecked("#BuBorrowerList"); 
       
       $("#enterpriseFrom").validationEngine({ 
     	  validationEventTriggers:"keyup blur",
@@ -17,14 +17,16 @@ $(document).ready(function () {
 
 
 $("#addEnterpriseBtn").click(function(){ 
-	window.location.href = "borrower/enterprise/edit";
+	window.location.href = "borrower/enterprise/edit?id=";
 });
 
-$("#addPersonnelBtn").click(function(){ 
-	window.location.href = "borrower/personnel/edit";
-});
-
+function getEnterprise(id) {
+	window.location.href = "borrower/enterprise/edit?id="+id;
+}
 
 $(".saveRecordBtn").click(function(){ 
 	$("#enterpriseFrom").submit();
 });
+
+
+

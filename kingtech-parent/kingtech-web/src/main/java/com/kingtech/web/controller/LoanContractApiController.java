@@ -15,11 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kingtech.enums.BorrowerTypeEnum;
-import com.kingtech.enums.CertType;
-import com.kingtech.enums.CollateralTypeEnum;
+import com.kingtech.enums.CollateralTypeFor1Enum;
+import com.kingtech.enums.CollateralTypeFor2Enum;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.IndustryEnum;
-import com.kingtech.enums.IndustryType;
 import com.kingtech.enums.LoanPurposeEnum;
 import com.kingtech.enums.LoanTypeEnum;
 import com.kingtech.enums.LoanstatusEnum;
@@ -27,7 +26,6 @@ import com.kingtech.enums.PayTypeEnum;
 import com.kingtech.enums.PeriodTypeEnum;
 import com.kingtech.enums.PledgeTypeEnum;
 import com.kingtech.enums.RateTypeEnum;
-import com.kingtech.enums.ScaleType;
 import com.kingtech.enums.UnionFlagEnum;
 import com.kingtech.enums.YesNoEnum;
 import com.kingtech.web.commons.base.api.PaymentApi;
@@ -87,6 +85,9 @@ public class LoanContractApiController {
 	@RequestMapping(method = RequestMethod.GET,value="/supplement")
 	public String supplement(Model model, @RequestParam("loanContractId") String loanContractId) { 
 		model.addAttribute("loanContractId", loanContractId);
+		model.addAttribute("collateralType1",CollateralTypeFor1Enum.values());
+		model.addAttribute("collateralType2",CollateralTypeFor2Enum.values());
+		model.addAttribute("listCollateral", contractService.listCollateralByloanContractId(loanContractId));
 		return "/loan/loanSupplement";
 	}
 	
@@ -95,10 +96,11 @@ public class LoanContractApiController {
 			String pledgeType, String collateralType, String collateralName, String warrantNum, 
 			BigDecimal evaluationValue, String warrantHolder, String collateralAddr, String handleDate) throws ParseException {
 		contractService.addCollateral(id, loanContractId, 
-				PledgeTypeEnum.valueOf(pledgeType), CollateralTypeEnum.valueOf(collateralType.replace(",", "")), 
+				PledgeTypeEnum.valueOf(pledgeType), CollateralTypeFor1Enum.valueOf(collateralType.replace(",", "")), 
 				collateralName, warrantNum, evaluationValue, warrantHolder, collateralAddr, 
 				StringUtils.isEmpty(handleDate) ? null : DateUtils.parseDate(handleDate, "yyyy-MM-dd"));
-		return "/loan/loanSupplement";
+		model.addAttribute("loanContractId", loanContractId);
+		return "redirect:/loan/supplement";
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/supplement/addGuarantee")
@@ -106,7 +108,8 @@ public class LoanContractApiController {
 			String name, String cardNum, String phone, String address) throws ParseException {
 		contractService.addGuarantee(id, loanContractId, 
 				name, cardNum, phone, address);
-		return "/loan/loanSupplement";
+		model.addAttribute("loanContractId", loanContractId);
+		return "redirect:/loan/supplement";
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/supplement/addRepayPlan")
@@ -115,7 +118,8 @@ public class LoanContractApiController {
 		contractService.addRepayPlan(id, loanContractId, 
 				DateUtils.parseDate(repayDate, "yyyy-MM-dd"), 
 				principal, interest);
-		return "/loan/loanSupplement";
+		model.addAttribute("loanContractId", loanContractId);
+		return "redirect:/loan/supplement";
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/supplement/addSettledInfo")
@@ -125,7 +129,8 @@ public class LoanContractApiController {
 				DateUtils.parseDate(loanDate, "yyyy-MM-dd"), 
 				DateUtils.parseDate(debtStartDate, "yyyy-MM-dd"), 
 				DateUtils.parseDate(debtEndDate, "yyyy-MM-dd"));
-		return "/loan/loanSupplement";
+		model.addAttribute("loanContractId", loanContractId);
+		return "redirect:/loan/supplement";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/save")

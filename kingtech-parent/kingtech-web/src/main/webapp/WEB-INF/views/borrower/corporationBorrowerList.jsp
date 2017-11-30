@@ -46,13 +46,14 @@
                                         <c:forEach var="it" items="${list}">
 	                                        <tr>
 	                                            <td>${it.corporateName}</td>  
-	                                            <td>${it.scale}</td>  
+	                                            <td>${it.scale.getKey()}</td>  
 	                                            <td>${it.industryType.getKey()}</td> 
-	                                            <td>${it.industryinvolved} </td>
+	                                            <td>${it.industryinvolved.getKey()} </td>
 	                                            <td>${it.licence}</td> 
-	                                            <td class="text-green">{it.contactAddresscity}{it.contactAddresscity}{it.contactAddressDistrict}{it.contactAddress}</td>    
+	                                            <td class="text-green"><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.licenceEndDate}"></fmt:formatDate></td>
+	                                            <td ><Strong>${it.contactAddresscity}${it.contactAddressDistrict}${it.contactAddress}</Strong></td>    
 	                                            <td> 
-	                                            	<td><a href="javascript:void(0)" ><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a>
+	                                            	<a href="javascript:void(0)"  onclick="getEnterprise('${it.id}')" > <i class="text-blue fa  fa-edit"></i><strong>修改</strong></a>
 	                                            </td>
 	                                        </tr>
                                         </c:forEach>
