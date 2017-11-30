@@ -331,7 +331,6 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 			contractModel = new ContractModel(roundStr,
 					                          IdentifierType.A.name(),
 					                          contract.getReqId(), 
-					                          null, 
 					                          null,
 					                          contract.getLoanContractId(),
 					                          contract.getLoanContractName(), 
