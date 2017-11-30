@@ -31,21 +31,24 @@ function getBorrower(){
 	var html = "";
 	$("#borrowerId").empty(); 
 	var type = $("#borrowerType").val();  
-	if(type=="S_1"){
-		$.get("borrower/list/"+type,null,function(res){
-			for(var i in res){
-				html += "<option value='"+res[i].id+"'>'"+res[i].corporateName+"'</option>"
+	$.ajax({
+		url:"borrower/list/"+type,
+		async:false,
+		method:'get',
+		success:function(res){
+			if(type=="S_1"){
+				for(var i in res){
+					html += "<option value='"+res[i].id+"'>'"+res[i].corporateName+"'</option>"
+				}
+			}else{
+				for(var i in res){
+					html += "<option value='"+res[i].id+"'>'"+res[i].name+"'</option>"
+				}
 			}
-			$("#borrowerId").html(html);
-		}); 
-	}else{
-		$.get("borrower/list/"+type,null,function(res){
-			for(var o in res){
-				html += "<option value='"+res[i].id+"'>'"+res[i].name+"'</option>"
-			}
-			$("#borrowerId").html(html);
-		});
-	} 
+			$("#borrowerId").html(html); 
+			$("#borrowerId option[value='"+borrowerId+"']").attr("selected",true);
+		}
+	});
 }
 
 $("input[name='pledgeType'][value='S_1']").on("ifChecked", function(event){
@@ -81,3 +84,14 @@ function delConfirm(id){
 function delCapital(){
 	window.location.href = "branch/delCapital/"+$("#del-id").val();
 };
+
+
+
+ 
+$(".addRepayPlanBtn").on("click",function(){
+	var clone = $(".repayPlanTemplate").clone(true).removeClass("repayPlanTemplate").addClass("repayPlan");
+	$(".repayPlanTemplate").parent().append(clone);  
+});
+$(".delRepayPlanBtn").on("click",function(){
+	$(this).closest(".repayPlan").remove();
+});

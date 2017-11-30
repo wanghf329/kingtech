@@ -258,39 +258,52 @@
                                 	
                                 	<!-- 还款计划 -->
                                 	<div id="repayPlanTab" class="tab-pane">
-                                		<form class="form-horizontal" id="form-repayPlan"
-											action="loan/supplement/addRepayPlan" method="POST">
-											<input type="hidden" name="id" value="">
-											<input type="hidden" name="loanContractId" value="${loanContractId}">
-											<div class="form-group">
-												<label for="#repayDate" class="col-sm-2 control-label">还款日期</label>
-												<div class="col-sm-4 input-group date">
-													<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-													<input type="text" class="form-control pull-right datepicker validate[required]" name="repayDate"
-															 data-errormessage="还款日期不能为空">
-												</div>
-											</div>
-											<div class="form-group">
-												<label for="#principal" class="col-sm-2 control-label">还款本金</label>
-												<div class="col-sm-4 input-group">
-													<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
-													<input type="text" class="form-control validate[required,custom[number]]" name="principal" data-errormessage="还款本金只能为数字">
-													<span class="input-group-addon"><i class="fa">元</i></span>
-												</div>
-											</div>
-											<div class="form-group">
-												<label for="#interest" class="col-sm-2 control-label">还款利息</label>
-												<div class="col-sm-4 input-group">
-													<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
-													<input type="text" class="form-control validate[required,custom[number]]" name="interest" data-errormessage="还款利息只能为数字">
-													<span class="input-group-addon"><i class="fa">元</i></span>
-												</div>
-											</div>
-											<div class="form-group">
-												<label class="col-sm-5 control-label"></label> 
-												<button type="submit" class="btn btn-primary">保&nbsp;存</button>
-											</div>
-										</form>
+										<!-- 模板 -->
+	                                	<div class="content col-md-10"> 
+	                                		<form class="form-horizontal" id="form-repayPlan" action="loan/supplement/addRepayPlan" method="POST">
+			                                	<div class="repayPlanTemplate padding-15">
+			                                		<div class="col-md-8">   
+														<div class="box box-primary">
+							                                <div class="box-body"> 
+																	<input type="hidden" name="id" value="">
+																	<input type="hidden" name="loanContractId" value="${loanContractId}">
+																	<div class="form-group">
+																		<label for="#repayDate" class="col-sm-2 control-label">还款日期</label>
+																		<div class="col-sm-4 input-group date">
+																			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+																			<input type="text" class="form-control pull-right datepicker validate[required]" name="repayDate"
+																					 data-errormessage="还款日期不能为空">
+																		</div>
+																	</div>
+																	<div class="form-group">
+																		<label for="#principal" class="col-sm-2 control-label">还款本金</label>
+																		<div class="col-sm-4 input-group">
+																			<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
+																			<input type="text" class="form-control validate[required,custom[number]]" name="principal" data-errormessage="还款本金只能为数字">
+																			<span class="input-group-addon"><i class="fa">元</i></span>
+																		</div>
+																	</div>
+																	<div class="form-group">
+																		<label for="#interest" class="col-sm-2 control-label">还款利息</label>
+																		<div class="col-sm-4 input-group">
+																			<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
+																			<input type="text" class="form-control validate[required,custom[number]]" name="interest" data-errormessage="还款利息只能为数字">
+																			<span class="input-group-addon"><i class="fa">元</i></span>
+																		</div>
+																	</div>
+							                                </div><!-- /.box-body -->
+							                            </div>  
+			                                		</div>
+						                            <div class="col-md-2">
+						                            	<a href="javascript:void(0)"><i class="text-blue fa  fa-plus-circle addRepayPlanBtn">增加</i></a> 
+						                            	<a href="javascript:void(0)"><i class="text-red fa fa-minus delRepayPlanBtn">删除</i></a>  
+						                            </div>
+				                            	</div>
+			                                	<div class="col-md-8  text-center">   
+				                                	<button type="submit" class="btn btn-primary">保&nbsp;存</button>									
+			                                	</div>	 
+			                            	</form>                               	
+	                                	</div>    
                                 	</div>
                                 	
                                 	<!-- 放款信息 -->

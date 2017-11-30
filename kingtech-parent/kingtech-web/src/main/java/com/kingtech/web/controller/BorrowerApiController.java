@@ -77,11 +77,14 @@ public class BorrowerApiController {
 	@RequestMapping(method = RequestMethod.GET, value = "/personnel/edit")
 	public String personnelEdit(Model model,@RequestParam("id") String id) {
 		model.addAttribute("certTypes", CertType.values());
+		if(StringUtils.isNotEmpty(id)){
+			model.addAttribute("model",borrowerService.getPersonnel(id));
+		}
 		return "/loan/personnelEdit";
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/enterprise/add")
-	public String saveEnterprise(Model model,  String corporateName,
+	public String saveEnterprise(Model model,String id , String corporateName,
 			String scale, String industryType, String industryinvolved,
 			String organizationcode, String regCode, String regOffice,
 			String regDate, String nationalregNum, String landRegNum,
@@ -91,7 +94,7 @@ public class BorrowerApiController {
 			String contactAddresscity,String contactAddressDistrict,String contactAddress,String postcode,
 			String phone,String linkman,String fax,String email, String webSite)
 			throws ParseException {
-		borrowerService.addEnterprise(corporateName, scale, industryType, 
+		borrowerService.addEnterprise( id ,corporateName, scale, industryType, 
 									 industryinvolved, organizationcode, regCode, regOffice, regDate, 
 									 nationalregNum, landRegNum, licence, licenceEndDate,
 									 nature, employNum, legalRepresentative, bulidDate,
@@ -99,11 +102,11 @@ public class BorrowerApiController {
 									 regAddress, contactAddressProvince, contactAddresscity, 
 									 contactAddressDistrict, contactAddress, postcode, phone, 
 									 linkman, fax, email, webSite);
-		return "redirect:/corporationList";
+		return "redirect:/borrower/corporationList";
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/personenl/add")
-	public String savePersonenl(Model model,String name, String sex, String category,
+	public String savePersonenl(Model model,String id,String name, String sex, String category,
 								String cardNum, String phone, String farmersFlag,
 								String education, String fax, String email, String marriage,
 								String nationality, String birthDate, String nation,
@@ -111,13 +114,13 @@ public class BorrowerApiController {
 								String address, String postCode, String residence,
 								String nativePlace, String workUnit, String post  ) throws ParseException {
 			
-		borrowerService.addPersonnel(name, sex, category, cardNum, phone, farmersFlag,
+		borrowerService.addPersonnel(id,name, sex, category, cardNum, phone, farmersFlag,
 									education, fax, email, marriage, nationality,
 									birthDate, nation, addressProvince, addressCity, 
 									addressDistrict, address, postCode, residence,
 									nativePlace, workUnit, post);
 				
-		return "redirect:/corporationList";
+		return "redirect:/borrower/personList";
 	}
 	
 

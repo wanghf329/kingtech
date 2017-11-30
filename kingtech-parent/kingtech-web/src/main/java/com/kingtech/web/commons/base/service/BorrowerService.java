@@ -19,7 +19,7 @@ public interface BorrowerService {
 	
 	public PersonalCustomer getPersonnel(String id);
 	
-	public void addEnterprise( String corporateName,
+	public void addEnterprise( String id,String corporateName,
 			String scale, String industryType, String industryinvolved,
 			String organizationcode, String regCode, String regOffice,
 			String regDate, String nationalregNum, String landRegNum,
@@ -29,7 +29,7 @@ public interface BorrowerService {
 			String contactAddresscity,String contactAddressDistrict,String contactAddress,String postcode,
 			String phone,String linkman,String fax,String email, String webSite);
 	
-	public void addPersonnel(String name, String sex, String category,
+	public void addPersonnel(String id,String name, String sex, String category,
 							String cardNum, String phone, String farmersFlag,
 							String education, String fax, String email, String marriage,
 							String nationality, String birthDate, String nation,
