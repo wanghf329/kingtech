@@ -31,7 +31,7 @@
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
 											<form class="form-horizontal" id="personnelFrom" action="branch/add/personnel" method="POST">
-												<input type="hidden" name="id" value="">
+												<input type="hidden" name="constractId" value="${constractId}">
 												<div class="form-group">
 													<label for="#name" class="col-sm-2 control-label">姓名</label>
 													<div class="col-sm-4 input-group">

@@ -1,3 +1,4 @@
+
 package com.kingtech.web.controller;
 
 import java.math.BigDecimal;
@@ -150,4 +151,27 @@ public class LoanContractApiController {
 		paymentApi.contractInfoApi(id, IdentifierType.A);
 		return "redirect:/loan/list";
 	}  
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/enterprise/add")
+	public String saveEnterprise(Model model, String constractId, String corporateName,
+			String scale, String industryType, String industryinvolved,
+			String organizationcode, String regCode, String regOffice,
+			String regDate, String nationalregNum, String landRegNum,
+			String licence, String licenceEndDate, String nature, int employNum,
+			String legalRepresentative, String bulidDate, String actualController,BigDecimal regCapital,
+			BigDecimal reallyCapital, String businessScope, String regAddress,String contactAddressProvince,
+			String contactAddresscity,String contactAddressDistrict,String contactAddress,String postcode,
+			String phone,String linkman,String fax,String email, String webSite)
+			throws ParseException {
+		contractService.addEnterprise(constractId, corporateName, scale, industryType, 
+									 industryinvolved, organizationcode, regCode, regOffice, regDate, 
+									 nationalregNum, landRegNum, licence, licenceEndDate,
+									 nature, employNum, legalRepresentative, bulidDate,
+									 actualController, regCapital, reallyCapital, businessScope,
+									 regAddress, contactAddressProvince, contactAddresscity, 
+									 contactAddressDistrict, contactAddress, postcode, phone, 
+									 linkman, fax, email, webSite);
+		return "redirect:/loan/list";
+	}
 }
+

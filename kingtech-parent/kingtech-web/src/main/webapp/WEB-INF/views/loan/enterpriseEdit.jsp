@@ -31,7 +31,7 @@
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
 											<form class="form-horizontal" id="enterpriseFrom" action="branch/add/enterprise" method="POST">
-												<input type="hidden" name="id" value="">
+												<input type="hidden" name="constractId" value="${constractId}">
 												<div class="form-group">
 													<label for="#corporateName" class="col-sm-2 control-label">企业名称</label>
 													<div class="col-sm-4 input-group">
@@ -123,7 +123,7 @@
 												<div class="form-group">
 													<label for="#licence" class="col-sm-2 control-label">营业执照号</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" name="licence"  data-errormessage="营业执照号不能为空">>
+														<input type="text" class="form-control validate[required]" name="licence"  data-errormessage="营业执照号不能为空">
 													</div>
 												</div>
 												
@@ -296,6 +296,6 @@
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
 		<%@include file="../common/footer.jspf" %>   
-        <script src="bujs/loan/contract.js" type="text/javascript"></script>       
+        <script src="bujs/loan/enterprise.js" type="text/javascript"></script>       
     </body>
 </html>
