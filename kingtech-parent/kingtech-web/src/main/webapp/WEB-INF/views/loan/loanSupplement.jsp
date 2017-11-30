@@ -32,7 +32,7 @@
                             <div class="col-xs-12">
                                 <div class="tabbable">
                                 	<ul id="myTab" class="inbox-tabs nav nav-tabs tab-size-bigger tab-space-1">
-                                		<li data-type="collateral">
+                                		<li data-type="collateral" class="active">
 											<a data-toggle="tab" href="#collateralTab">
 												抵质押物	
 											</a>
@@ -57,7 +57,7 @@
                                 <div class="tab-content no-border no-padding">
                                 	<!-- 抵质押物 -->
                                 	<div id="collateralTab" class="tab-pane in active">
-                                		<form class="form-horizontal" id="form-horizontal"
+                                		<form class="form-horizontal" id="form-collateral"
 											action="loan/supplement/addCollateral" method="POST">
 											<input type="hidden" name="id" value="">
 											<input type="hidden" name="loanContractId" value="${loanContractId}">
@@ -73,7 +73,8 @@
 											<div class="form-group">
 												<label for="#collateralType" class="col-sm-2 control-label">抵质押物类型</label>
 												<div class="col-sm-4 input-group ">
-													<select class="form-control validate[required]" name="collateralType">
+													<select class="form-control validate[required]" id="collateralType1" name="collateralType">
+														<option value="">请选择</option>
 										            	<option value="S_1">存货抵押</option>
 										            	<option value="S_2">客账抵押</option>
 										            	<option value="S_3">证券抵押</option>
@@ -82,7 +83,8 @@
 										            	<option value="S_6">人寿险抵押</option>
 										            	<option value="S_7">其他</option>
 										            </select>
-										            <select class="form-control validate[required]" name="collateralType" style="display:none">
+										            <select class="form-control validate[required]" id="collateralType2" name="collateralType" style="display:none">
+										            	<option value="">请选择</option>
 										            	<option value="S_1">股权质押</option>
 										            	<option value="S_2">定期存单质押</option>
 										            	<option value="S_3">专利权质押</option>
@@ -128,12 +130,12 @@
 												<div class="col-sm-4 input-group">
 													<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 													<input type="text"
-														class="form-control pull-right datepicker-time" name="handleDate">
+														class="form-control pull-right datepicker" name="handleDate">
 												</div>
 											</div>
 											<div class="form-group">
 												<label class="col-sm-5 control-label"></label> 
-												<button type="button" class="btn btn-primary saveRecordBtn">保&nbsp;存</button>
+												<button type="submit" class="btn btn-primary">保&nbsp;存</button>
 											</div>
 										</form>
 										
@@ -141,7 +143,7 @@
                                 	
                                 	<!-- 保证人信息 -->
                                 	<div id="guaranteeTab" class="tab-pane">
-                                		<form class="form-horizontal" id="form-horizontal"
+                                		<form class="form-horizontal" id="form-guarantee"
 											action="loan/supplement/addGuarantee" method="POST">
 											<input type="hidden" name="id" value="">
 											<input type="hidden" name="loanContractId" value="${loanContractId}">
@@ -171,14 +173,14 @@
 											</div>
 											<div class="form-group">
 												<label class="col-sm-5 control-label"></label> 
-												<button type="button" class="btn btn-primary saveRecordBtn">保&nbsp;存</button>
+												<button type="submit" class="btn btn-primary">保&nbsp;存</button>
 											</div>
 										</form>
                                 	</div>
                                 	
                                 	<!-- 还款计划 -->
                                 	<div id="repayPlanTab" class="tab-pane">
-                                		<form class="form-horizontal" id="form-horizontal"
+                                		<form class="form-horizontal" id="form-repayPlan"
 											action="loan/supplement/addRepayPlan" method="POST">
 											<input type="hidden" name="id" value="">
 											<input type="hidden" name="loanContractId" value="${loanContractId}">
@@ -208,14 +210,14 @@
 											</div>
 											<div class="form-group">
 												<label class="col-sm-5 control-label"></label> 
-												<button type="button" class="btn btn-primary saveRecordBtn">保&nbsp;存</button>
+												<button type="submit" class="btn btn-primary">保&nbsp;存</button>
 											</div>
 										</form>
                                 	</div>
                                 	
                                 	<!-- 放款信息 -->
                                 	<div id="settledInfoTab" class="tab-pane">
-                                		<form class="form-horizontal" id="form-horizontal"
+                                		<form class="form-horizontal" id="form-settledInfo"
 											action="loan/supplement/addSettledInfo" method="POST">
 											<input type="hidden" name="id" value="">
 											<input type="hidden" name="loanContractId" value="${loanContractId}">
@@ -253,7 +255,7 @@
 											</div>
 											<div class="form-group">
 												<label class="col-sm-5 control-label"></label> 
-												<button type="button" class="btn btn-primary saveRecordBtn">保&nbsp;存</button>
+												<button type="submit" class="btn btn-primary">保&nbsp;存</button>
 											</div>
 										</form>
                                 	</div>

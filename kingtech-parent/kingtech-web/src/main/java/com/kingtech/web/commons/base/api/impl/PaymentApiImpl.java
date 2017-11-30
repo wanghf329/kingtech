@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.kingtech.common.utils.DateUtil;
 import com.kingtech.common.utils.RandomUtil;
 import com.kingtech.dao.entity.Branch;
@@ -291,7 +292,7 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 		case pushInstitutionCapital:  //机构资本信息
 			capitalDAO.updateStatusByReqId(reqId, pushStatus);
 			break;
-		case pushContract:	
+		case pushContract:	//放贷业务合同信息
 			contractDAO.updateStatusByReqId(reqId, pushStatus);
 			break;
 		
@@ -356,15 +357,19 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 					                          guaranteeModels.isEmpty()?null:JSON.toJSONString(guaranteeModels),
 					                          repayPlanModels.isEmpty()?null:JSON.toJSONString(repayPlanModels),
 					                          settledInfoModel == null ?null:JSON.toJSONString(settledInfoModel)) ;
-			
+			JSONObject jsonObject = new JSONObject();
+			String customerStr ="";
 			if (BorrowerTypeEnum.S_1.equals(contract.getBorrowerType())) {
 				EnterpriseCustomerModel enterpriseCustomerModel = DTOUtils.getEnterpriseCustomerModel(enterpriseCustomerDAO.findOne(contract.getBorrowerId()));
-				contractModel.setLoanCustomerPackage(enterpriseCustomerModel ==null ?null :JSON.toJSONString(enterpriseCustomerModel));
+				customerStr = enterpriseCustomerModel ==null ?null :JSON.toJSONString(enterpriseCustomerModel);
+				jsonObject.put("customerType", "E");
 			}else {
 				PersonalCustomerModel personalCustomerModel = DTOUtils.getPersonalCustomerModel(personalCustomerDao.findOne(contract.getBorrowerId()));
-				contractModel.setLoanCustomerPackage(personalCustomerModel ==null ?null :JSON.toJSONString(personalCustomerModel));
+				customerStr = personalCustomerModel ==null ?null :JSON.toJSONString(personalCustomerModel);
+				jsonObject.put("customerType", "P");
 			}
-			
+			jsonObject.put("corporateCustomer", customerStr);
+			contractModel.setLoanCustomerPackage(JSON.toJSONString(jsonObject));
 			
 			
 		}else {
