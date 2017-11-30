@@ -23,6 +23,10 @@ $("#addContractBtn").click(function(){
 	window.location.href = "loan/edit";
 });
 
+$("#loanSupplementBtn").click(function(){ 
+	window.location.href = "loan/supplement";
+});
+
 $("#addEnterPriseBtn").click(function(){ 
 	window.location.href = "loan/enterprise/edit";
 });
@@ -30,7 +34,6 @@ $("#addEnterPriseBtn").click(function(){
 $("#addPersonnelBtn").click(function(){ 
 	window.location.href = "loan/personnel/edit";
 });
-
 
 
 

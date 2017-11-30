@@ -63,7 +63,13 @@ public class LoanContractApiController {
 		model.addAttribute("payType", PayTypeEnum.values());
 		model.addAttribute("branchs", branchService.listByInstitutionInfo());
 		return "/loan/loanEdit";
-	}
+	}  
+	
+	@RequestMapping(method = RequestMethod.GET,value="/supplement")
+	public String supplement(Model model) { 
+		model.addAttribute("list",contractService.listAll());
+		return "/loan/loanSupplement";
+	}  
 
 	@RequestMapping(method = RequestMethod.POST, value = "/save")
 	public String save(Model model, String id, String loanContractId,
