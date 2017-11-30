@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -157,6 +158,9 @@ public class Contract extends RecordEntity{
 	@Enumerated(EnumType.STRING)
 	@Column(name="IS_EXTEND")
 	private YesNoEnum isExtend;
+	
+	@Transient
+	private String borrowerName;
 	
 	public Contract(String loanContractId,
 			String loanContractName, BorrowerTypeEnum borrowerType,String borrowerId,

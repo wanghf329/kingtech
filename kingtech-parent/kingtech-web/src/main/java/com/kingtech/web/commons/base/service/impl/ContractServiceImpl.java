@@ -20,6 +20,7 @@ import com.kingtech.dao.rdbms.CollateralDAO;
 import com.kingtech.dao.rdbms.ContractDAO;
 import com.kingtech.dao.rdbms.EnterpriseCustomerDAO;
 import com.kingtech.dao.rdbms.GuaranteeDAO;
+import com.kingtech.dao.rdbms.PersonalCustomerDAO;
 import com.kingtech.dao.rdbms.RepayPlanDAO;
 import com.kingtech.dao.rdbms.SettledInfoDAO;
 import com.kingtech.enums.BorrowerTypeEnum;
@@ -64,11 +65,23 @@ public class ContractServiceImpl implements ContractService{
 	@Autowired
 	private CreatRequstId creatRequstId;
 	
-
+	@Autowired
+	private PersonalCustomerDAO personalCustomerDao;
+	
+	@Autowired
+	private EnterpriseCustomerDAO enterpriseDao;
 	
 	@Override
 	public List<Contract> listAll(){
-		return (List<Contract>)contractDao.findAll();
+		List<Contract> list = (List<Contract>)contractDao.findAll();
+		for(Contract ct : list){
+			if(BorrowerTypeEnum.S_1.equals(ct.getBorrowerType())){
+				ct.setBorrowerName(enterpriseDao.findOne(ct.getBorrowerId()).getCorporateName());
+			}else{
+				ct.setBorrowerName(personalCustomerDao.findOne(ct.getBorrowerId()).getName());
+			}
+		}
+		return list;
 	}
 
 	@Override

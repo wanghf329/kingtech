@@ -47,7 +47,7 @@
 													<div class="col-sm-4 input-group">
 														<select class="form-control validate[required]" id="borrowerType" name="borrowerType">
 															<c:forEach var="it" items="${borrowerType}">
-						  										<option value ="${it.name()}">${it.getKey()}</option>
+						  										<option value ="${it.name()}" <c:if test="${it eq contract.borrowerType}">selected</c:if>>${it.getKey()}</option>
 															</c:forEach>
 														</select>
 													</div>
@@ -55,7 +55,7 @@
 												<div class="form-group">
 													<label for="#branch" class="col-sm-2 control-label">借款人</label>
 													<div class="col-sm-4 input-group">
-														<select class="form-control validate[required]" id="borrowerId" name="borrowerId">
+														<select class="form-control validate[required]" id="borrowerId" name="borrowerId" data-errormessage="借款人不能为空">
 						  									
 														</select>
 													</div>
@@ -157,7 +157,7 @@
 													<div class="col-sm-4 input-group">
 														<select class="form-control" id="loanType" name="loanType">
 															<c:forEach var="it" items="${loanType}"> 
-						  										<option value ="${it.name()}">${it.getKey()}</option>
+						  										<option value ="${it.name()}" <c:if test="${it eq contract.loanType}">selected</c:if>>${it.getKey()}</option>
 															</c:forEach>
 														</select>
 													</div>													
@@ -229,6 +229,9 @@
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
 		<%@include file="../common/footer.jspf" %>   
-        <script src="bujs/loan/contract.js" type="text/javascript"></script>       
+        <script src="bujs/loan/contract.js" type="text/javascript"></script>  
+        <script type="text/javascript">
+        	var borrowerId = '${borrowerId}';
+        </script>     
     </body>
 </html>

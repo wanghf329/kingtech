@@ -50,7 +50,6 @@
 		<module>kingtech-common</module>
 		<module>kingtech-dao</module>
 		<module>kingtech-service</module>
-		<module>kingtech-domain</module>
     	<module>kingtech-web</module>
   </modules>
 
@@ -316,7 +315,6 @@
 	</dependencies>
 	
 	<build>
-		<pluginManagement>
 			<plugins>
 				<!-- compiler插件, 设定JDK版本 -->
 				<plugin>
@@ -327,7 +325,14 @@
 						<source>${jdk.version}</source>
 						<target>${jdk.version}</target>
 						<showWarnings>true</showWarnings>
+						<encoding>UTF-8</encoding>
+						
+						<compilerArguments>
+                        <extdirs>${project.basedir}/src/main/webapp/WEB-INF/lib;${project.basedir}/src/main/resources/lib</extdirs>
+                       </compilerArguments>
 					</configuration>
+					
+					
 				</plugin>
 
 				<!-- war打包插件, 设定war包名称不带版本号 -->
@@ -369,6 +374,5 @@
 					</executions>
 				</plugin>
 			</plugins>
-		</pluginManagement>
 	</build>	
 </project>

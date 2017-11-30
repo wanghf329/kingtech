@@ -3,9 +3,7 @@ package com.kingtech.web.controller;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
-
 import java.util.List;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,14 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
+import com.kingtech.dao.entity.EnterpriseCustomer;
+import com.kingtech.dao.entity.PersonalCustomer;
+import com.kingtech.enums.BorrowerTypeEnum;
 import com.kingtech.enums.CertType;
 import com.kingtech.enums.IndustryEnum;
 import com.kingtech.enums.IndustryType;
 import com.kingtech.enums.ScaleType;
-
-import com.kingtech.enums.BorrowerTypeEnum;
-
 import com.kingtech.web.commons.base.service.BorrowerService;
 
 @RequestMapping("/borrower")
@@ -31,7 +28,7 @@ public class BorrowerApiController {
 	
 	@Autowired
 	private BorrowerService borrowerService;
-
+	
 
 	@RequestMapping(method = RequestMethod.GET,value="/corporationList")
 	public String corporationList(Model model) { 
@@ -41,6 +38,18 @@ public class BorrowerApiController {
 	@RequestMapping(method = RequestMethod.GET, value = "/personList")
 	public String personList(Model model){
 		return "borrower/personBorrowerList"; 
+	}
+	
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET,value="list/S_1")
+	public List<EnterpriseCustomer> listByType1(Model model) {
+			return borrowerService.listAllEnterpries();
+	}
+	
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET,value="list/S_0")
+	public List<PersonalCustomer> listByType2(Model model) {
+			return borrowerService.listAllPersonal();
 	}
 	
 
@@ -79,16 +88,4 @@ public class BorrowerApiController {
 									 linkman, fax, email, webSite);
 		return "redirect:/corporationList";
 	}
-	
-
-	@ResponseBody
-	@RequestMapping(method = RequestMethod.GET,value="list/{type}")
-	public List listByType(@PathVariable("type") BorrowerTypeEnum type, Model model) {
-		if(BorrowerTypeEnum.S_1.equals(type)){
-			return borrowerService.listAllEnterpries();
-		}else{
-			return borrowerService.listAllPersonal();
-		}
-	}
-
 }

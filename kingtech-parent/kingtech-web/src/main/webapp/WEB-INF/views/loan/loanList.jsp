@@ -31,10 +31,7 @@
                                     <h3 class="box-title">合同信息列表</h3>
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
-                                	<button class="btn btn-primary btn-sm" data-toggle="modal" id="editContractBtn">合同信息</button>  
-                                	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addEnterPriseBtn">信息</button>  
-                                	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addPersonnelBtn">信息</button>  
-                                	<button class="btn btn-primary btn-sm" data-toggle="modal" id="loanSupplementBtn">补充其他信息</button>
+                                	<button class="btn btn-primary btn-sm" data-toggle="modal" id="editContractBtn">新增合同信息</button>  
                                     <table class="table"> 
                                         <tr>
                                             <th>合同编号</th> 
@@ -55,11 +52,11 @@
 	                                            <td>${it.loanContractId}</td>  
 	                                            <td>${it.loanContractName}</td>
 	                                            <td> 
-	                                            	<a href="javascript:void(0)" class="text-green" ><i class="text-green fa  fa-user"></i><strong>${it.borrowerId}</strong></a>
+	                                            	<a href="#" class="text-green" ><i class="text-green fa  fa-user"></i><strong>${it.borrowerName}</strong></a>
 	                                            </td>
 	                                            
 	                                            <td>${it.rateType.getKey()}</td>
-	                                            <td>${it.rate}%</td>    
+	                                            <td class="text-green">${it.rate}%</td>    
 	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><Strong>${it.loanAmount}</Strong></td>
 	                                            <td>${it.periodTerm}${it.periodType.getKey()}</td> 
 	                                           	<td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.loanStartDate}"></fmt:formatDate></td>
