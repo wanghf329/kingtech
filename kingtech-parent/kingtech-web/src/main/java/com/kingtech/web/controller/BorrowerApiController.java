@@ -1,5 +1,8 @@
 package com.kingtech.web.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -7,10 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kingtech.enums.BorrowerTypeEnum;
+import com.kingtech.web.commons.base.service.BorrowerService;
+
 @RequestMapping("/borrower")
 @Controller
 public class BorrowerApiController {
 	
+	@Autowired
+	private BorrowerService borrowerService;
 
 	@RequestMapping(method = RequestMethod.GET,value="/corporationList")
 	public String corporationList(Model model) { 
@@ -22,11 +30,13 @@ public class BorrowerApiController {
 		return "borrower/personBorrowerList"; 
 	}
 	
-//	@ResponseBody
-//	@RequestMapping(method = RequestMethod.GET,value="/{type}")
-//	public String getById(@PathVariable String loanContractId, Model model) { 
-//		model.addAttribute("borrowers_person_list", borrowerService.listAllPersonal());
-//		model.addAttribute("borrowers_corp_list", borrowerService.listAllPersonal());
-//		return "/loan/loanSupplement";
-//	}
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET,value="list/{type}")
+	public List listByType(@PathVariable("type") BorrowerTypeEnum type, Model model) {
+		if(BorrowerTypeEnum.S_1.equals(type)){
+			return borrowerService.listAllEnterpries();
+		}else{
+			return borrowerService.listAllPersonal();
+		}
+	}
 }

@@ -22,7 +22,7 @@ public interface ContractService {
 	public List<Contract> listAll();
 
 	public void addNew(String id,String loanContractId, String loanContractName,
-						BorrowerTypeEnum borrowerType, String customerId, String guarantee,
+						BorrowerTypeEnum borrowerType,String borrowerId, String customerId, String guarantee,
 						BigDecimal loanAmount, PeriodTypeEnum periodType, int periodTerm,
 						Date loanStartDate, Date loanEndDate, RateTypeEnum rateType,
 						BigDecimal rate, LoanPurposeEnum purpose, IndustryEnum industry,
