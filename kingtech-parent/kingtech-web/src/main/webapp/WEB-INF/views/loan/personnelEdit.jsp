@@ -30,8 +30,7 @@
                                     <h3 class="box-title">个人客户信息</h3>
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
-											<form class="form-horizontal" id="personnelFrom" action="branch/add/personnel" method="POST">
-												<input type="hidden" name="constractId" value="${constractId}">
+											<form class="form-horizontal" id="personnelFrom" action="borrower/personenl/add" method="POST">
 												<div class="form-group">
 													<label for="#name" class="col-sm-2 control-label">姓名</label>
 													<div class="col-sm-4 input-group">
@@ -43,8 +42,8 @@
 													<label for="#sex" class="col-sm-2 control-label">性别</label>
 													<div class="col-sm-6 input-group">
 									                  <div class="radio">
-									                      <input type="radio" name="sex" value="1" checked="">男
-									                   	  <input type="radio" name="sex" value="2" >女
+									                      <input type="radio" name="sex" value="M" checked="">男
+									                   	  <input type="radio" name="sex" value="F" >女
 									                  </div>
 													</div>
 												</div>
@@ -66,7 +65,7 @@
 												<div class="form-group">
 													<label for="#cardNum" class="col-sm-2 control-label">证件号码</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" name="name" data-errormessage="证件号码不能为空" >
+														<input type="text" class="form-control validate[required]" name="cardNum" data-errormessage="证件号码不能为空" >
 													</div>
 												</div>
 												
@@ -88,7 +87,7 @@
 												</div>
 												
 												<div class="form-group">
-													<label for="#education" class="col-sm-2 control-label">联系电话</label>
+													<label for="#education" class="col-sm-2 control-label">学历</label>
 													<div class="col-sm-4 input-group">
 														<input type="text" class="form-control"  name="education" >
 													</div>
@@ -130,7 +129,7 @@
 												</div>
 												
 												<div class="form-group">
-													<label for="#birthDate" class="col-sm-2 control-label">工商注册登记日期</label>
+													<label for="#birthDate" class="col-sm-2 control-label">生日</label>
 													<div class="col-sm-4 input-group">
 														<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 														<input type="text" class="form-control pull-right datepicker "
@@ -147,9 +146,9 @@
 												
 												
 												<div class="form-group">
-													<label for="#contactAddresscity" class="col-sm-2 control-label">固定住址（省份）</label>
+													<label for="#addressProvince" class="col-sm-2 control-label">固定住址（省份）</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" name="contactAddresscity" data-errormessage="固定住址（省份）不能为空" >
+														<input type="text" class="form-control validate[required]" name="addressProvince" data-errormessage="固定住址（省份）不能为空" >
 													</div>
 												</div>
 												
@@ -225,6 +224,6 @@
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
 		<%@include file="../common/footer.jspf" %>   
-        <script src="bujs/loan/contract.js" type="text/javascript"></script>       
+         <script src="bujs/borrower/person.js" type="text/javascript"></script> 
     </body>
 </html>

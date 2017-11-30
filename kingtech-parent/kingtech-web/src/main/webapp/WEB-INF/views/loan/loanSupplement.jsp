@@ -59,8 +59,82 @@
                                 	<div id="collateralTab" class="tab-pane in active">
                                 		<form class="form-horizontal" id="form-collateral"
 											action="loan/supplement/addCollateral" method="POST">
-											<input type="hidden" name="id" value="">
 											<input type="hidden" name="loanContractId" value="${loanContractId}">
+											<c:forEach var="it" items="${list}">
+												<input type="hidden" name="id" value="${it.id}">
+												<div class="form-group">
+													<label for="#pledgeType" class="col-sm-2 control-label">担保类型</label>
+													<div class="col-sm-4 input-group">
+										                <div class="radio">
+										                    <input type="radio" name="pledgeType" value="S_1" 
+										                    	<c:if test="${it.pledgeType == 'S_1' || it.pledgeType == null }">checked=""</c:if>>抵押
+										                   	<input type="radio" name="pledgeType" value="S_2" 
+										                   		<c:if test="${it.pledgeType == 'S_2'}">checked=""</c:if>>质押
+										                </div>
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="#collateralType" class="col-sm-2 control-label">抵质押物类型</label>
+													<div class="col-sm-4 input-group ">
+														<select class="form-control validate[required]" id="collateralType1" name="collateralType">
+															<option value="">请选择</option>
+															<c:forEach var="it" items="collateralType">
+																<option value="${it.name}">${it.getKey()}</option>
+															</c:forEach>
+											            </select>
+											            <select class="form-control validate[required]" id="collateralType2" name="collateralType" style="display:none">
+											            	<option value="">请选择</option>
+											            	<option value="S_1">股权质押</option>
+											            	<option value="S_2">定期存单质押</option>
+											            	<option value="S_3">专利权质押</option>
+											            	<option value="S_4">应收账款质押</option>
+											            	<option value="S_5">其他</option>
+											            </select>
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="#collateralName" class="col-sm-2 control-label">抵质押物名称</label>
+													<div class="col-sm-4 input-group">
+														<input type="text" class="form-control validate[required]" name="collateralName" data-errormessage="抵质押物名称不能为空">
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="#warrantNum" class="col-sm-2 control-label">权证号</label>
+													<div class="col-sm-4 input-group">
+														<input type="text" class="form-control" name="warrantNum">
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="#evaluationValue" class="col-sm-2 control-label">评估值</label>
+													<div class="col-sm-4 input-group">
+														<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
+														<input type="text" class="form-control" name="evaluationValue" >
+														<span class="input-group-addon"><i class="fa">元</i></span>
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="#warrantHolder" class="col-sm-2 control-label">权证所有人</label>
+													<div class="col-sm-4 input-group">
+														<input type="text" class="form-control" name="warrantHolder" >
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="#collateralAddr" class="col-sm-2 control-label">抵质押物放置位置</label>
+													<div class="col-sm-4 input-group">
+														<input type="text" class="form-control" name="collateralAddr" >
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="#handleDate" class="col-sm-2 control-label">办理抵质押日期</label>
+													<div class="col-sm-4 input-group">
+														<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+														<input type="text"
+															class="form-control pull-right datepicker" name="handleDate">
+													</div>
+												</div>
+											</c:forEach>
+											
+											<input type="hidden" name="id" value="">
 											<div class="form-group">
 												<label for="#pledgeType" class="col-sm-2 control-label">担保类型</label>
 												<div class="col-sm-4 input-group">

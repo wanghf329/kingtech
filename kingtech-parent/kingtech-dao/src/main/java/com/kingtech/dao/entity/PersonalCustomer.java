@@ -129,6 +129,41 @@ public class PersonalCustomer extends UuidEntity{
 		this.addressDistrict = addressDistrict;
 	}
 
+	public PersonalCustomer(String name, SexEnum sex, CertType category,
+			String cardNum, String phone, YesNoEnum farmersFlag,
+			String education, String fax, String email, String marriage,
+			String nationality, Date birthDate, String nation,
+			String addressProvince, String addressCity, String addressDistrict,
+			String address, String postCode, String residence,
+			String nativePlace, String workUnit, String post) {
+		super();
+		this.name = name;
+		this.sex = sex;
+		this.category = category;
+		this.cardNum = cardNum;
+		this.phone = phone;
+		this.farmersFlag = farmersFlag;
+		this.education = education;
+		this.fax = fax;
+		this.email = email;
+		this.marriage = marriage;
+		this.nationality = nationality;
+		this.birthDate = birthDate;
+		this.nation = nation;
+		this.addressProvince = addressProvince;
+		this.addressCity = addressCity;
+		this.addressDistrict = addressDistrict;
+		this.address = address;
+		this.postCode = postCode;
+		this.residence = residence;
+		this.nativePlace = nativePlace;
+		this.workUnit = workUnit;
+		this.post = post;
+	}
+	
+	
+	
+
 	
 	
 }

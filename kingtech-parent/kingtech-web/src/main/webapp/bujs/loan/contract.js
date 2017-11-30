@@ -51,11 +51,6 @@ function getBorrower(){
 	});
 }
 
-
-$("#loanSupplementBtn").click(function(e){ 
-	window.location.href = "loan/supplement?loanContractId=2121";
-});
-
 $("input[name='pledgeType'][value='S_1']").on("ifChecked", function(event){
 	$("#collateralType1").css("display","");
 	$("#collateralType2").css("display","none");
