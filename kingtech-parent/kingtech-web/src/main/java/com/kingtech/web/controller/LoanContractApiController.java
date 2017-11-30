@@ -87,6 +87,7 @@ public class LoanContractApiController {
 	@RequestMapping(method = RequestMethod.GET,value="/supplement")
 	public String supplement(Model model, @RequestParam("loanContractId") String loanContractId) { 
 		model.addAttribute("loanContractId", loanContractId);
+		model.addAttribute("collateralType",CollateralTypeEnum.values());
 		return "/loan/loanSupplement";
 	}
 	

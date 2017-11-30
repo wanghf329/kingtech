@@ -231,7 +231,7 @@
 		<%@include file="../common/footer.jspf" %>   
         <script src="bujs/loan/contract.js" type="text/javascript"></script>  
         <script type="text/javascript">
-        	var borrowerId = '${borrowerId}';
+        	var borrowerId = '${contract.borrowerId}';
         </script>     
     </body>
 </html>
