@@ -1,7 +1,11 @@
 package com.kingtech.web.controller;
 
+
 import java.math.BigDecimal;
 import java.text.ParseException;
+
+import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,10 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
 import com.kingtech.enums.CertType;
 import com.kingtech.enums.IndustryEnum;
 import com.kingtech.enums.IndustryType;
 import com.kingtech.enums.ScaleType;
+
+import com.kingtech.enums.BorrowerTypeEnum;
+
 import com.kingtech.web.commons.base.service.BorrowerService;
 
 @RequestMapping("/borrower")
@@ -23,7 +31,7 @@ public class BorrowerApiController {
 	
 	@Autowired
 	private BorrowerService borrowerService;
-	
+
 
 	@RequestMapping(method = RequestMethod.GET,value="/corporationList")
 	public String corporationList(Model model) { 
@@ -35,6 +43,7 @@ public class BorrowerApiController {
 		return "borrower/personBorrowerList"; 
 	}
 	
+
 	@RequestMapping(method = RequestMethod.GET, value = "/enterprise/edit")
 	public String enterpriseEdit(Model model) {
 		model.addAttribute("scaleTypes", ScaleType.values());
@@ -71,4 +80,15 @@ public class BorrowerApiController {
 		return "redirect:/corporationList";
 	}
 	
+
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET,value="list/{type}")
+	public List listByType(@PathVariable("type") BorrowerTypeEnum type, Model model) {
+		if(BorrowerTypeEnum.S_1.equals(type)){
+			return borrowerService.listAllEnterpries();
+		}else{
+			return borrowerService.listAllPersonal();
+		}
+	}
+
 }

@@ -23,8 +23,28 @@ $("#editContractBtn").click(function(){
 	window.location.href = "loan/edit?id=";
 });
 
+$("#borrowerType").change(function(){
+	var html = "";
+	var type = $(this).val();
+	if(type=="S_1"){
+		$.get("borrower/list/"+type,null,function(res){
+			for(var o in res){
+				html += "<option value='"+o.id+"'>'"+o.corporateName+"'</option>"
+			}
+		});
+	}else{
+		$.get("borrower/list/"+type,null,function(res){
+			for(var o in res){
+				html += "<option value='"+o.id+"'>'"+o.name+"'</option>"
+			}
+		});
+	} 
+	$("#borrowerId").html(html);
+});
+
+
 $("#loanSupplementBtn").click(function(e){ 
-	window.location.href = "loan/supplement/" + e.loanContractId;
+	window.location.href = "loan/supplement?loanContractId=2121";
 });
 
 

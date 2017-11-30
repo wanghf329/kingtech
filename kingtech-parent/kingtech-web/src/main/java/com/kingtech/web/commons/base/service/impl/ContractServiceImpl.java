@@ -75,7 +75,7 @@ public class ContractServiceImpl implements ContractService{
 	@Override
 	@Transactional
 	public void addNew(String id,String loanContractId, String loanContractName,
-					   BorrowerTypeEnum borrowerType, String customerId, String guarantee,
+					   BorrowerTypeEnum borrowerType,String borrowerId, String customerId, String guarantee,
 					   BigDecimal loanAmount, PeriodTypeEnum periodType, int periodTerm,
 					   Date loanStartDate, Date loanEndDate, RateTypeEnum rateType,
 					   BigDecimal rate, LoanPurposeEnum purpose, IndustryEnum industry,
@@ -84,7 +84,7 @@ public class ContractServiceImpl implements ContractService{
 		Contract ct = null;
 		if(StringUtils.isEmpty(id)){
 			ct = new Contract(loanContractId,
-					loanContractName,borrowerType,
+					loanContractName,borrowerType,borrowerId,
 					customerId,guarantee,loanAmount,
 					periodType,periodTerm,loanStartDate,
 					loanEndDate,rateType,rate,
@@ -98,6 +98,7 @@ public class ContractServiceImpl implements ContractService{
 			ct.setLoanContractId(loanContractId);
 			ct.setLoanContractName(loanContractName);
 			ct.setBorrowerType(borrowerType);
+			ct.setBorrowerId(borrowerId);
 			ct.setCustomerId(customerId);
 			ct.setGuarantee(guarantee);
 			ct.setLoanAmount(loanAmount);

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kingtech.enums.BorrowerTypeEnum;
 import com.kingtech.enums.CertType;
@@ -85,8 +84,8 @@ public class LoanContractApiController {
 		return "/loan/loanEdit";
 	}  
 	
-	@RequestMapping(method = RequestMethod.GET,value="/supplement/{loanContractId}")
-	public String supplement(@PathVariable String loanContractId, Model model) { 
+	@RequestMapping(method = RequestMethod.GET,value="/supplement")
+	public String supplement(Model model, @RequestParam("loanContractId") String loanContractId) { 
 		model.addAttribute("loanContractId", loanContractId);
 		return "/loan/loanSupplement";
 	}
@@ -115,7 +114,7 @@ public class LoanContractApiController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/save")
 	public String save(Model model, String id, String loanContractId,
-			String loanContractName, String borrowerType, String customerId,
+			String loanContractName, String borrowerType,String borrowerId, String customerId,
 			String guarantee, BigDecimal loanAmount, String periodType,
 			int periodTerm, String loanStartDate, String loanEndDate,
 			String rateType, BigDecimal rate, String purpose, String industry,
@@ -123,7 +122,7 @@ public class LoanContractApiController {
 			String repaySource, String status, String isExtend)
 			throws ParseException {
 		contractService.addNew(id, loanContractId, loanContractName,
-				BorrowerTypeEnum.S_0, customerId, null, loanAmount,
+				BorrowerTypeEnum.valueOf(borrowerType), borrowerId,customerId, null, loanAmount,
 				PeriodTypeEnum.valueOf(periodType), periodTerm,
 				DateUtils.parseDate(loanStartDate, "yyyy-MM-dd"),
 				DateUtils.parseDate(loanEndDate, "yyyy-MM-dd"),
@@ -139,7 +138,7 @@ public class LoanContractApiController {
 	
 	
 	@RequestMapping(method = RequestMethod.GET,value="/push/{id}")
-	public String supplement(Model model,@PathVariable("id") String id) { 
+	public String push(Model model,@PathVariable("id") String id) { 
 		paymentApi.contractInfoApi(id, IdentifierType.A);
 		return "redirect:/loan/list";
 	}  

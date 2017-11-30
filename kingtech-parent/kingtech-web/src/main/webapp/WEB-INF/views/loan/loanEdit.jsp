@@ -55,10 +55,8 @@
 												<div class="form-group">
 													<label for="#branch" class="col-sm-2 control-label">借款人</label>
 													<div class="col-sm-4 input-group">
-														<select class="form-control validate[required]" id="borrowerType" name="borrowerType">
-															<c:forEach var="it" items="${borrowerType}">
-						  										<option value ="${it.name()}">${it.getKey()}</option>
-															</c:forEach>
+														<select class="form-control validate[required]" id="borrowerId" name="borrowerId">
+						  									
 														</select>
 													</div>
 												</div>																									

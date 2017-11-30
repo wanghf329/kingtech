@@ -25,176 +25,240 @@
 				<!-- Main content -->
                 <section class="content">
                     <div class="row">
-                            <div class="box">
-                                <div class="box-header">
-                                    <h3 class="box-title">补充合同信息</h3>
-                                </div><!-- /.box-header --> 
-                                <div class="box-body">
-			                    	<form class="form-horizontal" id="form-horizontal" action="loan/add/supplement" method="POST">
+                        <div class="box">
+                            <div class="box-header">
+                                <h3 class="box-title">补充合同信息</h3>
+                            </div><!-- /.box-header --> 
+                            <div class="col-xs-12">
+                                <div class="tabbable">
+                                	<ul id="myTab" class="inbox-tabs nav nav-tabs tab-size-bigger tab-space-1">
+                                		<li data-type="collateral">
+											<a data-toggle="tab" href="#collateralTab">
+												抵质押物	
+											</a>
+										</li>
+										<li data-type="guarantee">
+											<a data-toggle="tab" href="#guaranteeTab">
+												保证人信息
+											</a>
+										</li>
+										<li data-type="repayPlan">
+											<a data-toggle="tab" href="#repayPlanTab">
+												还款计划
+											</a>
+										</li>
+										<li data-type="settledInfo">
+											<a data-toggle="tab" href="#settledInfoTab">
+												放款信息
+											</a>
+										</li>
+                                	</ul>
+                                </div>
+                                <div class="tab-content no-border no-padding">
+                                	<!-- 抵质押物 -->
+                                	<div id="collateralTab" class="tab-pane in active">
+                                		<form class="form-horizontal" id="form-horizontal"
+											action="loan/supplement/addCollateral" method="POST">
+											<input type="hidden" name="id" value="">
+											<input type="hidden" name="loanContractId" value="${loanContractId}">
+											<div class="form-group">
+												<label for="#pledgeType" class="col-sm-2 control-label">担保类型</label>
+												<div class="col-sm-4 input-group">
+									                <div class="radio">
+									                    <input type="radio" name="pledgeType" value="S_1" checked="">抵押
+									                   	<input type="radio" name="pledgeType" value="S_2" >质押
+									                </div>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="#collateralType" class="col-sm-2 control-label">抵质押物类型</label>
+												<div class="col-sm-4 input-group ">
+													<select class="form-control validate[required]" name="collateralType">
+										            	<option value="S_1">存货抵押</option>
+										            	<option value="S_2">客账抵押</option>
+										            	<option value="S_3">证券抵押</option>
+										            	<option value="S_4">设备抵押</option>
+										            	<option value="S_5">不动产抵押</option>
+										            	<option value="S_6">人寿险抵押</option>
+										            	<option value="S_7">其他</option>
+										            </select>
+										            <select class="form-control validate[required]" name="collateralType" style="display:none">
+										            	<option value="S_1">股权质押</option>
+										            	<option value="S_2">定期存单质押</option>
+										            	<option value="S_3">专利权质押</option>
+										            	<option value="S_4">应收账款质押</option>
+										            	<option value="S_5">其他</option>
+										            </select>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="#collateralName" class="col-sm-2 control-label">抵质押物名称</label>
+												<div class="col-sm-4 input-group">
+													<input type="text" class="form-control validate[required]" name="collateralName" data-errormessage="抵质押物名称不能为空">
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="#warrantNum" class="col-sm-2 control-label">权证号</label>
+												<div class="col-sm-4 input-group">
+													<input type="text" class="form-control" name="warrantNum">
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="#evaluationValue" class="col-sm-2 control-label">评估值</label>
+												<div class="col-sm-4 input-group">
+													<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
+													<input type="text" class="form-control" name="evaluationValue" >
+													<span class="input-group-addon"><i class="fa">元</i></span>
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="#warrantHolder" class="col-sm-2 control-label">权证所有人</label>
+												<div class="col-sm-4 input-group">
+													<input type="text" class="form-control" name="warrantHolder" >
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="#collateralAddr" class="col-sm-2 control-label">抵质押物放置位置</label>
+												<div class="col-sm-4 input-group">
+													<input type="text" class="form-control" name="collateralAddr" >
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="#handleDate" class="col-sm-2 control-label">办理抵质押日期</label>
+												<div class="col-sm-4 input-group">
+													<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+													<input type="text"
+														class="form-control pull-right datepicker-time" name="handleDate">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-5 control-label"></label> 
+												<button type="button" class="btn btn-primary saveRecordBtn">保&nbsp;存</button>
+											</div>
+										</form>
 										
-										<input type="hidden" id="loanContractId" value="${loanContractId}">
-										<div class="form-group">
-											<label for="#pledgeType" class="col-sm-2 control-label">担保类型</label>
-											<div class="col-sm-4 input-group">
-								                <div class="radio">
-								                    <input type="radio" name="pledgeType" value="1" checked="">抵押
-								                   	<input type="radio" name="pledgeType" value="2" >质押
-								                </div>
+                                	</div>
+                                	
+                                	<!-- 保证人信息 -->
+                                	<div id="guaranteeTab" class="tab-pane">
+                                		<form class="form-horizontal" id="form-horizontal"
+											action="loan/supplement/addGuarantee" method="POST">
+											<input type="hidden" name="id" value="">
+											<input type="hidden" name="loanContractId" value="${loanContractId}">
+											<div class="form-group">
+												<label for="#name" class="col-sm-2 control-label">保证人名字</label>
+												<div class="col-sm-4 input-group">
+													<input type="text" class="form-control validate[required]" name="name" data-errormessage="保证人名字不能为空">
+												</div>
 											</div>
-										</div>
-										<div class="form-group">
-											<label for="#collateralType" class="col-sm-2 control-label">抵质押物类型</label>
-											<div class="col-sm-4 input-group ">
-												<select class="form-control validate[required]" name="collateralType">
-									            	<option value="1">存货抵押</option>
-									            	<option value="2">客账抵押</option>
-									            	<option value="3">证券抵押</option>
-									            	<option value="4">设备抵押</option>
-									            	<option value="5">不动产抵押</option>
-									            	<option value="6">人寿险抵押</option>
-									            	<option value="7">其他</option>
-									            </select>
-									            <select class="form-control validate[required]" name="collateralType" style="display:none">
-									            	<option value="1">股权质押</option>
-									            	<option value="2">定期存单质押</option>
-									            	<option value="3">专利权质押</option>
-									            	<option value="4">应收账款质押</option>
-									            	<option value="5">其他</option>
-									            </select>
+											<div class="form-group">
+												<label for="#cardNum" class="col-sm-2 control-label">保证人证件号</label>
+												<div class="col-sm-4 input-group">
+													<input type="text" class="form-control validate[required]" name="cardNum" data-errormessage="保证人证件号不能为空">
+												</div>
 											</div>
-										</div>
-										<div class="form-group">
-											<label for="#collateralName" class="col-sm-2 control-label">抵质押物名称</label>
-											<div class="col-sm-4 input-group">
-												<input type="text" class="form-control validate[required]" name="collateralName" data-errormessage="抵质押物名称不能为空">
+											<div class="form-group">
+												<label for="#phone" class="col-sm-2 control-label">保证人联系方式</label>
+												<div class="col-sm-4 input-group">
+													<input type="text" class="form-control validate[required]" name="phone" data-errormessage="保证人联系方式不能为空">
+												</div>
 											</div>
-										</div>
-										<div class="form-group">
-											<label for="#warrantNum" class="col-sm-2 control-label">权证号</label>
-											<div class="col-sm-4 input-group">
-												<input type="text" class="form-control" name="warrantNum">
+											<div class="form-group">
+												<label for="#address" class="col-sm-2 control-label">联系地址</label>
+												<div class="col-sm-4 input-group">
+													<input type="text" class="form-control validate[required]" name="address" data-errormessage="联系地址不能为空">
+												</div>
 											</div>
-										</div>
-										<div class="form-group">
-											<label for="#evaluationValue" class="col-sm-2 control-label">评估值</label>
-											<div class="col-sm-4 input-group">
-												<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
-												<input type="text" class="form-control" name="evaluationValue" >
-												<span class="input-group-addon"><i class="fa">元</i></span>
+											<div class="form-group">
+												<label class="col-sm-5 control-label"></label> 
+												<button type="button" class="btn btn-primary saveRecordBtn">保&nbsp;存</button>
 											</div>
-										</div>
-										<div class="form-group">
-											<label for="#warrantHolder" class="col-sm-2 control-label">权证所有人</label>
-											<div class="col-sm-4 input-group">
-												<input type="text" class="form-control" name="warrantHolder" >
+										</form>
+                                	</div>
+                                	
+                                	<!-- 还款计划 -->
+                                	<div id="repayPlanTab" class="tab-pane">
+                                		<form class="form-horizontal" id="form-horizontal"
+											action="loan/supplement/addRepayPlan" method="POST">
+											<input type="hidden" name="id" value="">
+											<input type="hidden" name="loanContractId" value="${loanContractId}">
+											<div class="form-group">
+												<label for="#repayDate" class="col-sm-2 control-label">还款日期</label>
+												<div class="col-sm-4 input-group date">
+													<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+													<input type="text" class="form-control pull-right datepicker validate[required]" name="repayDate"
+															 data-errormessage="还款日期不能为空">
+												</div>
 											</div>
-										</div>
-										<div class="form-group">
-											<label for="#collateralAddr" class="col-sm-2 control-label">抵质押物放置位置</label>
-											<div class="col-sm-4 input-group">
-												<input type="text" class="form-control" name="collateralAddr" >
+											<div class="form-group">
+												<label for="#principal" class="col-sm-2 control-label">还款本金</label>
+												<div class="col-sm-4 input-group">
+													<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
+													<input type="text" class="form-control validate[required,custom[number]]" name="principal" data-errormessage="还款本金只能为数字">
+													<span class="input-group-addon"><i class="fa">元</i></span>
+												</div>
 											</div>
-										</div>
-										<div class="form-group">
-											<label for="#handleDate" class="col-sm-2 control-label">办理抵质押日期</label>
-											<div class="col-sm-4 input-group">
-												<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-												<input type="text"
-													class="form-control pull-right datepicker-time" name="handleDate">
+											<div class="form-group">
+												<label for="#interest" class="col-sm-2 control-label">还款利息</label>
+												<div class="col-sm-4 input-group">
+													<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
+													<input type="text" class="form-control validate[required,custom[number]]" name="interest" data-errormessage="还款利息只能为数字">
+													<span class="input-group-addon"><i class="fa">元</i></span>
+												</div>
 											</div>
-										</div>
-										
-										<hr />
-										<div class="form-group">
-											<label for="#name" class="col-sm-2 control-label">保证人名字</label>
-											<div class="col-sm-4 input-group">
-												<input type="text" class="form-control validate[required]" name="name" data-errormessage="保证人名字不能为空">
+											<div class="form-group">
+												<label class="col-sm-5 control-label"></label> 
+												<button type="button" class="btn btn-primary saveRecordBtn">保&nbsp;存</button>
 											</div>
-										</div>
-										<div class="form-group">
-											<label for="#cardNum" class="col-sm-2 control-label">保证人证件号</label>
-											<div class="col-sm-4 input-group">
-												<input type="text" class="form-control validate[required]" name="cardNum" data-errormessage="保证人证件号不能为空">
+										</form>
+                                	</div>
+                                	
+                                	<!-- 放款信息 -->
+                                	<div id="settledInfoTab" class="tab-pane">
+                                		<form class="form-horizontal" id="form-horizontal"
+											action="loan/supplement/addSettledInfo" method="POST">
+											<input type="hidden" name="id" value="">
+											<input type="hidden" name="loanContractId" value="${loanContractId}">
+											<div class="form-group">
+												<label for="#money" class="col-sm-2 control-label">放款金额</label>
+												<div class="col-sm-4 input-group">
+													<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
+													<input type="text" class="form-control validate[required,custom[number]]" name="money" data-errormessage="放款金额只能为数字">
+													<span class="input-group-addon"><i class="fa">元</i></span>
+												</div>
 											</div>
-										</div>
-										<div class="form-group">
-											<label for="#phone" class="col-sm-2 control-label">保证人联系方式</label>
-											<div class="col-sm-4 input-group">
-												<input type="text" class="form-control validate[required]" name="phone" data-errormessage="保证人联系方式不能为空">
+											<div class="form-group">
+												<label for="#loanDate" class="col-sm-2 control-label">放款日期</label>
+												<div class="col-sm-4 input-group date">
+													<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+													<input type="text" class="form-control pull-right datepicker validate[required]" name="loanDate"
+															 data-errormessage="放款日期不能为空">
+												</div>
 											</div>
-										</div>
-										<div class="form-group">
-											<label for="#address" class="col-sm-2 control-label">联系地址</label>
-											<div class="col-sm-4 input-group">
-												<input type="text" class="form-control validate[required]" name="address" data-errormessage="联系地址不能为空">
+											<div class="form-group">
+												<label for="#debtStartDate" class="col-sm-2 control-label">本笔放款债项开始日</label>
+												<div class="col-sm-4 input-group date">
+													<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+													<input type="text" class="form-control pull-right datepicker validate[required]" name="debtStartDate"
+															 data-errormessage="本笔放款债项开始日不能为空">
+												</div>
 											</div>
-										</div>
-										
-										<hr />
-										<div class="form-group">
-											<label for="#repayDate" class="col-sm-2 control-label">还款日期</label>
-											<div class="col-sm-4 input-group date">
-												<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-												<input type="text" class="form-control pull-right datepicker validate[required]" name="repayDate"
-														 data-errormessage="还款日期不能为空">
+											<div class="form-group">
+												<label for="#debtEndDate" class="col-sm-2 control-label">本笔放款债项结束日</label>
+												<div class="col-sm-4 input-group date">
+													<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+													<input type="text" class="form-control pull-right datepicker validate[required]" name="debtEndDate"
+															 data-errormessage="本笔放款债项结束日不能为空">
+												</div>
 											</div>
-										</div>
-										<div class="form-group">
-											<label for="#principal" class="col-sm-2 control-label">还款本金</label>
-											<div class="col-sm-4 input-group">
-												<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
-												<input type="text" class="form-control validate[required,custom[number]]" name="principal" data-errormessage="还款本金只能为数字">
-												<span class="input-group-addon"><i class="fa">元</i></span>
+											<div class="form-group">
+												<label class="col-sm-5 control-label"></label> 
+												<button type="button" class="btn btn-primary saveRecordBtn">保&nbsp;存</button>
 											</div>
-										</div>
-										<div class="form-group">
-											<label for="#interest" class="col-sm-2 control-label">还款利息</label>
-											<div class="col-sm-4 input-group">
-												<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
-												<input type="text" class="form-control validate[required,custom[number]]" name="interest" data-errormessage="还款利息只能为数字">
-												<span class="input-group-addon"><i class="fa">元</i></span>
-											</div>
-										</div>
-										
-										<hr />
-										<div class="form-group">
-											<label for="#money" class="col-sm-2 control-label">放款金额</label>
-											<div class="col-sm-4 input-group">
-												<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
-												<input type="text" class="form-control validate[required,custom[number]]" name="money" data-errormessage="放款金额只能为数字">
-												<span class="input-group-addon"><i class="fa">元</i></span>
-											</div>
-										</div>
-										<div class="form-group">
-											<label for="#loanDate" class="col-sm-2 control-label">放款日期</label>
-											<div class="col-sm-4 input-group date">
-												<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-												<input type="text" class="form-control pull-right datepicker validate[required]" name="loanDate"
-														 data-errormessage="放款日期不能为空">
-											</div>
-										</div>
-										<div class="form-group">
-											<label for="#debtStartDate" class="col-sm-2 control-label">本笔放款债项开始日</label>
-											<div class="col-sm-4 input-group date">
-												<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-												<input type="text" class="form-control pull-right datepicker validate[required]" name="debtStartDate"
-														 data-errormessage="本笔放款债项开始日不能为空">
-											</div>
-										</div>
-										<div class="form-group">
-											<label for="#debtEndDate" class="col-sm-2 control-label">本笔放款债项结束日</label>
-											<div class="col-sm-4 input-group date">
-												<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-												<input type="text" class="form-control pull-right datepicker validate[required]" name="debtEndDate"
-														 data-errormessage="本笔放款债项结束日不能为空">
-											</div>
-										</div>
-										
-										<div class="form-group">
-											<label class="col-sm-5 control-label"></label> 
-											<button type="button" class="btn btn-primary saveRecordBtn">保&nbsp;存</button>
-										</div>	
-									</form>
+										</form>
+                                	</div>
+                                	
+			                    	
                                 </div>
                             </div><!-- /.box -->
                         </div><!-- /.col -->

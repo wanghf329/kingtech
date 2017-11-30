@@ -159,7 +159,7 @@ public class Contract extends RecordEntity{
 	private YesNoEnum isExtend;
 	
 	public Contract(String loanContractId,
-			String loanContractName, BorrowerTypeEnum borrowerType,
+			String loanContractName, BorrowerTypeEnum borrowerType,String borrowerId,
 			String customerId, String guarantee, BigDecimal loanAmount,
 			PeriodTypeEnum periodType, int periodTerm, Date loanStartDate,
 			Date loanEndDate, RateTypeEnum rateType, BigDecimal rate,
@@ -169,6 +169,7 @@ public class Contract extends RecordEntity{
 		this.loanContractId = loanContractId;
 		this.loanContractName = loanContractName;
 		this.borrowerType = borrowerType;
+		this.borrowerId = borrowerId;
 		this.customerId = customerId;
 		this.guarantee = guarantee;
 		this.loanAmount = loanAmount;
