@@ -107,7 +107,7 @@ public class LoanContractApiController {
 			String repaySource, String status, String isExtend)
 			throws ParseException {
 		contractService.addNew(id, loanContractId, loanContractName,
-				BorrowerTypeEnum.PERSION, customerId, null, loanAmount,
+				BorrowerTypeEnum.S_0, customerId, null, loanAmount,
 				PeriodTypeEnum.valueOf(periodType), periodTerm,
 				DateUtils.parseDate(loanStartDate, "yyyy-MM-dd"),
 				DateUtils.parseDate(loanEndDate, "yyyy-MM-dd"),

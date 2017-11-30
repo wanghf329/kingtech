@@ -99,7 +99,7 @@ public class DTOUtils {
 				guaranteeModels.add(new GuaranteeModel(guarantee.getName(), guarantee.getCardNum(), guarantee.getPhone(), guarantee.getAddress()));
 			}
 		
-		return guaranteeModels.isEmpty() ? null : guaranteeModels;
+		return  guaranteeModels;
 	}
 	
 	
@@ -117,7 +117,7 @@ public class DTOUtils {
 			}
 			
 		 
-		 return collateralModels.isEmpty() ? null : collateralModels;
+		 return  collateralModels;
 	}
 	
 	
@@ -129,20 +129,20 @@ public class DTOUtils {
 			planModels.add(new RepayPlanModel(DateUtil.getDateStr(repayPlan.getRepayDate(), "yyyy-MM-dd"),
 					repayPlan.getPrincipal().toPlainString(), repayPlan.getInterest().toPlainString()));
 		}
-		return planModels.isEmpty() ? null : planModels;
+		return planModels;
 	}
 	
 	
-	public static List<SettledInfoModel> getSettledInfoModels (List<SettledInfo> settledInfos){
-		List<SettledInfoModel> settledInfoModels = new ArrayList<SettledInfoModel>();
-		for (SettledInfo settledInfo :settledInfos) {
-			            settledInfoModels.add(new SettledInfoModel(settledInfo.getMoney().toPlainString(),
+	public static SettledInfoModel getSettledInfoModels (SettledInfo  settledInfo){
+		SettledInfoModel infoModel =null;
+		if (settledInfo !=null) {
+			infoModel = new SettledInfoModel(settledInfo.getMoney().toPlainString(),
 					DateUtil.getDateStr(settledInfo.getLoanDate(), "yyyy-MM-dd"), 
 					DateUtil.getDateStr(settledInfo.getDebtStartDate(), "yyyy-MM-dd"),
-					DateUtil.getDateStr(settledInfo.getDebtEndDate(), "yyyy-MM-dd")));
+					DateUtil.getDateStr(settledInfo.getDebtEndDate(), "yyyy-MM-dd"));
 		}
 		
-		return settledInfoModels.isEmpty() ? null :settledInfoModels;
+		return infoModel;
 	}
 	
 	
