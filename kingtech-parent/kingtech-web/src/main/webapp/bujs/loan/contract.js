@@ -2,8 +2,8 @@ $(document).ready(function () {
       //调用函数，初始化表格  
       //initTable();  
 	
-	
-      menuChecked("#loanList"); 
+      menuChecked("#loanList");
+      getBorrower(); 
       
       $("#form-horizontal").validationEngine({ 
     	  validationEventTriggers:"keyup blur",
@@ -24,23 +24,29 @@ $("#editContractBtn").click(function(){
 });
 
 $("#borrowerType").change(function(){
+	getBorrower();
+});
+
+function getBorrower(){
 	var html = "";
-	var type = $(this).val();
+	$("#borrowerId").empty(); 
+	var type = $("#borrowerType").val();  
 	if(type=="S_1"){
 		$.get("borrower/list/"+type,null,function(res){
-			for(var o in res){
-				html += "<option value='"+o.id+"'>'"+o.corporateName+"'</option>"
+			for(var i in res){
+				html += "<option value='"+res[i].id+"'>'"+res[i].corporateName+"'</option>"
 			}
-		});
+			$("#borrowerId").html(html);
+		}); 
 	}else{
 		$.get("borrower/list/"+type,null,function(res){
 			for(var o in res){
-				html += "<option value='"+o.id+"'>'"+o.name+"'</option>"
+				html += "<option value='"+res[i].id+"'>'"+res[i].name+"'</option>"
 			}
+			$("#borrowerId").html(html);
 		});
 	} 
-	$("#borrowerId").html(html);
-});
+}
 
 
 $("#loanSupplementBtn").click(function(e){ 
