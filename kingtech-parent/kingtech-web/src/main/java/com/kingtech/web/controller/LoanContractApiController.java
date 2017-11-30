@@ -7,11 +7,14 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.alibaba.druid.util.StringUtils;
 import com.kingtech.enums.BorrowerTypeEnum;
 import com.kingtech.enums.CertType;
+import com.kingtech.enums.CollateralTypeEnum;
 import com.kingtech.enums.IndustryEnum;
 import com.kingtech.enums.IndustryType;
 import com.kingtech.enums.LoanPurposeEnum;
@@ -19,6 +22,7 @@ import com.kingtech.enums.LoanTypeEnum;
 import com.kingtech.enums.LoanstatusEnum;
 import com.kingtech.enums.PayTypeEnum;
 import com.kingtech.enums.PeriodTypeEnum;
+import com.kingtech.enums.PledgeTypeEnum;
 import com.kingtech.enums.RateTypeEnum;
 import com.kingtech.enums.ScaleType;
 import com.kingtech.enums.UnionFlagEnum;
@@ -65,11 +69,33 @@ public class LoanContractApiController {
 		return "/loan/loanEdit";
 	}  
 	
-	@RequestMapping(method = RequestMethod.GET,value="/supplement")
-	public String supplement(Model model) { 
-		model.addAttribute("list",contractService.listAll());
+	@RequestMapping(method = RequestMethod.GET,value="/supplement/{loanContractId}")
+	public String supplement(@PathVariable String loanContractId, Model model) { 
+		model.addAttribute("loanContractId", loanContractId);
 		return "/loan/loanSupplement";
-	}  
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/add/supplement")
+	public String addSupplement(Model model, String loanContractId,
+			String pledgeType, String collateralType, String collateralName, String warrantNum, BigDecimal evaluationValue, String warrantHolder, String collateralAddr, String handleDate,
+			String name, String cardNum, String phone, String address,
+			String repayDate, BigDecimal principal, BigDecimal interest,
+			BigDecimal money, String loanDate, String debtStartDate, String debtEndDate) throws ParseException {
+		contractService.addCollateral(loanContractId, 
+				PledgeTypeEnum.valueOf(pledgeType), CollateralTypeEnum.valueOf(collateralType), 
+				collateralName, warrantNum, evaluationValue, warrantHolder, collateralAddr, 
+				StringUtils.isEmpty(handleDate) ? null : DateUtils.parseDate(handleDate, "yyyy-MM-dd"));
+		contractService.addGuarantee(loanContractId, 
+				name, cardNum, phone, address);
+		contractService.addRepayPlan(loanContractId, 
+				DateUtils.parseDate(repayDate, "yyyy-MM-dd"), 
+				principal, interest);
+		contractService.addSettledInfo(loanContractId, money, 
+				DateUtils.parseDate(loanDate, "yyyy-MM-dd"), 
+				DateUtils.parseDate(debtStartDate, "yyyy-MM-dd"), 
+				DateUtils.parseDate(debtEndDate, "yyyy-MM-dd"));
+		return "redirect:/loan/list";
+	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/save")
 	public String save(Model model, String id, String loanContractId,
@@ -81,7 +107,7 @@ public class LoanContractApiController {
 			String repaySource, String status, String isExtend)
 			throws ParseException {
 		contractService.addNew(id, loanContractId, loanContractName,
-				BorrowerTypeEnum.PERSION, customerId, null, loanAmount,
+				BorrowerTypeEnum.S_0, customerId, null, loanAmount,
 				PeriodTypeEnum.valueOf(periodType), periodTerm,
 				DateUtils.parseDate(loanStartDate, "yyyy-MM-dd"),
 				DateUtils.parseDate(loanEndDate, "yyyy-MM-dd"),

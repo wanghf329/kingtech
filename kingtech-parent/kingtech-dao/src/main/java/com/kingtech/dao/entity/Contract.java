@@ -52,6 +52,12 @@ public class Contract extends RecordEntity{
 	private BorrowerTypeEnum borrowerType;
 	
 	/**
+	 * 借款人ID
+	 */
+	@Column(name="BORROWER_ID")
+	private String borrowerId;
+	
+	/**
 	 * 营业执照号或证件号码关联
 	 */
 	@Column(name="CUSTOMER_ID")

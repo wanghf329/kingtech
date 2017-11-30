@@ -23,8 +23,8 @@ $("#addContractBtn").click(function(){
 	window.location.href = "loan/edit";
 });
 
-$("#loanSupplementBtn").click(function(){ 
-	window.location.href = "loan/supplement";
+$("#loanSupplementBtn").click(function(e){ 
+	window.location.href = "loan/supplement/" + e.loanContractId;
 });
 
 $("#addEnterPriseBtn").click(function(){ 
