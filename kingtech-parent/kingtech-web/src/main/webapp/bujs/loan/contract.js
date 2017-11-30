@@ -5,7 +5,7 @@ $(document).ready(function () {
       menuChecked("#loanList");
       getBorrower(); 
       
-      $("#form-horizontal").validationEngine({ 
+      $(".form-horizontal").validationEngine({ 
     	  validationEventTriggers:"keyup blur",
     	  inlineValidation: true,
     	  showOneMessage:true,
