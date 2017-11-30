@@ -55,7 +55,17 @@
 	                                            <td>${it.loanContractId}</td>  
 	                                            <td>${it.loanContractName}</td>  
 	                                            <td></td> 
-	                                            <td></td>
+	                                            <td>
+	                                            <c:choose>
+	                                            <c:when test="${empty it.customerId}">
+		                                            	<a href="javascript:void(0)" class="text-blue" onclick="addCustomer('CORPORATION')"><i class="text-blue fa  fa-edit"></i><strong>添加企业</strong></a>
+		                                            	<a href="javascript:void(0)" class="text-green" onclick="addCustomer('PERSION')"><i class="text-green fa  fa-edit"></i><strong>添加个人</strong></a>
+	                                            </c:when>
+	                                            <c:otherwise>
+	                                            		<a href="javascript:void(0)" onclick="showCustomer('${it.borrowerType}','${it.customerId}')"><i class="text-blue fa  fa-edit"></i><strong>${it.customerId}</strong></a>
+	                                            </c:otherwise>
+	                                            </c:choose>
+	                                            </td>
 	                                            <td>${it.rateType}</td>
 	                                            <td>${it.rate}</td>    
 	                                            <td>${it.loanAmount}</td> 

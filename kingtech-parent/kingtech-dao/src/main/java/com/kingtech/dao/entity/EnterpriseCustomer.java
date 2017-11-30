@@ -9,6 +9,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -166,5 +167,53 @@ public class EnterpriseCustomer extends PackageEntity{
 		this.contactAddresscity = contactAddresscity;
 		this.contactAddressDistrict = contactAddressDistrict;
 	}
+
+	public EnterpriseCustomer(String corporateName, ScaleType scale,
+			IndustryType industryType, IndustryEnum industryinvolved,
+			String organizationcode, String regCode, String regOffice,
+			Date regDate, String nationalregNum, String landRegNum,
+			String licence, Date licenceEndDate, String nature, int employNum,
+			String legalRepresentative, Date bulidDate,
+			String actualController, BigDecimal regCapital,
+			BigDecimal reallyCapital, String businessScope, String regAddress,
+			String contactAddressProvince, String contactAddresscity,
+			String contactAddressDistrict, String contactAddress,
+			String postcode, String phone, String linkman, String fax,
+			String email, String webSite) {
+		super();
+		this.corporateName = corporateName;
+		this.scale = scale;
+		this.industryType = industryType;
+		this.industryinvolved = industryinvolved;
+		this.organizationcode = organizationcode;
+		this.regCode = regCode;
+		this.regOffice = regOffice;
+		this.regDate = regDate;
+		this.nationalregNum = nationalregNum;
+		this.landRegNum = landRegNum;
+		this.licence = licence;
+		this.licenceEndDate = licenceEndDate;
+		this.nature = nature;
+		this.employNum = employNum;
+		this.legalRepresentative = legalRepresentative;
+		this.bulidDate = bulidDate;
+		this.actualController = actualController;
+		this.regCapital = regCapital;
+		this.reallyCapital = reallyCapital;
+		this.businessScope = businessScope;
+		this.regAddress = regAddress;
+		this.contactAddressProvince = contactAddressProvince;
+		this.contactAddresscity = contactAddresscity;
+		this.contactAddressDistrict = contactAddressDistrict;
+		this.contactAddress = contactAddress;
+		this.postcode = postcode;
+		this.phone = phone;
+		this.linkman = linkman;
+		this.fax = fax;
+		this.email = email;
+		this.webSite = webSite;
+	}
+	
+	
 
 }

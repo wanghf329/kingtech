@@ -27,14 +27,18 @@ $("#loanSupplementBtn").click(function(){
 	window.location.href = "loan/supplement";
 });
 
-$("#addEnterPriseBtn").click(function(){ 
-	window.location.href = "loan/enterprise/edit";
-});
 
-$("#addPersonnelBtn").click(function(){ 
-	window.location.href = "loan/personnel/edit";
-});
 
+function addCustomer(type,constractId) {
+	if(type == 'CORPORATION') {
+		window.location.href = "loan/enterprise/edit?constractId="+constractId;
+	}else if(type == 'PERSION'){
+		window.location.href = "loan/personnel/edit?constractId="+constractId;
+	}else {
+		alert("请选择添加用户类型");
+	}
+		
+}
 
 
 function getCapital(id){

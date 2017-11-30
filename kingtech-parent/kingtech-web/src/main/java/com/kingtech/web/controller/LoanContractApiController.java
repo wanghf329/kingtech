@@ -2,6 +2,7 @@ package com.kingtech.web.controller;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.util.Date;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.kingtech.dao.entity.EnterpriseCustomer;
 import com.kingtech.enums.BorrowerTypeEnum;
 import com.kingtech.enums.CertType;
 import com.kingtech.enums.IndustryEnum;
@@ -95,17 +97,41 @@ public class LoanContractApiController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/enterprise/edit")
-	public String enterpriseEdit(Model model) {
+	public String enterpriseEdit(Model model,String constractId) {
 		model.addAttribute("list", contractService.listAll());
 		model.addAttribute("scaleTypes", ScaleType.values());
 		model.addAttribute("industryTypes", IndustryType.values());
 		model.addAttribute("industryinvolveds", IndustryEnum.values());
+		model.addAttribute("constractId",constractId);
 		return "/loan/enterpriseEdit";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/personnel/edit")
-	public String personnelEdit(Model model) {
+	public String personnelEdit(Model model,String constractId) {
 		model.addAttribute("certTypes", CertType.values());
+		model.addAttribute("constractId",constractId);
 		return "/loan/personnelEdit";
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/enterprise/add")
+	public String saveEnterprise(Model model, String constractId, String corporateName,
+			String scale, String industryType, String industryinvolved,
+			String organizationcode, String regCode, String regOffice,
+			String regDate, String nationalregNum, String landRegNum,
+			String licence, String licenceEndDate, String nature, int employNum,
+			String legalRepresentative, String bulidDate, String actualController,BigDecimal regCapital,
+			BigDecimal reallyCapital, String businessScope, String regAddress,String contactAddressProvince,
+			String contactAddresscity,String contactAddressDistrict,String contactAddress,String postcode,
+			String phone,String linkman,String fax,String email, String webSite)
+			throws ParseException {
+		contractService.addEnterprise(constractId, corporateName, scale, industryType, 
+									 industryinvolved, organizationcode, regCode, regOffice, regDate, 
+									 nationalregNum, landRegNum, licence, licenceEndDate,
+									 nature, employNum, legalRepresentative, bulidDate,
+									 actualController, regCapital, reallyCapital, businessScope,
+									 regAddress, contactAddressProvince, contactAddresscity, 
+									 contactAddressDistrict, contactAddress, postcode, phone, 
+									 linkman, fax, email, webSite);
+		return "redirect:/loan/list";
 	}
 }

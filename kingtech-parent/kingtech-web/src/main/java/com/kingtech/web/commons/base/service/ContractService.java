@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.kingtech.dao.entity.Contract;
+import com.kingtech.dao.entity.EnterpriseCustomer;
 import com.kingtech.enums.BorrowerTypeEnum;
 import com.kingtech.enums.IndustryEnum;
 import com.kingtech.enums.LoanPurposeEnum;
@@ -26,4 +27,15 @@ public interface ContractService {
 						BigDecimal rate, LoanPurposeEnum purpose, IndustryEnum industry,
 						LoanTypeEnum loanType, UnionFlagEnum unionFlag, PayTypeEnum payType,
 						Date signDate, String repaySource, LoanstatusEnum status, YesNoEnum isExtend);
+	
+	
+	public void addEnterprise(String constractId, String corporateName,
+							String scale, String industryType, String industryinvolved,
+							String organizationcode, String regCode, String regOffice,
+							String regDate, String nationalregNum, String landRegNum,
+							String licence, String licenceEndDate, String nature, int employNum,
+							String legalRepresentative, String bulidDate, String actualController, BigDecimal regCapital,
+							BigDecimal reallyCapital, String businessScope, String regAddress,String contactAddressProvince,
+							String contactAddresscity,String contactAddressDistrict,String contactAddress,String postcode,
+							String phone,String linkman,String fax,String email, String webSite);
 }
