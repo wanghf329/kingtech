@@ -98,7 +98,8 @@ public class LoanContractApiController {
 				PledgeTypeEnum.valueOf(pledgeType), CollateralTypeEnum.valueOf(collateralType.replace(",", "")), 
 				collateralName, warrantNum, evaluationValue, warrantHolder, collateralAddr, 
 				StringUtils.isEmpty(handleDate) ? null : DateUtils.parseDate(handleDate, "yyyy-MM-dd"));
-		return "/loan/loanSupplement";
+		model.addAttribute("loanContractId", loanContractId);
+		return "redirect:/loan/supplement";
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/supplement/addGuarantee")
@@ -106,7 +107,8 @@ public class LoanContractApiController {
 			String name, String cardNum, String phone, String address) throws ParseException {
 		contractService.addGuarantee(id, loanContractId, 
 				name, cardNum, phone, address);
-		return "/loan/loanSupplement";
+		model.addAttribute("loanContractId", loanContractId);
+		return "redirect:/loan/supplement";
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/supplement/addRepayPlan")
@@ -115,7 +117,8 @@ public class LoanContractApiController {
 		contractService.addRepayPlan(id, loanContractId, 
 				DateUtils.parseDate(repayDate, "yyyy-MM-dd"), 
 				principal, interest);
-		return "/loan/loanSupplement";
+		model.addAttribute("loanContractId", loanContractId);
+		return "redirect:/loan/supplement";
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/supplement/addSettledInfo")
@@ -125,7 +128,8 @@ public class LoanContractApiController {
 				DateUtils.parseDate(loanDate, "yyyy-MM-dd"), 
 				DateUtils.parseDate(debtStartDate, "yyyy-MM-dd"), 
 				DateUtils.parseDate(debtEndDate, "yyyy-MM-dd"));
-		return "/loan/loanSupplement";
+		model.addAttribute("loanContractId", loanContractId);
+		return "redirect:/loan/supplement";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/save")
