@@ -13,9 +13,12 @@ import com.kingtech.dao.entity.EnterpriseCustomer;
 import com.kingtech.dao.entity.PersonalCustomer;
 import com.kingtech.dao.rdbms.EnterpriseCustomerDAO;
 import com.kingtech.dao.rdbms.PersonalCustomerDAO;
+import com.kingtech.enums.CertType;
 import com.kingtech.enums.IndustryEnum;
 import com.kingtech.enums.IndustryType;
 import com.kingtech.enums.ScaleType;
+import com.kingtech.enums.SexEnum;
+import com.kingtech.enums.YesNoEnum;
 import com.kingtech.web.commons.base.service.BorrowerService;
 
 @Service
@@ -68,5 +71,44 @@ public class BorrowerServiceImpl implements BorrowerService{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void addPersonnel(String name, String sex, String category,
+			String cardNum, String phone, String farmersFlag, String education,
+			String fax, String email, String marriage, String nationality,
+			String birthDate, String nation, String addressProvince,
+			String addressCity, String addressDistrict, String address,
+			String postCode, String residence, String nativePlace,
+			String workUnit, String post) {
+		try {
+			PersonalCustomer personalCustomer = 
+					new PersonalCustomer( name, SexEnum.valueOf(sex) , CertType.valueOf(category) ,
+							 cardNum, phone, YesNoEnum.valueOf(farmersFlag),  education,
+							 fax,  email,  marriage,  nationality,
+							 StringUtils.isEmpty(birthDate) ? null: DateUtils.parseDate(birthDate, "yyyy-MM-dd"),
+							 nation,  addressProvince,
+							 addressCity,  addressDistrict,  address,
+							 postCode,  residence,  nativePlace,
+							 workUnit,  post);
+			
+			personalCustomer = personalDao.save(personalCustomer);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public EnterpriseCustomer getEnterprise(String id) {
+		// TODO Auto-generated method stub
+		return enterpriseDao.findOne(id);
+	}
+
+	@Override
+	public PersonalCustomer getPersonnel(String id) {
+		// TODO Auto-generated method stub
+		return personalDao.findOne(id);
 	}
 }

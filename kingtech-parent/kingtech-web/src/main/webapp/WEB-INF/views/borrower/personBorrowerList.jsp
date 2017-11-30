@@ -31,42 +31,32 @@
                                     <h3 class="box-title">个人借款人信息列表</h3>
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
-                                	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addContractBtn">新增个人借款人</button>
+                                	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addPersonnelBtn">新增个人借款人</button>
                                     <table class="table"> 
                                         <tr>
-                                            <th>合同编号</th> 
-                                            <th>合同名称</th>
-                                            <th>借款客户类型</th>
-                                            <th>借款客户</th>
-                                            <th>利率类型</th>
-                                            <th>利率</th>
-                                            <th>贷款金额（元）</th>
-                                            <th>贷款期限</th>
-                                            <th>贷款开始日期</th>
-                                            <th>贷款截止日期</th>
-                                            <th>状态</th>
+                                            <th>姓名</th> 
+                                            <th>性别</th>
+                                            <th>证件类型</th>
+                                            <th>证件号码</th>
+                                            <th>联系电话</th>
+                                            <th>是否农牧民</th>
+                                            <th>地址</th>
                                             <th>操作</th>
                                         </tr>
                                         <c:forEach var="it" items="${list}">
 	                                        <tr>
-	                                            <td>${it.loanContractId}</td>  
-	                                            <td>${it.loanContractName}</td>  
-	                                            <td>${it.borrowerType.getKey()}</td> 
-	                                            <td>${it.borrowerId} </td>
-	                                            <td>${it.rateType.getKey()}</td> 
-	                                            <td class="text-green">${it.rate}%</td>    
-	                                            <td class="text-red"><Strong>${it.loanAmount}</Strong></td> 
-	                                            <td>${it.periodTerm}${it.periodType.getKey()}</td> 
-	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.loanStartDate}"></fmt:formatDate></td>
-	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.loanEndDate}"></fmt:formatDate></td> 
+	                                            <td>${it.name}</td>  
 	                                            <td>
-	                                            	<c:if test="${it.pushStatus=='INITATION'}"><span class="text-gray"><i class="text-gray fa fa-info-circle"></i>初始</span></c:if>
-	                                            	<c:if test="${it.pushStatus=='SUCCESS'}"><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span></c:if>
-	                                            	<c:if test="${it.pushStatus=='INPROSESS'}"><span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span></c:if>
-	                                            	<c:if test="${it.pushStatus=='FAILED'}"><span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span></c:if>
-	                                            </td>
+	                                            	<c:if test="${it.sex == 'M'}"><span class="text-gray">男</span></c:if>
+	                                            	<c:if test="${it.sex == 'F'}"><span class="text-gray">女</span></c:if>
+	                                            </td>  
+	                                            <td>${it.category.getKey()}</td> 
+	                                            <td>${it.cardNum} </td>
+	                                            <td>${it.phone}</td> 
+	                                            <td>${it.farmersFlag.getKey()}</td>    
+	                                            <td><Strong>${it.addressProvince}${it.addressCity}${it.addressDistrict}</Strong></td> 
 	                                            <td> 
-	                                            	<a href="javascript:void(0)" onclick="alert('${it.id}')"><i class="text-blue fa fa-exchange"></i><strong>推送</strong></a>
+	                                            	<a href="javascript:void(0)" onclick="getPerson('${it.id}')" ><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a>
 	                                            </td>
 	                                        </tr>
                                         </c:forEach>
