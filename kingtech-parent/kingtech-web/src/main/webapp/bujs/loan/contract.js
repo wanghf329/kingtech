@@ -84,3 +84,14 @@ function delConfirm(id){
 function delCapital(){
 	window.location.href = "branch/delCapital/"+$("#del-id").val();
 };
+
+
+
+ 
+$(".addRepayPlanBtn").on("click",function(){
+	var clone = $(".repayPlanTemplate").clone(true).removeClass("repayPlanTemplate").addClass("repayPlan");
+	$(".repayPlanTemplate").parent().append(clone);  
+});
+$(".delRepayPlanBtn").on("click",function(){
+	$(this).closest(".repayPlan").remove();
+});
