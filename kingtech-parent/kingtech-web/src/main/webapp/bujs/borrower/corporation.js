@@ -3,9 +3,9 @@ $(document).ready(function () {
       //initTable();  
 	
 	
-      menuChecked("#BuBorrowerList"); 
+      menuChecked("#loanList"); 
       
-      $("#form-horizontal").validationEngine({ 
+      $("#enterpriseFrom").validationEngine({ 
     	  validationEventTriggers:"keyup blur",
     	  inlineValidation: true,
     	  showOneMessage:true,
@@ -13,4 +13,18 @@ $(document).ready(function () {
     	  autoHidePrompt:true,
     	  failure : function() { callFailFunction()  } 
       })
+});
+
+
+$("#addEnterpriseBtn").click(function(){ 
+	window.location.href = "borrower/enterprise/edit";
+});
+
+$("#addPersonnelBtn").click(function(){ 
+	window.location.href = "borrower/personnel/edit";
+});
+
+
+$(".saveRecordBtn").click(function(){ 
+	$("#enterpriseFrom").submit();
 });

@@ -31,7 +31,7 @@
                                     <h3 class="box-title">企业借款人信息列表</h3> 
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
-                                	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addContractBtn">新增企业借款人信息</button>
+                                	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addEnterpriseBtn">新增企业借款人信息</button>
                                     <table class="table"> 
                                         <tr>
                                             <th>企业名称</th> 

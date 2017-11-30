@@ -30,7 +30,7 @@
                                     <h3 class="box-title">企业客户信息</h3>
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
-											<form class="form-horizontal" id="enterpriseFrom" action="loan/enterprise/add" method="POST">
+											<form class="form-horizontal" id="enterpriseFrom" action="borrower/enterprise/add" method="POST">
 												<div class="form-group">
 													<label for="#corporateName" class="col-sm-2 control-label">企业名称</label>
 													<div class="col-sm-4 input-group">
@@ -295,6 +295,6 @@
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
 		<%@include file="../common/footer.jspf" %>   
-        <script src="bujs/loan/enterprise.js" type="text/javascript"></script>       
+        <script src="bujs/borrower/corporation.js" type="text/javascript"></script>       
     </body>
 </html>

@@ -64,8 +64,7 @@ public class ContractServiceImpl implements ContractService{
 	@Autowired
 	private CreatRequstId creatRequstId;
 	
-	@Autowired
-	private EnterpriseCustomerDAO enterpriseDao;
+
 	
 	@Override
 	public List<Contract> listAll(){
@@ -75,7 +74,7 @@ public class ContractServiceImpl implements ContractService{
 	@Override
 	@Transactional
 	public void addNew(String id,String loanContractId, String loanContractName,
-					   BorrowerTypeEnum borrowerType, String customerId, String guarantee,
+					   BorrowerTypeEnum borrowerType,String borrowerId, String customerId, String guarantee,
 					   BigDecimal loanAmount, PeriodTypeEnum periodType, int periodTerm,
 					   Date loanStartDate, Date loanEndDate, RateTypeEnum rateType,
 					   BigDecimal rate, LoanPurposeEnum purpose, IndustryEnum industry,
@@ -84,7 +83,7 @@ public class ContractServiceImpl implements ContractService{
 		Contract ct = null;
 		if(StringUtils.isEmpty(id)){
 			ct = new Contract(loanContractId,
-					loanContractName,borrowerType,
+					loanContractName,borrowerType,borrowerId,
 					customerId,guarantee,loanAmount,
 					periodType,periodTerm,loanStartDate,
 					loanEndDate,rateType,rate,
@@ -98,6 +97,7 @@ public class ContractServiceImpl implements ContractService{
 			ct.setLoanContractId(loanContractId);
 			ct.setLoanContractName(loanContractName);
 			ct.setBorrowerType(borrowerType);
+			ct.setBorrowerId(borrowerId);
 			ct.setCustomerId(customerId);
 			ct.setGuarantee(guarantee);
 			ct.setLoanAmount(loanAmount);
@@ -196,39 +196,5 @@ public class ContractServiceImpl implements ContractService{
 			settledInfo.setDebtEndDate(debtEndDate);
 		}
 		return settledInfoDAO.save(settledInfo);
-	}
-	
-	@Override
-	@Transactional
-	public void addEnterprise(String corporateName,
-			String scale, String industryType, String industryinvolved,
-			String organizationcode, String regCode, String regOffice,
-			String regDate, String nationalregNum, String landRegNum,
-			String licence, String licenceEndDate, String nature,
-			int employNum, String legalRepresentative, String bulidDate,
-			String actualController, BigDecimal regCapital, BigDecimal reallyCapital,
-			String businessScope, String regAddress,
-			String contactAddressProvince, String contactAddresscity,
-			String contactAddressDistrict, String contactAddress,
-			String postcode, String phone, String linkman, String fax,
-			String email, String webSite) {
-		try {
-			EnterpriseCustomer enterprise = 
-					new EnterpriseCustomer(corporateName, ScaleType.valueOf(scale),IndustryType.valueOf(industryType),
-							IndustryEnum.valueOf(industryinvolved),organizationcode,regCode, regOffice,
-							StringUtils.isEmpty(regDate) ? null: DateUtils.parseDate(regDate, "yyyy-MM-dd"),
-							nationalregNum, landRegNum,licence,
-							StringUtils.isEmpty(licenceEndDate) ? null:DateUtils.parseDate(licenceEndDate, "yyyy-MM-dd"),
-							nature, employNum, legalRepresentative, 
-							StringUtils.isEmpty(bulidDate)?null:DateUtils.parseDate(bulidDate, "yyyy-MM-dd"),
-							actualController, regCapital, reallyCapital,businessScope,regAddress,
-							contactAddressProvince,  contactAddresscity,contactAddressDistrict,  contactAddress,
-							postcode,  phone,  linkman,  fax,email,  webSite);
-			
-			enterprise = enterpriseDao.save(enterprise);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }

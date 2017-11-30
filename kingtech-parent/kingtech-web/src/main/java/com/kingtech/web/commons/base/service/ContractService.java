@@ -26,7 +26,7 @@ public interface ContractService {
 	public List<Contract> listAll();
 
 	public void addNew(String id,String loanContractId, String loanContractName,
-						BorrowerTypeEnum borrowerType, String customerId, String guarantee,
+						BorrowerTypeEnum borrowerType,String borrowerId, String customerId, String guarantee,
 						BigDecimal loanAmount, PeriodTypeEnum periodType, int periodTerm,
 						Date loanStartDate, Date loanEndDate, RateTypeEnum rateType,
 						BigDecimal rate, LoanPurposeEnum purpose, IndustryEnum industry,
@@ -45,13 +45,5 @@ public interface ContractService {
 	
 	public SettledInfo addSettledInfo(String id, String loanContractId, BigDecimal money, Date loanDate, Date debtStartDate, Date debtEndDate);
 	
-	public void addEnterprise( String corporateName,
-			String scale, String industryType, String industryinvolved,
-			String organizationcode, String regCode, String regOffice,
-			String regDate, String nationalregNum, String landRegNum,
-			String licence, String licenceEndDate, String nature, int employNum,
-			String legalRepresentative, String bulidDate, String actualController, BigDecimal regCapital,
-			BigDecimal reallyCapital, String businessScope, String regAddress,String contactAddressProvince,
-			String contactAddresscity,String contactAddressDistrict,String contactAddress,String postcode,
-			String phone,String linkman,String fax,String email, String webSite);
+	
 }
