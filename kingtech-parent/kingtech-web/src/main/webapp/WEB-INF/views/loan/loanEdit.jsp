@@ -232,6 +232,7 @@
         <script src="bujs/loan/contract.js" type="text/javascript"></script>  
         <script type="text/javascript">
         	var borrowerId = '${contract.borrowerId}';
+        	var canEdit = "${contract.pushStatus=='INITATION' or contract.pushStatus=='FAILED'}";
         </script>     
     </body>
 </html>

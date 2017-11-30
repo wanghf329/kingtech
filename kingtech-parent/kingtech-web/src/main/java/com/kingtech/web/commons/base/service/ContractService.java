@@ -18,12 +18,15 @@ import com.kingtech.enums.LoanstatusEnum;
 import com.kingtech.enums.PayTypeEnum;
 import com.kingtech.enums.PeriodTypeEnum;
 import com.kingtech.enums.PledgeTypeEnum;
+import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.RateTypeEnum;
 import com.kingtech.enums.UnionFlagEnum;
 import com.kingtech.enums.YesNoEnum;
 
 public interface ContractService {
 	public List<Contract> listAll();
+	
+	public List<Contract> listByUserIdAndPushstatus(String userId,PushStatus... pushstatus);
 
 	public void addNew(String id,String loanContractId, String loanContractName,
 						BorrowerTypeEnum borrowerType,String borrowerId, String customerId, String guarantee,

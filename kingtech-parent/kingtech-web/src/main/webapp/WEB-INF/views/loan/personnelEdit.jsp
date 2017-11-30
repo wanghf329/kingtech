@@ -219,6 +219,9 @@
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
 		<%@include file="../common/footer.jspf" %>   
-         <script src="bujs/borrower/person.js" type="text/javascript"></script> 
+        <script src="bujs/borrower/person.js" type="text/javascript"></script> 
+        <script type="text/javascript"> 
+        	var canEdit = '${canEdit}';
+        </script>          
     </body>
 </html>

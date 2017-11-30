@@ -13,6 +13,9 @@ $(document).ready(function () {
     	  autoHidePrompt:true,
     	  failure : function() { callFailFunction()  } 
       })
+      if(canEdit=="false"){
+    	  $('#personnelFrom').find('input,textarea,select,button').attr('disabled',true); 
+      } 
 });
 
 
