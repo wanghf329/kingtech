@@ -4,7 +4,11 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import com.kingtech.dao.entity.Collateral;
 import com.kingtech.dao.entity.Contract;
+import com.kingtech.dao.entity.Guarantee;
+import com.kingtech.dao.entity.RepayPlan;
+import com.kingtech.dao.entity.SettledInfo;
 import com.kingtech.enums.BorrowerTypeEnum;
 import com.kingtech.enums.CollateralTypeEnum;
 import com.kingtech.enums.IndustryEnum;
@@ -31,23 +35,15 @@ public interface ContractService {
 	
 	public Contract getById(String id);
 	
-	public void addCollateral(String loanContractId, PledgeTypeEnum pledgeType, CollateralTypeEnum collateralType, 
+	public Collateral addCollateral(String id, String loanContractId, PledgeTypeEnum pledgeType, CollateralTypeEnum collateralType, 
 						String collateralName, String warrantNum, BigDecimal evaluationValue, 
 						String warrantHolder,String collateralAddr, Date handleDate);
 	
-	public void addGuarantee(String loanContractId, String name, String cardNum, String phone, String address);
+	public Guarantee addGuarantee(String id, String loanContractId, String name, String cardNum, String phone, String address);
 	
-	public void addRepayPlan(String loanContractId, Date repayDate, BigDecimal principal, BigDecimal interest);
+	public RepayPlan addRepayPlan(String id, String loanContractId, Date repayDate, BigDecimal principal, BigDecimal interest);
 	
-	public void addSettledInfo(String loanContractId, BigDecimal money, Date loanDate, Date debtStartDate, Date debtEndDate);
+	public SettledInfo addSettledInfo(String id, String loanContractId, BigDecimal money, Date loanDate, Date debtStartDate, Date debtEndDate);
 	
-	public void addEnterprise( String corporateName,
-			String scale, String industryType, String industryinvolved,
-			String organizationcode, String regCode, String regOffice,
-			String regDate, String nationalregNum, String landRegNum,
-			String licence, String licenceEndDate, String nature, int employNum,
-			String legalRepresentative, String bulidDate, String actualController, BigDecimal regCapital,
-			BigDecimal reallyCapital, String businessScope, String regAddress,String contactAddressProvince,
-			String contactAddresscity,String contactAddressDistrict,String contactAddress,String postcode,
-			String phone,String linkman,String fax,String email, String webSite);
+	
 }
