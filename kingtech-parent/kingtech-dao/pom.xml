@@ -10,7 +10,6 @@
 	</parent>
 
 	<artifactId>kingtech-dao</artifactId>
-	<packaging>jar</packaging>
 	
 	<name>kingtech-dao</name>
 	<url>http://maven.apache.org</url>

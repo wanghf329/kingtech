@@ -10,7 +10,6 @@
 	</parent>
 
 	<artifactId>kingtech-common</artifactId>
-	<packaging>jar</packaging>
 
 	<name>kingtech-common</name>
 	<url>http://maven.apache.org</url>
