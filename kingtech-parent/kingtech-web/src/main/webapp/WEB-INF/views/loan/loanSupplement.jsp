@@ -60,35 +60,39 @@
                                 		<form class="form-horizontal" id="form-collateral"
 											action="loan/supplement/addCollateral" method="POST">
 											<input type="hidden" name="loanContractId" value="${loanContractId}">
-											<c:forEach var="it" items="${list}">
+											<c:forEach var="it" items="${listCollateral}">
 												<input type="hidden" name="id" value="${it.id}">
 												<div class="form-group">
 													<label for="#pledgeType" class="col-sm-2 control-label">担保类型</label>
 													<div class="col-sm-4 input-group">
 										                <div class="radio">
 										                    <input type="radio" name="pledgeType" value="S_1" 
-										                    	<c:if test="${it.pledgeType == 'S_1' || it.pledgeType == null }">checked=""</c:if>>抵押
+										                    	<c:if test="${it.pledgeType == 'S_1' || it.pledgeType == null }">checked="checked"</c:if>>抵押
 										                   	<input type="radio" name="pledgeType" value="S_2" 
-										                   		<c:if test="${it.pledgeType == 'S_2'}">checked=""</c:if>>质押
+										                   		<c:if test="${it.pledgeType == 'S_2'}">checked="checked"</c:if>>质押
 										                </div>
 													</div>
 												</div>
 												<div class="form-group">
 													<label for="#collateralType" class="col-sm-2 control-label">抵质押物类型</label>
 													<div class="col-sm-4 input-group ">
-														<select class="form-control validate[required]" id="collateralType1" name="collateralType">
+														<select class="form-control validate[required]" id="collateralType1" name="collateralType"
+															<c:if test="${it.pledgeType == 'S_2'}">style="display:none"</c:if>>
 															<option value="">请选择</option>
-															<c:forEach var="it" items="collateralType">
-																<option value="${it.name}">${it.getKey()}</option>
+															<c:forEach var="collateralType" items="${collateralType1}">
+																<option value="${collateralType}"
+																	<c:if test="${it.pledgeType == 'S_1' || it.collateralType == collateralType }">selected="selected"</c:if>
+																	>${collateralType.getKey()}</option>
 															</c:forEach>
 											            </select>
-											            <select class="form-control validate[required]" id="collateralType2" name="collateralType" style="display:none">
+											            <select class="form-control validate[required]" id="collateralType2" name="collateralType"
+											            	<c:if test="${it.pledgeType == 'S_1' || it.pledgeType == null }">style="display:none"</c:if>>
 											            	<option value="">请选择</option>
-											            	<option value="S_1">股权质押</option>
-											            	<option value="S_2">定期存单质押</option>
-											            	<option value="S_3">专利权质押</option>
-											            	<option value="S_4">应收账款质押</option>
-											            	<option value="S_5">其他</option>
+											            	<c:forEach var="collateralType" items="${collateralType2}">
+																<option value="${collateralType}"
+																	<c:if test="${it.pledgeType == 'S_2' || it.collateralType.toString() == collateralType.toString() }">selected="selected"</c:if>
+																	>${collateralType.getKey()}</option>
+															</c:forEach>
 											            </select>
 													</div>
 												</div>
