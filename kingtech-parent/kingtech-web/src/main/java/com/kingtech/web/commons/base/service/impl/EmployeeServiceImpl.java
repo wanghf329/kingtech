@@ -112,7 +112,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 		AsyReponseModel asyReponseModel = new AsyReponseModel("135465", "132465",  "132465",  "132465",  "132465",  "132465",  "132465",  "132465", "A");
 		Map<String, String> aMap = JSON.parseObject(JSON.toJSONString(asyReponseModel), Map.class);
 		System.err.println(aMap);
-		HttpUtil.postFormResponse("http://localhost:8080/kingtech-web/callback/result", aMap);
+		HttpUtil.postJsonResponse("http://localhost:8084/bus/refresh", "");
 		
 	}
 
