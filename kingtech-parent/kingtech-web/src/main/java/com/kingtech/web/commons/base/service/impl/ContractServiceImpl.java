@@ -109,6 +109,7 @@ public class ContractServiceImpl implements ContractService{
 					repaySource,status,isExtend);
 			ct.setReqId(creatRequstId.getReqId());
 			ct.setPushStatus(PushStatus.INITATION);
+			ct.setUpdateTime(new Date());
 		}else{
 			ct = contractDao.findOne(id);
 			ct.setLoanContractId(loanContractId);

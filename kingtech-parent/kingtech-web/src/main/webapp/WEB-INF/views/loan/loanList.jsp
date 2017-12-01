@@ -17,8 +17,8 @@
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="branch"><i class="fa fa-dashboard"></i> 首页</a></li>
-                        <li><a href="branch">机构管理</a></li>
-                        <li class="active">合同信息</li>
+                        <li><a href="branch">合同管理</a></li>
+                        <li class="active">合同信息</li> 
                     </ol>
                 </section>
 
