@@ -1,5 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<div class="collateralTemplate padding-15 repayPlan hide">
+<div class="padding-15 repayPlan collateralTemplate hide">
 				                                		<div class="col-md-8">   
 															<div class="box box-primary">
 								                                <div class="box-body"> 

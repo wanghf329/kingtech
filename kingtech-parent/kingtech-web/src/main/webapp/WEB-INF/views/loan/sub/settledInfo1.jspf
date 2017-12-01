@@ -4,7 +4,6 @@
 														<div class="box box-primary">
 							                                <div class="box-body"> 
 																	<input type="hidden" name="id" value="">
-																	<input type="hidden" name="loanContractId" value="${loanContractId}">
 																	<div class="form-group">
 																		<label for="#money" class="col-sm-2 control-label">放款金额</label>
 																		<div class="col-sm-4 input-group">

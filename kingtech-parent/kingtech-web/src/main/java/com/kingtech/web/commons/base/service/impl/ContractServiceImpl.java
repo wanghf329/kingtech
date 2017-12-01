@@ -151,7 +151,7 @@ public class ContractServiceImpl implements ContractService{
 		
 		try {
 			collateralDAO.deleteByLoanContractId(loanContractId);
-			for (int i = 0; i < pledgeType.length; i++) {
+			for (int i = 1; i < pledgeType.length; i++) {
 				Collateral collateral;
 					collateral = new Collateral(loanContractId, pledgeType[i], collateralType[i], collateralName[i],
 							warrantNum[i], evaluationValue[i], warrantHolder[i], collateralAddr[i], 
@@ -159,7 +159,6 @@ public class ContractServiceImpl implements ContractService{
 				collateralDAO.save(collateral);
 			}
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -177,35 +176,37 @@ public class ContractServiceImpl implements ContractService{
 
 	@Override
 	@Transactional
-	public RepayPlan addRepayPlan(String id, String loanContractId, Date repayDate,
-			BigDecimal principal, BigDecimal interest) {
-		RepayPlan repayPlan = null;
-		if(StringUtils.isEmpty(id)){
-			repayPlan = new RepayPlan(loanContractId, repayDate, principal, interest);
-		} else {
-			repayPlan = repayPlanDAO.findOne(id);
-			repayPlan.setRepayDate(repayDate);
-			repayPlan.setPrincipal(principal);
-			repayPlan.setInterest(interest);
+	public void addRepayPlan(String loanContractId, String[] repayDate,
+			BigDecimal[] principal, BigDecimal[] interest) {
+		try {
+			repayPlanDAO.deleteByLoanContractId(loanContractId);
+			for (int i = 1; i < repayDate.length; i++) {
+				RepayPlan repayPlan = new RepayPlan(loanContractId, 
+						DateUtils.parseDate(repayDate[i], "yyyy-MM-dd"),
+						principal[i], interest[i]);
+				repayPlanDAO.save(repayPlan);
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
 		}
-		return repayPlanDAO.save(repayPlan);
 	}
 
 	@Override
 	@Transactional
-	public SettledInfo addSettledInfo(String id, String loanContractId, BigDecimal money,
-			Date loanDate, Date debtStartDate, Date debtEndDate) {
-		SettledInfo settledInfo = null;
-		if(StringUtils.isEmpty(id)){
-			settledInfo = new SettledInfo(loanContractId, money, loanDate, debtStartDate, debtEndDate);
-		} else {
-			settledInfo = settledInfoDAO.findOne(id);
-			settledInfo.setMoney(money);
-			settledInfo.setLoanDate(loanDate);
-			settledInfo.setDebtStartDate(debtStartDate);
-			settledInfo.setDebtEndDate(debtEndDate);
+	public void addSettledInfo(String loanContractId, BigDecimal[] money,
+			String[] loanDate, String[] debtStartDate, String[] debtEndDate) {
+		try {
+			settledInfoDAO.deleteByLoanContractId(loanContractId);
+			for (int i = 1; i < money.length; i++) {
+				SettledInfo settledInfo = new SettledInfo(loanContractId, money[i], 
+						DateUtils.parseDate(loanDate[i], "yyyy-MM-dd"), 
+						DateUtils.parseDate(debtStartDate[i], "yyyy-MM-dd"), 
+						DateUtils.parseDate(debtEndDate[i], "yyyy-MM-dd"));
+				settledInfoDAO.save(settledInfo);
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
 		}
-		return settledInfoDAO.save(settledInfo);
 	}
 	
 	@Override
