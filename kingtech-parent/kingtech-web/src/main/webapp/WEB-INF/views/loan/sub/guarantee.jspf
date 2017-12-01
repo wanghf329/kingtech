@@ -13,13 +13,13 @@
 														<div class="form-group">
 															<label for="#cardNum" class="col-sm-2 control-label"><i class="text-red">*</i> 保证人证件号</label>
 															<div class="col-sm-4 input-group">
-																<input type="text" class="form-control validate[required]" value="${it.cardNum}" name="cardNum" data-errormessage="保证人证件号不能为空">
+																<input type="text" class="form-control validate[required,custom[onlyLetterNumber]]" value="${it.cardNum}" name="cardNum" data-errormessage="保证人证件号不能为空">
 															</div>
 														</div>
 														<div class="form-group">
 															<label for="#phone" class="col-sm-2 control-label"><i class="text-red">*</i> 保证人联系方式</label>
 															<div class="col-sm-4 input-group">
-																<input type="text" class="form-control validate[required]" value="${it.phone}" name="phone" data-errormessage="保证人联系方式不能为空">
+																<input type="text" class="form-control validate[required,custom[phone]]" value="${it.phone}" name="phone" data-errormessage="保证人联系方式不能为空">
 															</div>
 														</div>
 														<div class="form-group">

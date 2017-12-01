@@ -50,7 +50,8 @@
 																			<label for="#evaluationValue" class="col-sm-2 control-label">评估值</label>
 																			<div class="col-sm-4 input-group">
 																				<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
-																				<input type="text" class="form-control" name="evaluationValue" value="${it.evaluationValue}">
+																				<input type="text" class="form-control validate[custom[number]]" name="evaluationValue" data-errormessage="评估值只能为数字"
+																					value="${it.evaluationValue}">
 																				<span class="input-group-addon"><i class="fa">元</i></span>
 																			</div>
 																		</div>
