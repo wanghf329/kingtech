@@ -141,6 +141,17 @@
         </div><!-- ./wrapper -->
         
 		<%@include file="../common/footer.jspf" %>   
-        <script src="bujs/loan/contract.js" type="text/javascript"></script>       
+        <script src="bujs/loan/contract.js" type="text/javascript"></script>   
+        <script type="text/javascript">
+        	var collateralTypeOption1 = "";
+        	var collateralTypeOption2 = "";
+			<c:forEach var="collateralType" items="${collateralType1}">
+				collateralTypeOption1 += "<option value='${collateralType}'>${collateralType.getKey()}</option>";
+			</c:forEach>
+			<c:forEach var="collateralType" items="${collateralType2}">
+				collateralTypeOption2 += "<option value='${collateralType}'>${collateralType.getKey()}</option>";
+			</c:forEach>
+			var canEdit = "true";
+        </script>    
     </body>
 </html>

@@ -16,7 +16,7 @@
 																		<div class="form-group">
 																			<label for="#collateralType" class="col-sm-2 control-label">抵质押物类型</label>
 																			<div class="col-sm-4 input-group ">
-																				<select class="form-control validate[required]" id="collateralType1" name="collateralTypeSelect"
+																				<select class="form-control collateralTypeSelect validate[required]" id="collateralType1" name="collateralTypeSelect"
 																					<c:if test="${it.pledgeType == 'S_2'}">style="display:none"</c:if> >
 																					<option value="">请选择</option>
 																					<c:forEach var="collateralType" items="${collateralType1}">
@@ -25,7 +25,7 @@
 																							>${collateralType.getKey()}</option>
 																					</c:forEach>
 																	            </select>
-																	            <select class="form-control validate[required]" id="collateralType2" name="collateralTypeSelect"
+																	            <select class="form-control collateralTypeSelect validate[required]" id="collateralType2" name="collateralTypeSelect"
 																	            	<c:if test="${it.pledgeType == 'S_1' || it.pledgeType == null }">style="display:none"</c:if>>
 																	            	<option value="">请选择</option>
 																	            	<c:forEach var="collateralType" items="${collateralType2}">
