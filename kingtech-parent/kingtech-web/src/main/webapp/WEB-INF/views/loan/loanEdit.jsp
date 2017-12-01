@@ -129,7 +129,7 @@
 												<div class="form-group">
 													<label for="#rate" class="col-sm-2 control-label"><i class="text-red">*</i> 利率(%)</label> 
 													<div class="col-sm-4 input-group"> 
-														<input type="text" class="form-control validate[required,custom[number],min[1],max[100]]" name="rate" value="${contract.rate}" data-errormessage="利率范围1-100">
+														<input type="text" class="form-control validate[required,custom[number],min[1],max[99]]" name="rate" value="${contract.rate}" data-errormessage="利率范围1-100">
 													</div>
 												</div>
 												<div class="form-group">
