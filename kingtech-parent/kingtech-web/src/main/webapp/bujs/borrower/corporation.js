@@ -13,6 +13,10 @@ $(document).ready(function () {
     	  autoHidePrompt:true,
     	  failure : function() { callFailFunction()  } 
       })
+      
+      if(canEdit=="false"){ 
+    	  $('#enterpriseFrom').find('input,textarea,select,button').attr('disabled',true); 
+      }
 });
 
 

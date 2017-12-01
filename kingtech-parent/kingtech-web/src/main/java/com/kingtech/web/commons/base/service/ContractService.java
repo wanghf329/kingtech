@@ -18,12 +18,15 @@ import com.kingtech.enums.LoanstatusEnum;
 import com.kingtech.enums.PayTypeEnum;
 import com.kingtech.enums.PeriodTypeEnum;
 import com.kingtech.enums.PledgeTypeEnum;
+import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.RateTypeEnum;
 import com.kingtech.enums.UnionFlagEnum;
 import com.kingtech.enums.YesNoEnum;
 
 public interface ContractService {
 	public List<Contract> listAll();
+	
+	public List<Contract> listByUserIdAndPushstatus(String userId,PushStatus... pushstatus);
 
 	public void addNew(String id,String loanContractId, String loanContractName,
 						BorrowerTypeEnum borrowerType,String borrowerId, String customerId, String guarantee,
@@ -35,16 +38,22 @@ public interface ContractService {
 	
 	public Contract getById(String id);
 	
-	public Collateral addCollateral(String id, String loanContractId, PledgeTypeEnum pledgeType, CollateralTypeFor1Enum collateralType, 
-						String collateralName, String warrantNum, BigDecimal evaluationValue, 
-						String warrantHolder,String collateralAddr, Date handleDate);
+	public void addCollateral(String id[], String loanContractId, PledgeTypeEnum[] pledgeType, CollateralTypeFor1Enum[] collateralType, 
+						String[] collateralName, String[] warrantNum, BigDecimal[] evaluationValue, 
+						String[] warrantHolder,String[] collateralAddr, String[] handleDate);
 	
-	public Guarantee addGuarantee(String id, String loanContractId, String name, String cardNum, String phone, String address);
+	public void addGuarantee(String loanContractId, String[] name, String[] cardNum, String[] phone, String[] address);
 	
-	public RepayPlan addRepayPlan(String id, String loanContractId, Date repayDate, BigDecimal principal, BigDecimal interest);
+	public void addRepayPlan(String loanContractId, String[] repayDate, BigDecimal[] principal, BigDecimal[] interest);
 	
-	public SettledInfo addSettledInfo(String id, String loanContractId, BigDecimal money, Date loanDate, Date debtStartDate, Date debtEndDate);
+	public void addSettledInfo(String loanContractId, BigDecimal[] money, String[] loanDate, String[] debtStartDate, String[] debtEndDate);
 	
-	public List<Collateral> listCollateralByloanContractId(String loanContractId);
+	public List<Collateral> listCollateralByLoanContractId(String loanContractId);
+	
+	public List<Guarantee> listGuaranteeByLoanContractId(String loanContractId);
+	
+	public List<RepayPlan> listRepayPlanByLoanContractId(String loanContractId);
+	
+	public List<SettledInfo> listSettledInfoByLoanContractId(String loanContractId);
 	
 }

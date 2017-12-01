@@ -5,7 +5,7 @@ $(document).ready(function () {
       menuChecked("#loanList");
       getBorrower(); 
       
-      $("#form-horizontal").validationEngine({ 
+      $(".form-horizontal").validationEngine({ 
     	  validationEventTriggers:"keyup blur",
     	  inlineValidation: true,
     	  showOneMessage:true,
@@ -13,6 +13,10 @@ $(document).ready(function () {
     	  autoHidePrompt:true,
     	  failure : function() { callFailFunction()  } 
       })
+      
+//      if(canEdit === undefined && canEdit=="false"){
+//    	  $('#form-horizontal').find('input,textarea,select,button').attr('disabled',true);
+//      } 
 });
 
 $(".saveRecordBtn").click(function(){ 
@@ -38,11 +42,11 @@ function getBorrower(){
 		success:function(res){
 			if(type=="S_1"){
 				for(var i in res){
-					html += "<option value='"+res[i].id+"'>'"+res[i].corporateName+"'</option>"
+					html += "<option value='"+res[i].id+"'>"+res[i].corporateName+"</option>"
 				}
 			}else{
 				for(var i in res){
-					html += "<option value='"+res[i].id+"'>'"+res[i].name+"'</option>"
+					html += "<option value='"+res[i].id+"'>"+res[i].name+"</option>" 
 				}
 			}
 			$("#borrowerId").html(html); 
@@ -87,11 +91,36 @@ function delCapital(){
 
 
 
+$(".addGuaranteeBtn").on("click",function(){
+	var clone = $(".guaranteeTemplate").clone(true).removeClass("guaranteeTemplate hide").addClass("repayPlan");
+	$(".guaranteeTemplate").parent().append(clone);   
+});
+$(".delGuaranteeBtn").on("click",function(){
+	$(this).closest(".repayPlan").remove();
+});
+
+
+$(".addCollateralBtn").on("click",function(){
+	var clone = $(".collateralTemplate").clone(true).removeClass("collateralTemplate hide").addClass("repayPlan");
+	$(".collateralTemplate").parent().append(clone);  
+});
+$(".delCollateralBtn").on("click",function(){
+	$(this).closest(".repayPlan").remove();
+});
+
  
 $(".addRepayPlanBtn").on("click",function(){
-	var clone = $(".repayPlanTemplate").clone(true).removeClass("repayPlanTemplate").addClass("repayPlan");
+	var clone = $(".repayPlanTemplate").clone(true).removeClass("repayPlanTemplate hide").addClass("repayPlan");
 	$(".repayPlanTemplate").parent().append(clone);  
 });
 $(".delRepayPlanBtn").on("click",function(){
+	$(this).closest(".repayPlan").remove();
+});
+
+$(".addSettledInfoBtn").on("click",function(){
+	var clone = $(".settledInfoTemplate").clone(true).removeClass("settledInfoTemplate hide").addClass("repayPlan");
+	$(".settledInfoTemplate").parent().append(clone);  
+});
+$(".delSettledInfoBtn").on("click",function(){
 	$(this).closest(".repayPlan").remove();
 });

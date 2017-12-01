@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>AdminLTE | Simple Tables</title>
+        <title>数据对接平台</title>
         <%@include file="../common/head.jspf" %> 
     </head>
     <body class="skin-blue">
@@ -232,6 +232,7 @@
         <script src="bujs/loan/contract.js" type="text/javascript"></script>  
         <script type="text/javascript">
         	var borrowerId = '${contract.borrowerId}';
+        	var canEdit = "${contract.pushStatus=='INITATION' or contract.pushStatus=='FAILED'}";
         </script>     
     </body>
 </html>

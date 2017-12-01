@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>AdminLTE | Simple Tables</title>
+        <title>数据对接平台</title>
         <%@include file="../common/head.jspf" %> 
     </head>
     <body class="skin-blue">
@@ -62,7 +62,7 @@
 	                                           	<td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.loanStartDate}"></fmt:formatDate></td>
 	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.loanEndDate}"></fmt:formatDate></td> 
 
-	                                            <td>
+	                                            <td> 
 	                                            	<c:if test="${it.pushStatus=='INITATION'}"><span class="text-gray"><i class="text-gray fa fa-info-circle"></i>初始</span></c:if>
 	                                            	<c:if test="${it.pushStatus=='SUCCESS'}"><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span></c:if>
 	                                            	<c:if test="${it.pushStatus=='INPROSESS'}"><span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span></c:if>
@@ -70,7 +70,7 @@
 	                                            </td>
 	                                            <td> 
 	                                            	<a href="loan/edit?id=${it.id}"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>
-	                                            	<a href="loan/supplement?loanContractId=${it.loanContractId}" ><i class="text-blue fa fa-plus-square-o"></i><strong>补充</strong></a>
+	                                            	<a href="loan/supplement?loanContractId=${it.id}" ><i class="text-blue fa fa-plus-square-o"></i><strong>补充</strong></a>
 	                                            	<a href="loan/push/${it.id}"><i class="text-blue fa fa-exchange"></i><strong>推送</strong></a>
 	                                            </td>
 	                                        </tr>

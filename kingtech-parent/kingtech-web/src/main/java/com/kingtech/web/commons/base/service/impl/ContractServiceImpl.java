@@ -1,10 +1,13 @@
 package com.kingtech.web.commons.base.service.impl;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -79,6 +82,11 @@ public class ContractServiceImpl implements ContractService{
 		}
 		return list;
 	}
+	
+	@Override
+	public List<Contract> listByUserIdAndPushstatus(String userId,PushStatus... pushStatus){
+		return (List<Contract>)contractDao.listByUserIdAndPushstatus(userId, Arrays.asList(pushStatus));
+	}
 
 	@Override
 	@Transactional
@@ -136,79 +144,88 @@ public class ContractServiceImpl implements ContractService{
 	
 	@Override
 	@Transactional
-	public Collateral addCollateral(String id, String loanContractId, PledgeTypeEnum pledgeType,
-			CollateralTypeFor1Enum collateralType, String collateralName,
-			String warrantNum, BigDecimal evaluationValue, String warrantHolder,
-			String collateralAddr, Date handleDate) {
-		Collateral collateral = null;
-		if(StringUtils.isEmpty(id)){
-			collateral = new Collateral(loanContractId, pledgeType, collateralType, collateralName, warrantNum, evaluationValue, warrantHolder, collateralAddr, handleDate);
-		} else {
-			collateral = collateralDAO.findOne(id);
-			collateral.setPledgeType(pledgeType);
-			collateral.setCollateralType(collateralType);
-			collateral.setCollateralName(collateralName);
-			collateral.setWarrantNum(warrantNum);
-			collateral.setEvaluationValue(evaluationValue);
-			collateral.setWarrantHolder(warrantHolder);
-			collateral.setCollateralAddr(collateralAddr);
-			collateral.setHandleDate(handleDate);
+	public void addCollateral(String[] ids, String loanContractId, PledgeTypeEnum[] pledgeType,
+			CollateralTypeFor1Enum[] collateralType, String[] collateralName,
+			String[] warrantNum, BigDecimal[] evaluationValue, String[] warrantHolder,
+			String[] collateralAddr, String[] handleDate) {
+		
+		try {
+			collateralDAO.deleteByLoanContractId(loanContractId);
+			for (int i = 1; i < pledgeType.length; i++) {
+				Collateral collateral;
+					collateral = new Collateral(loanContractId, pledgeType[i], collateralType[i], collateralName[i],
+							warrantNum[i], evaluationValue[i], warrantHolder[i], collateralAddr[i], 
+							StringUtils.isEmpty(handleDate[i]) ? null : DateUtils.parseDate(handleDate[i], "yyyy-MM-dd"));
+				collateralDAO.save(collateral);
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
 		}
-		return collateralDAO.save(collateral);
 	}
 
 	@Override
 	@Transactional
-	public Guarantee addGuarantee(String id, String loanContractId, String name,
-			String cardNum, String phone, String address) {
-		Guarantee guarantee = null;
-		if(StringUtils.isEmpty(id)){
-			guarantee = new Guarantee(loanContractId, name, cardNum, phone, address);
-		} else {
-			guarantee = guaranteeDAO.findOne(id);
-			guarantee.setName(name);
-			guarantee.setCardNum(cardNum);
-			guarantee.setPhone(phone);
-			guarantee.setAddress(address);
+	public void addGuarantee(String loanContractId, String[] name,
+			String[] cardNum, String[] phone, String[] address) {
+		guaranteeDAO.deleteByLoanContractId(loanContractId);
+		for (int i = 1; i < name.length; i++) {
+			Guarantee guarantee = new Guarantee(loanContractId, name[i], cardNum[i], phone[i], address[i]);
+			guaranteeDAO.save(guarantee);
 		}
-		return guaranteeDAO.save(guarantee);
 	}
 
 	@Override
 	@Transactional
-	public RepayPlan addRepayPlan(String id, String loanContractId, Date repayDate,
-			BigDecimal principal, BigDecimal interest) {
-		RepayPlan repayPlan = null;
-		if(StringUtils.isEmpty(id)){
-			repayPlan = new RepayPlan(loanContractId, repayDate, principal, interest);
-		} else {
-			repayPlan = repayPlanDAO.findOne(id);
-			repayPlan.setRepayDate(repayDate);
-			repayPlan.setPrincipal(principal);
-			repayPlan.setInterest(interest);
+	public void addRepayPlan(String loanContractId, String[] repayDate,
+			BigDecimal[] principal, BigDecimal[] interest) {
+		try {
+			repayPlanDAO.deleteByLoanContractId(loanContractId);
+			for (int i = 1; i < repayDate.length; i++) {
+				RepayPlan repayPlan = new RepayPlan(loanContractId, 
+						DateUtils.parseDate(repayDate[i], "yyyy-MM-dd"),
+						principal[i], interest[i]);
+				repayPlanDAO.save(repayPlan);
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
 		}
-		return repayPlanDAO.save(repayPlan);
 	}
 
 	@Override
 	@Transactional
-	public SettledInfo addSettledInfo(String id, String loanContractId, BigDecimal money,
-			Date loanDate, Date debtStartDate, Date debtEndDate) {
-		SettledInfo settledInfo = null;
-		if(StringUtils.isEmpty(id)){
-			settledInfo = new SettledInfo(loanContractId, money, loanDate, debtStartDate, debtEndDate);
-		} else {
-			settledInfo = settledInfoDAO.findOne(id);
-			settledInfo.setMoney(money);
-			settledInfo.setLoanDate(loanDate);
-			settledInfo.setDebtStartDate(debtStartDate);
-			settledInfo.setDebtEndDate(debtEndDate);
+	public void addSettledInfo(String loanContractId, BigDecimal[] money,
+			String[] loanDate, String[] debtStartDate, String[] debtEndDate) {
+		try {
+			settledInfoDAO.deleteByLoanContractId(loanContractId);
+			for (int i = 1; i < money.length; i++) {
+				SettledInfo settledInfo = new SettledInfo(loanContractId, money[i], 
+						DateUtils.parseDate(loanDate[i], "yyyy-MM-dd"), 
+						DateUtils.parseDate(debtStartDate[i], "yyyy-MM-dd"), 
+						DateUtils.parseDate(debtEndDate[i], "yyyy-MM-dd"));
+				settledInfoDAO.save(settledInfo);
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
 		}
-		return settledInfoDAO.save(settledInfo);
 	}
 	
 	@Override
-	public List<Collateral> listCollateralByloanContractId(String loanContractId) {
+	public List<Collateral> listCollateralByLoanContractId(String loanContractId) {
 		return collateralDAO.listByloanContractId(loanContractId);
+	}
+
+	@Override
+	public List<Guarantee> listGuaranteeByLoanContractId(String loanContractId) {
+		return (List<Guarantee>)guaranteeDAO.listByloanContractId(loanContractId);
+	}
+	
+	@Override
+	public List<RepayPlan> listRepayPlanByLoanContractId(String loanContractId) {
+		return (List<RepayPlan>)repayPlanDAO.listByloanContractId(loanContractId);
+	}
+	
+	@Override
+	public List<SettledInfo> listSettledInfoByLoanContractId(String loanContractId) {
+		return (List<SettledInfo>)settledInfoDAO.listByloanContractId(loanContractId);
 	}
 }
