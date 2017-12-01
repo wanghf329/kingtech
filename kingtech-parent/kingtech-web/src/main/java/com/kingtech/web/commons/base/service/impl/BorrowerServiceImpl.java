@@ -46,7 +46,7 @@ public class BorrowerServiceImpl implements BorrowerService{
 			String organizationcode, String regCode, String regOffice,
 			String regDate, String nationalregNum, String landRegNum,
 			String licence, String licenceEndDate, String nature,
-			int employNum, String legalRepresentative, String bulidDate,
+			Integer employNum, String legalRepresentative, String bulidDate,
 			String actualController, BigDecimal regCapital, BigDecimal reallyCapital,
 			String businessScope, String regAddress,
 			String contactAddressProvince, String contactAddresscity,

@@ -76,6 +76,9 @@ public class EmployeeServiceImpl implements EmployeeService{
 			}
 			employee.setId(id);	
 			
+			if (StringUtils.isEmpty(post)) {
+				employee.setPost("普通员工");
+			}
 			employee = employeeDao.save(employee);
 			
 			paymentApi.employeeInfoApi(employee.getId(), StringUtils.isEmpty(id) ?  IdentifierType.A : IdentifierType.U);

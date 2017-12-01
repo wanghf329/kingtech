@@ -99,12 +99,8 @@ public class LoanContractApiController {
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/supplement/addCollateral")
 	public String addCollateral(Model model, String[] id, String loanContractId,
-			String[] pledgeType, String[] collateralTypeSelect, String[] collateralName, String[] warrantNum, 
+			String[] pledgeType, String[] collateralType, String[] collateralName, String[] warrantNum, 
 			BigDecimal[] evaluationValue, String[] warrantHolder, String[] collateralAddr, String[] handleDate) throws ParseException {
-		String[] collateralType = new String[collateralTypeSelect.length/2];
-		for (int i=0,j=0; i<collateralTypeSelect.length;i+=2,j++) {
-			collateralType[j] = collateralTypeSelect[i] + collateralTypeSelect[i+1];
-		}
 		contractService.addCollateral(id, loanContractId, 
 				pledgeType, collateralType, 
 				collateralName, warrantNum, evaluationValue, warrantHolder, collateralAddr, 

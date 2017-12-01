@@ -82,7 +82,7 @@ public class EnterpriseCustomer extends UuidEntity{
 		
 	//从业人数
 	@Column(name="EMPLOY_NUM")
-	private int  employNum;
+	private Integer employNum;
 		
 	//法定代表人
 	@Column(name="LEGAL_REPRESENTATIVE")
@@ -172,7 +172,7 @@ public class EnterpriseCustomer extends UuidEntity{
 			IndustryType industryType, IndustryEnum industryinvolved,
 			String organizationcode, String regCode, String regOffice,
 			Date regDate, String nationalregNum, String landRegNum,
-			String licence, Date licenceEndDate, String nature, int employNum,
+			String licence, Date licenceEndDate, String nature, Integer employNum,
 			String legalRepresentative, Date bulidDate,
 			String actualController, BigDecimal regCapital,
 			BigDecimal reallyCapital, String businessScope, String regAddress,

@@ -23,7 +23,7 @@ public interface BorrowerService {
 			String scale, String industryType, String industryinvolved,
 			String organizationcode, String regCode, String regOffice,
 			String regDate, String nationalregNum, String landRegNum,
-			String licence, String licenceEndDate, String nature, int employNum,
+			String licence, String licenceEndDate, String nature, Integer employNum,
 			String legalRepresentative, String bulidDate, String actualController, BigDecimal regCapital,
 			BigDecimal reallyCapital, String businessScope, String regAddress,String contactAddressProvince,
 			String contactAddresscity,String contactAddressDistrict,String contactAddress,String postcode,
