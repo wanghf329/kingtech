@@ -101,7 +101,7 @@ $(".delGuaranteeBtn").on("click",function(){
 
 
 $(".addCollateralBtn").on("click",function(){
-	var clone = $(".collateralTemplate").clone(true).removeClass("collateralTemplate").addClass("repayPlan");
+	var clone = $(".collateralTemplate").clone(true).removeClass("collateralTemplate hide").addClass("repayPlan");
 	$(".collateralTemplate").parent().append(clone);  
 });
 $(".delCollateralBtn").on("click",function(){
@@ -110,9 +110,17 @@ $(".delCollateralBtn").on("click",function(){
 
  
 $(".addRepayPlanBtn").on("click",function(){
-	var clone = $(".repayPlanTemplate").clone(true).removeClass("repayPlanTemplate").addClass("repayPlan");
+	var clone = $(".repayPlanTemplate").clone(true).removeClass("repayPlanTemplate hide").addClass("repayPlan");
 	$(".repayPlanTemplate").parent().append(clone);  
 });
 $(".delRepayPlanBtn").on("click",function(){
+	$(this).closest(".repayPlan").remove();
+});
+
+$(".addSettledInfoBtn").on("click",function(){
+	var clone = $(".settledInfoTemplate").clone(true).removeClass("settledInfoTemplate hide").addClass("repayPlan");
+	$(".settledInfoTemplate").parent().append(clone);  
+});
+$(".delSettledInfoBtn").on("click",function(){
 	$(this).closest(".repayPlan").remove();
 });

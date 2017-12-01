@@ -89,8 +89,10 @@ public class LoanContractApiController {
 		model.addAttribute("loanContractId", loanContractId);
 		model.addAttribute("collateralType1",CollateralTypeFor1Enum.values());
 		model.addAttribute("collateralType2",CollateralTypeFor2Enum.values());
-		model.addAttribute("listCollateral", contractService.listCollateralByloanContractId(loanContractId));
-		model.addAttribute("guaranteeList", contractService.listByContractId(loanContractId));
+		model.addAttribute("collateralList", contractService.listCollateralByLoanContractId(loanContractId));
+		model.addAttribute("guaranteeList", contractService.listGuaranteeByLoanContractId(loanContractId));
+		model.addAttribute("repayPlanList", contractService.listRepayPlanByLoanContractId(loanContractId));
+		model.addAttribute("settledInfoList", contractService.listSettledInfoByLoanContractId(loanContractId));
 		
 		return "/loan/loanSupplement";
 	}
@@ -118,21 +120,16 @@ public class LoanContractApiController {
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/supplement/addRepayPlan")
 	public String addRepayPlan(Model model, String id, String loanContractId,
-			String repayDate, BigDecimal principal, BigDecimal interest) throws ParseException {
-		contractService.addRepayPlan(id, loanContractId, 
-				DateUtils.parseDate(repayDate, "yyyy-MM-dd"), 
-				principal, interest);
+			String[] repayDate, BigDecimal[] principal, BigDecimal[] interest) throws ParseException {
+		contractService.addRepayPlan(loanContractId, repayDate, principal, interest);
 		model.addAttribute("loanContractId", loanContractId);
 		return "redirect:/loan/supplement";
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/supplement/addSettledInfo")
 	public String addSettledInfo(Model model, String id, String loanContractId,
-			BigDecimal money, String loanDate, String debtStartDate, String debtEndDate) throws ParseException {
-		contractService.addSettledInfo(id, loanContractId, money, 
-				DateUtils.parseDate(loanDate, "yyyy-MM-dd"), 
-				DateUtils.parseDate(debtStartDate, "yyyy-MM-dd"), 
-				DateUtils.parseDate(debtEndDate, "yyyy-MM-dd"));
+			BigDecimal[] money, String[] loanDate, String[] debtStartDate, String[] debtEndDate) throws ParseException {
+		contractService.addSettledInfo(loanContractId, money, loanDate, debtStartDate, debtEndDate);
 		model.addAttribute("loanContractId", loanContractId);
 		return "redirect:/loan/supplement";
 	}
