@@ -92,35 +92,48 @@ function delCapital(){
 
 
 $(".addGuaranteeBtn").on("click",function(){
-	var clone = $(".guaranteeTemplate").clone(true).removeClass("guaranteeTemplate hide").addClass("repayPlan");
+	var clone = $(".guaranteeTemplate").clone().removeClass("guaranteeTemplate hide").addClass("repayPlan");
 	$(".guaranteeTemplate").parent().append(clone);   
+	bindDel("delGuaranteeBtn");
 });
-$(".delGuaranteeBtn").on("click",function(){
-	$(this).closest(".repayPlan").remove();
-});
-
 
 $(".addCollateralBtn").on("click",function(){
-	var clone = $(".collateralTemplate").clone(true).removeClass("collateralTemplate hide").addClass("repayPlan");
-	$(".collateralTemplate").parent().append(clone);  
+	var clone = $(".collateralTemplate").clone().removeClass("collateralTemplate hide").addClass("repayPlan");
+	$(".collateralTemplate").parent().append(clone);   
+	bindDel("delCollateralBtn");
 });
-$(".delCollateralBtn").on("click",function(){
-	$(this).closest(".repayPlan").remove();
-});
-
  
-$(".addRepayPlanBtn").on("click",function(){
-	var clone = $(".repayPlanTemplate").clone(true).removeClass("repayPlanTemplate hide").addClass("repayPlan");
+$(".addRepayPlanBtn").on("click",function(){ 
+	var clone = $(".repayPlanTemplate").clone().removeClass("repayPlanTemplate hide").addClass("repayPlan");
 	$(".repayPlanTemplate").parent().append(clone);  
-});
-$(".delRepayPlanBtn").on("click",function(){
-	$(this).closest(".repayPlan").remove();
-});
+	bindDel("delRepayPlanBtn"); 
+}); 
 
 $(".addSettledInfoBtn").on("click",function(){
-	var clone = $(".settledInfoTemplate").clone(true).removeClass("settledInfoTemplate hide").addClass("repayPlan");
+	var clone = $(".settledInfoTemplate").clone().removeClass("settledInfoTemplate hide").addClass("repayPlan");
 	$(".settledInfoTemplate").parent().append(clone);  
+	bindDel("delSettledInfoBtn");
 });
-$(".delSettledInfoBtn").on("click",function(){
+
+
+$(".delSettledInfoBtn,.delRepayPlanBtn,.delCollateralBtn,.delGuaranteeBtn").on("click",function(){
 	$(this).closest(".repayPlan").remove();
 });
+
+function bindDel(btn){
+	$("."+btn).on("click",function(){
+		$(this).closest(".repayPlan").remove();
+	});
+	initDatepicker();
+}
+
+
+function initDatepicker(){
+	$('.datepicker').datetimepicker({
+		minView: "2", //选择日期后，不会再跳转去选择时分秒 
+	    language:  'zh-CN',
+	    format: 'yyyy-mm-dd',
+	    todayBtn:  1,  
+	    autoclose: 1, 
+	    clearBtn: true});   
+}

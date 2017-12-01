@@ -6,7 +6,7 @@
 <base href="${pageContext.request.scheme}://${header.host}${pageContext.request.contextPath}/"/>
     <head>
         <meta charset="UTF-8">
-        <title>AdminLTE | Simple Tables</title>
+        <title>数据对接平台</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         <!-- bootstrap 3.0.2 -->
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />

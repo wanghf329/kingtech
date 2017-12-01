@@ -12,8 +12,6 @@
 	<artifactId>kingtech-web</artifactId>
 	<packaging>war</packaging>
 
-	<name>kingtech-web</name>
-	<url>http://maven.apache.org</url>
 	
 	<dependencies>
 		<dependency>
@@ -24,7 +22,6 @@
 	</dependencies>
 	
 		<build>
-		<finalName>kingtech-web</finalName>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<testSourceDirectory>src/test/java</testSourceDirectory>
 		<outputDirectory>target/classes</outputDirectory>
@@ -57,6 +54,9 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
+					<configuration>
+						<warName>dcweb</warName>
+					</configuration>
 			</plugin>
 
 			<!-- 忽略单元测试 -->
