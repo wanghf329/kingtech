@@ -65,8 +65,8 @@
 												
 												<div class="form-group">
 													<label for="#cardNum" class="col-sm-2 control-label"><i class="text-red">*</i> 证件号码</label>
-													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required,maxSize[18],custom[onlyLetterNumber]]" value ="${model.cardNum}" name="cardNum" data-errormessage="证件号码不能为空" >
+													<div class="col-sm-4 input-group">  
+														<input type="text" class="form-control validate[required,maxSize[18],custom[onlyLetterNumber]]" value ="${model.cardNum}" name="cardNum" data-errormessage="证件号码错误" >
 													</div>
 												</div>
 												
@@ -128,8 +128,8 @@
 													<div class="col-sm-4 input-group">
 														<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 														<input type="text" class="form-control pull-right datepicker "
-														readonly name="birthDate "   value=<fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${model.birthDate}"></fmt:formatDate> >
-													</div>
+														readonly name="birthDate" value=<fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${model.birthDate}"></fmt:formatDate> >
+													</div> 
 												</div>
 												
 												<div class="form-group">

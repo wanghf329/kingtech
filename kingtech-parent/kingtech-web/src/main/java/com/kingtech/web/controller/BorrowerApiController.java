@@ -93,7 +93,7 @@ public class BorrowerApiController {
 			String scale, String industryType, String industryinvolved,
 			String organizationcode, String regCode, String regOffice,
 			String regDate, String nationalregNum, String landRegNum,
-			String licence, String licenceEndDate, String nature, int employNum,
+			String licence, String licenceEndDate, String nature, Integer employNum,
 			String legalRepresentative, String bulidDate, String actualController,BigDecimal regCapital,
 			BigDecimal reallyCapital, String businessScope, String regAddress,String contactAddressProvince,
 			String contactAddresscity,String contactAddressDistrict,String contactAddress,String postcode,
@@ -117,7 +117,7 @@ public class BorrowerApiController {
 								String nationality, String birthDate, String nation,
 								String addressProvince, String addressCity, String addressDistrict,
 								String address, String postCode, String residence,
-								String nativePlace, String workUnit, String post  ) throws ParseException {
+								String nativePlace, String workUnit, String post) throws ParseException {
 			
 		borrowerService.addPersonnel(id,name, sex, category, cardNum, phone, farmersFlag,
 									education, fax, email, marriage, nationality,
