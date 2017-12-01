@@ -19,8 +19,8 @@ $("#editModelBtn").click(function(){
 	$("#editModel").modal();
 });
 
-$("input[name='partnerType']").on('ifChecked', function(){
-	  if($(this).val()=="2"){
+$(".partnerType").on('change', function(){
+	  if($(this).val()=="2"){ 
 		  $("input[name='gender']").iCheck('uncheck');
 		  $("#sexDiv").hide();
 	  }else{
@@ -33,7 +33,7 @@ $("input[name='partnerType']").on('ifChecked', function(){
 function getShareHolder(id){ 
 	$.get('branch/getShareholder/'+id,null,function(res){
 		$("input[name='id']").val(res.id);
-		$("input[name='gender'][value='"+res.partnerType+"']").iCheck('check');
+		$(".partnerType option[value='"+res.partnerType+"']").attr("selected",true); 
 		$("input[name='holder']").val(res.holder); 
 		$("input[name='holdingScale']").val(res.holdingScale);
 		$("input[name='contributionAmount']").val(res.contributionAmount);
@@ -41,7 +41,7 @@ function getShareHolder(id){
 		$("input[name='gender'][value='"+res.gender+"']").iCheck('check');
 		$("input[name='quitTime']").val(res.quitTime);  
 		
-		if($("input[name='partnerType']:checked").val()=="2"){
+		if($(".partnerType").val()=="2"){
 			$("input[name='gender']").iCheck('uncheck');
 			$("#sexDiv").hide();
 		}else{

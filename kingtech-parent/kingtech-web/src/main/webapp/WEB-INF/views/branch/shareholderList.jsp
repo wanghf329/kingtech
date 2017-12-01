@@ -47,14 +47,14 @@
 										</select>
 									</div>
 								</div>								
-								<div class="form-group">
+								<div class="form-group"> 
 									<label for="#partnerType" class="col-sm-3 control-label"><i class="text-red">*</i> 股东类型</label>
 									<div class="col-sm-6 input-group">
-					                  <div class="radio">
-					                      <input type="radio" name="partnerType" value="1">自然人股东
-					                   	  <input type="radio" name="partnerType" value="2">企业股东 
-					                  </div>
-									</div>
+										<select class="form-control validate[required] partnerType" id="partnerType" name="partnerType" data-errormessage="机构不能为空">
+	  										<option value ="1">自然人股东</option>
+	  										<option value ="2">企业股东 </option>
+										</select>
+									</div>									
 								</div>
 								<div class="form-group">
 									<label for="#holder" class="col-sm-3 control-label"><i class="text-red">*</i> 持股人</label>
@@ -134,7 +134,7 @@
                                             <th>出资金额（万元）</th>
                                             <th>入股时间</th>
                                             <th>性别</th>
-                                            <th>离职时间</th>
+                                            <th>退出时间</th>
                                             <th>状态</th>
                                             <th>操作</th>
                                         </tr>
