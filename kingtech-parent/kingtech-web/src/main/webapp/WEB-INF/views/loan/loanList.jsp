@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>AdminLTE | Simple Tables</title>
+        <title>数据对接平台</title>
         <%@include file="../common/head.jspf" %> 
     </head>
     <body class="skin-blue">
