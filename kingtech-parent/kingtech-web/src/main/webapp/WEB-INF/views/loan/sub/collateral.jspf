@@ -16,24 +16,21 @@
 																		<div class="form-group">
 																			<label for="#collateralType" class="col-sm-2 control-label">抵质押物类型</label>
 																			<div class="col-sm-4 input-group ">
-																				<select class="form-control collateralTypeSelect validate[required]" id="collateralType1" name="collateralTypeSelect"
-																					<c:if test="${it.pledgeType == 'S_2'}">style="display:none"</c:if>>
-																					<option value="">请选择</option>
-																					<c:forEach var="collateralType" items="${collateralType1}">
-																						<option value="${collateralType}"
-																							<c:if test="${it.pledgeType == 'S_1' && it.collateralType == collateralType }">selected</c:if>
+																				<select class="form-control collateralTypeSelect validate[required]" name="collateralType">
+																					<c:if test="${it.pledgeType == 'S_1' || it.pledgeType == null}">
+																						<c:forEach var="collateralType" items="${collateralType1}">
+																							<option value="${collateralType}"
+																							<c:if test="${it.collateralType.toString() == collateralType.toString() }">selected</c:if>
 																							>${collateralType.getKey()}</option>
-																					</c:forEach>
-																	            </select>
-																	            
-																	            <select class="form-control collateralTypeSelect validate[required]" id="collateralType2" name="collateralTypeSelect"
-																	            	<c:if test="${it.pledgeType == 'S_1' || it.pledgeType == null }">style="display:none"</c:if>>
-																	            	<option value="">请选择</option>
-																	            	<c:forEach var="collateralType" items="${collateralType2}">
-																						<option value="${collateralType}"
-																							<c:if test="${it.pledgeType == 'S_2' && it.collateralType.toString() == collateralType.toString() }">selected</c:if>
+																						</c:forEach>
+																					</c:if>
+																					<c:if test="${it.pledgeType == 'S_2'}">
+																						<c:forEach var="collateralType" items="${collateralType2}">
+																							<option value="${collateralType}"
+																							<c:if test="${it.collateralType.toString() == collateralType.toString() }">selected</c:if>
 																							>${collateralType.getKey()}</option>
-																					</c:forEach>
+																						</c:forEach>
+																					</c:if>
 																	            </select>
 																			</div>
 																		</div>
