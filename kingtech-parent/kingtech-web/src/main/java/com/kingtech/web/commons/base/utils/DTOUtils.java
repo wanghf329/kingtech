@@ -112,7 +112,8 @@ public class DTOUtils {
 				 collateralModels.add(new CollateralModel(collateral.getPledgeType().getKey(),
 						  getNewStr(collateral.getCollateralType()),
 						  collateral.getCollateralName(), 
-						  collateral.getWarrantNum(), collateral.getEvaluationValue().toPlainString(),
+						  collateral.getWarrantNum(), 
+						  collateral.getEvaluationValue() == null ? null : collateral.getEvaluationValue().toPlainString(),
 						  collateral.getWarrantHolder(),
 						  collateral.getCollateralAddr(),
 						  DateUtil.getDateStr(collateral.getHandleDate(), "yyyy-MM-dd")));
