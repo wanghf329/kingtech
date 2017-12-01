@@ -71,7 +71,12 @@
 	                                            <td> 
 	                                            	<a href="loan/edit?id=${it.id}"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>
 	                                            	<a href="loan/supplement?loanContractId=${it.id}" ><i class="text-blue fa fa-plus-square-o"></i><strong>补充</strong></a>
-	                                            	<a href="loan/push/${it.id}"><i class="text-blue fa fa-exchange"></i><strong>推送</strong></a>
+	                                            	<c:if test="${it.pushStatus=='SUCCESS' or it.pushStatus=='INPROSESS'}">
+	                                            		<a href="javascript:void(0);alert('不能重复推送')"><i class="text-gray fa fa-exchange"></i><strong>推送</strong></a>
+	                                            	</c:if>
+	                                            	<c:if test="${it.pushStatus=='INITATION' or it.pushStatus=='FAILED'}">
+		                                            	<a href="loan/push/${it.id}"><i class="text-blue fa fa-exchange"></i><strong>推送</strong></a>
+	                                            	</c:if>
 	                                            </td>
 	                                        </tr>
                                         </c:forEach>

@@ -109,7 +109,7 @@ public class DTOUtils {
 		
 		 List<CollateralModel> collateralModels = new ArrayList<CollateralModel>();
 			 for (Collateral collateral :collaterals) {
-				 collateralModels.add(new CollateralModel(collateral.getPledgeType().getKey(),
+				 collateralModels.add(new CollateralModel(getNewStr(collateral.getPledgeType()),
 						  getNewStr(collateral.getCollateralType()),
 						  collateral.getCollateralName(), 
 						  collateral.getWarrantNum(), 
