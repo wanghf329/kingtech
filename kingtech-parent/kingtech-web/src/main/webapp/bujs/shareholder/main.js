@@ -33,7 +33,7 @@ $("input[name='partnerType']").on('ifChecked', function(){
 function getShareHolder(id){ 
 	$.get('branch/getShareholder/'+id,null,function(res){
 		$("input[name='id']").val(res.id);
-		$("input[name='gender'][value='"+res.partnerType+"']").iCheck('check');
+		$("input[name='partnerType'][value='"+res.partnerType+"']").iCheck('check');
 		$("input[name='holder']").val(res.holder); 
 		$("input[name='holdingScale']").val(res.holdingScale);
 		$("input[name='contributionAmount']").val(res.contributionAmount);
