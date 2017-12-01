@@ -8,7 +8,7 @@
 																		<label for="#repayDate" class="col-sm-2 control-label">还款日期</label>
 																		<div class="col-sm-4 input-group date">
 																			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-																			<input type="text" class="form-control pull-right datepicker validate[required]" name="repayDate" data-errormessage="还款日期不能为空"
+																			<input type="text" class="form-control pull-right datepicker validate[required]" readonly name="repayDate" data-errormessage="还款日期不能为空"
 																					value="<fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.repayDate}"></fmt:formatDate>" >
 																		</div>
 																	</div>
