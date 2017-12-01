@@ -38,7 +38,7 @@
 							<form class="form-horizontal" id="form-horizontal" action="branch/add/capital" method="POST">
 								<input type="hidden" name="id" value="">
 								<div class="form-group">
-									<label for="#branch" class="col-sm-3 control-label">所属机构</label>
+									<label for="#branch" class="col-sm-3 control-label"><i class="text-red">*</i> 所属机构</label>
 									<div class="col-sm-6 input-group">
 										<select class="form-control validate[required]" id="branch" name="branch" data-errormessage="机构不能为空">
 											<c:forEach var="it" items="${branchs}">
@@ -48,13 +48,13 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="#financingChannel" class="col-sm-3 control-label">融资渠道</label>
+									<label for="#financingChannel" class="col-sm-3 control-label"><i class="text-red">*</i> 融资渠道</label>
 									<div class="col-sm-6 input-group">
 										<input type="text" class="form-control validate[required]" name="financingChannel" data-errormessage="融资渠道不能为空">
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="#financingMoney" class="col-sm-3 control-label">融资金额</label>
+									<label for="#financingMoney" class="col-sm-3 control-label"><i class="text-red">*</i> 融资金额</label>
 									<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
 										<input type="text" class="form-control validate[required,custom[number]]" data-errormessage="融资金额只能为数字"
@@ -63,7 +63,7 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="financingTime" class="col-sm-3 control-label">融资时间</label>
+									<label for="financingTime" class="col-sm-3 control-label"><i class="text-red">*</i> 融资时间</label>
 									<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										<input type="text" class="form-control pull-right datepicker-time validate[required]"
@@ -72,7 +72,7 @@
 								</div>
 								
 								<div class="form-group">
-									<label for="expirationTime" class="col-sm-3 control-label">到期时间</label>
+									<label for="expirationTime" class="col-sm-3 control-label"><i class="text-red">*</i> 到期时间</label>
 									<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										<input type="text" class="form-control pull-right datepicker-time validate[required]"

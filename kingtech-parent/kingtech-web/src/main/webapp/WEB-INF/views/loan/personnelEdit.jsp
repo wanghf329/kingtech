@@ -33,14 +33,14 @@
 											<form class="form-horizontal" id="personnelFrom" action="borrower/personenl/add" method="POST">
 												<input name="id" value="${model.id}" type="hidden"/>
 												<div class="form-group">
-													<label for="#name" class="col-sm-2 control-label">姓名</label>
+													<label for="#name" class="col-sm-2 control-label"><i class="text-red">*</i> 姓名</label>
 													<div class="col-sm-4 input-group">
 														<input type="text" class="form-control validate[required]" value ="${model.name}" name="name" data-errormessage="姓名不能为空">
 													</div>
 												</div>
 												
 												<div class="form-group">
-													<label for="#sex" class="col-sm-2 control-label">性别</label>
+													<label for="#sex" class="col-sm-2 control-label"><i class="text-red">*</i> 性别</label>
 													<div class="col-sm-6 input-group">
 									                  <div class="radio">
 									                      <input type="radio" name="sex" value="M" <c:if test="${empty model.sex || model.sex=='M' }">checked</c:if>>男
@@ -51,7 +51,7 @@
 												
 												
 												<div class="form-group">
-													<label for="#category" class="col-sm-2 control-label">证件类型</label>
+													<label for="#category" class="col-sm-2 control-label"><i class="text-red">*</i> 证件类型</label>
 													<div class="col-sm-4 input-group">
 														<select class="form-control validate[required]" id="contract" name="category" data-errormessage="证件类型不能为空">
 															<c:forEach var="it" items="${certTypes}">
@@ -64,21 +64,21 @@
 												
 												
 												<div class="form-group">
-													<label for="#cardNum" class="col-sm-2 control-label">证件号码</label>
+													<label for="#cardNum" class="col-sm-2 control-label"><i class="text-red">*</i> 证件号码</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" value ="${model.cardNum}" name="cardNum" data-errormessage="证件号码不能为空" >
+														<input type="text" class="form-control validate[required,maxSize[18],custom[onlyLetterNumber]]" value ="${model.cardNum}" name="cardNum" data-errormessage="证件号码不能为空" >
 													</div>
 												</div>
 												
 												<div class="form-group">
-													<label for="#phone" class="col-sm-2 control-label">联系电话</label>
+													<label for="#phone" class="col-sm-2 control-label"><i class="text-red">*</i> 联系电话</label>
 													<div class="col-sm-4 input-group">
 														<input type="text" class="form-control validate[required,custom[phone]]" value ="${model.phone}"  name="phone" data-errormessage="联系电话不能为空" >
 													</div>
 												</div>
 												
 												<div class="form-group">
-													<label for="#farmersFlag" class="col-sm-2 control-label">是否农牧民</label>
+													<label for="#farmersFlag" class="col-sm-2 control-label"><i class="text-red">*</i> 是否农牧民</label>
 													<div class="col-sm-6 input-group">
 									                  <div class="radio">
 									                      <input type="radio" name="farmersFlag" value="S_0" <c:if test="${empty model.farmersFlag || model.farmersFlag=='S_0' }">checked</c:if> >否
@@ -141,21 +141,21 @@
 												
 												
 												<div class="form-group">
-													<label for="#addressProvince" class="col-sm-2 control-label">固定住址（省份）</label>
+													<label for="#addressProvince" class="col-sm-2 control-label"><i class="text-red">*</i> 固定住址（省份）</label>
 													<div class="col-sm-4 input-group">
 														<input type="text" class="form-control validate[required]" value ="${model.addressProvince}"  name="addressProvince" data-errormessage="固定住址（省份）不能为空" >
 													</div>
 												</div>
 												
 												<div class="form-group">
-													<label for="#addressCity" class="col-sm-2 control-label">固定住址（市）</label>
+													<label for="#addressCity" class="col-sm-2 control-label"><i class="text-red">*</i> 固定住址（市）</label>
 													<div class="col-sm-4 input-group">
 														<input type="text" class="form-control validate[required]" value ="${model.addressCity}" name="addressCity" data-errormessage="固定住址（市）不能为空" >
 													</div>
 												</div>
 												
 												<div class="form-group">
-													<label for="#addressDistrict" class="col-sm-2 control-label">固定住址（区/县）</label>
+													<label for="#addressDistrict" class="col-sm-2 control-label"><i class="text-red">*</i> 固定住址（区/县）</label>
 													<div class="col-sm-4 input-group">
 														<input type="text" class="form-control validate[required]"   value ="${model.addressDistrict}" name="addressDistrict" data-errormessage="固定住址（区/县）不能为空" >
 													</div>

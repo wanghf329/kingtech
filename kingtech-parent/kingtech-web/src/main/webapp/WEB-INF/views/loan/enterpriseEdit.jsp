@@ -33,13 +33,13 @@
 											<form class="form-horizontal" id="enterpriseFrom" action="borrower/enterprise/add" method="POST">
 												<input type="hidden" name="id" value="${model.id}"/>
 												<div class="form-group">
-													<label for="#corporateName" class="col-sm-2 control-label">企业名称</label>
+													<label for="#corporateName" class="col-sm-2 control-label"><i class="text-red">*</i> 企业名称</label>
 													<div class="col-sm-4 input-group">
 														<input type="text" class="form-control validate[required]" name="corporateName" value="${model.corporateName}" data-errormessage="企业名称不能为空">
 													</div>
 												</div>
 												<div class="form-group">
-													<label for="#scale" class="col-sm-2 control-label">企业规模</label>
+													<label for="#scale" class="col-sm-2 control-label"><i class="text-red">*</i> 企业规模</label>
 													<div class="col-sm-4 input-group">
 														<select class="form-control validate[required]" id="scale" name="scale" data-errormessage="企业规模不能为空">
 															<c:forEach var="it" items="${scaleTypes}">
@@ -50,7 +50,7 @@
 												</div>
 												
 												<div class="form-group">
-													<label for="#industryType" class="col-sm-2 control-label">产业类型</label>
+													<label for="#industryType" class="col-sm-2 control-label"><i class="text-red">*</i> 产业类型</label>
 													<div class="col-sm-4 input-group">
 														<select class="form-control validate[required]" id="industryType" name="industryType" data-errormessage="产业类型不能为空">
 															<c:forEach var="it" items="${industryTypes}">
@@ -115,7 +115,7 @@
 												</div>
 												
 												<div class="form-group">
-													<label for="#licence" class="col-sm-2 control-label">营业执照号</label>
+													<label for="#licence" class="col-sm-2 control-label"><i class="text-red">*</i> 营业执照号</label>
 													<div class="col-sm-4 input-group">
 														<input type="text" class="form-control validate[required]" value="${model.licence}" name="licence"  data-errormessage="营业执照号不能为空">
 													</div>
@@ -124,7 +124,7 @@
 												
 												
 												<div class="form-group">
-													<label for="#licenceEndDate" class="col-sm-2 control-label">营业执照截止日期</label>
+													<label for="#licenceEndDate" class="col-sm-2 control-label"><i class="text-red">*</i> 营业执照截止日期</label>
 													<div class="col-sm-4 input-group">
 														<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 														<input type="text" class="form-control pull-right datepicker validate[required]"
@@ -198,7 +198,7 @@
 												</div>
 												
 												<div class="form-group">
-													<label for="#contactAddressProvince" class="col-sm-2 control-label">通讯地址（省份）</label>
+													<label for="#contactAddressProvince" class="col-sm-2 control-label"><i class="text-red">*</i> 通讯地址（省份）</label>
 													<div class="col-sm-4 input-group">
 														<input type="text" class="form-control validate[required]" name="contactAddressProvince" value="${model.contactAddressProvince}"  data-errormessage="通讯地址（省份）不能为空" >
 													</div>
@@ -206,14 +206,14 @@
 												
 												
 												<div class="form-group">
-													<label for="#contactAddresscity" class="col-sm-2 control-label">通讯地址（市）</label>
+													<label for="#contactAddresscity" class="col-sm-2 control-label"><i class="text-red">*</i> 通讯地址（市）</label>
 													<div class="col-sm-4 input-group">
 														<input type="text" class="form-control validate[required]" name="contactAddresscity" value="${model.contactAddresscity}" data-errormessage="通讯地址（市）不能为空" >
 													</div>
 												</div>
 												
 												<div class="form-group">
-													<label for="#contactAddressDistrict" class="col-sm-2 control-label">通讯地址（区/县）</label>
+													<label for="#contactAddressDistrict" class="col-sm-2 control-label"><i class="text-red">*</i> 通讯地址（区/县）</label>
 													<div class="col-sm-4 input-group">
 														<input type="text" class="form-control validate[required]" name="contactAddressDistrict"  value="${model.contactAddressDistrict}" data-errormessage="通讯地址（区/县）不能为空" >
 													</div>

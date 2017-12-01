@@ -38,19 +38,19 @@
 							<form class="form-horizontal" id = "addBranchForm" action="branch/add/branch" method="POST">
 								<input type="hidden" name="id" value="">
 								<div class="form-group" >
-									<label for="#corporateName" class="col-sm-3 control-label">公司名称</label> 
+									<label for="#corporateName" class="col-sm-3 control-label"><i class="text-red">*</i> 公司名称</label> 
 									<div class="col-sm-6 input-group">
 										<input type="text" class="form-control validate[required]" name="corporateName" id="corporateName" data-errormessage="公司名称不能为空">
 									</div>   
 								</div>
 								<div class="form-group">
-									<label for="#legalRepresentative" class="col-sm-3 control-label">法人</label>
+									<label for="#legalRepresentative" class="col-sm-3 control-label"><i class="text-red">*</i> 法人</label>
 									<div class="col-sm-6 input-group">
 										<input type="text" class="form-control validate[required]"  name ="legalRepresentative" id="legalRepresentative" data-errormessage="法人不能为空">
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="#regCapital" class="col-sm-3 control-label">注册资本</label>
+									<label for="#regCapital" class="col-sm-3 control-label"><i class="text-red">*</i> 注册资本</label>
 									<div class="col-sm-6 input-group">
 									<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
 									<input type="text" class="form-control validate[required,custom[number]]" name = "regCapital" id="regCapital"  data-errormessage="注册资本只能是数字">
@@ -58,7 +58,7 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="buildDate" class="col-sm-3 control-label">成立日期</label>
+									<label for="buildDate" class="col-sm-3 control-label"><i class="text-red">*</i> 成立日期</label>
 									<div class="col-sm-6 input-group date">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										<input type="text" class="form-control pull-right datepicker validate[required]" name="buildDate"
@@ -66,7 +66,7 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="openingDate" class="col-sm-3 control-label">开业日期</label>
+									<label for="openingDate" class="col-sm-3 control-label"><i class="text-red">*</i> 开业日期</label>
 									<div class="col-sm-6 input-group date">
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										<input type="text" class="form-control pull-right datepicker validate[required]"
@@ -74,7 +74,7 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="siteArea" class="col-sm-3 control-label">场所面积</label>
+									<label for="siteArea" class="col-sm-3 control-label"><i class="text-red">*</i> 场所面积</label>
 									<div class="col-sm-6 input-group">
 										<input type="text"  class="form-control validate[required]"
 											id="siteArea" name ="siteArea" data-errormessage="场所面积不能为空"></input>
@@ -82,21 +82,21 @@
 									</div>
 								</div> 	
 								<div class="form-group">
-									<label for="businessaddr" class="col-sm-3 control-label">经营地址</label>
+									<label for="businessaddr" class="col-sm-3 control-label"><i class="text-red">*</i> 经营地址</label>
 									<div class="col-sm-6 input-group">
 										<input type="text"  class="form-control validate[required]"
 											name = "businessAddr" id="businessaddr" data-errormessage="经营地址不能为空"></input>
 									</div>
 								</div> 
 								<div class="form-group ">
-									<label for="organizationCode" class="col-sm-3 control-label">组织机构代码</label>
+									<label for="organizationCode" class="col-sm-3 control-label"><i class="text-red">*</i> 组织机构代码</label>
 									<div class="col-sm-6 input-group">
 										<input type="text"  class="form-control validate[required]"
 											name ="organizationCode" id="organizationCode" data-errormessage="组织机构代码不能为空"></input>
 									</div>
 								</div> 
 								<div class="form-group ">
-									<label for="licence" class="col-sm-3 control-label">营业执照</label>
+									<label for="licence" class="col-sm-3 control-label"><i class="text-red">*</i> 营业执照</label>
 									<div class="col-sm-6 input-group">
 										<input type="text"  class="form-control validate[required]"
 											name = "licence" id="licence" data-errormessage="营业执照不能为空"></input>
@@ -104,7 +104,7 @@
 								</div>
 								
 								<div class="form-group ">
-									<label for="nationalRegNum" class="col-sm-3 control-label">国税编码</label>
+									<label for="nationalRegNum" class="col-sm-3 control-label"><i class="text-red">*</i> 国税编码</label>
 									<div class="col-sm-6 input-group">
 										<input type="text"  class="form-control validate[required]"
 											name = "nationalRegNum" id="nationalRegNum" data-errormessage="国税编码不能为空"></input>
@@ -112,7 +112,7 @@
 								</div>
 								
 								<div class="form-group ">
-									<label for="landRegNum" class="col-sm-3 control-label">地税编码</label>
+									<label for="landRegNum" class="col-sm-3 control-label"><i class="text-red">*</i> 地税编码</label>
 									<div class="col-sm-6 input-group">
 										<input type="text"  class="form-control validate[required]"
 											name = "landRegNum" id="landRegNum" data-errormessage="地税编码不能为空"></input>
@@ -121,7 +121,7 @@
 								
 								
 								<div class="form-group ">
-									<label for="businessScope" class="col-sm-3 control-label">经营范围</label> 
+									<label for="businessScope" class="col-sm-3 control-label"><i class="text-red">*</i> 经营范围</label> 
 									<div class="col-sm-6 input-group">
 										<input type="text"  class="form-control validate[required]" 
 											name = "businessScope" id="businessScope" data-errormessage="地税编码不能为空"></input>

@@ -5,7 +5,7 @@
 							                                <div class="box-body"> 
 																	<input type="hidden" name="id" value="">
 																	<div class="form-group">
-																		<label for="#money" class="col-sm-3 control-label">放款金额</label>
+																		<label for="#money" class="col-sm-3 control-label"><i class="text-red">*</i> 放款金额</label>
 																		<div class="col-sm-4 input-group">
 																			<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
 																			<input type="text" class="form-control validate[required,custom[number]]" name="money" data-errormessage="放款金额只能为数字"
@@ -14,7 +14,7 @@
 																		</div>
 																	</div>
 																	<div class="form-group">
-																		<label for="#loanDate" class="col-sm-3 control-label">放款日期</label>
+																		<label for="#loanDate" class="col-sm-3 control-label"><i class="text-red">*</i> 放款日期</label>
 																		<div class="col-sm-4 input-group date">
 																			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 																			<input type="text" class="form-control pull-right datepicker validate[required]" readonly name="loanDate" 
@@ -23,7 +23,7 @@
 																		</div>
 																	</div>
 																	<div class="form-group">
-																		<label for="#debtStartDate" class="col-sm-3 control-label">本笔放款债项开始日</label>
+																		<label for="#debtStartDate" class="col-sm-3 control-label"><i class="text-red">*</i> 本笔放款债项开始日</label>
 																		<div class="col-sm-4 input-group date">
 																			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 																			<input type="text" class="form-control pull-right datepicker validate[required]" readonly name="debtStartDate"
@@ -32,7 +32,7 @@
 																		</div>
 																	</div>
 																	<div class="form-group">
-																		<label for="#debtEndDate" class="col-sm-3 control-label">本笔放款债项结束日</label>
+																		<label for="#debtEndDate" class="col-sm-3 control-label"><i class="text-red">*</i> 本笔放款债项结束日</label>
 																		<div class="col-sm-4 input-group date">
 																			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 																			<input type="text" class="form-control pull-right datepicker validate[required]" readonly name="debtEndDate" 

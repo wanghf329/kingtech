@@ -38,7 +38,7 @@
 							<form class="form-horizontal" id="form-horizontal" action="branch/add/shareholder" method="POST">
 								<input type="hidden" name="id" value="">
 								<div class="form-group">
-									<label for="#branch" class="col-sm-3 control-label">所属机构</label>
+									<label for="#branch" class="col-sm-3 control-label"><i class="text-red">*</i> 所属机构</label>
 									<div class="col-sm-6 input-group">
 										<select class="form-control validate[required]" id="branch" name="branch" data-errormessage="机构不能为空">
 											<c:forEach var="it" items="${branchs}">
@@ -48,7 +48,7 @@
 									</div>
 								</div>								
 								<div class="form-group">
-									<label for="#partnerType" class="col-sm-3 control-label">股东类型</label>
+									<label for="#partnerType" class="col-sm-3 control-label"><i class="text-red">*</i> 股东类型</label>
 									<div class="col-sm-6 input-group">
 					                  <div class="radio">
 					                      <input type="radio" name="partnerType" value="1">自然人股东
@@ -57,13 +57,13 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="#holder" class="col-sm-3 control-label">持股人</label>
+									<label for="#holder" class="col-sm-3 control-label"><i class="text-red">*</i> 持股人</label>
 									<div class="col-sm-6 input-group">
 										<input type="text" class="form-control validate[required]" name="holder" data-errormessage="持股人不能为空"> 
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="#holdingScale" class="col-sm-3 control-label">持股比例</label>
+									<label for="#holdingScale" class="col-sm-3 control-label"><i class="text-red">*</i> 持股比例</label>
 									<div class="col-sm-6 input-group">
 										<input type="text" class="form-control validate[required,custom[number],max[100]]" data-errormessage="持股比例只能为数字"
 											name="holdingScale">
@@ -71,7 +71,7 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="#contributionAmount" class="col-sm-3 control-label">出资金额</label>
+									<label for="#contributionAmount" class="col-sm-3 control-label"><i class="text-red">*</i> 出资金额</label>
 									<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-rmb"></i></span> 
 										<input type="text" class="form-control validate[required,custom[number]]" data-errormessage="出资金额只能为数字"
@@ -80,7 +80,7 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label for="#joinTime" class="col-sm-3 control-label">入股时间</label> 
+									<label for="#joinTime" class="col-sm-3 control-label"><i class="text-red">*</i> 入股时间</label> 
 									<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										<input type="text" class="form-control pull-right datepicker validate[required]" name="joinTime"
@@ -89,7 +89,7 @@
 								</div>
 								
 								<div class="form-group" id="sexDiv">
-									<label for="#gender" class="col-sm-3 control-label">性别</label>
+									<label for="#gender" class="col-sm-3 control-label"><i class="text-red">*</i> 性别</label>
 									<div class="col-sm-6">
 										<div class="radio">  
 										  <input type="radio" name="gender" value="1">男	

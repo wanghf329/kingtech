@@ -38,7 +38,7 @@
 							<form class="form-horizontal" id="form-horizontal" action="branch/add/employee" method="POST">
 								<input type="hidden" name="id" value="">
 								<div class="form-group">
-									<label for="#branch" class="col-sm-3 control-label">所属机构</label>
+									<label for="#branch" class="col-sm-3 control-label"><i class="text-red">*</i> 所属机构</label>
 									<div class="col-sm-6 input-group">
 										<select class="form-control validate[required]" id="branch" name="branch" data-errormessage="机构不能为空">
 											<c:forEach var="it" items="${branchs}">
@@ -48,7 +48,7 @@
 									</div>
 								</div>							
 								<div class="form-group" >
-									<label for="#name" class="col-sm-3 control-label">姓名</label>
+									<label for="#name" class="col-sm-3 control-label"><i class="text-red">*</i> 姓名</label>
 									<div class="col-sm-6 input-group">
 										<input type="text" class="form-control validate[required]" name="name" data-errormessage="姓名不能为空">
 									</div>
@@ -70,21 +70,21 @@
 								</div>
 								
 								<div class="form-group">
-									<label for="#postalAddress" class="col-sm-3 control-label">通讯地址</label>
+									<label for="#postalAddress" class="col-sm-3 control-label"><i class="text-red">*</i> 通讯地址</label>
 									<div class="col-sm-6 input-group">
 										<input type="text" class="form-control validate[required]" name="postalAddress" data-errormessage="通讯地址不能为空">
 									</div>
 								</div>
 								
 								<div class="form-group">
-									<label for="#department" class="col-sm-3 control-label">部门</label>
+									<label for="#department" class="col-sm-3 control-label"><i class="text-red">*</i> 部门</label>
 									<div class="col-sm-6 input-group">
 										<input type="text" class="form-control validate[required]" name="department" data-errormessage="部门不能为空">
 									</div>
 								</div>
 								
 								<div class="form-group">
-									<label for="#sex" class="col-sm-3 control-label">性别</label>
+									<label for="#sex" class="col-sm-3 control-label"><i class="text-red">*</i> 性别</label>
 									<div class="col-sm-6 input-group">
 					                  <div class="radio">
 					                      <input type="radio" name="sex" value="1" checked="">男
@@ -94,14 +94,14 @@
 								</div>
 								
 								<div class="form-group">
-									<label for="#idNumber" class="col-sm-3 control-label">身份证号</label>
+									<label for="#idNumber" class="col-sm-3 control-label"><i class="text-red">*</i> 身份证号</label>
 									<div class="col-sm-6 input-group">
 										<input type="text" class="form-control validate[required]" name="idNumber" data-errormessage="身份证号不能为空">
 									</div>
 								</div>
 								
 								<div class="form-group">
-									<label for="#education" class="col-sm-3 control-label">学历</label>
+									<label for="#education" class="col-sm-3 control-label"><i class="text-red">*</i> 学历</label>
 									<div class="col-sm-6 input-group ">
 										<select class="form-control" name="education">
 						                   <option value="小学">小学</option>
@@ -114,7 +114,7 @@
 								</div>
 								
 								<div class="form-group">
-									<label for="#executiveFlag" class="col-sm-3 control-label">是否董监高</label>
+									<label for="#executiveFlag" class="col-sm-3 control-label"><i class="text-red">*</i> 是否董监高</label>
 									<div class="col-sm-6 input-group">
 										<div class="radio">
 					                      <input type="radio" name="executiveFlag" value="1" checked="">是
@@ -124,7 +124,7 @@
 								</div>
 								
 								<div class="form-group">
-									<label for="#post" class="col-sm-3 control-label">职务</label>
+									<label for="#post" class="col-sm-3 control-label"><i class="text-red">*</i> 职务</label>
 									<div class="col-sm-6 input-group">
 										<select class="form-control validate[required]" name="post">
 										   <option value="">请选择</option>
@@ -152,7 +152,7 @@
 								</div>
 								
 								<div class="form-group">
-									<label for="#entryTime" class="col-sm-3 control-label">入职时间</label>
+									<label for="#entryTime" class="col-sm-3 control-label"><i class="text-red">*</i> 入职时间</label>
 									<div class="col-sm-6 input-group date">
 									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 										<input type="text" class="form-control pull-right datepicker validate[required]" name="entryTime"

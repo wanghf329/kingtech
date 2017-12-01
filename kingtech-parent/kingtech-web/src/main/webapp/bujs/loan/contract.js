@@ -14,9 +14,9 @@ $(document).ready(function () {
     	  failure : function() { callFailFunction()  } 
       })
       
-//      if(canEdit === undefined && canEdit=="false"){
-//    	  $('#form-horizontal').find('input,textarea,select,button').attr('disabled',true);
-//      } 
+      if(canEdit === undefined && canEdit=="false"){
+    	  $('#form-horizontal').find('input,textarea,select,button').attr('disabled',true);
+      } 
 });
 
 $(".saveRecordBtn").click(function(){ 
@@ -55,16 +55,12 @@ function getBorrower(){
 	});
 }
 
-$("input[name='pledgeType'][value='S_1']").on("ifChecked", function(event){
-	$("#collateralType1").css("display","");
-	$("#collateralType2").css("display","none");
-	$("#collateralType2").val("");
+$("select[name='pledgeType']").on("change", function(event){
+	if($(this).val()=='S_1'){
+		
+	}     
 });
-$("input[name='pledgeType'][value='S_2']").on("ifChecked", function(event){
-	$("#collateralType2").css("display","");
-	$("#collateralType1").css("display","none");
-	$("#collateralType1").val("");
-});
+
 
 
 
