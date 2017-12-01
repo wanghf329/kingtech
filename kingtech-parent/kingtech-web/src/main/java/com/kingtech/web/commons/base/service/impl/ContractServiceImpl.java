@@ -144,16 +144,17 @@ public class ContractServiceImpl implements ContractService{
 	
 	@Override
 	@Transactional
-	public void addCollateral(String[] ids, String loanContractId, PledgeTypeEnum[] pledgeType,
-			CollateralTypeFor1Enum[] collateralType, String[] collateralName,
+	public void addCollateral(String[] ids, String loanContractId, String[] pledgeType,
+			String[] collateralType, String[] collateralName,
 			String[] warrantNum, BigDecimal[] evaluationValue, String[] warrantHolder,
 			String[] collateralAddr, String[] handleDate) {
 		
 		try {
 			collateralDAO.deleteByLoanContractId(loanContractId);
 			for (int i = 1; i < pledgeType.length; i++) {
-				Collateral collateral;
-					collateral = new Collateral(loanContractId, pledgeType[i], collateralType[i], collateralName[i],
+				Collateral collateral= new Collateral(loanContractId, 
+							PledgeTypeEnum.valueOf(pledgeType[i]), 
+							CollateralTypeFor1Enum.valueOf(collateralType[i]), collateralName[i],
 							warrantNum[i], evaluationValue[i], warrantHolder[i], collateralAddr[i], 
 							StringUtils.isEmpty(handleDate[i]) ? null : DateUtils.parseDate(handleDate[i], "yyyy-MM-dd"));
 				collateralDAO.save(collateral);

@@ -38,7 +38,7 @@ public interface ContractService {
 	
 	public Contract getById(String id);
 	
-	public void addCollateral(String id[], String loanContractId, PledgeTypeEnum[] pledgeType, CollateralTypeFor1Enum[] collateralType, 
+	public void addCollateral(String id[], String loanContractId, String[] pledgeType, String[] collateralType, 
 						String[] collateralName, String[] warrantNum, BigDecimal[] evaluationValue, 
 						String[] warrantHolder,String[] collateralAddr, String[] handleDate);
 	
