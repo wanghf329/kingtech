@@ -14,7 +14,7 @@ $(document).ready(function () {
     	  failure : function() { callFailFunction()  } 
       })
       
-      if(canEdit === undefined && canEdit=="false"){
+      if(typeof(canEdit) != "undefined" === undefined && canEdit=="false"){
     	  $('#form-horizontal').find('input,textarea,select,button').attr('disabled',true);
       } 
 });
