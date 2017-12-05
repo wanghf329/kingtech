@@ -14,6 +14,7 @@ import com.kingtech.dao.entity.PersonalCustomer;
 import com.kingtech.dao.rdbms.EnterpriseCustomerDAO;
 import com.kingtech.dao.rdbms.PersonalCustomerDAO;
 import com.kingtech.enums.CertType;
+import com.kingtech.enums.FarmersFlagEnum;
 import com.kingtech.enums.IndustryEnum;
 import com.kingtech.enums.IndustryType;
 import com.kingtech.enums.ScaleType;
@@ -123,7 +124,7 @@ public class BorrowerServiceImpl implements BorrowerService{
 			PersonalCustomer personalCustomer = null;
 			if(StringUtils.isEmpty(id)){
 				personalCustomer =	new PersonalCustomer(name, SexEnum.valueOf(sex) , CertType.valueOf(category) ,
-						 cardNum, phone, YesNoEnum.valueOf(farmersFlag),  education,
+						 cardNum, phone, FarmersFlagEnum.valueOf(farmersFlag),  education,
 						 fax,  email,  marriage,  nationality,
 						 StringUtils.isEmpty(birthDate) ? null: DateUtils.parseDate(birthDate, "yyyy-MM-dd"),
 						 nation,  addressProvince,
@@ -137,7 +138,7 @@ public class BorrowerServiceImpl implements BorrowerService{
 				personalCustomer.setCategory(CertType.valueOf(category));
 				personalCustomer.setCardNum(cardNum);
 				personalCustomer.setPhone(phone);
-				personalCustomer.setFarmersFlag(YesNoEnum.valueOf(farmersFlag));
+				personalCustomer.setFarmersFlag(FarmersFlagEnum.valueOf(farmersFlag));
 				personalCustomer.setEducation(education);
 				personalCustomer.setFax(fax);
 				personalCustomer.setEmail(email);

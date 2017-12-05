@@ -11,9 +11,9 @@ import javax.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import com.kingtech.dao.entity.base.PackageEntity;
 import com.kingtech.dao.entity.base.UuidEntity;
 import com.kingtech.enums.CertType;
+import com.kingtech.enums.FarmersFlagEnum;
 import com.kingtech.enums.SexEnum;
 import com.kingtech.enums.YesNoEnum;
 
@@ -48,7 +48,7 @@ public class PersonalCustomer extends UuidEntity{
 	//是否农牧民：1）是   2）否
 	@Enumerated(EnumType.STRING)
 	@Column(name="FARMERS_FLAG",nullable = false)
-	private YesNoEnum farmersFlag;
+	private FarmersFlagEnum farmersFlag;
 	
 	//学历
 	@Column(name="EDUCATION")
@@ -116,7 +116,7 @@ public class PersonalCustomer extends UuidEntity{
 
 	public PersonalCustomer(String name, SexEnum sex,
 			CertType category, String cardNum, String phone,
-			YesNoEnum farmersFlag, String addressProvince, String addressCity,
+			FarmersFlagEnum farmersFlag, String addressProvince, String addressCity,
 			String addressDistrict) {
 		this.name = name;
 		this.sex = sex;
@@ -130,7 +130,7 @@ public class PersonalCustomer extends UuidEntity{
 	}
 
 	public PersonalCustomer(String name, SexEnum sex, CertType category,
-			String cardNum, String phone, YesNoEnum farmersFlag,
+			String cardNum, String phone, FarmersFlagEnum farmersFlag,
 			String education, String fax, String email, String marriage,
 			String nationality, Date birthDate, String nation,
 			String addressProvince, String addressCity, String addressDistrict,

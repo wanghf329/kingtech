@@ -87,7 +87,7 @@
 												<div class="form-group">
 													<label for="#periodType" class="col-sm-2 control-label"><i class="text-red">*</i> 贷款期限类型</label>
 													<div class="col-sm-4 input-group">
-														<select class="form-control validate[required]" id="periodType" name="periodType" data-errormessage="贷款期限类型不能为空">
+														<select class="form-control validate[required,custom[number]]" id="periodType" name="periodType" data-errormessage="贷款期限类型不能为空">
 															<c:forEach var="it" items="${periodType}">
 						  										<option value ="${it.name()}" <c:if test="${it.name() eq contract.periodType}"></c:if> >${it.getKey()}</option>
 															</c:forEach>
@@ -121,7 +121,7 @@
 													<div class="col-sm-4 input-group">
 														<select class="form-control" id="rateType" name="rateType">
 															<c:forEach var="it" items="${rateType}">
-						  										<option value ="${it.name()}">${it.getKey()}</option> 
+						  										<option value ="${it.name()}" <c:if test="${it eq contract.rateType}">selected</c:if>>${it.getKey()}</option> 
 															</c:forEach>
 														</select>
 													</div>													
@@ -137,7 +137,7 @@
 													<div class="col-sm-4 input-group">
 														<select class="form-control" id="purpose" name="purpose">
 															<c:forEach var="it" items="${purpose}">
-						  										<option value ="${it.name()}">${it.getKey()}</option>
+						  										<option value ="${it.name()}" <c:if test="${it eq contract.purpose}">selected</c:if>>${it.getKey()}</option>
 															</c:forEach>
 														</select>
 													</div>	
@@ -147,7 +147,7 @@
 													<div class="col-sm-4 input-group">
 														<select class="form-control" id="industry" name="industry">
 															<c:forEach var="it" items="${industry}">
-						  										<option value ="${it.name()}">${it.getKey()}</option>
+						  										<option value ="${it.name()}"  <c:if test="${it eq contract.industry}">selected</c:if>>${it.getKey()}</option>
 															</c:forEach>
 														</select>
 													</div>														
@@ -167,7 +167,7 @@
 													<div class="col-sm-4 input-group">
 														<select class="form-control" id="unionFlag" name="unionFlag">
 															<c:forEach var="it" items="${unionFlag}">
-						  										<option value ="${it.name()}">${it.getKey()}</option>
+						  										<option value ="${it.name()}" <c:if test="${it eq contract.unionFlag}">selected</c:if>>${it.getKey()}</option>
 															</c:forEach>
 														</select>
 													</div>														
@@ -177,7 +177,7 @@
 													<div class="col-sm-4 input-group">
 														<select class="form-control" id="payType" name="payType">
 															<c:forEach var="it" items="${payType}">
-						  										<option value ="${it.name()}">${it.getKey()}</option>
+						  										<option value ="${it.name()}" <c:if test="${it eq contract.payType}">selected</c:if>>${it.getKey()}</option>
 															</c:forEach>
 														</select>
 													</div>														
@@ -201,7 +201,7 @@
 													<div class="col-sm-4 input-group">
 														<select class="form-control" id="status" name="status">
 															<c:forEach var="it" items="${status}">
-						  										<option value ="${it.name()}">${it.getKey()}</option>
+						  										<option value ="${it.name()}" <c:if test="${it eq contract.status}">selected</c:if>>${it.getKey()}</option>
 															</c:forEach>
 														</select>
 													</div>													
@@ -211,7 +211,7 @@
 													<div class="col-sm-4 input-group">
 														<select class="form-control" id="isExtend" name="isExtend">
 															<c:forEach var="it" items="${isExtend}">
-						  										<option value ="${it.name()}">${it.getKey()}</option>
+						  										<option value ="${it.name()}" <c:if test="${it eq contract.isExtend}">selected</c:if>>${it.getKey()}</option>
 															</c:forEach>
 														</select>
 													</div>														
