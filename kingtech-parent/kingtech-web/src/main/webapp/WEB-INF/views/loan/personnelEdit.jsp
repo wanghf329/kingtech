@@ -81,7 +81,7 @@
 													<label for="#farmersFlag" class="col-sm-2 control-label"><i class="text-red">*</i> 是否农牧民</label>
 													<div class="col-sm-6 input-group">
 									                  <div class="radio">
-									                      <input type="radio" name="farmersFlag" value="S_0" <c:if test="${empty model.farmersFlag || model.farmersFlag=='S_0' }">checked</c:if> >否
+									                      <input type="radio" name="farmersFlag" value="S_2" <c:if test="${empty model.farmersFlag || model.farmersFlag=='S_2' }">checked</c:if> >否
 									                   	  <input type="radio" name="farmersFlag" value="S_1" <c:if test="${model.farmersFlag=='S_1' }">checked</c:if>>是
 									                  </div>
 													</div>

@@ -87,7 +87,7 @@
 												<div class="form-group">
 													<label for="#periodType" class="col-sm-2 control-label"><i class="text-red">*</i> 贷款期限类型</label>
 													<div class="col-sm-4 input-group">
-														<select class="form-control validate[required]" id="periodType" name="periodType" data-errormessage="贷款期限类型不能为空">
+														<select class="form-control validate[required,custom[number]]" id="periodType" name="periodType" data-errormessage="贷款期限类型不能为空">
 															<c:forEach var="it" items="${periodType}">
 						  										<option value ="${it.name()}" <c:if test="${it.name() eq contract.periodType}"></c:if> >${it.getKey()}</option>
 															</c:forEach>
