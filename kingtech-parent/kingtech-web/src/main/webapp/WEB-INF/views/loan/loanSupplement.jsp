@@ -94,14 +94,14 @@
                                 	</div>
                                 	
                                 	<!-- 还款计划 -->
-                                	<div id="repayPlanTab" class="tab-pane">
-	                                	<div class="content col-md-10"> 
+                                	<div id="repayPlanTab" class="tab-pane"> 
+	                                	<div class="content col-md-12"> 
 	                                		<a href="javascript:void(0)"><i class="text-blue fa  fa-plus-circle addRepayPlanBtn">增加</i></a> 
 	                                		<form class="form-horizontal" id="form-repayPlan" action="loan/supplement/addRepayPlan" method="POST">
 			                                	<input type="hidden" name="loanContractId" value="${loanContractId}">
 			                                		<div>
 					                                	<%@include file="sub/repayPlan.jspf" %>			                                		
-			                                			<c:forEach var="it" items="${repayPlanList}">
+			                                			<c:forEach var="it" items="${repayPlanList}" varStatus="status">
 						                                	<%@include file="sub/repayPlan1.jspf" %>
 						                            	</c:forEach>
 				                                	</div>
