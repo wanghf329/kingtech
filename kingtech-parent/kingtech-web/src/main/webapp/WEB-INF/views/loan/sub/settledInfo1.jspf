@@ -43,8 +43,8 @@
 							                                </div><!-- /.box-body --> 
 							                            </div>  
 			                                		</div>
-						                            <div class="col-md-2">
-						                            	<a href="javascript:void(0)"><i class="text-red fa fa-minus delSettledInfoBtn">删除</i></a>  
+						                            <div class="col-md-2"> 
+						                            	<a href="javascript:void(0)" class="edit-href"><i class="text-red fa fa-minus delSettledInfoBtn">删除</i></a>  
 						                            </div>  
 				                            	</div>
 				                            	

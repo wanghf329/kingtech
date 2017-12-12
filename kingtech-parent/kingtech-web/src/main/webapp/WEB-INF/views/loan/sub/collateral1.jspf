@@ -80,6 +80,6 @@
 								                            </div>  
 				                                		</div>
 							                            <div class="col-md-2">
-							                            	<a href="javascript:void(0)"><i class="text-red fa fa-minus delCollateralBtn">删除</i></a>  
+							                            	<a href="javascript:void(0)"  class="edit-href"><i class="text-red fa fa-minus delCollateralBtn">删除</i></a>  
 							                            </div>
 					                            	</div>

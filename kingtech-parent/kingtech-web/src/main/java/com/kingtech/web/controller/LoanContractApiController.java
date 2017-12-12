@@ -93,7 +93,7 @@ public class LoanContractApiController {
 		model.addAttribute("guaranteeList", contractService.listGuaranteeByLoanContractId(loanContractId));
 		model.addAttribute("repayPlanList", contractService.listRepayPlanByLoanContractId(loanContractId));
 		model.addAttribute("settledInfoList", contractService.listSettledInfoByLoanContractId(loanContractId));
-		
+		model.addAttribute("contract",contractService.getById(loanContractId));
 		return "/loan/loanSupplement";
 	}
 	

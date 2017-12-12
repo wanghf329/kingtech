@@ -58,7 +58,7 @@
                                 	<!-- 抵质押物 -->
                                 	<div id="collateralTab" class="tab-pane in active">
 	                                	<div class="content col-md-10">
-	                                		<a href="javascript:void(0)"><i class="text-blue fa  fa-plus-circle addCollateralBtn">增加</i></a> 
+	                                		<a href="javascript:void(0)" class="edit-href"><i class="text-blue fa  fa-plus-circle addCollateralBtn">增加</i></a> 
 	                                		<form class="form-horizontal" id="form-collateral" action="loan/supplement/addCollateral" method="POST">
 	                                			<input type="hidden" name="loanContractId" value="${loanContractId}">
 	                                				<div>
@@ -77,7 +77,7 @@
                                 	<!-- 保证人信息 -->
                                 	<div id="guaranteeTab" class="tab-pane">
 	                                	<div class="content col-md-10"> 
-	                                			<a href="javascript:void(0)"><i class="text-blue fa  fa-plus-circle addGuaranteeBtn">增加</i></a> 
+	                                			<a href="javascript:void(0)" class="edit-href"><i class="text-blue fa  fa-plus-circle addGuaranteeBtn">增加</i></a> 
 		                                		<form class="form-horizontal" id="form-guarantee" action="loan/supplement/addGuarantee" method="POST">
 													<input type="hidden" name="loanContractId" value="${loanContractId}">
 			                                		<div>
@@ -96,7 +96,7 @@
                                 	<!-- 还款计划 -->
                                 	<div id="repayPlanTab" class="tab-pane"> 
 	                                	<div class="content col-md-12"> 
-	                                		<a href="javascript:void(0)"><i class="text-blue fa  fa-plus-circle addRepayPlanBtn">增加</i></a> 
+	                                		<a href="javascript:void(0)" class="edit-href"><i class="text-blue fa  fa-plus-circle addRepayPlanBtn">增加</i></a> 
 	                                		<form class="form-horizontal" id="form-repayPlan" action="loan/supplement/addRepayPlan" method="POST">
 			                                	<input type="hidden" name="loanContractId" value="${loanContractId}">
 			                                		<div>
@@ -115,7 +115,7 @@
                                 	<!-- 放款信息 -->
                                 	<div id="settledInfoTab" class="tab-pane">
 	                                	<div class="content col-md-10"> 
-	                                		<a href="javascript:void(0)"><i class="text-blue fa  fa-plus-circle addSettledInfoBtn">增加</i></a> 
+	                                		<a href="javascript:void(0)"  class="edit-href"><i class="text-blue fa  fa-plus-circle addSettledInfoBtn">增加</i></a> 
 	                                		<form class="form-horizontal" id="form-settledInfo" action="loan/supplement/addSettledInfo" method="POST">
 			                                	<input type="hidden" name="loanContractId" value="${loanContractId}">
 			                                		<div>
@@ -151,7 +151,7 @@
 			<c:forEach var="collateralType" items="${collateralType2}">
 				collateralTypeOption2 += "<option value='${collateralType}'>${collateralType.getKey()}</option>";
 			</c:forEach>
-			var canEdit = "true";
+			var canEdit = "${contract.pushStatus=='INITATION' or contract.pushStatus=='FAILED'}";
         </script>    
     </body>
 </html>

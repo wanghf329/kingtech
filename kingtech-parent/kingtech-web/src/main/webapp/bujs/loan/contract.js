@@ -14,8 +14,10 @@ $(document).ready(function () {
     	  failure : function() { callFailFunction()  } 
       })
       
-      if(typeof(canEdit) != "undefined" === undefined && canEdit=="false"){
-    	  $('#form-horizontal').find('input,textarea,select,button').attr('disabled',true);
+      if(typeof(canEdit) != "undefined" && canEdit=="false"){  
+    	  $('.form-horizontal').find('input,textarea,select').attr('disabled',true); 
+    	  $('.form-horizontal').find("button[type='submit']").hide();
+    	  $('body').find(".edit-href").hide(); 
       } 
 });
 

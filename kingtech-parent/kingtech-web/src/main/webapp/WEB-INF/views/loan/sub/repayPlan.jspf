@@ -38,7 +38,7 @@
 																		</li>  
 																		<li class="col-sm-2 text-center">  
 																			<div class="col-md-12">
-												                            	<a href="javascript:void(0)"><i class="text-red fa fa-minus delRepayPlanBtn">删除</i></a>  
+												                            	<a href="javascript:void(0)"  class="edit-href"><i class="text-red fa fa-minus delRepayPlanBtn">删除</i></a>  
 												                            </div>																		
 																		</li>
 																	</ul>

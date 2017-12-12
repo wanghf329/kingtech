@@ -218,7 +218,7 @@
 												</div>																								
 												<div class="form-group">
 													<label class="col-sm-5 control-label"></label> 
-													<button type="button" class="btn btn-primary saveRecordBtn">保&nbsp;存</button>
+													<button type="button" class="btn btn-primary saveRecordBtn edit-href">保&nbsp;存</button>
 												</div>												
 											</form>						
                                 </div>
