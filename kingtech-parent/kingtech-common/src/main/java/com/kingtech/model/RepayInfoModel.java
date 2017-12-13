@@ -36,8 +36,7 @@ public class RepayInfoModel extends BaseRequestModel{
 	@JSONField(name="update_time")
 	private String updateTime;
 
-	public RepayInfoModel( String roundStr, String identifier, String reqId, String sign,
-			String id, String loanContractId, String repayAmount,
+	public RepayInfoModel( String roundStr, String identifier, String reqId, String sign, String loanContractId, String repayAmount,
 			String repayPrincipalAmount, String repayInterestAmount,
 			String repayDate, String creatTime, String updateTime) {
 		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId, sign,null);
