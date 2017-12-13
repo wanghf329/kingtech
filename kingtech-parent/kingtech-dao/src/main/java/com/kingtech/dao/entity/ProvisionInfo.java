@@ -11,6 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import com.kingtech.dao.entity.base.PackageEntity;
+import com.kingtech.enums.LoanClassificationEnum;
 
 /**
  * 计提信息表
@@ -36,7 +37,7 @@ public class ProvisionInfo extends PackageEntity {
 
 	// 贷款分类
 	@Column(name="LOAN_CLASSIFICATION")
-	private String loanClassification;
+	private LoanClassificationEnum loanClassification;
 
 	// 贷款余额（万元）
 	@Column(name="BALANCE")
@@ -44,7 +45,7 @@ public class ProvisionInfo extends PackageEntity {
 
 	public ProvisionInfo(String loanContractId, BigDecimal provisionMoney,
 			Date provisionDate, BigDecimal provisionScale,
-			String loanClassification, BigDecimal balance) {
+			LoanClassificationEnum loanClassification, BigDecimal balance) {
 		super(loanContractId);
 		this.provisionMoney = provisionMoney;
 		this.provisionDate = provisionDate;

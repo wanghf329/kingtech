@@ -11,6 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import com.kingtech.dao.entity.base.PackageEntity;
+import com.kingtech.enums.YesNoEnum;
 
 /**
  * 展期还款计划表
@@ -56,7 +57,7 @@ public class RepayExtendPlan extends PackageEntity {
 	
 	// 是否逾期
 	@Column(name="OVERDUE_FLAG")
-	private Date overdueFlag;
+	private YesNoEnum overdueFlag;
 	
 	// 逾期天数
 	@Column(name="OVERDUE_DAYS")
@@ -65,7 +66,7 @@ public class RepayExtendPlan extends PackageEntity {
 	public RepayExtendPlan(String loanContractId, long extendCount,
 			String extendTerm, Date repayDate, BigDecimal principal,
 			BigDecimal returnPrincipal, BigDecimal interest,
-			BigDecimal returnInterest, String status, Date overdueFlag,
+			BigDecimal returnInterest, String status, YesNoEnum overdueFlag,
 			long overdueDays) {
 		super(loanContractId);
 		this.extendCount = extendCount;
