@@ -1,5 +1,8 @@
 package com.kingtech.model;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import com.alibaba.fastjson.annotation.JSONField;
 import com.kingtech.common.config.BaseConfig;
 import com.kingtech.common.utils.SignUtils;
@@ -9,6 +12,8 @@ import com.kingtech.common.utils.SignUtils;
  * @author baijt
  *
  */
+@Data
+@NoArgsConstructor
 public class RepayExtendInfoModel extends BaseRequestModel{
 	
 	@JSONField(name="loan_contract_id",label="sign")
@@ -39,6 +44,21 @@ public class RepayExtendInfoModel extends BaseRequestModel{
 	
 	@JSONField(name="update_time")
 	private String updateTime;
+	
+	
+
+	public RepayExtendInfoModel(String id, String loanContractId,
+			String extendNum, String repayDate, String repayAmount,
+			String repayPrincipalAmount, String repayInterestAmount) {
+		super(id);
+		this.loanContractId = loanContractId;
+		this.extendNum = extendNum;
+		this.repayDate = repayDate;
+		this.repayAmount = repayAmount;
+		this.repayPrincipalAmount = repayPrincipalAmount;
+		this.repayInterestAmount = repayInterestAmount;
+	}
+
 
 	public RepayExtendInfoModel(String roundStr, String identifier, String reqId,
 			String sign, String loanContractId, String extendNum,
@@ -55,5 +75,4 @@ public class RepayExtendInfoModel extends BaseRequestModel{
 		this.creatTime = creatTime;
 		this.updateTime = updateTime;
 	}
-	
 }

@@ -12,6 +12,12 @@ import com.kingtech.model.CapitalModel;
 import com.kingtech.model.ContractModel;
 import com.kingtech.model.EmployeeModel;
 import com.kingtech.model.BranchInfoModel;
+import com.kingtech.model.OtherBaddebtModel;
+import com.kingtech.model.OtherOverdueInfoModel;
+import com.kingtech.model.PersonalCustomerModel;
+import com.kingtech.model.ProvisionInfoModel;
+import com.kingtech.model.RepayExtendInfoModel;
+import com.kingtech.model.RepayExtendPlanModel;
 import com.kingtech.model.RepayInfoModel;
 import com.kingtech.model.ShareholderModel;
 import com.kingtech.model.SynResponseModel;
@@ -67,6 +73,46 @@ public class FinanceServiceImpl  extends BaseAbstract implements FinanceService 
 	public SynResponseModel repayInfoFacade(RepayInfoModel repayInfoModel) {
 		Map<String, String> data = getDataAndSign(repayInfoModel);
 		SynResponseModel responseModel = getResponse(data, "pushRepayData");
+		return responseModel;
+	}
+
+
+	@Override
+	public SynResponseModel repayExtendInfoFacade(RepayExtendInfoModel repayExtendInfoModel) {
+		Map<String, String> data = getDataAndSign(repayExtendInfoModel);
+		SynResponseModel responseModel = getResponse(data, "pushExtendRepayData");
+		return responseModel;
+	}
+
+
+	@Override
+	public SynResponseModel repayExtendPlanFacade(RepayExtendPlanModel repayExtendPlanModel) {
+		Map<String, String> data = getDataAndSign(repayExtendPlanModel);
+		SynResponseModel responseModel = getResponse(data, "pushExtendPlanData");
+		return responseModel;
+	}
+
+
+	@Override
+	public SynResponseModel otherBaddebtFacade(OtherBaddebtModel otherBaddebtModel) {
+		Map<String, String> data = getDataAndSign(otherBaddebtModel);
+		SynResponseModel responseModel = getResponse(data, "pushBadDebtData");
+		return responseModel;
+	}
+
+
+	@Override
+	public SynResponseModel otherOverdueInfoFacade(OtherOverdueInfoModel otherOverdueInfoModel) {
+		Map<String, String> data = getDataAndSign(otherOverdueInfoModel);
+		SynResponseModel responseModel = getResponse(data, "pushOverdueData");
+		return responseModel;
+	}
+
+
+	@Override
+	public SynResponseModel provisionInfoFacade(ProvisionInfoModel provisionInfoModel) {
+		Map<String, String> data = getDataAndSign(provisionInfoModel);
+		SynResponseModel responseModel = getResponse(data, "pushProvisionData");
 		return responseModel;
 	}
 
