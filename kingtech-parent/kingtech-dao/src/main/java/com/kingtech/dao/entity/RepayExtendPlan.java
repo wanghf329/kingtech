@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 
 import com.kingtech.dao.entity.base.LoanRecordEntity;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.enums.RepayStatusEnum;
 import com.kingtech.enums.YesNoEnum;
 
 /**
@@ -54,7 +55,7 @@ public class RepayExtendPlan extends LoanRecordEntity {
 	
 	// 状态，值为未还、已还
 	@Column(name="STATUS")
-	private String status;
+	private RepayStatusEnum status;
 	
 	// 是否逾期
 	@Column(name="OVERDUE_FLAG")
@@ -67,7 +68,7 @@ public class RepayExtendPlan extends LoanRecordEntity {
 	public RepayExtendPlan(String loanContractId, String reqId,
 			PushStatus pushStatus, long extendCount, String extendTerm,
 			Date repayDate, BigDecimal principal, BigDecimal returnPrincipal,
-			BigDecimal interest, BigDecimal returnInterest, String status,
+			BigDecimal interest, BigDecimal returnInterest, RepayStatusEnum status,
 			YesNoEnum overdueFlag, long overdueDays) {
 		super(loanContractId, reqId, pushStatus);
 		this.extendCount = extendCount;
