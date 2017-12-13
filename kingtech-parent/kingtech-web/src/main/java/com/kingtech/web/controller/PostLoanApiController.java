@@ -2,6 +2,7 @@ package com.kingtech.web.controller;
 
 import java.math.BigDecimal;
 
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +11,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kingtech.enums.RepayStatusEnum;
+import com.kingtech.enums.YesNoEnum;
+import com.kingtech.model.RepayExtendPlanModel;
+import com.kingtech.web.commons.base.service.ContractService;
+import com.kingtech.web.commons.base.service.ExtendRepayPlanService;
+import com.kingtech.model.OtherBaddebtModel;
+import com.kingtech.model.RepayExtendInfoModel;
 import com.kingtech.model.RepayInfoModel;
+import com.kingtech.web.commons.base.service.ExtendRepayService;
 import com.kingtech.web.commons.base.service.PostLoanService;
 
 @Controller
@@ -18,10 +27,17 @@ import com.kingtech.web.commons.base.service.PostLoanService;
 public class PostLoanApiController {
 	
 	@Autowired
+	private ContractService contractService;
+	
+	@Autowired
+	private ExtendRepayPlanService repayExtendPlanService;
+
+	@Autowired
+	private ExtendRepayService extendRepayService;
+	
+	@Autowired
 	private PostLoanService postLoanService;
 	
-	
-
 	/**
 	 * 还款信息
 	 * 
@@ -59,7 +75,40 @@ public class PostLoanApiController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "extensionrepayplaninfo")
 	public String extensionRepayPlanInfo(Model model) {
+		model.addAttribute("list", repayExtendPlanService.listAll());
+		model.addAttribute("contracts", contractService.listAll());
+		model.addAttribute("repayStatus", RepayStatusEnum.values());
+		model.addAttribute("overdueFlags", YesNoEnum.values());
 		return "/postloan/extensionRepayPlanInfo";
+	}
+	
+	/**
+	 * 展期还款计划信息
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/get/extensionrepayplaninfo/{id}", method = RequestMethod.GET)
+	public RepayExtendPlanModel getRepayExtendPlan(Model model,@PathVariable("id") String id) {
+		return repayExtendPlanService.getById(id);
+	}
+	
+	/**
+	 * 展期还款计划信息save
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/add/extensionrepayplaninfo", method = RequestMethod.POST)
+	public String saveExtensionRepayPlanInfo(Model model,
+			String id, String loanContractId, String extendCount, String extendTerm,
+			String repayDate, String principal, String returnPrincipal,
+			String interest, String returnInterest, String status,
+			String overdueFlag, String overdueDays) {
+		repayExtendPlanService.addNew(id, loanContractId, extendCount, extendTerm, repayDate, principal, returnPrincipal, 
+				interest, returnInterest, status, overdueFlag, overdueDays);
+		return "redirect:/postLoan/extensionrepayplaninfo";
 	}
 
 	/**
@@ -70,6 +119,8 @@ public class PostLoanApiController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "extensionrepayinfo")
 	public String extensionRepayInfo(Model model) {
+		model.addAttribute("contracts", contractService.listAll());
+		model.addAttribute("extendRepayList", extendRepayService.listAll());
 		return "/postloan/extensionRepayInfo";
 	}
 
@@ -81,8 +132,28 @@ public class PostLoanApiController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "baddebtsinfo")
 	public String badDebtsInfo(Model model) {
+		model.addAttribute("contracts", postLoanService.listAllContract());
+		model.addAttribute("list", postLoanService.listAllOtherBaddebt());
 		return "/postloan/badDebtsInfo";
 	}
+	
+	
+	@RequestMapping(method = RequestMethod.GET, value = "getBaddebtsInfo/{id}")
+	@ResponseBody
+	public OtherBaddebtModel getBaddebtsInfo(Model model,@PathVariable String id) {
+		return postLoanService.getBaddebtInfoById(id);
+	}
+	@RequestMapping(method = RequestMethod.POST, value = "add/baddebtsInfo")
+	public String addNewBaddebtsInfo(Model model,String id,
+								    String setDate,
+								    BigDecimal badMoney,
+								    String  followupWork,
+								    String loanContractId){
+		postLoanService.addNewBaddebtInfo(id,setDate,badMoney,followupWork, loanContractId);
+		return "redirect:/postLoan/baddebtsinfo";
+	}
+
+	
 
 	/**
 	 * 逾期信息
@@ -104,5 +175,31 @@ public class PostLoanApiController {
 	@RequestMapping(method = RequestMethod.GET, value = "provisioninfo")
 	public String accruedInfo(Model model) {
 		return "/postloan/provisionInfo";
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "extendrepay/edit")
+	public String extendrepayEdit(Model model,String id,String loanContractId,long extendNum, 
+								  String repayDate,BigDecimal repayAmount, 
+								  BigDecimal repayPrincipalAmount,
+								  BigDecimal repayInterestAmount) {
+		try {
+			extendRepayService.addOrEdit(id, loanContractId, extendNum, DateUtils.parseDate(repayDate, "yyyy-MM-dd"), repayAmount, repayPrincipalAmount, repayInterestAmount);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/postLoan/extensionrepayinfo";
+	}
+	
+	/**
+	 * 展期还款信息
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET, value = "extendrepay/detail/{id}")
+	public RepayExtendInfoModel extendrepayDetail(Model model,@PathVariable("id") String id) {
+		RepayExtendInfoModel rf = extendRepayService.getById(id);
+		return rf;
 	}
 }
