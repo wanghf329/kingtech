@@ -470,7 +470,7 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
 			extendInfoModel = new RepayExtendInfoModel(roundStr,
 					type.name(), 
-					extendInfo.getReqId(), null, extendInfo.getLoanContractId(), extendInfo.getExtendNum()+"", 
+					extendInfo.getReqId(), null, contractDAO.findOne(extendInfo.getLoanContractId()).getLoanContractId(), extendInfo.getExtendNum()+"", 
 					DateUtil.getDateStr(extendInfo.getRepayDate(), "yyyy-MM-dd"),
 					extendInfo.getRepayAmount().toPlainString(),
 					extendInfo.getRepayPrincipalAmount().toPlainString(),

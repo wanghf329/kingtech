@@ -17,10 +17,12 @@ import com.kingtech.dao.entity.Contract;
 import com.kingtech.dao.entity.RepayExtendInfo;
 import com.kingtech.dao.rdbms.ContractDAO;
 import com.kingtech.dao.rdbms.RepayExtendInfoDAO;
+import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.model.RepayExtendInfoModel;
 import com.kingtech.model.ext.RepayExtendInfoModelExt;
 import com.kingtech.web.commons.base.CreatRequstId;
+import com.kingtech.web.commons.base.api.PaymentApi;
 import com.kingtech.web.commons.base.service.ExtendRepayService;
 
 @Slf4j
@@ -34,6 +36,9 @@ public class ExtendRepayServiceImpl implements ExtendRepayService{
 	
 	@Autowired
 	private CreatRequstId creatRequstId;
+	
+	@Autowired
+	private PaymentApi paymentApi;
 
 	@Override
 	@Transactional
@@ -56,6 +61,7 @@ public class ExtendRepayServiceImpl implements ExtendRepayService{
 			ri.setRepayInterestAmount(repayInterestAmount);
 		}
 		repayExtendInfoDao.save(ri);
+		paymentApi.repayExtendInfoApi(ri.getId(), StringUtils.isEmpty(id) ?  IdentifierType.A : IdentifierType.U);
 	}
 
 	@Override
