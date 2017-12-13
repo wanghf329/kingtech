@@ -10,7 +10,8 @@ import javax.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import com.kingtech.dao.entity.base.PackageEntity;
+import com.kingtech.dao.entity.base.LoanRecordEntity;
+import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.YesNoEnum;
 
 /**
@@ -21,7 +22,7 @@ import com.kingtech.enums.YesNoEnum;
 @Entity
 @Table(name="TB_LOAN_REPAY_EXTEND_PLAN")
 @NoArgsConstructor
-public class RepayExtendPlan extends PackageEntity {
+public class RepayExtendPlan extends LoanRecordEntity {
 	
 	// 展期次数
 	@Column(name="EXTEND_COUNT")
@@ -63,12 +64,12 @@ public class RepayExtendPlan extends PackageEntity {
 	@Column(name="OVERDUE_DAYS")
 	private long overdueDays;
 
-	public RepayExtendPlan(String loanContractId, long extendCount,
-			String extendTerm, Date repayDate, BigDecimal principal,
-			BigDecimal returnPrincipal, BigDecimal interest,
-			BigDecimal returnInterest, String status, YesNoEnum overdueFlag,
-			long overdueDays) {
-		super(loanContractId);
+	public RepayExtendPlan(String loanContractId, String reqId,
+			PushStatus pushStatus, long extendCount, String extendTerm,
+			Date repayDate, BigDecimal principal, BigDecimal returnPrincipal,
+			BigDecimal interest, BigDecimal returnInterest, String status,
+			YesNoEnum overdueFlag, long overdueDays) {
+		super(loanContractId, reqId, pushStatus);
 		this.extendCount = extendCount;
 		this.extendTerm = extendTerm;
 		this.repayDate = repayDate;
@@ -80,5 +81,6 @@ public class RepayExtendPlan extends PackageEntity {
 		this.overdueFlag = overdueFlag;
 		this.overdueDays = overdueDays;
 	}
+
 
 }
