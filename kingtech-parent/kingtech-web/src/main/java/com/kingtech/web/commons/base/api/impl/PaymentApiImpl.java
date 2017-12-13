@@ -131,6 +131,8 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 	private ProvisionInfoDAO provisionInfoDAO;
 	
 	
+	
+	
 
 	@Override
 	public void branchInfoApi(String branchId, IdentifierType type) {
@@ -329,6 +331,24 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 			break;
 		case pushContract:	//放贷业务合同信息
 			contractDAO.updateStatusByReqId(reqId, pushStatus);
+			break;
+		case pushRepay:
+			repayInfoDAO.updateStatusByReqId(reqId, pushStatus);
+			break;
+		case pushExtendPlan:
+			repayExtendPlanDAO.updateStatusByReqId(reqId, pushStatus);
+			break;
+		case pushExtendRepay:
+			repayExtendInfoDAO.updateStatusByReqId(reqId, pushStatus);
+			break;
+		case pushBadDebt:
+			otherBaddebtDAO.updateStatusByReqId(reqId, pushStatus);
+			break;
+		case pushOverdue:
+			otherOverdueInfoDAO.updateStatusByReqId(reqId, pushStatus);
+			break;
+		case pushProvision:
+			provisionInfoDAO.updateStatusByReqId(reqId, pushStatus);
 			break;
 		
 		default:
