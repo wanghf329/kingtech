@@ -10,7 +10,4 @@ import com.kingtech.dao.entity.ProvisionInfo;
 
 public interface ProvisionInfoDAO extends PagingAndSortingRepository<ProvisionInfo, String> {
 	
-	@Query("select r from ProvisionInfo r where r.loanContractId = :loanContractId order by r.provisionDate ")
-	public List<ProvisionInfo> listByloanContractId(@Param("loanContractId")String loanContractId);
-	
 }

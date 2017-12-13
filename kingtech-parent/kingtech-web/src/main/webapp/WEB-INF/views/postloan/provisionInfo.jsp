@@ -22,6 +22,73 @@
                     </ol>
                 </section>
 
+				<!-- Modal -->
+				<div class="modal fade" id="editModel" tabindex="-1" role="dialog"  
+					aria-labelledby="myModalLabel">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<h4 class="modal-title" id="myModalLabel">展期还款信息</h4>
+							</div>
+							<div class="modal-body">
+								<form class="form-horizontal" id="form-horizontal" action="postLoan/provision/edit" method="POST"> 
+									<input type="hidden" name="id" value="">
+									<div class="form-group">
+										<label for="#provisionDate" class="col-sm-3 control-label"><i class="text-red">*</i> 计提日期</label>
+										<div class="col-sm-6 input-group">
+											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+											<input type="text" class="form-control pull-right datepicker validate[required]" 
+											readonly name="provisionDate" data-errormessage="计提日期不能为空">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="#provisionScale" class="col-sm-3 control-label"><i class="text-red">*</i> 计提比例</label>
+										<div class="col-sm-6 input-group">
+											<input type="text" class="form-control validate[required,custom[number],max[100]]" data-errormessage="计提比例，最大100" 
+												name="provisionScale"> 
+											<span class="input-group-addon"><i class="fa">%</i></span>
+										</div>
+									</div>								
+									<div class="form-group"> 
+										<label for="#provisionMoney" class="col-sm-3 control-label"><i class="text-red">*</i> 计提金额</label>
+										<div class="col-sm-6 input-group">
+											<input type="text" class="form-control validate[required,custom[number],max[999999999]]" data-errormessage="计提金额只能为数字"
+												name="provisionMoney"> 
+											<span class="input-group-addon"><i class="fa">万元</i></span>
+										</div>								
+									</div>
+									<div class="form-group">
+										<label for="#loanClassification" class="col-sm-3 control-label"><i class="text-red">*</i> 贷款分类</label>
+										<div class="col-sm-6 input-group"> 
+											<select class="form-control validate[required]" id="loanClassification" name="loanClassification">
+												<c:forEach var="it" items="${loanClassificationEnum}">
+			  										<option value ="${it.name()}">${it.getKey()}</option>
+												</c:forEach>
+											</select>
+										</div>
+									</div>
+									<div class="form-group"> 
+										<label for="#balance" class="col-sm-3 control-label"><i class="text-red">*</i> 贷款余额</label>
+										<div class="col-sm-6 input-group">
+											<input type="text" class="form-control validate[required,custom[number],max[999999999]]" data-errormessage="贷款余额只能为数字"
+												name="balance"> 
+											<span class="input-group-addon"><i class="fa">元</i></span>
+										</div>	
+									</div>
+								</form>						
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button> 
+								<button type="button" class="btn btn-primary saveRecordBtn">保存</button>
+							</div>
+						</div>
+					</div>
+				</div>  
+				
 			<!-- Main content -->
                 <section class="content">
                     <div class="row">
@@ -31,7 +98,7 @@
                                     <h3 class="box-title">计提信息列表</h3>
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
-                                	<button class="btn btn-primary btn-sm" data-toggle="modal" id="editContractBtn">新增计提信息</button>  
+                                	<button class="btn btn-primary btn-sm" data-toggle="modal" id="editProvisiontBtn">新增计提信息</button>  
                                     <table class="table"> 
                                         <tr>
                                             <th>编号</th> 
@@ -72,7 +139,7 @@
 	                                            	<c:if test="${it.pushStatus=='INITATION' or it.pushStatus=='FAILED'}">
 	                                            		<a href="loan/edit?id=${it.id}"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>
 	                                            		<a href="loan/supplement?loanContractId=${it.id}" ><i class="text-blue fa fa-plus-square-o"></i><strong>补充</strong></a>
-	                                            		<a href="loan/push/${it.id}"><i class="text-blue fa fa-exchange"></i><strong>推送</strong></a>
+	                                            		<a href="loan/push/${it.id}" class="provision-edit" data-id="${it.id}"><i class="text-blue fa fa-exchange"></i><strong>推送</strong></a>
 	                                            	</c:if>
 	                                            </td>
 	                                        </tr>

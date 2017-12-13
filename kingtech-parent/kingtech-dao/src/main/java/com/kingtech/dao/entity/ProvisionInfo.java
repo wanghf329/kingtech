@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import com.kingtech.dao.entity.base.LoanRecordEntity;
+import com.kingtech.dao.entity.base.RecordEntity;
 import com.kingtech.enums.LoanClassificationEnum;
 import com.kingtech.enums.PushStatus;
 
@@ -22,7 +22,7 @@ import com.kingtech.enums.PushStatus;
 @Entity
 @Table(name="TB_PROVISION_INFO")
 @NoArgsConstructor
-public class ProvisionInfo extends LoanRecordEntity {
+public class ProvisionInfo extends RecordEntity {
 	
 	// 计提金额（万元）
 	@Column(name="PROVISION_MONEY")
@@ -44,11 +44,11 @@ public class ProvisionInfo extends LoanRecordEntity {
 	@Column(name="BALANCE")
 	private BigDecimal balance;
 
-	public ProvisionInfo(String loanContractId, String reqId,
+	public ProvisionInfo(String reqId,
 			PushStatus pushStatus, BigDecimal provisionMoney,
 			Date provisionDate, BigDecimal provisionScale,
 			LoanClassificationEnum loanClassification, BigDecimal balance) {
-		super(loanContractId, reqId, pushStatus);
+		super(reqId, pushStatus);
 		this.provisionMoney = provisionMoney;
 		this.provisionDate = provisionDate;
 		this.provisionScale = provisionScale;
