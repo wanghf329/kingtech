@@ -4,6 +4,12 @@ import com.kingtech.model.CapitalModel;
 import com.kingtech.model.ContractModel;
 import com.kingtech.model.EmployeeModel;
 import com.kingtech.model.BranchInfoModel;
+import com.kingtech.model.OtherBaddebtModel;
+import com.kingtech.model.OtherOverdueInfoModel;
+import com.kingtech.model.PersonalCustomerModel;
+import com.kingtech.model.ProvisionInfoModel;
+import com.kingtech.model.RepayExtendInfoModel;
+import com.kingtech.model.RepayExtendPlanModel;
 import com.kingtech.model.RepayInfoModel;
 import com.kingtech.model.ShareholderModel;
 import com.kingtech.model.SynResponseModel;
@@ -52,5 +58,38 @@ public interface FinanceService {
 	 * @return
 	 */
 	public SynResponseModel repayInfoFacade(RepayInfoModel repayInfoModel);
+	
+	/**
+	 * 展期还款信息接口
+	 * @param repayExtendInfoModel
+	 * @return
+	 */
+	public SynResponseModel repayExtendInfoFacade(RepayExtendInfoModel repayExtendInfoModel);
+	
+	/**
+	 * 展期还款计划接口
+	 * @param repayExtendInfoModel
+	 * @return
+	 */
+	public SynResponseModel repayExtendPlanFacade(RepayExtendPlanModel repayExtendPlanModel);
+	/**
+	 * 坏账信息接口
+	 * @param otherBaddebtModel
+	 * @return
+	 */
+	public SynResponseModel otherBaddebtFacade(OtherBaddebtModel otherBaddebtModel);
+	/**
+	 * 逾期信息
+	 * @param otherOverdueInfoModel
+	 * @return
+	 */
+	
+	public SynResponseModel otherOverdueInfoFacade(OtherOverdueInfoModel otherOverdueInfoModel);
 
+	/**
+	 * 计提信息接口
+	 * @param personalCustomerModel
+	 * @return
+	 */
+	public SynResponseModel provisionInfoFacade(ProvisionInfoModel provisionInfoModel); 
 }
