@@ -1,6 +1,7 @@
 package com.kingtech.web.controller;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,17 +12,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kingtech.enums.LoanClassificationEnum;
 import com.kingtech.enums.RepayStatusEnum;
 import com.kingtech.enums.YesNoEnum;
-import com.kingtech.model.RepayExtendPlanModel;
-import com.kingtech.web.commons.base.service.ContractService;
-import com.kingtech.web.commons.base.service.ExtendRepayPlanService;
 import com.kingtech.model.OtherBaddebtModel;
 import com.kingtech.model.OtherOverdueInfoModel;
 import com.kingtech.model.RepayExtendInfoModel;
+import com.kingtech.model.RepayExtendPlanModel;
 import com.kingtech.model.RepayInfoModel;
+import com.kingtech.web.commons.base.service.ContractService;
+import com.kingtech.web.commons.base.service.ExtendRepayPlanService;
 import com.kingtech.web.commons.base.service.ExtendRepayService;
 import com.kingtech.web.commons.base.service.PostLoanService;
+import com.kingtech.web.commons.base.service.ProvisionService;
 
 @Controller
 @RequestMapping("/postLoan")
@@ -38,6 +41,9 @@ public class PostLoanApiController {
 	
 	@Autowired
 	private PostLoanService postLoanService;
+	
+	@Autowired
+	private ProvisionService provisionService;
 	
 	/**
 	 * 还款信息
@@ -194,6 +200,7 @@ public class PostLoanApiController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "provisioninfo")
 	public String accruedInfo(Model model) {
+		model.addAttribute("loanClassificationEnum", LoanClassificationEnum.values());
 		return "/postloan/provisionInfo";
 	}
 	
@@ -208,6 +215,23 @@ public class PostLoanApiController {
 			e.printStackTrace();
 		}
 		return "redirect:/postLoan/extensionrepayinfo";
+	}
+	
+	
+	@RequestMapping(method = RequestMethod.POST, value = "provision/edit")
+	public String provisionEdit(Model model, String id,
+								BigDecimal provisionMoney, String provisionDate,
+								BigDecimal provisionScale,
+								String loanClassification, BigDecimal balance) {
+		try {
+			provisionService.addOrEdit(id, provisionMoney, DateUtils.parseDate(provisionDate, "yyyy-MM-dd"),
+					                   provisionScale, 
+					                   LoanClassificationEnum.valueOf(loanClassification), 
+					                   balance);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/postLoan/provisioninfo";
 	}
 	
 	/**
