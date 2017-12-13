@@ -1,5 +1,7 @@
 package com.kingtech.model;
 
+import lombok.Data;
+
 import com.alibaba.fastjson.annotation.JSONField;
 import com.kingtech.common.config.BaseConfig;
 import com.kingtech.common.utils.SignUtils;
@@ -9,6 +11,7 @@ import com.kingtech.common.utils.SignUtils;
  * @author baijt
  *
  */
+@Data
 public class RepayExtendPlanModel extends BaseRequestModel{
 	
 	@JSONField(name="loan_contract_id",label="sign")
@@ -81,6 +84,25 @@ public class RepayExtendPlanModel extends BaseRequestModel{
 		this.overdueDays = overdueDays;
 		this.creatTime = creatTime;
 		this.updateTime = updateTime;
+	}
+	
+	public RepayExtendPlanModel(String id, String loanContractId, String extendCount,
+			String extendTerm, String repayDate, String principal,
+			String returnPrincipal, String interest,
+			String returnInterest, String status,
+			String overdueFlag, String overdueDays) {
+		super(id);
+		this.loanContractId = loanContractId;
+		this.extendCount = extendCount;
+		this.extendTerm = extendTerm;
+		this.repayDate = repayDate;
+		this.principal = principal;
+		this.returnPrincipal = returnPrincipal;
+		this.interest = interest;
+		this.returnInterest = returnInterest;
+		this.status = status;
+		this.overdueFlag = overdueFlag;
+		this.overdueDays = overdueDays;
 	}
 	
 }
