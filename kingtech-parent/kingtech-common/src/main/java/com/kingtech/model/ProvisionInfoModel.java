@@ -11,9 +11,6 @@ import com.kingtech.common.utils.SignUtils;
  */
 public class ProvisionInfoModel extends BaseRequestModel{
 	
-	@JSONField(name="loan_contract_id",label="sign")
-	private String loanContractId;
-	
 	// 计提金额（万元）
 	@JSONField(name="provision_money",label="sign")
 	private String provisionMoney;
@@ -41,12 +38,11 @@ public class ProvisionInfoModel extends BaseRequestModel{
 	private String updateTime;
 
 	public ProvisionInfoModel(String roundStr, String identifier, String reqId, String sign,
-			String loanContractId, String provisionMoney,
+			String provisionMoney,
 			String provisionDate, String provisionScale,
 			String loanClassification, String balance,
 			String creatTime, String updateTime) {
 		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId, sign, null);
-		this.loanContractId = loanContractId;
 		this.provisionMoney = provisionMoney;
 		this.provisionDate = provisionDate;
 		this.provisionScale = provisionScale;
