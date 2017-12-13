@@ -10,7 +10,8 @@ import javax.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import com.kingtech.dao.entity.base.PackageEntity;
+import com.kingtech.dao.entity.base.LoanRecordEntity;
+import com.kingtech.enums.PushStatus;
 
 /**
  * 逾期信息表
@@ -20,7 +21,7 @@ import com.kingtech.dao.entity.base.PackageEntity;
 @Entity
 @Table(name="TB_LOAN_OTHER_OVERDUE_INFO")
 @NoArgsConstructor
-public class OtherOverdueInfo extends PackageEntity {
+public class OtherOverdueInfo extends LoanRecordEntity {
 	
 	// 逾期金额(元)
 	@Column(name="OVERDUE_MONEY")
@@ -42,15 +43,15 @@ public class OtherOverdueInfo extends PackageEntity {
 	@Column(name="REMARKS")
 	private String remarks;
 
-	public OtherOverdueInfo(String loanContractId, BigDecimal overdueMoney,
-			Date overdueDate, BigDecimal overdueInterest, BigDecimal balance,
-			String remarks) {
-		super(loanContractId);
+	public OtherOverdueInfo(String loanContractId, String reqId,
+			PushStatus pushStatus, BigDecimal overdueMoney, Date overdueDate,
+			BigDecimal overdueInterest, BigDecimal balance, String remarks) {
+		super(loanContractId, reqId, pushStatus);
 		this.overdueMoney = overdueMoney;
 		this.overdueDate = overdueDate;
 		this.overdueInterest = overdueInterest;
 		this.balance = balance;
 		this.remarks = remarks;
 	}
-	
+
 }

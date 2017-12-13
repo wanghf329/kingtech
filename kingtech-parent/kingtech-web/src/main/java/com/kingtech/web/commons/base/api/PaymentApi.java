@@ -40,6 +40,14 @@ public interface PaymentApi {
 	public SynResponseModel contractInfoApi(String loanIdContract,IdentifierType type);
 	
 	/**
+	 * 还款计划
+	 * @param repayInfoId
+	 * @param type
+	 */
+	
+	public void repayInfoApi(String repayInfoId,IdentifierType type);
+	
+	/**
 	 * 处理回调数据
 	 * @param reponseModel
 	 */

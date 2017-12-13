@@ -15,6 +15,7 @@ import com.kingtech.dao.entity.Branch;
 import com.kingtech.dao.entity.Capital;
 import com.kingtech.dao.entity.Contract;
 import com.kingtech.dao.entity.Employee;
+import com.kingtech.dao.entity.RepayInfo;
 import com.kingtech.dao.entity.Shareholder;
 import com.kingtech.dao.rdbms.BranchDAO;
 import com.kingtech.dao.rdbms.CapitalDAO;
@@ -24,6 +25,7 @@ import com.kingtech.dao.rdbms.EmployeeDAO;
 import com.kingtech.dao.rdbms.EnterpriseCustomerDAO;
 import com.kingtech.dao.rdbms.GuaranteeDAO;
 import com.kingtech.dao.rdbms.PersonalCustomerDAO;
+import com.kingtech.dao.rdbms.RepayInfoDAO;
 import com.kingtech.dao.rdbms.RepayPlanDAO;
 import com.kingtech.dao.rdbms.SettledInfoDAO;
 import com.kingtech.dao.rdbms.ShareholderDAO;
@@ -40,6 +42,7 @@ import com.kingtech.model.EmployeeModel;
 import com.kingtech.model.EnterpriseCustomerModel;
 import com.kingtech.model.GuaranteeModel;
 import com.kingtech.model.PersonalCustomerModel;
+import com.kingtech.model.RepayInfoModel;
 import com.kingtech.model.RepayPlanModel;
 import com.kingtech.model.SettledInfoModel;
 import com.kingtech.model.ShareholderModel;
@@ -93,6 +96,9 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 	
 	@Autowired 
 	private SettledInfoDAO settledInfoDAO;
+	
+	@Autowired
+	private RepayInfoDAO repayInfoDAO;
 	
 	
 
@@ -382,6 +388,40 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 			contractDAO.save(contract);
 		}
 		return responseModel;
+	}
+
+	@Override
+	public void repayInfoApi(String repayInfoId, IdentifierType type) {
+		
+		RepayInfo repayInfo = repayInfoDAO.findOne(repayInfoId);
+		if (repayInfo == null ) {
+			log.info("未获取到还款信息相关数据repayInfoId={}",repayInfoId);
+			return;
+		}
+		
+		RepayInfoModel infoModel = null;
+		String roundStr =  RandomUtil.random8Len();
+		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
+			infoModel = new RepayInfoModel(roundStr, 
+					                       type.name(),
+					                       repayInfo.getReqId(),
+					                       null,
+					                       repayInfo.getLoanContractId(),
+					                       repayInfo.getRepayAmount().toPlainString(),
+					                       repayInfo.getRepayPrincipalAmount().toPlainString(),
+					                       repayInfo.getRepayInterestAmount().toPlainString(),
+					                       DateUtil.getDateStr(repayInfo.getRepayDate(), "yyyy-MM-dd"),
+					                       DateUtil.getDateStr(repayInfo.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT), 
+					                       DateUtil.getDateStr(repayInfo.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT));
+		}else {
+			log.info("还款信息暂不支持的操作 repayInfoId={},IdentifierType={} ",repayInfoId,type);
+			return;
+		}
+		SynResponseModel responseModel = financeService.repayInfoFacade(infoModel);
+		if (responseModel.isSuccess()) {
+			repayInfo.setPushStatus(PushStatus.INPROSESS);
+			repayInfoDAO.save(repayInfo);
+		}
 	}
 
 }

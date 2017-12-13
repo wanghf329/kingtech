@@ -4,6 +4,7 @@ import com.kingtech.model.CapitalModel;
 import com.kingtech.model.ContractModel;
 import com.kingtech.model.EmployeeModel;
 import com.kingtech.model.BranchInfoModel;
+import com.kingtech.model.RepayInfoModel;
 import com.kingtech.model.ShareholderModel;
 import com.kingtech.model.SynResponseModel;
 /**
@@ -44,5 +45,12 @@ public interface FinanceService {
 	 * @return
 	 */
 	public SynResponseModel contractFacade(ContractModel contractModel);
+	
+	/**
+	 * 还款信息接口
+	 * @param repayInfoModel
+	 * @return
+	 */
+	public SynResponseModel repayInfoFacade(RepayInfoModel repayInfoModel);
 
 }
