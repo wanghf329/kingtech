@@ -15,12 +15,14 @@ import com.kingtech.dao.entity.Contract;
 import com.kingtech.dao.entity.RepayExtendPlan;
 import com.kingtech.dao.rdbms.ContractDAO;
 import com.kingtech.dao.rdbms.RepayExtendPlanDAO;
+import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.RepayStatusEnum;
 import com.kingtech.enums.YesNoEnum;
 import com.kingtech.model.RepayExtendPlanModel;
 import com.kingtech.model.ext.RepayExtendPlanModelExt;
 import com.kingtech.web.commons.base.CreatRequstId;
+import com.kingtech.web.commons.base.api.PaymentApi;
 import com.kingtech.web.commons.base.service.ExtendRepayPlanService;
 
 @Service
@@ -34,6 +36,9 @@ public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 	
 	@Autowired
 	private ContractDAO contractDAO;
+	
+	@Autowired
+	private PaymentApi paymentApi;
 
 	@Override
 	@Transactional
@@ -72,6 +77,9 @@ public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 				rp.setOverdueDays(Long.valueOf(overdueDays));
 			}
 			rp = repayExtendPlanDAO.save(rp);
+			
+			IdentifierType type = StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U;
+			paymentApi.repayExtendPlanApi(rp.getId(), type);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

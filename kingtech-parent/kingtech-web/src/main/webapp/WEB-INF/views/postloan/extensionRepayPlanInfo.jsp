@@ -194,7 +194,6 @@
 	                                            <td> 
 	                                            	<c:if test="${it.pushStatus=='INITATION' or it.pushStatus=='FAILED'}">
 	                                            		<a href="javascript:void(0)" onclick="getRepayExtendPlan('${it.id}')"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>
-	                                            		<a href="loan/push/${it.id}"><i class="text-blue fa fa-exchange"></i><strong>推送</strong></a>
 	                                            	</c:if>
 	                                            </td>
 	                                        </tr>
