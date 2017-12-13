@@ -1,6 +1,7 @@
 package com.kingtech.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.kingtech.common.config.BaseConfig;
@@ -12,6 +13,7 @@ import com.kingtech.common.utils.SignUtils;
  *
  */
 @Data
+@NoArgsConstructor
 public class RepayExtendPlanModel extends BaseRequestModel{
 	
 	@JSONField(name="loan_contract_id",label="sign")

@@ -21,6 +21,72 @@
                         <li class="active">坏账信息</li> 
                     </ol>
                 </section>
+                
+                
+                <!-- Modal -->
+				<div class="modal fade" id="badDebtsInfo" tabindex="-1" role="dialog"
+					aria-labelledby="myModalLabel">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<h4 class="modal-title" >坏账信息录入</h4>
+							</div>
+							<div class="modal-body">
+								<form class="form-horizontal" id = "addbadDebtsInfoForm" action="postLoan/add/baddebtsInfo" method="POST">
+									<input type="hidden" name="id" value="">
+									<div class="form-group">
+										<label for="#loanContractId" class="col-sm-3 control-label"><i class="text-red">*</i>合同编号</label> 
+										<div class="col-sm-6 input-group">
+											<select class="form-control validate[required]" id="loanContractId" name="loanContractId">
+												<c:forEach var="it" items="${contracts}">
+			  										<option value ="${it.id}">${it.loanContractName}</option>
+												</c:forEach>
+											</select>
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label for="#badMoney" class="col-sm-3 control-label"><i class="text-red">*</i>坏账金额</label>
+										<div class="col-sm-6 input-group">
+										<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
+										<input type="text" class="form-control validate[required,custom[number]]" name = "badMoney" id="badMoney" 
+											data-errormessage-value-missing="坏账金额不能为空"  data-errormessage-custom-error="坏账金额必须是数字" >
+										<span class="input-group-addon"><i class="fa ">元</i></span>
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label for="#setDate" class="col-sm-3 control-label"><i class="text-red">*</i> 定损日期</label>
+										<div class="col-sm-6 input-group date">
+											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+											<input type="text" class="form-control pull-right datepicker validate[required]" name="setDate"
+												readonly id="setDate" data-errormessage="定损日期不能为空">
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label for="#followupWork" class="col-sm-3 control-label"><i class="text-red">*</i>后续工作</label>
+										<div class="col-sm-6 input-group">
+										<textarea  class="form-control validate[required,maxSize[225]]" name = "followupWork" id="followupWork" 
+											data-errormessage-value-missing="后续工作不能为空"  data-errormessage-range-overflow="后续工作不能超过225个字符" >
+										</textarea>
+										</div>
+									</div>
+									
+									
+								</form>						
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button> 
+								<button type="submit" class="btn btn-primary saveRecordBtn">保存</button>
+							</div>
+						</div>
+					</div>
+				</div>
 
 			<!-- Main content -->
                 <section class="content">
@@ -31,7 +97,7 @@
                                     <h3 class="box-title">坏账信息列表</h3>
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
-                                	<button class="btn btn-primary btn-sm" data-toggle="modal" id="editContractBtn">新增坏账信息</button>  
+                                	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addbaddebtInfoBtn">新增坏账信息</button>  
                                     <table class="table"> 
                                         <tr>
                                         	<th>编号</th> 
@@ -44,19 +110,11 @@
                                         </tr>
                                         <c:forEach var="it" items="${list}">
 	                                        <tr>
-	                                            <td>${it.loanContractId}</td>  
-	                                            <td>${it.loanContractName}</td>
-	                                            <td> 
-	                                            	<a href="#" class="text-green" ><i class="text-green fa  fa-user"></i><strong>${it.borrowerName}</strong></a>
-	                                            </td>
-	                                            
-	                                            <td>${it.rateType.getKey()}</td>
-	                                            <td class="text-green">${it.rate}%</td>    
-	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><Strong>${it.loanAmount}</Strong></td>
-	                                            <td>${it.periodTerm}${it.periodType.getKey()}</td> 
-	                                           	<td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.loanStartDate}"></fmt:formatDate></td>
-	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.loanEndDate}"></fmt:formatDate></td> 
-
+	                                            <td>${it.id}</td>  
+	                                            <td>${it.loanContractId}</td>
+	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><strong>${it.badMoney}</strong></td>
+	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.setDate}"></fmt:formatDate></td>
+	                                            <td>${it.followupWork}</td>
 	                                            <td> 
 	                                            	<c:if test="${it.pushStatus=='INITATION'}"><span class="text-gray"><i class="text-gray fa fa-info-circle"></i>初始</span></c:if>
 	                                            	<c:if test="${it.pushStatus=='SUCCESS'}"><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span></c:if>
@@ -64,15 +122,7 @@
 	                                            	<c:if test="${it.pushStatus=='FAILED'}"><span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span></c:if>
 	                                            </td>
 	                                            <td> 
-	                                            	<c:if test="${it.pushStatus=='SUCCESS' or it.pushStatus=='INPROSESS'}">
-	                                            		<a href="loan/edit?id=${it.id}"><strong>查看详情</strong></a>
-	                                            		<a href="loan/supplement?loanContractId=${it.id}"><strong>查看补充信息</strong></a>
-	                                            	</c:if>
-	                                            	<c:if test="${it.pushStatus=='INITATION' or it.pushStatus=='FAILED'}">
-	                                            		<a href="loan/edit?id=${it.id}"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>
-	                                            		<a href="loan/supplement?loanContractId=${it.id}" ><i class="text-blue fa fa-plus-square-o"></i><strong>补充</strong></a>
-	                                            		<a href="loan/push/${it.id}"><i class="text-blue fa fa-exchange"></i><strong>推送</strong></a>
-	                                            	</c:if>
+	                                            	<a href="javascript:void(0)" onclick="getBaddebtInfo('${it.id}')"><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a>
 	                                            </td>
 	                                        </tr>
                                         </c:forEach>

@@ -30,7 +30,7 @@
             </a>
         </li>
          -->
-        <li class="treeview">
+        <li class="treeview active">
             <a href="branch">
                 <i class="fa fa-bar-chart-o"></i> 
                 <span>机构信息</span> 
@@ -43,7 +43,7 @@
                 <li id="capitalList"><a href="branch/capitalList"><i class="fa fa-angle-double-right"></i>资本信息</a></li>
             </ul>
         </li>
-        <li class="treeview">
+        <li class="treeview active">
             <a href="#">
                 <i class="fa fa-book"></i>
                 <span>合同信息</span>
@@ -55,7 +55,7 @@
                 <li id="loanList"><a href="loan/list"><i class="fa fa-angle-double-right"></i>合同信息</a></li>
             </ul>
         </li>
-        <li class="treeview"> 
+        <li class="treeview active"> 
             <a href="#"> 
                 <i class="fa fa-briefcase"></i>
                 <span>贷后信息</span>

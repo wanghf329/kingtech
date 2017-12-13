@@ -1,6 +1,7 @@
 package com.kingtech.web.commons.base.service.impl;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -10,20 +11,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kingtech.dao.entity.Contract;
 import com.kingtech.dao.entity.RepayExtendPlan;
-import com.kingtech.dao.entity.Shareholder;
+import com.kingtech.dao.rdbms.ContractDAO;
 import com.kingtech.dao.rdbms.RepayExtendPlanDAO;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.RepayStatusEnum;
 import com.kingtech.enums.YesNoEnum;
 import com.kingtech.model.RepayExtendPlanModel;
-import com.kingtech.model.ShareholderModel;
+import com.kingtech.model.ext.RepayExtendPlanModelExt;
 import com.kingtech.web.commons.base.CreatRequstId;
-import com.kingtech.web.commons.base.api.PaymentApi;
-import com.kingtech.web.commons.base.service.RepayExtendPlanService;
+import com.kingtech.web.commons.base.service.ExtendRepayPlanService;
 
 @Service
-public class RepayExtendPlanServiceImpl implements RepayExtendPlanService {
+public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 
 	@Autowired
 	private RepayExtendPlanDAO repayExtendPlanDAO;
@@ -32,7 +33,7 @@ public class RepayExtendPlanServiceImpl implements RepayExtendPlanService {
 	private CreatRequstId creatRequstId;
 	
 	@Autowired
-	private PaymentApi paymentApi;
+	private ContractDAO contractDAO;
 
 	@Override
 	@Transactional
@@ -70,20 +71,29 @@ public class RepayExtendPlanServiceImpl implements RepayExtendPlanService {
 				rp.setOverdueFlag(YesNoEnum.valueOf(overdueFlag));
 				rp.setOverdueDays(Long.valueOf(overdueDays));
 			}
-			
 			rp = repayExtendPlanDAO.save(rp);
-			
-//			IdentifierType type = StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U;
-//			paymentApi.RepayExtendPlanApi(rp.getId(), type);
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Override
-	public List<RepayExtendPlan> listAll() {
-		return (List<RepayExtendPlan>) repayExtendPlanDAO.findAll();
+	public List<RepayExtendPlanModelExt> listAll() {
+		List<RepayExtendPlanModelExt> result = new ArrayList<RepayExtendPlanModelExt>();
+		for(RepayExtendPlan rf : repayExtendPlanDAO.findAll()){
+			Contract ct = contractDAO.findOne(rf.getLoanContractId());
+			result.add(new RepayExtendPlanModelExt(rf.getId(), rf.getLoanContractId(),
+					String.valueOf(rf.getExtendCount()),rf.getExtendTerm(),DateFormatUtils.format(rf.getRepayDate(), "yyyy-MM-dd"),
+					rf.getPrincipal().toPlainString(),
+					rf.getReturnPrincipal().toPlainString(),
+					rf.getInterest().toPlainString(),
+					rf.getReturnInterest().toPlainString(),
+					rf.getStatus().getKey(),
+					rf.getOverdueFlag().getKey(),
+					String.valueOf(rf.getOverdueDays()),
+					ct.getLoanContractId(),ct.getLoanContractName(),rf.getPushStatus()));
+		}
+		return result;
 	}
 	
 	@Override

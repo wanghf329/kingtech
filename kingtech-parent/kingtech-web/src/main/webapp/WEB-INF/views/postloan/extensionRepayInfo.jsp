@@ -21,6 +21,81 @@
                         <li class="active">展期还款信息</li> 
                     </ol>
                 </section>
+                
+				<!-- Modal -->
+				<div class="modal fade" id="editModel" tabindex="-1" role="dialog"  
+					aria-labelledby="myModalLabel">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<h4 class="modal-title" id="myModalLabel">展期还款信息</h4>
+							</div>
+							<div class="modal-body">
+								<form class="form-horizontal" id="form-horizontal" action="postLoan/extendrepay/edit" method="POST"> 
+									<input type="hidden" name="id" value="">
+									<div class="form-group"> 
+										<label for="#loanContractId" class="col-sm-3 control-label"><i class="text-red">*</i> 关联主合同</label>
+										<div class="col-sm-6 input-group">
+											<select class="form-control validate[required] partnerType" id="loanContractId" name="loanContractId" data-errormessage="合同不能为空">
+												<c:forEach var="con" items="${contracts}"> 
+													<option value="${con.id}">${con.loanContractName}</option>
+												</c:forEach>
+											</select>
+										</div>									
+									</div>
+									<div class="form-group">
+										<label for="#repayDate" class="col-sm-3 control-label"><i class="text-red">*</i> 还款日期</label>
+										<div class="col-sm-6 input-group">
+											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+											<input type="text" class="form-control pull-right datepicker validate[required]" 
+											readonly name="repayDate" data-errormessage="合同签订日期不能为空">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="#extendNum" class="col-sm-3 control-label"><i class="text-red">*</i> 展期次数</label>
+										<div class="col-sm-6 input-group">
+											<input type="text" class="form-control validate[required,custom[number],max[10]]" data-errormessage="展期次数只能为数字，最大10" 
+												name="extendNum"> 
+											<span class="input-group-addon"><i class="fa">次</i></span>
+										</div>
+									</div>								
+									<div class="form-group"> 
+										<label for="#partnerType" class="col-sm-3 control-label"><i class="text-red">*</i> 还款金额</label>
+										<div class="col-sm-6 input-group">
+											<input type="text" class="form-control validate[required,custom[number],max[999999999]]" data-errormessage="还款金额只能为数字"
+												name="repayAmount"> 
+											<span class="input-group-addon"><i class="fa">元</i></span>
+										</div>								
+									</div>
+									<div class="form-group">
+										<label for="#repayPrincipalAmount" class="col-sm-3 control-label"><i class="text-red">*</i> 还款本金</label>
+										<div class="col-sm-6 input-group">
+											<input type="text" class="form-control validate[required,custom[number],max[999999999]]" data-errormessage="还款本金只能为数字"
+												name="repayPrincipalAmount"> 
+											<span class="input-group-addon"><i class="fa">元</i></span>
+										</div>	
+									</div>
+									<div class="form-group"> 
+										<label for="#repayInterestAmount" class="col-sm-3 control-label"><i class="text-red">*</i> 还款利息</label>
+										<div class="col-sm-6 input-group">
+											<input type="text" class="form-control validate[required,custom[number],max[999999999]]" data-errormessage="还款利息只能为数字"
+												name="repayInterestAmount"> 
+											<span class="input-group-addon"><i class="fa">元</i></span>
+										</div>	
+									</div>
+								</form>						
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button> 
+								<button type="button" class="btn btn-primary saveRecordBtn">保存</button>
+							</div>
+						</div>
+					</div>
+				</div>                
 
 			<!-- Main content -->
                 <section class="content">
@@ -31,11 +106,12 @@
                                     <h3 class="box-title">展期还款信息列表</h3>
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
-                                	<button class="btn btn-primary btn-sm" data-toggle="modal" id="editContractBtn">新增展期还款信息</button>  
+                                	<button class="btn btn-primary btn-sm" data-toggle="modal" id="editExtendRepayPlanBtn">新增展期还款信息</button>  
                                     <table class="table"> 
                                         <tr>
                                             <th>编号</th> 
                                             <th>主合同编号</th>
+                                            <th>主合同名称</th>
                                             <th>展期次数</th> 
                                             <th>还款日期</th> 
                                             <th>还款金额</th> 
@@ -44,21 +120,21 @@
                                             <th>状态</th>
                                             <th>操作</th>
                                         </tr>
-                                        <c:forEach var="it" items="${list}">
+                                        <c:forEach var="it" varStatus="status" items="${extendRepayList}">
 	                                        <tr>
-	                                            <td>${it.loanContractId}</td>  
-	                                            <td>${it.loanContractName}</td>
+	                                        	<td>${status.index+1}</td>  
+	                                            <td>${it.loanContractNo}</td>  
+	                                            <td>${it.loanContractName}</td>  
+	                                            <td>${it.extendNum}</td>
 	                                            <td> 
-	                                            	<a href="#" class="text-green" ><i class="text-green fa  fa-user"></i><strong>${it.borrowerName}</strong></a>
+	                                            	${it.repayDate}
 	                                            </td>
 	                                            
-	                                            <td>${it.rateType.getKey()}</td>
-	                                            <td class="text-green">${it.rate}%</td>    
-	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><Strong>${it.loanAmount}</Strong></td>
-	                                            <td>${it.periodTerm}${it.periodType.getKey()}</td> 
-	                                           	<td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.loanStartDate}"></fmt:formatDate></td>
-	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.loanEndDate}"></fmt:formatDate></td> 
-
+	                                            <td><strong class="text-red">${it.repayAmount}</strong></td>
+	                                            <td><strong class="text-red">${it.repayPrincipalAmount}</strong></td>
+	                                            <td><strong class="text-red">${it.repayInterestAmount}</strong></td>
+	                                            
+	                                            
 	                                            <td> 
 	                                            	<c:if test="${it.pushStatus=='INITATION'}"><span class="text-gray"><i class="text-gray fa fa-info-circle"></i>初始</span></c:if>
 	                                            	<c:if test="${it.pushStatus=='SUCCESS'}"><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span></c:if>
@@ -66,15 +142,7 @@
 	                                            	<c:if test="${it.pushStatus=='FAILED'}"><span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span></c:if>
 	                                            </td>
 	                                            <td> 
-	                                            	<c:if test="${it.pushStatus=='SUCCESS' or it.pushStatus=='INPROSESS'}">
-	                                            		<a href="loan/edit?id=${it.id}"><strong>查看详情</strong></a>
-	                                            		<a href="loan/supplement?loanContractId=${it.id}"><strong>查看补充信息</strong></a>
-	                                            	</c:if>
-	                                            	<c:if test="${it.pushStatus=='INITATION' or it.pushStatus=='FAILED'}">
-	                                            		<a href="loan/edit?id=${it.id}"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>
-	                                            		<a href="loan/supplement?loanContractId=${it.id}" ><i class="text-blue fa fa-plus-square-o"></i><strong>补充</strong></a>
-	                                            		<a href="loan/push/${it.id}"><i class="text-blue fa fa-exchange"></i><strong>推送</strong></a>
-	                                            	</c:if>
+	                                            	<a href="javascript:void(0)" data-id="${it.id}" class="extend-repay-edit"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>
 	                                            </td>
 	                                        </tr>
                                         </c:forEach>

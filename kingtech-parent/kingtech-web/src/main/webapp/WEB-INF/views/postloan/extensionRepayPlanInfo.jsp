@@ -42,7 +42,7 @@
 										<div class="col-sm-6 input-group">
 											<select class="form-control loanContractId validate[required]" name="loanContractId" data-errormessage="合同编号不能为空">
 												<c:forEach var="it" items="${contracts}">
-			  										<option value ="${it.loanContractId}">${it.loanContractName}</option>
+			  										<option value ="${it.id}">${it.loanContractName}</option>
 												</c:forEach>
 											</select>
 										</div>
@@ -125,7 +125,7 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label for="#overdueDays" class="col-sm-3 control-label">逾期天数</label>
+										<label for="#overdueDays" class="col-sm-3 control-label"><i class="text-red">*</i> 逾期天数</label>
 										<div class="col-sm-6 input-group">
 											<input type="text" class="form-control validate[required,custom[number]]" data-errormessage="逾期天数只能为数字"
 												name="overdueDays">
@@ -155,32 +155,34 @@
                                         <tr>
                                             <th>编号</th> 
                                             <th>主合同编号</th>
+                                            <th>主合同名称</th>
                                             <th>展期次数</th> 
                                             <th>展期期限</th> 
                                             <th>新还款日期</th>
                                             <th>新还款本金</th>
                                             <th>已还本金</th>
-                                            <th> 新还款利息</th>
-                                            <th> 已还利息</th>
+                                            <th>新还款利息</th>
+                                            <th>已还利息</th>
                                             <th>还款状态</th>
-                                            <th> 是否逾期</th>
+                                            <th>是否逾期</th>
                                             <th>逾期天数</th>
                                             <th>状态</th>
                                             <th>操作</th>
                                         </tr>
-                                        <c:forEach var="it" items="${list}">
+                                        <c:forEach var="it" varStatus="status" items="${list}">
 	                                        <tr>
-	                                            <td>${it.id}</td>  
-	                                            <td>${it.loanContractId}</td>
+	                                            <td>${status.index+1}</td>  
+	                                            <td>${it.loanContractNo}</td>  
+	                                            <td>${it.loanContractName}</td>
 	                                            <td>${it.extendCount}</td>
 	                                            <td>${it.extendTerm}</td>
-	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.repayDate}"></fmt:formatDate></td>
+	                                            <td>${it.repayDate}</td>
 	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><Strong>${it.principal}</Strong></td>
 	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><Strong>${it.returnPrincipal}</Strong></td>
 	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><Strong>${it.interest}</Strong></td>
 	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><Strong>${it.returnInterest}</Strong></td>
-	                                            <td>${it.status.getKey()}</td>
-	                                            <td>${it.overdueFlag.getKey()}</td>
+	                                            <td>${it.status}</td>
+	                                            <td>${it.overdueFlag}</td>
 	                                            <td>${it.overdueDays}</td>
 
 	                                            <td> 
