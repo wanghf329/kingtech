@@ -1,8 +1,5 @@
 package com.kingtech.model;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
 import com.alibaba.fastjson.annotation.JSONField;
 import com.kingtech.common.config.BaseConfig;
 import com.kingtech.common.utils.SignUtils;
@@ -18,24 +15,24 @@ public class RepayExtendInfoModel extends BaseRequestModel{
 	private String loanContractId;
 	
 	// 展期次数对应展期计划中的展期次数（第几次展期）
-	@JSONField(name="EXTEND_NUM")
-	private long extendNum;
+	@JSONField(name="extend_num",label="sign")
+	private String extendNum;
 
 	// 还款日期
-	@JSONField(name="REPAY_DATE")
-	private Date repayDate;
+	@JSONField(name="repay_date",label="sign")
+	private String repayDate;
 
 	// 还款金额
-	@JSONField(name="REPAY_AMOUNT")
-	private BigDecimal repayAmount;
+	@JSONField(name="money",label="sign")
+	private String repayAmount;
 
 	// 还款本金
-	@JSONField(name="REPAY_PRINCIPAL_AMOUNT")
-	private BigDecimal repayPrincipalAmount;
+	@JSONField(name="principal",label="sign")
+	private String repayPrincipalAmount;
 	
 	// 还款利息
-	@JSONField(name="REPAY_INTEREST_AMOUNT")
-	private BigDecimal repayInterestAmount;
+	@JSONField(name="interest",label="sign")
+	private String repayInterestAmount;
 	
 	@JSONField(name="create_time")
 	private String creatTime;
@@ -44,9 +41,9 @@ public class RepayExtendInfoModel extends BaseRequestModel{
 	private String updateTime;
 
 	public RepayExtendInfoModel(String roundStr, String identifier, String reqId,
-			String sign, String loanContractId, long extendNum,
-			Date repayDate, BigDecimal repayAmount,
-			BigDecimal repayPrincipalAmount, BigDecimal repayInterestAmount,
+			String sign, String loanContractId, String extendNum,
+			String repayDate, String repayAmount,
+			String repayPrincipalAmount, String repayInterestAmount,
 			String creatTime, String updateTime) {
 		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId, sign, null);
 		this.loanContractId = loanContractId;

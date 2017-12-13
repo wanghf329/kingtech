@@ -1,10 +1,5 @@
 package com.kingtech.model;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
-import javax.persistence.Column;
-
 import com.alibaba.fastjson.annotation.JSONField;
 import com.kingtech.common.config.BaseConfig;
 import com.kingtech.common.utils.SignUtils;
@@ -14,9 +9,7 @@ import com.kingtech.common.utils.SignUtils;
  * @author baijt
  *
  */
-public class RepayInfoModel   extends BaseRequestModel{
-	
-	
+public class RepayInfoModel extends BaseRequestModel{
 	
 	@JSONField(name="loan_contract_id",label="sign")
 	private String loanContractId;
@@ -31,7 +24,7 @@ public class RepayInfoModel   extends BaseRequestModel{
 
 	// 还款利息
 	@JSONField(name="interest",label="sign")
-	private BigDecimal repayInterestAmount;
+	private String repayInterestAmount;
 
 	// 还款利息
 	@JSONField(name="repay_date",label="sign")
@@ -45,7 +38,7 @@ public class RepayInfoModel   extends BaseRequestModel{
 
 	public RepayInfoModel( String roundStr, String identifier, String reqId, String sign,
 			String id, String loanContractId, String repayAmount,
-			String repayPrincipalAmount, BigDecimal repayInterestAmount,
+			String repayPrincipalAmount, String repayInterestAmount,
 			String repayDate, String creatTime, String updateTime) {
 		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId, sign,null);
 		this.loanContractId = loanContractId;
@@ -56,11 +49,5 @@ public class RepayInfoModel   extends BaseRequestModel{
 		this.creatTime = creatTime;
 		this.updateTime = updateTime;
 	}
-	
-	
-	
-	
-	
-	
 	
 }

@@ -1,8 +1,5 @@
 package com.kingtech.model;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
 import com.alibaba.fastjson.annotation.JSONField;
 import com.kingtech.common.config.BaseConfig;
 import com.kingtech.common.utils.SignUtils;
@@ -18,15 +15,15 @@ public class OtherBaddebtModel extends BaseRequestModel{
 	private String loanContractId;
 	
 	// 坏账金额(元)
-	@JSONField(name="BAD_MONEY")
-	private BigDecimal badMoney;
+	@JSONField(name="bad_money",label="sign")
+	private String badMoney;
 
 	// 定损日期
-	@JSONField(name="SET_DATE")
-	private Date setDate;
+	@JSONField(name="set_date",label="sign")
+	private String setDate;
 
 	// 后续工作描述
-	@JSONField(name="FOLLOWUP_WORK")
+	@JSONField(name="followup_work")
 	private String followupWork;
 	
 	@JSONField(name="create_time")
@@ -36,8 +33,8 @@ public class OtherBaddebtModel extends BaseRequestModel{
 	private String updateTime;
 
 	public OtherBaddebtModel(String roundStr, String identifier, String reqId,
-			String sign, String loanContractId, BigDecimal badMoney,
-			Date setDate, String followupWork, String creatTime,
+			String sign, String loanContractId, String badMoney,
+			String setDate, String followupWork, String creatTime,
 			String updateTime) {
 		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId, sign, null);
 		this.loanContractId = loanContractId;

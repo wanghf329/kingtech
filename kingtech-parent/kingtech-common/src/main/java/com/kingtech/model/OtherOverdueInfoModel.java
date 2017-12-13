@@ -1,8 +1,5 @@
 package com.kingtech.model;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
 import com.alibaba.fastjson.annotation.JSONField;
 import com.kingtech.common.config.BaseConfig;
 import com.kingtech.common.utils.SignUtils;
@@ -18,23 +15,23 @@ public class OtherOverdueInfoModel extends BaseRequestModel{
 	private String loanContractId;
 	
 	// 逾期金额(元)
-	@JSONField(name="OVERDUE_MONEY")
-	private BigDecimal overdueMoney;
+	@JSONField(name="overdue_money",label="sign")
+	private String overdueMoney;
 
 	// 逾期日期
-	@JSONField(name="OVERDUE_DATE")
-	private Date overdueDate;
+	@JSONField(name="overdue_date",label="sign")
+	private String overdueDate;
 
 	// 逾期利息
-	@JSONField(name="OVERDUE_INTEREST")
-	private BigDecimal overdueInterest;
+	@JSONField(name="overdue_interest",label="sign")
+	private String overdueInterest;
 
 	// 贷款余额
-	@JSONField(name="BALANCE")
-	private BigDecimal balance;
+	@JSONField(name="balance",label="sign")
+	private String balance;
 
 	// 备注
-	@JSONField(name="REMARKS")
+	@JSONField(name="remarks")
 	private String remarks;
 	
 	@JSONField(name="create_time")
@@ -45,8 +42,8 @@ public class OtherOverdueInfoModel extends BaseRequestModel{
 
 	public OtherOverdueInfoModel(String roundStr, String identifier, String reqId,
 			String sign, String loanContractId,
-			BigDecimal overdueMoney, Date overdueDate,
-			BigDecimal overdueInterest, BigDecimal balance, String remarks,
+			String overdueMoney, String overdueDate,
+			String overdueInterest, String balance, String remarks,
 			String creatTime, String updateTime) {
 		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId, sign, null);
 		this.loanContractId = loanContractId;
