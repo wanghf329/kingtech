@@ -10,7 +10,8 @@ import javax.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import com.kingtech.dao.entity.base.PackageEntity;
+import com.kingtech.dao.entity.base.LoanRecordEntity;
+import com.kingtech.enums.PushStatus;
 
 /**
  * 展期还款信息表
@@ -20,7 +21,7 @@ import com.kingtech.dao.entity.base.PackageEntity;
 @Entity
 @Table(name="TB_LOAN_REPAY_EXTEND_INFO")
 @NoArgsConstructor
-public class RepayExtendInfo extends PackageEntity {
+public class RepayExtendInfo extends LoanRecordEntity {
 	
 	// 展期次数对应展期计划中的展期次数（第几次展期）
 	@Column(name="EXTEND_NUM")
@@ -42,10 +43,11 @@ public class RepayExtendInfo extends PackageEntity {
 	@Column(name="REPAY_INTEREST_AMOUNT")
 	private BigDecimal repayInterestAmount;
 
-	public RepayExtendInfo(String loanContractId, long extendNum,
-			Date repayDate, BigDecimal repayAmount,
-			BigDecimal repayPrincipalAmount, BigDecimal repayInterestAmount) {
-		super(loanContractId);
+	public RepayExtendInfo(String loanContractId, String reqId,
+			PushStatus pushStatus, long extendNum, Date repayDate,
+			BigDecimal repayAmount, BigDecimal repayPrincipalAmount,
+			BigDecimal repayInterestAmount) {
+		super(loanContractId, reqId, pushStatus);
 		this.extendNum = extendNum;
 		this.repayDate = repayDate;
 		this.repayAmount = repayAmount;
