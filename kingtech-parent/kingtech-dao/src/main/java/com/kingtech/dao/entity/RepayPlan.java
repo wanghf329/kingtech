@@ -18,7 +18,7 @@ import com.kingtech.dao.entity.base.PackageEntity;
  */
 @Data
 @Entity
-@Table(name="TB_LOAN_REPAY_PLAN")
+@Table(name="TB_LOAN_CONTRACT_REPAY_PLAN")
 @NoArgsConstructor
 public class RepayPlan extends PackageEntity {
 	

@@ -22,7 +22,7 @@ import com.kingtech.enums.PledgeTypeEnum;
  */
 @Data
 @Entity
-@Table(name="TB_LOAN_COLLATERAL")
+@Table(name="TB_LOAN_CONTRACT_COLLATERAL")
 @NoArgsConstructor
 public class Collateral extends PackageEntity {
 	

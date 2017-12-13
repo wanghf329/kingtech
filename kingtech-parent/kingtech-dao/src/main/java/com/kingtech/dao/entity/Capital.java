@@ -19,7 +19,7 @@ import com.kingtech.enums.PushStatus;
  */
 @Data
 @Entity
-@Table(name="TB_CAPITAL")
+@Table(name="TB_BRANCH_CAPITAL")
 @NoArgsConstructor
 public class Capital extends RecordEntity {
 	

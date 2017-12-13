@@ -70,8 +70,8 @@ public class PostLoanApiController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.GET, value = "accruedinfo")
+	@RequestMapping(method = RequestMethod.GET, value = "provisioninfo")
 	public String accruedInfo(Model model) {
-		return "/postloan/accruedInfo";
+		return "/postloan/provisionInfo";
 	}
 }

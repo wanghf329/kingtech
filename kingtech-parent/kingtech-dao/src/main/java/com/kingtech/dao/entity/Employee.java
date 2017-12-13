@@ -22,7 +22,7 @@ import com.kingtech.enums.PushStatus;
  */
 @Data
 @Entity
-@Table(name="TB_EMPLOYEE")
+@Table(name="TB_BRANCH_EMPLOYEE")
 @NoArgsConstructor
 public class Employee extends RecordEntity {
 	
