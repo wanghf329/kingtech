@@ -19,11 +19,13 @@ import com.kingtech.dao.entity.RepayInfo;
 import com.kingtech.dao.rdbms.ContractDAO;
 import com.kingtech.dao.rdbms.OtherBaddebtDAO;
 import com.kingtech.dao.rdbms.RepayInfoDAO;
+import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.model.OtherBaddebtModel;
 import com.kingtech.model.RepayInfoModel;
 import com.kingtech.model.ext.ModelExt;
 import com.kingtech.web.commons.base.CreatRequstId;
+import com.kingtech.web.commons.base.api.PaymentApi;
 import com.kingtech.web.commons.base.service.PostLoanService;
 
 
@@ -41,6 +43,9 @@ public class PostLoanServiceImpl implements PostLoanService{
 	
 	@Autowired
 	private OtherBaddebtDAO otherBaddebtDAO;
+	
+	@Autowired
+	private PaymentApi paymentApi;
 
 	@Override
 	public List<Contract> listAllContract() {
@@ -112,7 +117,6 @@ public class PostLoanServiceImpl implements PostLoanService{
 				repayInfo.setRepayAmount(repayAmount);
 				repayInfo.setRepayInterestAmount(repayInterestAmount);
 				repayInfo.setRepayPrincipalAmount(repayPrincipalAmount);
-				repayInfo.setUpdateTime(new Date());
 				repayInfo.setLoanContractId(loanContractId);
 				repayInfo.setRepayDate(DateUtils.parseDate(repayDate, "yyyy-MM-dd"));
 			}
@@ -120,6 +124,7 @@ public class PostLoanServiceImpl implements PostLoanService{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		paymentApi.repayInfoApi(repayInfo.getId(), StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
 		repayInfoDao.save(repayInfo);
 		return repayInfo;
 	}
@@ -198,6 +203,7 @@ public class PostLoanServiceImpl implements PostLoanService{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		paymentApi.otherBaddebtApi(badDebtInfo.getId(),StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
 		otherBaddebtDAO.save(badDebtInfo);
 		return badDebtInfo;
 	}
