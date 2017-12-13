@@ -2,6 +2,9 @@ package com.kingtech.web.commons.base.api;
 
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.model.AsyReponseModel;
+import com.kingtech.model.OtherBaddebtModel;
+import com.kingtech.model.OtherOverdueInfoModel;
+import com.kingtech.model.ProvisionInfoModel;
 import com.kingtech.model.SynResponseModel;
 
 public interface PaymentApi {
@@ -48,10 +51,49 @@ public interface PaymentApi {
 	public void repayInfoApi(String repayInfoId,IdentifierType type);
 	
 	/**
+	 * 展期还款信息
+	 */
+	
+	public void repayExtendInfoApi(String repayExtendInfoId,IdentifierType type);
+	
+	
+
+	/**
+	 * 展期还款计划
+	 */
+	
+	public void repayExtendPlanApi(String repayExtendPlanId,IdentifierType type);
+	
+	
+	/**
+	 * 坏账信息接口
+	 * @param otherBaddebtModel
+	 * @return
+	 */
+	public void otherBaddebtApi(String otherBaddebtId,IdentifierType type);
+	/**
+	 * 逾期信息
+	 * @param otherOverdueInfoModel
+	 * @return
+	 */
+	
+	public void otherOverdueInfoApi(String otherOverdueInfoId,IdentifierType type);
+
+	/**
+	 * 计提信息接口
+	 * @param personalCustomerModel
+	 * @return
+	 */
+	public void provisionInfoApi(String provisionInfoId,IdentifierType type); 
+	
+	/**
 	 * 处理回调数据
 	 * @param reponseModel
 	 */
 	public void handleResult(AsyReponseModel reponseModel);
+	
+	
+	
 	
 
 }

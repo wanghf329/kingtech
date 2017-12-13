@@ -15,6 +15,11 @@ import com.kingtech.dao.entity.Branch;
 import com.kingtech.dao.entity.Capital;
 import com.kingtech.dao.entity.Contract;
 import com.kingtech.dao.entity.Employee;
+import com.kingtech.dao.entity.OtherBaddebt;
+import com.kingtech.dao.entity.OtherOverdueInfo;
+import com.kingtech.dao.entity.ProvisionInfo;
+import com.kingtech.dao.entity.RepayExtendInfo;
+import com.kingtech.dao.entity.RepayExtendPlan;
 import com.kingtech.dao.entity.RepayInfo;
 import com.kingtech.dao.entity.Shareholder;
 import com.kingtech.dao.rdbms.BranchDAO;
@@ -24,7 +29,12 @@ import com.kingtech.dao.rdbms.ContractDAO;
 import com.kingtech.dao.rdbms.EmployeeDAO;
 import com.kingtech.dao.rdbms.EnterpriseCustomerDAO;
 import com.kingtech.dao.rdbms.GuaranteeDAO;
+import com.kingtech.dao.rdbms.OtherBaddebtDAO;
+import com.kingtech.dao.rdbms.OtherOverdueInfoDAO;
 import com.kingtech.dao.rdbms.PersonalCustomerDAO;
+import com.kingtech.dao.rdbms.ProvisionInfoDAO;
+import com.kingtech.dao.rdbms.RepayExtendInfoDAO;
+import com.kingtech.dao.rdbms.RepayExtendPlanDAO;
 import com.kingtech.dao.rdbms.RepayInfoDAO;
 import com.kingtech.dao.rdbms.RepayPlanDAO;
 import com.kingtech.dao.rdbms.SettledInfoDAO;
@@ -41,7 +51,12 @@ import com.kingtech.model.ContractModel;
 import com.kingtech.model.EmployeeModel;
 import com.kingtech.model.EnterpriseCustomerModel;
 import com.kingtech.model.GuaranteeModel;
+import com.kingtech.model.OtherBaddebtModel;
+import com.kingtech.model.OtherOverdueInfoModel;
 import com.kingtech.model.PersonalCustomerModel;
+import com.kingtech.model.ProvisionInfoModel;
+import com.kingtech.model.RepayExtendInfoModel;
+import com.kingtech.model.RepayExtendPlanModel;
 import com.kingtech.model.RepayInfoModel;
 import com.kingtech.model.RepayPlanModel;
 import com.kingtech.model.SettledInfoModel;
@@ -99,6 +114,21 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 	
 	@Autowired
 	private RepayInfoDAO repayInfoDAO;
+	
+	@Autowired
+	private RepayExtendInfoDAO repayExtendInfoDAO;
+	
+	@Autowired
+	private RepayExtendPlanDAO repayExtendPlanDAO;
+	
+	@Autowired
+	private OtherBaddebtDAO otherBaddebtDAO;
+	
+	@Autowired
+	private OtherOverdueInfoDAO otherOverdueInfoDAO;
+	
+	@Autowired
+	private ProvisionInfoDAO provisionInfoDAO;
 	
 	
 
@@ -391,6 +421,7 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 	}
 
 	@Override
+	@Transactional
 	public void repayInfoApi(String repayInfoId, IdentifierType type) {
 		
 		RepayInfo repayInfo = repayInfoDAO.findOne(repayInfoId);
@@ -422,6 +453,189 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 			repayInfo.setPushStatus(PushStatus.INPROSESS);
 			repayInfoDAO.save(repayInfo);
 		}
+	}
+
+	@Override
+	@Transactional
+	public void repayExtendInfoApi(String repayExtendInfoId, IdentifierType type) {
+		
+		RepayExtendInfo extendInfo = repayExtendInfoDAO.findOne(repayExtendInfoId);
+		if (extendInfo == null ) {
+			log.info("未获取到展期还款信息相关数据repayInfoId={}",repayExtendInfoId);
+			return;
+		}
+		
+		String roundStr =  RandomUtil.random8Len();
+		RepayExtendInfoModel extendInfoModel = null;
+		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
+			extendInfoModel = new RepayExtendInfoModel(roundStr,
+					type.name(), 
+					extendInfo.getReqId(), null, extendInfo.getLoanContractId(), extendInfo.getExtendNum()+"", 
+					DateUtil.getDateStr(extendInfo.getRepayDate(), "yyyy-MM-dd"),
+					extendInfo.getRepayAmount().toPlainString(),
+					extendInfo.getRepayPrincipalAmount().toPlainString(),
+					extendInfo.getRepayInterestAmount().toPlainString(),
+					DateUtil.getDateStr(extendInfo.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT), 
+                    DateUtil.getDateStr(extendInfo.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT));
+		}else {
+			log.info("展期还款信息暂不支持的操作 repayExtendInfoId={},IdentifierType={} ",repayExtendInfoId,type);
+			return;
+		}
+		SynResponseModel responseModel = financeService.repayExtendInfoFacade(extendInfoModel);
+		if (responseModel.isSuccess()) {
+			extendInfo.setPushStatus(PushStatus.INPROSESS);
+			repayExtendInfoDAO.save(extendInfo);
+		}
+		
+	}
+
+	@Override
+	@Transactional
+	public void repayExtendPlanApi(String repayExtendPlanId, IdentifierType type) {
+		
+		RepayExtendPlan extendPlan = repayExtendPlanDAO.findOne(repayExtendPlanId);
+		if (extendPlan == null ) {
+			log.info("未获取到展期还款计划相关数据repayExtendPlanId={}",repayExtendPlanId);
+			return;
+		}
+		
+		String roundStr =  RandomUtil.random8Len();
+		RepayExtendPlanModel repayExtendPlanModel = null;
+		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
+			repayExtendPlanModel = new RepayExtendPlanModel(roundStr,
+					type.name(), extendPlan.getReqId(), null, extendPlan.getLoanContractId(),
+					extendPlan.getExtendCount()+"", extendPlan.getExtendTerm(),
+					DateUtil.getDateStr(extendPlan.getRepayDate(), "yyyy-MM-dd"),
+					extendPlan.getPrincipal().toPlainString(), 
+					extendPlan.getReturnPrincipal().toPlainString(),
+					extendPlan.getInterest().toPlainString(),
+					extendPlan.getReturnInterest().toPlainString(),
+					DTOUtils.getNewStr(extendPlan.getStatus()), 
+					DTOUtils.getNewStr(extendPlan.getOverdueFlag()), 
+					extendPlan.getOverdueDays()+"",
+					DateUtil.getDateStr(extendPlan.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT), 
+                    DateUtil.getDateStr(extendPlan.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT));
+		}else {
+			log.info("展期还款计划暂不支持的操作 repayExtendPlanId={},IdentifierType={} ",repayExtendPlanId,type);
+			return;
+		}
+		SynResponseModel responseModel = financeService.repayExtendPlanFacade(repayExtendPlanModel);
+		if (responseModel.isSuccess()) {
+			extendPlan.setPushStatus(PushStatus.INPROSESS);
+			repayExtendPlanDAO.save(extendPlan);
+		}
+	}
+
+	@Override
+	@Transactional
+	public void otherBaddebtApi(String otherBaddebtId, IdentifierType type) {
+		OtherBaddebt otherBaddebt = otherBaddebtDAO.findOne(otherBaddebtId);
+		if (otherBaddebt == null ) {
+			log.info("未获取到坏账相关数据otherBaddebtId={}",otherBaddebtId);
+			return;
+		}
+		String roundStr =  RandomUtil.random8Len();
+		
+		OtherBaddebtModel otherBaddebtModel = null;
+		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
+			otherBaddebtModel = new OtherBaddebtModel(roundStr,
+					type.name(),
+					otherBaddebt.getReqId(),
+					null,
+					otherBaddebt.getLoanContractId(),
+					otherBaddebt.getBadMoney().toPlainString(),
+					DateUtil.getDateStr(otherBaddebt.getSetDate(),"yyyy-MM-dd"), 
+					otherBaddebt.getFollowupWork(),
+					DateUtil.getDateStr(otherBaddebt.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT), 
+                    DateUtil.getDateStr(otherBaddebt.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT));
+
+			
+		}else {
+			log.info("坏账暂不支持的操作 otherBaddebtId={},IdentifierType={} ",otherBaddebtId,type);
+			return;
+		}
+		
+		SynResponseModel responseModel = financeService.otherBaddebtFacade(otherBaddebtModel);
+		if (responseModel.isSuccess()) {
+			otherBaddebt.setPushStatus(PushStatus.INPROSESS);
+			otherBaddebtDAO.save(otherBaddebt);
+		}
+	}
+
+	@Override
+	@Transactional
+	public void otherOverdueInfoApi(String otherOverdueInfoId,IdentifierType type) {
+		OtherOverdueInfo otherOverdueInfo = otherOverdueInfoDAO.findOne(otherOverdueInfoId);
+		if (otherOverdueInfo == null ) {
+			log.info("未获取到逾期相关数据otherOverdueInfoId={}",otherOverdueInfoId);
+			return;
+		}
+		String roundStr =  RandomUtil.random8Len();
+		
+		OtherOverdueInfoModel otherOverdueInfoModel = null;
+		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
+			otherOverdueInfoModel = new OtherOverdueInfoModel(roundStr, 
+					
+					
+					type.name(), 
+					otherOverdueInfo.getReqId(), 
+					null, 
+					otherOverdueInfo.getLoanContractId(),
+					otherOverdueInfo.getOverdueMoney().toPlainString(), 
+					DateUtil.getDateStr(otherOverdueInfo.getOverdueDate(),"yyyy-MM-dd"), 
+					otherOverdueInfo.getOverdueInterest().toPlainString(), 
+					otherOverdueInfo.getBalance().toPlainString(),
+					otherOverdueInfo.getRemarks(), 
+					DateUtil.getDateStr(otherOverdueInfo.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT), 
+                    DateUtil.getDateStr(otherOverdueInfo.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT));
+			
+		}else {
+			log.info("逾期暂不支持的操作 otherOverdueInfoId={},IdentifierType={} ",otherOverdueInfoId,type);
+			return;
+		}
+		
+		SynResponseModel responseModel = financeService.otherOverdueInfoFacade(otherOverdueInfoModel);
+		if (responseModel.isSuccess()) {
+			otherOverdueInfo.setPushStatus(PushStatus.INPROSESS);
+			otherOverdueInfoDAO.save(otherOverdueInfo);
+		}
+		
+	}
+
+	@Override
+	@Transactional
+	public void provisionInfoApi(String provisionInfoId, IdentifierType type) {
+		ProvisionInfo provisionInfo = provisionInfoDAO.findOne(provisionInfoId);
+		if (provisionInfo == null ) {
+			log.info("未获取到计提相关数据provisionInfoId={}",provisionInfoId);
+			return;
+		}
+		String roundStr =  RandomUtil.random8Len();
+		ProvisionInfoModel provisionInfoModel = null;
+		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
+			provisionInfoModel = new ProvisionInfoModel(roundStr, 
+					type.name(), 
+					provisionInfo.getReqId(), 
+					null, 
+					provisionInfo.getLoanContractId(), 
+					provisionInfo.getProvisionMoney().toPlainString(), 
+					DateUtil.getDateStr(provisionInfo.getProvisionDate(),"yyyy-MM-dd"), 
+					provisionInfo.getProvisionScale().toPlainString(),
+					DTOUtils.getNewStr(provisionInfo.getLoanClassification()),
+					provisionInfo.getBalance().toPlainString(), 
+					DateUtil.getDateStr(provisionInfo.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT), 
+                    DateUtil.getDateStr(provisionInfo.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT));
+			
+		}else {
+			log.info("计提暂不支持的操作 provisionInfoId={},IdentifierType={} ",provisionInfoId,type);
+			return;
+		}
+		SynResponseModel responseModel = financeService.provisionInfoFacade(provisionInfoModel);
+		if (responseModel.isSuccess()) {
+			provisionInfo.setPushStatus(PushStatus.INPROSESS);
+			provisionInfoDAO.save(provisionInfo);
+		}
+		
 	}
 
 }

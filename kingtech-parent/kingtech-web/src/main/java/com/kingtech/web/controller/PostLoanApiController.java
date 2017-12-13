@@ -2,7 +2,10 @@ package com.kingtech.web.controller;
 
 import java.math.BigDecimal;
 
+<<<<<<< HEAD
 import org.apache.commons.lang3.time.DateUtils;
+=======
+>>>>>>> 7e0a5ef8f0a4f1b52b164b92189d32e8b920fa9f
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,19 +14,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+<<<<<<< HEAD
 import com.kingtech.model.RepayExtendInfoModel;
 import com.kingtech.web.commons.base.service.ContractService;
 import com.kingtech.web.commons.base.service.ExtendRepayService;
+=======
+import com.kingtech.model.RepayInfoModel;
+import com.kingtech.web.commons.base.service.PostLoanService;
+>>>>>>> 7e0a5ef8f0a4f1b52b164b92189d32e8b920fa9f
 
 @Controller
 @RequestMapping("/postLoan")
 public class PostLoanApiController {
 	
 	@Autowired
+<<<<<<< HEAD
 	private ContractService contractService;
 	
 	@Autowired
 	private ExtendRepayService extendRepayService;
+=======
+	private PostLoanService postLoanService;
+	
+	
+>>>>>>> 7e0a5ef8f0a4f1b52b164b92189d32e8b920fa9f
 
 	/**
 	 * 还款信息
@@ -33,7 +47,25 @@ public class PostLoanApiController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "repayinfo")
 	public String repayInfo(Model model) {
+		model.addAttribute("contracts", postLoanService.listAllContract());
+		model.addAttribute("list", postLoanService.listAllRepayInfo());
 		return "/postloan/repayInfo";
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "getRepayInfo/{id}")
+	@ResponseBody
+	public RepayInfoModel getRepayInfo(Model model,@PathVariable String id) {
+		return postLoanService.getRepayInfoById(id);
+	}
+	@RequestMapping(method = RequestMethod.POST, value = "add/repayInfo")
+	public String addNewRepayInfo(Model model,String id,
+								  String repayDate,
+								  BigDecimal repayAmount,
+								  BigDecimal repayPrincipalAmount,
+								  BigDecimal repayInterestAmount,
+								  String loanContractId){
+		postLoanService.addNewRepayInfo(id, repayDate, repayAmount, repayPrincipalAmount, repayInterestAmount, loanContractId);
+		return "redirect:/postLoan/repayinfo";
 	}
 
 	/**
