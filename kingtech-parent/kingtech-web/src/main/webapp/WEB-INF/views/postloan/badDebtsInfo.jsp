@@ -101,20 +101,22 @@
                                     <table class="table"> 
                                         <tr>
                                         	<th>编号</th> 
-                                            <th>主合同编号</th> 
+                                            <th>主合同编号</th>
+                                            <th>主合同名称</th>  
                                             <th>坏账金额</th>
                                             <th>定损日期</th>
                                             <th>后续工作</th>
                                             <th>状态</th>
                                             <th>操作</th>
                                         </tr>
-                                        <c:forEach var="it" items="${list}">
+                                        <c:forEach var="it" varStatus="status"  items="${list}">
 	                                        <tr>
-	                                            <td>${it.id}</td>  
-	                                            <td>${it.loanContractId}</td>
-	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><strong>${it.badMoney}</strong></td>
-	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.setDate}"></fmt:formatDate></td>
-	                                            <td>${it.followupWork}</td>
+	                                            <td>${status.index+1}</td>
+	                                            <td>${it.loanContractNo}</td>  
+	                                            <td>${it.loanContractName}</td>  
+	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><strong>${it.model.badMoney}</strong></td>
+	                                            <td>${it.model.setDate}</td>
+	                                            <td>${it.model.followupWork}</td>
 	                                            <td> 
 	                                            	<c:if test="${it.pushStatus=='INITATION'}"><span class="text-gray"><i class="text-gray fa fa-info-circle"></i>初始</span></c:if>
 	                                            	<c:if test="${it.pushStatus=='SUCCESS'}"><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span></c:if>
@@ -122,7 +124,7 @@
 	                                            	<c:if test="${it.pushStatus=='FAILED'}"><span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span></c:if>
 	                                            </td>
 	                                            <td> 
-	                                            	<a href="javascript:void(0)" onclick="getBaddebtInfo('${it.id}')"><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a>
+	                                            	<a href="javascript:void(0)" onclick="getBaddebtInfo('${it.model.id}')"><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a>
 	                                            </td>
 	                                        </tr>
                                         </c:forEach>

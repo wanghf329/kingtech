@@ -2,6 +2,7 @@ package com.kingtech.web.commons.base.service.impl;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +22,7 @@ import com.kingtech.dao.rdbms.RepayInfoDAO;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.model.OtherBaddebtModel;
 import com.kingtech.model.RepayInfoModel;
+import com.kingtech.model.ext.ModelExt;
 import com.kingtech.web.commons.base.CreatRequstId;
 import com.kingtech.web.commons.base.service.PostLoanService;
 
@@ -46,8 +48,29 @@ public class PostLoanServiceImpl implements PostLoanService{
 	}
 
 	@Override
-	public List<RepayInfo> listAllRepayInfo() {
-		return (List<RepayInfo>) repayInfoDao.findAll();
+	public List<ModelExt> listAllRepayInfo() {
+		List<ModelExt> result = new ArrayList<ModelExt>();
+		List<RepayInfo> repayInfos= (List<RepayInfo>) repayInfoDao.findAll();
+		String constractId = "";
+		Contract contract = null;
+		for (RepayInfo repayInfo:repayInfos) {
+			if(constractId.equals(repayInfo.getLoanContractId())) {
+				constractId = repayInfo.getLoanContractId();
+			} else {
+				contract = contractDao.findOne(repayInfo.getLoanContractId());
+			}
+			result.add(new ModelExt(
+					   new RepayInfoModel(repayInfo.getId(), 
+									   	  repayInfo.getLoanContractId(),
+									      repayInfo.getRepayAmount().toPlainString(),
+									      repayInfo.getRepayPrincipalAmount().toPlainString(),
+									      repayInfo.getRepayInterestAmount().toPlainString(),
+									      DateUtil.getDateStr(repayInfo.getRepayDate(), "yyyy-MM-dd")),
+					   contract.getLoanContractId(),
+					   contract.getLoanContractName(),
+					   repayInfo.getPushStatus()));
+		}
+		return result;
 	}
 
 	@Override
@@ -90,6 +113,7 @@ public class PostLoanServiceImpl implements PostLoanService{
 				repayInfo.setRepayInterestAmount(repayInterestAmount);
 				repayInfo.setRepayPrincipalAmount(repayPrincipalAmount);
 				repayInfo.setUpdateTime(new Date());
+				repayInfo.setLoanContractId(loanContractId);
 				repayInfo.setRepayDate(DateUtils.parseDate(repayDate, "yyyy-MM-dd"));
 			}
 		} catch (ParseException e) {
@@ -101,8 +125,31 @@ public class PostLoanServiceImpl implements PostLoanService{
 	}
 
 	@Override
-	public List<OtherBaddebt> listAllOtherBaddebt() {
-		return (List<OtherBaddebt>) otherBaddebtDAO.findAll();
+	public List<ModelExt> listAllOtherBaddebt() {
+		
+		List<ModelExt> result = new ArrayList<ModelExt>();
+		List<OtherBaddebt> baddebtInfos= (List<OtherBaddebt>) otherBaddebtDAO.findAll();
+		String constractId = "";
+		Contract contract = null;
+		for (OtherBaddebt otherBaddebt:baddebtInfos) {
+			if(constractId.equals(otherBaddebt.getLoanContractId())) {
+				constractId = otherBaddebt.getLoanContractId();
+			} else {
+				contract = contractDao.findOne(otherBaddebt.getLoanContractId());
+			}
+			result.add(new ModelExt(
+						   new OtherBaddebtModel(otherBaddebt.getId(), 
+												 otherBaddebt.getLoanContractId(),
+												 otherBaddebt.getBadMoney().toPlainString(),
+												 DateUtil.getDateStr(otherBaddebt.getSetDate(), "yyyy-MM-dd"),
+												 otherBaddebt.getFollowupWork()),
+						   
+						   contract.getLoanContractId(),
+						   contract.getLoanContractName(),
+						   otherBaddebt.getPushStatus()));
+		}
+		return result;
+		
 	}
 
 	@Override

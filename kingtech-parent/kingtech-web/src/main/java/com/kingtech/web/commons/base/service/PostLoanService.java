@@ -8,13 +8,14 @@ import com.kingtech.dao.entity.OtherBaddebt;
 import com.kingtech.dao.entity.RepayInfo;
 import com.kingtech.model.OtherBaddebtModel;
 import com.kingtech.model.RepayInfoModel;
+import com.kingtech.model.ext.ModelExt;
 
 public interface PostLoanService {
 	
 	
 	public List<Contract> listAllContract();
 	
-	public List<RepayInfo> listAllRepayInfo();
+	public List<ModelExt> listAllRepayInfo();
 	
 	public RepayInfoModel getRepayInfoById(String id);
 	
@@ -27,7 +28,7 @@ public interface PostLoanService {
 								  	 String loanContractId );
 	
 	
-	public List<OtherBaddebt> listAllOtherBaddebt();
+	public List<ModelExt> listAllOtherBaddebt();
 	
 	public OtherBaddebtModel getBaddebtInfoById(String id);
 	
