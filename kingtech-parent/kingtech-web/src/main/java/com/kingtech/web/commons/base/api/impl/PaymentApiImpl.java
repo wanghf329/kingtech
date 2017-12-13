@@ -457,7 +457,7 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 					                       type.name(),
 					                       repayInfo.getReqId(),
 					                       null,
-					                       repayInfo.getLoanContractId(),
+					                       contractDAO.findOne(repayInfo.getLoanContractId()).getLoanContractId(),
 					                       repayInfo.getRepayAmount().toPlainString(),
 					                       repayInfo.getRepayPrincipalAmount().toPlainString(),
 					                       repayInfo.getRepayInterestAmount().toPlainString(),
@@ -523,7 +523,7 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 		RepayExtendPlanModel repayExtendPlanModel = null;
 		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
 			repayExtendPlanModel = new RepayExtendPlanModel(roundStr,
-					type.name(), extendPlan.getReqId(), null, extendPlan.getLoanContractId(),
+					type.name(), extendPlan.getReqId(), null, contractDAO.findOne(extendPlan.getLoanContractId()).getLoanContractId(),
 					extendPlan.getExtendCount()+"", extendPlan.getExtendTerm(),
 					DateUtil.getDateStr(extendPlan.getRepayDate(), "yyyy-MM-dd"),
 					extendPlan.getPrincipal().toPlainString(), 
@@ -562,7 +562,7 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 					type.name(),
 					otherBaddebt.getReqId(),
 					null,
-					otherBaddebt.getLoanContractId(),
+					contractDAO.findOne(otherBaddebt.getLoanContractId()).getLoanContractId(),
 					otherBaddebt.getBadMoney().toPlainString(),
 					DateUtil.getDateStr(otherBaddebt.getSetDate(),"yyyy-MM-dd"), 
 					otherBaddebt.getFollowupWork(),
@@ -598,7 +598,7 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 					
 					
 					type.name(), 
-					otherOverdueInfo.getReqId(), 
+					contractDAO.findOne(otherOverdueInfo.getLoanContractId()).getLoanContractId(), 
 					null, 
 					otherOverdueInfo.getLoanContractId(),
 					otherOverdueInfo.getOverdueMoney().toPlainString(), 
@@ -637,7 +637,7 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 					type.name(), 
 					provisionInfo.getReqId(), 
 					null, 
-					provisionInfo.getLoanContractId(), 
+					contractDAO.findOne(provisionInfo.getLoanContractId()).getLoanContractId(), 
 					provisionInfo.getProvisionMoney().toPlainString(), 
 					DateUtil.getDateStr(provisionInfo.getProvisionDate(),"yyyy-MM-dd"), 
 					provisionInfo.getProvisionScale().toPlainString(),
