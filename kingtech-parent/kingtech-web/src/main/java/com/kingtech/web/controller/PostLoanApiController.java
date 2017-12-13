@@ -2,10 +2,7 @@ package com.kingtech.web.controller;
 
 import java.math.BigDecimal;
 
-<<<<<<< HEAD
 import org.apache.commons.lang3.time.DateUtils;
-=======
->>>>>>> 7e0a5ef8f0a4f1b52b164b92189d32e8b920fa9f
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,31 +11,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-<<<<<<< HEAD
 import com.kingtech.model.RepayExtendInfoModel;
+import com.kingtech.model.RepayInfoModel;
 import com.kingtech.web.commons.base.service.ContractService;
 import com.kingtech.web.commons.base.service.ExtendRepayService;
-=======
-import com.kingtech.model.RepayInfoModel;
 import com.kingtech.web.commons.base.service.PostLoanService;
->>>>>>> 7e0a5ef8f0a4f1b52b164b92189d32e8b920fa9f
 
 @Controller
 @RequestMapping("/postLoan")
 public class PostLoanApiController {
 	
 	@Autowired
-<<<<<<< HEAD
 	private ContractService contractService;
 	
 	@Autowired
 	private ExtendRepayService extendRepayService;
-=======
+	
+	@Autowired
 	private PostLoanService postLoanService;
 	
-	
->>>>>>> 7e0a5ef8f0a4f1b52b164b92189d32e8b920fa9f
-
 	/**
 	 * 还款信息
 	 * 
