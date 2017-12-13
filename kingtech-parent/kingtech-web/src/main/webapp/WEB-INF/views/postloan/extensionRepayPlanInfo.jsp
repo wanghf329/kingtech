@@ -106,7 +106,7 @@
 									</div>
 									<div class="form-group">
 										<label for="#status" class="col-sm-3 control-label"><i class="text-red">*</i> 状态</label>
-										<div class="col-sm-6">
+										<div class="col-sm-6 input-group">
 											<select class="form-control repayStatus validate[required]" name="status" data-errormessage="状态不能为空">
 												<c:forEach var="it" items="${repayStatus}">
 			  										<option value ="${it.name()}">${it.getKey()}</option>
@@ -116,7 +116,7 @@
 									</div>
 									<div class="form-group">
 										<label for="#overdueFlag" class="col-sm-3 control-label"><i class="text-red">*</i> 是否逾期</label>
-										<div class="col-sm-6">
+										<div class="col-sm-6 input-group">
 											<select class="form-control overdueFlag validate[required]" name="overdueFlag" data-errormessage="是否逾期不能为空">
 												<c:forEach var="it" items="${overdueFlags}">
 			  										<option value ="${it.name()}">${it.getKey()}</option>
