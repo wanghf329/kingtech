@@ -18,7 +18,7 @@ import com.kingtech.dao.entity.base.PackageEntity;
  */
 @Data
 @Entity
-@Table(name="TB_LOAN_SETTLED")
+@Table(name="TB_LOAN_CONTRACT_SETTLED")
 @NoArgsConstructor
 public class SettledInfo extends PackageEntity {
 	

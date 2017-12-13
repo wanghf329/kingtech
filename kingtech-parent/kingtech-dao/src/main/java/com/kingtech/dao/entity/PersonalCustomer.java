@@ -20,7 +20,7 @@ import com.kingtech.enums.YesNoEnum;
 
 @Data
 @Entity
-@Table(name="TB_PERSONAL_CUSTOMER")
+@Table(name="TB_BORROWER_PERSONAL")
 @NoArgsConstructor
 public class PersonalCustomer extends UuidEntity{
 	//姓名

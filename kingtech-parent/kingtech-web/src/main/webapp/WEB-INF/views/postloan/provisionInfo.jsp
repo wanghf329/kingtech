@@ -12,13 +12,13 @@
             <aside class="right-side">                
                 <section class="content-header">
                     <h1>
-                                                                        展期还款计划信息列表
+                                                                        计提信息列表
                         <small></small>
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="branch"><i class="fa fa-dashboard"></i> 首页</a></li>
                         <li><a href="postLoan/repayinfo">贷后管理</a></li>
-                        <li class="active">展期还款计划信息</li> 
+                        <li class="active">计提信息</li> 
                     </ol>
                 </section>
 
@@ -28,24 +28,18 @@
                         <div class="col-md-12 no-padding">
                             <div class="box">
                                 <div class="box-header">
-                                    <h3 class="box-title">展期还款计划信息列表</h3>
+                                    <h3 class="box-title">计提信息列表</h3>
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
-                                	<button class="btn btn-primary btn-sm" data-toggle="modal" id="editContractBtn">新增展期还款计划信息</button>  
+                                	<button class="btn btn-primary btn-sm" data-toggle="modal" id="editContractBtn">新增计提信息</button>  
                                     <table class="table"> 
                                         <tr>
                                             <th>编号</th> 
-                                            <th>主合同编号</th>
-                                            <th>展期次数</th> 
-                                            <th>展期期限</th> 
-                                            <th>新还款日期</th>
-                                            <th>新还款本金</th>
-                                            <th>已还本金</th>
-                                            <th> 新还款利息</th>
-                                            <th> 已还利息</th>
-                                            <th>还款状态</th>
-                                            <th> 是否逾期</th>
-                                            <th>逾期天数</th>
+                                            <th>计提日期</th> 
+                                            <th>计提比例</th> 
+                                            <th>计提金额</th>
+                                            <th>贷款分类</th>
+                                            <th>贷款余额</th>
                                             <th>状态</th>
                                             <th>操作</th>
                                         </tr>
@@ -93,6 +87,6 @@
         </div><!-- ./wrapper -->
 
 		<%@include file="../common/footer.jspf" %>   
-        <script src="bujs/postloan/extendrepayplaninfo.js" type="text/javascript"></script>       
+        <script src="bujs/postloan/provisioninfo.js" type="text/javascript"></script>       
     </body>
 </html>

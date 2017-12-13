@@ -21,7 +21,7 @@ import com.kingtech.enums.ScaleType;
 
 @Data
 @Entity
-@Table(name="TB_ENTERPRISE_CUSTOMER")
+@Table(name="TB_BORROWER_ENTERPRISE")
 @NoArgsConstructor
 public class EnterpriseCustomer extends UuidEntity{
 	

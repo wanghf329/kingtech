@@ -23,7 +23,7 @@ import com.kingtech.enums.SexEnum;
  */
 @Data
 @Entity
-@Table(name="TB_SHAREHOLDER")
+@Table(name="TB_BRANCH_SHAREHOLDER")
 @NoArgsConstructor
 public class Shareholder extends RecordEntity {
 	

@@ -15,7 +15,7 @@ import com.kingtech.dao.entity.base.PackageEntity;
  */
 @Data
 @Entity
-@Table(name="TB_LOAN_GUARANTEE")
+@Table(name="TB_LOAN_CONTRACT_GUARANTEE")
 @NoArgsConstructor
 public class Guarantee extends PackageEntity {
 	
