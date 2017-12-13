@@ -1,13 +1,26 @@
 package com.kingtech.web.controller;
 
+import java.math.BigDecimal;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.kingtech.model.RepayInfoModel;
+import com.kingtech.web.commons.base.service.PostLoanService;
 
 @Controller
 @RequestMapping("/postLoan")
 public class PostLoanApiController {
+	
+	@Autowired
+	private PostLoanService postLoanService;
+	
+	
 
 	/**
 	 * 还款信息
@@ -17,7 +30,25 @@ public class PostLoanApiController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "repayinfo")
 	public String repayInfo(Model model) {
+		model.addAttribute("contracts", postLoanService.listAllContract());
+		model.addAttribute("list", postLoanService.listAllRepayInfo());
 		return "/postloan/repayInfo";
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "getRepayInfo/{id}")
+	@ResponseBody
+	public RepayInfoModel getRepayInfo(Model model,@PathVariable String id) {
+		return postLoanService.getRepayInfoById(id);
+	}
+	@RequestMapping(method = RequestMethod.POST, value = "add/repayInfo")
+	public String addNewRepayInfo(Model model,String id,
+								  String repayDate,
+								  BigDecimal repayAmount,
+								  BigDecimal repayPrincipalAmount,
+								  BigDecimal repayInterestAmount,
+								  String loanContractId){
+		postLoanService.addNewRepayInfo(id, repayDate, repayAmount, repayPrincipalAmount, repayInterestAmount, loanContractId);
+		return "redirect:/postLoan/repayinfo";
 	}
 
 	/**
