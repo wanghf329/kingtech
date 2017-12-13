@@ -385,4 +385,9 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 		
 	}
 
+	@Override
+	public void repayInfoApi(String repayInfoId, IdentifierType type) {
+		
+	}
+
 }
