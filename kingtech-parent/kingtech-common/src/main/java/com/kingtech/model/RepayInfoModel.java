@@ -31,7 +31,7 @@ public class RepayInfoModel   extends BaseRequestModel{
 
 	// 还款利息
 	@JSONField(name="interest",label="sign")
-	private BigDecimal repayInterestAmount;
+	private String repayInterestAmount;
 
 	// 还款利息
 	@JSONField(name="repay_date",label="sign")
@@ -43,9 +43,8 @@ public class RepayInfoModel   extends BaseRequestModel{
 	@JSONField(name="update_time")
 	private String updateTime;
 
-	public RepayInfoModel( String roundStr, String identifier, String reqId, String sign,
-			String id, String loanContractId, String repayAmount,
-			String repayPrincipalAmount, BigDecimal repayInterestAmount,
+	public RepayInfoModel( String roundStr, String identifier, String reqId, String sign, String loanContractId, String repayAmount,
+			String repayPrincipalAmount, String repayInterestAmount,
 			String repayDate, String creatTime, String updateTime) {
 		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId, sign,null);
 		this.loanContractId = loanContractId;
