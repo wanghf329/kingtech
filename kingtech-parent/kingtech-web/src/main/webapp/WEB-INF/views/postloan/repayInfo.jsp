@@ -122,9 +122,9 @@
 	                                        	<td>${it.id}</td>
 	                                            <td>${it.loanContractId}</td>  
 	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.repayDate}"></fmt:formatDate></td>
-	                                            <td>${it.repayAmount}</td>
-	                                            <td>${it.repayPrincipalAmount}</td>
-	                                            <td>${it.repayInterestAmount}</td>
+	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><strong>${it.repayAmount}</strong></td>
+	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><strong>${it.repayPrincipalAmount}</strong></td>
+	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><strong>${it.repayInterestAmount}</strong></td>
 	                                            <td> 
 	                                            	<c:if test="${it.pushStatus=='INITATION'}"><span class="text-gray"><i class="text-gray fa fa-info-circle"></i>初始</span></c:if>
 	                                            	<c:if test="${it.pushStatus=='SUCCESS'}"><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span></c:if>

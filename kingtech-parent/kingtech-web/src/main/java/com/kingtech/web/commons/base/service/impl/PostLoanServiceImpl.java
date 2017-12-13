@@ -13,10 +13,13 @@ import org.springframework.util.StringUtils;
 
 import com.kingtech.common.utils.DateUtil;
 import com.kingtech.dao.entity.Contract;
+import com.kingtech.dao.entity.OtherBaddebt;
 import com.kingtech.dao.entity.RepayInfo;
 import com.kingtech.dao.rdbms.ContractDAO;
+import com.kingtech.dao.rdbms.OtherBaddebtDAO;
 import com.kingtech.dao.rdbms.RepayInfoDAO;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.model.OtherBaddebtModel;
 import com.kingtech.model.RepayInfoModel;
 import com.kingtech.web.commons.base.CreatRequstId;
 import com.kingtech.web.commons.base.service.PostLoanService;
@@ -33,6 +36,9 @@ public class PostLoanServiceImpl implements PostLoanService{
 	
 	@Autowired
 	private CreatRequstId creatRequstId;
+	
+	@Autowired
+	private OtherBaddebtDAO otherBaddebtDAO;
 
 	@Override
 	public List<Contract> listAllContract() {
@@ -92,6 +98,61 @@ public class PostLoanServiceImpl implements PostLoanService{
 		}
 		repayInfoDao.save(repayInfo);
 		return repayInfo;
+	}
+
+	@Override
+	public List<OtherBaddebt> listAllOtherBaddebt() {
+		return (List<OtherBaddebt>) otherBaddebtDAO.findAll();
+	}
+
+	@Override
+	public OtherBaddebtModel getBaddebtInfoById(String id) {
+		OtherBaddebt badDebtInfo = otherBaddebtDAO.findOne(id);
+		if(badDebtInfo == null) {
+			return null;
+		}
+		OtherBaddebtModel  model = new OtherBaddebtModel(id, 
+														badDebtInfo.getLoanContractId(),
+														badDebtInfo.getBadMoney().toPlainString(),
+														DateUtil.getDateStr(badDebtInfo.getSetDate(), "yyyy-MM-dd"),
+														badDebtInfo.getFollowupWork());
+		return model;
+	}
+
+	@Override
+	@Transactional
+	public OtherBaddebt addNewBaddebtInfo(String id,
+									  	  String setDate,
+									  	  BigDecimal badMoney,
+									  	  String followupWork,
+									  	  String loanContractId) {
+		OtherBaddebt badDebtInfo = null;
+		
+		if(StringUtils.isEmpty(loanContractId)) {
+			return null;
+		}
+		try {
+			if(StringUtils.isEmpty(id)) {
+				badDebtInfo = otherBaddebtDAO.save(new OtherBaddebt(loanContractId, 
+																	creatRequstId.getReqId(), 
+																	PushStatus.INITATION, 
+																	badMoney,
+																	DateUtils.parseDate(setDate, "yyyy-MM-dd"),
+																	followupWork));
+				
+			} else {
+				badDebtInfo = otherBaddebtDAO.findOne(id);
+				badDebtInfo.setBadMoney(badMoney);
+				badDebtInfo.setLoanContractId(loanContractId);
+				badDebtInfo.setSetDate(DateUtils.parseDate(setDate, "yyyy-MM-dd"));
+				badDebtInfo.setFollowupWork(followupWork);
+			}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		otherBaddebtDAO.save(badDebtInfo);
+		return badDebtInfo;
 	}
 	
 

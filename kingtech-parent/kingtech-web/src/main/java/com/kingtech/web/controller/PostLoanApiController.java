@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kingtech.model.OtherBaddebtModel;
 import com.kingtech.model.RepayInfoModel;
 import com.kingtech.web.commons.base.service.PostLoanService;
 
@@ -81,8 +82,28 @@ public class PostLoanApiController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "baddebtsinfo")
 	public String badDebtsInfo(Model model) {
+		model.addAttribute("contracts", postLoanService.listAllContract());
+		model.addAttribute("list", postLoanService.listAllOtherBaddebt());
 		return "/postloan/badDebtsInfo";
 	}
+	
+	
+	@RequestMapping(method = RequestMethod.GET, value = "getBaddebtsInfo/{id}")
+	@ResponseBody
+	public OtherBaddebtModel getBaddebtsInfo(Model model,@PathVariable String id) {
+		return postLoanService.getBaddebtInfoById(id);
+	}
+	@RequestMapping(method = RequestMethod.POST, value = "add/baddebtsInfo")
+	public String addNewBaddebtsInfo(Model model,String id,
+								    String setDate,
+								    BigDecimal badMoney,
+								    String  followupWork,
+								    String loanContractId){
+		postLoanService.addNewBaddebtInfo(id,setDate,badMoney,followupWork, loanContractId);
+		return "redirect:/postLoan/baddebtsinfo";
+	}
+
+	
 
 	/**
 	 * 逾期信息
