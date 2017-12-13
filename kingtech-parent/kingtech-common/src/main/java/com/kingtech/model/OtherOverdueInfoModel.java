@@ -55,5 +55,19 @@ public class OtherOverdueInfoModel extends BaseRequestModel{
 		this.creatTime = creatTime;
 		this.updateTime = updateTime;
 	}
+
+	public OtherOverdueInfoModel(String id, String loanContractId,
+			String overdueMoney, String overdueDate, String overdueInterest,
+			String balance, String remarks) {
+		super(id);
+		this.loanContractId = loanContractId;
+		this.overdueMoney = overdueMoney;
+		this.overdueDate = overdueDate;
+		this.overdueInterest = overdueInterest;
+		this.balance = balance;
+		this.remarks = remarks;
+	}
+	
+	
 	
 }

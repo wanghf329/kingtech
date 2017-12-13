@@ -17,6 +17,7 @@ import com.kingtech.model.RepayExtendPlanModel;
 import com.kingtech.web.commons.base.service.ContractService;
 import com.kingtech.web.commons.base.service.ExtendRepayPlanService;
 import com.kingtech.model.OtherBaddebtModel;
+import com.kingtech.model.OtherOverdueInfoModel;
 import com.kingtech.model.RepayExtendInfoModel;
 import com.kingtech.model.RepayInfoModel;
 import com.kingtech.web.commons.base.service.ExtendRepayService;
@@ -163,7 +164,26 @@ public class PostLoanApiController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "overdueinfo")
 	public String overdueInfo(Model model) {
+		model.addAttribute("contracts", contractService.listAll());
+		model.addAttribute("extendRepayList", postLoanService.listAllOverdue());
 		return "/postloan/overdueInfo";
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "getOverdueInfo/{id}")
+	@ResponseBody
+	public OtherOverdueInfoModel getOverdueInfo(Model model,@PathVariable String id) {
+		return postLoanService.getOverDueInfoById(id);
+	}
+	@RequestMapping(method = RequestMethod.POST, value = "add/overdueInfo")
+	public String addNewOverdueInfo(Model model,String id,
+								    String overdueDate,
+								    BigDecimal overdueMoney,
+								    BigDecimal overdueInterest,
+								    BigDecimal balance,
+								    String  remarks,
+								    String loanContractId){
+		postLoanService.addNewOverDueInfo(id, overdueDate, overdueMoney, overdueInterest, balance, remarks, loanContractId);
+		return "redirect:/postLoan/overdueinfo";
 	}
 
 	/**
