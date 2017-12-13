@@ -625,7 +625,6 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 					provisionInfo.getBalance().toPlainString(), 
 					DateUtil.getDateStr(provisionInfo.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT), 
                     DateUtil.getDateStr(provisionInfo.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT));
-
 			
 		}else {
 			log.info("计提暂不支持的操作 provisionInfoId={},IdentifierType={} ",provisionInfoId,type);
