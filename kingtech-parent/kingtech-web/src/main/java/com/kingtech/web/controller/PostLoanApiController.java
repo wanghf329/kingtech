@@ -1,13 +1,29 @@
 package com.kingtech.web.controller;
 
+import java.math.BigDecimal;
+
+import org.apache.commons.lang3.time.DateUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.kingtech.model.RepayExtendInfoModel;
+import com.kingtech.web.commons.base.service.ContractService;
+import com.kingtech.web.commons.base.service.ExtendRepayService;
 
 @Controller
 @RequestMapping("/postLoan")
 public class PostLoanApiController {
+	
+	@Autowired
+	private ContractService contractService;
+	
+	@Autowired
+	private ExtendRepayService extendRepayService;
 
 	/**
 	 * 还款信息
@@ -39,6 +55,8 @@ public class PostLoanApiController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "extensionrepayinfo")
 	public String extensionRepayInfo(Model model) {
+		model.addAttribute("contracts", contractService.listAll());
+		model.addAttribute("extendRepayList", extendRepayService.listAll());
 		return "/postloan/extensionRepayInfo";
 	}
 
@@ -73,5 +91,31 @@ public class PostLoanApiController {
 	@RequestMapping(method = RequestMethod.GET, value = "provisioninfo")
 	public String accruedInfo(Model model) {
 		return "/postloan/provisionInfo";
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "extendrepay/edit")
+	public String extendrepayEdit(Model model,String id,String loanContractId,long extendNum, 
+								  String repayDate,BigDecimal repayAmount, 
+								  BigDecimal repayPrincipalAmount,
+								  BigDecimal repayInterestAmount) {
+		try {
+			extendRepayService.addOrEdit(id, loanContractId, extendNum, DateUtils.parseDate(repayDate, "yyyy-MM-dd"), repayAmount, repayPrincipalAmount, repayInterestAmount);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/postLoan/extensionrepayinfo";
+	}
+	
+	/**
+	 * 展期还款信息
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET, value = "extendrepay/detail/{id}")
+	public RepayExtendInfoModel extendrepayDetail(Model model,@PathVariable("id") String id) {
+		RepayExtendInfoModel rf = extendRepayService.getById(id);
+		return rf;
 	}
 }
