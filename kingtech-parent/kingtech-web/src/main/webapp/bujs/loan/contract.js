@@ -144,3 +144,37 @@ function initDatepicker(){
 	    autoclose: 1, 
 	    clearBtn: true});   
 }
+
+
+$(".contract-push").click(function(){
+	var id = $(this).data("id");
+	swal({
+		title : "确定推送吗？",
+		text : "推送前确认数据无误，推送后将无法更改！",
+		type : "warning",
+		showCancelButton : true,
+		confirmButtonColor : "#DD6B55",
+		confirmButtonText : "确认推送",
+		cancelButtonText : "取消推送",
+		closeOnConfirm : false,
+		closeOnCancel : true 
+	}, function() {  
+		$.ajax({
+			url:"loan/push/"+id,
+			type:'get',
+			async: false,
+			success:function(res){
+				if(res==null){
+					swal("推送！", "推送失败。", "error"); 
+				}else{
+					if(res.resultCode=='0000'){
+						swal("推送！", "推送成功。", "success"); 
+						window.location.href = "loan/list"; 
+					}else{
+						swal("推送！", "推送失败。"+res.resultMsg, "error");
+					}
+				}
+			}
+		});
+	});
+});

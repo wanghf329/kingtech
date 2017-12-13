@@ -14,4 +14,5 @@
 <link rel="stylesheet" href="css/validationEngine.jquery.css">
 <link rel="stylesheet" href="css/bootstrap-datetimepicker.css">
 <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="css/sweetalert.css">
 

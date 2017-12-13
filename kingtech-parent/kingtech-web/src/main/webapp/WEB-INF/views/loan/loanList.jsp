@@ -36,8 +36,7 @@
                                         <tr>
                                             <th>合同编号</th> 
                                             <th>合同名称</th>
-                                            <th>借款客户</th>
-                                            
+                                            <th><i class="fa  fa-user"></i>借款客户</th>
                                             <th>利率类型</th>
                                             <th>利率</th>
                                             <th>贷款金额（元）</th>
@@ -52,11 +51,11 @@
 	                                            <td>${it.loanContractId}</td>  
 	                                            <td>${it.loanContractName}</td>
 	                                            <td> 
-	                                            	<a href="#" class="text-green" ><i class="text-green fa  fa-user"></i><strong>${it.borrowerName}</strong></a>
+	                                            	<a href="javascript:void(0)"><strong>${it.borrowerName}</strong></a>
 	                                            </td>
 	                                            
 	                                            <td>${it.rateType.getKey()}</td>
-	                                            <td class="text-green">${it.rate}%</td>    
+	                                            <td class="text-green"><Strong>${it.rate}%</Strong></td>    
 	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><Strong>${it.loanAmount}</Strong></td>
 	                                            <td>${it.periodTerm}${it.periodType.getKey()}</td> 
 	                                           	<td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.loanStartDate}"></fmt:formatDate></td>
@@ -76,7 +75,7 @@
 	                                            	<c:if test="${it.pushStatus=='INITATION' or it.pushStatus=='FAILED'}">
 	                                            		<a href="loan/edit?id=${it.id}"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>
 	                                            		<a href="loan/supplement?loanContractId=${it.id}" ><i class="text-blue fa fa-plus-square-o"></i><strong>补充</strong></a>
-	                                            		<a href="loan/push/${it.id}"><i class="text-blue fa fa-exchange"></i><strong>推送</strong></a>
+	                                            		<a href="javascirpt:void(0)" class="contract-push" data-id="${it.id}"><i class="text-blue fa fa-exchange"></i><strong>推送</strong></a>
 	                                            	</c:if>
 	                                            </td>
 	                                        </tr>
@@ -91,6 +90,6 @@
         </div><!-- ./wrapper -->
 
 		<%@include file="../common/footer.jspf" %>   
-        <script src="bujs/loan/contract.js" type="text/javascript"></script>       
+        <script src="bujs/loan/contract.js" type="text/javascript"></script>     
     </body>
 </html>

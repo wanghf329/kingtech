@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.kingtech.common.utils.DateUtil;
 import com.kingtech.common.utils.RandomUtil;
 import com.kingtech.dao.entity.Branch;
@@ -304,12 +303,12 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 
 	@Override
 	@Transactional
-	public void contractInfoApi(String loanIdContractId, IdentifierType type) {
+	public SynResponseModel contractInfoApi(String loanIdContractId, IdentifierType type) {
 		
 		Contract contract = contractDAO.findOne(loanIdContractId);
 		if (contract == null) {
 			log.info("未获取到相关数据loanIdContractId={}",loanIdContractId);
-			return;
+			return null;
 		}
 		
 		String roundStr =  RandomUtil.random8Len();
@@ -374,7 +373,7 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 			
 		}else {
 			log.info("暂不支持的操作 loanIdContractId={},IdentifierType={} ",loanIdContractId,type);
-			return;
+			return null;
 		}
 		
 		SynResponseModel responseModel = financeService.contractFacade(contractModel);
@@ -382,7 +381,7 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 			contract.setPushStatus(PushStatus.INPROSESS);
 			contractDAO.save(contract);
 		}
-		
+		return responseModel;
 	}
 
 }

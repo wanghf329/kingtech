@@ -2,6 +2,7 @@ package com.kingtech.web.commons.base.api;
 
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.model.AsyReponseModel;
+import com.kingtech.model.SynResponseModel;
 
 public interface PaymentApi {
 	
@@ -36,7 +37,7 @@ public interface PaymentApi {
 	 * @param loanIdContract
 	 * @param type
 	 */
-	public void contractInfoApi(String loanIdContract,IdentifierType type);
+	public SynResponseModel contractInfoApi(String loanIdContract,IdentifierType type);
 	
 	/**
 	 * 处理回调数据

@@ -3,7 +3,6 @@ package com.kingtech.web.controller;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
-import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
@@ -14,8 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.kingtech.dao.entity.Collateral;
 import com.kingtech.enums.BorrowerTypeEnum;
 import com.kingtech.enums.CollateralTypeFor1Enum;
 import com.kingtech.enums.CollateralTypeFor2Enum;
@@ -26,10 +25,10 @@ import com.kingtech.enums.LoanTypeEnum;
 import com.kingtech.enums.LoanstatusEnum;
 import com.kingtech.enums.PayTypeEnum;
 import com.kingtech.enums.PeriodTypeEnum;
-import com.kingtech.enums.PledgeTypeEnum;
 import com.kingtech.enums.RateTypeEnum;
 import com.kingtech.enums.UnionFlagEnum;
 import com.kingtech.enums.YesNoEnum;
+import com.kingtech.model.SynResponseModel;
 import com.kingtech.web.commons.base.api.PaymentApi;
 import com.kingtech.web.commons.base.service.BorrowerService;
 import com.kingtech.web.commons.base.service.BranchService;
@@ -159,10 +158,11 @@ public class LoanContractApiController {
 
 	
 	
+	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET,value="/push/{id}")
-	public String push(Model model,@PathVariable("id") String id) { 
-		paymentApi.contractInfoApi(id, IdentifierType.A);
-		return "redirect:/loan/list";
+	public SynResponseModel push(Model model,@PathVariable("id") String id) { 
+		SynResponseModel synresponseModel = paymentApi.contractInfoApi(id, IdentifierType.A);
+		return synresponseModel;
 	}  
 	
 	
