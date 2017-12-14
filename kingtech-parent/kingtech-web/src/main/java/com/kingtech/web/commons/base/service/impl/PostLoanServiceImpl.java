@@ -110,13 +110,13 @@ public class PostLoanServiceImpl implements PostLoanService{
 		}
 		try {
 			if(StringUtils.isEmpty(id)) {
-				repayInfo = repayInfoDao.save(new RepayInfo(loanContractId,
-															creatRequstId.getReqId(), 
-															PushStatus.INITATION, 
-															DateUtils.parseDate(repayDate, "yyyy-MM-dd"),
-															repayAmount,
-															repayPrincipalAmount, 
-															repayInterestAmount));
+				repayInfo = new RepayInfo(loanContractId,
+										 creatRequstId.getReqId(), 
+										 PushStatus.INITATION, 
+										 DateUtils.parseDate(repayDate, "yyyy-MM-dd"),
+										 repayAmount,
+										 repayPrincipalAmount, 
+										 repayInterestAmount);
 				
 			} else {
 				repayInfo = repayInfoDao.findOne(id);
@@ -191,12 +191,12 @@ public class PostLoanServiceImpl implements PostLoanService{
 		}
 		try {
 			if(StringUtils.isEmpty(id)) {
-				badDebtInfo = otherBaddebtDAO.save(new OtherBaddebt(loanContractId, 
-																	creatRequstId.getReqId(), 
-																	PushStatus.INITATION, 
-																	badMoney,
-																	DateUtils.parseDate(setDate, "yyyy-MM-dd"),
-																	followupWork));
+				badDebtInfo = new OtherBaddebt(loanContractId, 
+												creatRequstId.getReqId(), 
+												PushStatus.INITATION, 
+												badMoney,
+												DateUtils.parseDate(setDate, "yyyy-MM-dd"),
+												followupWork);
 				
 			} else {
 				badDebtInfo = otherBaddebtDAO.findOne(id);
@@ -204,13 +204,14 @@ public class PostLoanServiceImpl implements PostLoanService{
 				badDebtInfo.setLoanContractId(loanContractId);
 				badDebtInfo.setSetDate(DateUtils.parseDate(setDate, "yyyy-MM-dd"));
 				badDebtInfo.setFollowupWork(followupWork);
+				otherBaddebtDAO.save(badDebtInfo);
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		paymentApi.otherBaddebtApi(badDebtInfo.getId(),StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
 		otherBaddebtDAO.save(badDebtInfo);
+		paymentApi.otherBaddebtApi(badDebtInfo.getId(),StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
 		return badDebtInfo;
 	}
 
@@ -276,14 +277,14 @@ public class PostLoanServiceImpl implements PostLoanService{
 		}
 		try {
 			if(StringUtils.isEmpty(id)) {
-				overdueInfo = otherOverdueInfoDAO.save(new OtherOverdueInfo(loanContractId,
-																			creatRequstId.getReqId(), 
-																			PushStatus.INITATION,  
-																			overdueMoney, 
-																			DateUtils.parseDate(overdueDate, "yyyy-MM-dd"),
-																			overdueInterest, 
-																			balance,
-																			remarks));
+				overdueInfo = new OtherOverdueInfo(loanContractId,
+												   creatRequstId.getReqId(), 
+												   PushStatus.INITATION,  
+												   overdueMoney, 
+												   DateUtils.parseDate(overdueDate, "yyyy-MM-dd"),
+												   overdueInterest, 
+												   balance,
+												   remarks);
 				
 			} else {
 				overdueInfo = otherOverdueInfoDAO.findOne(id);
@@ -298,8 +299,8 @@ public class PostLoanServiceImpl implements PostLoanService{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		paymentApi.otherOverdueInfoApi(overdueInfo.getId(), StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
 		otherOverdueInfoDAO.save(overdueInfo);
+		paymentApi.otherOverdueInfoApi(overdueInfo.getId(), StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
 		return overdueInfo;
 	}
 	

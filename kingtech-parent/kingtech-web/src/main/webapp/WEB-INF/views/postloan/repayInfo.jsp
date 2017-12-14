@@ -106,38 +106,21 @@
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
                                 	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addRepayInfoBtn">新增还款信息</button>  
-                                    <table class="table"> 
-                                        <tr>
-                                            <th>编号</th> 
-                                            <th>主合同编号</th>
-                                            <th>主合同名称</th>
-                                            <th>还款日期</th> 
-                                            <th>还款金额(元)</th> 
-                                            <th>还款本金(元)</th>
-                                            <th>还款利息(元)</th>
-                                            <th>状态</th>
-                                            <th>操作</th>
-                                        </tr>
-                                        <c:forEach var="it" varStatus="status"  items="${list}">
+                                    <table class="table table-bordered" role="grid" id="repayInfo">
+                                    	<thead>
 	                                        <tr>
-	                                        	<td>${status.index+1}</td>
-	                                            <td>${it.loanContractNo}</td>  
-	                                            <td>${it.loanContractName}</td>  
-	                                            <td>${it.model.repayDate}</td>
-	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><strong>${it.model.repayAmount}</strong></td>
-	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><strong>${it.model.repayPrincipalAmount}</strong></td>
-	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><strong>${it.model.repayInterestAmount}</strong></td>
-	                                            <td> 
-	                                            	<c:if test="${it.pushStatus=='INITATION'}"><span class="text-gray"><i class="text-gray fa fa-info-circle"></i>初始</span></c:if>
-	                                            	<c:if test="${it.pushStatus=='SUCCESS'}"><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span></c:if>
-	                                            	<c:if test="${it.pushStatus=='INPROSESS'}"><span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span></c:if>
-	                                            	<c:if test="${it.pushStatus=='FAILED'}"><span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span></c:if>
-	                                            </td>
-	                                            <td> 
-	                                            	<a href="javascript:void(0)" onclick="getRepayInfo('${it.model.id}')"><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a>
-	                                            </td>
+	                                            <th>编号</th> 
+	                                            <th>主合同编号</th>
+	                                            <th>主合同名称</th>
+	                                            <th>还款日期</th> 
+	                                            <th>还款金额(元)</th> 
+	                                            <th>还款本金(元)</th>
+	                                            <th>还款利息(元)</th>
+	                                            <th>状态</th>
+	                                            <th>操作</th>
 	                                        </tr>
-                                        </c:forEach>
+                                        </thead>
+                                        <tbody></tbody>
                                     </table>
                                 </div>
                             </div><!-- /.box -->

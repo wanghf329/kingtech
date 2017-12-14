@@ -127,7 +127,7 @@
 									<div class="form-group hide">  
 										<label for="#overdueDays" class="col-sm-3 control-label"><i class="text-red">*</i> 逾期天数</label>
 										<div class="col-sm-6 input-group">
-											<input type="text" class="form-control validate[required,custom[number]]" data-errormessage="逾期天数只能为数字"
+											<input type="text" class="form-control validate[required,custom[number]]" maxlength=3 data-errormessage="逾期天数只能为数字"
 												name="overdueDays">
 										</div>
 									</div>
@@ -151,11 +151,11 @@
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
                                 	<button class="btn btn-primary btn-sm" data-toggle="modal" id="editRepayExtendPlanBtn">新增展期还款计划信息</button>  
-                                    <table class="table"> 
+                                    <table class="table table-bordered" role="grid" id ="repayExtendPlanTable">
+                                    <thead> 
                                         <tr>
                                             <th>编号</th> 
                                             <th>主合同编号</th>
-                                            <th>主合同名称</th>
                                             <th>展期次数</th> 
                                             <th>展期期限</th> 
                                             <th>新还款日期</th>
@@ -169,33 +169,8 @@
                                             <th>状态</th>
                                             <th>操作</th>
                                         </tr>
-                                        <c:forEach var="it" varStatus="status" items="${list}">
-	                                        <tr>
-	                                            <td>${status.index+1}</td>  
-	                                            <td>${it.loanContractNo}</td>  
-	                                            <td>${it.loanContractName}</td>
-	                                            <td>${it.extendCount}</td>
-	                                            <td>${it.extendTerm}</td>
-	                                            <td>${it.repayDate}</td>
-	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><Strong>${it.principal}</Strong></td>
-	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><Strong>${it.returnPrincipal}</Strong></td>
-	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><Strong>${it.interest}</Strong></td>
-	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><Strong>${it.returnInterest}</Strong></td>
-	                                            <td>${it.status}</td>
-	                                            <td>${it.overdueFlag}</td>
-	                                            <td>${it.overdueDays}</td>
-
-	                                            <td> 
-	                                            	<c:if test="${it.pushStatus=='INITATION'}"><span class="text-gray"><i class="text-gray fa fa-info-circle"></i>初始</span></c:if>
-	                                            	<c:if test="${it.pushStatus=='SUCCESS'}"><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span></c:if>
-	                                            	<c:if test="${it.pushStatus=='INPROSESS'}"><span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span></c:if>
-	                                            	<c:if test="${it.pushStatus=='FAILED'}"><span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span></c:if>
-	                                            </td>
-	                                            <td> 
-	                                            	<a href="javascript:void(0)" onclick="getRepayExtendPlan('${it.id}')"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>
-	                                            </td>
-	                                        </tr>
-                                        </c:forEach>
+                                        </thead>
+                                       <tbody></tbody>
                                     </table>
                                 </div>
                             </div><!-- /.box -->

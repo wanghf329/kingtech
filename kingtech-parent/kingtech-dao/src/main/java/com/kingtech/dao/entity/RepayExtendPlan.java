@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -54,10 +56,12 @@ public class RepayExtendPlan extends LoanRecordEntity {
 	private BigDecimal returnInterest;
 	
 	// 状态，值为未还、已还
+	@Enumerated(EnumType.STRING)
 	@Column(name="STATUS")
 	private RepayStatusEnum status;
 	
 	// 是否逾期
+	@Enumerated(EnumType.STRING)
 	@Column(name="OVERDUE_FLAG")
 	private YesNoEnum overdueFlag;
 	

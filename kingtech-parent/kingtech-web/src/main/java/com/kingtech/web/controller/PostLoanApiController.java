@@ -21,6 +21,7 @@ import com.kingtech.model.ProvisionInfoModel;
 import com.kingtech.model.RepayExtendInfoModel;
 import com.kingtech.model.RepayExtendPlanModel;
 import com.kingtech.model.RepayInfoModel;
+import com.kingtech.model.ext.ModelExt;
 import com.kingtech.model.ext.RepayExtendInfoModelExt;
 import com.kingtech.model.misc.PageInfo;
 import com.kingtech.model.misc.PagedResult;
@@ -29,6 +30,7 @@ import com.kingtech.web.commons.base.service.ExtendRepayPlanService;
 import com.kingtech.web.commons.base.service.ExtendRepayService;
 import com.kingtech.web.commons.base.service.PostLoanService;
 import com.kingtech.web.commons.base.service.ProvisionService;
+import com.kingtech.web.commons.base.service.RepayInfoService;
 
 @Controller
 @RequestMapping("/postLoan")
@@ -49,6 +51,9 @@ public class PostLoanApiController {
 	@Autowired
 	private ProvisionService provisionService;
 	
+	@Autowired
+	private RepayInfoService repayInfoService;
+	
 	/**
 	 * 还款信息
 	 * 
@@ -58,7 +63,6 @@ public class PostLoanApiController {
 	@RequestMapping(method = RequestMethod.GET, value = "repayinfo")
 	public String repayInfo(Model model) {
 		model.addAttribute("contracts", postLoanService.listAllContract());
-		model.addAttribute("list", postLoanService.listAllRepayInfo());
 		return "/postloan/repayInfo";
 	}
 	
@@ -86,7 +90,6 @@ public class PostLoanApiController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "extensionrepayplaninfo")
 	public String extensionRepayPlanInfo(Model model) {
-		model.addAttribute("list", repayExtendPlanService.listAll());
 		model.addAttribute("contracts", contractService.listAll());
 		model.addAttribute("repayStatus", RepayStatusEnum.values());
 		model.addAttribute("overdueFlags", YesNoEnum.values());
@@ -148,6 +151,38 @@ public class PostLoanApiController {
 									 			 @RequestParam("length") Integer pageSize) {
 		return extendRepayService.pageList(PageInfo.page(firstIndex, pageSize));
 	}
+	
+	
+	/**
+	 * 还款信息
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.POST, value = "repayInfo/data")
+	public PagedResult<ModelExt> repayInfo(Model model,
+												 @RequestParam("start") Integer firstIndex,
+									 			 @RequestParam("length") Integer pageSize) {
+		return repayInfoService.pageList(PageInfo.page(firstIndex, pageSize));
+	}
+	
+	
+	/**
+	 * 展期还款计划
+	 * @param model
+	 * @param firstIndex
+	 * @param pageSize
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.POST, value = "extendRepayPlan/data")
+	public PagedResult<ModelExt> extendRepayPlan(Model model,
+												 @RequestParam("start") Integer firstIndex,
+									 			 @RequestParam("length") Integer pageSize) {
+		return repayExtendPlanService.pageList(PageInfo.page(firstIndex, pageSize));
+	}
+	
 
 	
 	/**
