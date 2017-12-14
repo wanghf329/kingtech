@@ -106,18 +106,20 @@
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
                                 	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addRepayInfoBtn">新增还款信息</button>  
-                                    <table class="table"> 
-                                        <tr>
-                                            <th>编号</th> 
-                                            <th>主合同编号</th>
-                                            <th>主合同名称</th>
-                                            <th>还款日期</th> 
-                                            <th>还款金额(元)</th> 
-                                            <th>还款本金(元)</th>
-                                            <th>还款利息(元)</th>
-                                            <th>状态</th>
-                                            <th>操作</th>
-                                        </tr>
+                                    <table class="table table-bordered" role="grid" id="repayInfo">
+                                    	<thead>
+	                                        <tr>
+	                                            <th>编号</th> 
+	                                            <th>主合同编号</th>
+	                                            <th>主合同名称</th>
+	                                            <th>还款日期</th> 
+	                                            <th>还款金额(元)</th> 
+	                                            <th>还款本金(元)</th>
+	                                            <th>还款利息(元)</th>
+	                                            <th>状态</th>
+	                                            <th>操作</th>
+	                                        </tr>
+                                        </thead>
                                         <c:forEach var="it" varStatus="status"  items="${list}">
 	                                        <tr>
 	                                        	<td>${status.index+1}</td>
