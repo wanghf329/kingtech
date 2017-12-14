@@ -142,7 +142,7 @@ public class PostLoanApiController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(method = RequestMethod.GET, value = "extensionrepayinfo/data")
+	@RequestMapping(method = RequestMethod.POST, value = "extensionrepayinfo/data")
 	public PagedResult<RepayExtendInfoModelExt> extensionRepayInfo(Model model,
 												 @RequestParam("start") Integer firstIndex,
 									 			 @RequestParam("length") Integer pageSize) {
