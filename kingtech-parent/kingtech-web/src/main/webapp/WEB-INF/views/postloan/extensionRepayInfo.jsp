@@ -42,7 +42,7 @@
 										<div class="col-sm-6 input-group">
 											<select class="form-control validate[required] partnerType" id="loanContractId" name="loanContractId" data-errormessage="合同不能为空">
 												<c:forEach var="con" items="${contracts}"> 
-													<option value="${con.id}">${con.loanContractName}</option>
+													<option value="${con.id}">${con.loanContractNo}</option>
 												</c:forEach>
 											</select>
 										</div>									
@@ -100,26 +100,29 @@
 			<!-- Main content -->
                 <section class="content">
                     <div class="row">
-                        <div class="col-md-12 no-padding">
+                        <div class="col-md-12 no-padding"> 
                             <div class="box">
                                 <div class="box-header">
                                     <h3 class="box-title">展期还款信息列表</h3>
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
                                 	<button class="btn btn-primary btn-sm" data-toggle="modal" id="editExtendRepayPlanBtn">新增展期还款信息</button>  
-                                    <table class="table table-bordered" id="extRepayInfo"> 
-                                        <tr>
-                                            <th>编号</th> 
-                                            <th>主合同编号</th>
-                                            <th>主合同名称</th>
-                                            <th>展期次数</th> 
-                                            <th>还款日期</th> 
-                                            <th>还款金额</th> 
-                                            <th>还款本金</th>
-                                            <th>还款利息</th>
-                                            <th>状态</th>
-                                            <th>操作</th>
-                                        </tr>
+                                    <table class="table table-bordered" role="grid" id="extRepayInfo"> 
+	                                    <thead>
+	                                        <tr>
+	                                            <th>编号</th> 
+	                                            <th>主合同编号</th>
+	                                            <th>主合同名称</th>
+	                                            <th>展期次数</th> 
+	                                            <th>还款日期</th> 
+	                                            <th>还款金额</th> 
+	                                            <th>还款本金</th>
+	                                            <th>还款利息</th>
+	                                            <th>状态</th>
+	                                            <th>操作</th>
+	                                        </tr>
+	                                     </thead>
+	                                     <tbody></tbody>
                                     </table>
                                 </div>
                             </div><!-- /.box -->

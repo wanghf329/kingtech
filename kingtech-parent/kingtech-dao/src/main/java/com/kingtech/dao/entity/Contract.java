@@ -38,8 +38,8 @@ public class Contract extends RecordEntity{
 	/**
 	 * 合同编号
 	 */
-	@Column(name="LOAN_CONTRACT_ID")
-	private String loanContractId;
+	@Column(name="LOAN_CONTRACT_NO")
+	private String loanContractNo;
 	/**
 	 * 合同名称
 	 */
@@ -162,7 +162,7 @@ public class Contract extends RecordEntity{
 	@Transient
 	private String borrowerName;
 	
-	public Contract(String loanContractId,
+	public Contract(String loanContractNo,
 			String loanContractName, BorrowerTypeEnum borrowerType,String borrowerId,
 			String customerId, String guarantee, BigDecimal loanAmount,
 			PeriodTypeEnum periodType, int periodTerm, Date loanStartDate,
@@ -170,7 +170,7 @@ public class Contract extends RecordEntity{
 			LoanPurposeEnum purpose, IndustryEnum industry, LoanTypeEnum loanType,
 			UnionFlagEnum unionFlag, PayTypeEnum payType, Date signDate,
 			String repaySource, LoanstatusEnum status, YesNoEnum isExtend) {
-		this.loanContractId = loanContractId;
+		this.loanContractNo = loanContractNo;
 		this.loanContractName = loanContractName;
 		this.borrowerType = borrowerType;
 		this.borrowerId = borrowerId;

@@ -77,7 +77,7 @@ public class PostLoanServiceImpl implements PostLoanService{
 									      repayInfo.getRepayPrincipalAmount().toPlainString(),
 									      repayInfo.getRepayInterestAmount().toPlainString(),
 									      DateUtil.getDateStr(repayInfo.getRepayDate(), "yyyy-MM-dd")),
-					   contract.getLoanContractId(),
+					   contract.getLoanContractNo(),
 					   contract.getLoanContractName(),
 					   repayInfo.getPushStatus()));
 		}
@@ -155,7 +155,7 @@ public class PostLoanServiceImpl implements PostLoanService{
 												 DateUtil.getDateStr(otherBaddebt.getSetDate(), "yyyy-MM-dd"),
 												 otherBaddebt.getFollowupWork()),
 						   
-						   contract.getLoanContractId(),
+						   contract.getLoanContractNo(),
 						   contract.getLoanContractName(),
 						   otherBaddebt.getPushStatus()));
 		}
@@ -234,7 +234,7 @@ public class PostLoanServiceImpl implements PostLoanService{
 								   overdueInfo.getOverdueInterest().toPlainString(),
 								   overdueInfo.getBalance().toPlainString(),
 								   overdueInfo.getRemarks()),
-						   contract.getLoanContractId(),
+						   contract.getLoanContractNo(),
 						   contract.getLoanContractName(),
 						   overdueInfo.getPushStatus()));
 		}

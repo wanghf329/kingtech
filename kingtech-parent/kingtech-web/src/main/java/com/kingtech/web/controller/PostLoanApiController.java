@@ -1,7 +1,6 @@
 package com.kingtech.web.controller;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kingtech.enums.LoanClassificationEnum;
@@ -17,9 +17,13 @@ import com.kingtech.enums.RepayStatusEnum;
 import com.kingtech.enums.YesNoEnum;
 import com.kingtech.model.OtherBaddebtModel;
 import com.kingtech.model.OtherOverdueInfoModel;
+import com.kingtech.model.ProvisionInfoModel;
 import com.kingtech.model.RepayExtendInfoModel;
 import com.kingtech.model.RepayExtendPlanModel;
 import com.kingtech.model.RepayInfoModel;
+import com.kingtech.model.ext.RepayExtendInfoModelExt;
+import com.kingtech.model.misc.PageInfo;
+import com.kingtech.model.misc.PagedResult;
 import com.kingtech.web.commons.base.service.ContractService;
 import com.kingtech.web.commons.base.service.ExtendRepayPlanService;
 import com.kingtech.web.commons.base.service.ExtendRepayService;
@@ -127,10 +131,25 @@ public class PostLoanApiController {
 	@RequestMapping(method = RequestMethod.GET, value = "extensionrepayinfo")
 	public String extensionRepayInfo(Model model) {
 		model.addAttribute("contracts", contractService.listAll());
-		model.addAttribute("extendRepayList", extendRepayService.listAll());
 		return "/postloan/extensionRepayInfo";
 	}
+	
+	
+	/**
+	 * 展期还款信息
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.POST, value = "extensionrepayinfo/data")
+	public PagedResult<RepayExtendInfoModelExt> extensionRepayInfo(Model model,
+												 @RequestParam("start") Integer firstIndex,
+									 			 @RequestParam("length") Integer pageSize) {
+		return extendRepayService.pageList(PageInfo.page(firstIndex, pageSize));
+	}
 
+	
 	/**
 	 * 坏账信息
 	 * 
@@ -201,6 +220,7 @@ public class PostLoanApiController {
 	@RequestMapping(method = RequestMethod.GET, value = "provisioninfo")
 	public String accruedInfo(Model model) {
 		model.addAttribute("loanClassificationEnum", LoanClassificationEnum.values());
+		model.addAttribute("list", provisionService.listAll());
 		return "/postloan/provisionInfo";
 	}
 	
@@ -245,5 +265,12 @@ public class PostLoanApiController {
 	public RepayExtendInfoModel extendrepayDetail(Model model,@PathVariable("id") String id) {
 		RepayExtendInfoModel rf = extendRepayService.getById(id);
 		return rf;
+	}
+	
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET, value = "provision/detail/{id}")
+	public ProvisionInfoModel provisionDetail(Model model,@PathVariable("id") String id) {
+		ProvisionInfoModel pi = provisionService.getById(id);
+		return pi;
 	}
 }

@@ -1,5 +1,8 @@
 package com.kingtech.model;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import com.alibaba.fastjson.annotation.JSONField;
 import com.kingtech.common.config.BaseConfig;
 import com.kingtech.common.utils.SignUtils;
@@ -9,6 +12,8 @@ import com.kingtech.common.utils.SignUtils;
  * @author baijt
  *
  */
+@Data
+@NoArgsConstructor
 public class ProvisionInfoModel extends BaseRequestModel{
 	
 	// 计提金额（万元）
@@ -20,7 +25,7 @@ public class ProvisionInfoModel extends BaseRequestModel{
 	private String provisionDate;
 	
 	// 计提比例
-	@JSONField(name="provision _scale",label="sign")
+	@JSONField(name="provision_scale",label="sign")
 	private String provisionScale;
 
 	// 贷款分类
@@ -36,6 +41,19 @@ public class ProvisionInfoModel extends BaseRequestModel{
 	
 	@JSONField(name="update_time")
 	private String updateTime;
+	
+
+	public ProvisionInfoModel(String id, String provisionMoney,
+			String provisionDate, String provisionScale,
+			String loanClassification, String balance) {
+		super(id);
+		this.provisionMoney = provisionMoney;
+		this.provisionDate = provisionDate;
+		this.provisionScale = provisionScale;
+		this.loanClassification = loanClassification;
+		this.balance = balance;
+	}
+
 
 	public ProvisionInfoModel(String roundStr, String identifier, String reqId, String sign,
 			String provisionMoney,

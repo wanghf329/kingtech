@@ -4,8 +4,11 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+
 import com.kingtech.model.RepayExtendInfoModel;
 import com.kingtech.model.ext.RepayExtendInfoModelExt;
+import com.kingtech.model.misc.PagedResult;
 
 public interface ExtendRepayService {
 	/**
@@ -33,4 +36,7 @@ public interface ExtendRepayService {
 	 * @return
 	 */
 	public RepayExtendInfoModel getById(String id);
+	
+	
+	public PagedResult<RepayExtendInfoModelExt> pageList(Pageable pageAble);
 }

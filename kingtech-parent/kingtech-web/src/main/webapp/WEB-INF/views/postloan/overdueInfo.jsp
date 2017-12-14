@@ -42,7 +42,7 @@
 										<div class="col-sm-6 input-group">
 											<select class="form-control validate[required]" id="loanContractId" name="loanContractId">
 												<c:forEach var="it" items="${contracts}">
-			  										<option value ="${it.id}">${it.loanContractName}</option>
+			  										<option value ="${it.id}">${it.loanContractNo}</option>
 												</c:forEach>
 											</select>
 										</div>

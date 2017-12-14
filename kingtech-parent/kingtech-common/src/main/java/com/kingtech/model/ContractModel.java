@@ -15,7 +15,7 @@ public class ContractModel  extends BaseRequestModel{
 	 * 合同编号
 	 */
 	@JSONField(name="loan_contract_id",label ="sign")
-	private String loanContractId;
+	private String loanContractNo;
 	/**
 	 * 合同名称
 	 */
@@ -155,7 +155,7 @@ public class ContractModel  extends BaseRequestModel{
 	@JSONField(name="lending_package")
 	private String lendingPackage;
 	
-	public ContractModel( String roundStr, String identifier, String reqId, String sign, String loanContractId, String loanContractName,
+	public ContractModel( String roundStr, String identifier, String reqId, String sign, String loanContractNo, String loanContractName,
 			String borrowerType, String customerId, String guarantee,
 			String loanAmount, String periodType, String periodTerm,
 			String loanStartDate, String loanEndDate, String rateType,
@@ -166,7 +166,7 @@ public class ContractModel  extends BaseRequestModel{
 			String collateralPackage, String guarantee_package,
 			String repayPlanPackage, String lendingPackage) {
 		super(BaseConfig.CLIENTID, roundStr,BaseConfig.APPKEY,SignUtils.getToken(roundStr), identifier, reqId, sign,null);
-		this.loanContractId = loanContractId;
+		this.loanContractNo = loanContractNo;
 		this.loanContractName = loanContractName;
 		this.borrowerType = borrowerType;
 		this.customerId = customerId;

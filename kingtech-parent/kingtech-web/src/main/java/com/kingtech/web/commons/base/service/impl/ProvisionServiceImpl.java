@@ -7,6 +7,7 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,7 @@ import com.kingtech.dao.rdbms.ProvisionInfoDAO;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.LoanClassificationEnum;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.model.ProvisionInfoModel;
 import com.kingtech.web.commons.base.CreatRequstId;
 import com.kingtech.web.commons.base.api.PaymentApi;
 import com.kingtech.web.commons.base.service.ProvisionService;
@@ -59,7 +61,12 @@ public class ProvisionServiceImpl implements ProvisionService{
 	}
 
 	@Override
-	public ProvisionInfo getById(String id) {
-		return provisionDao.findOne(id);
+	public ProvisionInfoModel getById(String id) {
+		ProvisionInfo pi = provisionDao.findOne(id);
+		return new ProvisionInfoModel(pi.getId(), pi.getProvisionMoney().toPlainString(), 
+									  DateFormatUtils.format(pi.getProvisionDate(),"yyyy-MM-dd"), 
+									  pi.getProvisionScale().toPlainString(), 
+									  pi.getLoanClassification().name(), 
+									  pi.getBalance().toPlainString());
 	}
 }

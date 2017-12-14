@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.kingtech.dao.entity.ProvisionInfo;
 import com.kingtech.enums.LoanClassificationEnum;
+import com.kingtech.model.ProvisionInfoModel;
 
 public interface ProvisionService {
 	/**
@@ -30,5 +31,5 @@ public interface ProvisionService {
 	 * @param id
 	 * @return
 	 */
-	public ProvisionInfo getById(String id);
+	public ProvisionInfoModel getById(String id);
 }

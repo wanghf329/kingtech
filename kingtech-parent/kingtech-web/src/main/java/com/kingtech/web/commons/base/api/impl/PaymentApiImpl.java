@@ -384,7 +384,7 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 					                          IdentifierType.A.name(),
 					                          contract.getReqId(), 
 					                          null,
-					                          contract.getLoanContractId(),
+					                          contract.getLoanContractNo(),
 					                          contract.getLoanContractName(), 
 					                          DTOUtils.getNewStr(contract.getBorrowerType()), 
 					                          contract.getCustomerId(),
@@ -457,7 +457,7 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 					                       type.name(),
 					                       repayInfo.getReqId(),
 					                       null,
-					                       contractDAO.findOne(repayInfo.getLoanContractId()).getLoanContractId(),
+					                       contractDAO.findOne(repayInfo.getLoanContractId()).getLoanContractNo(),
 					                       repayInfo.getRepayAmount().toPlainString(),
 					                       repayInfo.getRepayPrincipalAmount().toPlainString(),
 					                       repayInfo.getRepayInterestAmount().toPlainString(),
@@ -490,7 +490,7 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
 			extendInfoModel = new RepayExtendInfoModel(roundStr,
 					type.name(), 
-					extendInfo.getReqId(), null, contractDAO.findOne(extendInfo.getLoanContractId()).getLoanContractId(), extendInfo.getExtendNum()+"", 
+					extendInfo.getReqId(), null, contractDAO.findOne(extendInfo.getLoanContractId()).getLoanContractNo(), extendInfo.getExtendNum()+"", 
 					DateUtil.getDateStr(extendInfo.getRepayDate(), "yyyy-MM-dd"),
 					extendInfo.getRepayAmount().toPlainString(),
 					extendInfo.getRepayPrincipalAmount().toPlainString(),
@@ -523,7 +523,7 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 		RepayExtendPlanModel repayExtendPlanModel = null;
 		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
 			repayExtendPlanModel = new RepayExtendPlanModel(roundStr,
-					type.name(), extendPlan.getReqId(), null, contractDAO.findOne(extendPlan.getLoanContractId()).getLoanContractId(),
+					type.name(), extendPlan.getReqId(), null, contractDAO.findOne(extendPlan.getLoanContractId()).getLoanContractNo(),
 					extendPlan.getExtendCount()+"", extendPlan.getExtendTerm(),
 					DateUtil.getDateStr(extendPlan.getRepayDate(), "yyyy-MM-dd"),
 					extendPlan.getPrincipal().toPlainString(), 
@@ -562,7 +562,7 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 					type.name(),
 					otherBaddebt.getReqId(),
 					null,
-					contractDAO.findOne(otherBaddebt.getLoanContractId()).getLoanContractId(),
+					contractDAO.findOne(otherBaddebt.getLoanContractId()).getLoanContractNo(),
 					otherBaddebt.getBadMoney().toPlainString(),
 					DateUtil.getDateStr(otherBaddebt.getSetDate(),"yyyy-MM-dd"), 
 					otherBaddebt.getFollowupWork(),
@@ -598,7 +598,7 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 					
 					
 					type.name(), 
-					contractDAO.findOne(otherOverdueInfo.getLoanContractId()).getLoanContractId(), 
+					contractDAO.findOne(otherOverdueInfo.getLoanContractId()).getLoanContractNo(), 
 					null, 
 					otherOverdueInfo.getLoanContractId(),
 					otherOverdueInfo.getOverdueMoney().toPlainString(), 

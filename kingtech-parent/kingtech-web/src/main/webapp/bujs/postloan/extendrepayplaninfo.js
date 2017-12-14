@@ -23,11 +23,13 @@ $("#editRepayExtendPlanBtn").click(function(){
 	$("#form-horizontal")[0].reset();
 	$("input[name='returnPrincipal']").val(0);
 	$("input[name='returnInterest']").val(0);
+	$("input[name='overdueDays']").val(0);
 	$("#editModel").modal();
 });
 
 function getRepayExtendPlan(id){ 
 	$.get('postLoan/get/extensionrepayplaninfo/'+id,null,function(res){
+		$("input[name='id']").val(res.id);
 		$(".loanContractId option[value='"+res.loanContractId+"']").attr("selected",true);
 		$("input[name='extendCount']").val(res.extendCount); 
 		$("input[name='extendTerm']").val(res.extendTerm);
