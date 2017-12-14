@@ -1,5 +1,7 @@
 package com.kingtech.model;
 
+import lombok.Data;
+
 import com.alibaba.fastjson.annotation.JSONField;
 import com.kingtech.common.config.BaseConfig;
 import com.kingtech.common.utils.SignUtils;
@@ -9,6 +11,7 @@ import com.kingtech.common.utils.SignUtils;
  * @author baijt
  *
  */
+@Data
 public class OtherOverdueInfoModel extends BaseRequestModel{
 	
 	@JSONField(name="loan_contract_id",label="sign")
