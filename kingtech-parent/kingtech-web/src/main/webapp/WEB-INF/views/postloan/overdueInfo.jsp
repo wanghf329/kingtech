@@ -92,7 +92,7 @@
 									<div class="form-group">
 										<label for="#remarks" class="col-sm-3 control-label">备注</label>
 										<div class="col-sm-6 input-group">
-										<textarea  class="form-control" name = "remarks" id="remarks" ></textarea>
+										<textarea  class="form-control validate[maxSize[225]]" name = "remarks" id="remarks" ></textarea>
 										
 										</div>
 									</div>

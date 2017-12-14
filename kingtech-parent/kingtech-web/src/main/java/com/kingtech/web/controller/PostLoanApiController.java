@@ -171,7 +171,7 @@ public class PostLoanApiController {
 	@RequestMapping(method = RequestMethod.GET, value = "overdueinfo")
 	public String overdueInfo(Model model) {
 		model.addAttribute("contracts", contractService.listAll());
-		model.addAttribute("extendRepayList", postLoanService.listAllOverdue());
+		model.addAttribute("list", postLoanService.listAllOverdue());
 		return "/postloan/overdueInfo";
 	}
 	

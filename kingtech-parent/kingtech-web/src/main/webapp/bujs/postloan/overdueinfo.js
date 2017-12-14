@@ -18,7 +18,7 @@ $(document).ready(function () {
     })
 });
 
-function getBaddebtInfo(id){
+function getOverdueInfo(id){
 	$.get('postLoan/getOverdueInfo/'+id,null,function(res){
 		$("input[name='id']").val(res.id);
 		$("input[name='overdueMoney']").val(res.overdueMoney);
