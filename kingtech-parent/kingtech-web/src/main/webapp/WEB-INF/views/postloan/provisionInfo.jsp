@@ -51,7 +51,7 @@
 											<input type="text" class="form-control validate[required,custom[number],max[100]]" data-errormessage="计提比例，最大100" 
 												name="provisionScale"> 
 											<span class="input-group-addon"><i class="fa">%</i></span>
-										</div>
+										</div> 
 									</div>								
 									<div class="form-group"> 
 										<label for="#provisionMoney" class="col-sm-3 control-label"><i class="text-red">*</i> 计提金额</label>

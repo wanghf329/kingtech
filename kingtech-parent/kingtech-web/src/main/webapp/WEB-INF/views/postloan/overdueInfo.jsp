@@ -21,6 +21,90 @@
                         <li class="active">逾期信息</li> 
                     </ol>
                 </section>
+                
+                <!-- Modal -->
+				<div class="modal fade" id="newOverdueinfo" tabindex="-1" role="dialog"
+					aria-labelledby="myModalLabel">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<h4 class="modal-title" >逾期信息录入</h4>
+							</div>
+							<div class="modal-body">
+								<form class="form-horizontal" id ="addOverdueinfoForm" action="postLoan/add/overdueInfo" method="POST">
+									<input type="hidden" name="id" value="">
+									<div class="form-group">
+										<label for="#loanContractId" class="col-sm-3 control-label"><i class="text-red">*</i>合同编号</label> 
+										<div class="col-sm-6 input-group">
+											<select class="form-control validate[required]" id="loanContractId" name="loanContractId">
+												<c:forEach var="it" items="${contracts}">
+			  										<option value ="${it.id}">${it.loanContractNo}</option>
+												</c:forEach>
+											</select>
+										</div>
+									</div>
+									
+									
+									
+									<div class="form-group">
+										<label for="#overdueMoney" class="col-sm-3 control-label"><i class="text-red">*</i> 逾期金额</label>
+										<div class="col-sm-6 input-group">
+										<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
+										<input type="text" class="form-control validate[required,custom[number]]" name = "overdueMoney" id="overdueMoney" 
+											data-errormessage-value-missing="逾期金额不能为空"  data-errormessage-custom-error="逾期金额必须是数字" >
+										<span class="input-group-addon"><i class="fa ">元</i></span>
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label for="#overdueDate" class="col-sm-3 control-label"><i class="text-red">*</i> 逾期日期</label>
+										<div class="col-sm-6 input-group date">
+											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+											<input type="text" class="form-control pull-right datepicker validate[required]" name="overdueDate"
+												readonly id="overdueDate" data-errormessage="还款日期不能为空">
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label for="#overdueInterest" class="col-sm-3 control-label"><i class="text-red">*</i> 逾期利息</label>
+										<div class="col-sm-6 input-group">
+										<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
+										<input type="text" class="form-control validate[required,custom[number]]" name = "overdueInterest" 
+													id="overdueInterest"  data-errormessage-custom-error="逾期利息必须是数字" data-errormessage-value-missing="逾期利息不能为空" >
+										<span class="input-group-addon"><i class="fa ">元</i></span>
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label for="#balance" class="col-sm-3 control-label"><i class="text-red">*</i> 贷款余额</label>
+										<div class="col-sm-6 input-group">
+										<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
+										<input type="text" class="form-control validate[required,custom[number]]" name = "balance" id="balance" 
+														 data-errormessage-custom-error="贷款余额必须是数字" data-errormessage-value-missing="贷款余额不能为空" >
+										<span class="input-group-addon"><i class="fa ">元</i></span>
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label for="#remarks" class="col-sm-3 control-label">备注</label>
+										<div class="col-sm-6 input-group">
+										<textarea  class="form-control validate[maxSize[225]]" name = "remarks" id="remarks" ></textarea>
+										
+										</div>
+									</div>
+								</form>						
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button> 
+								<button type="submit" class="btn btn-primary saveRecordBtn">保存</button>
+							</div>
+						</div>
+					</div>
+				</div>
 
 			<!-- Main content -->
                 <section class="content">
@@ -31,11 +115,12 @@
                                     <h3 class="box-title">逾期信息列表</h3>
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
-                                	<button class="btn btn-primary btn-sm" data-toggle="modal" id="editContractBtn">新增逾期信息</button>  
+                                	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addNewOverdueinfo">新增逾期信息</button>  
                                     <table class="table"> 
                                         <tr>
                                             <th>编号</th> 
                                             <th>主合同编号</th>
+                                            <th>主合同名称</th>
                                             <th>逾期金额</th> 
                                             <th>逾期日期</th> 
                                             <th>逾期利息</th>
@@ -44,21 +129,16 @@
                                             <th>状态</th>
                                             <th>操作</th>
                                         </tr>
-                                        <c:forEach var="it" items="${list}">
+                                        <c:forEach var="it" varStatus="status" items="${list}">
 	                                        <tr>
-	                                            <td>${it.loanContractId}</td>  
+	                                            <td>${status.index+1}</td>
+	                                            <td>${it.loanContractNo}</td>  
 	                                            <td>${it.loanContractName}</td>
-	                                            <td> 
-	                                            	<a href="#" class="text-green" ><i class="text-green fa  fa-user"></i><strong>${it.borrowerName}</strong></a>
-	                                            </td>
-	                                            
-	                                            <td>${it.rateType.getKey()}</td>
-	                                            <td class="text-green">${it.rate}%</td>    
-	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><Strong>${it.loanAmount}</Strong></td>
-	                                            <td>${it.periodTerm}${it.periodType.getKey()}</td> 
-	                                           	<td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.loanStartDate}"></fmt:formatDate></td>
-	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.loanEndDate}"></fmt:formatDate></td> 
-
+	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><Strong>${it.model.overdueMoney}</Strong></td>  
+	                                            <td>${it.model.overdueDate}</td>
+	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><Strong>${it.model.overdueInterest}</Strong></td>  
+	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><Strong>${it.model.balance}</Strong></td>  
+	                                            <td>${it.model.remarks}</td>    
 	                                            <td> 
 	                                            	<c:if test="${it.pushStatus=='INITATION'}"><span class="text-gray"><i class="text-gray fa fa-info-circle"></i>初始</span></c:if>
 	                                            	<c:if test="${it.pushStatus=='SUCCESS'}"><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span></c:if>
@@ -66,15 +146,7 @@
 	                                            	<c:if test="${it.pushStatus=='FAILED'}"><span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span></c:if>
 	                                            </td>
 	                                            <td> 
-	                                            	<c:if test="${it.pushStatus=='SUCCESS' or it.pushStatus=='INPROSESS'}">
-	                                            		<a href="loan/edit?id=${it.id}"><strong>查看详情</strong></a>
-	                                            		<a href="loan/supplement?loanContractId=${it.id}"><strong>查看补充信息</strong></a>
-	                                            	</c:if>
-	                                            	<c:if test="${it.pushStatus=='INITATION' or it.pushStatus=='FAILED'}">
-	                                            		<a href="loan/edit?id=${it.id}"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>
-	                                            		<a href="loan/supplement?loanContractId=${it.id}" ><i class="text-blue fa fa-plus-square-o"></i><strong>补充</strong></a>
-	                                            		<a href="loan/push/${it.id}"><i class="text-blue fa fa-exchange"></i><strong>推送</strong></a>
-	                                            	</c:if>
+	                                            	<a href="javascript:void(0)" onclick="getOverdueInfo('${it.model.id}')"><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a>
 	                                            </td>
 	                                        </tr>
                                         </c:forEach>

@@ -99,7 +99,7 @@ public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 					rf.getStatus().getKey(),
 					rf.getOverdueFlag().getKey(),
 					String.valueOf(rf.getOverdueDays()),
-					ct.getLoanContractId(),ct.getLoanContractName(),rf.getPushStatus()));
+					ct.getLoanContractNo(),ct.getLoanContractName(),rf.getPushStatus()));
 		}
 		return result;
 	}

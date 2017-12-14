@@ -1,5 +1,7 @@
 package com.kingtech.model;
 
+import lombok.Data;
+
 import com.alibaba.fastjson.annotation.JSONField;
 import com.kingtech.common.config.BaseConfig;
 import com.kingtech.common.utils.SignUtils;
@@ -9,6 +11,7 @@ import com.kingtech.common.utils.SignUtils;
  * @author baijt
  *
  */
+@Data
 public class OtherOverdueInfoModel extends BaseRequestModel{
 	
 	@JSONField(name="loan_contract_id",label="sign")
@@ -55,5 +58,19 @@ public class OtherOverdueInfoModel extends BaseRequestModel{
 		this.creatTime = creatTime;
 		this.updateTime = updateTime;
 	}
+
+	public OtherOverdueInfoModel(String id, String loanContractId,
+			String overdueMoney, String overdueDate, String overdueInterest,
+			String balance, String remarks) {
+		super(id);
+		this.loanContractId = loanContractId;
+		this.overdueMoney = overdueMoney;
+		this.overdueDate = overdueDate;
+		this.overdueInterest = overdueInterest;
+		this.balance = balance;
+		this.remarks = remarks;
+	}
+	
+	
 	
 }

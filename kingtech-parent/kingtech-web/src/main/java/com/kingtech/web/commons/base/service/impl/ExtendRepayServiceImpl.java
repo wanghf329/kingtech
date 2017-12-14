@@ -10,9 +10,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kingtech.common.dynamicquery.DynamicQuery;
 import com.kingtech.dao.entity.Contract;
 import com.kingtech.dao.entity.RepayExtendInfo;
 import com.kingtech.dao.rdbms.ContractDAO;
@@ -39,6 +41,9 @@ public class ExtendRepayServiceImpl implements ExtendRepayService{
 	
 	@Autowired
 	private PaymentApi paymentApi;
+	
+	@Autowired
+	private DynamicQuery dq;
 
 	@Override
 	@Transactional
@@ -73,7 +78,7 @@ public class ExtendRepayServiceImpl implements ExtendRepayService{
 					String.valueOf(rf.getExtendNum()), DateFormatUtils.format(rf.getRepayDate(), "yyyy-MM-dd"), 
 					rf.getRepayAmount().toPlainString(), 
 					rf.getRepayPrincipalAmount().toPlainString(), 
-					rf.getRepayInterestAmount().toPlainString(),ct.getLoanContractId(),ct.getLoanContractName(),rf.getPushStatus()));
+					rf.getRepayInterestAmount().toPlainString(),ct.getLoanContractNo(),ct.getLoanContractName(),rf.getPushStatus()));
 		}
 		return result;
 	}
@@ -86,5 +91,25 @@ public class ExtendRepayServiceImpl implements ExtendRepayService{
 										rf.getRepayAmount().toPlainString(), 
 										rf.getRepayPrincipalAmount().toPlainString(), 
 										rf.getRepayInterestAmount().toPlainString());
+	}
+	
+	@Override
+	public List<RepayExtendInfoModelExt> pageList() {
+		String sql = "SELECT t1.ID,t1.LOAN_CONTRACT_ID,t1.EXTEND_NUM,t1.REPAY_DATE,t1.REPAY_AMOUNT,t1.REPAY_PRINCIPAL_AMOUNT,t1.REPAY_INTEREST_AMOUNT,t2.LOAN_CONTRACT_NO,t2.LOAN_CONTRACT_NAME "
+				+ "		FROM TB_LOAN_REPAY_INFO t1,TB_LOAN_CONTRACT t2 "
+				+ "   WHERE t1.LOAN_CONTRACT_ID = t2.ID ORDER BY t1.LOAN_CONTRACT_ID,t1.REPAY_DATE DESC ";
+		List<Object[]> list = dq.nativeQueryPagingList(Object[].class, new PageRequest(1,10), sql, new String[0]);
+		
+		List<RepayExtendInfoModelExt> result = new ArrayList<RepayExtendInfoModelExt>();
+		for (Object[] obj : list) {
+			result.add(new RepayExtendInfoModelExt((String) obj[0],
+					(String) obj[1], (String) obj[2], DateFormatUtils.format(
+							(Date) obj[3], "yyyy-MM-dd"), ((BigDecimal) obj[4])
+							.toPlainString(), ((BigDecimal) obj[5])
+							.toPlainString(), ((BigDecimal) obj[6])
+							.toPlainString(), (String) obj[7], (String) obj[8],
+							PushStatus.valueOf(obj[9].toString())));
+		}
+		return result;
 	}
 }

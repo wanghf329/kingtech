@@ -90,7 +90,7 @@ public class ContractServiceImpl implements ContractService{
 
 	@Override
 	@Transactional
-	public void addNew(String id,String loanContractId, String loanContractName,
+	public void addNew(String id,String loanContractNo, String loanContractName,
 					   BorrowerTypeEnum borrowerType,String borrowerId, String customerId, String guarantee,
 					   BigDecimal loanAmount, PeriodTypeEnum periodType, int periodTerm,
 					   Date loanStartDate, Date loanEndDate, RateTypeEnum rateType,
@@ -99,7 +99,7 @@ public class ContractServiceImpl implements ContractService{
 					   Date signDate, String repaySource, LoanstatusEnum status, YesNoEnum isExtend) {
 		Contract ct = null;
 		if(StringUtils.isEmpty(id)){
-			ct = new Contract(loanContractId,
+			ct = new Contract(loanContractNo,
 					loanContractName,borrowerType,borrowerId,
 					customerId,guarantee,loanAmount,
 					periodType,periodTerm,loanStartDate,
@@ -112,7 +112,7 @@ public class ContractServiceImpl implements ContractService{
 			ct.setUpdateTime(new Date());
 		}else{
 			ct = contractDao.findOne(id);
-			ct.setLoanContractId(loanContractId);
+			ct.setLoanContractNo(loanContractNo);
 			ct.setLoanContractName(loanContractName);
 			ct.setBorrowerType(borrowerType);
 			ct.setBorrowerId(borrowerId);

@@ -42,7 +42,7 @@
 										<div class="col-sm-6 input-group">
 											<select class="form-control validate[required] partnerType" id="loanContractId" name="loanContractId" data-errormessage="合同不能为空">
 												<c:forEach var="con" items="${contracts}"> 
-													<option value="${con.id}">${con.loanContractName}</option>
+													<option value="${con.id}">${con.loanContractNo}</option>
 												</c:forEach>
 											</select>
 										</div>									
@@ -100,7 +100,7 @@
 			<!-- Main content -->
                 <section class="content">
                     <div class="row">
-                        <div class="col-md-12 no-padding">
+                        <div class="col-md-12 no-padding"> 
                             <div class="box">
                                 <div class="box-header">
                                     <h3 class="box-title">展期还款信息列表</h3>
@@ -127,7 +127,7 @@
 	                                            <td>${it.loanContractName}</td>  
 	                                            <td>${it.extendNum}</td>
 	                                            <td> 
-	                                            	${it.repayDate}
+	                                            	${it.repayDate} 
 	                                            </td>
 	                                            
 	                                            <td><strong class="text-red">${it.repayAmount}</strong></td>

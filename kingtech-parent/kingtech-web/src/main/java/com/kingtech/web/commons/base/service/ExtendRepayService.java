@@ -33,4 +33,7 @@ public interface ExtendRepayService {
 	 * @return
 	 */
 	public RepayExtendInfoModel getById(String id);
+	
+	
+	public List<RepayExtendInfoModelExt> pageList();
 }

@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.kingtech.dao.entity.ProvisionInfo;
 import com.kingtech.enums.LoanClassificationEnum;
 import com.kingtech.enums.RepayStatusEnum;
 import com.kingtech.enums.YesNoEnum;
 import com.kingtech.model.OtherBaddebtModel;
+import com.kingtech.model.OtherOverdueInfoModel;
 import com.kingtech.model.ProvisionInfoModel;
 import com.kingtech.model.RepayExtendInfoModel;
 import com.kingtech.model.RepayExtendPlanModel;
@@ -127,7 +127,7 @@ public class PostLoanApiController {
 	@RequestMapping(method = RequestMethod.GET, value = "extensionrepayinfo")
 	public String extensionRepayInfo(Model model) {
 		model.addAttribute("contracts", contractService.listAll());
-		model.addAttribute("extendRepayList", extendRepayService.listAll());
+		model.addAttribute("extendRepayList", extendRepayService.pageList());
 		return "/postloan/extensionRepayInfo";
 	}
 
@@ -170,7 +170,26 @@ public class PostLoanApiController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "overdueinfo")
 	public String overdueInfo(Model model) {
+		model.addAttribute("contracts", contractService.listAll());
+		model.addAttribute("list", postLoanService.listAllOverdue());
 		return "/postloan/overdueInfo";
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "getOverdueInfo/{id}")
+	@ResponseBody
+	public OtherOverdueInfoModel getOverdueInfo(Model model,@PathVariable String id) {
+		return postLoanService.getOverDueInfoById(id);
+	}
+	@RequestMapping(method = RequestMethod.POST, value = "add/overdueInfo")
+	public String addNewOverdueInfo(Model model,String id,
+								    String overdueDate,
+								    BigDecimal overdueMoney,
+								    BigDecimal overdueInterest,
+								    BigDecimal balance,
+								    String  remarks,
+								    String loanContractId){
+		postLoanService.addNewOverDueInfo(id, overdueDate, overdueMoney, overdueInterest, balance, remarks, loanContractId);
+		return "redirect:/postLoan/overdueinfo";
 	}
 
 	/**
