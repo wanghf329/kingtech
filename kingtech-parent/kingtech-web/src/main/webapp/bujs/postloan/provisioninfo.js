@@ -28,18 +28,17 @@ $(".saveRecordBtn").click(function(){
 $(".provision-edit").click(function(){ 
 	var id = $(this).data("id"); 
 	$.ajax({
-		url:'postLoan/extendrepay/detail/'+id, 
+		url:'postLoan/provision/detail/'+id, 
 		type:'get',
 		async:false,
 		success:function(res){
 			$("input[name='id']").val(res.id);
-			$("#loanContractId option[value='"+res.loanContractId+"']").prop("selected",true);  
+			$("#loanClassification option[value='"+res.loanClassification+"']").prop("selected",true);  
 			$("#loanContractId").attr("disabled",true);   
-			$("input[name='extendNum']").val(res.extendNum); 
-			$("input[name='repayDate']").val(res.repayDate);
-			$("input[name='repayAmount']").val(res.repayAmount);
-			$("input[name='repayPrincipalAmount']").val(res.repayPrincipalAmount);
-			$("input[name='repayInterestAmount']").val(res.repayInterestAmount);
+			$("input[name='provisionMoney']").val(res.provisionMoney); 
+			$("input[name='provisionDate']").val(res.provisionDate);
+			$("input[name='provisionScale']").val(res.provisionScale);
+			$("input[name='balance']").val(res.balance);
 			$("#editModel").modal();
 		}
 	});
