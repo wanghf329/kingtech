@@ -2,8 +2,12 @@ package com.kingtech.web.commons.base.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+
 import com.kingtech.model.RepayExtendPlanModel;
+import com.kingtech.model.ext.ModelExt;
 import com.kingtech.model.ext.RepayExtendPlanModelExt;
+import com.kingtech.model.misc.PagedResult;
 
 public interface ExtendRepayPlanService {
 	
@@ -40,4 +44,6 @@ public interface ExtendRepayPlanService {
 	 */
 	public RepayExtendPlanModel getById(String id);
 	
+	
+	public PagedResult<ModelExt> pageList(Pageable pageAble);
 }

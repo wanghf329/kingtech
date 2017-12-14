@@ -90,7 +90,6 @@ public class PostLoanApiController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "extensionrepayplaninfo")
 	public String extensionRepayPlanInfo(Model model) {
-		model.addAttribute("list", repayExtendPlanService.listAll());
 		model.addAttribute("contracts", contractService.listAll());
 		model.addAttribute("repayStatus", RepayStatusEnum.values());
 		model.addAttribute("overdueFlags", YesNoEnum.values());
@@ -167,6 +166,23 @@ public class PostLoanApiController {
 									 			 @RequestParam("length") Integer pageSize) {
 		return repayInfoService.pageList(PageInfo.page(firstIndex, pageSize));
 	}
+	
+	
+	/**
+	 * 展期还款计划
+	 * @param model
+	 * @param firstIndex
+	 * @param pageSize
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET, value = "extendRepayPlan/data")
+	public PagedResult<ModelExt> extendRepayPlan(Model model,
+												 @RequestParam("start") Integer firstIndex,
+									 			 @RequestParam("length") Integer pageSize) {
+		return repayExtendPlanService.pageList(PageInfo.page(firstIndex, pageSize));
+	}
+	
 
 	
 	/**
