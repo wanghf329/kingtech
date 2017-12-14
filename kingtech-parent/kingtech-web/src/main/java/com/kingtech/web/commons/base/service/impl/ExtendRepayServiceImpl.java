@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -94,11 +94,11 @@ public class ExtendRepayServiceImpl implements ExtendRepayService{
 	}
 	
 	@Override
-	public List<RepayExtendInfoModelExt> pageList() {
+	public List<RepayExtendInfoModelExt> pageList(Pageable pageAble) {
 		String sql = "SELECT t1.ID,t1.LOAN_CONTRACT_ID,t1.EXTEND_NUM,t1.REPAY_DATE,t1.REPAY_AMOUNT,t1.REPAY_PRINCIPAL_AMOUNT,t1.REPAY_INTEREST_AMOUNT,t2.LOAN_CONTRACT_NO,t2.LOAN_CONTRACT_NAME,t1.PUSH_STATUS "
 				+ "		FROM TB_LOAN_REPAY_EXTEND_INFO t1,TB_LOAN_CONTRACT t2 "
 				+ "   WHERE t1.LOAN_CONTRACT_ID = t2.ID ORDER BY t1.LOAN_CONTRACT_ID,t1.REPAY_DATE DESC ";
-		List<Object[]> list = dq.nativeQueryPagingList(Object[].class, new PageRequest(0,10), sql, new String[0]);
+		List<Object[]> list = dq.nativeQueryPagingList(Object[].class, pageAble, sql, new String[0]);
 		
 		List<RepayExtendInfoModelExt> result = new ArrayList<RepayExtendInfoModelExt>();
 		for (Object[] obj : list) {

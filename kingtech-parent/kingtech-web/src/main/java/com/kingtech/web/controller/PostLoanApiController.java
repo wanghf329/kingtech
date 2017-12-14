@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kingtech.enums.LoanClassificationEnum;
@@ -20,6 +21,7 @@ import com.kingtech.model.ProvisionInfoModel;
 import com.kingtech.model.RepayExtendInfoModel;
 import com.kingtech.model.RepayExtendPlanModel;
 import com.kingtech.model.RepayInfoModel;
+import com.kingtech.model.misc.PageInfo;
 import com.kingtech.web.commons.base.service.ContractService;
 import com.kingtech.web.commons.base.service.ExtendRepayPlanService;
 import com.kingtech.web.commons.base.service.ExtendRepayService;
@@ -125,9 +127,10 @@ public class PostLoanApiController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "extensionrepayinfo")
-	public String extensionRepayInfo(Model model) {
+	public String extensionRepayInfo(Model model,@RequestParam("start") Integer firstIndex,
+												 @RequestParam("length") Integer pageSize) {
 		model.addAttribute("contracts", contractService.listAll());
-		model.addAttribute("extendRepayList", extendRepayService.pageList());
+		model.addAttribute("extendRepayList", extendRepayService.pageList(PageInfo.page(firstIndex, pageSize)));
 		return "/postloan/extensionRepayInfo";
 	}
 
