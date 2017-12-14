@@ -1,6 +1,6 @@
 $(document).ready(function () {          
       menuChecked("#overdueinfo");
-      
+      $('[data-toggle="popover"]').popover();
       $('.datepicker').datetimepicker({
   		minView: "2", //选择日期后，不会再跳转去选择时分秒 
   	    language:  'zh-CN',

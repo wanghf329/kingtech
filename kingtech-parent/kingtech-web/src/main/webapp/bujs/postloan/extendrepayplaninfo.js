@@ -23,6 +23,7 @@ $("#editRepayExtendPlanBtn").click(function(){
 	$("#form-horizontal")[0].reset();
 	$("input[name='returnPrincipal']").val(0);
 	$("input[name='returnInterest']").val(0);
+	$("input[name='overdueDays']").val(0);
 	$("#editModel").modal();
 });
 
