@@ -124,8 +124,8 @@ public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 				rp.getReturnPrincipal().toPlainString(),
 				rp.getInterest().toPlainString(),
 				rp.getReturnInterest().toPlainString(),
-				rp.getStatus().getKey(),
-				rp.getOverdueFlag().getKey(),
+				rp.getStatus().name(),
+				rp.getOverdueFlag().name(),
 				Long.toString(rp.getOverdueDays()));
 	}
 
@@ -152,7 +152,7 @@ public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 					((BigDecimal)obj[8]).toPlainString(),
 					RepayStatusEnum.valueOf((String)obj[11]).getKey(),
 					YesNoEnum.valueOf((String)obj[9]).getKey(),
-					((String)obj[3])),
+					((Integer)obj[10]).toString()),
 					
 					(String) obj[12], 
 					(String) obj[13],

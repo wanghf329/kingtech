@@ -10,7 +10,7 @@ $(document).ready(function () {
   	  failure : function() { callFailFunction()  } 
     })
     
-    initDataTables();
+    initDataTables(); 
     if(canEdit=="false"){ 
   	  $('#form-horizontal').find('input,textarea,select,button').attr('disabled',true); 
     }
@@ -41,20 +41,25 @@ function getRepayExtendPlan(id){
 		$("input[name='returnInterest']").val(res.returnInterest);
 		$(".repayStatus option[value='"+res.status+"']").attr("selected",true);
 		$(".overdueFlag option[value='"+res.overdueFlag+"']").attr("selected",true);
+		initOverdueDays($("select[name='overdueFlag']"));
 		$("input[name='overdueDays']").val(res.overdueDays);  
 		$("#editModel").modal();
 	});
 }
 
 $("select[name='overdueFlag']").change(function(){  
-	if($(this).val()=='S_0'){ 
+	initOverdueDays($(this));
+});
+
+function initOverdueDays(el){
+	if(el.val()=='S_0'){ 
 		$("input[name='overdueDays']").val("0");
 		$("input[name='overdueDays']").closest(".form-group").addClass("hide");
 	}else{
 		$("input[name='overdueDays']").val(""); 
 		$("input[name='overdueDays']").closest(".form-group").removeClass("hide"); 
 	}
-});
+}
 function initDataTables() {
 	this.dt = $("#repayExtendPlanTable").DataTable({
 						language : dataTableLang, // 提示信息
