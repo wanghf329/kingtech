@@ -107,7 +107,7 @@
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
                                 	<button class="btn btn-primary btn-sm" data-toggle="modal" id="editExtendRepayPlanBtn">新增展期还款信息</button>  
-                                    <table class="table"> 
+                                    <table class="table table-bordered" id="extRepayInfo"> 
                                         <tr>
                                             <th>编号</th> 
                                             <th>主合同编号</th>
@@ -120,32 +120,6 @@
                                             <th>状态</th>
                                             <th>操作</th>
                                         </tr>
-                                        <c:forEach var="it" varStatus="status" items="${extendRepayList}">
-	                                        <tr>
-	                                        	<td>${status.index+1}</td>  
-	                                            <td>${it.loanContractNo}</td>  
-	                                            <td>${it.loanContractName}</td>  
-	                                            <td>${it.extendNum}</td>
-	                                            <td> 
-	                                            	${it.repayDate}
-	                                            </td>
-	                                            
-	                                            <td><strong class="text-red">${it.repayAmount}</strong></td>
-	                                            <td><strong class="text-red">${it.repayPrincipalAmount}</strong></td>
-	                                            <td><strong class="text-red">${it.repayInterestAmount}</strong></td>
-	                                            
-	                                            
-	                                            <td> 
-	                                            	<c:if test="${it.pushStatus=='INITATION'}"><span class="text-gray"><i class="text-gray fa fa-info-circle"></i>初始</span></c:if>
-	                                            	<c:if test="${it.pushStatus=='SUCCESS'}"><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span></c:if>
-	                                            	<c:if test="${it.pushStatus=='INPROSESS'}"><span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span></c:if>
-	                                            	<c:if test="${it.pushStatus=='FAILED'}"><span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span></c:if>
-	                                            </td>
-	                                            <td> 
-	                                            	<a href="javascript:void(0)" data-id="${it.id}" class="extend-repay-edit"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>
-	                                            </td>
-	                                        </tr>
-                                        </c:forEach>
                                     </table>
                                 </div>
                             </div><!-- /.box -->
