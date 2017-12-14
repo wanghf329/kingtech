@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.kingtech.model.RepayExtendInfoModel;
 import com.kingtech.model.ext.RepayExtendInfoModelExt;
+import com.kingtech.model.misc.PagedResult;
 
 public interface ExtendRepayService {
 	/**
@@ -37,5 +38,5 @@ public interface ExtendRepayService {
 	public RepayExtendInfoModel getById(String id);
 	
 	
-	public List<RepayExtendInfoModelExt> pageList(Pageable pageAble);
+	public PagedResult<RepayExtendInfoModelExt> pageList(Pageable pageAble);
 }

@@ -21,7 +21,9 @@ import com.kingtech.model.ProvisionInfoModel;
 import com.kingtech.model.RepayExtendInfoModel;
 import com.kingtech.model.RepayExtendPlanModel;
 import com.kingtech.model.RepayInfoModel;
+import com.kingtech.model.ext.RepayExtendInfoModelExt;
 import com.kingtech.model.misc.PageInfo;
+import com.kingtech.model.misc.PagedResult;
 import com.kingtech.web.commons.base.service.ContractService;
 import com.kingtech.web.commons.base.service.ExtendRepayPlanService;
 import com.kingtech.web.commons.base.service.ExtendRepayService;
@@ -127,13 +129,27 @@ public class PostLoanApiController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "extensionrepayinfo")
-	public String extensionRepayInfo(Model model,@RequestParam("start") Integer firstIndex,
-												 @RequestParam("length") Integer pageSize) {
+	public String extensionRepayInfo(Model model) {
 		model.addAttribute("contracts", contractService.listAll());
-		model.addAttribute("extendRepayList", extendRepayService.pageList(PageInfo.page(firstIndex, pageSize)));
 		return "/postloan/extensionRepayInfo";
 	}
+	
+	
+	/**
+	 * 展期还款信息
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET, value = "extensionrepayinfo/data")
+	public PagedResult<RepayExtendInfoModelExt> extensionRepayInfo(Model model,
+												 @RequestParam("start") Integer firstIndex,
+									 			 @RequestParam("length") Integer pageSize) {
+		return extendRepayService.pageList(PageInfo.page(firstIndex, pageSize));
+	}
 
+	
 	/**
 	 * 坏账信息
 	 * 
