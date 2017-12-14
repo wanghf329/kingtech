@@ -71,8 +71,7 @@
 									<div class="form-group">
 										<label for="#followupWork" class="col-sm-3 control-label"><i class="text-red">*</i>后续工作</label>
 										<div class="col-sm-6 input-group">
-										<textarea  class="form-control validate[required,maxSize[225]]" name = "followupWork" id="followupWork" 
-											data-errormessage-value-missing="后续工作不能为空"  data-errormessage-range-overflow="后续工作不能超过225个字符" >
+										<textarea  class="form-control validate[required,maxSize[255]]" name = "followupWork" id="followupWork" >
 										</textarea>
 										</div>
 									</div>
@@ -103,7 +102,7 @@
                                         	<th>编号</th> 
                                             <th>主合同编号</th>
                                             <th>主合同名称</th>  
-                                            <th>坏账金额</th>
+                                            <th>坏账金额(元)</th>
                                             <th>定损日期</th>
                                             <th>后续工作</th>
                                             <th>状态</th>
@@ -116,7 +115,8 @@
 	                                            <td>${it.loanContractName}</td>  
 	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><strong>${it.model.badMoney}</strong></td>
 	                                            <td>${it.model.setDate}</td>
-	                                            <td>${it.model.followupWork}</td>
+	                                            
+	                                            <td><a  data-toggle="tooltip" data-placement="right" title="${it.model.followupWork}" >${fn:substring(it.model.followupWork,0,10)}...</a></td>
 	                                            <td> 
 	                                            	<c:if test="${it.pushStatus=='INITATION'}"><span class="text-gray"><i class="text-gray fa fa-info-circle"></i>初始</span></c:if>
 	                                            	<c:if test="${it.pushStatus=='SUCCESS'}"><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span></c:if>

@@ -92,7 +92,7 @@
 									<div class="form-group">
 										<label for="#remarks" class="col-sm-3 control-label">备注</label>
 										<div class="col-sm-6 input-group">
-										<textarea  class="form-control validate[maxSize[225]]" name = "remarks" id="remarks" ></textarea>
+										<textarea  class="form-control validate[maxSize[255]]" name = "remarks" id="remarks" ></textarea>
 										
 										</div>
 									</div>
@@ -121,10 +121,10 @@
                                             <th>编号</th> 
                                             <th>主合同编号</th>
                                             <th>主合同名称</th>
-                                            <th>逾期金额</th> 
+                                            <th>逾期金额(元)</th> 
                                             <th>逾期日期</th> 
-                                            <th>逾期利息</th>
-                                            <th>贷款余额</th>
+                                            <th>逾期利息(元)</th>
+                                            <th>贷款余额(元)</th>
                                             <th>备注</th>
                                             <th>状态</th>
                                             <th>操作</th>
