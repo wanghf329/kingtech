@@ -95,15 +95,15 @@ public class ExtendRepayServiceImpl implements ExtendRepayService{
 	
 	@Override
 	public List<RepayExtendInfoModelExt> pageList() {
-		String sql = "SELECT t1.ID,t1.LOAN_CONTRACT_ID,t1.EXTEND_NUM,t1.REPAY_DATE,t1.REPAY_AMOUNT,t1.REPAY_PRINCIPAL_AMOUNT,t1.REPAY_INTEREST_AMOUNT,t2.LOAN_CONTRACT_NO,t2.LOAN_CONTRACT_NAME "
-				+ "		FROM TB_LOAN_REPAY_INFO t1,TB_LOAN_CONTRACT t2 "
+		String sql = "SELECT t1.ID,t1.LOAN_CONTRACT_ID,t1.EXTEND_NUM,t1.REPAY_DATE,t1.REPAY_AMOUNT,t1.REPAY_PRINCIPAL_AMOUNT,t1.REPAY_INTEREST_AMOUNT,t2.LOAN_CONTRACT_NO,t2.LOAN_CONTRACT_NAME,t1.PUSH_STATUS "
+				+ "		FROM TB_LOAN_REPAY_EXTEND_INFO t1,TB_LOAN_CONTRACT t2 "
 				+ "   WHERE t1.LOAN_CONTRACT_ID = t2.ID ORDER BY t1.LOAN_CONTRACT_ID,t1.REPAY_DATE DESC ";
-		List<Object[]> list = dq.nativeQueryPagingList(Object[].class, new PageRequest(1,10), sql, new String[0]);
+		List<Object[]> list = dq.nativeQueryPagingList(Object[].class, new PageRequest(0,10), sql, new String[0]);
 		
 		List<RepayExtendInfoModelExt> result = new ArrayList<RepayExtendInfoModelExt>();
 		for (Object[] obj : list) {
 			result.add(new RepayExtendInfoModelExt((String) obj[0],
-					(String) obj[1], (String) obj[2], DateFormatUtils.format(
+					(String) obj[1], ((Integer) obj[2]).toString(), DateFormatUtils.format(
 							(Date) obj[3], "yyyy-MM-dd"), ((BigDecimal) obj[4])
 							.toPlainString(), ((BigDecimal) obj[5])
 							.toPlainString(), ((BigDecimal) obj[6])
