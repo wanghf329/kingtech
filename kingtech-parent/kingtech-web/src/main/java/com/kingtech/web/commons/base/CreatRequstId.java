@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kingtech.common.config.BaseConfig;
 import com.kingtech.dao.entity.RequestId;
@@ -18,7 +19,7 @@ public class CreatRequstId {
 	
 	private static  byte[] lock = new byte[0];
 	
-	
+	@Transactional
 	public  synchronized  String getReqId(){
 		
 		List<RequestId> list = (List<RequestId>) requestIdDAO.findAll();
