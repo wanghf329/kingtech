@@ -76,7 +76,7 @@
 										<div class="col-sm-6 input-group">
 											<input type="text" class="form-control validate[required,custom[number],max[999999999]]" data-errormessage="贷款余额只能为数字"
 												name="balance"> 
-											<span class="input-group-addon"><i class="fa">元</i></span>
+											<span class="input-group-addon"><i class="fa">万元</i></span>
 										</div>	
 									</div>
 								</form>						

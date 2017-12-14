@@ -71,8 +71,8 @@
 									<div class="form-group">
 										<label for="#followupWork" class="col-sm-3 control-label"><i class="text-red">*</i>后续工作</label>
 										<div class="col-sm-6 input-group">
-										<textarea  class="form-control validate[required,maxSize[225]]" name = "followupWork" id="followupWork" 
-											data-errormessage-value-missing="后续工作不能为空"  data-errormessage-range-overflow="后续工作不能超过225个字符" >
+										<textarea  class="form-control validate[required,maxSize[255]]" name = "followupWork" id="followupWork" 
+											data-errormessage-value-missing="后续工作不能为空"  data-errormessage-range-overflow="后续工作不能超过255个字符" >
 										</textarea>
 										</div>
 									</div>
