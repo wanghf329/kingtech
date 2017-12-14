@@ -32,7 +32,7 @@
 									aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 								</button>
-								<h4 class="modal-title" id="myModalLabel">展期还款信息</h4>
+								<h4 class="modal-title" id="myModalLabel">计提信息录入</h4>
 							</div>
 							<div class="modal-body">
 								<form class="form-horizontal" id="form-horizontal" action="postLoan/provision/edit" method="POST"> 
@@ -104,9 +104,9 @@
                                             <th>编号</th> 
                                             <th>计提日期</th> 
                                             <th>计提比例</th> 
-                                            <th>计提金额</th>
+                                            <th>计提金额(万元)</th>
                                             <th>贷款分类</th>
-                                            <th>贷款余额</th>
+                                            <th>贷款余额(万元)</th>
                                             <th>状态</th>
                                             <th>操作</th>
                                         </tr>

@@ -332,22 +332,22 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 		case pushContract:	//放贷业务合同信息
 			contractDAO.updateStatusByReqId(reqId, pushStatus);
 			break;
-		case pushRepay:
+		case pushRepay:  //还款信息接口
 			repayInfoDAO.updateStatusByReqId(reqId, pushStatus);
 			break;
-		case pushExtendPlan:
+		case pushExtendPlan://展期还款计划信息接口
 			repayExtendPlanDAO.updateStatusByReqId(reqId, pushStatus);
 			break;
-		case pushExtendRepay:
+		case pushExtendRepay://展期还款信息接口
 			repayExtendInfoDAO.updateStatusByReqId(reqId, pushStatus);
 			break;
-		case pushBadDebt:
+		case pushBadDebt: //坏账信息接口
 			otherBaddebtDAO.updateStatusByReqId(reqId, pushStatus);
 			break;
-		case pushOverdue:
+		case pushOverdue://逾期信息接口
 			otherOverdueInfoDAO.updateStatusByReqId(reqId, pushStatus);
 			break;
-		case pushProvision:
+		case pushProvision://计提信息接口
 			provisionInfoDAO.updateStatusByReqId(reqId, pushStatus);
 			break;
 		

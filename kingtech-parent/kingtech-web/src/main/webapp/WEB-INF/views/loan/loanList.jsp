@@ -48,7 +48,7 @@
                                         </tr>
                                         <c:forEach var="it" items="${list}">
 	                                        <tr>
-	                                            <td>${it.loanContractId}</td>  
+	                                            <td>${it.loanContractNo}</td>  
 	                                            <td>${it.loanContractName}</td>
 	                                            <td> 
 	                                            	<a href="javascript:void(0)"><strong>${it.borrowerName}</strong></a>
