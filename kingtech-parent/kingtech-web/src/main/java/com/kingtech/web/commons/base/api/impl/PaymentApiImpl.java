@@ -598,9 +598,9 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 					
 					
 					type.name(), 
-					contractDAO.findOne(otherOverdueInfo.getLoanContractId()).getLoanContractNo(), 
+					otherOverdueInfo.getReqId(), 
 					null, 
-					otherOverdueInfo.getLoanContractId(),
+					contractDAO.findOne(otherOverdueInfo.getLoanContractId()).getLoanContractNo(),
 					otherOverdueInfo.getOverdueMoney().toPlainString(), 
 					DateUtil.getDateStr(otherOverdueInfo.getOverdueDate(),"yyyy-MM-dd"), 
 					otherOverdueInfo.getOverdueInterest().toPlainString(), 
