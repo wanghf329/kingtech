@@ -117,7 +117,7 @@
 	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><strong>${it.model.badMoney}</strong></td>
 	                                            <td>${it.model.setDate}</td>
 	                                            
-	                                            <td><a  data-toggle="tooltip" data-placement="right" title="${it.model.followupWork}" >${fn:substring(it.model.followupWork,0,10)}...</a></td>
+	                                            <td><a  data-toggle="tooltip" data-placement="right" title="${it.model.followupWork}" ><c:if test="${!empty it.model.followupWork }">${fn:substring(it.model.followupWork,0,10)}...</c:if></a></td>
 	                                            <td> 
 	                                            	<c:if test="${it.pushStatus=='INITATION'}"><span class="text-gray"><i class="text-gray fa fa-info-circle"></i>初始</span></c:if>
 	                                            	<c:if test="${it.pushStatus=='SUCCESS'}"><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span></c:if>

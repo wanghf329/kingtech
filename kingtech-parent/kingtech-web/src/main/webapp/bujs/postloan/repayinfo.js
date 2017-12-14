@@ -82,9 +82,7 @@ $(".saveRecordBtn").click(function(){
 });
 
 function initDataTables() {
-	this.dt = $("#repayInfo")
-			.DataTable(
-					{
+	this.dt = $("#repayInfo").DataTable({
 						language : dataTableLang, // 提示信息
 						autoWidth : false, // 禁用自动调整列宽
 						processing : true, // 隐藏加载提示,自行处理
@@ -99,9 +97,8 @@ function initDataTables() {
 							param.start = data.start;// 开始的记录序号
 							console.log(data);
 							// ajax请求数据
-							$.ajax({
-									type : "POST",
-									url : "postLoan/extensionrepayinfo/data",
+							$.ajax({type : "POST",
+									url : "postLoan/repayInfo/data",
 									cache : false, // 禁用缓存
 									data : param, // 传入组装的参数
 									dataType : "json",
@@ -122,47 +119,23 @@ function initDataTables() {
 								});
 						},
 						columns : [
-								{
-									data : null
-								},
-								{
-									data : "loanContractNo"
-								},
-								{
-									data : "loanContractName"
-								},
-								{
-									data : "extendNum"
-								},
-								{
-									data : "repayDate"
-								},
-								{
-									data : "repayAmount",
-									render : function(data, type, row) {
-										return "<span class=\"text-red bolder\">￥"
-												+ data + "</span>";
-
+								{data : null},
+								{data : "loanContractNo"},
+								{data : "loanContractName"},
+								{data : "model.repayDate"},
+								{data : "model.repayAmount",render : function(data, type, row) {
+										return "<span class=\"text-red bolder\">￥"+ data + "</span>";
 									}
 								},
-								{
-									data : "repayPrincipalAmount",
-									render : function(data, type, row) {
-										return "<span class=\"text-red bolder\">￥"
-												+ data + "</span>";
-
+								{data : "model.repayPrincipalAmount",render : function(data, type, row) {
+										return "<span class=\"text-red bolder\">￥"+ data + "</span>";
 									}
 								},
-								{
-									data : "repayInterestAmount",
-									render : function(data, type, row) {
-										return "<span class=\"text-red bolder\">￥"
-												+ data + "</span>";
+								{data : "model.repayInterestAmount",render : function(data, type, row) {
+										return "<span class=\"text-red bolder\">￥"+ data + "</span>";
 									}
 								},
-								{
-									data : "pushStatus",
-									render : function(data, type, row) {
+								{data : "pushStatus",render : function(data, type, row) {
 										switch (data) {
 										case 'INITATION':
 											return '<span class="text-gray"><i class="text-gray fa fa-info-circle"></i>初始</span>';
@@ -172,24 +145,16 @@ function initDataTables() {
 											return '<span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span>';
 										case 'FAILED':
 											return '<span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span>';
-
 										}
 									}
 								},
-								{
-									data : null,
-									render : function(data, type, row) {
-										return '<a href="javascript:void(0)" onclick=getRepayInfo('+row.id+') class="extend-repay-edit"><i class="text-blue fa fa-edit"></i><strong>修改</strong>'
+								{data : null,render : function(data, type, row) {
+										return '<a href="javascript:void(0)" onclick=getRepayInfo(\''+row.model.id+'\') class="extend-repay-edit"><i class="text-blue fa fa-edit"></i><strong>修改</strong>'
 									}
 								} ],
 						"fnDrawCallback" : function(oSettings) {
 							for (var i = 0, iLen = oSettings.aiDisplay.length; i < iLen; i++) {
-								$(
-										'td:eq(0)',
-										oSettings.aoData[oSettings.aiDisplay[i]].nTr)
-										.html(
-												oSettings['_iDisplayStart'] + i
-														+ 1);
+								$('td:eq(0)',oSettings.aoData[oSettings.aiDisplay[i]].nTr).html(oSettings['_iDisplayStart'] + i+ 1);
 							}
 						}
 					});

@@ -120,26 +120,7 @@
 	                                            <th>操作</th>
 	                                        </tr>
                                         </thead>
-                                        <c:forEach var="it" varStatus="status"  items="${list}">
-	                                        <tr>
-	                                        	<td>${status.index+1}</td>
-	                                            <td>${it.loanContractNo}</td>  
-	                                            <td>${it.loanContractName}</td>  
-	                                            <td>${it.model.repayDate}</td>
-	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><strong>${it.model.repayAmount}</strong></td>
-	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><strong>${it.model.repayPrincipalAmount}</strong></td>
-	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><strong>${it.model.repayInterestAmount}</strong></td>
-	                                            <td> 
-	                                            	<c:if test="${it.pushStatus=='INITATION'}"><span class="text-gray"><i class="text-gray fa fa-info-circle"></i>初始</span></c:if>
-	                                            	<c:if test="${it.pushStatus=='SUCCESS'}"><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span></c:if>
-	                                            	<c:if test="${it.pushStatus=='INPROSESS'}"><span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span></c:if>
-	                                            	<c:if test="${it.pushStatus=='FAILED'}"><span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span></c:if>
-	                                            </td>
-	                                            <td> 
-	                                            	<a href="javascript:void(0)" onclick="getRepayInfo('${it.model.id}')"><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a>
-	                                            </td>
-	                                        </tr>
-                                        </c:forEach>
+                                        <tbody></tbody>
                                     </table>
                                 </div>
                             </div><!-- /.box -->
