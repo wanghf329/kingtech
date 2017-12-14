@@ -151,7 +151,8 @@
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
                                 	<button class="btn btn-primary btn-sm" data-toggle="modal" id="editRepayExtendPlanBtn">新增展期还款计划信息</button>  
-                                    <table class="table table-bordered" role="grid" id ="repayExtendPlanTable"> 
+                                    <table class="table table-bordered" role="grid" id ="repayExtendPlanTable">
+                                    <thead> 
                                         <tr>
                                             <th>编号</th> 
                                             <th>主合同编号</th>
@@ -169,6 +170,7 @@
                                             <th>状态</th>
                                             <th>操作</th>
                                         </tr>
+                                        </thead>
                                        <tbody></tbody>
                                     </table>
                                 </div>

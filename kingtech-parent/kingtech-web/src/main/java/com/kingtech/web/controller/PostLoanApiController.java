@@ -176,7 +176,7 @@ public class PostLoanApiController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(method = RequestMethod.GET, value = "extendRepayPlan/data")
+	@RequestMapping(method = RequestMethod.POST, value = "extendRepayPlan/data")
 	public PagedResult<ModelExt> extendRepayPlan(Model model,
 												 @RequestParam("start") Integer firstIndex,
 									 			 @RequestParam("length") Integer pageSize) {

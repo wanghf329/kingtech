@@ -10,6 +10,7 @@ $(document).ready(function () {
   	  failure : function() { callFailFunction()  } 
     })
     
+    initDataTables();
     if(canEdit=="false"){ 
   	  $('#form-horizontal').find('input,textarea,select,button').attr('disabled',true); 
     }
