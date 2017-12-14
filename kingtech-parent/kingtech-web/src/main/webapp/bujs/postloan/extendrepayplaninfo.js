@@ -29,6 +29,7 @@ $("#editRepayExtendPlanBtn").click(function(){
 
 function getRepayExtendPlan(id){ 
 	$.get('postLoan/get/extensionrepayplaninfo/'+id,null,function(res){
+		$("input[name='id']").val(res.id);
 		$(".loanContractId option[value='"+res.loanContractId+"']").attr("selected",true);
 		$("input[name='extendCount']").val(res.extendCount); 
 		$("input[name='extendTerm']").val(res.extendTerm);
