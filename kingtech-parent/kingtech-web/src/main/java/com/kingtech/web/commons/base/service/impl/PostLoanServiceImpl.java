@@ -130,8 +130,8 @@ public class PostLoanServiceImpl implements PostLoanService{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		repayInfoDao.save(repayInfo); 
 		paymentApi.repayInfoApi(repayInfo.getId(), StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
-		repayInfoDao.save(repayInfo);
 		return repayInfo;
 	}
 

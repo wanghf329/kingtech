@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -53,6 +54,7 @@ public abstract class RecordEntity extends BaseEntity {
 	private PushStatus pushStatus;
 	
 	
+	@PreUpdate
 	@PrePersist
 	public void setTime(){
 		this.createTime = new Date();
