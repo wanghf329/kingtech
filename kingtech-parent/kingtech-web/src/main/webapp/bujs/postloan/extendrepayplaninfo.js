@@ -44,3 +44,13 @@ function getRepayExtendPlan(id){
 		$("#editModel").modal();
 	});
 }
+
+$("select[name='overdueFlag']").change(function(){  
+	if($(this).val()=='S_0'){ 
+		$("input[name='overdueDays']").val("0");
+		$("input[name='overdueDays']").closest(".form-group").addClass("hide");
+	}else{
+		$("input[name='overdueDays']").val(""); 
+		$("input[name='overdueDays']").closest(".form-group").removeClass("hide"); 
+	}
+});

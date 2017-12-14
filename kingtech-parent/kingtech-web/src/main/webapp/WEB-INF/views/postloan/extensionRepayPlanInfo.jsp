@@ -50,14 +50,14 @@
 									<div class="form-group"> 
 										<label for="#extendCount" class="col-sm-3 control-label"><i class="text-red">*</i> 展期次数</label>
 										<div class="col-sm-6 input-group">
-											<input type="text" class="form-control validate[required,custom[number]]" data-errormessage="展期次数只能为数字"
+											<input type="text" class="form-control validate[required,custom[number]]" maxlength="2" data-errormessage="展期次数只能为数字"
 												name="extendCount">
 										</div>									
 									</div>
 									<div class="form-group">
 										<label for="#extendTerm" class="col-sm-3 control-label"><i class="text-red">*</i> 展期期限</label>
 										<div class="col-sm-6 input-group">
-											<input type="text" class="form-control validate[required]" name="extendTerm" data-errormessage="展期期限不能为空"> 
+											<input type="text" class="form-control validate[required]" name="extendTerm" maxlength="25" data-errormessage="展期期限不能为空"> 
 										</div>
 									</div>
 									<div class="form-group">
@@ -124,7 +124,7 @@
 											</select>
 										</div>
 									</div>
-									<div class="form-group">
+									<div class="form-group hide">  
 										<label for="#overdueDays" class="col-sm-3 control-label"><i class="text-red">*</i> 逾期天数</label>
 										<div class="col-sm-6 input-group">
 											<input type="text" class="form-control validate[required,custom[number]]" data-errormessage="逾期天数只能为数字"
@@ -159,10 +159,10 @@
                                             <th>展期次数</th> 
                                             <th>展期期限</th> 
                                             <th>新还款日期</th>
-                                            <th>新还款本金</th>
-                                            <th>已还本金</th>
-                                            <th>新还款利息</th>
-                                            <th>已还利息</th>
+                                            <th>新还款本金(元)</th>
+                                            <th>已还本金(元)</th>
+                                            <th>新还款利息(元)</th>
+                                            <th>已还利息(元)</th>
                                             <th>还款状态</th>
                                             <th>是否逾期</th>
                                             <th>逾期天数</th>
@@ -192,9 +192,7 @@
 	                                            	<c:if test="${it.pushStatus=='FAILED'}"><span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span></c:if>
 	                                            </td>
 	                                            <td> 
-	                                            	<c:if test="${it.pushStatus=='INITATION' or it.pushStatus=='FAILED'}">
-	                                            		<a href="javascript:void(0)" onclick="getRepayExtendPlan('${it.id}')"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>
-	                                            	</c:if>
+	                                            	<a href="javascript:void(0)" onclick="getRepayExtendPlan('${it.id}')"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>
 	                                            </td>
 	                                        </tr>
                                         </c:forEach>
