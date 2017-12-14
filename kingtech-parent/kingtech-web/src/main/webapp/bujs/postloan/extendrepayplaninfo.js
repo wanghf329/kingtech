@@ -95,7 +95,6 @@ function initDataTables() {
 						columns : [
 								{data : null},
 								{data : "loanContractNo"},
-								{data : "loanContractName"},
 								{data : "model.extendCount"},
 								{data : "model.extendTerm"},
 								{data : "model.repayDate"},

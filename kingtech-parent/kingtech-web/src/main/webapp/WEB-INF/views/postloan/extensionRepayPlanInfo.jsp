@@ -127,7 +127,7 @@
 									<div class="form-group hide">  
 										<label for="#overdueDays" class="col-sm-3 control-label"><i class="text-red">*</i> 逾期天数</label>
 										<div class="col-sm-6 input-group">
-											<input type="text" class="form-control validate[required,custom[number]]" data-errormessage="逾期天数只能为数字"
+											<input type="text" class="form-control validate[required,custom[number]]" maxlength=3 data-errormessage="逾期天数只能为数字"
 												name="overdueDays">
 										</div>
 									</div>
@@ -156,7 +156,6 @@
                                         <tr>
                                             <th>编号</th> 
                                             <th>主合同编号</th>
-                                            <th>主合同名称</th>
                                             <th>展期次数</th> 
                                             <th>展期期限</th> 
                                             <th>新还款日期</th>
