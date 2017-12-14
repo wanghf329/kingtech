@@ -204,13 +204,14 @@ public class PostLoanServiceImpl implements PostLoanService{
 				badDebtInfo.setLoanContractId(loanContractId);
 				badDebtInfo.setSetDate(DateUtils.parseDate(setDate, "yyyy-MM-dd"));
 				badDebtInfo.setFollowupWork(followupWork);
+				otherBaddebtDAO.save(badDebtInfo);
 			}
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		paymentApi.otherBaddebtApi(badDebtInfo.getId(),StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
-		otherBaddebtDAO.save(badDebtInfo);
+		
 		return badDebtInfo;
 	}
 
