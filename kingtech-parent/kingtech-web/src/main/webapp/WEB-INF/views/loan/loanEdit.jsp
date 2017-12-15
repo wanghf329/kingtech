@@ -63,7 +63,7 @@
 												<div class="form-group">
 													<label for="#loanContractId" class="col-sm-2 control-label"><i class="text-red">*</i> 合同编号</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" name="loanContractId" value="${contract.loanContractId}" data-errormessage="合同编号不能为空">
+														<input type="text" class="form-control validate[required]" name="loanContractNo" value="${contract.loanContractNo}" data-errormessage="合同编号不能为空">
 													</div>
 												</div>
 												<div class="form-group">
@@ -87,7 +87,7 @@
 												<div class="form-group">
 													<label for="#periodType" class="col-sm-2 control-label"><i class="text-red">*</i> 贷款期限类型</label>
 													<div class="col-sm-4 input-group">
-														<select class="form-control validate[required,custom[number]]" id="periodType" name="periodType" data-errormessage="贷款期限类型不能为空">
+														<select class="form-control validate[required]" id="periodType" name="periodType" data-errormessage="贷款期限类型不能为空">
 															<c:forEach var="it" items="${periodType}">
 						  										<option value ="${it.name()}" <c:if test="${it.name() eq contract.periodType}"></c:if> >${it.getKey()}</option>
 															</c:forEach>

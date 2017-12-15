@@ -134,7 +134,7 @@ public class LoanContractApiController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/save")
-	public String save(Model model, String id, String loanContractId,
+	public String save(Model model, String id, String loanContractNo,
 			String loanContractName, String borrowerType,String borrowerId, String customerId,
 			String guarantee, BigDecimal loanAmount, String periodType,
 			int periodTerm, String loanStartDate, String loanEndDate,
@@ -142,7 +142,7 @@ public class LoanContractApiController {
 			String loanType, String unionFlag, String payType, String signDate,
 			String repaySource, String status, String isExtend)
 			throws ParseException {
-		contractService.addNew(id, loanContractId, loanContractName,
+		contractService.addNew(id, loanContractNo, loanContractName,
 				BorrowerTypeEnum.valueOf(borrowerType), borrowerId,customerId, null, loanAmount,
 				PeriodTypeEnum.valueOf(periodType), periodTerm,
 				DateUtils.parseDate(loanStartDate, "yyyy-MM-dd"),
