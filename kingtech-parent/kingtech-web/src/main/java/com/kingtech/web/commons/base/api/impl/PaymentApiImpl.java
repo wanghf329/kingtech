@@ -390,7 +390,7 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 					                          contract.getCustomerId(),
 					                          contract.getGuarantee(), 
 					                          contract.getLoanAmount().toPlainString(),
-					                          DTOUtils.getNewStr(contract.getPayType()),
+					                          DTOUtils.getNewStr(contract.getPeriodType()),
 					                          contract.getPeriodTerm()+"", 
 					                          DateUtil.getDateStr(contract.getLoanStartDate(), "yyyy-MM-dd"),
 					                          DateUtil.getDateStr(contract.getLoanEndDate(), "yyyy-MM-dd"),

@@ -27,7 +27,7 @@
                     <div class="row">
                             <div class="box">
                                 <div class="box-header">
-                                    <h3 class="box-title">合同信息列表</h3>
+                                    <h3 class="box-title">合同信息</h3> 
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
 											<form class="form-horizontal" id="form-horizontal" action="loan/save" method="POST">
@@ -232,7 +232,7 @@
         <script src="bujs/loan/contract.js" type="text/javascript"></script>  
         <script type="text/javascript">
         	var borrowerId = '${contract.borrowerId}';
-        	var canEdit = "${contract.pushStatus=='INITATION' or contract.pushStatus=='FAILED'}";
+        	var canEdit = "${contract!=null || contract.pushStatus=='INITATION' or contract.pushStatus=='FAILED'}";
         </script>     
     </body>
 </html>
