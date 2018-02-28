@@ -32,8 +32,10 @@
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
                                 	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addPersonnelBtn">新增个人借款人</button>
-                                    <table class="table"> 
+                                    <table  class="table table-bordered" role="grid" id="personBorrowerInfo"> 
+                                    <thead>
                                         <tr>
+                                        	<th>序号</th> 
                                             <th>姓名</th> 
                                             <th>性别</th>
                                             <th>证件类型</th>
@@ -43,23 +45,7 @@
                                             <th>地址</th>
                                             <th>操作</th>
                                         </tr>
-                                        <c:forEach var="it" items="${list}">
-	                                        <tr>
-	                                            <td>${it.name}</td>  
-	                                            <td>
-	                                            	<c:if test="${it.sex == 'M'}"><span class="text-gray">男</span></c:if>
-	                                            	<c:if test="${it.sex == 'F'}"><span class="text-gray">女</span></c:if>
-	                                            </td>  
-	                                            <td>${it.category.getKey()}</td> 
-	                                            <td>${it.cardNum} </td>
-	                                            <td>${it.phone}</td> 
-	                                            <td>${it.farmersFlag.getKey()}</td>    
-	                                            <td><Strong>${it.addressProvince}${it.addressCity}${it.addressDistrict}</Strong></td> 
-	                                            <td> 
-	                                            	<a href="javascript:void(0)" onclick="getPerson('${it.id}')" ><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a>
-	                                            </td>
-	                                        </tr>
-                                        </c:forEach>
+                                        </thead>
                                     </table>
                                 </div>
                             </div><!-- /.box -->

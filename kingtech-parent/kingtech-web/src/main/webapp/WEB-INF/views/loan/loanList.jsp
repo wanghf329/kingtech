@@ -32,54 +32,23 @@
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
                                 	<button class="btn btn-primary btn-sm" data-toggle="modal" id="editContractBtn">新增合同信息</button>  
-                                    <table class="table"> 
-                                        <tr>
-                                            <th>合同编号</th> 
-                                            <th>合同名称</th>
-                                            <th><i class="fa  fa-user"></i>借款客户</th>
-                                            <th>利率类型</th>
-                                            <th>利率</th>
-                                            <th>贷款金额（元）</th>
-                                            <th>贷款期限</th>
-                                            <th>贷款开始日期</th>
-                                            <th>贷款截止日期</th>
-                                            <th>状态</th>
-                                            <th>操作</th>
-                                        </tr>
-                                        <c:forEach var="it" items="${list}">
+                                    <table  class="table table-bordered" role="grid" id="constractList"> 
+                                    	<thead>
 	                                        <tr>
-	                                            <td>${it.loanContractNo}</td>  
-	                                            <td>${it.loanContractName}</td>
-	                                            <td> 
-	                                            	<a href="javascript:void(0)"><strong>${it.borrowerName}</strong></a>
-	                                            </td>
-	                                            
-	                                            <td>${it.rateType.getKey()}</td>
-	                                            <td class="text-green"><Strong>${it.rate}%</Strong></td>    
-	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><Strong>${it.loanAmount}</Strong></td>
-	                                            <td>${it.periodTerm}${it.periodType.getKey()}</td> 
-	                                           	<td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.loanStartDate}"></fmt:formatDate></td>
-	                                            <td><fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.loanEndDate}"></fmt:formatDate></td> 
-
-	                                            <td> 
-	                                            	<c:if test="${it.pushStatus=='INITATION'}"><span class="text-gray"><i class="text-gray fa fa-info-circle"></i>初始</span></c:if>
-	                                            	<c:if test="${it.pushStatus=='SUCCESS'}"><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span></c:if>
-	                                            	<c:if test="${it.pushStatus=='INPROSESS'}"><span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span></c:if>
-	                                            	<c:if test="${it.pushStatus=='FAILED'}"><span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span></c:if>
-	                                            </td>
-	                                            <td> 
-	                                            	<c:if test="${it.pushStatus=='SUCCESS' or it.pushStatus=='INPROSESS'}">
-	                                            		<a href="loan/edit?id=${it.id}"><strong>查看详情</strong></a>
-	                                            		<a href="loan/supplement?loanContractId=${it.id}"><strong>查看补充信息</strong></a>
-	                                            	</c:if>
-	                                            	<c:if test="${it.pushStatus=='INITATION' or it.pushStatus=='FAILED'}">
-	                                            		<a href="loan/edit?id=${it.id}"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>
-	                                            		<a href="loan/supplement?loanContractId=${it.id}" ><i class="text-blue fa fa-plus-square-o"></i><strong>补充</strong></a>
-	                                            		<a href="javascirpt:void(0)" class="contract-push" data-id="${it.id}"><i class="text-blue fa fa-exchange"></i><strong>推送</strong></a>
-	                                            	</c:if>
-	                                            </td>
+	                                        	<th>序号</th> 
+	                                            <th>合同编号</th> 
+	                                            <th>合同名称</th>
+	                                            <th><i class="fa  fa-user"></i>借款客户</th>
+	                                            <th>利率类型</th>
+	                                            <th>利率</th>
+	                                            <th>贷款金额（元）</th>
+	                                            <th>贷款期限</th>
+	                                            <th>贷款开始日期</th>
+	                                            <th>贷款截止日期</th>
+	                                            <th>状态</th>
+	                                            <th>操作</th>
 	                                        </tr>
-                                        </c:forEach>
+                                        </thead>
                                     </table>
                                 </div>
                             </div><!-- /.box -->
@@ -88,6 +57,7 @@
                 </section><!-- /.content -->                
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
+        
 
 		<%@include file="../common/footer.jspf" %>   
         <script src="bujs/loan/contract.js" type="text/javascript"></script>     
