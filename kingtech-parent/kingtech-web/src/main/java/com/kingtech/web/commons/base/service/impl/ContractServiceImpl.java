@@ -2,6 +2,7 @@ package com.kingtech.web.commons.base.service.impl;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -9,9 +10,12 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kingtech.common.dynamicquery.DynamicQuery;
+import com.kingtech.common.utils.DateUtil;
 import com.kingtech.dao.entity.Collateral;
 import com.kingtech.dao.entity.Contract;
 import com.kingtech.dao.entity.Guarantee;
@@ -37,6 +41,9 @@ import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.RateTypeEnum;
 import com.kingtech.enums.UnionFlagEnum;
 import com.kingtech.enums.YesNoEnum;
+import com.kingtech.model.ContractModel;
+import com.kingtech.model.PersonalCustomerModel;
+import com.kingtech.model.misc.PagedResult;
 import com.kingtech.web.commons.base.CreatRequstId;
 import com.kingtech.web.commons.base.service.ContractService;
 /**
@@ -69,6 +76,9 @@ public class ContractServiceImpl implements ContractService{
 	
 	@Autowired
 	private EnterpriseCustomerDAO enterpriseDao;
+	
+	@Autowired
+	private DynamicQuery dq;
 	
 	@Override
 	public List<Contract> listAll(){
@@ -229,5 +239,26 @@ public class ContractServiceImpl implements ContractService{
 	@Override
 	public List<SettledInfo> listSettledInfoByLoanContractId(String loanContractId) {
 		return (List<SettledInfo>)settledInfoDAO.listByloanContractId(loanContractId);
+	}
+
+	@Override
+	public PagedResult<ContractModel> pageList(Pageable pageAble) {
+		String sql = " SELECT * from TB_LOAN_CONTRACT t order by t.CREATE_TIME DESC ";
+		
+		String[] params = new String[0];
+		List<Contract> list = dq.nativeQueryPagingList(Contract.class, pageAble, sql, params);
+		Long count = dq.nativeQueryCount(sql, params);
+		
+		List<Contract> result = new ArrayList<Contract>();
+		for(Contract ct : list){
+			if(BorrowerTypeEnum.S_1.equals(ct.getBorrowerType())){
+				ct.setBorrowerName(enterpriseDao.findOne(ct.getBorrowerId()).getCorporateName());
+			}else{
+				ct.setBorrowerName(personalCustomerDao.findOne(ct.getBorrowerId()).getName());
+			}
+			result.add(ct);
+		}
+		
+		return new PagedResult(result,count);
 	}
 }

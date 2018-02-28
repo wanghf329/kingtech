@@ -1,14 +1,19 @@
 package com.kingtech.web.commons.base.service.impl;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kingtech.common.dynamicquery.DynamicQuery;
+import com.kingtech.common.utils.DateUtil;
 import com.kingtech.dao.entity.EnterpriseCustomer;
 import com.kingtech.dao.entity.PersonalCustomer;
 import com.kingtech.dao.rdbms.EnterpriseCustomerDAO;
@@ -17,9 +22,14 @@ import com.kingtech.enums.CertType;
 import com.kingtech.enums.FarmersFlagEnum;
 import com.kingtech.enums.IndustryEnum;
 import com.kingtech.enums.IndustryType;
+import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.ScaleType;
 import com.kingtech.enums.SexEnum;
 import com.kingtech.enums.YesNoEnum;
+import com.kingtech.model.PersonalCustomerModel;
+import com.kingtech.model.RepayInfoModel;
+import com.kingtech.model.ext.ModelExt;
+import com.kingtech.model.misc.PagedResult;
 import com.kingtech.web.commons.base.service.BorrowerService;
 
 @Service
@@ -29,6 +39,9 @@ public class BorrowerServiceImpl implements BorrowerService{
 	
 	@Autowired
 	private PersonalCustomerDAO personalDao;
+	
+	@Autowired
+	private DynamicQuery dq;
 
 	@Override
 	public List<EnterpriseCustomer> listAllEnterpries() {
@@ -175,5 +188,32 @@ public class BorrowerServiceImpl implements BorrowerService{
 	public PersonalCustomer getPersonnel(String id) {
 		// TODO Auto-generated method stub
 		return personalDao.findOne(id);
+	}
+
+	@Override
+	public PagedResult<PersonalCustomerModel> pageList(Pageable pageAble) {
+		String sql = " SELECT t.ID,t.NAME,t.SEX,t.CATEGORY,t.CARD_NUM,t.PHONE,t.FARMERS_FLAG,t.ADDRESS_PROVINCE,t.ADDRESS_CITY,t.ADDRESS_DISTRICT,t.ADDRESS "
+				+ "		FROM Dcxd.TB_BORROWER_PERSONAL t ";
+		
+		String[] params = new String[0];
+		List<Object[]> list = dq.nativeQueryPagingList(Object[].class, pageAble, sql, params);
+		Long count = dq.nativeQueryCount(sql, params);
+		
+		List<PersonalCustomerModel> result = new ArrayList<PersonalCustomerModel>();
+		for (Object[] obj : list) {
+			PersonalCustomerModel p = new PersonalCustomerModel((String)obj[0],
+																(String)obj[1],
+																(String)obj[2],
+																(String)obj[3],
+																(String)obj[4],
+																(String)obj[5],
+																(String)obj[6],
+																(String)obj[7],
+																(String)obj[8],
+																(String)obj[9],
+																(String)obj[10]);
+			result.add(p);
+		}
+		return new PagedResult(result,count);
 	}
 }

@@ -1,9 +1,7 @@
 package com.kingtech.model;
 
 import lombok.Data;
-
 import lombok.NoArgsConstructor;
-
 import lombok.AllArgsConstructor;
 
 import com.alibaba.fastjson.annotation.JSONField;
@@ -14,7 +12,7 @@ import com.kingtech.enums.SexEnum;
 @Data
 public class PersonalCustomerModel {
 	
-	
+	private String id;
 
 	//姓名
 	@JSONField(name="name")
@@ -106,10 +104,24 @@ public class PersonalCustomerModel {
 	//职务
 	@JSONField(name="post")
 	private String post;
-
-
 	
 	
-
-
+	
+	public PersonalCustomerModel(String id,String name, String sex, String category,
+			String cardNum, String phone, String farmersFlag,
+			String addressProvince, String addressCity, String addressDistrict,
+			String address) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.sex = sex;
+		this.category = category;
+		this.cardNum = cardNum;
+		this.phone = phone;
+		this.farmersFlag = farmersFlag;
+		this.addressProvince = addressProvince;
+		this.addressCity = addressCity;
+		this.addressDistrict = addressDistrict;
+		this.address = address;
+	}
 }

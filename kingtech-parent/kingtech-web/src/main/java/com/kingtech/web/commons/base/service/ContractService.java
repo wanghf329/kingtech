@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+
 import com.kingtech.dao.entity.Collateral;
 import com.kingtech.dao.entity.Contract;
 import com.kingtech.dao.entity.Guarantee;
@@ -22,6 +24,9 @@ import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.RateTypeEnum;
 import com.kingtech.enums.UnionFlagEnum;
 import com.kingtech.enums.YesNoEnum;
+import com.kingtech.model.ContractModel;
+import com.kingtech.model.PersonalCustomerModel;
+import com.kingtech.model.misc.PagedResult;
 
 public interface ContractService {
 	public List<Contract> listAll();
@@ -55,5 +60,7 @@ public interface ContractService {
 	public List<RepayPlan> listRepayPlanByLoanContractId(String loanContractId);
 	
 	public List<SettledInfo> listSettledInfoByLoanContractId(String loanContractId);
+	
+	public PagedResult<ContractModel> pageList(Pageable pageAble);
 	
 }

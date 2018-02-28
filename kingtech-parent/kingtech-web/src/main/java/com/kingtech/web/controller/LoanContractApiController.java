@@ -28,7 +28,10 @@ import com.kingtech.enums.PeriodTypeEnum;
 import com.kingtech.enums.RateTypeEnum;
 import com.kingtech.enums.UnionFlagEnum;
 import com.kingtech.enums.YesNoEnum;
+import com.kingtech.model.ContractModel;
 import com.kingtech.model.SynResponseModel;
+import com.kingtech.model.misc.PageInfo;
+import com.kingtech.model.misc.PagedResult;
 import com.kingtech.web.commons.base.api.PaymentApi;
 import com.kingtech.web.commons.base.service.BorrowerService;
 import com.kingtech.web.commons.base.service.BranchService;
@@ -166,5 +169,12 @@ public class LoanContractApiController {
 	}  
 	
 	
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET, value = "/data")
+	public PagedResult<ContractModel> repayInfo(Model model,
+												 @RequestParam("start") Integer firstIndex,
+									 			 @RequestParam("length") Integer pageSize) {
+		return contractService.pageList(PageInfo.page(firstIndex, pageSize));
+	}
 }
 

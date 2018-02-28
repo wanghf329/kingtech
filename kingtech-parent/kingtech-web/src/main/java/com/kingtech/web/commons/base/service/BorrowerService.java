@@ -1,14 +1,14 @@
 package com.kingtech.web.commons.base.service;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
+
+import org.springframework.data.domain.Pageable;
 
 import com.kingtech.dao.entity.EnterpriseCustomer;
 import com.kingtech.dao.entity.PersonalCustomer;
-import com.kingtech.enums.CertType;
-import com.kingtech.enums.SexEnum;
-import com.kingtech.enums.YesNoEnum;
+import com.kingtech.model.PersonalCustomerModel;
+import com.kingtech.model.misc.PagedResult;
 
 public interface BorrowerService {
 	public List<EnterpriseCustomer> listAllEnterpries();
@@ -36,4 +36,6 @@ public interface BorrowerService {
 							String addressProvince, String addressCity, String addressDistrict,
 							String address, String postCode, String residence,
 							String nativePlace, String workUnit, String post);
+	
+	public PagedResult<PersonalCustomerModel> pageList(Pageable pageAble);
 }

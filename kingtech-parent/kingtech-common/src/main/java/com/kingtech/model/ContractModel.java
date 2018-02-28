@@ -195,9 +195,24 @@ public class ContractModel  extends BaseRequestModel{
 		this.repayPlanPackage = repayPlanPackage;
 		this.lendingPackage = lendingPackage;
 	}
-	
-	
-	
-	
 
+	public ContractModel(String id, String loanContractNo,
+			String loanContractName, String borrowerType, String customerId,
+			String loanAmount, String periodType, String periodTerm,
+			String loanStartDate, String loanEndDate, String rateType,
+			String rate, String status) {
+		super(id);
+		this.loanContractNo = loanContractNo;
+		this.loanContractName = loanContractName;
+		this.borrowerType = borrowerType;
+		this.customerId = customerId;
+		this.loanAmount = loanAmount;
+		this.periodType = periodType;
+		this.periodTerm = periodTerm;
+		this.loanStartDate = loanStartDate;
+		this.loanEndDate = loanEndDate;
+		this.rateType = rateType;
+		this.rate = rate;
+		this.status = status;
+	}
 }

@@ -26,7 +26,8 @@ public class DTOUtils {
 	public static PersonalCustomerModel getPersonalCustomerModel(PersonalCustomer personalCustomer){
 		PersonalCustomerModel customerModel = null;
 		if (personalCustomer != null) {
-			customerModel = new PersonalCustomerModel(personalCustomer.getName(),
+			customerModel = new PersonalCustomerModel(personalCustomer.getId(),
+													  personalCustomer.getName(),
 					                                  personalCustomer.getSex().getKey(),
 					                                  getNewStr(personalCustomer.getCategory()),
 					                                  personalCustomer.getCardNum(),
