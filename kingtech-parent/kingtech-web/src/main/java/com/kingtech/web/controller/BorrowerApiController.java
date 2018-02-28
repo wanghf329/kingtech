@@ -24,7 +24,6 @@ import com.kingtech.enums.IndustryEnum;
 import com.kingtech.enums.IndustryType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.ScaleType;
-import com.kingtech.model.PersonalCustomerModel;
 import com.kingtech.model.misc.PageInfo;
 import com.kingtech.model.misc.PagedResult;
 import com.kingtech.web.commons.base.service.BorrowerService;
@@ -157,7 +156,7 @@ public class BorrowerApiController {
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET, value = "person/data")
-	public PagedResult<PersonalCustomerModel> repayInfo(Model model,
+	public PagedResult<PersonalCustomer> repayInfo(Model model,
 												 @RequestParam("start") Integer firstIndex,
 									 			 @RequestParam("length") Integer pageSize) {
 		return borrowerService.pageList(PageInfo.page(firstIndex, pageSize));

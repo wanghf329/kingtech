@@ -37,5 +37,5 @@ public interface BorrowerService {
 							String address, String postCode, String residence,
 							String nativePlace, String workUnit, String post);
 	
-	public PagedResult<PersonalCustomerModel> pageList(Pageable pageAble);
+	public PagedResult<PersonalCustomer> pageList(Pageable pageAble);
 }
