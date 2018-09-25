@@ -21,6 +21,7 @@ import com.kingtech.dao.rdbms.ContractDAO;
 import com.kingtech.dao.rdbms.OtherBaddebtDAO;
 import com.kingtech.dao.rdbms.OtherOverdueInfoDAO;
 import com.kingtech.dao.rdbms.RepayInfoDAO;
+import com.kingtech.enums.BadTypeEnum;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.model.OtherBaddebtModel;
@@ -172,17 +173,19 @@ public class PostLoanServiceImpl implements PostLoanService{
 		OtherBaddebtModel  model = new OtherBaddebtModel(id, 
 														badDebtInfo.getLoanContractId(),
 														badDebtInfo.getBadMoney().toPlainString(),
-														DateUtil.getDateStr(badDebtInfo.getSetDate(), "yyyy-MM-dd"),
-														badDebtInfo.getFollowupWork());
+														DateUtil.getDateStr(badDebtInfo.getLossDate(), "yyyy-MM-dd"),
+														badDebtInfo.getBadType().getKey(),
+														badDebtInfo.getFollowUp());
 		return model;
 	}
 
 	@Override
 	@Transactional
 	public OtherBaddebt addNewBaddebtInfo(String id,
-									  	  String setDate,
+									  	  String lossDate,
 									  	  BigDecimal badMoney,
-									  	  String followupWork,
+									  	  String badType,
+									  	  String followUp,
 									  	  String loanContractId) {
 		OtherBaddebt badDebtInfo = null;
 		
@@ -195,15 +198,17 @@ public class PostLoanServiceImpl implements PostLoanService{
 												creatRequstId.getReqId(), 
 												PushStatus.INITATION, 
 												badMoney,
-												DateUtils.parseDate(setDate, "yyyy-MM-dd"),
-												followupWork);
+												DateUtils.parseDate(lossDate, "yyyy-MM-dd"),
+												BadTypeEnum.valueOf(badType),
+												followUp);
 				
 			} else {
 				badDebtInfo = otherBaddebtDAO.findOne(id);
 				badDebtInfo.setBadMoney(badMoney);
 				badDebtInfo.setLoanContractId(loanContractId);
-				badDebtInfo.setSetDate(DateUtils.parseDate(setDate, "yyyy-MM-dd"));
-				badDebtInfo.setFollowupWork(followupWork);
+				badDebtInfo.setLossDate(DateUtils.parseDate(lossDate, "yyyy-MM-dd"));
+				badDebtInfo.setBadType(BadTypeEnum.valueOf(badType));
+				badDebtInfo.setFollowUp(followUp);
 				otherBaddebtDAO.save(badDebtInfo);
 			}
 		} catch (ParseException e) {
