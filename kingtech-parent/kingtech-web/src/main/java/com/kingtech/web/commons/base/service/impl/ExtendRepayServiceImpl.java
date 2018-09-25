@@ -65,11 +65,11 @@ public class ExtendRepayServiceImpl implements ExtendRepayService{
 									otherCharge);
 		}else{
 			ri = repayExtendInfoDao.findOne(id);
-			ri.setExtendNum(extendNum);
-			ri.setRepayDate(repayDate);
-			ri.setRepayAmount(repayAmount);
-			ri.setRepayPrincipalAmount(repayPrincipalAmount);
-			ri.setRepayInterestAmount(repayInterestAmount);
+//			ri.setExtendNum(extendNum);
+//			ri.setRepayDate(repayDate);
+//			ri.setRepayAmount(repayAmount);
+//			ri.setRepayPrincipalAmount(repayPrincipalAmount);
+//			ri.setRepayInterestAmount(repayInterestAmount);
 		}
 		repayExtendInfoDao.save(ri);
 		paymentApi.repayExtendInfoApi(ri.getId(), StringUtils.isEmpty(id) ?  IdentifierType.A : IdentifierType.U);
@@ -80,11 +80,11 @@ public class ExtendRepayServiceImpl implements ExtendRepayService{
 		List<RepayExtendInfoModelExt> result = new ArrayList<RepayExtendInfoModelExt>();
 		for(RepayExtendInfo rf : repayExtendInfoDao.findAll()){
 			Contract ct = contractDAO.findOne(rf.getLoanContractId());
-			result.add(new RepayExtendInfoModelExt(rf.getId(), rf.getLoanContractId(),
-					String.valueOf(rf.getExtendNum()), DateFormatUtils.format(rf.getRepayDate(), "yyyy-MM-dd"), 
-					rf.getRepayAmount().toPlainString(), 
-					rf.getRepayPrincipalAmount().toPlainString(), 
-					rf.getRepayInterestAmount().toPlainString(),ct.getLoanContractNo(),ct.getLoanContractName(),rf.getPushStatus()));
+//			result.add(new RepayExtendInfoModelExt(rf.getId(), rf.getLoanContractId(),
+//					String.valueOf(rf.getExtendNum()), DateFormatUtils.format(rf.getRepayDate(), "yyyy-MM-dd"), 
+//					rf.getRepayAmount().toPlainString(), 
+//					rf.getRepayPrincipalAmount().toPlainString(), 
+//					rf.getRepayInterestAmount().toPlainString(),ct.getLoanContractNo(),ct.getLoanContractName(),rf.getPushStatus()));
 		}
 		return result;
 	}
@@ -92,11 +92,12 @@ public class ExtendRepayServiceImpl implements ExtendRepayService{
 	@Override
 	public RepayExtendInfoModel getById(String id) {
 		RepayExtendInfo rf = repayExtendInfoDao.findOne(id);
-		return new RepayExtendInfoModel(rf.getId(), rf.getLoanContractId(),
-										String.valueOf(rf.getExtendNum()), DateFormatUtils.format(rf.getRepayDate(), "yyyy-MM-dd"), 
-										rf.getRepayAmount().toPlainString(), 
-										rf.getRepayPrincipalAmount().toPlainString(), 
-										rf.getRepayInterestAmount().toPlainString());
+//		return new RepayExtendInfoModel(rf.getId(), rf.getLoanContractId(),
+//										String.valueOf(rf.getExtendNum()), DateFormatUtils.format(rf.getRepayDate(), "yyyy-MM-dd"), 
+//										rf.getRepayAmount().toPlainString(), 
+//										rf.getRepayPrincipalAmount().toPlainString(), 
+//										rf.getRepayInterestAmount().toPlainString());
+		return null;
 	}
 	
 	@Override
@@ -111,13 +112,13 @@ public class ExtendRepayServiceImpl implements ExtendRepayService{
 		
 		List<RepayExtendInfoModelExt> result = new ArrayList<RepayExtendInfoModelExt>();
 		for (Object[] obj : list) {
-			result.add(new RepayExtendInfoModelExt((String) obj[0],
-					(String) obj[1], ((Integer) obj[2]).toString(), DateFormatUtils.format(
-							(Date) obj[3], "yyyy-MM-dd"), ((BigDecimal) obj[4])
-							.toPlainString(), ((BigDecimal) obj[5])
-							.toPlainString(), ((BigDecimal) obj[6])
-							.toPlainString(), (String) obj[7], (String) obj[8],
-							PushStatus.valueOf(obj[9].toString())));
+//			result.add(new RepayExtendInfoModelExt((String) obj[0],
+//					(String) obj[1], ((Integer) obj[2]).toString(), DateFormatUtils.format(
+//							(Date) obj[3], "yyyy-MM-dd"), ((BigDecimal) obj[4])
+//							.toPlainString(), ((BigDecimal) obj[5])
+//							.toPlainString(), ((BigDecimal) obj[6])
+//							.toPlainString(), (String) obj[7], (String) obj[8],
+//							PushStatus.valueOf(obj[9].toString())));
 		}
 		return new PagedResult(result,count);
 	}

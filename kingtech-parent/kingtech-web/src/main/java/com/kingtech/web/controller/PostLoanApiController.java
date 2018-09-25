@@ -265,7 +265,7 @@ public class PostLoanApiController {
 								  BigDecimal repayPrincipalAmount,
 								  BigDecimal repayInterestAmount) {
 		try {
-			extendRepayService.addOrEdit(id, loanContractId, extendNum, DateUtils.parseDate(repayDate, "yyyy-MM-dd"), repayAmount, repayPrincipalAmount, repayInterestAmount);
+//			extendRepayService.addOrEdit(id, loanContractId, extendNum, DateUtils.parseDate(repayDate, "yyyy-MM-dd"), repayAmount, repayPrincipalAmount, repayInterestAmount);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

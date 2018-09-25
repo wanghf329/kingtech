@@ -70,16 +70,16 @@ public class PostLoanServiceImpl implements PostLoanService{
 			} else {
 				contract = contractDao.findOne(repayInfo.getLoanContractId());
 			}
-			result.add(new ModelExt(
-					   new RepayInfoModel(repayInfo.getId(), 
-									   	  repayInfo.getLoanContractId(),
-									      repayInfo.getRepayAmount().toPlainString(),
-									      repayInfo.getRepayPrincipalAmount().toPlainString(),
-									      repayInfo.getRepayInterestAmount().toPlainString(),
-									      DateUtil.getDateStr(repayInfo.getRepayDate(), "yyyy-MM-dd")),
-					   contract.getLoanContractNo(),
-					   contract.getLoanContractName(),
-					   repayInfo.getPushStatus()));
+//			result.add(new ModelExt(
+//					   new RepayInfoModel(repayInfo.getId(), 
+//									   	  repayInfo.getLoanContractId(),
+//									      repayInfo.getRepayAmount().toPlainString(),
+//									      repayInfo.getRepayPrincipalAmount().toPlainString(),
+//									      repayInfo.getRepayInterestAmount().toPlainString(),
+//									      DateUtil.getDateStr(repayInfo.getRepayDate(), "yyyy-MM-dd")),
+//					   contract.getLoanContractNo(),
+//					   contract.getLoanContractName(),
+//					   repayInfo.getPushStatus()));
 		}
 		return result;
 	}
@@ -148,16 +148,16 @@ public class PostLoanServiceImpl implements PostLoanService{
 			} else {
 				contract = contractDao.findOne(otherBaddebt.getLoanContractId());
 			}
-			result.add(new ModelExt(
-						   new OtherBaddebtModel(otherBaddebt.getId(), 
-												 otherBaddebt.getLoanContractId(),
-												 otherBaddebt.getBadMoney().toPlainString(),
-												 DateUtil.getDateStr(otherBaddebt.getSetDate(), "yyyy-MM-dd"),
-												 otherBaddebt.getFollowupWork()),
-						   
-						   contract.getLoanContractNo(),
-						   contract.getLoanContractName(),
-						   otherBaddebt.getPushStatus()));
+//			result.add(new ModelExt(
+//						   new OtherBaddebtModel(otherBaddebt.getId(), 
+//												 otherBaddebt.getLoanContractId(),
+//												 otherBaddebt.getBadMoney().toPlainString(),
+//												 DateUtil.getDateStr(otherBaddebt.getSetDate(), "yyyy-MM-dd"),
+//												 otherBaddebt.getFollowupWork()),
+//						   
+//						   contract.getLoanContractNo(),
+//						   contract.getLoanContractName(),
+//						   otherBaddebt.getPushStatus()));
 		}
 		return result;
 		
@@ -227,17 +227,17 @@ public class PostLoanServiceImpl implements PostLoanService{
 			} else {
 				contract = contractDao.findOne(overdueInfo.getLoanContractId());
 			}
-			result.add(new ModelExt(
-						   new OtherOverdueInfoModel(overdueInfo.getId(),
-								   overdueInfo.getLoanContractId(),
-								   overdueInfo.getOverdueMoney().toPlainString(),
-								   DateUtil.getDateStr(overdueInfo.getOverdueDate(), "yyyy-MM-dd"),
-								   overdueInfo.getOverdueInterest().toPlainString(),
-								   overdueInfo.getBalance().toPlainString(),
-								   overdueInfo.getRemarks()),
-						   contract.getLoanContractNo(),
-						   contract.getLoanContractName(),
-						   overdueInfo.getPushStatus()));
+//			result.add(new ModelExt(
+//						   new OtherOverdueInfoModel(overdueInfo.getId(),
+//								   overdueInfo.getLoanContractId(),
+//								   overdueInfo.getOverdueMoney().toPlainString(),
+//								   DateUtil.getDateStr(overdueInfo.getOverdueDate(), "yyyy-MM-dd"),
+//								   overdueInfo.getOverdueInterest().toPlainString(),
+//								   overdueInfo.getBalance().toPlainString(),
+//								   overdueInfo.getRemarks()),
+//						   contract.getLoanContractNo(),
+//						   contract.getLoanContractName(),
+//						   overdueInfo.getPushStatus()));
 		}
 		return result;
 		

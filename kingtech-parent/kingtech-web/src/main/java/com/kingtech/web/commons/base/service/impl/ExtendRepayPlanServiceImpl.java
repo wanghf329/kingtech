@@ -57,32 +57,32 @@ public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 		try {
 			RepayExtendPlan rp = null;
 			if(StringUtils.isEmpty(id)){
-				rp = new RepayExtendPlan(
-						loanContractId, 
-						creatRequstId.getReqId(), 
-						PushStatus.INITATION,
-						Long.valueOf(extendCount), 
-						extendTerm,
-						StringUtils.isEmpty(repayDate) ? null : DateUtils.parseDate(repayDate, "yyyy-MM-dd"),
-						new BigDecimal(principal), 
-						new BigDecimal(returnPrincipal),
-						new BigDecimal(interest), 
-						new BigDecimal(returnInterest), 
-						RepayStatusEnum.valueOf(status),
-						YesNoEnum.valueOf(overdueFlag), 
-						Long.valueOf(overdueDays));
+//				rp = new RepayExtendPlan(
+//						loanContractId, 
+//						creatRequstId.getReqId(), 
+//						PushStatus.INITATION,
+//						Long.valueOf(extendCount), 
+//						extendTerm,
+//						StringUtils.isEmpty(repayDate) ? null : DateUtils.parseDate(repayDate, "yyyy-MM-dd"),
+//						new BigDecimal(principal), 
+//						new BigDecimal(returnPrincipal),
+//						new BigDecimal(interest), 
+//						new BigDecimal(returnInterest), 
+//						RepayStatusEnum.valueOf(status),
+//						YesNoEnum.valueOf(overdueFlag), 
+//						Long.valueOf(overdueDays));
 			}else{
-				rp = repayExtendPlanDAO.findOne(id);
-				rp.setExtendCount(Long.valueOf(extendCount));
-				rp.setExtendTerm(extendTerm);
-				rp.setRepayDate(StringUtils.isEmpty(repayDate) ? null : DateUtils.parseDate(repayDate, "yyyy-MM-dd"));
-				rp.setPrincipal(new BigDecimal(principal));
-				rp.setReturnPrincipal(new BigDecimal(returnPrincipal));
-				rp.setInterest(new BigDecimal(interest));
-				rp.setReturnInterest(new BigDecimal(returnInterest));
-				rp.setStatus(RepayStatusEnum.valueOf(status));
-				rp.setOverdueFlag(YesNoEnum.valueOf(overdueFlag));
-				rp.setOverdueDays(Long.valueOf(overdueDays));
+//				rp = repayExtendPlanDAO.findOne(id);
+//				rp.setExtendCount(Long.valueOf(extendCount));
+//				rp.setExtendTerm(extendTerm);
+//				rp.setRepayDate(StringUtils.isEmpty(repayDate) ? null : DateUtils.parseDate(repayDate, "yyyy-MM-dd"));
+//				rp.setPrincipal(new BigDecimal(principal));
+//				rp.setReturnPrincipal(new BigDecimal(returnPrincipal));
+//				rp.setInterest(new BigDecimal(interest));
+//				rp.setReturnInterest(new BigDecimal(returnInterest));
+//				rp.setStatus(RepayStatusEnum.valueOf(status));
+//				rp.setOverdueFlag(YesNoEnum.valueOf(overdueFlag));
+//				rp.setOverdueDays(Long.valueOf(overdueDays));
 			}
 			rp = repayExtendPlanDAO.save(rp);
 			
@@ -98,16 +98,16 @@ public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 		List<RepayExtendPlanModelExt> result = new ArrayList<RepayExtendPlanModelExt>();
 		for(RepayExtendPlan rf : repayExtendPlanDAO.findAll()){
 			Contract ct = contractDAO.findOne(rf.getLoanContractId());
-			result.add(new RepayExtendPlanModelExt(rf.getId(), rf.getLoanContractId(),
-					String.valueOf(rf.getExtendCount()),rf.getExtendTerm(),DateFormatUtils.format(rf.getRepayDate(), "yyyy-MM-dd"),
-					rf.getPrincipal().toPlainString(),
-					rf.getReturnPrincipal().toPlainString(),
-					rf.getInterest().toPlainString(),
-					rf.getReturnInterest().toPlainString(),
-					rf.getStatus().getKey(),
-					rf.getOverdueFlag().getKey(),
-					String.valueOf(rf.getOverdueDays()),
-					ct.getLoanContractNo(),ct.getLoanContractName(),rf.getPushStatus()));
+//			result.add(new RepayExtendPlanModelExt(rf.getId(), rf.getLoanContractId(),
+//					String.valueOf(rf.getExtendCount()),rf.getExtendTerm(),DateFormatUtils.format(rf.getRepayDate(), "yyyy-MM-dd"),
+//					rf.getPrincipal().toPlainString(),
+//					rf.getReturnPrincipal().toPlainString(),
+//					rf.getInterest().toPlainString(),
+//					rf.getReturnInterest().toPlainString(),
+//					rf.getStatus().getKey(),
+//					rf.getOverdueFlag().getKey(),
+//					String.valueOf(rf.getOverdueDays()),
+//					ct.getLoanContractNo(),ct.getLoanContractName(),rf.getPushStatus()));
 		}
 		return result;
 	}
@@ -115,18 +115,19 @@ public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 	@Override
 	public RepayExtendPlanModel getById(String id) {
 		RepayExtendPlan rp = repayExtendPlanDAO.findOne(id);
-		return new RepayExtendPlanModel(id, 
-				rp.getLoanContractId(),
-				Long.toString(rp.getExtendCount()),
-				rp.getExtendTerm(),
-				rp.getRepayDate()==null ? null : DateFormatUtils.format(rp.getRepayDate(), "yyyy-MM-dd"),
-				rp.getPrincipal().toPlainString(),
-				rp.getReturnPrincipal().toPlainString(),
-				rp.getInterest().toPlainString(),
-				rp.getReturnInterest().toPlainString(),
-				rp.getStatus().name(),
-				rp.getOverdueFlag().name(),
-				Long.toString(rp.getOverdueDays()));
+//		return new RepayExtendPlanModel(id, 
+//				rp.getLoanContractId(),
+//				Long.toString(rp.getExtendCount()),
+//				rp.getExtendTerm(),
+//				rp.getRepayDate()==null ? null : DateFormatUtils.format(rp.getRepayDate(), "yyyy-MM-dd"),
+//				rp.getPrincipal().toPlainString(),
+//				rp.getReturnPrincipal().toPlainString(),
+//				rp.getInterest().toPlainString(),
+//				rp.getReturnInterest().toPlainString(),
+//				rp.getStatus().name(),
+//				rp.getOverdueFlag().name(),
+//				Long.toString(rp.getOverdueDays()));
+		return null;
 	}
 
 	@Override
@@ -142,21 +143,21 @@ public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 		
 		List<ModelExt> result = new ArrayList<ModelExt>();
 		for (Object[] obj : list) {
-			result.add(new ModelExt(new RepayExtendPlanModel((String)obj[0], (String)obj[1],
-					((Integer) obj[2]).toString(),
-					(String)obj[3],
-					DateFormatUtils.format((Date)obj[4], "yyyy-MM-dd"),
-					((BigDecimal)obj[5]).toPlainString(),
-					((BigDecimal)obj[6]).toPlainString(),
-					((BigDecimal)obj[7]).toPlainString(),
-					((BigDecimal)obj[8]).toPlainString(),
-					RepayStatusEnum.valueOf((String)obj[11]).getKey(),
-					YesNoEnum.valueOf((String)obj[9]).getKey(),
-					((Integer)obj[10]).toString()),
-					
-					(String) obj[12], 
-					(String) obj[13],
-					PushStatus.valueOf(obj[14].toString())));
+//			result.add(new ModelExt(new RepayExtendPlanModel((String)obj[0], (String)obj[1],
+//					((Integer) obj[2]).toString(),
+//					(String)obj[3],
+//					DateFormatUtils.format((Date)obj[4], "yyyy-MM-dd"),
+//					((BigDecimal)obj[5]).toPlainString(),
+//					((BigDecimal)obj[6]).toPlainString(),
+//					((BigDecimal)obj[7]).toPlainString(),
+//					((BigDecimal)obj[8]).toPlainString(),
+//					RepayStatusEnum.valueOf((String)obj[11]).getKey(),
+//					YesNoEnum.valueOf((String)obj[9]).getKey(),
+//					((Integer)obj[10]).toString()),
+//					
+//					(String) obj[12], 
+//					(String) obj[13],
+//					PushStatus.valueOf(obj[14].toString())));
 		}
 		return new PagedResult(result,count);
 	}

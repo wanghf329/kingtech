@@ -43,26 +43,26 @@ public class ShareholderServiceImpl implements ShareholderService {
 		try {
 			Shareholder sh = null;
 			if(StringUtils.isEmpty(id)){
-				sh = new Shareholder(PartnerTypeEnum.getValue(partnerType),
-									holder, 
-									new BigDecimal(holdingScale), 
-									new BigDecimal(contributionAmount), 
-									StringUtils.isEmpty(joinTime) ? null : DateUtils.parseDate(joinTime, "yyyy-MM-dd"),
-									SexEnum.getValue(gender),
-									StringUtils.isEmpty(quitTime) ? null : DateUtils.parseDate(quitTime, "yyyy-MM-dd"), 
-									branchId,
-									creatRequstId.getReqId(), 
-									PushStatus.INITATION);
+//				sh = new Shareholder(PartnerTypeEnum.getValue(partnerType),
+//									holder, 
+//									new BigDecimal(holdingScale), 
+//									new BigDecimal(contributionAmount), 
+//									StringUtils.isEmpty(joinTime) ? null : DateUtils.parseDate(joinTime, "yyyy-MM-dd"),
+//									SexEnum.getValue(gender),
+//									StringUtils.isEmpty(quitTime) ? null : DateUtils.parseDate(quitTime, "yyyy-MM-dd"), 
+//									branchId,
+//									creatRequstId.getReqId(), 
+//									PushStatus.INITATION);
 			}else{
-				sh = shareholderDao.findOne(id);
-				sh.setPartnerType(PartnerTypeEnum.getValue(partnerType));
-				sh.setHolder(holder);
-				sh.setHoldingScale(new BigDecimal(holdingScale));
-				sh.setContributionAmount(new BigDecimal(contributionAmount));
-				sh.setJoinTime(StringUtils.isEmpty(joinTime) ? null : DateUtils.parseDate(joinTime,"yyyy-MM-dd"));
-				sh.setGender(SexEnum.getValue(gender));
-				sh.setQuitTime(StringUtils.isEmpty(quitTime) ? null : DateUtils.parseDate(quitTime, "yyyy-MM-dd"));
-				sh.setBranchId(branchId);
+//				sh = shareholderDao.findOne(id);
+//				sh.setPartnerType(PartnerTypeEnum.getValue(partnerType));
+//				sh.setHolder(holder);
+//				sh.setHoldingScale(new BigDecimal(holdingScale));
+//				sh.setContributionAmount(new BigDecimal(contributionAmount));
+//				sh.setJoinTime(StringUtils.isEmpty(joinTime) ? null : DateUtils.parseDate(joinTime,"yyyy-MM-dd"));
+//				sh.setGender(SexEnum.getValue(gender));
+//				sh.setQuitTime(StringUtils.isEmpty(quitTime) ? null : DateUtils.parseDate(quitTime, "yyyy-MM-dd"));
+//				sh.setBranchId(branchId);
 			}
 			
 			sh = shareholderDao.save(sh);
