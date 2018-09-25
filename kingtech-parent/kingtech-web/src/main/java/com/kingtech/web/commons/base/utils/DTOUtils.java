@@ -3,18 +3,16 @@ package com.kingtech.web.commons.base.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.kingtech.common.utils.DateUtil;
-import com.kingtech.dao.entity.Collateral;
+import com.kingtech.dao.entity.ContractDyw;
+import com.kingtech.dao.entity.ContractZyw;
 import com.kingtech.dao.entity.EnterpriseCustomer;
 import com.kingtech.dao.entity.Guarantee;
 import com.kingtech.dao.entity.PersonalCustomer;
 import com.kingtech.dao.entity.RepayPlan;
 import com.kingtech.dao.entity.SettledInfo;
-import com.kingtech.enums.BorrowerTypeEnum;
-import com.kingtech.enums.PayTypeEnum;
-import com.kingtech.model.CollateralModel;
+import com.kingtech.model.ContractDywModel;
+import com.kingtech.model.ContractZywModel;
 import com.kingtech.model.EnterpriseCustomerModel;
 import com.kingtech.model.GuaranteeModel;
 import com.kingtech.model.PersonalCustomerModel;
@@ -27,27 +25,23 @@ public class DTOUtils {
 		PersonalCustomerModel customerModel = null;
 		if (personalCustomer != null) {
 			customerModel = new PersonalCustomerModel(personalCustomer.getName(),
-					                                  personalCustomer.getSex().getKey(),
-					                                  getNewStr(personalCustomer.getCategory()),
-					                                  personalCustomer.getCardNum(),
-					                                  personalCustomer.getPhone(), 
-					                                  getNewStr(personalCustomer.getFarmersFlag()),
-					                                  personalCustomer.getEducation(), 
-					                                  personalCustomer.getFax(), 
-					                                  personalCustomer.getEmail(), 
-					                                  personalCustomer.getMarriage(), 
-					                                  personalCustomer.getNationality(),
-					                                  DateUtil.getDateStr(personalCustomer.getBirthDate(), "yyyy-MM-dd"),
-					                                  personalCustomer.getNation(), 
-					                                  personalCustomer.getAddressProvince(), 
-					                                  personalCustomer.getAddressCity(), 
-					                                  personalCustomer.getAddressDistrict(), 
-					                                  personalCustomer.getAddress(), 
-					                                  personalCustomer.getPostCode(), 
-					                                  personalCustomer.getResidence(), 
-					                                  personalCustomer.getNativePlace(), 
-					                                  personalCustomer.getWorkUnit(), 
-					                                  personalCustomer.getPost());
+					personalCustomer.getSex(),
+					personalCustomer.getCardType(),
+					personalCustomer.getCardNumber(),
+					personalCustomer.getPhone(),
+					personalCustomer.getIsFarmer(),
+					personalCustomer.getEducation(),
+					personalCustomer.getEmail(),
+					personalCustomer.getIsMarry(),
+					personalCustomer.getNationality(),
+					personalCustomer.getBirthDate(),
+					personalCustomer.getNation(),
+					personalCustomer.getAddress(),
+					personalCustomer.getPostCode(),
+					personalCustomer.getRegisteredAddress(),
+					personalCustomer.getNativePlace(),
+					personalCustomer.getWorkUnit(),
+					personalCustomer.getPosition());
 		}
 		
 		return customerModel;
@@ -56,38 +50,29 @@ public class DTOUtils {
 	public static EnterpriseCustomerModel getEnterpriseCustomerModel(EnterpriseCustomer enterpriseCustomer){
 		EnterpriseCustomerModel enterpriseCustomerModel = null;
 		if (enterpriseCustomer != null ) {
-			enterpriseCustomerModel = new EnterpriseCustomerModel(enterpriseCustomer.getCorporateName(),
-					                                              getNewStr(enterpriseCustomer.getScale()),
-					                                              getNewStr(enterpriseCustomer.getIndustryType()),
-					                                              getNewStr(enterpriseCustomer.getIndustryinvolved()),
-					                                              enterpriseCustomer.getOrganizationcode(),
-					                                              enterpriseCustomer.getRegCode(),
-					                                              enterpriseCustomer.getRegOffice(),
-					                                              DateUtil.getDateStr(enterpriseCustomer.getRegDate(), "yyyy-MM-dd"),
-					                                              enterpriseCustomer.getNationalregNum(), 
-					                                              enterpriseCustomer.getLandRegNum(), 
-					                                              enterpriseCustomer.getLicence(), 
-					                                              DateUtil.getDateStr(enterpriseCustomer.getLicenceEndDate(),"yyyy-MM-dd"), 
-					                                              enterpriseCustomer.getNature(),
-					                                              enterpriseCustomer.getEmployNum()+"",
-					                                              enterpriseCustomer.getLegalRepresentative(), 
-					                                              DateUtil.getDateStr(enterpriseCustomer.getBulidDate(),"yyyy-MM-dd"),
-					                                              enterpriseCustomer.getActualController(),
-					                                              enterpriseCustomer.getRegCapital().toPlainString(),
-					                                              enterpriseCustomer.getReallyCapital().toPlainString(),
-					                                              enterpriseCustomer.getBusinessScope(),
-					                                              enterpriseCustomer.getRegAddress(), 
-					                                              enterpriseCustomer.getContactAddressProvince(),
-					                                              enterpriseCustomer.getContactAddresscity(),
-					                                              enterpriseCustomer.getContactAddressDistrict(),
-					                                              enterpriseCustomer.getContactAddress(),
-					                                              enterpriseCustomer.getPostcode(),
-					                                              enterpriseCustomer.getPhone(), 
-					                                              enterpriseCustomer.getLinkman(),
-					                                              enterpriseCustomer.getFax(), 
-					                                              enterpriseCustomer.getEmail(),
-					                                              enterpriseCustomer.getWebSite());
-			
+			enterpriseCustomerModel = new EnterpriseCustomerModel(enterpriseCustomer.getName(),
+																enterpriseCustomer.getScale(),
+																enterpriseCustomer.getIndustryType(),
+																enterpriseCustomer.getIndustryinvolved(),
+																enterpriseCustomer.getOrganizationcode(),
+																enterpriseCustomer.getRegistCode(),
+																enterpriseCustomer.getRegistOffice(),
+																enterpriseCustomer.getRegistDate(),
+																enterpriseCustomer.getNationalTaxCode(),
+																enterpriseCustomer.getLandTaxCode(),
+																enterpriseCustomer.getLicenseCode(),
+																enterpriseCustomer.getLicenceEndDate(),
+																enterpriseCustomer.getLegalPerson(),
+																enterpriseCustomer.getFoundDate(),
+																enterpriseCustomer.getController(),
+																enterpriseCustomer.getReallyCapital(),
+																enterpriseCustomer.getBusinessScope(),
+																enterpriseCustomer.getRegisterAddress(),
+																enterpriseCustomer.getAddress(),
+																enterpriseCustomer.getPhone(),
+																enterpriseCustomer.getLinkman(),
+																enterpriseCustomer.getEmail(),
+																enterpriseCustomer.getWebSite());
 		}
 		
 		return enterpriseCustomerModel;
@@ -98,28 +83,36 @@ public class DTOUtils {
 	public static  List<GuaranteeModel> getGuaranteeModels(List<Guarantee> guarantees){
 		List<GuaranteeModel>  guaranteeModels = new ArrayList<GuaranteeModel>();
 			for (Guarantee guarantee :guarantees) {
-				guaranteeModels.add(new GuaranteeModel(guarantee.getName(), guarantee.getCardNum(), guarantee.getPhone(), guarantee.getAddress()));
+					guaranteeModels.add(new GuaranteeModel(guarantee.getName(),
+														   guarantee.getCardType(), 
+														   guarantee.getCardNumber(),
+														   guarantee.getAddress()));
 			}
-		
 		return  guaranteeModels;
 	}
 	
 	
-	public static List<CollateralModel> getCollateralModels(List<Collateral> collaterals){
-		
-		 List<CollateralModel> collateralModels = new ArrayList<CollateralModel>();
-			 for (Collateral collateral :collaterals) {
-				 collateralModels.add(new CollateralModel(getNewStr(collateral.getPledgeType()),
-						  getNewStr(collateral.getCollateralType()),
-						  collateral.getCollateralName(), 
-						  collateral.getWarrantNum(), 
-						  collateral.getEvaluationValue() == null ? null : collateral.getEvaluationValue().toPlainString(),
-						  collateral.getWarrantHolder(),
-						  collateral.getCollateralAddr(),
-						  DateUtil.getDateStr(collateral.getHandleDate(), "yyyy-MM-dd")));
+	public static List<ContractZywModel> getZywModels(List<ContractZyw> collaterals){
+		 List<ContractZywModel> collateralModels = new ArrayList<ContractZywModel>();
+			 for (ContractZyw collateral :collaterals) {
+				 collateralModels.add(new ContractZywModel(collateral.getPledgeType(),
+						  collateral.getName(), 
+						  collateral.getWorth(), 
+						  collateral.getAddress(),
+						  collateral.getUnit()));
 			}
-			
-		 
+		 return  collateralModels;
+	}
+	
+	public static List<ContractDywModel> getDywModels(List<ContractDyw> collaterals){
+		 List<ContractDywModel> collateralModels = new ArrayList<ContractDywModel>();
+			 for (ContractDyw collateral :collaterals) {
+				 collateralModels.add(new ContractDywModel(collateral.getPledgeType(),
+						  collateral.getName(), 
+						  collateral.getWorth(), 
+						  collateral.getAddress(),
+						  collateral.getUnit()));
+			}
 		 return  collateralModels;
 	}
 	
@@ -129,8 +122,9 @@ public class DTOUtils {
 		List<RepayPlanModel>  planModels = new ArrayList<RepayPlanModel>();
 		
 		for (RepayPlan repayPlan : repayPlans) {
-			planModels.add(new RepayPlanModel(DateUtil.getDateStr(repayPlan.getRepayDate(), "yyyy-MM-dd"),
-					repayPlan.getPrincipal().toPlainString(), repayPlan.getInterest().toPlainString()));
+			planModels.add(new RepayPlanModel(DateUtil.getDateStr(
+													repayPlan.getEndDate(), "yyyy-MM-dd"),
+													repayPlan.getMoney(), repayPlan.getInterest()));
 		}
 		return planModels;
 	}
@@ -139,10 +133,10 @@ public class DTOUtils {
 	public static SettledInfoModel getSettledInfoModels (SettledInfo  settledInfo){
 		SettledInfoModel infoModel =null;
 		if (settledInfo !=null) {
-			infoModel = new SettledInfoModel(settledInfo.getMoney().toPlainString(),
-					DateUtil.getDateStr(settledInfo.getLoanDate(), "yyyy-MM-dd"), 
-					DateUtil.getDateStr(settledInfo.getDebtStartDate(), "yyyy-MM-dd"),
-					DateUtil.getDateStr(settledInfo.getDebtEndDate(), "yyyy-MM-dd"));
+			infoModel = new SettledInfoModel(null,settledInfo.getMoney(),
+					DateUtil.getDateStr(settledInfo.getLoanTime(), "yyyy-MM-dd"), 
+					DateUtil.getDateStr(settledInfo.getStartDate(), "yyyy-MM-dd"),
+					DateUtil.getDateStr(settledInfo.getEndDate(), "yyyy-MM-dd"));
 		}
 		
 		return infoModel;

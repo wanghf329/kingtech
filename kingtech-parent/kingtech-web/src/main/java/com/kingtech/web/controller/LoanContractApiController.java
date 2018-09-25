@@ -16,18 +16,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kingtech.enums.BorrowerTypeEnum;
-import com.kingtech.enums.CollateralTypeFor1Enum;
-import com.kingtech.enums.CollateralTypeFor2Enum;
+import com.kingtech.enums.DywTypeEnum;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.IndustryEnum;
+import com.kingtech.enums.LoanMethodEnum;
 import com.kingtech.enums.LoanPurposeEnum;
-import com.kingtech.enums.LoanTypeEnum;
 import com.kingtech.enums.LoanstatusEnum;
 import com.kingtech.enums.PayTypeEnum;
-import com.kingtech.enums.PeriodTypeEnum;
 import com.kingtech.enums.RateTypeEnum;
+import com.kingtech.enums.TermTypeEnum;
 import com.kingtech.enums.UnionFlagEnum;
 import com.kingtech.enums.YesNoEnum;
+import com.kingtech.enums.ZywTypeEnum;
 import com.kingtech.model.ContractModel;
 import com.kingtech.model.SynResponseModel;
 import com.kingtech.model.misc.PageInfo;
@@ -69,11 +69,11 @@ public class LoanContractApiController {
 	public String edit(Model model,@RequestParam("id") String id) {
 		model.addAttribute("list", contractService.listAll());
 		model.addAttribute("borrowerType", BorrowerTypeEnum.values());
-		model.addAttribute("periodType", PeriodTypeEnum.values());
+		model.addAttribute("termType", TermTypeEnum.values());
 		model.addAttribute("rateType", RateTypeEnum.values());
 		model.addAttribute("purpose", LoanPurposeEnum.values());
 		model.addAttribute("industry", IndustryEnum.values());
-		model.addAttribute("loanType", LoanTypeEnum.values());
+		model.addAttribute("LoanMethod", LoanMethodEnum.values());
 		model.addAttribute("unionFlag", UnionFlagEnum.values());
 		model.addAttribute("status", LoanstatusEnum.values());
 		model.addAttribute("isExtend", YesNoEnum.values());
@@ -89,8 +89,8 @@ public class LoanContractApiController {
 	@RequestMapping(method = RequestMethod.GET,value="/supplement")
 	public String supplement(Model model, @RequestParam("loanContractId") String loanContractId) { 
 		model.addAttribute("loanContractId", loanContractId);
-		model.addAttribute("collateralType1",CollateralTypeFor1Enum.values());
-		model.addAttribute("collateralType2",CollateralTypeFor2Enum.values());
+		model.addAttribute("collateralType1",DywTypeEnum.values());
+		model.addAttribute("collateralType2",ZywTypeEnum.values());
 		model.addAttribute("collateralList", contractService.listCollateralByLoanContractId(loanContractId));
 		model.addAttribute("guaranteeList", contractService.listGuaranteeByLoanContractId(loanContractId));
 		model.addAttribute("repayPlanList", contractService.listRepayPlanByLoanContractId(loanContractId));
@@ -145,17 +145,17 @@ public class LoanContractApiController {
 			String loanType, String unionFlag, String payType, String signDate,
 			String repaySource, String status, String isExtend)
 			throws ParseException {
-		contractService.addNew(id, loanContractNo, loanContractName,
-				BorrowerTypeEnum.valueOf(borrowerType), borrowerId,customerId, null, loanAmount,
-				PeriodTypeEnum.valueOf(periodType), periodTerm,
-				DateUtils.parseDate(loanStartDate, "yyyy-MM-dd"),
-				DateUtils.parseDate(loanEndDate, "yyyy-MM-dd"),
-				RateTypeEnum.valueOf(rateType), rate,
-				LoanPurposeEnum.valueOf(purpose),
-				IndustryEnum.valueOf(industry), LoanTypeEnum.valueOf(loanType),
-				UnionFlagEnum.valueOf(unionFlag), PayTypeEnum.valueOf(payType),
-				DateUtils.parseDate(signDate, "yyyy-MM-dd"), repaySource,
-				LoanstatusEnum.valueOf(status), YesNoEnum.valueOf(isExtend));
+//		contractService.addNew(id, loanContractNo, loanContractName,
+//				BorrowerTypeEnum.valueOf(borrowerType), borrowerId,customerId, null, loanAmount,
+//				TermTypeEnum.valueOf(periodType), periodTerm,
+//				DateUtils.parseDate(loanStartDate, "yyyy-MM-dd"),
+//				DateUtils.parseDate(loanEndDate, "yyyy-MM-dd"),
+//				RateTypeEnum.valueOf(rateType), rate,
+//				LoanPurposeEnum.valueOf(purpose),
+//				IndustryEnum.valueOf(industry), LoanMethodEnum.valueOf(loanType),
+//				UnionFlagEnum.valueOf(unionFlag), PayTypeEnum.valueOf(payType),
+//				DateUtils.parseDate(signDate, "yyyy-MM-dd"), repaySource,
+//				LoanstatusEnum.valueOf(status), YesNoEnum.valueOf(isExtend));
 		return "redirect:/loan/list";
 	}
 

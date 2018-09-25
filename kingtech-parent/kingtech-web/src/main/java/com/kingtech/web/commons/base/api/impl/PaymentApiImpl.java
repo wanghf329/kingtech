@@ -46,7 +46,7 @@ import com.kingtech.enums.PushStatus;
 import com.kingtech.model.AsyReponseModel;
 import com.kingtech.model.BranchInfoModel;
 import com.kingtech.model.CapitalModel;
-import com.kingtech.model.CollateralModel;
+import com.kingtech.model.ContractZywModel;
 import com.kingtech.model.ContractModel;
 import com.kingtech.model.EmployeeModel;
 import com.kingtech.model.EnterpriseCustomerModel;
@@ -375,7 +375,7 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 		
 		List<RepayPlanModel> repayPlanModels = DTOUtils.getRepayPlanModels(repayPlanDAO.listByloanContractId(loanIdContractId));
 		
-		List<CollateralModel> collateralModels = DTOUtils.getCollateralModels(collateralDAO.listByloanContractId(loanIdContractId));
+		List<ContractZywModel> collateralModels = DTOUtils.getCollateralModels(collateralDAO.listByloanContractId(loanIdContractId));
 		
 		
 		ContractModel contractModel = null;

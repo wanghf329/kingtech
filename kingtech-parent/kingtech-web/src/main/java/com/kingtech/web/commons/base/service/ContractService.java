@@ -6,26 +6,23 @@ import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 
-import com.kingtech.dao.entity.Collateral;
 import com.kingtech.dao.entity.Contract;
+import com.kingtech.dao.entity.ContractZyw;
 import com.kingtech.dao.entity.Guarantee;
 import com.kingtech.dao.entity.RepayPlan;
 import com.kingtech.dao.entity.SettledInfo;
 import com.kingtech.enums.BorrowerTypeEnum;
-import com.kingtech.enums.CollateralTypeFor1Enum;
 import com.kingtech.enums.IndustryEnum;
+import com.kingtech.enums.LoanMethodEnum;
 import com.kingtech.enums.LoanPurposeEnum;
-import com.kingtech.enums.LoanTypeEnum;
 import com.kingtech.enums.LoanstatusEnum;
 import com.kingtech.enums.PayTypeEnum;
-import com.kingtech.enums.PeriodTypeEnum;
-import com.kingtech.enums.PledgeTypeEnum;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.RateTypeEnum;
+import com.kingtech.enums.TermTypeEnum;
 import com.kingtech.enums.UnionFlagEnum;
 import com.kingtech.enums.YesNoEnum;
 import com.kingtech.model.ContractModel;
-import com.kingtech.model.PersonalCustomerModel;
 import com.kingtech.model.misc.PagedResult;
 
 public interface ContractService {
@@ -35,10 +32,10 @@ public interface ContractService {
 
 	public void addNew(String id,String loanContractId, String loanContractName,
 						BorrowerTypeEnum borrowerType,String borrowerId, String customerId, String guarantee,
-						BigDecimal loanAmount, PeriodTypeEnum periodType, int periodTerm,
+						BigDecimal loanAmount, TermTypeEnum periodType, int periodTerm,
 						Date loanStartDate, Date loanEndDate, RateTypeEnum rateType,
 						BigDecimal rate, LoanPurposeEnum purpose, IndustryEnum industry,
-						LoanTypeEnum loanType, UnionFlagEnum unionFlag, PayTypeEnum payType,
+						LoanMethodEnum loanType, UnionFlagEnum unionFlag, PayTypeEnum payType,
 						Date signDate, String repaySource, LoanstatusEnum status, YesNoEnum isExtend);
 	
 	public Contract getById(String id);
@@ -53,7 +50,7 @@ public interface ContractService {
 	
 	public void addSettledInfo(String loanContractId, BigDecimal[] money, String[] loanDate, String[] debtStartDate, String[] debtEndDate);
 	
-	public List<Collateral> listCollateralByLoanContractId(String loanContractId);
+	public List<ContractZyw> listCollateralByLoanContractId(String loanContractId);
 	
 	public List<Guarantee> listGuaranteeByLoanContractId(String loanContractId);
 	
