@@ -77,7 +77,7 @@ public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 			rp = repayExtendPlanDAO.save(rp);
 			
 			IdentifierType type = StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U;
-			paymentApi.repayExtendPlanApi(rp.getId(), type);
+//			paymentApi.repayExtendPlanApi(rp.getId(), type);
 			
 		}  catch (Exception e) {
 			e.printStackTrace();
@@ -106,19 +106,12 @@ public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 	@Override
 	public RepayExtendPlanModel getById(String id) {
 		RepayExtendPlan rp = repayExtendPlanDAO.findOne(id);
-//		return new RepayExtendPlanModel(id, 
-//				rp.getLoanContractId(),
-//				Long.toString(rp.getExtendCount()),
-//				rp.getExtendTerm(),
-//				rp.getRepayDate()==null ? null : DateFormatUtils.format(rp.getRepayDate(), "yyyy-MM-dd"),
-//				rp.getPrincipal().toPlainString(),
-//				rp.getReturnPrincipal().toPlainString(),
-//				rp.getInterest().toPlainString(),
-//				rp.getReturnInterest().toPlainString(),
-//				rp.getStatus().name(),
-//				rp.getOverdueFlag().name(),
-//				Long.toString(rp.getOverdueDays()));
-		return null;
+		return new RepayExtendPlanModel(id, 
+				rp.getLoanContractId(), 
+				rp.getInterest().toPlainString(), 
+				rp.getEndDate()==null ? null : DateFormatUtils.format(rp.getEndDate(), "yyyy-MM-dd"), 
+				rp.getPrincipal().toPlainString(), 
+				rp.getCount());
 	}
 
 	@Override
@@ -139,7 +132,8 @@ public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 					(String)obj[1], 
 					((BigDecimal)obj[4]).toPlainString(), 
 					DateFormatUtils.format((Date)obj[3], "yyyy-MM-dd"), 
-					((BigDecimal)obj[5]).toPlainString()), 
+					((BigDecimal)obj[5]).toPlainString(),
+					(String)obj[9]), 
 					(String) obj[6], 
 					(String) obj[7],
 					PushStatus.valueOf(obj[8].toString())));

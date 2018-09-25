@@ -62,5 +62,15 @@ public class RepayExtendPlanModel extends BaseRequestModel{
 		this.principal = principal;
 	}
 
+	public RepayExtendPlanModel(String id, String contractNumber,
+			String interest, String endDate, String principal, String count) {
+		super(id);
+		this.contractNumber = contractNumber;
+		this.interest = interest;
+		this.endDate = endDate;
+		this.principal = principal;
+		this.count = count;
+	}
+
 	
 }

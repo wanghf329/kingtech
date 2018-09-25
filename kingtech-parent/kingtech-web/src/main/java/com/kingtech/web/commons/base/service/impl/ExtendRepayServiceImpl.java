@@ -76,7 +76,7 @@ public class ExtendRepayServiceImpl implements ExtendRepayService{
 			ri.setOtherCharge(otherCharge);
 		}
 		repayExtendInfoDao.save(ri);
-		paymentApi.repayExtendInfoApi(ri.getId(), StringUtils.isEmpty(id) ?  IdentifierType.A : IdentifierType.U);
+//		paymentApi.repayExtendInfoApi(ri.getId(), StringUtils.isEmpty(id) ?  IdentifierType.A : IdentifierType.U);
 	}
 
 	@Override

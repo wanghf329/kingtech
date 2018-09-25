@@ -32,11 +32,13 @@ function getExtendRepay(id){
 			$("input[name='id']").val(res.id);
 			$("#loanContractId option[value='"+res.loanContractId+"']").prop("selected",true);  
 			$("#loanContractId").attr("disabled",true);   
-			$("input[name='extendNum']").val(res.extendNum); 
-			$("input[name='repayDate']").val(res.repayDate);
-			$("input[name='repayAmount']").val(res.repayAmount);
-			$("input[name='repayPrincipalAmount']").val(res.repayPrincipalAmount);
-			$("input[name='repayInterestAmount']").val(res.repayInterestAmount);
+			$("input[name='repayTime']").val(res.repayTime);
+			$("input[name='money']").val(res.money);
+			$("input[name='interest']").val(res.interest);
+			$("input[name='penaltyInterest']").val(res.penaltyInterest);
+			$("input[name='penalty']").val(res.penalty);
+			$("input[name='serviceCharge']").val(res.serviceCharge);
+			$("input[name='otherCharge']").val(res.otherCharge);
 			$("#editModel").modal();
 		}
 	});
@@ -87,10 +89,10 @@ function initDataTables() {
 									data : null
 								},
 								{
-									data : "contractNumber"
+									data : "loanContractNumber"
 								},
 								{
-									data : "contractName"
+									data : "loanContractName"
 								},
 								
 								{
