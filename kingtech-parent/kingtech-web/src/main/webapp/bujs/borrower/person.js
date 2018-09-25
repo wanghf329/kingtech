@@ -63,34 +63,36 @@ function initDataTables() {
 								{data : "name"},
 								{data : "sex",render : function(data, type, row) {
 									switch (data) {
-									case 'M':
+									case 'S_1':
 										return '<span class="text-gray">男</span>';
-									case 'F':
+									case 'S_2':
 										return '<span class="text-gray">女</span>';
 									}
 								}},
-								{data : "category",render : function(data, type, row) {
+								{data : "cardType",render : function(data, type, row) {
 									switch (data) {
 										case 'S_1':
-											return '<span class="text-gray">居民身份证</span>';
+											return '<span class="text-gray">二代身份证</span>'; 
 										case 'S_2':
-											return '<span class="text-gray">护照</span>';
+											return '<span class="text-gray">港澳通行证</span>';
 										case 'S_3':
-											return '<span class="text-gray">驾驶证</span>';
+											return '<span class="text-gray">台湾通行证</span>';
+										case 'S_4':
+											return '<span class="text-gray">护照</span>';
 									}
 								}},
-								{data : "cardNum"},
+								{data : "cardNumber"},
 								{data : "phone"},
-								{data : "farmersFlag",render : function(data, type, row) {
+								{data : "isFarmer",render : function(data, type, row) {
 									switch (data) {
+										case 'S_0':
+											return '<span class="text-gray">否</span>';
 										case 'S_1':
 											return '<span class="text-gray">是</span>';
-										case 'S_2':
-											return '<span class="text-gray">否</span>';
 									}
 								}},
 								{data : "addressProvince",render : function(data, type, row) {
-										return '<td><Strong>'+row.addressProvince+row.addressCity+row.addressDistrict+'</Strong></td>';
+										return '<td><Strong>'+row.address+'</Strong></td>';
 									}
 								},
 								{data : null,render : function(data, type, row) {

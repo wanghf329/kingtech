@@ -47,10 +47,10 @@ public class PersonalCustomer extends UuidEntity{
 	@Column(name="PHONE",nullable = false)
 	private String phone;
 	
-	//是否农牧民：1）是   2）否
+	//是否农牧民
 	@Enumerated(EnumType.STRING)
 	@Column(name="FARMERS_FLAG",nullable = false)
-	private FarmersFlagEnum isFarmer;
+	private YesNoEnum isFarmer;
 	
 	//学历（1：博士，2：硕士，3：本科，4：专科，5：高中及以下）
 	@Enumerated(EnumType.STRING)

@@ -3,12 +3,22 @@ package com.kingtech.web.controller;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import lombok.extern.slf4j.Slf4j;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,18 +29,23 @@ import com.kingtech.dao.entity.Contract;
 import com.kingtech.dao.entity.EnterpriseCustomer;
 import com.kingtech.dao.entity.PersonalCustomer;
 import com.kingtech.enums.BorrowerTypeEnum;
-import com.kingtech.enums.CertType;
+import com.kingtech.enums.CardTypeEnum;
+import com.kingtech.enums.EducationEnum;
 import com.kingtech.enums.IndustryEnum;
 import com.kingtech.enums.IndustryType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.ScaleType;
+import com.kingtech.enums.YesNoEnum;
+import com.kingtech.model.EnterpriseCustomerModel;
+import com.kingtech.model.PersonalCustomerModel;
 import com.kingtech.model.misc.PageInfo;
 import com.kingtech.model.misc.PagedResult;
 import com.kingtech.web.commons.base.service.BorrowerService;
 import com.kingtech.web.commons.base.service.ContractService;
 
-@RequestMapping("/borrower")
+@Slf4j
 @Controller
+@RequestMapping("/borrower")
 public class BorrowerApiController {
 	
 	@Autowired
@@ -81,7 +96,9 @@ public class BorrowerApiController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/personnel/edit")
 	public String personnelEdit(Model model,@RequestParam("id") String id) {
-		model.addAttribute("certTypes", CertType.values());
+		model.addAttribute("cardTypes", CardTypeEnum.values());
+		model.addAttribute("educations", EducationEnum.values());
+		model.addAttribute("yesNoEnum", YesNoEnum.values());
 		if(StringUtils.isNotEmpty(id)){
 			model.addAttribute("model",borrowerService.getPersonnel(id));
 			List<Contract> list = contractService.listByUserIdAndPushstatus(id,PushStatus.INPROSESS, PushStatus.SUCCESS);
@@ -90,43 +107,17 @@ public class BorrowerApiController {
 		return "/loan/personnelEdit";
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/enterprise/add")
-	public String saveEnterprise(Model model,String id , String corporateName,
-			String scale, String industryType, String industryinvolved,
-			String organizationcode, String regCode, String regOffice,
-			String regDate, String nationalregNum, String landRegNum,
-			String licence, String licenceEndDate, String nature, Integer employNum,
-			String legalRepresentative, String bulidDate, String actualController,BigDecimal regCapital,
-			BigDecimal reallyCapital, String businessScope, String regAddress,String contactAddressProvince,
-			String contactAddresscity,String contactAddressDistrict,String contactAddress,String postcode,
-			String phone,String linkman,String fax,String email, String webSite)
+	@RequestMapping(method = RequestMethod.POST, value = "/enterprise/save")
+	public String saveEnterprise(Model model,EnterpriseCustomerModel enterprise)
 			throws ParseException {
-		borrowerService.addEnterprise( id ,corporateName, scale, industryType, 
-									 industryinvolved, organizationcode, regCode, regOffice, regDate, 
-									 nationalregNum, landRegNum, licence, licenceEndDate,
-									 nature, employNum, legalRepresentative, bulidDate,
-									 actualController, regCapital, reallyCapital, businessScope,
-									 regAddress, contactAddressProvince, contactAddresscity, 
-									 contactAddressDistrict, contactAddress, postcode, phone, 
-									 linkman, fax, email, webSite);
+		borrowerService.addEnterprise(enterprise);
 		return "redirect:/borrower/corporationList";
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/personenl/add")
-	public String savePersonenl(Model model,String id,String name, String sex, String category,
-								String cardNum, String phone, String farmersFlag,
-								String education, String fax, String email, String marriage,
-								String nationality, String birthDate, String nation,
-								String addressProvince, String addressCity, String addressDistrict,
-								String address, String postCode, String residence,
-								String nativePlace, String workUnit, String post) throws ParseException {
-			
-		borrowerService.addPersonnel(id,name, sex, category, cardNum, phone, farmersFlag,
-									education, fax, email, marriage, nationality,
-									birthDate, nation, addressProvince, addressCity, 
-									addressDistrict, address, postCode, residence,
-									nativePlace, workUnit, post);
-				
+	@RequestMapping(method = RequestMethod.POST, value = "/personenl/save")
+	public String savePersonenl(Model model,PersonalCustomerModel personal) throws ParseException {
+		log.info(personal.toString());
+		borrowerService.addPersonnel(personal);
 		return "redirect:/borrower/personList";
 	}
 	
@@ -161,4 +152,12 @@ public class BorrowerApiController {
 									 			 @RequestParam("length") Integer pageSize) {
 		return borrowerService.pageList(PageInfo.page(firstIndex, pageSize));
 	}
+	
+	@InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        //第二个参数是控制是否支持传入的值是空，这个值很关键，如果指定为false，那么如果前台没有传值的话就会报错
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
 }
