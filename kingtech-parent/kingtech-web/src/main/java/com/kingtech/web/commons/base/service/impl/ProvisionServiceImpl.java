@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.kingtech.dao.entity.ProvisionInfo;
 import com.kingtech.dao.rdbms.ProvisionInfoDAO;
 import com.kingtech.enums.IdentifierType;
-import com.kingtech.enums.LoanClassificationEnum;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.model.ProvisionInfoModel;
 import com.kingtech.web.commons.base.CreatRequstId;
@@ -36,19 +35,40 @@ public class ProvisionServiceImpl implements ProvisionService{
 
 	@Override
 	@Transactional
-	public void addOrEdit(String id,BigDecimal provisionMoney,
-			Date provisionDate, BigDecimal provisionScale,
-			LoanClassificationEnum loanClassification, BigDecimal balance) {
+	public void addOrEdit(String id, Date dateMonth,
+			BigDecimal normalBalance, BigDecimal normalRate,
+			BigDecimal normalReal, BigDecimal followBalance,
+			BigDecimal followRate, BigDecimal followReal,
+			BigDecimal minorBalance, BigDecimal minorRate,
+			BigDecimal minorReal, BigDecimal suspiciousBalance,
+			BigDecimal suspiciousRate, BigDecimal suspiciousReal,
+			BigDecimal lossBalance, BigDecimal lossRate, BigDecimal lossReal) {
 		ProvisionInfo pi = null;
 		if(StringUtils.isEmpty(id)){
-			pi = new ProvisionInfo(creatRequstId.getReqId(), PushStatus.INITATION, provisionMoney, provisionDate, provisionScale, loanClassification, balance);
+			pi = new ProvisionInfo(creatRequstId.getReqId(), PushStatus.INITATION, dateMonth,
+					normalBalance, normalRate, normalReal, 
+					followBalance, followRate, followReal,
+					minorBalance, minorRate, minorReal, 
+					suspiciousBalance, suspiciousRate, suspiciousReal,
+					lossBalance, lossRate, lossReal);
 		}else{
 			pi = provisionDao.findOne(id);
-			pi.setProvisionMoney(provisionMoney);
-			pi.setProvisionDate(provisionDate);
-			pi.setProvisionScale(provisionScale);
-			pi.setLoanClassification(loanClassification);
-			pi.setBalance(balance);
+			pi.setDateMonth(dateMonth);
+			pi.setNormalBalance(normalBalance);
+			pi.setNormalRate(normalRate);
+			pi.setNormalReal(normalReal);
+			pi.setFollowBalance(followBalance);
+			pi.setFollowRate(followRate);
+			pi.setFollowReal(followReal);
+			pi.setMinorBalance(minorBalance);
+			pi.setMinorRate(minorRate);
+			pi.setMinorReal(minorReal);
+			pi.setSuspiciousBalance(suspiciousBalance);
+			pi.setSuspiciousRate(suspiciousRate);
+			pi.setSuspiciousReal(suspiciousReal);
+			pi.setLossBalance(lossBalance);
+			pi.setLossRate(lossRate);
+			pi.setLossReal(lossReal);
 		}
 		provisionDao.save(pi);
 		
@@ -63,10 +83,21 @@ public class ProvisionServiceImpl implements ProvisionService{
 	@Override
 	public ProvisionInfoModel getById(String id) {
 		ProvisionInfo pi = provisionDao.findOne(id);
-		return new ProvisionInfoModel(pi.getId(), pi.getProvisionMoney().toPlainString(), 
-									  DateFormatUtils.format(pi.getProvisionDate(),"yyyy-MM-dd"), 
-									  pi.getProvisionScale().toPlainString(), 
-									  pi.getLoanClassification().name(), 
-									  pi.getBalance().toPlainString());
+		return new ProvisionInfoModel(pi.getId(), DateFormatUtils.format(pi.getDateMonth(),"yyyy-MM-dd"), 
+									  pi.getNormalBalance().toPlainString(), 
+									  pi.getNormalRate().toPlainString(),
+									  pi.getNormalReal().toPlainString(),
+									  pi.getFollowBalance().toPlainString(),
+									  pi.getFollowRate().toPlainString(),
+									  pi.getFollowReal().toPlainString(),
+									  pi.getMinorBalance().toPlainString(),
+									  pi.getMinorRate().toPlainString(),
+									  pi.getMinorReal().toPlainString(),
+									  pi.getSuspiciousBalance().toPlainString(),
+									  pi.getSuspiciousRate().toPlainString(),
+									  pi.getSuspiciousReal().toPlainString(),
+									  pi.getLossBalance().toPlainString(),
+									  pi.getLossRate().toPlainString(),
+									  pi.getLossReal().toPlainString());
 	}
 }

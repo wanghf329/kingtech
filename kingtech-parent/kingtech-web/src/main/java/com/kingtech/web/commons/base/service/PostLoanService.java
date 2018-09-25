@@ -35,9 +35,10 @@ public interface PostLoanService {
 	public OtherBaddebtModel getBaddebtInfoById(String id);
 	
 	public OtherBaddebt addNewBaddebtInfo(String id,
-									  	  String setDate,
+									  	  String lossDate,
 									  	  BigDecimal badMoney,
-									  	  String followupWork,
+									  	  String badType,
+									  	  String followUp,
 									  	  String loanContractId );
 	
 	public List<ModelExt> listAllOverdue();

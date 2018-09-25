@@ -116,12 +116,14 @@ public class PostLoanApiController {
 	 */
 	@RequestMapping(value = "/add/extensionrepayplaninfo", method = RequestMethod.POST)
 	public String saveExtensionRepayPlanInfo(Model model,
-			String id, String loanContractId, String extendCount, String extendTerm,
-			String repayDate, String principal, String returnPrincipal,
-			String interest, String returnInterest, String status,
-			String overdueFlag, String overdueDays) {
-		repayExtendPlanService.addNew(id, loanContractId, extendCount, extendTerm, repayDate, principal, returnPrincipal, 
-				interest, returnInterest, status, overdueFlag, overdueDays);
+											String id,
+											String loanContractId, 
+											String count,
+											String endDate,
+											String principal, 
+											String interest) {
+		repayExtendPlanService.addNew(id, loanContractId, count, endDate, principal, interest);
+		
 		return "redirect:/postLoan/extensionrepayplaninfo";
 	}
 
@@ -208,9 +210,10 @@ public class PostLoanApiController {
 	public String addNewBaddebtsInfo(Model model,String id,
 								    String setDate,
 								    BigDecimal badMoney,
-								    String  followupWork,
+								    String badType,
+								    String followupWork,
 								    String loanContractId){
-		postLoanService.addNewBaddebtInfo(id,setDate,badMoney,followupWork, loanContractId);
+		postLoanService.addNewBaddebtInfo(id,setDate,badMoney,badType,followupWork, loanContractId);
 		return "redirect:/postLoan/baddebtsinfo";
 	}
 
@@ -258,14 +261,31 @@ public class PostLoanApiController {
 		model.addAttribute("list", provisionService.listAll());
 		return "/postloan/provisionInfo";
 	}
-	
+	/**
+	 * 编辑还款计划
+	 * @param model
+	 * @param id
+	 * @param loanContractId
+	 * @param extendNum
+	 * @param repayDate
+	 * @param repayAmount
+	 * @param repayPrincipalAmount
+	 * @param repayInterestAmount
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.POST, value = "extendrepay/edit")
-	public String extendrepayEdit(Model model,String id,String loanContractId,long extendNum, 
-								  String repayDate,BigDecimal repayAmount, 
-								  BigDecimal repayPrincipalAmount,
-								  BigDecimal repayInterestAmount) {
+	public String extendrepayEdit(Model model,
+								String id,
+								String loanContractId,
+								String repayTime,
+								BigDecimal money, 
+								BigDecimal interest,
+								BigDecimal penaltyInterest,
+								BigDecimal penalty,
+								BigDecimal serviceCharge,
+								BigDecimal otherCharge) {
 		try {
-//			extendRepayService.addOrEdit(id, loanContractId, extendNum, DateUtils.parseDate(repayDate, "yyyy-MM-dd"), repayAmount, repayPrincipalAmount, repayInterestAmount);
+			extendRepayService.addOrEdit(id, loanContractId, DateUtils.parseDate(repayTime, "yyyy-MM-dd"), money, interest, penaltyInterest, penalty, serviceCharge, otherCharge);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -274,15 +294,19 @@ public class PostLoanApiController {
 	
 	
 	@RequestMapping(method = RequestMethod.POST, value = "provision/edit")
-	public String provisionEdit(Model model, String id,
-								BigDecimal provisionMoney, String provisionDate,
-								BigDecimal provisionScale,
-								String loanClassification, BigDecimal balance) {
+	public String provisionEdit(Model model, String id, String dateMonth,
+			BigDecimal normalBalance, BigDecimal normalRate, BigDecimal normalReal, 
+			BigDecimal followBalance, BigDecimal followRate, BigDecimal followReal,
+			BigDecimal minorBalance, BigDecimal minorRate, BigDecimal minorReal, 
+			BigDecimal suspiciousBalance, BigDecimal suspiciousRate, BigDecimal suspiciousReal,
+			BigDecimal lossBalance, BigDecimal lossRate, BigDecimal lossReal) {
 		try {
-			provisionService.addOrEdit(id, provisionMoney, DateUtils.parseDate(provisionDate, "yyyy-MM-dd"),
-					                   provisionScale, 
-					                   LoanClassificationEnum.valueOf(loanClassification), 
-					                   balance);
+			provisionService.addOrEdit(id, DateUtils.parseDate(dateMonth, "yyyy-MM-dd"),
+					normalBalance, normalRate, normalReal, 
+					followBalance, followRate, followReal,
+					minorBalance, minorRate, minorReal, 
+					suspiciousBalance, suspiciousRate, suspiciousReal,
+					lossBalance, lossRate, lossReal);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -42,48 +42,64 @@
 										<div class="col-sm-6 input-group">
 											<select class="form-control validate[required] partnerType" id="loanContractId" name="loanContractId" data-errormessage="合同不能为空">
 												<c:forEach var="con" items="${contracts}"> 
-													<option value="${con.id}">${con.loanContractNo}</option>
+													<option value="${con.id}">${con.contractNumber}</option>
 												</c:forEach>
 											</select>
 										</div>									
 									</div>
 									<div class="form-group">
-										<label for="#repayDate" class="col-sm-3 control-label"><i class="text-red">*</i> 还款日期</label>
+										<label for="#repayTime" class="col-sm-3 control-label"><i class="text-red">*</i> 还款日期</label>
 										<div class="col-sm-6 input-group">
 											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 											<input type="text" class="form-control pull-right datepicker validate[required]" 
-											readonly name="repayDate" data-errormessage="合同签订日期不能为空">
+											readonly name="repayTime" data-errormessage="还款日期不能为空">
 										</div>
 									</div>
 									<div class="form-group">
-										<label for="#extendNum" class="col-sm-3 control-label"><i class="text-red">*</i> 展期次数</label>
-										<div class="col-sm-6 input-group">
-											<input type="text" class="form-control validate[required,custom[number],max[10]]" data-errormessage="展期次数只能为数字，最大10" 
-												name="extendNum"> 
-											<span class="input-group-addon"><i class="fa">次</i></span>
-										</div>
-									</div>								
-									<div class="form-group"> 
-										<label for="#partnerType" class="col-sm-3 control-label"><i class="text-red">*</i> 还款金额</label>
-										<div class="col-sm-6 input-group">
-											<input type="text" class="form-control validate[required,custom[number],max[999999999]]" data-errormessage="还款金额只能为数字"
-												name="repayAmount"> 
-											<span class="input-group-addon"><i class="fa">元</i></span>
-										</div>								
-									</div>
-									<div class="form-group">
-										<label for="#repayPrincipalAmount" class="col-sm-3 control-label"><i class="text-red">*</i> 还款本金</label>
+										<label for="#money" class="col-sm-3 control-label"><i class="text-red">*</i> 还款本金</label>
 										<div class="col-sm-6 input-group">
 											<input type="text" class="form-control validate[required,custom[number],max[999999999]]" data-errormessage="还款本金只能为数字"
-												name="repayPrincipalAmount"> 
+												name="money"> 
 											<span class="input-group-addon"><i class="fa">元</i></span>
 										</div>	
 									</div>
 									<div class="form-group"> 
-										<label for="#repayInterestAmount" class="col-sm-3 control-label"><i class="text-red">*</i> 还款利息</label>
+										<label for="#interest" class="col-sm-3 control-label"><i class="text-red">*</i> 还款利息</label>
 										<div class="col-sm-6 input-group">
 											<input type="text" class="form-control validate[required,custom[number],max[999999999]]" data-errormessage="还款利息只能为数字"
-												name="repayInterestAmount"> 
+												name="interest"> 
+											<span class="input-group-addon"><i class="fa">元</i></span>
+										</div>	
+									</div>
+									<div class="form-group"> 
+										<label for="#penaltyInterest" class="col-sm-3 control-label"><i class="text-red">*</i> 罚息</label>
+										<div class="col-sm-6 input-group">
+											<input type="text" class="form-control validate[required,custom[number],max[999999999]]" data-errormessage="罚息只能为数字"
+												name="penaltyInterest"> 
+											<span class="input-group-addon"><i class="fa">元</i></span>
+										</div>	
+									</div>
+									<div class="form-group"> 
+										<label for="#penalty" class="col-sm-3 control-label"><i class="text-red">*</i> 违约金</label>
+										<div class="col-sm-6 input-group">
+											<input type="text" class="form-control validate[required,custom[number],max[999999999]]" data-errormessage="违约金只能为数字"
+												name="penalty"> 
+											<span class="input-group-addon"><i class="fa">元</i></span>
+										</div>	
+									</div>
+									<div class="form-group"> 
+										<label for="#serviceCharge" class="col-sm-3 control-label"><i class="text-red">*</i>服务费</label>
+										<div class="col-sm-6 input-group">
+											<input type="text" class="form-control validate[required,custom[number],max[999999999]]" data-errormessage="服务费只能为数字"
+												name="serviceCharge"> 
+											<span class="input-group-addon"><i class="fa">元</i></span>
+										</div>	
+									</div>
+									<div class="form-group"> 
+										<label for="#otherCharge" class="col-sm-3 control-label"><i class="text-red">*</i>其它费用</label>
+										<div class="col-sm-6 input-group">
+											<input type="text" class="form-control validate[required,custom[number],max[999999999]]" data-errormessage="其它费用只能为数字"
+												name="otherCharge"> 
 											<span class="input-group-addon"><i class="fa">元</i></span>
 										</div>	
 									</div>
@@ -110,16 +126,18 @@
                                     <table class="table table-bordered" role="grid" id="extRepayInfo"> 
 	                                    <thead>
 	                                        <tr>
-	                                            <th>编号</th> 
-	                                            <th>主合同编号</th>
-	                                            <th>主合同名称</th>
-	                                            <th>展期次数</th> 
-	                                            <th>还款日期</th> 
-	                                            <th>还款金额</th> 
-	                                            <th>还款本金</th>
-	                                            <th>还款利息</th>
-	                                            <th>状态</th>
-	                                            <th>操作</th>
+											<th>编号</th>
+											<th>主合同编号</th>
+											<th>主合同名称</th>
+											<th>还款日期</th>
+											<th>还款本金</th>
+											<th>还款利息</th>
+											<th>罚息</th>
+											<th>违约金</th>
+											<th>服务费</th>
+											<th>其他费用</th>
+											<th>状态</th>
+											<th>操作</th>
 	                                        </tr>
 	                                     </thead>
 	                                     <tbody></tbody>
