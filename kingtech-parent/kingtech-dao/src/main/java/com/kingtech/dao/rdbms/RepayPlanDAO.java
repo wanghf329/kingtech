@@ -11,7 +11,7 @@ import com.kingtech.dao.entity.RepayPlan;
 
 public interface RepayPlanDAO extends PagingAndSortingRepository<RepayPlan, String> {
 	
-	@Query("select r from RepayPlan r where r.loanContractId = :loanContractId order by r.repayDate ")
+	@Query("select r from RepayPlan r where r.loanContractId = :loanContractId order by r.endDate ")
 	public List<RepayPlan> listByloanContractId(@Param("loanContractId")String loanContractId);
 	
 	@Modifying

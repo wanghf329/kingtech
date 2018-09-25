@@ -1,7 +1,6 @@
 package com.kingtech.web.commons.base.service.impl;
 
 import java.math.BigDecimal;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -19,7 +18,6 @@ import com.kingtech.dao.entity.ContractZyw;
 import com.kingtech.dao.entity.Guarantee;
 import com.kingtech.dao.entity.RepayPlan;
 import com.kingtech.dao.entity.SettledInfo;
-import com.kingtech.dao.rdbms.CollateralDAO;
 import com.kingtech.dao.rdbms.ContractDAO;
 import com.kingtech.dao.rdbms.EnterpriseCustomerDAO;
 import com.kingtech.dao.rdbms.GuaranteeDAO;
@@ -51,8 +49,8 @@ public class ContractServiceImpl implements ContractService{
 	@Autowired
 	private ContractDAO contractDao;
 	
-	@Autowired
-	private CollateralDAO collateralDAO;
+//	@Autowired
+//	private CollateralDAO collateralDAO;
 	
 	@Autowired
 	private GuaranteeDAO guaranteeDAO;
@@ -218,7 +216,7 @@ public class ContractServiceImpl implements ContractService{
 	
 	@Override
 	public List<ContractZyw> listCollateralByLoanContractId(String loanContractId) {
-		return collateralDAO.listByloanContractId(loanContractId);
+		return null;//collateralDAO.listByloanContractId(loanContractId);
 	}
 
 	@Override

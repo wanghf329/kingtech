@@ -24,8 +24,8 @@ import com.kingtech.dao.entity.RepayInfo;
 import com.kingtech.dao.entity.Shareholder;
 import com.kingtech.dao.rdbms.BranchDAO;
 import com.kingtech.dao.rdbms.CapitalDAO;
-import com.kingtech.dao.rdbms.CollateralDAO;
 import com.kingtech.dao.rdbms.ContractDAO;
+import com.kingtech.dao.rdbms.ContractZywDAO;
 import com.kingtech.dao.rdbms.EmployeeDAO;
 import com.kingtech.dao.rdbms.EnterpriseCustomerDAO;
 import com.kingtech.dao.rdbms.GuaranteeDAO;
@@ -39,21 +39,16 @@ import com.kingtech.dao.rdbms.RepayInfoDAO;
 import com.kingtech.dao.rdbms.RepayPlanDAO;
 import com.kingtech.dao.rdbms.SettledInfoDAO;
 import com.kingtech.dao.rdbms.ShareholderDAO;
-import com.kingtech.enums.BorrowerTypeEnum;
 import com.kingtech.enums.Cmd;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.model.AsyReponseModel;
 import com.kingtech.model.BranchInfoModel;
 import com.kingtech.model.CapitalModel;
-import com.kingtech.model.ContractZywModel;
-import com.kingtech.model.ContractModel;
 import com.kingtech.model.EmployeeModel;
-import com.kingtech.model.EnterpriseCustomerModel;
 import com.kingtech.model.GuaranteeModel;
 import com.kingtech.model.OtherBaddebtModel;
 import com.kingtech.model.OtherOverdueInfoModel;
-import com.kingtech.model.PersonalCustomerModel;
 import com.kingtech.model.ProvisionInfoModel;
 import com.kingtech.model.RepayExtendInfoModel;
 import com.kingtech.model.RepayExtendPlanModel;
@@ -95,7 +90,7 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 	private ContractDAO contractDAO;
 	
 	@Autowired 
-	private CollateralDAO collateralDAO;
+	private ContractZywDAO collateralDAO;
 	
 	@Autowired 
 	private EnterpriseCustomerDAO enterpriseCustomerDAO;
