@@ -1,14 +1,10 @@
 package com.kingtech.model;
 
-import javax.persistence.Column;
-
-import lombok.AllArgsConstructor;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,15 +12,15 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.kingtech.common.config.BaseConfig;
 import com.kingtech.common.utils.SignUtils;
 import com.kingtech.enums.CardTypeEnum;
-import com.kingtech.enums.CertType;
 import com.kingtech.enums.EducationEnum;
-import com.kingtech.enums.FarmersFlagEnum;
 import com.kingtech.enums.SexEnum;
 import com.kingtech.enums.YesNoEnum;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class PersonalCustomerModel extends BaseRequestModel {
+	
+	private String id;
 	
 	//姓名
 	@JSONField(name="name", label="sign")
@@ -42,8 +38,8 @@ public class PersonalCustomerModel extends BaseRequestModel {
 	// 联系电话
 	private String phone;
 	
-	//是否农牧民：1）是   2）否
-	private FarmersFlagEnum isFarmer;
+	// 是农牧民（0：否，1：是）
+	private YesNoEnum isFarmer;
 	
 	//学历（1：博士，2：硕士，3：本科，4：专科，5：高中及以下）
 	private EducationEnum education;

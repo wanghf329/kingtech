@@ -32,15 +32,14 @@ public class PersonalCustomer extends RecordEntity{
 	@Column(name="NAME", nullable = false)
 	private String name;
 
-
 	// 联系电话
 	@Column(name="PHONE", nullable = false)
 	private String phone;
 	
-	//是否农牧民：1）是   2）否
+	//是否农牧民
 	@Enumerated(EnumType.STRING)
 	@Column(name="FARMERS_FLAG",nullable = false)
-	private FarmersFlagEnum isFarmer;
+	private YesNoEnum isFarmer;
 	
 	
 	// 电子邮件
