@@ -33,10 +33,15 @@
                                 <div class="tabbable">
                                 	<ul id="myTab" class="inbox-tabs nav nav-tabs tab-size-bigger tab-space-1">
                                 		<li data-type="collateral" class="active">
-											<a data-toggle="tab" href="#collateralTab">
-												抵质押物	
+											<a data-toggle="tab" href="#collateralDywTab">
+												抵押物	
 											</a>
 										</li>
+                                		<li data-type="collateral">
+											<a data-toggle="tab" href="#collateralZywTab">
+												抵押物	
+											</a>
+										</li>										
 										<li data-type="guarantee">
 											<a data-toggle="tab" href="#guaranteeTab">
 												保证人信息
@@ -55,16 +60,16 @@
                                 	</ul>
                                 </div>
                                 <div class="tab-content no-border no-padding">
-                                	<!-- 抵质押物 -->
-                                	<div id="collateralTab" class="tab-pane in active">
+                                	<!-- 抵押物 -->
+                                	<div id="collateralDywTab" class="tab-pane in active">
 	                                	<div class="content col-md-10">
-	                                		<a href="javascript:void(0)" class="edit-href"><i class="text-blue fa  fa-plus-circle addCollateralBtn">增加</i></a> 
-	                                		<form class="form-horizontal" id="form-collateral" action="loan/supplement/addCollateral" method="POST">
+	                                		<a href="javascript:void(0)" class="edit-href"><i class="text-blue fa  fa-plus-circle addDywBtn">增加</i></a> 
+	                                		<form class="form-horizontal" id="form-collateral" action="loan/supplement/addDyw" method="POST">
 	                                			<input type="hidden" name="loanContractId" value="${loanContractId}">
 	                                				<div>
-					                                	<%@include file="sub/collateral.jspf" %>			                                		
+					                                	<%@include file="sub/dyw.jspf" %>			                                		
 			                                			<c:forEach var="it" items="${collateralList}">
-						                                	<%@include file="sub/collateral1.jspf" %>
+						                                	<%@include file="sub/dyw1.jspf" %>
 						                            	</c:forEach>
 				                                	</div>
 				                            	<div class="col-md-8  text-center">   
@@ -73,6 +78,25 @@
 			                            	</form>
 	                                	</div>    
                                 	</div>
+                                	
+                                	<!-- 质押物 -->
+                                	<div id="collateralZywTab" class="tab-pane">
+	                                	<div class="content col-md-10">
+	                                		<a href="javascript:void(0)" class="edit-href"><i class="text-blue fa  fa-plus-circle addZywBtn">增加</i></a> 
+	                                		<form class="form-horizontal" id="form-collateral" action="loan/supplement/addZyw" method="POST">
+	                                			<input type="hidden" name="loanContractId" value="${loanContractId}">
+	                                				<div>
+					                                	<%@include file="sub/zyw.jspf" %>			                                		
+			                                			<c:forEach var="it" items="${collateralList}">
+						                                	<%@include file="sub/zyw1.jspf" %>
+						                            	</c:forEach>
+				                                	</div>
+				                            	<div class="col-md-8  text-center">   
+					                                <button type="submit" class="btn btn-primary ">保&nbsp;存</button>									
+				                                </div>	 
+			                            	</form>
+	                                	</div>    
+                                	</div>                                	
                                 	
                                 	<!-- 保证人信息 -->
                                 	<div id="guaranteeTab" class="tab-pane">

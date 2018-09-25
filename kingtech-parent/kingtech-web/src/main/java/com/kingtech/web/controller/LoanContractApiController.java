@@ -3,18 +3,24 @@ package com.kingtech.web.controller;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.common.collect.Lists;
 import com.kingtech.enums.BorrowerTypeEnum;
 import com.kingtech.enums.DywTypeEnum;
 import com.kingtech.enums.IdentifierType;
@@ -28,7 +34,9 @@ import com.kingtech.enums.TermTypeEnum;
 import com.kingtech.enums.UnionFlagEnum;
 import com.kingtech.enums.YesNoEnum;
 import com.kingtech.enums.ZywTypeEnum;
+import com.kingtech.model.ContractDywModel;
 import com.kingtech.model.ContractModel;
+import com.kingtech.model.ContractZywModel;
 import com.kingtech.model.SynResponseModel;
 import com.kingtech.model.misc.PageInfo;
 import com.kingtech.model.misc.PagedResult;
@@ -54,20 +62,18 @@ public class LoanContractApiController {
 	private BorrowerService borrowerService;
 
 	/**
-	 * 使用帮助页面
+	 * 合同列表
 	 * 
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/list")
 	public String list(Model model) {
-		model.addAttribute("list", contractService.listAll());
 		return "/loan/loanList";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/edit")
 	public String edit(Model model,@RequestParam("id") String id) {
-		model.addAttribute("list", contractService.listAll());
 		model.addAttribute("borrowerType", BorrowerTypeEnum.values());
 		model.addAttribute("termType", TermTypeEnum.values());
 		model.addAttribute("rateType", RateTypeEnum.values());
@@ -76,9 +82,8 @@ public class LoanContractApiController {
 		model.addAttribute("LoanMethod", LoanMethodEnum.values());
 		model.addAttribute("unionFlag", UnionFlagEnum.values());
 		model.addAttribute("status", LoanstatusEnum.values());
-		model.addAttribute("isExtend", YesNoEnum.values());
-		model.addAttribute("payType", PayTypeEnum.values());
-		model.addAttribute("branchs", branchService.listByInstitutionInfo());
+		model.addAttribute("yesNoEnum", YesNoEnum.values());
+		model.addAttribute("repayMethod", PayTypeEnum.values());
 		
 		if(StringUtils.isNotEmpty(id)){
 			model.addAttribute("contract",contractService.getById(id));
@@ -99,14 +104,24 @@ public class LoanContractApiController {
 		return "/loan/loanSupplement";
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/supplement/addCollateral")
-	public String addCollateral(Model model, String[] id, String loanContractId,
-			String[] pledgeType, String[] collateralType, String[] collateralName, String[] warrantNum, 
-			BigDecimal[] evaluationValue, String[] warrantHolder, String[] collateralAddr, String[] handleDate) throws ParseException {
-		contractService.addCollateral(id, loanContractId, 
-				pledgeType, collateralType, 
-				collateralName, warrantNum, evaluationValue, warrantHolder, collateralAddr, 
-				handleDate);
+	@RequestMapping(method = RequestMethod.POST, value = "/supplement/addDyw")
+	public String addCollateral(Model model, String loanContractId,DywTypeEnum[] pledgeType,String[] name,BigDecimal[] worth,String[] address,String[] unit) throws ParseException {
+		List<ContractDywModel> dyw = Lists.newArrayList();
+		for(int i=1;i<pledgeType.length;i++){
+			dyw.add(new ContractDywModel(pledgeType[i],name[i],worth[i],address[i],unit[i]));
+		}
+		contractService.addDyw(dyw);
+		model.addAttribute("loanContractId", loanContractId);
+		return "redirect:/loan/supplement";
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/supplement/addZyw")
+	public String addCollateral(Model model,String loanContractId,ZywTypeEnum[] pledgeType,String[] name,BigDecimal[] worth,String[] address,String[] unit) throws ParseException {
+		List<ContractZywModel> zyw = Lists.newArrayList();
+		for(int i=1;i<pledgeType.length;i++){
+			zyw.add(new ContractZywModel(pledgeType[i],name[i],worth[i],address[i],unit[i]));
+		}		
+		contractService.addZyw(zyw);
 		model.addAttribute("loanContractId", loanContractId);
 		return "redirect:/loan/supplement";
 	}
@@ -137,25 +152,9 @@ public class LoanContractApiController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/save")
-	public String save(Model model, String id, String loanContractNo,
-			String loanContractName, String borrowerType,String borrowerId, String customerId,
-			String guarantee, BigDecimal loanAmount, String periodType,
-			int periodTerm, String loanStartDate, String loanEndDate,
-			String rateType, BigDecimal rate, String purpose, String industry,
-			String loanType, String unionFlag, String payType, String signDate,
-			String repaySource, String status, String isExtend)
+	public String save(Model model, ContractModel contract)
 			throws ParseException {
-//		contractService.addNew(id, loanContractNo, loanContractName,
-//				BorrowerTypeEnum.valueOf(borrowerType), borrowerId,customerId, null, loanAmount,
-//				TermTypeEnum.valueOf(periodType), periodTerm,
-//				DateUtils.parseDate(loanStartDate, "yyyy-MM-dd"),
-//				DateUtils.parseDate(loanEndDate, "yyyy-MM-dd"),
-//				RateTypeEnum.valueOf(rateType), rate,
-//				LoanPurposeEnum.valueOf(purpose),
-//				IndustryEnum.valueOf(industry), LoanMethodEnum.valueOf(loanType),
-//				UnionFlagEnum.valueOf(unionFlag), PayTypeEnum.valueOf(payType),
-//				DateUtils.parseDate(signDate, "yyyy-MM-dd"), repaySource,
-//				LoanstatusEnum.valueOf(status), YesNoEnum.valueOf(isExtend));
+		contractService.save(contract);
 		return "redirect:/loan/list";
 	}
 
@@ -176,5 +175,13 @@ public class LoanContractApiController {
 									 			 @RequestParam("length") Integer pageSize) {
 		return contractService.pageList(PageInfo.page(firstIndex, pageSize));
 	}
+	
+	@InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        //第二个参数是控制是否支持传入的值是空，这个值很关键，如果指定为false，那么如果前台没有传值的话就会报错
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
 }
 

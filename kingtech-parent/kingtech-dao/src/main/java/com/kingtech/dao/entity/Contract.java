@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -47,7 +48,7 @@ public class Contract extends RecordEntity{
 	 */
 	@Enumerated(EnumType.STRING)
 	@Column(name="BORROWER_TYPE")
-	private BorrowerTypeEnum BORROWER_TYPE;
+	private BorrowerTypeEnum borrowerType;
 	
 	/**
 	 * 贷款金额(元) 
@@ -160,4 +161,7 @@ public class Contract extends RecordEntity{
 	 */
 	@Column(name="BORROWER_ID")
 	private String borrowerId;
+	
+	@Transient
+	private String borrowerName;
 }

@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 import com.kingtech.enums.ZywTypeEnum;
 
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ContractZywModel {
 	
 	private ZywTypeEnum pledgeType;
