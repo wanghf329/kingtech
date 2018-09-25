@@ -100,14 +100,9 @@ function initDataTables() {
 						columns : [
 								{data : null},
 								{data : "loanContractNo"},
-								{data : "model.extendCount"},
-								{data : "model.extendTerm"},
-								{data : "model.repayDate"},
+								{data : "model.count"},
+								{data : "model.endDate"},
 								{data : "model.principal",render : function(data, type, row) {
-										return "<span class=\"text-red bolder\">￥"+ data + "</span>";
-									}
-								},
-								{data : "model.returnPrincipal",render : function(data, type, row) {
 										return "<span class=\"text-red bolder\">￥"+ data + "</span>";
 									}
 								},
@@ -115,13 +110,6 @@ function initDataTables() {
 										return "<span class=\"text-red bolder\">￥"+ data + "</span>";
 									}
 								},
-								{data : "model.returnInterest",render : function(data, type, row) {
-									return "<span class=\"text-red bolder\">￥"+ data + "</span>";
-									}
-								},
-								{data : "model.status"},
-								{data : "model.overdueFlag"},
-								{data : "model.overdueDays"},
 								{data : "pushStatus",render : function(data, type, row) {
 										switch (data) {
 										case 'INITATION':

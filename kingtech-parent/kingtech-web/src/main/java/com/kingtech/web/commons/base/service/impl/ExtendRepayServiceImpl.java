@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.kingtech.common.dynamicquery.DynamicQuery;
 import com.kingtech.dao.entity.Contract;
 import com.kingtech.dao.entity.RepayExtendInfo;
+import com.kingtech.dao.entity.RepayExtendPlan;
 import com.kingtech.dao.rdbms.ContractDAO;
 import com.kingtech.dao.rdbms.RepayExtendInfoDAO;
 import com.kingtech.enums.IdentifierType;
@@ -54,7 +55,8 @@ public class ExtendRepayServiceImpl implements ExtendRepayService{
 			BigDecimal serviceCharge, BigDecimal otherCharge) {
 		RepayExtendInfo ri = null;
 		if (StringUtils.isEmpty(id)) {
-			ri = new RepayExtendInfo(loanContractId,creatRequstId.getReqId(),
+			ri = new RepayExtendInfo(loanContractId,
+									creatRequstId.getReqId(),
 									PushStatus.INITATION,
 									repayTime,
 									money,
@@ -65,11 +67,13 @@ public class ExtendRepayServiceImpl implements ExtendRepayService{
 									otherCharge);
 		}else{
 			ri = repayExtendInfoDao.findOne(id);
-//			ri.setExtendNum(extendNum);
-//			ri.setRepayDate(repayDate);
-//			ri.setRepayAmount(repayAmount);
-//			ri.setRepayPrincipalAmount(repayPrincipalAmount);
-//			ri.setRepayInterestAmount(repayInterestAmount);
+			ri.setRepayTime(repayTime);
+			ri.setMoney(money);
+			ri.setInterest(interest);
+			ri.setPenaltyInterest(penaltyInterest);
+			ri.setPenalty(penalty);
+			ri.setServiceCharge(serviceCharge);
+			ri.setOtherCharge(otherCharge);
 		}
 		repayExtendInfoDao.save(ri);
 		paymentApi.repayExtendInfoApi(ri.getId(), StringUtils.isEmpty(id) ?  IdentifierType.A : IdentifierType.U);
@@ -102,9 +106,10 @@ public class ExtendRepayServiceImpl implements ExtendRepayService{
 	
 	@Override
 	public PagedResult<RepayExtendInfoModelExt> pageList(Pageable pageAble) {
-		String sql = "SELECT t1.ID,t1.LOAN_CONTRACT_ID,t1.EXTEND_NUM,t1.REPAY_DATE,t1.REPAY_AMOUNT,t1.REPAY_PRINCIPAL_AMOUNT,t1.REPAY_INTEREST_AMOUNT,t2.LOAN_CONTRACT_NO,t2.LOAN_CONTRACT_NAME,t1.PUSH_STATUS "
+		String sql = " SELECT t1.ID,t1.LOAN_CONTRACT_ID,t1.REPAY_TIME,t1.MONEY,t1.INTEREST,t1.PENALTY_INTEREST,"
+				+ " t1.PENALTY,t1.SERVICE_CHARGE,t1.OTHER_CHARGE,t2.CONTRACT_NUMBER,t2.CONTRACT_NAME,t1.PUSH_STATUS"
 				+ "		FROM TB_LOAN_REPAY_EXTEND_INFO t1,TB_LOAN_CONTRACT t2 "
-				+ "   WHERE t1.LOAN_CONTRACT_ID = t2.ID ORDER BY t1.LOAN_CONTRACT_ID,t1.REPAY_DATE DESC ";
+				+ "   WHERE t1.LOAN_CONTRACT_ID = t2.ID ORDER BY t1.LOAN_CONTRACT_ID,t1.REPAY_TIME DESC ";
 		
 		String[] params = new String[0];
 		List<Object[]> list = dq.nativeQueryPagingList(Object[].class, pageAble, sql, params);
@@ -112,13 +117,18 @@ public class ExtendRepayServiceImpl implements ExtendRepayService{
 		
 		List<RepayExtendInfoModelExt> result = new ArrayList<RepayExtendInfoModelExt>();
 		for (Object[] obj : list) {
-//			result.add(new RepayExtendInfoModelExt((String) obj[0],
-//					(String) obj[1], ((Integer) obj[2]).toString(), DateFormatUtils.format(
-//							(Date) obj[3], "yyyy-MM-dd"), ((BigDecimal) obj[4])
-//							.toPlainString(), ((BigDecimal) obj[5])
-//							.toPlainString(), ((BigDecimal) obj[6])
-//							.toPlainString(), (String) obj[7], (String) obj[8],
-//							PushStatus.valueOf(obj[9].toString())));
+			result.add(new RepayExtendInfoModelExt((String) obj[0], 
+													(String) obj[9], 
+													DateFormatUtils.format((Date) obj[2], "yyyy-MM-dd"), 
+													((BigDecimal) obj[3]).toPlainString(), 
+													((BigDecimal) obj[4]).toPlainString(),
+													((BigDecimal) obj[5]).toPlainString(), 
+													((BigDecimal) obj[6]).toPlainString(), 
+													((BigDecimal) obj[7]).toPlainString(), 
+													((BigDecimal) obj[8]).toPlainString(), 
+													(String) obj[9], 
+													(String) obj[10], 
+													PushStatus.valueOf(obj[11].toString())));
 		}
 		return new PagedResult(result,count);
 	}

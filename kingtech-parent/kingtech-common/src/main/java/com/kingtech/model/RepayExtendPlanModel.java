@@ -30,11 +30,16 @@ public class RepayExtendPlanModel extends BaseRequestModel{
 	private String principal;
 	
 	
+	//第几次展期
+	@JSONField(name="count")
+	private String count;
+	
 	@JSONField(name="create_time")
 	private String creatTime;
 	
 	@JSONField(name="update_time")
 	private String updateTime;
+	
 
 	public RepayExtendPlanModel(String id, String contractNumber,
 			String interest, String endDate, String principal,

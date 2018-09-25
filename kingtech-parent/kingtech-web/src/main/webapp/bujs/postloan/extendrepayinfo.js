@@ -87,19 +87,17 @@ function initDataTables() {
 									data : null
 								},
 								{
-									data : "loanContractNo"
+									data : "contractNumber"
 								},
 								{
-									data : "loanContractName"
+									data : "contractName"
+								},
+								
+								{
+									data : "repayTime"
 								},
 								{
-									data : "extendNum"
-								},
-								{
-									data : "repayDate"
-								},
-								{
-									data : "repayAmount",
+									data : "money",
 									render : function(data, type, row) {
 										return "<span class=\"text-red bolder\">￥"
 												+ data + "</span>";
@@ -107,7 +105,7 @@ function initDataTables() {
 									}
 								},
 								{
-									data : "repayPrincipalAmount",
+									data : "interest",
 									render : function(data, type, row) {
 										return "<span class=\"text-red bolder\">￥"
 												+ data + "</span>";
@@ -115,7 +113,28 @@ function initDataTables() {
 									}
 								},
 								{
-									data : "repayInterestAmount",
+									data : "penaltyInterest",
+									render : function(data, type, row) {
+										return "<span class=\"text-red bolder\">￥"
+												+ data + "</span>";
+									}
+								},
+								{
+									data : "penalty",
+									render : function(data, type, row) {
+										return "<span class=\"text-red bolder\">￥"
+												+ data + "</span>";
+									}
+								},
+								{
+									data : "serviceCharge",
+									render : function(data, type, row) {
+										return "<span class=\"text-red bolder\">￥"
+												+ data + "</span>";
+									}
+								},
+								{
+									data : "otherCharge",
 									render : function(data, type, row) {
 										return "<span class=\"text-red bolder\">￥"
 												+ data + "</span>";

@@ -10,27 +10,22 @@ import com.kingtech.model.ext.RepayExtendPlanModelExt;
 import com.kingtech.model.misc.PagedResult;
 
 public interface ExtendRepayPlanService {
-	
 	/**
-	 * 
+	 * 添加展期计划信息
 	 * @param id
 	 * @param loanContractId
-	 * @param extendCount
-	 * @param extendTerm
-	 * @param repayDate
+	 * @param count
+	 * @param endDate
 	 * @param principal
-	 * @param returnPrincipal
 	 * @param interest
-	 * @param returnInterest
-	 * @param status
-	 * @param overdueFlag
-	 * @param overdueDays
 	 */
-	public void addNew(String id, String loanContractId, String extendCount, String extendTerm,
-			String repayDate, String principal, String returnPrincipal,
-			String interest, String returnInterest, String status,
-			String overdueFlag, String overdueDays);
-	
+	public void addNew(String id, 
+						String loanContractId, 
+						String count,
+						String endDate, 
+						String principal,
+						String interest);
+				
 	/**
 	 * 
 	 * @return
