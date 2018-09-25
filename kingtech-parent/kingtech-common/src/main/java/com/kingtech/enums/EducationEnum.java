@@ -1,6 +1,10 @@
 package com.kingtech.enums;
 
-public enum EducationEnum implements BaseEnum {
+/**
+ * @author Tson
+ * 学历
+ */
+public enum EducationEnum  implements BaseEnum{
 	S_1("博士"),
 	S_2("硕士"),
 	S_3("本科"),
@@ -9,12 +13,13 @@ public enum EducationEnum implements BaseEnum {
 
 	private String key;
 	
-	private EducationEnum(String key) {
-		this.key = key;
-	}
-	
 	@Override
 	public String getKey() {
 		return key;
 	}
+
+	private EducationEnum(String key) {
+		this.key = key;
+	}
+	
 }

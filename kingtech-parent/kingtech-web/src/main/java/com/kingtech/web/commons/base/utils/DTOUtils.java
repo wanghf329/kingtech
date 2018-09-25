@@ -24,7 +24,7 @@ public class DTOUtils {
 	public static PersonalCustomerModel getPersonalCustomerModel(PersonalCustomer personalCustomer){
 		PersonalCustomerModel customerModel = null;
 		if (personalCustomer != null) {
-			customerModel = new PersonalCustomerModel(personalCustomer.getName(),
+			customerModel = new PersonalCustomerModel(personalCustomer.getId(),personalCustomer.getName(),
 					personalCustomer.getSex(),
 					personalCustomer.getCardType(),
 					personalCustomer.getCardNumber(),
@@ -50,7 +50,8 @@ public class DTOUtils {
 	public static EnterpriseCustomerModel getEnterpriseCustomerModel(EnterpriseCustomer enterpriseCustomer){
 		EnterpriseCustomerModel enterpriseCustomerModel = null;
 		if (enterpriseCustomer != null ) {
-			enterpriseCustomerModel = new EnterpriseCustomerModel(enterpriseCustomer.getName(),
+			enterpriseCustomerModel = new EnterpriseCustomerModel(enterpriseCustomer.getId(),
+																enterpriseCustomer.getName(),
 																enterpriseCustomer.getScale(),
 																enterpriseCustomer.getIndustryType(),
 																enterpriseCustomer.getIndustryinvolved(),

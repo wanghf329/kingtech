@@ -3,26 +3,27 @@ package com.kingtech.model;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.kingtech.common.config.BaseConfig;
+import com.kingtech.common.utils.SignUtils;
 import com.kingtech.enums.CardTypeEnum;
-import com.kingtech.enums.CertType;
 import com.kingtech.enums.EducationEnum;
-import com.kingtech.enums.FarmersFlagEnum;
 import com.kingtech.enums.SexEnum;
 import com.kingtech.enums.YesNoEnum;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class PersonalCustomerModel {
+public class PersonalCustomerModel extends BaseRequestModel {
+	
+	private String id;
 	
 	//姓名
+	@JSONField(name="name", label="sign")
 	private String name;
 
 	//性别：1）男 2）女
@@ -37,8 +38,8 @@ public class PersonalCustomerModel {
 	// 联系电话
 	private String phone;
 	
-	//是否农牧民：1）是   2）否
-	private FarmersFlagEnum isFarmer;
+	// 是农牧民（0：否，1：是）
+	private YesNoEnum isFarmer;
 	
 	//学历（1：博士，2：硕士，3：本科，4：专科，5：高中及以下）
 	private EducationEnum education;
@@ -61,6 +62,37 @@ public class PersonalCustomerModel {
 	// 固定住址（详细）
 	private String address;
 	
+	//部门
+	@JSONField(name="department")
+	private String department;
+
+	
+	//是否董监高，0-否，1-是
+	@JSONField(name="executiveFlag", label="sign")
+	private String executiveFlag;
+	
+	//职务
+	@JSONField(name="position", label="sign")
+	private String position;
+	
+	//入职日期，格式YYYY-MM-DD
+	@JSONField(name="entryTime")
+	private String entryTime;
+	
+	//离职日期，格式YYYY-MM-DD
+	@Column(name="quitTime")
+	private String quitTime;
+	
+	/**
+	 * 删除
+	 * @param roundStr
+	 * @param identifier
+	 * @param reqId
+	 */
+	public PersonalCustomerModel( String roundStr,String identifier, String reqId) {
+		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId);
+	}
+
 	//邮政编码
 	private String postCode;
 	
@@ -72,7 +104,4 @@ public class PersonalCustomerModel {
 	
 	// 现工作单位
 	private String workUnit;
-	
-	//职务
-	private String position;
 }

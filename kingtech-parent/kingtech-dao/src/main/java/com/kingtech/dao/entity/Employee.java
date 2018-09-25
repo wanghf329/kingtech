@@ -8,16 +8,17 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import com.kingtech.dao.entity.base.RecordEntity;
-import com.kingtech.enums.EmployeeStatus;
-import com.kingtech.enums.PushStatus;
+import com.kingtech.enums.CertType;
+import com.kingtech.enums.EducationEnum;
+import com.kingtech.enums.SexEnum;
+import com.kingtech.enums.YesNoEnum;
 
 /**
- * 员工信息表
+ * 机构人员信息
  * @version: v1.0
  */
 @Data
@@ -26,93 +27,98 @@ import com.kingtech.enums.PushStatus;
 @NoArgsConstructor
 public class Employee extends RecordEntity {
 	
-	// 机构名称
-	@Column(name="NAME")
+	//姓名
+	@Column(name="NAME", nullable = false)
 	private String name;
-
-	// 登录名
-	@Column(name="LOGIN_NAME")
-	private String loginName;
-
+	
 	// 联系电话
-	@Column(name="PHONE")
+	@Column(name="PHONE", nullable = false)
 	private String phone;
-
+	
 	// 电子邮件
 	@Column(name="EMAIL")
 	private String email;
-
-	// 通讯地址
-	@Column(name="POSTAL_ADDRESS")
-	private String postalAddress;
 	
-	// 部门
-	@Column(name="DEPARTMENT")
+	// 固定住址（详细）
+	@Column(name="ADDRESS", nullable = false)
+	private String address;
+	
+	//部门
+	@Column(name="DEPARTMENT", nullable = false)
 	private String department;
+
+	//性别：1）男 2）女
+	@Enumerated(EnumType.ORDINAL)
+	@Column(name="SEX",nullable = false)
+	private SexEnum sex;
 	
-	// 性别
-	@Column(name="SEX")
-	private String sex;
+	//证件类型：1）居民身份证 2）护照,  3）驾驶证
+	@Enumerated(EnumType.STRING)
+	@Column(name="CARD_TYPE",nullable = false)
+	private CertType cardType;
 	
-	// 身份证号
-	@Column(name="ID_NUMBER")
-	private String idNumber;
-		
-	// 学历
-	@Column(name="EDUCATION")
-	private String education;
+	// 证件号码
+	@Column(name="CARD_NUMBER", nullable = false)
+	private String cardNumber;
 	
-	// 是否懂监高，0-否，1-是
-	@Column(name="EXECUTIVE_FLAG")
-	private int executiveFlag;
+	//学历
+	@Enumerated(EnumType.STRING)
+	@Column(name="EDUCATION", nullable = false)
+	private EducationEnum education;
 	
-	// 职务
-	@Column(name="POST")
-	private String post;
+	//是否董监高，0-否，1-是
+	@Column(name="EXECUTIVE_FLAG", nullable = false)
+	private YesNoEnum executiveFlag;
 	
-	// 批复时间
-	@Column(name="REPLY_TIME")
-	private Date replyTime;
-		
-	// 入职时间
-	@Column(name="ENTRY_TIME")
+	//职务
+	@Column(name="POSITION", nullable = false)
+	private String position;
+	
+	//入职日期，格式YYYY-MM-DD
+	@Column(name="ENTRY_TIME", nullable = false)
 	private Date entryTime;
 	
-	// 是否在职，0-离职，1-在职
-	@Enumerated(EnumType.ORDINAL)
-	@Column(name="STATUS")
-	private EmployeeStatus status;
-	
-	// 离职时间
+	//离职日期，格式YYYY-MM-DD
 	@Column(name="QUIT_TIME")
 	private Date quitTime;
-	
-	// 机构编号
-	@Column(name="BRANCH_ID")
-	private String branchId;
 
-	public Employee(String name, String loginName, String phone, String email, String postalAddress,
-			String department, String sex, String idNumber, String education,
-			int executiveFlag, String post, Date replyTime, Date entryTime,
-			EmployeeStatus status, Date quitTime, String branchId, String reqId, PushStatus pushStatus) {
-		super(reqId, pushStatus);
+	public Employee(String name, String phone, String email,
+			String address, String department, SexEnum sex, CertType cardType,
+			String cardNumber, EducationEnum education,
+			YesNoEnum executiveFlag, String position, Date entryTime,
+			Date quitTime) {
+		super();
 		this.name = name;
-		this.loginName = loginName;
 		this.phone = phone;
 		this.email = email;
-		this.postalAddress = postalAddress;
+		this.address = address;
 		this.department = department;
 		this.sex = sex;
-		this.idNumber = idNumber;
+		this.cardType = cardType;
+		this.cardNumber = cardNumber;
 		this.education = education;
 		this.executiveFlag = executiveFlag;
-		this.post = post;
-		this.replyTime = replyTime;
+		this.position = position;
 		this.entryTime = entryTime;
-		this.status = status;
 		this.quitTime = quitTime;
-		this.branchId = branchId;
 	}
-	
+
+	public Employee(String name, String phone, String address,
+			String department, SexEnum sex, CertType cardType,
+			String cardNumber, EducationEnum education,
+			YesNoEnum executiveFlag, String position, Date entryTime) {
+		super();
+		this.name = name;
+		this.phone = phone;
+		this.address = address;
+		this.department = department;
+		this.sex = sex;
+		this.cardType = cardType;
+		this.cardNumber = cardNumber;
+		this.education = education;
+		this.executiveFlag = executiveFlag;
+		this.position = position;
+		this.entryTime = entryTime;
+	}
 	
 }

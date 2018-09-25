@@ -210,9 +210,10 @@ public class PostLoanApiController {
 	public String addNewBaddebtsInfo(Model model,String id,
 								    String setDate,
 								    BigDecimal badMoney,
-								    String  followupWork,
+								    String badType,
+								    String followupWork,
 								    String loanContractId){
-		postLoanService.addNewBaddebtInfo(id,setDate,badMoney,followupWork, loanContractId);
+		postLoanService.addNewBaddebtInfo(id,setDate,badMoney,badType,followupWork, loanContractId);
 		return "redirect:/postLoan/baddebtsinfo";
 	}
 
@@ -293,15 +294,19 @@ public class PostLoanApiController {
 	
 	
 	@RequestMapping(method = RequestMethod.POST, value = "provision/edit")
-	public String provisionEdit(Model model, String id,
-								BigDecimal provisionMoney, String provisionDate,
-								BigDecimal provisionScale,
-								String loanClassification, BigDecimal balance) {
+	public String provisionEdit(Model model, String id, String dateMonth,
+			BigDecimal normalBalance, BigDecimal normalRate, BigDecimal normalReal, 
+			BigDecimal followBalance, BigDecimal followRate, BigDecimal followReal,
+			BigDecimal minorBalance, BigDecimal minorRate, BigDecimal minorReal, 
+			BigDecimal suspiciousBalance, BigDecimal suspiciousRate, BigDecimal suspiciousReal,
+			BigDecimal lossBalance, BigDecimal lossRate, BigDecimal lossReal) {
 		try {
-			provisionService.addOrEdit(id, provisionMoney, DateUtils.parseDate(provisionDate, "yyyy-MM-dd"),
-					                   provisionScale, 
-					                   LoanClassificationEnum.valueOf(loanClassification), 
-					                   balance);
+			provisionService.addOrEdit(id, DateUtils.parseDate(dateMonth, "yyyy-MM-dd"),
+					normalBalance, normalRate, normalReal, 
+					followBalance, followRate, followReal,
+					minorBalance, minorRate, minorReal, 
+					suspiciousBalance, suspiciousRate, suspiciousReal,
+					lossBalance, lossRate, lossReal);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

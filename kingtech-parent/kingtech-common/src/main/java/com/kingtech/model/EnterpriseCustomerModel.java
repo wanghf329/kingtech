@@ -22,6 +22,8 @@ import com.kingtech.enums.ScaleType;
 @Data
 public class EnterpriseCustomerModel {
 	
+	private String id;
+	
 	//企业名称
 	private String name;
 	

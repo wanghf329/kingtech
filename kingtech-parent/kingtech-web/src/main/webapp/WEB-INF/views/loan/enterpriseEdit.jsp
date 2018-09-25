@@ -29,13 +29,13 @@
                                 <div class="box-header">
                                     <h3 class="box-title">企业客户信息</h3>
                                 </div><!-- /.box-header --> 
-                                <div class="box-body">
-											<form class="form-horizontal" id="enterpriseFrom" action="borrower/enterprise/add" method="POST">
+                                <div class="box-body"> 
+											<form class="form-horizontal" id="enterpriseFrom" action="borrower/enterprise/save" method="POST"> 
 												<input type="hidden" name="id" value="${model.id}"/>
 												<div class="form-group">
-													<label for="#corporateName" class="col-sm-2 control-label"><i class="text-red">*</i> 企业名称</label>
+													<label for="#name" class="col-sm-2 control-label"><i class="text-red">*</i> 企业名称</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" name="corporateName" value="${model.corporateName}" data-errormessage="企业名称不能为空">
+														<input type="text" class="form-control validate[required]" name="name" value="${model.name}" data-errormessage="企业名称不能为空">
 													</div>
 												</div>
 												<div class="form-group">
@@ -61,7 +61,7 @@
 												</div>
 												
 												<div class="form-group">
-													<label for="#industryinvolved" class="col-sm-2 control-label">产业类型</label>
+													<label for="#industryinvolved" class="col-sm-2 control-label"><i class="text-red">*</i> 所属行业</label>
 													<div class="col-sm-4 input-group">
 														<select class="form-control validate[required]" id="contract" name="industryinvolved" data-errormessage="所属行业不能为空">
 															<c:forEach var="it" items="${industryinvolveds}">
@@ -81,13 +81,13 @@
 												<div class="form-group">
 													<label for="#regcode" class="col-sm-2 control-label">公司注册登记号</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control" name="regcode" value="${model.regCode}">
+														<input type="text" class="form-control" name="registCode" value="${model.registCode}">
 													</div>
 												</div>										
 												<div class="form-group">
 													<label for="#regOffice" class="col-sm-2 control-label">工商注册登记机关</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control " name="regOffice" value="${model.regOffice}">
+														<input type="text" class="form-control " name="registOffice" value="${model.registOffice}">
 													</div>
 												</div>	
 														
@@ -96,28 +96,28 @@
 													<div class="col-sm-4 input-group">
 														<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 														<input type="text" class="form-control pull-right datepicker "
-														readonly name="regDate"  value=<fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${model.regDate}"></fmt:formatDate>>
+														readonly name="registDate"  value=<fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${model.registDate}"></fmt:formatDate>>
 													</div>
 												</div>
 												
 												<div class="form-group">
 													<label for="#nationalregNum" class="col-sm-2 control-label">国税税务登记号</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control " name="nationalregNum" value="${model.nationalregNum}" >
+														<input type="text" class="form-control " name="nationalTaxCode" value="${model.nationalTaxCode}" >
 													</div>
 												</div>	
 												
 												<div class="form-group">
 													<label for="#landRegNum" class="col-sm-2 control-label">地税税务登记号</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control " name="landRegNum" value="${model.landRegNum}">
+														<input type="text" class="form-control " name="landTaxCode" value="${model.landTaxCode}">
 													</div>
 												</div>
 												
 												<div class="form-group">
 													<label for="#licence" class="col-sm-2 control-label"><i class="text-red">*</i> 营业执照号</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" value="${model.licence}" name="licence"  data-errormessage="营业执照号不能为空">
+														<input type="text" class="form-control validate[required]" value="${model.licenseCode}" name="licenseCode"  data-errormessage="营业执照号不能为空">
 													</div>
 												</div>
 												
@@ -133,23 +133,9 @@
 												</div>
 												
 												<div class="form-group">
-													<label for="#nature" class="col-sm-2 control-label">企业性质</label>
-													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control " name="nature" value="${model.nature}">
-													</div>
-												</div>
-												
-												<div class="form-group">
-													<label for="#employNum" class="col-sm-2 control-label">从业人数</label>
-													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[custom[integer]]" name="employNum" value="${model.employNum}" data-errormessage="从业人数必须是整数">
-													</div>
-												</div>
-												
-												<div class="form-group">
 													<label for="#legalRepresentative" class="col-sm-2 control-label">法定代表人</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control " name="legalRepresentative" value="${model.legalRepresentative}" >
+														<input type="text" class="form-control " name="legalPerson" value="${model.legalPerson}" >
 													</div>
 												</div>
 												
@@ -158,23 +144,16 @@
 													<div class="col-sm-4 input-group">
 														<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 														<input type="text" class="form-control pull-right datepicker "
-														readonly name="bulidDate" value=<fmt:formatDate type="date" pattern = "yyyy-MM-dd HH:mm:ss" value="${model.bulidDate}"></fmt:formatDate> >
+														readonly name="foundDate" value=<fmt:formatDate type="date" pattern = "yyyy-MM-dd HH:mm:ss" value="${model.foundDate}"></fmt:formatDate> >
 													</div>
 												</div>
 												
 												<div class="form-group">
 													<label for="#actualController" class="col-sm-2 control-label">实际控制人</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control " name="actualController"  value="${model.actualController}">
+														<input type="text" class="form-control " name="controller"  value="${model.controller}">
 													</div>
 												</div>	
-												
-												<div class="form-group">
-													<label for="#regCapital" class="col-sm-2 control-label">注册资本</label>
-													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[custom[number]]" name="regCapital" value="${model.regCapital}" data-errormessage="注册资本必须是数字">
-													</div>
-												</div>
 												
 												<div class="form-group">
 													<label for="#reallyCapital" class="col-sm-2 control-label">实收资本</label>
@@ -193,45 +172,15 @@
 												<div class="form-group">
 													<label for="#regAddress" class="col-sm-2 control-label">注册地址</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control " name="regAddress" value="${model.regAddress}" >
+														<input type="text" class="form-control " name="registerAddress" value="${model.registerAddress}" >
 													</div>
 												</div>
 												
-												<div class="form-group">
-													<label for="#contactAddressProvince" class="col-sm-2 control-label"><i class="text-red">*</i> 通讯地址（省份）</label>
+												<div class="form-group"> 
+													<label for="#address" class="col-sm-2 control-label">通讯地址（详细）</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" name="contactAddressProvince" value="${model.contactAddressProvince}"  data-errormessage="通讯地址（省份）不能为空" >
-													</div>
-												</div>
-												
-												
-												<div class="form-group">
-													<label for="#contactAddresscity" class="col-sm-2 control-label"><i class="text-red">*</i> 通讯地址（市）</label>
-													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" name="contactAddresscity" value="${model.contactAddresscity}" data-errormessage="通讯地址（市）不能为空" >
-													</div>
-												</div>
-												
-												<div class="form-group">
-													<label for="#contactAddressDistrict" class="col-sm-2 control-label"><i class="text-red">*</i> 通讯地址（区/县）</label>
-													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" name="contactAddressDistrict"  value="${model.contactAddressDistrict}" data-errormessage="通讯地址（区/县）不能为空" >
-													</div>
-												</div>
-												
-												<div class="form-group">
-													<label for="#contactAddress" class="col-sm-2 control-label">通讯地址（详细）</label>
-													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control " name="contactAddress"  value="${model.contactAddress}">
-													</div>
-												</div>
-												
-												
-												<div class="form-group">
-													<label for="#postcode" class="col-sm-2 control-label">邮政编码</label>
-													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control 	validate[custom[number]]" name="postcode" value="${model.contactAddress}"  data-errormessage="必须为数字">
-													</div>
+														<input type="text" class="form-control " name="address"  value="${model.address}">
+													</div> 
 												</div>
 												
 												<div class="form-group">
@@ -245,13 +194,6 @@
 													<label for="#linkman" class="col-sm-2 control-label">联系人</label>
 													<div class="col-sm-4 input-group">
 														<input type="text" class="form-control " name="linkman"  value="${model.linkman}">
-													</div>
-												</div>
-												
-												<div class="form-group">
-													<label for="#fax" class="col-sm-2 control-label">传真</label>
-													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control " name="fax"  value="${model.fax}">
 													</div>
 												</div>
 												
