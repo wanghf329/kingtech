@@ -22,6 +22,10 @@ import com.kingtech.enums.PushStatus;
 @Table(name="TB_LOAN_REPAY_EXTEND_PLAN")
 @NoArgsConstructor
 public class RepayExtendPlan extends LoanRecordEntity {
+	
+	// 第几次展期
+	@Column(name="COUNT")
+	private String count;
 
 	// 展期后的新还款日期,格式YYYY-MM-DD
 	@Column(name="END_DATE")
@@ -43,5 +47,17 @@ public class RepayExtendPlan extends LoanRecordEntity {
 		this.principal = principal;
 		this.interest = interest;
 	}
+
+	public RepayExtendPlan(String loanContractId, String reqId,
+			PushStatus pushStatus, String count, Date endDate,
+			BigDecimal principal, BigDecimal interest) {
+		super(loanContractId, reqId, pushStatus);
+		this.count = count;
+		this.endDate = endDate;
+		this.principal = principal;
+		this.interest = interest;
+	}
+	
+	
 
 }

@@ -32,17 +32,10 @@ function getRepayExtendPlan(id){
 	$.get('postLoan/get/extensionrepayplaninfo/'+id,null,function(res){
 		$("input[name='id']").val(res.id);
 		$(".loanContractId option[value='"+res.loanContractId+"']").attr("selected",true);
-		$("input[name='extendCount']").val(res.extendCount); 
-		$("input[name='extendTerm']").val(res.extendTerm);
-		$("input[name='repayDate']").val(res.repayDate);
+		$("input[name='count']").val(res.count); 
+		$("input[name='endDate']").val(res.endDate);
 		$("input[name='principal']").val(res.principal);
-		$("input[name='returnPrincipal']").val(res.returnPrincipal);
 		$("input[name='interest']").val(res.interest);
-		$("input[name='returnInterest']").val(res.returnInterest);
-		$(".repayStatus option[value='"+res.status+"']").attr("selected",true);
-		$(".overdueFlag option[value='"+res.overdueFlag+"']").attr("selected",true);
-		initOverdueDays($("select[name='overdueFlag']"));
-		$("input[name='overdueDays']").val(res.overdueDays);  
 		$("#editModel").modal();
 	});
 }
@@ -100,14 +93,9 @@ function initDataTables() {
 						columns : [
 								{data : null},
 								{data : "loanContractNo"},
-								{data : "model.extendCount"},
-								{data : "model.extendTerm"},
-								{data : "model.repayDate"},
+								{data : "model.count"},
+								{data : "model.endDate"},
 								{data : "model.principal",render : function(data, type, row) {
-										return "<span class=\"text-red bolder\">￥"+ data + "</span>";
-									}
-								},
-								{data : "model.returnPrincipal",render : function(data, type, row) {
 										return "<span class=\"text-red bolder\">￥"+ data + "</span>";
 									}
 								},
@@ -115,13 +103,6 @@ function initDataTables() {
 										return "<span class=\"text-red bolder\">￥"+ data + "</span>";
 									}
 								},
-								{data : "model.returnInterest",render : function(data, type, row) {
-									return "<span class=\"text-red bolder\">￥"+ data + "</span>";
-									}
-								},
-								{data : "model.status"},
-								{data : "model.overdueFlag"},
-								{data : "model.overdueDays"},
 								{data : "pushStatus",render : function(data, type, row) {
 										switch (data) {
 										case 'INITATION':

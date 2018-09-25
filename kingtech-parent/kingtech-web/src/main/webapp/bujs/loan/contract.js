@@ -43,10 +43,10 @@ function getBorrower(){
 		success:function(res){
 			if(type=="S_1"){
 				for(var i in res){
-					html += "<option value='"+res[i].id+"'>"+res[i].corporateName+"</option>"
+					html += "<option value='"+res[i].id+"'>"+res[i].name+"</option>"
 				}
 			}else{
-				for(var i in res){
+				for(var i in res){ 
 					html += "<option value='"+res[i].id+"'>"+res[i].name+"</option>" 
 				}
 			}
@@ -122,9 +122,22 @@ $(".addGuaranteeBtn").on("click",function(){
 	bindDel("delGuaranteeBtn");
 });
 
-$(".addCollateralBtn").on("click",function(){
-	var clone = $(".collateralTemplate").clone().removeClass("collateralTemplate hide").addClass("repayPlan");
-	$(".collateralTemplate").parent().append(clone);   
+$(".addDywBtn").on("click",function(){
+	var clone = $(".dywTemplate").clone().removeClass("dywTemplate hide").addClass("repayPlan");
+	$(".dywTemplate").parent().append(clone);   
+	bindDel("delCollateralBtn");
+	$("select[name='pledgeType']").on("change", function(event){ 
+		if($(this).val()=='S_1'){
+			$(this).closest(".repayPlan").find(".collateralTypeSelect").html(collateralTypeOption1);
+		}else{
+			$(this).closest(".repayPlan").find(".collateralTypeSelect").html(collateralTypeOption2);
+		} 
+	});	
+});
+
+$(".addZywBtn").on("click",function(){
+	var clone = $(".zywTemplate").clone().removeClass("zywTemplate hide").addClass("repayPlan");
+	$(".zywTemplate").parent().append(clone);   
 	bindDel("delCollateralBtn");
 	$("select[name='pledgeType']").on("change", function(event){ 
 		if($(this).val()=='S_1'){
@@ -209,48 +222,48 @@ function initDataTables() {
 						},
 						columns : [
 								{data : null},
-								{data : "loanContractNo"},
-								{data : "loanContractName"},
+								{data : "contractNumber"},
+								{data : "contractName"},
 								{data : "borrowerName"},
 								{data : "rateType",render : function(data, type, row) {
 									switch (data) {
 										case 'S_1':
-											return '<span class="text-gray">年</span>';
-										case 'S_2':
 											return '<span class="text-gray">日</span>';
+										case 'S_2':
+											return '<span class="text-gray">周</span>';
 										case 'S_3':
 											return '<span class="text-gray">月</span>';
 										case 'S_4':
-											return '<span class="text-gray">周</span>';
-										case 'S_5':
 											return '<span class="text-gray">季</span>';
+										case 'S_5':
+											return '<span class="text-gray">年</span>';
 									}
 								}},
 								{data : "rate",render : function(data, type, row) {
 									return '<Strong>'+data+'%</Strong></td>' ;   
 								}},
-								{data : "loanAmount",render : function(data, type, row) {
+								{data : "money",render : function(data, type, row) {
 									return "<span class=\"text-red bolder\">￥"+ data + "</span>";
 								}},
-								{data : "periodTerm",render : function(data, type, row) {
-									switch (row.periodType) {
-									case 'S_1':
-										return '<Strong>'+data+'月</Strong></td>';
-									case 'S_2':
-										return '<Strong>'+data+'日</Strong></td>';
-									case 'S_3':
-										return '<Strong>'+data+'周</Strong></td>';
-									case 'S_4':
-										return '<Strong>'+data+'季度</Strong></td>';
-									case 'S_5':
-										return '<Strong>'+data+'年</Strong></td>';
+								{data : "termType",render : function(data, type, row) {
+									switch (data) {
+										case 'S_1':
+											return '<Strong>'+data+'日</Strong></td>';
+										case 'S_2':
+											return '<Strong>'+data+'周</Strong></td>';
+										case 'S_3':
+											return '<Strong>'+data+'月</Strong></td>';
+										case 'S_4':
+											return '<Strong>'+data+'季度</Strong></td>';
+										case 'S_5':
+											return '<Strong>'+data+'年</Strong></td>';
 									}
 								}},
-								{data : "loanStartDate",render : function(data, type, row) {
+								{data : "startDate",render : function(data, type, row) {
 									return formateDate(new Date(data),"yyyy-MM-dd")
 									
 								 }},
-								 {data : "loanEndDate",render : function(data, type, row) {
+								 {data : "endDate",render : function(data, type, row) {
 										return formateDate(new Date(data),"yyyy-MM-dd")
 										
 								}},

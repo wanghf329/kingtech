@@ -3,9 +3,9 @@ package com.kingtech.web.commons.base.service.impl;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -25,17 +25,10 @@ import com.kingtech.dao.rdbms.PersonalCustomerDAO;
 import com.kingtech.dao.rdbms.RepayPlanDAO;
 import com.kingtech.dao.rdbms.SettledInfoDAO;
 import com.kingtech.enums.BorrowerTypeEnum;
-import com.kingtech.enums.IndustryEnum;
-import com.kingtech.enums.LoanMethodEnum;
-import com.kingtech.enums.LoanPurposeEnum;
-import com.kingtech.enums.LoanstatusEnum;
-import com.kingtech.enums.PayTypeEnum;
 import com.kingtech.enums.PushStatus;
-import com.kingtech.enums.RateTypeEnum;
-import com.kingtech.enums.TermTypeEnum;
-import com.kingtech.enums.UnionFlagEnum;
-import com.kingtech.enums.YesNoEnum;
+import com.kingtech.model.ContractDywModel;
 import com.kingtech.model.ContractModel;
+import com.kingtech.model.ContractZywModel;
 import com.kingtech.model.misc.PagedResult;
 import com.kingtech.web.commons.base.CreatRequstId;
 import com.kingtech.web.commons.base.service.ContractService;
@@ -48,9 +41,6 @@ import com.kingtech.web.commons.base.service.ContractService;
 public class ContractServiceImpl implements ContractService{
 	@Autowired
 	private ContractDAO contractDao;
-	
-//	@Autowired
-//	private CollateralDAO collateralDAO;
 	
 	@Autowired
 	private GuaranteeDAO guaranteeDAO;
@@ -77,11 +67,11 @@ public class ContractServiceImpl implements ContractService{
 	public List<Contract> listAll(){
 		List<Contract> list = (List<Contract>)contractDao.findAll();
 		for(Contract ct : list){
-//			if(BorrowerTypeEnum.S_1.equals(ct.getBorrowerType())){
-//				ct.setBorrowerName(enterpriseDao.findOne(ct.getBorrowerId()).getCorporateName());
-//			}else{
-//				ct.setBorrowerName(personalCustomerDao.findOne(ct.getBorrowerId()).getName());
-//			}
+			if(BorrowerTypeEnum.S_1.equals(ct.getBorrowerType())){
+				ct.setBorrowerName(enterpriseDao.findOne(ct.getBorrowerId()).getName());
+			}else{
+				ct.setBorrowerName(personalCustomerDao.findOne(ct.getBorrowerId()).getName());
+			}
 		}
 		return list;
 	}
@@ -93,52 +83,26 @@ public class ContractServiceImpl implements ContractService{
 
 	@Override
 	@Transactional
-	public void addNew(String id,String loanContractNo, String loanContractName,
-					   BorrowerTypeEnum borrowerType,String borrowerId, String customerId, String guarantee,
-					   BigDecimal loanAmount, TermTypeEnum periodType, int periodTerm,
-					   Date loanStartDate, Date loanEndDate, RateTypeEnum rateType,
-					   BigDecimal rate, LoanPurposeEnum purpose, IndustryEnum industry,
-					   LoanMethodEnum loanType, UnionFlagEnum unionFlag, PayTypeEnum payType,
-					   Date signDate, String repaySource, LoanstatusEnum status, YesNoEnum isExtend) {
-		Contract ct = null;
-		if(StringUtils.isEmpty(id)){
-//			ct = new Contract(loanContractNo,
-//					loanContractName,borrowerType,borrowerId,
-//					customerId,guarantee,loanAmount,
-//					periodType,periodTerm,loanStartDate,
-//					loanEndDate,rateType,rate,
-//					purpose,industry,loanType,
-//					unionFlag,payType,signDate,
-//					repaySource,status,isExtend);
-//			ct.setReqId(creatRequstId.getReqId());
-//			ct.setPushStatus(PushStatus.INITATION);
-//			ct.setUpdateTime(new Date());
-		}else{
-//			ct = contractDao.findOne(id);
-//			ct.setLoanContractNo(loanContractNo);
-//			ct.setLoanContractName(loanContractName);
-//			ct.setBorrowerType(borrowerType);
-//			ct.setBorrowerId(borrowerId);
-//			ct.setCustomerId(customerId);
-//			ct.setGuarantee(guarantee);
-//			ct.setLoanAmount(loanAmount);
-//			ct.setPeriodType(periodType);
-//			ct.setPeriodTerm(periodTerm);
-//			ct.setLoanStartDate(loanStartDate);
-//			ct.setLoanEndDate(loanEndDate);
-//			ct.setRateType(rateType);
-//			ct.setRate(rate);
-//			ct.setPurpose(purpose);
-//			ct.setIndustry(industry);
-//			ct.setLoanType(loanType);
-//			ct.setUnionFlag(unionFlag);
-//			ct.setPayType(payType);
-//			ct.setSignDate(signDate);
-//			ct.setRepaySource(repaySource);
-//			ct.setStatus(status);
-//			ct.setIsExtend(isExtend);
+	public void save(ContractModel model){
+		try{
+			Contract ct = null;
+			if(StringUtils.isEmpty(model.getId())){
+				ct = new Contract();
+				BeanUtils.copyProperties(ct, model);
+				ct.setPushStatus(PushStatus.INITATION);
+				ct.setReqId(creatRequstId.getReqId());
+			}else{
+				ct = contractDao.findOne(model.getId());
+				String reqId = ct.getReqId();
+				BeanUtils.copyProperties(ct, model);
+				ct.setId(model.getId());
+				ct.setPushStatus(ct.getPushStatus());
+				ct.setReqId(reqId);
+			}
+			contractDao.save(ct);
+		}catch(Exception e){
+			e.printStackTrace();
 		}
-		contractDao.save(ct);
 	}
 
 	@Override
@@ -147,12 +111,23 @@ public class ContractServiceImpl implements ContractService{
 	}
 	
 	@Override
-	@Transactional
-	public void addCollateral(String[] ids, String loanContractId, String[] pledgeType,
-			String[] collateralType, String[] collateralName,
-			String[] warrantNum, BigDecimal[] evaluationValue, String[] warrantHolder,
-			String[] collateralAddr, String[] handleDate) {
+	public void addDyw(List<ContractDywModel> dyw){
 		
+	}
+	
+	@Override
+	public void addZyw(List<ContractZywModel> zyw){
+		
+	}
+	
+	
+//	@Override
+//	@Transactional
+//	public void addCollateral(String[] ids, String loanContractId, String[] pledgeType,
+//			String[] collateralType, String[] collateralName,
+//			String[] warrantNum, BigDecimal[] evaluationValue, String[] warrantHolder,
+//			String[] collateralAddr, String[] handleDate) {
+//		
 //		try {
 //			collateralDAO.deleteByLoanContractId(loanContractId);
 //			for (int i = 1; i < pledgeType.length; i++) {
@@ -166,7 +141,7 @@ public class ContractServiceImpl implements ContractService{
 //		} catch (ParseException e) {
 //			e.printStackTrace();
 //		}
-	}
+//	}
 
 	@Override
 	@Transactional
@@ -244,12 +219,12 @@ public class ContractServiceImpl implements ContractService{
 		
 		List<Contract> result = new ArrayList<Contract>();
 		for(Contract ct : list){
-//			if(BorrowerTypeEnum.S_1.equals(ct.getBorrowerType())){
-//				ct.setBorrowerName(enterpriseDao.findOne(ct.getBorrowerId()).getCorporateName());
-//			}else{
-//				ct.setBorrowerName(personalCustomerDao.findOne(ct.getBorrowerId()).getName());
-//			}
-//			result.add(ct);
+			if(BorrowerTypeEnum.S_1.equals(ct.getBorrowerType())){
+				ct.setBorrowerName(enterpriseDao.findOne(ct.getBorrowerId()).getName());
+			}else{
+				ct.setBorrowerName(personalCustomerDao.findOne(ct.getBorrowerId()).getName());
+			}
+			result.add(ct);
 		}
 		
 		return new PagedResult(result,count);

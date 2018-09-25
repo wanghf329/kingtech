@@ -15,7 +15,7 @@ import com.kingtech.model.RepayExtendInfoModel;
 @NoArgsConstructor
 public class RepayExtendInfoModelExt extends RepayExtendInfoModel{
 	
-	private String loanContractNo;
+	private String loanContractNumber;
 	
 	private String loanContractName;
 	
@@ -24,11 +24,11 @@ public class RepayExtendInfoModelExt extends RepayExtendInfoModel{
 	public RepayExtendInfoModelExt(String id, String contractNumber,
 			String repayTime, String money, String interest,
 			String penaltyInterest, String penalty, String serviceCharge,
-			String otherCharge, String loanContractNo, String loanContractName,
+			String otherCharge, String loanContractNumber, String loanContractName,
 			PushStatus pushStatus) {
 		super(id, contractNumber, repayTime, money, interest, penaltyInterest,
 				penalty, serviceCharge, otherCharge);
-		this.loanContractNo = loanContractNo;
+		this.loanContractNumber = loanContractNumber;
 		this.loanContractName = loanContractName;
 		this.pushStatus = pushStatus;
 	}

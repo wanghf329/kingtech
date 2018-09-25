@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 import com.kingtech.enums.DywTypeEnum;
 
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ContractDywModel {
 	
 	private DywTypeEnum pledgeType;

@@ -18,16 +18,20 @@ public class OtherBaddebtModel extends BaseRequestModel{
 	private String loanContractId;
 	
 	// 坏账金额(元)
-	@JSONField(name="bad_money",label="sign")
+	@JSONField(name="badMoney",label="sign")
 	private String badMoney;
 
 	// 定损日期
-	@JSONField(name="set_date",label="sign")
-	private String setDate;
+	@JSONField(name="lossDate",label="sign")
+	private String lossDate;
+	
+	// 坏账类型
+	@JSONField(name="badType")
+	private String badType;
 
 	// 后续工作描述
-	@JSONField(name="followup_work")
-	private String followupWork;
+	@JSONField(name="followUp")
+	private String followUp;
 	
 	@JSONField(name="create_time")
 	private String creatTime;
@@ -37,24 +41,26 @@ public class OtherBaddebtModel extends BaseRequestModel{
 
 	public OtherBaddebtModel(String roundStr, String identifier, String reqId,
 			String sign, String loanContractId, String badMoney,
-			String setDate, String followupWork, String creatTime,
-			String updateTime) {
+			String lossDate, String badType, String followUp,
+			String creatTime, String updateTime) {
 		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId, sign, null);
 		this.loanContractId = loanContractId;
 		this.badMoney = badMoney;
-		this.setDate = setDate;
-		this.followupWork = followupWork;
+		this.lossDate = lossDate;
+		this.badType = badType;
+		this.followUp = followUp;
 		this.creatTime = creatTime;
 		this.updateTime = updateTime;
 	}
 
 	public OtherBaddebtModel(String id, String loanContractId, String badMoney,
-			String setDate, String followupWork) {
+			String lossDate, String badType, String followUp) {
 		super(id);
 		this.loanContractId = loanContractId;
 		this.badMoney = badMoney;
-		this.setDate = setDate;
-		this.followupWork = followupWork;
+		this.lossDate = lossDate;
+		this.badType = badType;
+		this.followUp = followUp;
 	}
 	
 	
