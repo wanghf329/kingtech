@@ -5,7 +5,6 @@ import lombok.Data;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.kingtech.common.config.BaseConfig;
 import com.kingtech.common.utils.SignUtils;
-import com.kingtech.enums.SexEnum;
 
 /**
  * 机构人员信息
@@ -37,7 +36,7 @@ public class EmployeeModel extends BaseRequestModel {
 
 	//性别：1）男 2）女
 	@JSONField(name="sex", label="sign")
-	private SexEnum sex;
+	private String sex;
 	
 	//证件类型：1）居民身份证 2）护照,  3）驾驶证
 	@JSONField(name="cardType", label="sign")
@@ -78,7 +77,7 @@ public class EmployeeModel extends BaseRequestModel {
 	}
 
 	public EmployeeModel(String id, String name, String phone, String email,
-			String address, String department, SexEnum sex, String cardType,
+			String address, String department, String sex, String cardType,
 			String cardNumber, String education, String executiveFlag,
 			String position, String entryTime, String quitTime) {
 		super(id);

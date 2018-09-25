@@ -100,8 +100,8 @@ public class EmployeeServiceImpl implements EmployeeService{
 								 employee.getExecutiveFlag().getKey(),
 								 employee.getPosition(),
 								 DateFormatUtils.format(employee.getEntryTime(), "yyyy-MM-dd"),
-								 employee.getQuitTime() == null ? "" : 
-								 DateFormatUtils.format(employee.getQuitTime(), "yyyy-MM-dd"));
+								 employee.getQuitTime() == null ? "" :
+									 DateFormatUtils.format(employee.getQuitTime(), "yyyy-MM-dd"));
 				
 	}
 
