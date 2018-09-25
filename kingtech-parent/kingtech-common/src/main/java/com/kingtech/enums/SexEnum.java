@@ -1,8 +1,8 @@
 package com.kingtech.enums;
 
 public enum SexEnum implements BaseEnum {
-	M("1"),
-	F("2");
+	S_1("男"),
+	S_2("女");
 
 	private String key;
 	
@@ -13,32 +13,5 @@ public enum SexEnum implements BaseEnum {
 	@Override
 	public String getKey() {
 		return key;
-	}
-
-	public static SexEnum getValue(String key){
-		if(key==null){
-			return null;
-		}
-		switch (key) {
-			case "1":
-				return SexEnum.M;
-			case "2":
-				return SexEnum.F;
-			default:
-				break;
-		}
-		return null;
-	}
-	
-	public String getTips(){
-		switch (key) {
-		case "1":
-			return "男";
-		case "2":
-			return "女";
-		default:
-			break;
-		}
-		return null;
 	}
 }

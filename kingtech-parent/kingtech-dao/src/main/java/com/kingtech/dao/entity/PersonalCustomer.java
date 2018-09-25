@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 import com.kingtech.dao.entity.base.RecordEntity;
 import com.kingtech.enums.CertType;
 import com.kingtech.enums.EducationEnum;
+import com.kingtech.enums.FarmersFlagEnum;
 import com.kingtech.enums.SexEnum;
 import com.kingtech.enums.YesNoEnum;
 
@@ -30,14 +31,38 @@ public class PersonalCustomer extends RecordEntity{
 	//姓名
 	@Column(name="NAME", nullable = false)
 	private String name;
-	
+
+
 	// 联系电话
 	@Column(name="PHONE", nullable = false)
 	private String phone;
 	
+	//是否农牧民：1）是   2）否
+	@Enumerated(EnumType.STRING)
+	@Column(name="FARMERS_FLAG",nullable = false)
+	private FarmersFlagEnum isFarmer;
+	
+	
 	// 电子邮件
 	@Column(name="EMAIL")
 	private String email;
+	
+	//婚姻状况，1：已婚，0：未婚
+	@Enumerated(EnumType.STRING)
+	@Column(name="MARRIAGE")
+	private YesNoEnum isMarry;
+	
+	//国籍
+	@Column(name="NATIONALITY")
+	private String nationality;
+	
+	//出生日期，格式YYYY-MM-DD
+	@Column(name="BIRTH_DATE")
+	private Date birthDate;
+	
+	//民族
+	@Column(name="NATION")
+	private String nation;
 	
 	// 固定住址（详细）
 	@Column(name="ADDRESS", nullable = false)
@@ -56,6 +81,9 @@ public class PersonalCustomer extends RecordEntity{
 	@Enumerated(EnumType.STRING)
 	@Column(name="CARD_TYPE",nullable = false)
 	private CertType cardType;
+	// 户口所在地
+	@Column(name="REGISTERED_ADDRESS")
+	private String registeredAddress;
 	
 	// 证件号码
 	@Column(name="CARD_NUMBER", nullable = false)
@@ -121,14 +149,4 @@ public class PersonalCustomer extends RecordEntity{
 		this.position = position;
 		this.entryTime = entryTime;
 	}
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
 }

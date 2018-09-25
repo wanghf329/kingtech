@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.kingtech.enums.CardTypeEnum;
 
 
 @AllArgsConstructor
@@ -13,20 +13,14 @@ import com.alibaba.fastjson.annotation.JSONField;
 public class GuaranteeModel {
 	
 	// 保证人名字
-	@JSONField(name="name")
 	private String name;
 
-	// 保证人证件号
-	@JSONField(name="card_num")
-	private String cardNum;
-
-	// 保证人联系方式
-	@JSONField(name="phone")
-	private String phone;
+	//证件类型
+	private CardTypeEnum cardType;
+	
+	// 证件号码
+	private String cardNumber;
 
 	// 联系地址
-	@JSONField(name="address")
 	private String address;
-
-
 }

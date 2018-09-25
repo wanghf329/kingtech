@@ -1,15 +1,15 @@
 package com.kingtech.enums;
 
-public enum PeriodTypeEnum implements BaseEnum {
-	S_1("月"),
-	S_2("日"),
-	S_3("周"),
+public enum TermTypeEnum implements BaseEnum {
+	S_1("日"),
+	S_2("周"),
+	S_3("月"),
 	S_4("季度"),
 	S_5("年");
 
 	private String key;
 	
-	private PeriodTypeEnum(String key) {
+	private TermTypeEnum(String key) {
 		this.key = key;
 	}
 	

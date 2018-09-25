@@ -15,16 +15,23 @@ public interface ExtendRepayService {
 	 * 
 	 * @param id
 	 * @param loanContractId
-	 * @param extendNum
-	 * @param repayDate
-	 * @param repayAmount
-	 * @param repayPrincipalAmount
-	 * @param repayInterestAmount
+	 * @param repayTime
+	 * @param money
+	 * @param interest
+	 * @param penaltyInterest
+	 * @param penalty
+	 * @param serviceCharge
+	 * @param otherCharge
 	 */
-	public void addOrEdit(String id,String loanContractId,long extendNum, 
-						  Date repayDate,BigDecimal repayAmount, 
-						  BigDecimal repayPrincipalAmount,
-						  BigDecimal repayInterestAmount);
+	public void addOrEdit(String id,
+			String loanContractId,
+			Date repayTime,
+			BigDecimal money, 
+			BigDecimal interest,
+			BigDecimal penaltyInterest, 
+			BigDecimal penalty,
+			BigDecimal serviceCharge, 
+			BigDecimal otherCharge);
 	/**
 	 * 
 	 * @return

@@ -9,11 +9,9 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import com.kingtech.dao.entity.base.PackageEntity;
 import com.kingtech.dao.entity.base.UuidEntity;
 import com.kingtech.enums.IndustryEnum;
 import com.kingtech.enums.IndustryType;
@@ -26,8 +24,8 @@ import com.kingtech.enums.ScaleType;
 public class EnterpriseCustomer extends UuidEntity{
 	
 	//企业名称
-	@Column(name="CORPORATE_NAME",nullable = false)
-	private String  corporateName;
+	@Column(name="NAME",nullable = false)
+	private String name;
 	
 	//企业规模：1) 个体工商户  2) 农村专业合作组织 3) 微型企业4)小型企业5)中型企业6)大型企业7)其他组织
 	@Enumerated(EnumType.STRING)
@@ -49,56 +47,44 @@ public class EnterpriseCustomer extends UuidEntity{
 	private String  organizationcode;
 		
 	//公司注册登记号
-	@Column(name="REG_CODE")
-	private String  regCode;
+	@Column(name="REGIST_CODE")
+	private String  registCode;
 		
 	//工商注册登记机关
-	@Column(name="REG_OFFICE")
-	private String  regOffice;
+	@Column(name="REGIST_OFFICE")
+	private String  registOffice;
 		
 	//工商注册登记日期，格式YYYY-MM-DD
-	@Column(name="REG_DATE")
-	private Date  regDate;
+	@Column(name="REGIST_DATE")
+	private Date  registDate;
 		
 	//国税税务登记号
-	@Column(name="NATIONAL_REG_NUM")
-	private String  nationalregNum;
+	@Column(name="NATIONAL_TAX_CODE")
+	private String  nationalTaxCode;
 		
 	//地税税务登记号
-	@Column(name="LAND_REG_NUM")
-	private String  landRegNum;
+	@Column(name="LAND_TAX_CODE")
+	private String  landTaxCode;
 		
 	//营业执照号
-	@Column(name="LICENCE",nullable = false)
-	private String  licence;
+	@Column(name="LICENCE_CODE",nullable = false)
+	private String  licenseCode;
 		
 	//营业执照截止日期，格式YYYY-MM-DD
 	@Column(name="LICENCE_END_DATE",nullable = false)
 	private Date  licenceEndDate;
 		
-	//企业性质
-	@Column(name="NATURE")
-	private String  nature;
-		
-	//从业人数
-	@Column(name="EMPLOY_NUM")
-	private Integer employNum;
-		
 	//法定代表人
-	@Column(name="LEGAL_REPRESENTATIVE")
-	private String  legalRepresentative;
+	@Column(name="LEGAL_PERSON")
+	private String  legalPerson;
 		
 	//成立日期，格式YYYY-MM-DD
-	@Column(name="BULID_DATE")
-	private Date  bulidDate;
+	@Column(name="FOUND_DATE")
+	private Date  foundDate;
 		
 	//实际控制人
-	@Column(name="ACTUAL_CONTROLLER")
-	private String  actualController;
-		
-	//注册资本
-	@Column(name="REG_CAPITAL")
-	private BigDecimal  regCapital;
+	@Column(name="CONTROLLER")
+	private String  controller;
 		
 	//实收资本
 	@Column(name="REALLY_CAPITAL")
@@ -109,111 +95,26 @@ public class EnterpriseCustomer extends UuidEntity{
 	private String  businessScope;
 		
 	//注册地址
-	@Column(name="REG_ADDRESS")
-	private String  regAddress;
-		
-	//通讯地址（省份）
-	@Column(name="CONTACT_ADDRESS_PROVINCE",nullable = false)
-	private String  contactAddressProvince;
-		
-	//通讯地址（市）
-	@Column(name="CONTACT_ADDRESS_CITY",nullable = false)
-	private String  contactAddresscity;
-		
-	//通讯地址（区/县）
-	@Column(name="CONTACT_ADDRESS_DISTRICT",nullable = false)
-	private String  contactAddressDistrict;
+	@Column(name="REGISTER_ADDRESS")
+	private String  registerAddress;
 		
 	//通讯地址（详细）
-	@Column(name="CONTACT_ADDRESS")
-	private String  contactAddress;
-		
-	//邮政编码
-	@Column(name="POST_CODE")
-	private String  postcode;
+	@Column(name="ADDRESS")
+	private String  address;
 		
 	//联系电话
 	@Column(name="PHONE")
-	private String  phone;
+	private String phone;
 		
 	//联系人
 	@Column(name="LINKMAN")
-	private String  linkman;
-		
-	//传真
-	@Column(name="FAX")
-	private String  fax;
+	private String linkman;
 		
 	//公司邮箱
 	@Column(name="EMAIL")
-	private String  email;
+	private String email;
 		
 	//网址
 	@Column(name="WEB_SITE")
-	private String  webSite;
-
-	public EnterpriseCustomer(String corporateName,
-			ScaleType scale, IndustryType industryType,
-			IndustryEnum industryinvolved, String licence,
-			Date licenceEndDate, String contactAddressProvince,
-			String contactAddresscity, String contactAddressDistrict) {
-		this.corporateName = corporateName;
-		this.scale = scale;
-		this.industryType = industryType;
-		this.industryinvolved = industryinvolved;
-		this.licence = licence;
-		this.licenceEndDate = licenceEndDate;
-		this.contactAddressProvince = contactAddressProvince;
-		this.contactAddresscity = contactAddresscity;
-		this.contactAddressDistrict = contactAddressDistrict;
-	}
-
-	public EnterpriseCustomer(String corporateName, ScaleType scale,
-			IndustryType industryType, IndustryEnum industryinvolved,
-			String organizationcode, String regCode, String regOffice,
-			Date regDate, String nationalregNum, String landRegNum,
-			String licence, Date licenceEndDate, String nature, Integer employNum,
-			String legalRepresentative, Date bulidDate,
-			String actualController, BigDecimal regCapital,
-			BigDecimal reallyCapital, String businessScope, String regAddress,
-			String contactAddressProvince, String contactAddresscity,
-			String contactAddressDistrict, String contactAddress,
-			String postcode, String phone, String linkman, String fax,
-			String email, String webSite) {
-		super();
-		this.corporateName = corporateName;
-		this.scale = scale;
-		this.industryType = industryType;
-		this.industryinvolved = industryinvolved;
-		this.organizationcode = organizationcode;
-		this.regCode = regCode;
-		this.regOffice = regOffice;
-		this.regDate = regDate;
-		this.nationalregNum = nationalregNum;
-		this.landRegNum = landRegNum;
-		this.licence = licence;
-		this.licenceEndDate = licenceEndDate;
-		this.nature = nature;
-		this.employNum = employNum;
-		this.legalRepresentative = legalRepresentative;
-		this.bulidDate = bulidDate;
-		this.actualController = actualController;
-		this.regCapital = regCapital;
-		this.reallyCapital = reallyCapital;
-		this.businessScope = businessScope;
-		this.regAddress = regAddress;
-		this.contactAddressProvince = contactAddressProvince;
-		this.contactAddresscity = contactAddresscity;
-		this.contactAddressDistrict = contactAddressDistrict;
-		this.contactAddress = contactAddress;
-		this.postcode = postcode;
-		this.phone = phone;
-		this.linkman = linkman;
-		this.fax = fax;
-		this.email = email;
-		this.webSite = webSite;
-	}
-	
-	
-
+	private String webSite;
 }

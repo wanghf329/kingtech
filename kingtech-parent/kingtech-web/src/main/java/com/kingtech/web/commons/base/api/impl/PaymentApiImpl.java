@@ -24,8 +24,8 @@ import com.kingtech.dao.entity.RepayInfo;
 import com.kingtech.dao.entity.Shareholder;
 import com.kingtech.dao.rdbms.BranchDAO;
 import com.kingtech.dao.rdbms.CapitalDAO;
-import com.kingtech.dao.rdbms.CollateralDAO;
 import com.kingtech.dao.rdbms.ContractDAO;
+import com.kingtech.dao.rdbms.ContractZywDAO;
 import com.kingtech.dao.rdbms.EmployeeDAO;
 import com.kingtech.dao.rdbms.EnterpriseCustomerDAO;
 import com.kingtech.dao.rdbms.GuaranteeDAO;
@@ -39,21 +39,16 @@ import com.kingtech.dao.rdbms.RepayInfoDAO;
 import com.kingtech.dao.rdbms.RepayPlanDAO;
 import com.kingtech.dao.rdbms.SettledInfoDAO;
 import com.kingtech.dao.rdbms.ShareholderDAO;
-import com.kingtech.enums.BorrowerTypeEnum;
 import com.kingtech.enums.Cmd;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.model.AsyReponseModel;
 import com.kingtech.model.BranchInfoModel;
 import com.kingtech.model.CapitalModel;
-import com.kingtech.model.CollateralModel;
-import com.kingtech.model.ContractModel;
 import com.kingtech.model.EmployeeModel;
-import com.kingtech.model.EnterpriseCustomerModel;
 import com.kingtech.model.GuaranteeModel;
 import com.kingtech.model.OtherBaddebtModel;
 import com.kingtech.model.OtherOverdueInfoModel;
-import com.kingtech.model.PersonalCustomerModel;
 import com.kingtech.model.ProvisionInfoModel;
 import com.kingtech.model.RepayExtendInfoModel;
 import com.kingtech.model.RepayExtendPlanModel;
@@ -95,7 +90,7 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 	private ContractDAO contractDAO;
 	
 	@Autowired 
-	private CollateralDAO collateralDAO;
+	private ContractZywDAO collateralDAO;
 	
 	@Autowired 
 	private EnterpriseCustomerDAO enterpriseCustomerDAO;
@@ -375,69 +370,69 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 		
 		List<RepayPlanModel> repayPlanModels = DTOUtils.getRepayPlanModels(repayPlanDAO.listByloanContractId(loanIdContractId));
 		
-		List<CollateralModel> collateralModels = DTOUtils.getCollateralModels(collateralDAO.listByloanContractId(loanIdContractId));
+//		List<ContractZywModel> collateralModels = DTOUtils.getCollateralModels(collateralDAO.listByloanContractId(loanIdContractId));
 		
-		
-		ContractModel contractModel = null;
-		if (IdentifierType.A.equals(type)) {
-			contractModel = new ContractModel(roundStr,
-					                          IdentifierType.A.name(),
-					                          contract.getReqId(), 
-					                          null,
-					                          contract.getLoanContractNo(),
-					                          contract.getLoanContractName(), 
-					                          DTOUtils.getNewStr(contract.getBorrowerType()), 
-					                          contract.getCustomerId(),
-					                          contract.getGuarantee(), 
-					                          contract.getLoanAmount().toPlainString(),
-					                          DTOUtils.getNewStr(contract.getPeriodType()),
-					                          contract.getPeriodTerm()+"", 
-					                          DateUtil.getDateStr(contract.getLoanStartDate(), "yyyy-MM-dd"),
-					                          DateUtil.getDateStr(contract.getLoanEndDate(), "yyyy-MM-dd"),
-					                          DTOUtils.getNewStr(contract.getRateType()), 
-					                          contract.getRate().toPlainString(),
-					                          DTOUtils.getNewStr(contract.getPurpose()), 
-					                          DTOUtils.getNewStr(contract.getIndustry()),
-					                          DTOUtils.getNewStr(contract.getLoanType()),
-					                          DTOUtils.getNewStr(contract.getUnionFlag()),
-					                          DTOUtils.getNewStr(contract.getPayType()),
-					                          DateUtil.getDateStr(contract.getSignDate(),JSON.DEFFAULT_DATE_FORMAT), 
-					                          contract.getRepaySource(),
-					                          contract.getStatus().getKey(),
-					                          DTOUtils.getNewStr(contract.getIsExtend()), 
-					                          DateUtil.getDateStr(contract.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT),
-					                          DateUtil.getDateStr(contract.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT),
-					                          null,
-					                          collateralModels.isEmpty()?null:JSON.toJSONString(collateralModels),
-					                          guaranteeModels.isEmpty()?null:JSON.toJSONString(guaranteeModels),
-					                          repayPlanModels.isEmpty()?null:JSON.toJSONString(repayPlanModels),
-					                          settledInfoModel == null ?null:JSON.toJSONString(settledInfoModel)) ;
-			String customerStr ="{\"customerType\":\"$1\",\"$3\":$2}";
-			String dataStr =null;
-			if (BorrowerTypeEnum.S_1.equals(contract.getBorrowerType())) {
-				EnterpriseCustomerModel enterpriseCustomerModel = DTOUtils.getEnterpriseCustomerModel(enterpriseCustomerDAO.findOne(contract.getBorrowerId()));
-				dataStr = enterpriseCustomerModel ==null ?null :JSON.toJSONString(enterpriseCustomerModel);
-				customerStr = customerStr.replace("$1", "E").replace("$3", "corporateCustomer");
-			}else {
-				PersonalCustomerModel personalCustomerModel = DTOUtils.getPersonalCustomerModel(personalCustomerDao.findOne(contract.getBorrowerId()));
-				dataStr = personalCustomerModel ==null ?null :JSON.toJSONString(personalCustomerModel);
-				customerStr = customerStr.replace("$1", "P").replace("$3", "personalCustomer");
-			}
-			customerStr = customerStr.replace("$2", dataStr);
-			contractModel.setLoanCustomerPackage(customerStr);
+//		
+//		ContractModel contractModel = null;
+//		if (IdentifierType.A.equals(type)) {
+//			contractModel = new ContractModel(roundStr,
+//					                          IdentifierType.A.name(),
+//					                          contract.getReqId(), 
+//					                          null,
+//					                          contract.getLoanContractNo(),
+//					                          contract.getLoanContractName(), 
+//					                          DTOUtils.getNewStr(contract.getBorrowerType()), 
+//					                          contract.getCustomerId(),
+//					                          contract.getGuarantee(), 
+//					                          contract.getLoanAmount().toPlainString(),
+//					                          DTOUtils.getNewStr(contract.getPeriodType()),
+//					                          contract.getPeriodTerm()+"", 
+//					                          DateUtil.getDateStr(contract.getLoanStartDate(), "yyyy-MM-dd"),
+//					                          DateUtil.getDateStr(contract.getLoanEndDate(), "yyyy-MM-dd"),
+//					                          DTOUtils.getNewStr(contract.getRateType()), 
+//					                          contract.getRate().toPlainString(),
+//					                          DTOUtils.getNewStr(contract.getPurpose()), 
+//					                          DTOUtils.getNewStr(contract.getIndustry()),
+//					                          DTOUtils.getNewStr(contract.getLoanType()),
+//					                          DTOUtils.getNewStr(contract.getUnionFlag()),
+//					                          DTOUtils.getNewStr(contract.getPayType()),
+//					                          DateUtil.getDateStr(contract.getSignDate(),JSON.DEFFAULT_DATE_FORMAT), 
+//					                          contract.getRepaySource(),
+//					                          contract.getStatus().getKey(),
+//					                          DTOUtils.getNewStr(contract.getIsExtend()), 
+//					                          DateUtil.getDateStr(contract.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT),
+//					                          DateUtil.getDateStr(contract.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT),
+//					                          null,
+//					                          collateralModels.isEmpty()?null:JSON.toJSONString(collateralModels),
+//					                          guaranteeModels.isEmpty()?null:JSON.toJSONString(guaranteeModels),
+//					                          repayPlanModels.isEmpty()?null:JSON.toJSONString(repayPlanModels),
+//					                          settledInfoModel == null ?null:JSON.toJSONString(settledInfoModel)) ;
+//			String customerStr ="{\"customerType\":\"$1\",\"$3\":$2}";
+//			String dataStr =null;
+//			if (BorrowerTypeEnum.S_1.equals(contract.getBorrowerType())) {
+//				EnterpriseCustomerModel enterpriseCustomerModel = DTOUtils.getEnterpriseCustomerModel(enterpriseCustomerDAO.findOne(contract.getBorrowerId()));
+//				dataStr = enterpriseCustomerModel ==null ?null :JSON.toJSONString(enterpriseCustomerModel);
+//				customerStr = customerStr.replace("$1", "E").replace("$3", "corporateCustomer");
+//			}else {
+//				PersonalCustomerModel personalCustomerModel = DTOUtils.getPersonalCustomerModel(personalCustomerDao.findOne(contract.getBorrowerId()));
+//				dataStr = personalCustomerModel ==null ?null :JSON.toJSONString(personalCustomerModel);
+//				customerStr = customerStr.replace("$1", "P").replace("$3", "personalCustomer");
+//			}
+//			customerStr = customerStr.replace("$2", dataStr);
+//			contractModel.setLoanCustomerPackage(customerStr);
+//			
 			
-			
-		}else {
-			log.info("暂不支持的操作 loanIdContractId={},IdentifierType={} ",loanIdContractId,type);
-			return null;
-		}
-		
-		SynResponseModel responseModel = financeService.contractFacade(contractModel);
-		if (responseModel.isSuccess()) {
-			contract.setPushStatus(PushStatus.INPROSESS);
-			contractDAO.save(contract);
-		}
-		return responseModel;
+//		}else {
+//			log.info("暂不支持的操作 loanIdContractId={},IdentifierType={} ",loanIdContractId,type);
+//			return null;
+//		}
+//		
+//		SynResponseModel responseModel = financeService.contractFacade(contractModel);
+//		if (responseModel.isSuccess()) {
+//			contract.setPushStatus(PushStatus.INPROSESS);
+//			contractDAO.save(contract);
+//		}
+		return null;
 	}
 
 	@Override
@@ -452,22 +447,22 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 		
 		RepayInfoModel infoModel = null;
 		String roundStr =  RandomUtil.random8Len();
-		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
-			infoModel = new RepayInfoModel(roundStr, 
-					                       type.name(),
-					                       repayInfo.getReqId(),
-					                       null,
-					                       contractDAO.findOne(repayInfo.getLoanContractId()).getLoanContractNo(),
-					                       repayInfo.getRepayAmount().toPlainString(),
-					                       repayInfo.getRepayPrincipalAmount().toPlainString(),
-					                       repayInfo.getRepayInterestAmount().toPlainString(),
-					                       DateUtil.getDateStr(repayInfo.getRepayDate(), "yyyy-MM-dd"),
-					                       DateUtil.getDateStr(repayInfo.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT), 
-					                       DateUtil.getDateStr(repayInfo.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT));
-		}else {
-			log.info("还款信息暂不支持的操作 repayInfoId={},IdentifierType={} ",repayInfoId,type);
-			return;
-		}
+//		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
+//			infoModel = new RepayInfoModel(roundStr, 
+//					                       type.name(),
+//					                       repayInfo.getReqId(),
+//					                       null,
+//					                       contractDAO.findOne(repayInfo.getLoanContractId()).getLoanContractNo(),
+//					                       repayInfo.getRepayAmount().toPlainString(),
+//					                       repayInfo.getRepayPrincipalAmount().toPlainString(),
+//					                       repayInfo.getRepayInterestAmount().toPlainString(),
+//					                       DateUtil.getDateStr(repayInfo.getRepayDate(), "yyyy-MM-dd"),
+//					                       DateUtil.getDateStr(repayInfo.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT), 
+//					                       DateUtil.getDateStr(repayInfo.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT));
+//		}else {
+//			log.info("还款信息暂不支持的操作 repayInfoId={},IdentifierType={} ",repayInfoId,type);
+//			return;
+//		}
 		SynResponseModel responseModel = financeService.repayInfoFacade(infoModel);
 		if (responseModel.isSuccess()) {
 			repayInfo.setPushStatus(PushStatus.INPROSESS);
@@ -487,20 +482,20 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 		
 		String roundStr =  RandomUtil.random8Len();
 		RepayExtendInfoModel extendInfoModel = null;
-		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
-			extendInfoModel = new RepayExtendInfoModel(roundStr,
-					type.name(), 
-					extendInfo.getReqId(), null, contractDAO.findOne(extendInfo.getLoanContractId()).getLoanContractNo(), extendInfo.getExtendNum()+"", 
-					DateUtil.getDateStr(extendInfo.getRepayDate(), "yyyy-MM-dd"),
-					extendInfo.getRepayAmount().toPlainString(),
-					extendInfo.getRepayPrincipalAmount().toPlainString(),
-					extendInfo.getRepayInterestAmount().toPlainString(),
-					DateUtil.getDateStr(extendInfo.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT), 
-                    DateUtil.getDateStr(extendInfo.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT));
-		}else {
-			log.info("展期还款信息暂不支持的操作 repayExtendInfoId={},IdentifierType={} ",repayExtendInfoId,type);
-			return;
-		}
+//		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
+//			extendInfoModel = new RepayExtendInfoModel(roundStr,
+//					type.name(), 
+//					extendInfo.getReqId(), null, contractDAO.findOne(extendInfo.getLoanContractId()).getLoanContractNo(),
+//					DateUtil.getDateStr(extendInfo.getRepayTime(), "yyyy-MM-dd"),
+//					extendInfo.getMoney().toPlainString(),
+//					extendInfo.getInterest().toPlainString(),
+//					extendInfo.getPenaltyInterest().toPlainString(),
+//					DateUtil.getDateStr(extendInfo.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT), 
+//                    DateUtil.getDateStr(extendInfo.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT));
+//		}else {
+//			log.info("展期还款信息暂不支持的操作 repayExtendInfoId={},IdentifierType={} ",repayExtendInfoId,type);
+//			return;
+//		}
 		SynResponseModel responseModel = financeService.repayExtendInfoFacade(extendInfoModel);
 		if (responseModel.isSuccess()) {
 			extendInfo.setPushStatus(PushStatus.INPROSESS);
@@ -521,24 +516,24 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 		
 		String roundStr =  RandomUtil.random8Len();
 		RepayExtendPlanModel repayExtendPlanModel = null;
-		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
-			repayExtendPlanModel = new RepayExtendPlanModel(roundStr,
-					type.name(), extendPlan.getReqId(), null, contractDAO.findOne(extendPlan.getLoanContractId()).getLoanContractNo(),
-					extendPlan.getExtendCount()+"", extendPlan.getExtendTerm(),
-					DateUtil.getDateStr(extendPlan.getRepayDate(), "yyyy-MM-dd"),
-					extendPlan.getPrincipal().toPlainString(), 
-					extendPlan.getReturnPrincipal().toPlainString(),
-					extendPlan.getInterest().toPlainString(),
-					extendPlan.getReturnInterest().toPlainString(),
-					DTOUtils.getNewStr(extendPlan.getStatus()), 
-					DTOUtils.getNewStr(extendPlan.getOverdueFlag()), 
-					extendPlan.getOverdueDays()+"",
-					DateUtil.getDateStr(extendPlan.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT), 
-                    DateUtil.getDateStr(extendPlan.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT));
-		}else {
-			log.info("展期还款计划暂不支持的操作 repayExtendPlanId={},IdentifierType={} ",repayExtendPlanId,type);
-			return;
-		}
+//		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
+//			repayExtendPlanModel = new RepayExtendPlanModel(roundStr,
+//					type.name(), extendPlan.getReqId(), null, contractDAO.findOne(extendPlan.getLoanContractId()).getLoanContractNo(),
+//					extendPlan.getExtendCount()+"", extendPlan.getExtendTerm(),
+//					DateUtil.getDateStr(extendPlan.getEndDate(), "yyyy-MM-dd"),
+//					extendPlan.getPrincipal().toPlainString(), 
+//					extendPlan.getReturnPrincipal().toPlainString(),
+//					extendPlan.getInterest().toPlainString(),
+//					extendPlan.getReturnInterest().toPlainString(),
+//					DTOUtils.getNewStr(extendPlan.getStatus()), 
+//					DTOUtils.getNewStr(extendPlan.getOverdueFlag()), 
+//					extendPlan.getOverdueDays()+"",
+//					DateUtil.getDateStr(extendPlan.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT), 
+//                    DateUtil.getDateStr(extendPlan.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT));
+//		}else {
+//			log.info("展期还款计划暂不支持的操作 repayExtendPlanId={},IdentifierType={} ",repayExtendPlanId,type);
+//			return;
+//		}
 		SynResponseModel responseModel = financeService.repayExtendPlanFacade(repayExtendPlanModel);
 		if (responseModel.isSuccess()) {
 			extendPlan.setPushStatus(PushStatus.INPROSESS);
@@ -557,23 +552,23 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 		String roundStr =  RandomUtil.random8Len();
 		
 		OtherBaddebtModel otherBaddebtModel = null;
-		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
-			otherBaddebtModel = new OtherBaddebtModel(roundStr,
-					type.name(),
-					otherBaddebt.getReqId(),
-					null,
-					contractDAO.findOne(otherBaddebt.getLoanContractId()).getLoanContractNo(),
-					otherBaddebt.getBadMoney().toPlainString(),
-					DateUtil.getDateStr(otherBaddebt.getSetDate(),"yyyy-MM-dd"), 
-					otherBaddebt.getFollowupWork(),
-					DateUtil.getDateStr(otherBaddebt.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT), 
-                    DateUtil.getDateStr(otherBaddebt.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT));
-
-			
-		}else {
-			log.info("坏账暂不支持的操作 otherBaddebtId={},IdentifierType={} ",otherBaddebtId,type);
-			return;
-		}
+//		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
+//			otherBaddebtModel = new OtherBaddebtModel(roundStr,
+//					type.name(),
+//					otherBaddebt.getReqId(),
+//					null,
+//					contractDAO.findOne(otherBaddebt.getLoanContractId()).getLoanContractNo(),
+//					otherBaddebt.getBadMoney().toPlainString(),
+//					DateUtil.getDateStr(otherBaddebt.getSetDate(),"yyyy-MM-dd"), 
+//					otherBaddebt.getFollowupWork(),
+//					DateUtil.getDateStr(otherBaddebt.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT), 
+//                    DateUtil.getDateStr(otherBaddebt.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT));
+//
+//			
+//		}else {
+//			log.info("坏账暂不支持的操作 otherBaddebtId={},IdentifierType={} ",otherBaddebtId,type);
+//			return;
+//		}
 		
 		SynResponseModel responseModel = financeService.otherBaddebtFacade(otherBaddebtModel);
 		if (responseModel.isSuccess()) {
@@ -600,7 +595,7 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 					type.name(), 
 					otherOverdueInfo.getReqId(), 
 					null, 
-					contractDAO.findOne(otherOverdueInfo.getLoanContractId()).getLoanContractNo(),
+					contractDAO.findOne(otherOverdueInfo.getLoanContractId()).getContractNumber(),
 					otherOverdueInfo.getOverdueMoney().toPlainString(), 
 					DateUtil.getDateStr(otherOverdueInfo.getOverdueDate(),"yyyy-MM-dd"), 
 					otherOverdueInfo.getOverdueInterest().toPlainString(), 
