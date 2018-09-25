@@ -28,9 +28,9 @@ public class CollateralModel {
 	// 权证号
 	@JSONField(name ="warrant_num")
 	private String warrantNum;
-
+	
 	// 评估值(元)
-	@JSONField(name ="warrant_holder")
+	@JSONField(name ="evaluation_value")
 	private String evaluationValue;
 	
 	// 权证所有人
