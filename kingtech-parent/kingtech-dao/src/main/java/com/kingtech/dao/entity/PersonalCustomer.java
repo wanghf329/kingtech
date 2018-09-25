@@ -12,7 +12,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import com.kingtech.dao.entity.base.UuidEntity;
+import com.kingtech.enums.CardTypeEnum;
 import com.kingtech.enums.CertType;
+import com.kingtech.enums.EducationEnum;
 import com.kingtech.enums.FarmersFlagEnum;
 import com.kingtech.enums.SexEnum;
 import com.kingtech.enums.YesNoEnum;
@@ -32,14 +34,14 @@ public class PersonalCustomer extends UuidEntity{
 	@Column(name="SEX",nullable = false)
 	private SexEnum sex;
 	
-	//证件类型：1）居民身份证 2）护照,  3）驾驶证
-	@Enumerated(EnumType.STRING)
-	@Column(name="CATEGORY",nullable = false)
-	private CertType category;
+	//证件类型
+	@Enumerated(EnumType.ORDINAL)
+	@Column(name="CARD_TYPE",nullable = false)
+	private CardTypeEnum cardType;
 	
 	// 证件号码
-	@Column(name="CARD_NUM",nullable = false)
-	private String cardNum;
+	@Column(name="CARD_NUMBER",nullable = false)
+	private String cardNumber;
 	
 	// 联系电话
 	@Column(name="PHONE",nullable = false)
@@ -48,23 +50,21 @@ public class PersonalCustomer extends UuidEntity{
 	//是否农牧民：1）是   2）否
 	@Enumerated(EnumType.STRING)
 	@Column(name="FARMERS_FLAG",nullable = false)
-	private FarmersFlagEnum farmersFlag;
+	private FarmersFlagEnum isFarmer;
 	
-	//学历
+	//学历（1：博士，2：硕士，3：本科，4：专科，5：高中及以下）
+	@Enumerated(EnumType.STRING)
 	@Column(name="EDUCATION")
-	private String education;
-	
-	// 传真
-	@Column(name="FAX")
-	private String fax;
+	private EducationEnum education;
 	
 	// 电子邮件
 	@Column(name="EMAIL")
 	private String email;
 	
-	//婚姻状况
+	//婚姻状况，1：已婚，0：未婚
+	@Enumerated(EnumType.STRING)
 	@Column(name="MARRIAGE")
-	private String marriage;
+	private YesNoEnum isMarry;
 	
 	//国籍
 	@Column(name="NATIONALITY")
@@ -78,18 +78,6 @@ public class PersonalCustomer extends UuidEntity{
 	@Column(name="NATION")
 	private String nation;
 	
-	//固定住址（省份）
-	@Column(name="ADDRESS_PROVINCE",nullable = false)
-	private String addressProvince;
-	
-	//固定住址（市）
-	@Column(name="ADDRESS_CITY",nullable = false)
-	private String addressCity;
-	
-	// 固定住址（区/县）
-	@Column(name="ADDRESS_DISTRICT",nullable = false)
-	private String addressDistrict;
-	
 	// 固定住址（详细）
 	@Column(name="ADDRESS")
 	private String address;
@@ -99,8 +87,8 @@ public class PersonalCustomer extends UuidEntity{
 	private String postCode;
 	
 	// 户口所在地
-	@Column(name="RESIDENCE")
-	private String residence;
+	@Column(name="REGISTERED_ADDRESS")
+	private String registeredAddress;
 	
 	// 籍贯
 	@Column(name="NATIVE_PLACE")
@@ -111,59 +99,6 @@ public class PersonalCustomer extends UuidEntity{
 	private String workUnit;
 	
 	//职务
-	@Column(name="POST")
-	private String post;
-
-	public PersonalCustomer(String name, SexEnum sex,
-			CertType category, String cardNum, String phone,
-			FarmersFlagEnum farmersFlag, String addressProvince, String addressCity,
-			String addressDistrict) {
-		this.name = name;
-		this.sex = sex;
-		this.category = category;
-		this.cardNum = cardNum;
-		this.phone = phone;
-		this.farmersFlag = farmersFlag;
-		this.addressProvince = addressProvince;
-		this.addressCity = addressCity;
-		this.addressDistrict = addressDistrict;
-	}
-
-	public PersonalCustomer(String name, SexEnum sex, CertType category,
-			String cardNum, String phone, FarmersFlagEnum farmersFlag,
-			String education, String fax, String email, String marriage,
-			String nationality, Date birthDate, String nation,
-			String addressProvince, String addressCity, String addressDistrict,
-			String address, String postCode, String residence,
-			String nativePlace, String workUnit, String post) {
-		super();
-		this.name = name;
-		this.sex = sex;
-		this.category = category;
-		this.cardNum = cardNum;
-		this.phone = phone;
-		this.farmersFlag = farmersFlag;
-		this.education = education;
-		this.fax = fax;
-		this.email = email;
-		this.marriage = marriage;
-		this.nationality = nationality;
-		this.birthDate = birthDate;
-		this.nation = nation;
-		this.addressProvince = addressProvince;
-		this.addressCity = addressCity;
-		this.addressDistrict = addressDistrict;
-		this.address = address;
-		this.postCode = postCode;
-		this.residence = residence;
-		this.nativePlace = nativePlace;
-		this.workUnit = workUnit;
-		this.post = post;
-	}
-	
-	
-	
-
-	
-	
+	@Column(name="POSITION")
+	private String position;
 }

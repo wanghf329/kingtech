@@ -1,5 +1,6 @@
 package com.kingtech.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -17,18 +18,12 @@ import lombok.NoArgsConstructor;
 public class RepayPlanModel {
 
 	// 还款日期，格式YYYY-MM-DD
-	@JSONField(name="repay_date")
-	private String repayDate;
+	private String endDate;
 
 	// 还款本金（元）
-	@JSONField(name="principal")
-	private String principal;
+	private BigDecimal money;
 
 	// 还款利息（元）
-	@JSONField(name="interest")
-	private String interest;
-
-
-
+	private BigDecimal interest;
 
 }

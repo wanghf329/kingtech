@@ -1,6 +1,6 @@
 package com.kingtech.enums;
 
-public enum CollateralTypeFor1Enum implements BaseEnum {
+public enum DywTypeEnum implements BaseEnum {
 	S_1("存货抵押"),
 	S_2("客账抵押"),
 	S_3("证券抵押"),
@@ -11,7 +11,7 @@ public enum CollateralTypeFor1Enum implements BaseEnum {
 
 	private String key;
 	
-	private CollateralTypeFor1Enum(String key) {
+	private DywTypeEnum(String key) {
 		this.key = key;
 	}
 	
