@@ -490,11 +490,11 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
 			extendInfoModel = new RepayExtendInfoModel(roundStr,
 					type.name(), 
-					extendInfo.getReqId(), null, contractDAO.findOne(extendInfo.getLoanContractId()).getLoanContractNo(), extendInfo.getExtendNum()+"", 
-					DateUtil.getDateStr(extendInfo.getRepayDate(), "yyyy-MM-dd"),
-					extendInfo.getRepayAmount().toPlainString(),
-					extendInfo.getRepayPrincipalAmount().toPlainString(),
-					extendInfo.getRepayInterestAmount().toPlainString(),
+					extendInfo.getReqId(), null, contractDAO.findOne(extendInfo.getLoanContractId()).getLoanContractNo(),
+					DateUtil.getDateStr(extendInfo.getRepayTime(), "yyyy-MM-dd"),
+					extendInfo.getMoney().toPlainString(),
+					extendInfo.getInterest().toPlainString(),
+					extendInfo.getPenaltyInterest().toPlainString(),
 					DateUtil.getDateStr(extendInfo.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT), 
                     DateUtil.getDateStr(extendInfo.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT));
 		}else {
@@ -521,24 +521,24 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 		
 		String roundStr =  RandomUtil.random8Len();
 		RepayExtendPlanModel repayExtendPlanModel = null;
-		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
-			repayExtendPlanModel = new RepayExtendPlanModel(roundStr,
-					type.name(), extendPlan.getReqId(), null, contractDAO.findOne(extendPlan.getLoanContractId()).getLoanContractNo(),
-					extendPlan.getExtendCount()+"", extendPlan.getExtendTerm(),
-					DateUtil.getDateStr(extendPlan.getRepayDate(), "yyyy-MM-dd"),
-					extendPlan.getPrincipal().toPlainString(), 
-					extendPlan.getReturnPrincipal().toPlainString(),
-					extendPlan.getInterest().toPlainString(),
-					extendPlan.getReturnInterest().toPlainString(),
-					DTOUtils.getNewStr(extendPlan.getStatus()), 
-					DTOUtils.getNewStr(extendPlan.getOverdueFlag()), 
-					extendPlan.getOverdueDays()+"",
-					DateUtil.getDateStr(extendPlan.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT), 
-                    DateUtil.getDateStr(extendPlan.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT));
-		}else {
-			log.info("展期还款计划暂不支持的操作 repayExtendPlanId={},IdentifierType={} ",repayExtendPlanId,type);
-			return;
-		}
+//		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
+//			repayExtendPlanModel = new RepayExtendPlanModel(roundStr,
+//					type.name(), extendPlan.getReqId(), null, contractDAO.findOne(extendPlan.getLoanContractId()).getLoanContractNo(),
+//					extendPlan.getExtendCount()+"", extendPlan.getExtendTerm(),
+//					DateUtil.getDateStr(extendPlan.getEndDate(), "yyyy-MM-dd"),
+//					extendPlan.getPrincipal().toPlainString(), 
+//					extendPlan.getReturnPrincipal().toPlainString(),
+//					extendPlan.getInterest().toPlainString(),
+//					extendPlan.getReturnInterest().toPlainString(),
+//					DTOUtils.getNewStr(extendPlan.getStatus()), 
+//					DTOUtils.getNewStr(extendPlan.getOverdueFlag()), 
+//					extendPlan.getOverdueDays()+"",
+//					DateUtil.getDateStr(extendPlan.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT), 
+//                    DateUtil.getDateStr(extendPlan.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT));
+//		}else {
+//			log.info("展期还款计划暂不支持的操作 repayExtendPlanId={},IdentifierType={} ",repayExtendPlanId,type);
+//			return;
+//		}
 		SynResponseModel responseModel = financeService.repayExtendPlanFacade(repayExtendPlanModel);
 		if (responseModel.isSuccess()) {
 			extendPlan.setPushStatus(PushStatus.INPROSESS);

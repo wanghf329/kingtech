@@ -23,36 +23,46 @@ import com.kingtech.enums.PushStatus;
 @NoArgsConstructor
 public class RepayExtendInfo extends LoanRecordEntity {
 	
-	// 展期次数对应展期计划中的展期次数（第几次展期）
-	@Column(name="EXTEND_NUM")
-	private long extendNum;
-
-	// 还款日期
-	@Column(name="REPAY_DATE")
-	private Date repayDate;
-
-	// 还款金额
-	@Column(name="REPAY_AMOUNT")
-	private BigDecimal repayAmount;
-
-	// 还款本金
-	@Column(name="REPAY_PRINCIPAL_AMOUNT")
-	private BigDecimal repayPrincipalAmount;
+	//还款日期，格式YYYY-MM-DD
+	@Column(name="REPAY_TIME")
+	private Date repayTime;
 	
-	// 还款利息
-	@Column(name="REPAY_INTEREST_AMOUNT")
-	private BigDecimal repayInterestAmount;
+	//还款本金
+	@Column(name="MONEY")
+	private BigDecimal money;
+	
+	//还款利息
+	@Column(name="INTEREST")
+	private BigDecimal interest;
+	
+	//罚息
+	@Column(name="PENALTY_INTEREST")
+	private BigDecimal penaltyInterest;
+	
+	//违约金
+	@Column(name="PENALTY")
+	private BigDecimal penalty;
+	
+	//服务费
+	@Column(name="SERVICE_CHARGE")
+	private BigDecimal serviceCharge;
+	
+	// 其它费用（不确定到以上5个科目的，均放其它），用户从申请借款开始向小贷支付的金额均反映在还款（展期还款）接口
+	@Column(name="OTHER_CHARGE")
+	private BigDecimal otherCharge;
 
 	public RepayExtendInfo(String loanContractId, String reqId,
-			PushStatus pushStatus, long extendNum, Date repayDate,
-			BigDecimal repayAmount, BigDecimal repayPrincipalAmount,
-			BigDecimal repayInterestAmount) {
+			PushStatus pushStatus, Date repayTime, BigDecimal money,
+			BigDecimal interest, BigDecimal penaltyInterest,
+			BigDecimal penalty, BigDecimal serviceCharge, BigDecimal otherCharge) {
 		super(loanContractId, reqId, pushStatus);
-		this.extendNum = extendNum;
-		this.repayDate = repayDate;
-		this.repayAmount = repayAmount;
-		this.repayPrincipalAmount = repayPrincipalAmount;
-		this.repayInterestAmount = repayInterestAmount;
+		this.repayTime = repayTime;
+		this.money = money;
+		this.interest = interest;
+		this.penaltyInterest = penaltyInterest;
+		this.penalty = penalty;
+		this.serviceCharge = serviceCharge;
+		this.otherCharge = otherCharge;
 	}
-	
+
 }

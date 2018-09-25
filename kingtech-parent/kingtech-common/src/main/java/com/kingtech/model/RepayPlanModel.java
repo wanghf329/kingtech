@@ -1,14 +1,10 @@
 package com.kingtech.model;
 
-import java.util.Date;
-
-import javax.persistence.Column;
-
-import com.alibaba.fastjson.annotation.JSONField;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import com.alibaba.fastjson.annotation.JSONField;
 
 
 @Data

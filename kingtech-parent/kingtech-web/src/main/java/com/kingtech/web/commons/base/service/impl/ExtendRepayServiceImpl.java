@@ -48,16 +48,21 @@ public class ExtendRepayServiceImpl implements ExtendRepayService{
 
 	@Override
 	@Transactional
-	public void addOrEdit(String id,String loanContractId,
-			long extendNum, Date repayDate,
-			BigDecimal repayAmount, BigDecimal repayPrincipalAmount,
-			BigDecimal repayInterestAmount) {
+	public void addOrEdit(String id,String loanContractId, Date repayTime,
+			BigDecimal money, BigDecimal interest,
+			BigDecimal penaltyInterest, BigDecimal penalty,
+			BigDecimal serviceCharge, BigDecimal otherCharge) {
 		RepayExtendInfo ri = null;
 		if (StringUtils.isEmpty(id)) {
 			ri = new RepayExtendInfo(loanContractId,creatRequstId.getReqId(),
-					PushStatus.INITATION,extendNum,repayDate,
-					repayAmount,repayPrincipalAmount,
-					repayInterestAmount);
+									PushStatus.INITATION,
+									repayTime,
+									money,
+									interest,
+									penaltyInterest,
+									penalty,
+									serviceCharge,
+									otherCharge);
 		}else{
 			ri = repayExtendInfoDao.findOne(id);
 			ri.setExtendNum(extendNum);
