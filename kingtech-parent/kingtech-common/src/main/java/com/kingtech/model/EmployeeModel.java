@@ -76,5 +76,27 @@ public class EmployeeModel extends BaseRequestModel {
 	public EmployeeModel( String roundStr,String identifier, String reqId) {
 		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId);
 	}
+
+	public EmployeeModel(String id, String name, String phone, String email,
+			String address, String department, SexEnum sex, String cardType,
+			String cardNumber, String education, String executiveFlag,
+			String position, String entryTime, String quitTime) {
+		super(id);
+		this.name = name;
+		this.phone = phone;
+		this.email = email;
+		this.address = address;
+		this.department = department;
+		this.sex = sex;
+		this.cardType = cardType;
+		this.cardNumber = cardNumber;
+		this.education = education;
+		this.executiveFlag = executiveFlag;
+		this.position = position;
+		this.entryTime = entryTime;
+		this.quitTime = quitTime;
+	}
+	
+	
 	
 }
