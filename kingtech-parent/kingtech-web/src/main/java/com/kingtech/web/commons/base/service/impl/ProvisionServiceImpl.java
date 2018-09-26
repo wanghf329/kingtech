@@ -72,7 +72,7 @@ public class ProvisionServiceImpl implements ProvisionService{
 		}
 		provisionDao.save(pi);
 		
-		paymentApi.provisionInfoApi(pi.getId(),StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
+//		paymentApi.provisionInfoApi(pi.getId(),StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
 	}
 
 	@Override
@@ -83,7 +83,7 @@ public class ProvisionServiceImpl implements ProvisionService{
 	@Override
 	public ProvisionInfoModel getById(String id) {
 		ProvisionInfo pi = provisionDao.findOne(id);
-		return new ProvisionInfoModel(pi.getId(), DateFormatUtils.format(pi.getDateMonth(),"yyyy-MM-dd"), 
+		return new ProvisionInfoModel(pi.getId(), DateFormatUtils.format(pi.getDateMonth(),"yyyy-MM"), 
 									  pi.getNormalBalance().toPlainString(), 
 									  pi.getNormalRate().toPlainString(),
 									  pi.getNormalReal().toPlainString(),
