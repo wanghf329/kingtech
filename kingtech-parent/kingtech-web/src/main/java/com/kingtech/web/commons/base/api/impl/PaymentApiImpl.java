@@ -456,7 +456,7 @@ public class PaymentApiImpl  implements PaymentApi {
 				DTOUtils.getEnumIntVal(contract.getBusiness()),
 				DTOUtils.getNewStr(contract.getLoanMethod()),
 				DTOUtils.getEnumIntVal(contract.getRepayMethod()),
-				DateUtil.getDateStr(contract.getSignTime(),"yyyy-MM-dd"),
+				DateUtil.getDateStr(contract.getSignTime(),"yyyy-MM-dd HH:mm:ss"),
 				contract.getRepaySource(),
 				contract.getDistrictCode(),
 				pcustomerRequestModel, 
