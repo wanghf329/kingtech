@@ -1,6 +1,6 @@
 package com.kingtech.enums;
 
-public enum CollateralTypeFor2Enum implements BaseEnum {
+public enum ZywTypeEnum implements BaseEnum {
 	S_1("股权质押"),
 	S_2("定期存单质押"),
 	S_3("专利权质押"),
@@ -9,7 +9,7 @@ public enum CollateralTypeFor2Enum implements BaseEnum {
 
 	private String key;
 	
-	private CollateralTypeFor2Enum(String key) {
+	private ZywTypeEnum(String key) {
 		this.key = key;
 	}
 	

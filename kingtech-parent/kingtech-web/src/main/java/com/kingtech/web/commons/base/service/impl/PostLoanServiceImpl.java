@@ -21,6 +21,7 @@ import com.kingtech.dao.rdbms.ContractDAO;
 import com.kingtech.dao.rdbms.OtherBaddebtDAO;
 import com.kingtech.dao.rdbms.OtherOverdueInfoDAO;
 import com.kingtech.dao.rdbms.RepayInfoDAO;
+import com.kingtech.enums.BadTypeEnum;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.model.OtherBaddebtModel;
@@ -70,16 +71,16 @@ public class PostLoanServiceImpl implements PostLoanService{
 			} else {
 				contract = contractDao.findOne(repayInfo.getLoanContractId());
 			}
-			result.add(new ModelExt(
-					   new RepayInfoModel(repayInfo.getId(), 
-									   	  repayInfo.getLoanContractId(),
-									      repayInfo.getRepayAmount().toPlainString(),
-									      repayInfo.getRepayPrincipalAmount().toPlainString(),
-									      repayInfo.getRepayInterestAmount().toPlainString(),
-									      DateUtil.getDateStr(repayInfo.getRepayDate(), "yyyy-MM-dd")),
-					   contract.getLoanContractNo(),
-					   contract.getLoanContractName(),
-					   repayInfo.getPushStatus()));
+//			result.add(new ModelExt(
+//					   new RepayInfoModel(repayInfo.getId(), 
+//									   	  repayInfo.getLoanContractId(),
+//									      repayInfo.getRepayAmount().toPlainString(),
+//									      repayInfo.getRepayPrincipalAmount().toPlainString(),
+//									      repayInfo.getRepayInterestAmount().toPlainString(),
+//									      DateUtil.getDateStr(repayInfo.getRepayDate(), "yyyy-MM-dd")),
+//					   contract.getLoanContractNo(),
+//					   contract.getLoanContractName(),
+//					   repayInfo.getPushStatus()));
 		}
 		return result;
 	}
@@ -148,16 +149,16 @@ public class PostLoanServiceImpl implements PostLoanService{
 			} else {
 				contract = contractDao.findOne(otherBaddebt.getLoanContractId());
 			}
-			result.add(new ModelExt(
-						   new OtherBaddebtModel(otherBaddebt.getId(), 
-												 otherBaddebt.getLoanContractId(),
-												 otherBaddebt.getBadMoney().toPlainString(),
-												 DateUtil.getDateStr(otherBaddebt.getSetDate(), "yyyy-MM-dd"),
-												 otherBaddebt.getFollowupWork()),
-						   
-						   contract.getLoanContractNo(),
-						   contract.getLoanContractName(),
-						   otherBaddebt.getPushStatus()));
+//			result.add(new ModelExt(
+//						   new OtherBaddebtModel(otherBaddebt.getId(), 
+//												 otherBaddebt.getLoanContractId(),
+//												 otherBaddebt.getBadMoney().toPlainString(),
+//												 DateUtil.getDateStr(otherBaddebt.getSetDate(), "yyyy-MM-dd"),
+//												 otherBaddebt.getFollowupWork()),
+//						   
+//						   contract.getLoanContractNo(),
+//						   contract.getLoanContractName(),
+//						   otherBaddebt.getPushStatus()));
 		}
 		return result;
 		
@@ -172,17 +173,19 @@ public class PostLoanServiceImpl implements PostLoanService{
 		OtherBaddebtModel  model = new OtherBaddebtModel(id, 
 														badDebtInfo.getLoanContractId(),
 														badDebtInfo.getBadMoney().toPlainString(),
-														DateUtil.getDateStr(badDebtInfo.getSetDate(), "yyyy-MM-dd"),
-														badDebtInfo.getFollowupWork());
+														DateUtil.getDateStr(badDebtInfo.getLossDate(), "yyyy-MM-dd"),
+														badDebtInfo.getBadType().getKey(),
+														badDebtInfo.getFollowUp());
 		return model;
 	}
 
 	@Override
 	@Transactional
 	public OtherBaddebt addNewBaddebtInfo(String id,
-									  	  String setDate,
+									  	  String lossDate,
 									  	  BigDecimal badMoney,
-									  	  String followupWork,
+									  	  String badType,
+									  	  String followUp,
 									  	  String loanContractId) {
 		OtherBaddebt badDebtInfo = null;
 		
@@ -195,15 +198,17 @@ public class PostLoanServiceImpl implements PostLoanService{
 												creatRequstId.getReqId(), 
 												PushStatus.INITATION, 
 												badMoney,
-												DateUtils.parseDate(setDate, "yyyy-MM-dd"),
-												followupWork);
+												DateUtils.parseDate(lossDate, "yyyy-MM-dd"),
+												BadTypeEnum.valueOf(badType),
+												followUp);
 				
 			} else {
 				badDebtInfo = otherBaddebtDAO.findOne(id);
 				badDebtInfo.setBadMoney(badMoney);
 				badDebtInfo.setLoanContractId(loanContractId);
-				badDebtInfo.setSetDate(DateUtils.parseDate(setDate, "yyyy-MM-dd"));
-				badDebtInfo.setFollowupWork(followupWork);
+				badDebtInfo.setLossDate(DateUtils.parseDate(lossDate, "yyyy-MM-dd"));
+				badDebtInfo.setBadType(BadTypeEnum.valueOf(badType));
+				badDebtInfo.setFollowUp(followUp);
 				otherBaddebtDAO.save(badDebtInfo);
 			}
 		} catch (ParseException e) {
@@ -227,17 +232,17 @@ public class PostLoanServiceImpl implements PostLoanService{
 			} else {
 				contract = contractDao.findOne(overdueInfo.getLoanContractId());
 			}
-			result.add(new ModelExt(
-						   new OtherOverdueInfoModel(overdueInfo.getId(),
-								   overdueInfo.getLoanContractId(),
-								   overdueInfo.getOverdueMoney().toPlainString(),
-								   DateUtil.getDateStr(overdueInfo.getOverdueDate(), "yyyy-MM-dd"),
-								   overdueInfo.getOverdueInterest().toPlainString(),
-								   overdueInfo.getBalance().toPlainString(),
-								   overdueInfo.getRemarks()),
-						   contract.getLoanContractNo(),
-						   contract.getLoanContractName(),
-						   overdueInfo.getPushStatus()));
+//			result.add(new ModelExt(
+//						   new OtherOverdueInfoModel(overdueInfo.getId(),
+//								   overdueInfo.getLoanContractId(),
+//								   overdueInfo.getOverdueMoney().toPlainString(),
+//								   DateUtil.getDateStr(overdueInfo.getOverdueDate(), "yyyy-MM-dd"),
+//								   overdueInfo.getOverdueInterest().toPlainString(),
+//								   overdueInfo.getBalance().toPlainString(),
+//								   overdueInfo.getRemarks()),
+//						   contract.getLoanContractNo(),
+//						   contract.getLoanContractName(),
+//						   overdueInfo.getPushStatus()));
 		}
 		return result;
 		

@@ -7,21 +7,21 @@ import com.kingtech.common.config.BaseConfig;
 import com.kingtech.common.utils.SignUtils;
 
 /**
- * 员工信息表
- * @author wangyu
+ * 机构人员信息
+ * @author Tson
  * @version: v1.0
  */
 @Data
 public class EmployeeModel extends BaseRequestModel {
 	
-	// 机构名称
-	@JSONField(name="name",label="sign")
+	//姓名
+	@JSONField(name="name", label="sign")
 	private String name;
-
+	
 	// 联系电话
 	@JSONField(name="phone")
 	private String phone;
-
+	
 	// 电子邮件
 	@JSONField(name="email")
 	private String email;
@@ -30,7 +30,8 @@ public class EmployeeModel extends BaseRequestModel {
 	@JSONField(name="address")
 	private String address;
 	
-	// 部门
+	
+	//部门
 	@JSONField(name="department")
 	private String department;
 	
@@ -47,6 +48,7 @@ public class EmployeeModel extends BaseRequestModel {
 	private String cardNumber;
 		
 	// 学历
+	
 	@JSONField(name="education")
 	private int education;
 	
@@ -93,7 +95,6 @@ public class EmployeeModel extends BaseRequestModel {
 		this.entryTime = entryTime;
 		this.quitTime = quitTime;
 	}
+	}
 	
 	
-	
-}

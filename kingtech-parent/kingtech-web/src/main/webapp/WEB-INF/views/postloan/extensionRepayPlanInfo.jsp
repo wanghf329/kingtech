@@ -42,7 +42,7 @@
 										<div class="col-sm-6 input-group">
 											<select class="form-control loanContractId validate[required]" name="loanContractId" data-errormessage="合同编号不能为空">
 												<c:forEach var="it" items="${contracts}">
-			  										<option value ="${it.id}">${it.loanContractNo}</option>
+			  										<option value ="${it.id}">${it.contractNumber}</option>
 												</c:forEach>
 											</select>
 										</div>
@@ -51,20 +51,14 @@
 										<label for="#extendCount" class="col-sm-3 control-label"><i class="text-red">*</i> 展期次数</label>
 										<div class="col-sm-6 input-group">
 											<input type="text" class="form-control validate[required,custom[number]]" maxlength="2" data-errormessage="展期次数只能为数字"
-												name="extendCount">
+												name="count">
 										</div>									
-									</div>
-									<div class="form-group">
-										<label for="#extendTerm" class="col-sm-3 control-label"><i class="text-red">*</i> 展期期限</label>
-										<div class="col-sm-6 input-group">
-											<input type="text" class="form-control validate[required]" name="extendTerm" maxlength="25" data-errormessage="展期期限不能为空"> 
-										</div>
 									</div>
 									<div class="form-group">
 										<label for="#repayDate" class="col-sm-3 control-label"><i class="text-red">*</i> 展期后还款日期</label> 
 										<div class="col-sm-6 input-group">
 											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-											<input type="text" class="form-control pull-right datepicker validate[required]" name="repayDate"
+											<input type="text" class="form-control pull-right datepicker validate[required]" name="endDate"
 												readonly data-errormessage="展期后还款日期不能为空">
 										</div>
 									</div>
@@ -78,57 +72,12 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label for="#returnPrincipal" class="col-sm-3 control-label"><i class="text-red">*</i> 已还本金</label>
-										<div class="col-sm-6 input-group">
-											<span class="input-group-addon"><i class="fa fa-rmb"></i></span> 
-											<input type="text" class="form-control validate[required,custom[number]]" data-errormessage="已还本金只能为数字"
-												name="returnPrincipal">
-											<span class="input-group-addon"><i class="fa">元</i></span>
-										</div>
-									</div>
-									<div class="form-group">
 										<label for="#interest" class="col-sm-3 control-label"><i class="text-red">*</i> 展期后还款利息</label>
 										<div class="col-sm-6 input-group">
 											<span class="input-group-addon"><i class="fa fa-rmb"></i></span> 
 											<input type="text" class="form-control validate[required,custom[number]]" data-errormessage="展期后还款利息只能为数字"
 												name="interest">
 											<span class="input-group-addon"><i class="fa">元</i></span>
-										</div>
-									</div>
-									<div class="form-group">
-										<label for="#returnInterest" class="col-sm-3 control-label"><i class="text-red">*</i> 已还利息</label>
-										<div class="col-sm-6 input-group">
-											<span class="input-group-addon"><i class="fa fa-rmb"></i></span> 
-											<input type="text" class="form-control validate[required,custom[number]]" data-errormessage="已还利息只能为数字"
-												name="returnInterest">
-											<span class="input-group-addon"><i class="fa">元</i></span>
-										</div>
-									</div>
-									<div class="form-group">
-										<label for="#status" class="col-sm-3 control-label"><i class="text-red">*</i> 状态</label>
-										<div class="col-sm-6 input-group">
-											<select class="form-control repayStatus validate[required]" name="status" data-errormessage="状态不能为空">
-												<c:forEach var="it" items="${repayStatus}">
-			  										<option value ="${it.name()}">${it.getKey()}</option>
-												</c:forEach>
-											</select>
-										</div>
-									</div>
-									<div class="form-group">
-										<label for="#overdueFlag" class="col-sm-3 control-label"><i class="text-red">*</i> 是否逾期</label>
-										<div class="col-sm-6 input-group">
-											<select class="form-control overdueFlag validate[required]" name="overdueFlag" data-errormessage="是否逾期不能为空">
-												<c:forEach var="it" items="${overdueFlags}">
-			  										<option value ="${it.name()}">${it.getKey()}</option>
-												</c:forEach>
-											</select>
-										</div>
-									</div>
-									<div class="form-group hide">  
-										<label for="#overdueDays" class="col-sm-3 control-label"><i class="text-red">*</i> 逾期天数</label>
-										<div class="col-sm-6 input-group">
-											<input type="text" class="form-control validate[required,custom[number]]" maxlength=3 data-errormessage="逾期天数只能为数字"
-												name="overdueDays">
 										</div>
 									</div>
 								</form>						
@@ -157,15 +106,9 @@
                                             <th>编号</th> 
                                             <th>主合同编号</th>
                                             <th>展期次数</th> 
-                                            <th>展期期限</th> 
                                             <th>新还款日期</th>
                                             <th>新还款本金(元)</th>
-                                            <th>已还本金(元)</th>
                                             <th>新还款利息(元)</th>
-                                            <th>已还利息(元)</th>
-                                            <th>还款状态</th>
-                                            <th>是否逾期</th>
-                                            <th>逾期天数</th>
                                             <th>状态</th>
                                             <th>操作</th>
                                         </tr>

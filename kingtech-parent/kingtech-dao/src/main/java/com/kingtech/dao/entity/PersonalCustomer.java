@@ -11,60 +11,45 @@ import javax.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import com.kingtech.dao.entity.base.UuidEntity;
+import com.kingtech.dao.entity.base.RecordEntity;
 import com.kingtech.enums.CertType;
+import com.kingtech.enums.EducationEnum;
 import com.kingtech.enums.FarmersFlagEnum;
 import com.kingtech.enums.SexEnum;
 import com.kingtech.enums.YesNoEnum;
 
 
+/**
+ * @author Tson
+ * 机构人员信息
+ */
 @Data
 @Entity
 @Table(name="TB_BORROWER_PERSONAL")
 @NoArgsConstructor
-public class PersonalCustomer extends UuidEntity{
+public class PersonalCustomer extends RecordEntity{
 	//姓名
-	@Column(name="NAME",nullable = false)
+	@Column(name="NAME", nullable = false)
 	private String name;
 
-	//性别：1）男 2）女
-	@Enumerated(EnumType.ORDINAL)
-	@Column(name="SEX",nullable = false)
-	private SexEnum sex;
-	
-	//证件类型：1）居民身份证 2）护照,  3）驾驶证
-	@Enumerated(EnumType.STRING)
-	@Column(name="CATEGORY",nullable = false)
-	private CertType category;
-	
-	// 证件号码
-	@Column(name="CARD_NUM",nullable = false)
-	private String cardNum;
-	
 	// 联系电话
-	@Column(name="PHONE",nullable = false)
+	@Column(name="PHONE", nullable = false)
 	private String phone;
 	
-	//是否农牧民：1）是   2）否
+	//是否农牧民
 	@Enumerated(EnumType.STRING)
 	@Column(name="FARMERS_FLAG",nullable = false)
-	private FarmersFlagEnum farmersFlag;
+	private YesNoEnum isFarmer;
 	
-	//学历
-	@Column(name="EDUCATION")
-	private String education;
-	
-	// 传真
-	@Column(name="FAX")
-	private String fax;
 	
 	// 电子邮件
 	@Column(name="EMAIL")
 	private String email;
 	
-	//婚姻状况
+	//婚姻状况，1：已婚，0：未婚
+	@Enumerated(EnumType.STRING)
 	@Column(name="MARRIAGE")
-	private String marriage;
+	private YesNoEnum isMarry;
 	
 	//国籍
 	@Column(name="NATIONALITY")
@@ -78,92 +63,89 @@ public class PersonalCustomer extends UuidEntity{
 	@Column(name="NATION")
 	private String nation;
 	
-	//固定住址（省份）
-	@Column(name="ADDRESS_PROVINCE",nullable = false)
-	private String addressProvince;
-	
-	//固定住址（市）
-	@Column(name="ADDRESS_CITY",nullable = false)
-	private String addressCity;
-	
-	// 固定住址（区/县）
-	@Column(name="ADDRESS_DISTRICT",nullable = false)
-	private String addressDistrict;
-	
 	// 固定住址（详细）
-	@Column(name="ADDRESS")
+	@Column(name="ADDRESS", nullable = false)
 	private String address;
 	
-	//邮政编码
-	@Column(name="POST_CODE")
-	private String postCode;
+	//部门
+	@Column(name="DEPARTMENT", nullable = false)
+	private String department;
+
+	//性别：1）男 2）女
+	@Enumerated(EnumType.ORDINAL)
+	@Column(name="SEX",nullable = false)
+	private SexEnum sex;
 	
+	//证件类型：1）居民身份证 2）护照,  3）驾驶证
+	@Enumerated(EnumType.STRING)
+	@Column(name="CARD_TYPE",nullable = false)
+	private CertType cardType;
 	// 户口所在地
-	@Column(name="RESIDENCE")
-	private String residence;
+	@Column(name="REGISTERED_ADDRESS")
+	private String registeredAddress;
 	
-	// 籍贯
-	@Column(name="NATIVE_PLACE")
-	private String nativePlace;
+	// 证件号码
+	@Column(name="CARD_NUMBER", nullable = false)
+	private String cardNumber;
 	
-	// 现工作单位
-	@Column(name="WORK_UNIT")
-	private String workUnit;
+	//学历
+	@Enumerated(EnumType.STRING)
+	@Column(name="EDUCATION", nullable = false)
+	private EducationEnum education;
+	
+	//是否董监高，0-否，1-是
+	@Enumerated(EnumType.STRING)
+	@Column(name="EXECUTIVE_FLAG", nullable = false)
+	private YesNoEnum executiveFlag;
 	
 	//职务
-	@Column(name="POST")
-	private String post;
+	@Column(name="POSITION", nullable = false)
+	private String position;
+	
+	//入职日期，格式YYYY-MM-DD
+	@Column(name="ENTRY_TIME", nullable = false)
+	private Date entryTime;
+	
+	//离职日期，格式YYYY-MM-DD
+	@Column(name="QUIT_TIME")
+	private Date quitTime;
 
-	public PersonalCustomer(String name, SexEnum sex,
-			CertType category, String cardNum, String phone,
-			FarmersFlagEnum farmersFlag, String addressProvince, String addressCity,
-			String addressDistrict) {
-		this.name = name;
-		this.sex = sex;
-		this.category = category;
-		this.cardNum = cardNum;
-		this.phone = phone;
-		this.farmersFlag = farmersFlag;
-		this.addressProvince = addressProvince;
-		this.addressCity = addressCity;
-		this.addressDistrict = addressDistrict;
-	}
-
-	public PersonalCustomer(String name, SexEnum sex, CertType category,
-			String cardNum, String phone, FarmersFlagEnum farmersFlag,
-			String education, String fax, String email, String marriage,
-			String nationality, Date birthDate, String nation,
-			String addressProvince, String addressCity, String addressDistrict,
-			String address, String postCode, String residence,
-			String nativePlace, String workUnit, String post) {
+	public PersonalCustomer(String name, String phone, String email,
+			String address, String department, SexEnum sex, CertType cardType,
+			String cardNumber, EducationEnum education,
+			YesNoEnum executiveFlag, String position, Date entryTime,
+			Date quitTime) {
 		super();
 		this.name = name;
-		this.sex = sex;
-		this.category = category;
-		this.cardNum = cardNum;
 		this.phone = phone;
-		this.farmersFlag = farmersFlag;
-		this.education = education;
-		this.fax = fax;
 		this.email = email;
-		this.marriage = marriage;
-		this.nationality = nationality;
-		this.birthDate = birthDate;
-		this.nation = nation;
-		this.addressProvince = addressProvince;
-		this.addressCity = addressCity;
-		this.addressDistrict = addressDistrict;
 		this.address = address;
-		this.postCode = postCode;
-		this.residence = residence;
-		this.nativePlace = nativePlace;
-		this.workUnit = workUnit;
-		this.post = post;
+		this.department = department;
+		this.sex = sex;
+		this.cardType = cardType;
+		this.cardNumber = cardNumber;
+		this.education = education;
+		this.executiveFlag = executiveFlag;
+		this.position = position;
+		this.entryTime = entryTime;
+		this.quitTime = quitTime;
 	}
-	
-	
-	
 
-	
-	
+	public PersonalCustomer(String name, String phone, String address,
+			String department, SexEnum sex, CertType cardType,
+			String cardNumber, EducationEnum education,
+			YesNoEnum executiveFlag, String position, Date entryTime) {
+		super();
+		this.name = name;
+		this.phone = phone;
+		this.address = address;
+		this.department = department;
+		this.sex = sex;
+		this.cardType = cardType;
+		this.cardNumber = cardNumber;
+		this.education = education;
+		this.executiveFlag = executiveFlag;
+		this.position = position;
+		this.entryTime = entryTime;
+	}
 }

@@ -44,7 +44,7 @@ public class HomeApiController {
 			session.setAttribute("username", username);  
 			jsonObject.put("result", "success");
 			jsonObject.put("resultDesc", "成功");
-			return "redirect:/branch";
+			return "redirect:/loan/list";
 		}else  {
 			jsonObject.put("result", "failed");
 			jsonObject.put("resultDesc", "登陆名或密码错误");

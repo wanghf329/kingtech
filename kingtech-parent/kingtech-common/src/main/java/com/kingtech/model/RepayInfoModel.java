@@ -42,7 +42,7 @@ public class RepayInfoModel extends BaseRequestModel{
 	public RepayInfoModel( String roundStr, String identifier, String reqId, String sign, String loanContractId, String repayAmount,
 			String repayPrincipalAmount, String repayInterestAmount,
 			String repayDate, String creatTime, String updateTime) {
-		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId, sign,null);
+		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), reqId, sign,null);
 		this.loanContractId = loanContractId;
 		this.repayAmount = repayAmount;
 		this.repayPrincipalAmount = repayPrincipalAmount;

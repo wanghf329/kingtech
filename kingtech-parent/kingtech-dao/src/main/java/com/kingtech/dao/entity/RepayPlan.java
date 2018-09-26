@@ -23,23 +23,14 @@ import com.kingtech.dao.entity.base.PackageEntity;
 public class RepayPlan extends PackageEntity {
 	
 	// 还款日期，格式YYYY-MM-DD
-	@Column(name="REPAY_DATE")
-	private Date repayDate;
+	@Column(name="END_DATE")
+	private Date endDate;
 
 	// 还款本金（元）
 	@Column(name="PRINCIPAL")
-	private BigDecimal principal;
+	private BigDecimal money;
 
 	// 还款利息（元）
 	@Column(name="INTEREST")
 	private BigDecimal interest;
-
-	public RepayPlan(String loanContractId, Date repayDate, BigDecimal principal,
-			BigDecimal interest) {
-		super(loanContractId);
-		this.repayDate = repayDate;
-		this.principal = principal;
-		this.interest = interest;
-	}
-
 }

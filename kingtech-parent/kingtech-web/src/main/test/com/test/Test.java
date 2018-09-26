@@ -19,7 +19,7 @@ public class Test extends BaseAbstract{
 	
 	public static void main(String[] args) {
 		EmployeeModel employeeModel = new EmployeeModel( RandomUtil.random8Len(),
-				"91310000775785552J00002",
+				"91310000775785552J00003",
 				null,
 				"唐傻", 
 				"15596656333",
@@ -45,7 +45,9 @@ public class Test extends BaseAbstract{
 		
 		try {
 			
-			HttpUtil.postJsonResponse(BaseConfig.REQUEST_URL+ "/pushCompanyEmployeeData" , JSON.toJSONString(employeeModel));
+		String result  =	HttpUtil.postJsonResponse(BaseConfig.REQUEST_URL+ "/pushCompanyEmployeeData" , JSON.toJSONString(employeeModel));
+		System.err.println(result);
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -1,6 +1,6 @@
 package com.kingtech.enums;
 
-public enum LoanTypeEnum  implements BaseEnum{
+public enum LoanMethodEnum  implements BaseEnum{
 	
 	S_1("信用"),
 	S_2("保证"),
@@ -15,7 +15,7 @@ public enum LoanTypeEnum  implements BaseEnum{
 		return key;
 	}
 
-	private LoanTypeEnum(String key) {
+	private LoanMethodEnum(String key) {
 		this.key = key;
 	}
 

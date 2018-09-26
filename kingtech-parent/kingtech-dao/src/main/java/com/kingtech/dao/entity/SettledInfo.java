@@ -27,24 +27,14 @@ public class SettledInfo extends PackageEntity {
 	private BigDecimal money;
 
 	// 放款日期，格式YYYY-MM-DD
-	@Column(name="LOAN_DATE")
-	private Date loanDate;
+	@Column(name="LOAN_TIME")
+	private Date loanTime;
 
 	// 本笔放款债项开始日
-	@Column(name="DEBT_START_DATE")
-	private Date debtStartDate;
+	@Column(name="START_DATE")
+	private Date StartDate;
 
 	// 本笔放款债项结束日
-	@Column(name="DEBT_END_DATE")
-	private Date debtEndDate;
-
-	public SettledInfo(String loanContractId, BigDecimal money, Date loanDate,
-			Date debtStartDate, Date debtEndDate) {
-		super(loanContractId);
-		this.money = money;
-		this.loanDate = loanDate;
-		this.debtStartDate = debtStartDate;
-		this.debtEndDate = debtEndDate;
-	}
-	
+	@Column(name="END_DATE")
+	private Date endDate;
 }

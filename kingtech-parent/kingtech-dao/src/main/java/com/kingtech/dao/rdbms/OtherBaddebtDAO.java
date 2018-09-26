@@ -12,7 +12,7 @@ import com.kingtech.enums.PushStatus;
 
 public interface OtherBaddebtDAO extends PagingAndSortingRepository<OtherBaddebt, String> {
 	
-	@Query("select r from OtherBaddebt r where r.loanContractId = :loanContractId order by r.setDate ")
+	@Query("select r from OtherBaddebt r where r.loanContractId = :loanContractId order by r.lossDate ")
 	public List<OtherBaddebt> listByloanContractId(@Param("loanContractId")String loanContractId);
 	
 	@Modifying

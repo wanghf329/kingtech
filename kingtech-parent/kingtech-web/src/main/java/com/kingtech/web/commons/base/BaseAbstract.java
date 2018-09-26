@@ -5,6 +5,7 @@ import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.Labels;
 import com.kingtech.common.config.BaseConfig;
 import com.kingtech.common.utils.HttpUtil;
@@ -17,25 +18,6 @@ import com.kingtech.model.SynResponseModel;
 @Slf4j
 public class BaseAbstract {
 
-	/**
-	 * 获取请求数据
-	 * @param obj
-	 * @return
-	 */
-
-	public  Map<String, String> getDataAndSign(BaseRequestModel obj) {
-
-		String dataStr = JSON.toJSONString(obj); // 请求数据
-		String dataSign = JSON.toJSONString(obj, Labels.includes("sign")); // 验签数据
-		Map<String, String> dataMap = JSON.parseObject(dataStr, Map.class);
-		Map<String, String> signMap = JSON.parseObject(dataSign, Map.class);
-
-		String sign = SignUtils.getSignStr(signMap);
-		log.info("sign={}",sign);
-		dataMap.put("sign", sign);
-
-		return dataMap;
-
 	}
 	/**
 	 * 请求远程接口
@@ -44,12 +26,14 @@ public class BaseAbstract {
 	 * @return
 	 */
 
-	public  SynResponseModel getResponse(Map<String, String> request,
-			String suffixUrl) {
-
+	public  SynResponseModel getResponse(BaseResponsModel baseResponsModel,String suffixUrl) {
+		String dataSign = JSON.toJSONString(baseResponsModel, Labels.includes("sign")); // 验签数据
+		Map<String, Object> signMap = JSON.parseObject(dataSign, Map.class);
+		String sign = SignUtils.getSignStr(signMap);
+		baseResponsModel.setSign(sign);
+		String data = JSONObject.toJSONString(baseResponsModel);
 		try {
-			String response = HttpUtil.postFormResponse(BaseConfig.REQUEST_URL
-					+ "/" + suffixUrl, request);
+			String response = HttpUtil.postJsonResponse(BaseConfig.REQUEST_URL	+ "/" + suffixUrl, data);
 			return JSON.parseObject(response, SynResponseModel.class);
 
 		} catch (Exception ex) {
