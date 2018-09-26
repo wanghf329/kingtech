@@ -57,15 +57,6 @@ function getBorrower(){
 }
 
 
-$("select[name='pledgeType']").on("change", function(event){ 
-	if($(this).val()=='S_1'){
-		$(this).closest(".repayPlan").find(".collateralTypeSelect").html(collateralTypeOption1);
-	}else{
-		$(this).closest(".repayPlan").find(".collateralTypeSelect").html(collateralTypeOption2);
-	} 
-});
-
-
 function formateDate(date, fmt) {
     // Examples: 
     // formatDate(new Date(), "yyyy-MM-dd hh:mm:ss.S") ==> 2013-08-06 08:09:04.423 

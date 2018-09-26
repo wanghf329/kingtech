@@ -19,7 +19,7 @@ import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.RateTypeEnum;
 
 /**
- * 机构资本信息表
+ * 单笔融资信息
  * @version: v1.0
  */
 @Data

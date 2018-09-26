@@ -1,8 +1,12 @@
 package com.kingtech.web.commons.base.service;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import com.kingtech.dao.entity.Capital;
+import com.kingtech.enums.ChannelTypeEnum;
+import com.kingtech.enums.RateTypeEnum;
 import com.kingtech.model.CapitalModel;
 
 
@@ -11,10 +15,11 @@ import com.kingtech.model.CapitalModel;
 public interface CapitalService {
 	
 	
-	public Capital addNew(String id,String financingChannel,
-			 double financingMoney, String financingTime, 
-			 String expirationTime,
-			 String replyTime,String branchId);
+	public Capital addNew(String id, String financeNumber,
+							 String financeName, String lender, ChannelTypeEnum channel,
+							 BigDecimal money, BigDecimal interest, BigDecimal guaranteeMoney,
+							 String remark, Date financeDate, Date endDate, BigDecimal rate,
+							 RateTypeEnum rateType, String loanContractNumber);
 	
 	public List<Capital> listAll();
 	

@@ -56,9 +56,5 @@ public class BaseRequestModel implements Serializable {
 		this.token = token;
 		this.reqId = reqId;
 	}
-
-
-	
-	
 	
 }

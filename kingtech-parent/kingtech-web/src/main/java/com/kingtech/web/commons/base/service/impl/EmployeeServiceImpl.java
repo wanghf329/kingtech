@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +25,7 @@ import com.kingtech.model.EmployeeModel;
 import com.kingtech.web.commons.base.CreatRequstId;
 import com.kingtech.web.commons.base.api.PaymentApi;
 import com.kingtech.web.commons.base.service.EmployeeService;
+import com.kingtech.web.commons.base.utils.DTOUtils;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
@@ -87,22 +87,22 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	public EmployeeModel getById(String id) {
 		Employee employee =  employeeDao.findOne(id);
-		return new EmployeeModel(employee.getId(), 
-								 employee.getName(),
-								 employee.getPhone(),
-								 employee.getEmail(),
-								 employee.getAddress(),
-								 employee.getDepartment(),
-								 employee.getSex().getKey(),
-								 employee.getCardType().getKey(),
-								 employee.getCardNumber(),
-								 employee.getEducation().getKey(),
-								 employee.getExecutiveFlag().getKey(),
-								 employee.getPosition(),
-								 DateFormatUtils.format(employee.getEntryTime(), "yyyy-MM-dd"),
-								 employee.getQuitTime() == null ? "" :
-									 DateFormatUtils.format(employee.getQuitTime(), "yyyy-MM-dd"));
-				
+//		return new EmployeeModel(employee.getId(), 
+//								 employee.getName(),
+//								 employee.getPhone(),
+//								 employee.getEmail(),
+//								 employee.getAddress(),
+//								 employee.getDepartment(),
+//								 DTOUtils.getEnumIntVal(employee.getSex()),
+//								 DTOUtils.getEnumIntVal(employee.getCardType()),
+//								 employee.getCardNumber(),
+//								 DTOUtils.getEnumIntVal(employee.getEducation()),
+//								 DTOUtils.getEnumIntVal(employee.getExecutiveFlag()),
+//								 employee.getPosition(),
+//								 employee.getEntryTime(),
+//								 employee.getQuitTime());
+//				
+		return null;
 	}
 
 	@Override

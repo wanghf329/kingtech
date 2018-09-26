@@ -95,6 +95,6 @@ public class EmployeeModel extends BaseRequestModel {
 		this.entryTime = entryTime;
 		this.quitTime = quitTime;
 	}
-	}
+}
 	
 	
