@@ -7,9 +7,9 @@
 				<label for="#collateralType" class="col-sm-3 control-label">类型</label>
 				<div class="col-sm-7 input-group ">
 					<select
-						class="form-control collateralTypeSelect validate[required]"
+						class="form-control validate[required]"
 						name="pledgeType">
-						<c:forEach var="collateralType" items="${collateralType1}">
+						<c:forEach var="pledgeType" items="${collateralType1}">
 							<option value="${pledgeType}"
 								<c:if test="${it.pledgeType.toString() == pledgeType.toString() }">selected</c:if>>${pledgeType.getKey()}</option>
 						</c:forEach>

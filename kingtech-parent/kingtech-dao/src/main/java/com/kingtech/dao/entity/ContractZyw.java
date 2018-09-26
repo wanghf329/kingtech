@@ -44,4 +44,14 @@ public class ContractZyw extends PackageEntity {
 	// 数量及单位，例如：10克，1000米，4.5吨...
 	@Column(name="UNIT")
 	private String unit;
+
+	public ContractZyw(String loanContractId, ZywTypeEnum pledgeType,
+			String name, BigDecimal worth, String address, String unit) {
+		super(loanContractId);
+		this.pledgeType = pledgeType;
+		this.name = name;
+		this.worth = worth;
+		this.address = address;
+		this.unit = unit;
+	}
 }

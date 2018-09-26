@@ -18,7 +18,6 @@ import com.kingtech.model.SynResponseModel;
 @Slf4j
 public class BaseAbstract {
 
-	}
 	/**
 	 * 请求远程接口
 	 * @param request

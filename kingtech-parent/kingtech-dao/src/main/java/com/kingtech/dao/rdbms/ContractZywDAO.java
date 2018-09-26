@@ -12,10 +12,10 @@ import com.kingtech.dao.entity.ContractZyw;
 public interface ContractZywDAO extends PagingAndSortingRepository<ContractZyw, String> {
 	
 	
-//	@Query("select c from Collateral c where c.loanContractId = :loanContractId")
-//	public List<ContractZyw> listByloanContractId(@Param("loanContractId")String loanContractId);
-//	
-//	@Modifying
-//	@Query("delete Collateral c where c.loanContractId = :loanContractId")
-//	public int deleteByLoanContractId(@Param("loanContractId") String loanContractId);
+	@Query("select c from ContractZyw c where c.loanContractId = :loanContractId")
+	public List<ContractZyw> listByloanContractId(@Param("loanContractId")String loanContractId);
+	
+	@Modifying
+	@Query("delete ContractZyw c where c.loanContractId = :loanContractId")
+	public int deleteByLoanContractId(@Param("loanContractId") String loanContractId);
 }

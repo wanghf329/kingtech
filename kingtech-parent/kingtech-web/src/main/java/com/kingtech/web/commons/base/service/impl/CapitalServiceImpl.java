@@ -31,8 +31,8 @@ public class CapitalServiceImpl implements CapitalService{
 	@Override
 	@Transactional
 	public Capital addNew(CapitalModel model) {
+		Capital capital = null;
 		try {
-			Capital capital = null;
 			if (StringUtils.isEmpty(model.getId())) {
 				model.setReqId(creatRequstId.getReqId());
 				model.setPushStatus(PushStatus.INITATION);
@@ -45,11 +45,10 @@ public class CapitalServiceImpl implements CapitalService{
 				capital.setPushStatus(PushStatus.INITATION);
 			}
 			capital = capitalDao.save(capital);
-			return capital;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return capital;
 	}
 
 	@Override
@@ -61,5 +60,6 @@ public class CapitalServiceImpl implements CapitalService{
 	public Capital getById(String id) {
 		return capitalDao.findOne(id);
 	}
+
 
 }
