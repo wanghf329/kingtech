@@ -153,9 +153,6 @@ public class DTOUtils {
 	}
 	
 	public static int getEnumIntVal(Enum<?> euEnum) {
-		if (euEnum == null ) {
-			throw new NullPointerException();
-		}
 		return Integer.valueOf(euEnum.name().replace("S_", ""));
 	}
 	

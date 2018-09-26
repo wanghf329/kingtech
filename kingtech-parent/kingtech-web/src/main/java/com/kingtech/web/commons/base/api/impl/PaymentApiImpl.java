@@ -57,6 +57,12 @@ import com.kingtech.model.RepayPlanModel;
 import com.kingtech.model.SettledInfoModel;
 import com.kingtech.model.ShareholderModel;
 import com.kingtech.model.SynResponseModel;
+import com.kingtech.szsm.model.ContractDywRequestModel;
+import com.kingtech.szsm.model.ContractRequestModel;
+import com.kingtech.szsm.model.ContractZywRequestModel;
+import com.kingtech.szsm.model.EnterpriseCustomerRequestModel;
+import com.kingtech.szsm.model.GuaranteeRequestModel;
+import com.kingtech.szsm.model.PersonalCustomerRequestModel;
 import com.kingtech.web.commons.base.BaseAbstract;
 import com.kingtech.web.commons.base.CreatRequstId;
 import com.kingtech.web.commons.base.api.PaymentApi;
@@ -363,11 +369,47 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 		
 		String roundStr =  RandomUtil.random8Len();
 		
+	
+		
 		List<GuaranteeModel> guaranteeModels  = DTOUtils.getGuaranteeModels(guaranteeDAO.listByloanContractId(loanIdContractId));
 		
 	    SettledInfoModel settledInfoModel = DTOUtils.getSettledInfoModels(settledInfoDAO.getByloanContractId(loanIdContractId));
 		
 		List<RepayPlanModel> repayPlanModels = DTOUtils.getRepayPlanModels(repayPlanDAO.listByloanContractId(loanIdContractId));
+		
+		
+		
+		
+		ContractRequestModel  contractRequestModel = new ContractRequestModel(
+				roundStr,
+				contract.getReqId(),
+				null,
+				contract.getContractNumber(),
+				contract.getContractName(), 
+				DTOUtils.getEnumIntVal(contract.getBorrowerType()), 
+				contract.getMoney().toPlainString(), 
+				DTOUtils.getEnumIntVal(contract.getTermType()), 
+				contract.getTerm(), 
+				DateUtil.getDateStr(contract.getStartDate(),"yyyy-MM-dd"), 
+				DateUtil.getDateStr(contract.getEndDate(),"yyyy-MM-dd"),
+				DTOUtils.getEnumIntVal(contract.getRateType()),
+				contract.getRate().toPlainString(), 
+				contract.getAnnualRate().toPlainString(),
+				contract.getPlatformCost().toPlainString(),
+				DTOUtils.getEnumIntVal(contract.getIsEntrust()), 
+				DTOUtils.getEnumIntVal(contract.getPurpose()), 
+				DTOUtils.getEnumIntVal(contract.getBusiness()),
+				DTOUtils.getNewStr(contract.getLoanMethod()),
+				DTOUtils.getEnumIntVal(contract.getRepayMethod()),
+				DateUtil.getDateStr(contract.getSignTime(),"yyyy-MM-dd"),
+				contract.getRepaySource(),
+				contract.getDistrictCode(),
+				null, 
+				null,
+				null, 
+				null, 
+				null);
+		
 		
 //		List<ContractZywModel> collateralModels = DTOUtils.getCollateralModels(collateralDAO.listByloanContractId(loanIdContractId));
 		
