@@ -7,6 +7,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import com.kingtech.enums.ChannelTypeEnum;
 import com.kingtech.enums.PushStatus;
@@ -18,6 +19,7 @@ import com.kingtech.enums.RateTypeEnum;
  * @version: v1.0
  */
 @Data
+@NoArgsConstructor
 public class CapitalModel extends BaseModel {
 	// 融资编号
 	private String financeNumber;
@@ -29,7 +31,6 @@ public class CapitalModel extends BaseModel {
 	private String lender;
 	
 	// 融资渠道
-	@Enumerated(EnumType.STRING)
 	private ChannelTypeEnum channel;
 
 	// 融资金额（元）
