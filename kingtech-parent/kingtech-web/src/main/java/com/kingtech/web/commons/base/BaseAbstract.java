@@ -11,9 +11,9 @@ import com.kingtech.common.config.BaseConfig;
 import com.kingtech.common.utils.HttpUtil;
 import com.kingtech.common.utils.MD5;
 import com.kingtech.common.utils.SignUtils;
-import com.kingtech.model.BaseResponsModel;
-import com.kingtech.model.SynResponseModel;
 import com.kingtech.szsm.model.BaseRequestModel;
+import com.kingtech.szsm.model.BaseResponsModel;
+import com.kingtech.szsm.model.SynResponseModel;
 
 @Slf4j
 public class BaseAbstract {

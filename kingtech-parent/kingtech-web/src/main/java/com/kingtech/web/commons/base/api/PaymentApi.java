@@ -1,11 +1,8 @@
 package com.kingtech.web.commons.base.api;
 
 import com.kingtech.enums.IdentifierType;
-import com.kingtech.model.AsyReponseModel;
-import com.kingtech.model.OtherBaddebtModel;
-import com.kingtech.model.OtherOverdueInfoModel;
-import com.kingtech.model.ProvisionInfoModel;
-import com.kingtech.model.SynResponseModel;
+import com.kingtech.szsm.model.AsyReponseModel;
+import com.kingtech.szsm.model.SynResponseModel;
 
 public interface PaymentApi {
 	

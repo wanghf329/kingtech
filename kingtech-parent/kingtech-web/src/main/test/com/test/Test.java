@@ -8,7 +8,7 @@ import com.kingtech.common.config.BaseConfig;
 import com.kingtech.common.utils.HttpUtil;
 import com.kingtech.common.utils.RandomUtil;
 import com.kingtech.common.utils.SignUtils;
-import com.kingtech.model.EmployeeModel;
+import com.kingtech.szsm.model.EmployeeModel;
 import com.kingtech.web.commons.base.BaseAbstract;
 
 public class Test extends BaseAbstract{

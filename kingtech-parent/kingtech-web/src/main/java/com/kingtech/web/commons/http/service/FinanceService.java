@@ -10,8 +10,8 @@ import com.kingtech.model.RepayExtendInfoModel;
 import com.kingtech.model.RepayExtendPlanModel;
 import com.kingtech.model.RepayInfoModel;
 import com.kingtech.model.ShareholderModel;
-import com.kingtech.model.SynResponseModel;
 import com.kingtech.szsm.model.ContractRequestModel;
+import com.kingtech.szsm.model.SynResponseModel;
 /**
  * 对接监管系统接口
  * @author baijt

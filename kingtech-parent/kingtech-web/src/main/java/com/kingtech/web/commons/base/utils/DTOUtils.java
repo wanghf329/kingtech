@@ -123,9 +123,7 @@ public class DTOUtils {
 		List<RepayPlanModel>  planModels = new ArrayList<RepayPlanModel>();
 		
 		for (RepayPlan repayPlan : repayPlans) {
-			planModels.add(new RepayPlanModel(DateUtil.getDateStr(
-													repayPlan.getEndDate(), "yyyy-MM-dd"),
-													repayPlan.getMoney(), repayPlan.getInterest()));
+			planModels.add(new RepayPlanModel(repayPlan.getEndDate(),repayPlan.getMoney(), repayPlan.getInterest()));
 		}
 		return planModels;
 	}
@@ -133,12 +131,12 @@ public class DTOUtils {
 	
 	public static SettledInfoModel getSettledInfoModels (SettledInfo  settledInfo){
 		SettledInfoModel infoModel =null;
-		if (settledInfo !=null) {
+/*		if (settledInfo !=null) {
 			infoModel = new SettledInfoModel(null,settledInfo.getMoney(),
 					DateUtil.getDateStr(settledInfo.getLoanTime(), "yyyy-MM-dd"), 
 					DateUtil.getDateStr(settledInfo.getStartDate(), "yyyy-MM-dd"),
 					DateUtil.getDateStr(settledInfo.getEndDate(), "yyyy-MM-dd"));
-		}
+		}*/
 		
 		return infoModel;
 	}
