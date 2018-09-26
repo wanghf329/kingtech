@@ -53,6 +53,7 @@
             	<li id="personBorrowerList"><a href="borrower/personList"><i class="fa fa-angle-double-right"></i>个人借款人</a></li>
             	<li id="BuBorrowerList"><a href="borrower/corporationList"><i class="fa fa-angle-double-right"></i>企业借款人</a></li>
                 <li id="loanList"><a href="loan/list"><i class="fa fa-angle-double-right"></i>合同信息</a></li>
+                <li id="settledList"><a href="settled/list"><i class="fa fa-angle-double-right"></i>放款信息</a></li>
             </ul>
         </li>
         <li class="treeview active"> 

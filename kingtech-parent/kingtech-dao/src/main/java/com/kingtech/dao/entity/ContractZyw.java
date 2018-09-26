@@ -45,9 +45,9 @@ public class ContractZyw extends PackageEntity {
 	@Column(name="UNIT")
 	private String unit;
 
-	public ContractZyw(String loanContractId, ZywTypeEnum pledgeType,
+	public ContractZyw(String loanContractId,int orderNum, ZywTypeEnum pledgeType,
 			String name, BigDecimal worth, String address, String unit) {
-		super(loanContractId);
+		super(loanContractId,orderNum);
 		this.pledgeType = pledgeType;
 		this.name = name;
 		this.worth = worth;

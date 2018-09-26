@@ -12,7 +12,7 @@ import com.kingtech.dao.entity.Guarantee;
 public interface GuaranteeDAO extends PagingAndSortingRepository<Guarantee, String> {
 	
 	
-	@Query("select g from Guarantee g where g.loanContractId = :loanContractId")
+	@Query("select g from Guarantee g where g.loanContractId = :loanContractId  order by g.orderNum")
 	public List<Guarantee> listByloanContractId(@Param("loanContractId")String loanContractId);
 	
 	@Modifying

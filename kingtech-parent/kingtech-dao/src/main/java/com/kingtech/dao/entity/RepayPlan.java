@@ -33,4 +33,12 @@ public class RepayPlan extends PackageEntity {
 	// 还款利息（元）
 	@Column(name="INTEREST")
 	private BigDecimal interest;
+
+	public RepayPlan(String loanContractId, int orderNum, Date endDate,
+			BigDecimal money, BigDecimal interest) {
+		super(loanContractId, orderNum);
+		this.endDate = endDate;
+		this.money = money;
+		this.interest = interest;
+	}
 }

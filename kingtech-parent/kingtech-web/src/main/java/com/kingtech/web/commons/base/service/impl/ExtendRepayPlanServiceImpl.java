@@ -129,7 +129,7 @@ public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 		for (Object[] obj : list) {
 			
 			result.add(new ModelExt(new RepayExtendPlanModel((String)obj[0],
-					(String)obj[1], 
+					(String)obj[6], 
 					((BigDecimal)obj[4]).toPlainString(), 
 					DateFormatUtils.format((Date)obj[3], "yyyy-MM-dd"), 
 					((BigDecimal)obj[5]).toPlainString(),
