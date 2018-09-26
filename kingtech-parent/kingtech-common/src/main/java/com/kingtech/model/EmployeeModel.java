@@ -1,5 +1,7 @@
 package com.kingtech.model;
 
+import java.util.Date;
+
 import lombok.Data;
 
 import com.alibaba.fastjson.annotation.JSONField;
@@ -36,11 +38,11 @@ public class EmployeeModel extends BaseRequestModel {
 
 	//性别：1）男 2）女
 	@JSONField(name="sex", label="sign")
-	private String sex;
+	private int sex;
 	
 	//证件类型：1）居民身份证 2）护照,  3）驾驶证
 	@JSONField(name="cardType", label="sign")
-	private String cardType;
+	private int cardType;
 	
 	// 证件号码
 	@JSONField(name="cardNumber", label="sign")
@@ -48,11 +50,11 @@ public class EmployeeModel extends BaseRequestModel {
 	
 	//学历
 	@JSONField(name="education")
-	private String education;
+	private int education;
 	
 	//是否董监高，0-否，1-是
 	@JSONField(name="executiveFlag", label="sign")
-	private String executiveFlag;
+	private int executiveFlag;
 	
 	//职务
 	@JSONField(name="position", label="sign")
@@ -60,11 +62,11 @@ public class EmployeeModel extends BaseRequestModel {
 	
 	//入职日期，格式YYYY-MM-DD
 	@JSONField(name="entryTime")
-	private String entryTime;
+	private Date entryTime;
 	
 	//离职日期，格式YYYY-MM-DD
 	@JSONField(name="quitTime")
-	private String quitTime;
+	private Date quitTime;
 	
 	/**
 	 * 删除
@@ -77,9 +79,9 @@ public class EmployeeModel extends BaseRequestModel {
 	}
 
 	public EmployeeModel(String id, String name, String phone, String email,
-			String address, String department, String sex, String cardType,
-			String cardNumber, String education, String executiveFlag,
-			String position, String entryTime, String quitTime) {
+			String address, String department, int sex, int cardType,
+			String cardNumber, int education, int executiveFlag,
+			String position, Date entryTime, Date quitTime) {
 		super(id);
 		this.name = name;
 		this.phone = phone;
@@ -96,6 +98,25 @@ public class EmployeeModel extends BaseRequestModel {
 		this.quitTime = quitTime;
 	}
 	
+	public EmployeeModel(String id, String name, String phone, String email,
+			String address, String department, int sex, int cardType,
+			String cardNumber, int education, int executiveFlag,
+			String position, Date entryTime, Date quitTime) {
+		super(id);
+		this.name = name;
+		this.phone = phone;
+		this.email = email;
+		this.address = address;
+		this.department = department;
+		this.sex = sex;
+		this.cardType = cardType;
+		this.cardNumber = cardNumber;
+		this.education = education;
+		this.executiveFlag = executiveFlag;
+		this.position = position;
+		this.entryTime = entryTime;
+		this.quitTime = quitTime;
+	}
 	
 	
 }
