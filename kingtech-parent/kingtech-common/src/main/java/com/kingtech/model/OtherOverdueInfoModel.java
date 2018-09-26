@@ -48,7 +48,7 @@ public class OtherOverdueInfoModel extends BaseRequestModel{
 			String overdueMoney, String overdueDate,
 			String overdueInterest, String balance, String remarks,
 			String creatTime, String updateTime) {
-		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId, sign, null);
+		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), reqId, sign, null);
 		this.loanContractId = loanContractId;
 		this.overdueMoney = overdueMoney;
 		this.overdueDate = overdueDate;

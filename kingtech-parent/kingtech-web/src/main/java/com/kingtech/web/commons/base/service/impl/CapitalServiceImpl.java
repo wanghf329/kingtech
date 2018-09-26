@@ -1,6 +1,7 @@
 package com.kingtech.web.commons.base.service.impl;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -12,8 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.druid.util.StringUtils;
 import com.kingtech.dao.entity.Capital;
 import com.kingtech.dao.rdbms.CapitalDAO;
+import com.kingtech.enums.ChannelTypeEnum;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.enums.RateTypeEnum;
 import com.kingtech.model.CapitalModel;
 import com.kingtech.web.commons.base.CreatRequstId;
 import com.kingtech.web.commons.base.api.PaymentApi;
@@ -33,18 +36,30 @@ public class CapitalServiceImpl implements CapitalService{
 	
 	@Override
 	@Transactional
-	public Capital addNew(String id,String financingChannel, double financingMoney,
-			String financingTime, String expirationTime, String replyTime,String branchId) {
+	public Capital addNew(String id, String financeNumber,
+						 String financeName, String lender, ChannelTypeEnum channel,
+						 BigDecimal money, BigDecimal interest, BigDecimal guaranteeMoney,
+						 String remark, Date financeDate, Date endDate, BigDecimal rate,
+						 RateTypeEnum rateType, String loanContractNumber) {
 		try {
 			Capital capital = null;
 			if(StringUtils.isEmpty(id)){
-				capital = new Capital(financingChannel,new BigDecimal(financingMoney),
-									  DateUtils.parseDate(financingTime, "yyyy-MM-dd HH:mm:ss"),
-									  DateUtils.parseDate(expirationTime, "yyyy-MM-dd HH:mm:ss"),
-									  replyTime == null ? null : DateUtils.parseDate(replyTime, "yyyy-MM-dd HH:mm:ss"),
-									  branchId,
-									  creatRequstId.getReqId(),
-									  PushStatus.INITATION);
+				
+				capital = new Capital(creatRequstId.getReqId(),  
+									PushStatus.INITATION, 
+									financeNumber, 
+									financeName, 
+									lender, 
+									channel, 
+									money, 
+									interest, 
+									guaranteeMoney, 
+									remark, 
+									financeDate, 
+									endDate, 
+									rate, 
+									rateType, 
+									loanContractNumber);
 			}else{
 				capital = capitalDao.findOne(id);
 				capital.setFinancingChannel(financingChannel);

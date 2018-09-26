@@ -16,11 +16,11 @@ public class BaseConfig    {
 	@Value("#{constants}")
 	private Properties constants;
 	
-	public static String REQUEST_URL;
+	public static String REQUEST_URL ="http://183.63.254.107:8882/supervise-receive/api";
 	
-	public static String APPKEY;
+	public static String APPKEY="626ubwgf7s4198ik";
 	
-	public static String CLIENTID;
+	public static String CLIENTID="6351307698887657";
 	
 	public static String USERNAME;
 	public static String PASSWORD;
