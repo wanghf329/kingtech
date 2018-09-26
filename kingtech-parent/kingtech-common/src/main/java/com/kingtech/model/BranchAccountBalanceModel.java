@@ -17,7 +17,7 @@ import com.kingtech.enums.PushStatus;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class BranchAccountBalanceModel extends BaseRequestModel {
+public class BranchAccountBalanceModel extends BaseModel {
 	
 	// 年月，格式YYYYMM
 	private String dateMonth;

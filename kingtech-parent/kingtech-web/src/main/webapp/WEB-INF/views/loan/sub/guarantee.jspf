@@ -11,15 +11,19 @@
 															</div>
 														</div>
 														<div class="form-group">
+															<label for="#name" class="col-sm-3 control-label"><i class="text-red">*</i> 证件类型</label>
+															<div class="col-sm-7 input-group">
+																<select class="form-control validate[required]" name="cardType" data-errormessage="证件类型不能为空">
+																	<c:forEach var="it" items="${cardTypes}">
+								  										<option value ="${it}" <c:if test="${it.name() eq model.cardType}">selected</c:if>>${it.key}</option>
+																	</c:forEach>
+																</select>
+															</div>
+														</div>														
+														<div class="form-group">
 															<label for="#cardNum" class="col-sm-3 control-label"><i class="text-red">*</i> 保证人证件号</label>
 															<div class="col-sm-7 input-group">
-																<input type="text" class="form-control validate[required,custom[onlyLetterNumber]]" value="${it.cardNum}" name="cardNum" data-errormessage="保证人证件号不能为空">
-															</div>
-														</div>
-														<div class="form-group">
-															<label for="#phone" class="col-sm-3 control-label"><i class="text-red">*</i> 保证人联系方式</label>
-															<div class="col-sm-7 input-group">
-																<input type="text" class="form-control validate[required,custom[phone]]" value="${it.phone}" name="phone" data-errormessage="保证人联系方式不能为空">
+																<input type="text" class="form-control validate[required,custom[onlyLetterNumber]]" value="${it.cardNumber}" name="cardNumber" data-errormessage="保证人证件号不能为空">
 															</div>
 														</div>
 														<div class="form-group">

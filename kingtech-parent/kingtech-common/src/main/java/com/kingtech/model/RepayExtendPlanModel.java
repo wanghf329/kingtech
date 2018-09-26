@@ -12,7 +12,7 @@ import com.alibaba.fastjson.annotation.JSONField;
  */
 @Data
 @NoArgsConstructor
-public class RepayExtendPlanModel extends BaseRequestModel{
+public class RepayExtendPlanModel extends BaseModel{
 	
 	@JSONField(name="contract_number",label="sign")
 	private String contractNumber;

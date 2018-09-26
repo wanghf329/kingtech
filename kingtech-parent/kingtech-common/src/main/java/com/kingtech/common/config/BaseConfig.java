@@ -22,6 +22,8 @@ public class BaseConfig    {
 	
 	public static String CLIENTID="6351307698887657";
 	
+	public static String QUERY_URL;
+	
 	public static String USERNAME;
 	public static String PASSWORD;
 	/**
@@ -31,6 +33,7 @@ public class BaseConfig    {
 	
 	@PostConstruct
 	public void init(){
+		QUERY_URL = constants.getProperty("query.url");
 		REQUEST_URL = constants.getProperty("requset.url");
 		APPKEY = constants.getProperty("appKey");
 		CLIENTID = constants.getProperty("clientId");

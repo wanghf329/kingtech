@@ -33,12 +33,22 @@ $(".provision-edit").click(function(){
 		async:false,
 		success:function(res){
 			$("input[name='id']").val(res.id);
-			$("#loanClassification option[value='"+res.loanClassification+"']").prop("selected",true);  
-			$("#loanContractId").attr("disabled",true);   
-			$("input[name='provisionMoney']").val(res.provisionMoney); 
-			$("input[name='provisionDate']").val(res.provisionDate);
-			$("input[name='provisionScale']").val(res.provisionScale);
-			$("input[name='balance']").val(res.balance);
+			$("input[name='dateMonth']").val(res.dateMonth);
+			$("input[name='normalBalance']").val(res.normalBalance); 
+			$("input[name='normalRate']").val(res.normalRate);
+			$("input[name='normalReal']").val(res.normalReal);
+			$("input[name='followBalance']").val(res.followBalance); 
+			$("input[name='followRate']").val(res.followRate);
+			$("input[name='followReal']").val(res.followReal);
+			$("input[name='minorBalance']").val(res.minorBalance); 
+			$("input[name='minorRate']").val(res.minorRate);
+			$("input[name='minorReal']").val(res.minorReal);
+			$("input[name='suspiciousBalance']").val(res.suspiciousBalance); 
+			$("input[name='suspiciousRate']").val(res.suspiciousRate);
+			$("input[name='suspiciousReal']").val(res.suspiciousReal);
+			$("input[name='lossBalance']").val(res.lossBalance); 
+			$("input[name='lossRate']").val(res.lossRate);
+			$("input[name='lossReal']").val(res.lossReal);
 			$("#editModel").modal();
 		}
 	});

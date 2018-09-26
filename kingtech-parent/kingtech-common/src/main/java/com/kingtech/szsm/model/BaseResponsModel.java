@@ -1,4 +1,4 @@
-package com.kingtech.model;
+package com.kingtech.szsm.model;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;

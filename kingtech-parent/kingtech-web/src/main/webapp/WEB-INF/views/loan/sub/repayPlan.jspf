@@ -8,11 +8,11 @@
 																	  <li class="col-sm-1"></li>  
 																	  <li class="col-sm-3">  
 																			<div class="col-sm-12">  
-																				<label for="#repayDate" class="control-label col-sm-5"><i class="text-red">*</i> 日期</label>
+																				<label for="#endDate" class="control-label col-sm-5"><i class="text-red">*</i> 日期</label>
 																				<div class="input-group date col-sm-7">   
 																					<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-																					<input type="text" class="form-control pull-right datepicker validate[required]" readonly name="repayDate" data-errormessage="还款日期不能为空"
-																							value="<fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.repayDate}"></fmt:formatDate>" >
+																					<input type="text" class="form-control pull-right datepicker validate[required]" readonly name="endDate" data-errormessage="还款日期不能为空"
+																							value="<fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.endDate}"></fmt:formatDate>" >
 																				</div>
 																			</div>																	  
 																	  </li>
@@ -20,8 +20,8 @@
 																			<div class="col-sm-12">  
 																				<label for="#principal" class="control-label col-sm-5"><i class="text-red">*</i> 本金</label>
 																				<div class="input-group col-sm-7">
-																					<input type="text" class="form-control validate[required,custom[number]]" name="principal" data-errormessage="还款本金只能为数字"
-																							value="${it.principal}">
+																					<input type="text" class="form-control validate[required,custom[number]]" name="money" data-errormessage="还款本金只能为数字"
+																							value="${it.money}">
 																					<span class="input-group-addon"><i class="fa">元</i></span>
 																				</div>
 																			</div>		 															  

@@ -4,13 +4,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import com.kingtech.enums.PushStatus;
-import com.kingtech.model.BaseRequestModel;
+import com.kingtech.model.BaseModel;
 
 @Data
 @NoArgsConstructor
 public class ModelExt {
 	
-	private BaseRequestModel model;
+	private BaseModel model;
 	
 	private String loanContractNo;
 	
@@ -18,7 +18,7 @@ public class ModelExt {
 	
 	private PushStatus pushStatus;
 
-	public ModelExt(BaseRequestModel model, String loanContractNo,
+	public ModelExt(BaseModel model, String loanContractNo,
 			String loanContractName, PushStatus pushStatus) {
 		super();
 		this.model = model;

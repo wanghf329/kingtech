@@ -12,7 +12,7 @@ import com.kingtech.dao.entity.ContractDyw;
 public interface ContractDywDAO extends PagingAndSortingRepository<ContractDyw, String> {
 	
 	
-	@Query("select c from ContractDyw c where c.loanContractId = :loanContractId")
+	@Query("select c from ContractDyw c where c.loanContractId = :loanContractId  order by c.orderNum")
 	public List<ContractDyw> listByloanContractId(@Param("loanContractId")String loanContractId);
 	
 	@Modifying

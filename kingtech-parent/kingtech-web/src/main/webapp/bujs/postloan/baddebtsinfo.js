@@ -22,8 +22,9 @@ function getBaddebtInfo(id){
 	$.get('postLoan/getBaddebtsInfo/'+id,null,function(res){
 		$("input[name='id']").val(res.id);
 		$("input[name='badMoney']").val(res.badMoney);
-		$("input[name='setDate']").val(res.setDate);
-		$("textarea[name='followupWork']").val(res.followupWork);
+		$("input[name='lossDate']").val(res.lossDate);
+		$("#badType option[value='"+res.badType+"']").prop("selected",true); 
+		$("textarea[name='followUp']").val(res.followUp);
 		$("#loanContractId option[value='"+res.loanContractId+"']").attr("selected",true); 
 		$("#badDebtsInfo").modal();
 	});

@@ -52,11 +52,12 @@
 												还款计划
 											</a>
 										</li>
+										<!-- 
 										<li data-type="settledInfo">
 											<a data-toggle="tab" href="#settledInfoTab">
 												放款信息
 											</a>
-										</li>
+										</li> -->
                                 	</ul>
                                 </div>
                                 <div class="tab-content no-border no-padding">
@@ -136,7 +137,7 @@
 	                                	</div>    
                                 	</div>
                                 	
-                                	<!-- 放款信息 -->
+                                	<%-- 放款信息
                                 	<div id="settledInfoTab" class="tab-pane">
 	                                	<div class="content col-md-10"> 
 	                                		<a href="javascript:void(0)"  class="edit-href"><i class="text-blue fa  fa-plus-circle addSettledInfoBtn">增加</i></a> 
@@ -154,8 +155,7 @@
 			                            	</form>
 	                                	</div>    
                                 	</div>
-                                	
-			                    	
+                                	 --%>
                                 </div>
                             </div><!-- /.box -->
                         </div><!-- /.col -->

@@ -393,6 +393,11 @@ public class DateUtil {
 		}
          
     }  
+	
+	public static String getSimpleDate(Date  date){
+		return getDateStr(date,"yyyy-MM-dd");
+		
+	}
 
 	public static void main(String[] args) {
 		try {

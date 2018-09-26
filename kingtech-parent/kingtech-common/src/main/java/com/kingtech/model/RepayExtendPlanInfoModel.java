@@ -16,7 +16,7 @@ import com.kingtech.common.utils.SignUtils;
  */
 @Data
 @NoArgsConstructor
-public class RepayExtendPlanInfoModel extends BaseRequestModel{
+public class RepayExtendPlanInfoModel extends BaseModel{
 	
 	@JSONField(name="contract_number",label="sign")
 	private String contractNumber;

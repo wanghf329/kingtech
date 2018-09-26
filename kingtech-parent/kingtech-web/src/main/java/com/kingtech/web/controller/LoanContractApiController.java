@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.common.collect.Lists;
 import com.kingtech.enums.BorrowerTypeEnum;
+import com.kingtech.enums.CardTypeEnum;
 import com.kingtech.enums.DywTypeEnum;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.IndustryEnum;
@@ -37,9 +38,11 @@ import com.kingtech.enums.ZywTypeEnum;
 import com.kingtech.model.ContractDywModel;
 import com.kingtech.model.ContractModel;
 import com.kingtech.model.ContractZywModel;
-import com.kingtech.model.SynResponseModel;
+import com.kingtech.model.GuaranteeModel;
+import com.kingtech.model.RepayPlanModel;
 import com.kingtech.model.misc.PageInfo;
 import com.kingtech.model.misc.PagedResult;
+import com.kingtech.szsm.model.SynResponseModel;
 import com.kingtech.web.commons.base.api.PaymentApi;
 import com.kingtech.web.commons.base.service.BorrowerService;
 import com.kingtech.web.commons.base.service.BranchService;
@@ -71,7 +74,7 @@ public class LoanContractApiController {
 	public String list(Model model) {
 		return "/loan/loanList";
 	}
-
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/edit")
 	public String edit(Model model,@RequestParam("id") String id) {
 		model.addAttribute("borrowerType", BorrowerTypeEnum.values());
@@ -96,13 +99,13 @@ public class LoanContractApiController {
 		model.addAttribute("loanContractId", loanContractId);
 		model.addAttribute("collateralType1",DywTypeEnum.values());
 		model.addAttribute("collateralType2",ZywTypeEnum.values());
+		model.addAttribute("cardTypes", CardTypeEnum.values());
 		
 		model.addAttribute("dywList", contractService.listContractDyw(loanContractId));
 		model.addAttribute("zywList", contractService.listContractZyw(loanContractId));
 		
 		model.addAttribute("guaranteeList", contractService.listGuaranteeByLoanContractId(loanContractId));
 		model.addAttribute("repayPlanList", contractService.listRepayPlanByLoanContractId(loanContractId));
-		model.addAttribute("settledInfoList", contractService.listSettledInfoByLoanContractId(loanContractId));
 		model.addAttribute("contract",contractService.getById(loanContractId));
 		return "/loan/loanSupplement";
 	}
@@ -131,27 +134,34 @@ public class LoanContractApiController {
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/supplement/addGuarantee")
 	public String addGuarantee(Model model,String loanContractId,
-			String[] name, String[] cardNum, String[] phone, String[] address) throws ParseException {
-		contractService.addGuarantee(loanContractId, 
-				name, cardNum, phone, address);
+							   String[] name,CardTypeEnum[] cardType, String[] cardNumber,String[] address) throws ParseException {
+		List<GuaranteeModel> guaranteeList = Lists.newArrayList();
+		for (int i = 1; i < name.length; i++) {
+			guaranteeList.add(new GuaranteeModel(name[i], cardType[i],cardNumber[i], address[i]));
+		}
+		contractService.addGuarantee(loanContractId, guaranteeList);
 		model.addAttribute("loanContractId", loanContractId);
 		return "redirect:/loan/supplement";
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/supplement/addRepayPlan")
-	public String addRepayPlan(Model model, String id, String loanContractId,
-			String[] repayDate, BigDecimal[] principal, BigDecimal[] interest) throws ParseException {
-		contractService.addRepayPlan(loanContractId, repayDate, principal, interest);
+	public String addRepayPlan(Model model,String loanContractId,
+							   Date[] endDate, BigDecimal[] money, BigDecimal[] interest) throws ParseException {
+		List<RepayPlanModel> repayPlanList = Lists.newArrayList();
+		for (int i = 1; i < endDate.length; i++) {
+			repayPlanList.add(new RepayPlanModel(endDate[i], money[i],interest[i]));
+		}
+		contractService.addRepayPlan(loanContractId, repayPlanList);
 		model.addAttribute("loanContractId", loanContractId);
 		return "redirect:/loan/supplement";
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/supplement/addSettledInfo")
-	public String addSettledInfo(Model model, String id, String loanContractId,
-			BigDecimal[] money, String[] loanDate, String[] debtStartDate, String[] debtEndDate) throws ParseException {
-		contractService.addSettledInfo(loanContractId, money, loanDate, debtStartDate, debtEndDate);
-		model.addAttribute("loanContractId", loanContractId);
-		return "redirect:/loan/supplement";
+	public String addSettledInfo(Model model,String loanContractId,
+								 BigDecimal money, Date loanTime, Date startDate, Date endDate)
+								 throws ParseException {
+		contractService.addSettledInfo(loanContractId, money, loanTime,startDate, endDate);
+		return "redirect:/settled/single?loanContractId="+loanContractId;
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/save")
@@ -166,7 +176,7 @@ public class LoanContractApiController {
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET,value="/push/{id}")
 	public SynResponseModel push(Model model,@PathVariable("id") String id) { 
-		SynResponseModel synresponseModel = paymentApi.contractInfoApi(id, IdentifierType.A);
+		SynResponseModel synresponseModel = paymentApi.contractInfoApi(id);
 		return synresponseModel;
 	}  
 	

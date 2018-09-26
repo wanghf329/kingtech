@@ -15,7 +15,7 @@ import com.kingtech.common.utils.SignUtils;
  */
 @Data
 @NoArgsConstructor
-public class ProvisionInfoModel extends BaseRequestModel {
+public class ProvisionInfoModel extends BaseModel {
 
 	// 计提月份 YYYYMM
 	@JSONField(name = "DATE_MONTH")

@@ -13,7 +13,7 @@ import com.kingtech.common.utils.SignUtils;
  *
  */
 @Data
-public class AssetTransferModel extends BaseRequestModel {
+public class AssetTransferModel extends BaseModel {
 
 	@JSONField(name = "loan_contract_id", label = "sign")
 	private String loanContractId;

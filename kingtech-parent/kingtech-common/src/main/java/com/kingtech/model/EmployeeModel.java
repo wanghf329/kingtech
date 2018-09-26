@@ -18,7 +18,7 @@ import com.kingtech.enums.YesNoEnum;
  */
 @Data
 @NoArgsConstructor
-public class EmployeeModel extends BaseRequestModel {
+public class EmployeeModel extends BaseModel {
 	
 	//姓名
 	private String name;

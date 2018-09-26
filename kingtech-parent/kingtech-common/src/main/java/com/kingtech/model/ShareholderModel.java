@@ -12,7 +12,7 @@ import com.kingtech.common.utils.SignUtils;
  * @version: v1.0
  */
 @Data
-public class ShareholderModel extends BaseRequestModel {
+public class ShareholderModel extends BaseModel {
 	
 	// 股东类型
 	@JSONField(name="partner_type",label="sign")

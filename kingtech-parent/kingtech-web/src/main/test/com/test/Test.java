@@ -8,7 +8,7 @@ import com.kingtech.common.config.BaseConfig;
 import com.kingtech.common.utils.HttpUtil;
 import com.kingtech.common.utils.RandomUtil;
 import com.kingtech.common.utils.SignUtils;
-import com.kingtech.model.EmployeeModel;
+import com.kingtech.szsm.model.EmployeeRequestModel;
 import com.kingtech.web.commons.base.BaseAbstract;
 
 public class Test extends BaseAbstract{
@@ -18,7 +18,7 @@ public class Test extends BaseAbstract{
 	
 	
 	public static void main(String[] args) {
-		EmployeeModel employeeModel = new EmployeeModel( RandomUtil.random8Len(),
+		EmployeeRequestModel employeeModel = new EmployeeRequestModel( RandomUtil.random8Len(),
 				"91310000775785552J00003",
 				null,
 				"唐傻", 
