@@ -31,8 +31,13 @@ public abstract class PackageEntity extends BaseEntity {
 	@Column(name="LOAN_CONTRACT_ID")
 	private String loanContractId;
 	
-	public PackageEntity(String loanContractId) {
+	// 序号
+	@Column(name="ORDER_NUM")
+	private int orderNum;
+	
+	public PackageEntity(String loanContractId,int orderNum) {
 		super();
+		this.orderNum = orderNum;
 		this.loanContractId = loanContractId;
 	}
 }

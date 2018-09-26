@@ -95,7 +95,7 @@
 													<div class="col-sm-4 input-group">
 														<select class="form-control validate[required]" name="education" data-errormessage="学历不能为空">
 															<c:forEach var="it" items="${educations}">
-						  										<option value ="${it}" <c:if test="${it.name() eq model.education}"></c:if>>${it.key}</option>
+						  										<option value ="${it}" <c:if test="${it.name() eq model.education}">selected</c:if>>${it.key}</option>
 															</c:forEach>
 														</select>
 													</div>

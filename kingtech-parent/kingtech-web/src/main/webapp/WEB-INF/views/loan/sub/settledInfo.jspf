@@ -14,30 +14,30 @@
 																		</div>
 																	</div>
 																	<div class="form-group">
-																		<label for="#loanDate" class="col-sm-4 control-label"><i class="text-red">*</i> 放款日期</label>
+																		<label for="#loanTime" class="col-sm-4 control-label"><i class="text-red">*</i> 放款日期</label>
 																		<div class="col-sm-7 input-group date">
 																			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-																			<input type="text" class="form-control pull-right datepicker validate[required]" readonly name="loanDate" 
+																			<input type="text" class="form-control pull-right datepicker validate[required]" readonly name="loanTime" 
 																					data-errormessage="放款日期不能为空"
-																					value="<fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.loanDate}"></fmt:formatDate>">
+																					value="<fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.loanTime}"></fmt:formatDate>">
 																		</div>
 																	</div>
 																	<div class="form-group">
-																		<label for="#debtStartDate" class="col-sm-4 control-label"><i class="text-red">*</i> 本笔放款债项开始日</label>
+																		<label for="#startDate" class="col-sm-4 control-label"><i class="text-red">*</i> 本笔放款债项开始日</label>
 																		<div class="col-sm-7 input-group date">
 																			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-																			<input type="text" class="form-control pull-right datepicker validate[required]" readonly name="debtStartDate"
+																			<input type="text" class="form-control pull-right datepicker validate[required]" readonly name="startDate"
 																					 data-errormessage="本笔放款债项开始日不能为空"
-																					 value="<fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.debtStartDate}"></fmt:formatDate>">
+																					 value="<fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.startDate}"></fmt:formatDate>">
 																		</div>
 																	</div>
 																	<div class="form-group">
-																		<label for="#debtEndDate" class="col-sm-4 control-label"><i class="text-red">*</i> 本笔放款债项结束日</label>
+																		<label for="#endDate" class="col-sm-4 control-label"><i class="text-red">*</i> 本笔放款债项结束日</label>
 																		<div class="col-sm-7 input-group date">
 																			<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-																			<input type="text" class="form-control pull-right datepicker validate[required]" readonly name="debtEndDate" 
+																			<input type="text" class="form-control pull-right datepicker validate[required]" readonly name="endDate" 
 																					 data-errormessage="本笔放款债项结束日不能为空"
-																					 value="<fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.debtEndDate}"></fmt:formatDate>">
+																					 value="<fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.endDate}"></fmt:formatDate>">
 																		</div>
 																	</div>
 							                                </div><!-- /.box-body -->
