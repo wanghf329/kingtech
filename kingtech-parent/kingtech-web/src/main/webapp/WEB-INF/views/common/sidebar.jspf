@@ -31,16 +31,13 @@
         </li>
          -->
         <li class="treeview active">
-            <a href="branch">
+            <a href="#">
                 <i class="fa fa-bar-chart-o"></i> 
                 <span>机构信息</span> 
                 <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="treeview-menu">
-                <li id="branch1"><a href="branch"><i class="fa fa-angle-double-right"></i>基本信息</a></li>
-                <li id="personalList"><a href="branch/personalList"><i class="fa fa-angle-double-right"></i>人员信息</a></li>
-                <li id="shareholderList"><a href="branch/shareholderList"><i class="fa fa-angle-double-right"></i>股东信息</a></li>
-                <li id="capitalList"><a href="branch/capitalList"><i class="fa fa-angle-double-right"></i>资本信息</a></li>
+                <li id="employeeList"><a href="branch/employeeList"><i class="fa fa-angle-double-right"></i>人员信息</a></li>
             </ul>
         </li>
         <li class="treeview active">

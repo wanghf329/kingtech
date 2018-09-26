@@ -34,12 +34,21 @@
 													<div class="form-group"> 
 														<label for="#loanContractId" class="col-sm-4 control-label"><i class="text-red">*</i> 合同编号</label>
 														<div class="col-sm-7 input-group">
-															<select class="form-control validate[required]" name="loanContractId" data-errormessage="合同不能为空">
+															<select class="form-control validate[required] <c:if test="${settledInfo.loanContractId != null }">hide</c:if>" name="loanContractId" data-errormessage="合同不能为空"
+																>
 																<option value ="">-请选择-</option>  
 																<c:forEach var="it" items="${loanContractIds}">
 							  										<option value ="${it.id}" <c:if test="${it.id eq settledInfo.loanContractId}">selected</c:if>>${it.contractName}</option> 
 																</c:forEach>
 															</select>
+															<c:if test="${settledInfo.loanContractId != null }">
+																<select class="form-control" disabled>
+																	<option value ="">-请选择-</option>  
+																	<c:forEach var="it" items="${loanContractIds}">
+								  										<option value ="${it.id}" <c:if test="${it.id eq settledInfo.loanContractId}">selected</c:if>>${it.contractName}</option> 
+																	</c:forEach>
+																</select>															
+															</c:if>
 														</div>
 													</div>														
 													<div class="form-group">
