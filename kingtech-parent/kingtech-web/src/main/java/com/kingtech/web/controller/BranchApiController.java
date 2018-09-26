@@ -13,9 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kingtech.dao.entity.Branch;
 import com.kingtech.dao.entity.Capital;
+import com.kingtech.dao.entity.Employee;
 import com.kingtech.model.BranchInfoModel;
-import com.kingtech.model.CapitalModel;
-import com.kingtech.model.EmployeeModel;
 import com.kingtech.model.ShareholderModel;
 import com.kingtech.web.commons.base.service.BranchService;
 import com.kingtech.web.commons.base.service.CapitalService;
@@ -128,7 +127,7 @@ public class BranchApiController {
 
 	@ResponseBody
 	@RequestMapping(value = "/getCapital/{id}", method = RequestMethod.GET)
-	public CapitalModel addCapital(Model model,@PathVariable("id") String id) {
+	public Capital addCapital(Model model,@PathVariable("id") String id) {
 		return capitalService.getById(id);
 	}
 	
@@ -146,14 +145,14 @@ public class BranchApiController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/getEmployee/{id}", method = RequestMethod.GET)
-	public EmployeeModel getEmployee(Model model,@PathVariable("id") String id) {
+	public Employee getEmployee(Model model,@PathVariable("id") String id) {
 		return employeeService.getById(id);
 	}
 	
-	@RequestMapping(value = "/delEmployee/{id}", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/delEmployee/{id}", method = RequestMethod.GET)
 	public String delEmployee(Model model,@PathVariable("id") String id) {
 		employeeService.delById(id);
 		return "redirect:/branch/personalList";
-	}
+	}*/
 	
 }

@@ -57,4 +57,9 @@ public class BaseRequestModel implements Serializable {
 		this.reqId = reqId;
 	}
 	
+	public BaseRequestModel(String id,String reqId) {
+		this.id = id;
+		this.reqId = reqId;
+	}
+	
 }
