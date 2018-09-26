@@ -14,8 +14,7 @@ $(document).ready(function () {
 });
 
 $("#addSettledInfoBtn").click(function(){
-	var loanContractId = $(this).data("loanContractId");
-	window.location.href = "settled/single?loanContractId="+loanContractId;
+	window.location.href = "settled/single?loanContractId="; 
 });
 
 $(".saveRecordBtn").click(function(){ 
