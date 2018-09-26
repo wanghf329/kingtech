@@ -12,7 +12,7 @@ import com.kingtech.common.utils.SignUtils;
  * @version: v1.0
  */
 @Data
-public class EmployeeModel extends BaseRequestModel {
+public class EmployeeRequestModel extends BaseRequestModel {
 	
 	//姓名
 	@JSONField(name="name", label="sign")
@@ -69,13 +69,13 @@ public class EmployeeModel extends BaseRequestModel {
 	@JSONField(name="quitTime",label="sign")
 	private String quitTime;
 	
-	public EmployeeModel(String clientId, String roundStr,
+	public EmployeeRequestModel(String clientId, String roundStr,
 			String appKey, String token, String identifier, String reqId,
 			String sign) {
 //		super(clientId, roundStr, appKey, token, identifier, reqId, sign,null);
 	}
 
-	public EmployeeModel( String roundStr, String reqId,
+	public EmployeeRequestModel( String roundStr, String reqId,
 			String sign, String name, String phone, String email,
 			String address, String department, int sex, int cardType,
 			String cardNumber, int education, int executiveFlag,

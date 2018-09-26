@@ -11,6 +11,7 @@ import com.kingtech.model.RepayExtendPlanModel;
 import com.kingtech.model.RepayInfoModel;
 import com.kingtech.model.ShareholderModel;
 import com.kingtech.szsm.model.ContractRequestModel;
+import com.kingtech.szsm.model.EmployeeRequestModel;
 import com.kingtech.szsm.model.SynResponseModel;
 /**
  * 对接监管系统接口
@@ -28,7 +29,7 @@ public interface FinanceService {
 	 * 机构人员信息接口
 	 */
 	
-	public SynResponseModel branchEmployeeFacade(EmployeeModel employeeModel);
+	public SynResponseModel branchEmployeeFacade(EmployeeRequestModel employeeModel);
 	
 	/**
 	 * 

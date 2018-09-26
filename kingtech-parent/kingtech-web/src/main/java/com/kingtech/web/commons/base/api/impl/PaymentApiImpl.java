@@ -63,6 +63,7 @@ import com.kingtech.szsm.model.AsyReponseModel;
 import com.kingtech.szsm.model.ContractDywRequestModel;
 import com.kingtech.szsm.model.ContractRequestModel;
 import com.kingtech.szsm.model.ContractZywRequestModel;
+import com.kingtech.szsm.model.EmployeeRequestModel;
 import com.kingtech.szsm.model.EnterpriseCustomerRequestModel;
 import com.kingtech.szsm.model.GuaranteeRequestModel;
 import com.kingtech.szsm.model.PersonalCustomerRequestModel;
@@ -229,7 +230,7 @@ public class PaymentApiImpl  implements PaymentApi {
 
 	@Override
 	@Transactional
-	public void employeeInfoApi(String capitalId, IdentifierType type) {
+	public void employeeInfoApi(String capitalId) {
 		
 		
 		   Employee employee = employeeDAO.findOne(capitalId);
@@ -239,37 +240,29 @@ public class PaymentApiImpl  implements PaymentApi {
 		   
 		   String roundStr =  RandomUtil.random8Len();
 		   
-//		   EmployeeModel employeeModel = null;
-//			   employeeModel = new EmployeeModel(roundStr,
-//					   type.name(),
-//					   employee.getReqId(), 
-//					   null, 
-//					   employee.getName(), 
-//					   employee.getPhone(),
-//					   employee.getEmail(),
-//					   employee.getPostalAddress(),
-//					   employee.getDepartment(),
-//					   employee.getSex(), 
-//					   employee.getIdNumber(),
-//					   employee.getEducation(),
-//					   employee.getExecutiveFlag()+"",
-//					   employee.getPost(),
-//					   DateUtil.getDateStr(employee.getReplyTime(), "yyyy-MM-dd"), 
-//					   DateUtil.getDateStr(employee.getEntryTime(), "yyyy-MM-dd"),
-//					   employee.getStatus().getKey(), 
-//					   DateUtil.getDateStr(employee.getQuitTime(), "yyyy-MM-dd"), 
-//					   DateUtil.getDateStr(employee.getCreateTime(), JSON.DEFFAULT_DATE_FORMAT), 
-//					   DateUtil.getDateStr(employee.getUpdateTime(), JSON.DEFFAULT_DATE_FORMAT));
-//		}else {
-//			log.info("机构人员信息暂时不支持删除");
-//			return;
-//		}
-//		   
-//		   SynResponseModel responseModel= financeService.branchEmployeeFacade(employeeModel);
-//		   if (responseModel.isSuccess()) {
-//			   employee.setPushStatus(PushStatus.INPROSESS);
-//			   employeeDAO.save(employee);
-//		   }
+		   EmployeeRequestModel employeeRequestModel = new EmployeeRequestModel(roundStr,
+				   employee.getReqId(),
+				   null, 
+				   employee.getName(), 
+				   employee.getPhone(),
+				   employee.getEmail(), 
+				   employee.getAddress(), 
+				   employee.getDepartment(),
+				   DTOUtils.getEnumIntVal(employee.getSex()), 
+				   DTOUtils.getEnumIntVal(employee.getCardType()),
+				   employee.getCardNumber(), 
+				   DTOUtils.getEnumIntVal(employee.getEducation()),
+				   DTOUtils.getEnumIntVal(employee.getExecutiveFlag()), 
+				   employee.getPosition(),
+				   DateUtil.getSimpleDate(employee.getEntryTime()), 
+				   DateUtil.getSimpleDate(employee.getQuitTime()));
+		   
+		   
+		   SynResponseModel responseModel= financeService.branchEmployeeFacade(employeeRequestModel);
+		   if (responseModel.isSuccess()) {
+			   employee.setPushStatus(PushStatus.SUCCESS);
+			   employeeDAO.save(employee);
+		   }
 	}
 
 	@Override
@@ -366,7 +359,7 @@ public class PaymentApiImpl  implements PaymentApi {
 
 	@Override
 	@Transactional
-	public SynResponseModel contractInfoApi(String loanIdContractId, IdentifierType type) {
+	public SynResponseModel contractInfoApi(String loanIdContractId) {
 		
 		Contract contract = contractDAO.findOne(loanIdContractId);
 		if (contract == null) {

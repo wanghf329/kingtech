@@ -15,6 +15,7 @@ import com.kingtech.model.RepayExtendPlanModel;
 import com.kingtech.model.RepayInfoModel;
 import com.kingtech.model.ShareholderModel;
 import com.kingtech.szsm.model.ContractRequestModel;
+import com.kingtech.szsm.model.EmployeeRequestModel;
 import com.kingtech.szsm.model.SynResponseModel;
 import com.kingtech.web.commons.base.BaseAbstract;
 import com.kingtech.web.commons.http.service.FinanceService;
@@ -36,11 +37,9 @@ public class FinanceServiceImpl   extends BaseAbstract implements FinanceService
 	
 
 	@Override
-	public SynResponseModel branchEmployeeFacade(EmployeeModel employeeModel) {
-		return null;
-//		Map<String, String> data = getDataAndSign(employeeModel);
-//		SynResponseModel responseModel = getResponse(data, "pushCompanyEmployeeData");
-//		return responseModel;
+	public SynResponseModel branchEmployeeFacade(EmployeeRequestModel employeeModel) {
+		SynResponseModel responseModel = getResponse(employeeModel, "pushCompanyEmployeeData");
+		return responseModel;
 	}
 
 	@Override
