@@ -257,7 +257,6 @@ public class PostLoanApiController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "provisioninfo")
 	public String accruedInfo(Model model) {
-		model.addAttribute("loanClassificationEnum", LoanClassificationEnum.values());
 		model.addAttribute("list", provisionService.listAll());
 		return "/postloan/provisionInfo";
 	}
@@ -301,7 +300,7 @@ public class PostLoanApiController {
 			BigDecimal suspiciousBalance, BigDecimal suspiciousRate, BigDecimal suspiciousReal,
 			BigDecimal lossBalance, BigDecimal lossRate, BigDecimal lossReal) {
 		try {
-			provisionService.addOrEdit(id, DateUtils.parseDate(dateMonth, "yyyy-MM-dd"),
+			provisionService.addOrEdit(id, DateUtils.parseDate(dateMonth, "yyyy-MM"),
 					normalBalance, normalRate, normalReal, 
 					followBalance, followRate, followReal,
 					minorBalance, minorRate, minorReal, 

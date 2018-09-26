@@ -1,4 +1,4 @@
-package com.kingtech.model;
+package com.kingtech.szsm.model;
 
 import lombok.NoArgsConstructor;
 

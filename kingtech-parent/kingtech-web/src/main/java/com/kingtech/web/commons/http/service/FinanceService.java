@@ -1,18 +1,18 @@
 package com.kingtech.web.commons.http.service;
 
-import com.kingtech.model.CapitalModel;
-import com.kingtech.model.ContractModel;
-import com.kingtech.model.EmployeeModel;
 import com.kingtech.model.BranchInfoModel;
+import com.kingtech.model.CapitalModel;
+import com.kingtech.model.EmployeeModel;
 import com.kingtech.model.OtherBaddebtModel;
 import com.kingtech.model.OtherOverdueInfoModel;
-import com.kingtech.model.PersonalCustomerModel;
 import com.kingtech.model.ProvisionInfoModel;
 import com.kingtech.model.RepayExtendInfoModel;
 import com.kingtech.model.RepayExtendPlanModel;
 import com.kingtech.model.RepayInfoModel;
 import com.kingtech.model.ShareholderModel;
-import com.kingtech.model.SynResponseModel;
+import com.kingtech.szsm.model.ContractRequestModel;
+import com.kingtech.szsm.model.EmployeeRequestModel;
+import com.kingtech.szsm.model.SynResponseModel;
 /**
  * 对接监管系统接口
  * @author baijt
@@ -29,7 +29,7 @@ public interface FinanceService {
 	 * 机构人员信息接口
 	 */
 	
-	public SynResponseModel branchEmployeeFacade(EmployeeModel employeeModel);
+	public SynResponseModel branchEmployeeFacade(EmployeeRequestModel employeeModel);
 	
 	/**
 	 * 
@@ -50,7 +50,7 @@ public interface FinanceService {
 	 * @param shareholderModel
 	 * @return
 	 */
-	public SynResponseModel contractFacade(ContractModel contractModel);
+	public SynResponseModel contractFacade(ContractRequestModel contractModel);
 	
 	/**
 	 * 还款信息接口

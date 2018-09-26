@@ -1,11 +1,8 @@
 package com.kingtech.web.commons.base.api;
 
 import com.kingtech.enums.IdentifierType;
-import com.kingtech.model.AsyReponseModel;
-import com.kingtech.model.OtherBaddebtModel;
-import com.kingtech.model.OtherOverdueInfoModel;
-import com.kingtech.model.ProvisionInfoModel;
-import com.kingtech.model.SynResponseModel;
+import com.kingtech.szsm.model.AsyReponseModel;
+import com.kingtech.szsm.model.SynResponseModel;
 
 public interface PaymentApi {
 	
@@ -27,7 +24,7 @@ public interface PaymentApi {
 	 * @param employeeId
 	 * @param type
 	 */
-	public void employeeInfoApi(String employeeId,IdentifierType type);
+	public void employeeInfoApi(String employeeId);
 	/**
 	 * 机构股东信息
 	 * @param holderId
@@ -40,7 +37,7 @@ public interface PaymentApi {
 	 * @param loanIdContract
 	 * @param type
 	 */
-	public SynResponseModel contractInfoApi(String loanIdContract,IdentifierType type);
+	public SynResponseModel contractInfoApi(String loanIdContract);
 	
 	/**
 	 * 还款计划

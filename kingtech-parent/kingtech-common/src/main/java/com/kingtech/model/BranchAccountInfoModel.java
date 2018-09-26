@@ -22,7 +22,7 @@ import com.kingtech.enums.PushStatus;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class BranchAccountInfoModel extends BaseRequestModel {
+public class BranchAccountInfoModel extends BaseModel {
 	
 	// 银行名称（全称）
 	private String bank;

@@ -40,10 +40,9 @@ import com.kingtech.model.ContractModel;
 import com.kingtech.model.ContractZywModel;
 import com.kingtech.model.GuaranteeModel;
 import com.kingtech.model.RepayPlanModel;
-import com.kingtech.model.SettledInfoModel;
-import com.kingtech.model.SynResponseModel;
 import com.kingtech.model.misc.PageInfo;
 import com.kingtech.model.misc.PagedResult;
+import com.kingtech.szsm.model.SynResponseModel;
 import com.kingtech.web.commons.base.api.PaymentApi;
 import com.kingtech.web.commons.base.service.BorrowerService;
 import com.kingtech.web.commons.base.service.BranchService;
@@ -177,7 +176,7 @@ public class LoanContractApiController {
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET,value="/push/{id}")
 	public SynResponseModel push(Model model,@PathVariable("id") String id) { 
-		SynResponseModel synresponseModel = paymentApi.contractInfoApi(id, IdentifierType.A);
+		SynResponseModel synresponseModel = paymentApi.contractInfoApi(id);
 		return synresponseModel;
 	}  
 	

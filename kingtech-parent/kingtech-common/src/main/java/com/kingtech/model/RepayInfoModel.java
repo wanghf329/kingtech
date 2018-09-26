@@ -12,7 +12,7 @@ import com.kingtech.common.utils.SignUtils;
  *
  */
 @Data
-public class RepayInfoModel extends BaseRequestModel{
+public class RepayInfoModel extends BaseModel{
 	
 	@JSONField(name="loan_contract_id",label="sign")
 	private String loanContractId;

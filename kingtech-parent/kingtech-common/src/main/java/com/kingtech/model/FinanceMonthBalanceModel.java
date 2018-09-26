@@ -18,7 +18,7 @@ import com.kingtech.enums.PushStatus;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class FinanceMonthBalanceModel extends BaseRequestModel {
+public class FinanceMonthBalanceModel extends BaseModel {
 	// 融资编号
 	private String financeNumber;
 	

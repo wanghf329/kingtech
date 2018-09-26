@@ -25,7 +25,7 @@ import com.kingtech.enums.YesNoEnum;
 
 @Data
 @NoArgsConstructor
-public class ContractModel  extends BaseRequestModel{
+public class ContractModel  extends BaseModel{
 	/**
 	 * 合同编号
 	 */
