@@ -50,7 +50,7 @@ public class Employee extends RecordEntity {
 	private String department;
 
 	//性别：1）男 2）女
-	@Enumerated(EnumType.ORDINAL)
+	@Enumerated(EnumType.STRING)
 	@Column(name="SEX",nullable = false)
 	private SexEnum sex;
 	
@@ -69,6 +69,7 @@ public class Employee extends RecordEntity {
 	private EducationEnum education;
 	
 	//是否董监高，0-否，1-是
+	@Enumerated(EnumType.STRING)
 	@Column(name="EXECUTIVE_FLAG", nullable = false)
 	private YesNoEnum executiveFlag;
 	

@@ -1,17 +1,23 @@
 package com.kingtech.web.commons.base.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.druid.util.StringUtils;
+import com.kingtech.common.dynamicquery.DynamicQuery;
+import com.kingtech.dao.entity.Contract;
 import com.kingtech.dao.entity.Employee;
 import com.kingtech.dao.rdbms.EmployeeDAO;
+import com.kingtech.enums.BorrowerTypeEnum;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.model.EmployeeModel;
+import com.kingtech.model.misc.PagedResult;
 import com.kingtech.web.commons.base.CreatRequstId;
 import com.kingtech.web.commons.base.api.PaymentApi;
 import com.kingtech.web.commons.base.service.EmployeeService;
@@ -27,6 +33,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 	
 	@Autowired
 	private PaymentApi paymentApi;
+	
+	@Autowired
+	private DynamicQuery dq;
+	
+	private static final String LISTEMPLOYEE = "SELECT * from TB_BRANCH_EMPLOYEE t order by t.CREATE_TIME DESC";
 
 	@Override
 	@Transactional
@@ -34,6 +45,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 		try {
 			Employee employee = null;
 			if (StringUtils.isEmpty(model.getId())) {
+				employee = new Employee();
 				model.setReqId(creatRequstId.getReqId());
 				model.setPushStatus(PushStatus.INITATION);
 				BeanUtils.copyProperties(employee, model);
@@ -41,7 +53,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 				employee = employeeDao.findOne(model.getId());
 				String reqId = employee.getReqId();
 				BeanUtils.copyProperties(employee, model);
-				employee.setId(reqId);
+				employee.setReqId(reqId);
 				employee.setPushStatus(PushStatus.INITATION);
 			}
 			
@@ -61,6 +73,14 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	public Employee getById(String id)  {
 		return  employeeDao.findOne(id);
+	}
+
+	@Override
+	public PagedResult<Employee> pageList(Pageable pageAble) {
+		String[] params = new String[0];
+		List<Employee> list = dq.nativeQueryPagingList(Employee.class, pageAble, LISTEMPLOYEE, params);
+		Long count = dq.nativeQueryCount(LISTEMPLOYEE, params);
+		return new PagedResult(list,count);
 	}
 
 }
