@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import com.kingtech.common.utils.DateUtil;
+import com.kingtech.model.BaseModel;
 import com.kingtech.model.CapitalModel;
 import com.kingtech.model.ContractModel;
 import com.kingtech.model.EmployeeModel;
@@ -21,12 +22,13 @@ import com.kingtech.model.RepayExtendPlanModel;
 import com.kingtech.model.RepayInfoModel;
 import com.kingtech.model.ShareholderModel;
 import com.kingtech.model.SynResponseModel;
+import com.kingtech.szsm.model.ContractRequestModel;
 import com.kingtech.web.commons.base.BaseAbstract;
 import com.kingtech.web.commons.http.service.FinanceService;
 
 @Service
 @Slf4j
-public class FinanceServiceImpl  extends BaseAbstract implements FinanceService {
+public class FinanceServiceImpl   extends BaseAbstract implements FinanceService {
 
 	@Override
 	public SynResponseModel branchInfoFacade(BranchInfoModel institutionInfoModel) {
@@ -66,11 +68,9 @@ public class FinanceServiceImpl  extends BaseAbstract implements FinanceService 
 
 
 	@Override
-	public SynResponseModel contractFacade(ContractModel contractModel) {
-//		Map<String, String> data = getDataAndSign(contractModel);
-//		SynResponseModel responseModel = getResponse(data, "pushContractData");
-//		return responseModel;
-		return null;
+	public SynResponseModel contractFacade(ContractRequestModel contractModel) {
+		SynResponseModel responseModel = getResponse(contractModel, "loan-contract");
+		return responseModel;
 	}
 
 

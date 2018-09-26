@@ -1,12 +1,6 @@
 package com.kingtech.szsm.model;
 
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,14 +8,6 @@ import lombok.NoArgsConstructor;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.kingtech.common.config.BaseConfig;
 import com.kingtech.common.utils.SignUtils;
-import com.kingtech.enums.BorrowerTypeEnum;
-import com.kingtech.enums.IndustryEnum;
-import com.kingtech.enums.LoanMethodEnum;
-import com.kingtech.enums.LoanPurposeEnum;
-import com.kingtech.enums.PayTypeEnum;
-import com.kingtech.enums.RateTypeEnum;
-import com.kingtech.enums.TermTypeEnum;
-import com.kingtech.enums.YesNoEnum;
 
 
 @Data
@@ -88,18 +74,15 @@ public class ContractRequestModel  extends BaseRequestModel{
 	/**
 	 * 年化利率(%)
 	 */
-	@JSONField( label="sign")
 	private String annualRate;
 	
 	
 	/**
 	 * 平台费
 	 */
-	@JSONField( label="sign")
 	private String platformCost;
 	
 	//受托支付
-	@JSONField( label="sign")
 	private int isEntrust;
 	
 	/**
@@ -139,7 +122,6 @@ public class ContractRequestModel  extends BaseRequestModel{
 	/**
 	 * 区域代码（区/县）参见excel区域代码（没有区的，取6位），若没有地址自行从营业执照或身份证取
 	 */
-	@JSONField( label="sign")
 	private String districtCode;
 	
 	
@@ -154,17 +136,23 @@ public class ContractRequestModel  extends BaseRequestModel{
 	/**
 	 * 质押集合
 	 */
-	List<ContractDywRequestModel> pledgeInfos;
+	private List<ContractDywRequestModel> pledgeInfos;
 	
 	/**
 	 * 抵押集合
 	 */
-	List<ContractZywRequestModel> mortgageInfos;
+	private List<ContractZywRequestModel> mortgageInfos;
 	/**
 	 * 保证人集合
 	 */
 	
-	List<GuaranteeRequestModel> ensureInfos;
+	private List<GuaranteeRequestModel> ensureInfos;
+	/**
+	 * 还款计划集合
+	 */
+	
+	private List<RepayPlanRequestModel> repayPlans;
+	
 	public ContractRequestModel( String roundStr, String reqId,
 			String sign,String contractNumber,
 			String contractName, int borrowerType, String money, int termType,
@@ -176,7 +164,8 @@ public class ContractRequestModel  extends BaseRequestModel{
 			EnterpriseCustomerRequestModel enterpriseBorrower,
 			List<ContractDywRequestModel> pledgeInfos,
 			List<ContractZywRequestModel> mortgageInfos,
-			List<GuaranteeRequestModel> ensureInfos) {
+			List<GuaranteeRequestModel> ensureInfos,
+			List<RepayPlanRequestModel> repayPlans) {
 		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), reqId, sign, null);
 		this.contractNumber = contractNumber;
 		this.contractName = contractName;
@@ -203,6 +192,7 @@ public class ContractRequestModel  extends BaseRequestModel{
 		this.pledgeInfos = pledgeInfos;
 		this.mortgageInfos = mortgageInfos;
 		this.ensureInfos = ensureInfos;
+		this.repayPlans = repayPlans;
 	}
 	
 	

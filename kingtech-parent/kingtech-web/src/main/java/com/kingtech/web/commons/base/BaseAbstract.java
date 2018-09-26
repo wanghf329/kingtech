@@ -11,9 +11,9 @@ import com.kingtech.common.config.BaseConfig;
 import com.kingtech.common.utils.HttpUtil;
 import com.kingtech.common.utils.MD5;
 import com.kingtech.common.utils.SignUtils;
-import com.kingtech.model.BaseRequestModel;
 import com.kingtech.model.BaseResponsModel;
 import com.kingtech.model.SynResponseModel;
+import com.kingtech.szsm.model.BaseRequestModel;
 
 @Slf4j
 public class BaseAbstract {
@@ -25,12 +25,12 @@ public class BaseAbstract {
 	 * @return
 	 */
 
-	public  SynResponseModel getResponse(BaseResponsModel baseResponsModel,String suffixUrl) {
-		String dataSign = JSON.toJSONString(baseResponsModel, Labels.includes("sign")); // 验签数据
+	public  SynResponseModel getResponse(BaseRequestModel baseRequestModel,String suffixUrl) {
+		String dataSign = JSON.toJSONString(baseRequestModel, Labels.includes("sign")); // 验签数据
 		Map<String, Object> signMap = JSON.parseObject(dataSign, Map.class);
 		String sign = SignUtils.getSignStr(signMap);
-		baseResponsModel.setSign(sign);
-		String data = JSONObject.toJSONString(baseResponsModel);
+		baseRequestModel.setSign(sign);
+		String data = JSONObject.toJSONString(baseRequestModel);
 		try {
 			String response = HttpUtil.postJsonResponse(BaseConfig.REQUEST_URL	+ "/" + suffixUrl, data);
 			return JSON.parseObject(response, SynResponseModel.class);

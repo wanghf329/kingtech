@@ -1,20 +1,8 @@
 package com.kingtech.szsm.model;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import com.alibaba.fastjson.annotation.JSONField;
-import com.kingtech.enums.IndustryEnum;
-import com.kingtech.enums.IndustryType;
-import com.kingtech.enums.ScaleType;
 
 
 @AllArgsConstructor
@@ -61,13 +49,13 @@ public class EnterpriseCustomerRequestModel {
 	private String  licenseCode;
 		
 	//营业执照截止日期，格式YYYY-MM-DD
-	private Date  licenceEndDate;
+	private String  licenceEndDate;
 		
 	//法定代表人
 	private String  legalPerson;
 		
 	//成立日期，格式YYYY-MM-DD
-	private Date  foundDate;
+	private String  foundDate;
 		
 	//实际控制人
 	private String  controller;
@@ -96,6 +84,7 @@ public class EnterpriseCustomerRequestModel {
 	//网址
 	private String webSite;
 	
-	
+
+
 	
 }

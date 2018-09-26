@@ -18,7 +18,7 @@ import com.kingtech.enums.RateTypeEnum;
  * @version: v1.0
  */
 @Data
-public class CapitalModel extends BaseRequestModel {
+public class CapitalModel extends BaseModel {
 	// 融资编号
 	private String financeNumber;
 	

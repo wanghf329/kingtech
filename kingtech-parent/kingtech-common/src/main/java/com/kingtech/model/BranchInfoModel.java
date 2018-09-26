@@ -14,7 +14,7 @@ import com.kingtech.common.utils.SignUtils;
  */
 
 @Data
-public class BranchInfoModel extends BaseRequestModel {
+public class BranchInfoModel extends BaseModel {
 	
 	/**
 	 * 公司名称

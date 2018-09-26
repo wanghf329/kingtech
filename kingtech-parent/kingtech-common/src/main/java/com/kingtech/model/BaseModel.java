@@ -11,7 +11,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BaseRequestModel implements Serializable {
+public class BaseModel implements Serializable {
 	/**
 	 * 非现场监管系统分配给接入方的账号
 	 */
@@ -43,11 +43,11 @@ public class BaseRequestModel implements Serializable {
 	
 	private String id;
 
-	public BaseRequestModel(String id) {
+	public BaseModel(String id) {
 		this.id = id;
 	}
 
-	public BaseRequestModel(String clientId, String roundStr, String appKey,
+	public BaseModel(String clientId, String roundStr, String appKey,
 			String token, String reqId) {
 		super();
 		this.clientId = clientId;
@@ -57,7 +57,7 @@ public class BaseRequestModel implements Serializable {
 		this.reqId = reqId;
 	}
 	
-	public BaseRequestModel(String id,String reqId) {
+	public BaseModel(String id,String reqId) {
 		this.id = id;
 		this.reqId = reqId;
 	}
