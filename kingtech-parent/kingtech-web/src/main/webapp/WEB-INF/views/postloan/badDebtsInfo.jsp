@@ -60,18 +60,29 @@
 									</div>
 									
 									<div class="form-group">
-										<label for="#setDate" class="col-sm-3 control-label"><i class="text-red">*</i> 定损日期</label>
+										<label for="#lossDate" class="col-sm-3 control-label"><i class="text-red">*</i> 定损日期</label>
 										<div class="col-sm-6 input-group date">
 											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-											<input type="text" class="form-control pull-right datepicker validate[required]" name="setDate"
-												readonly id="setDate" data-errormessage="定损日期不能为空">
+											<input type="text" class="form-control pull-right datepicker validate[required]" name="lossDate"
+												readonly id="lossDate" data-errormessage="定损日期不能为空">
 										</div>
 									</div>
 									
 									<div class="form-group">
-										<label for="#followupWork" class="col-sm-3 control-label"><i class="text-red">*</i>后续工作</label>
+										<label for="#badType" class="col-sm-3 control-label"><i class="text-red">*</i> 坏账类型</label>
+										<div class="col-sm-6 input-group"> 
+											<select class="form-control validate[required]" id="badType" name="badType">
+												<c:forEach var="it" items="${badTypeEnum}">
+			  										<option value ="${it.name()}">${it.getKey()}</option>
+												</c:forEach>
+											</select>
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label for="#followUp" class="col-sm-3 control-label"><i class="text-red">*</i>后续工作</label>
 										<div class="col-sm-6 input-group">
-										<textarea  class="form-control validate[required,maxSize[255]]" name = "followupWork" id="followupWork" 
+										<textarea  class="form-control validate[required,maxSize[255]]" name = "followUp" id="followUp" 
 											data-errormessage-value-missing="后续工作不能为空"  data-errormessage-range-overflow="后续工作不能超过255个字符" >
 										</textarea>
 										</div>
@@ -115,9 +126,9 @@
 	                                            <td>${it.loanContractNo}</td>  
 	                                            <td>${it.loanContractName}</td>  
 	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><strong>${it.model.badMoney}</strong></td>
-	                                            <td>${it.model.setDate}</td>
+	                                            <td>${it.model.lossDate}</td>
 	                                            
-	                                            <td><a  data-toggle="tooltip" data-placement="right" title="${it.model.followupWork}" ><c:if test="${!empty it.model.followupWork }">${fn:substring(it.model.followupWork,0,10)}...</c:if></a></td>
+	                                            <td><a  data-toggle="tooltip" data-placement="right" title="${it.model.followUp}" ><c:if test="${!empty it.model.followUp }">${fn:substring(it.model.followUp,0,10)}...</c:if></a></td>
 	                                            <td> 
 	                                            	<c:if test="${it.pushStatus=='INITATION'}"><span class="text-gray"><i class="text-gray fa fa-info-circle"></i>初始</span></c:if>
 	                                            	<c:if test="${it.pushStatus=='SUCCESS'}"><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span></c:if>

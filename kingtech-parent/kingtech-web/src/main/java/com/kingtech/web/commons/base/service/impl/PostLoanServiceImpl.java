@@ -149,16 +149,17 @@ public class PostLoanServiceImpl implements PostLoanService{
 			} else {
 				contract = contractDao.findOne(otherBaddebt.getLoanContractId());
 			}
-//			result.add(new ModelExt(
-//						   new OtherBaddebtModel(otherBaddebt.getId(), 
-//												 otherBaddebt.getLoanContractId(),
-//												 otherBaddebt.getBadMoney().toPlainString(),
-//												 DateUtil.getDateStr(otherBaddebt.getSetDate(), "yyyy-MM-dd"),
-//												 otherBaddebt.getFollowupWork()),
-//						   
-//						   contract.getLoanContractNo(),
-//						   contract.getLoanContractName(),
-//						   otherBaddebt.getPushStatus()));
+			result.add(new ModelExt(
+						   new OtherBaddebtModel(otherBaddebt.getId(), 
+												 otherBaddebt.getLoanContractId(),
+												 otherBaddebt.getBadMoney().toPlainString(),
+												 DateUtil.getDateStr(otherBaddebt.getLossDate(), "yyyy-MM-dd"),
+												 otherBaddebt.getBadType().name(),
+												 otherBaddebt.getFollowUp()),
+						   
+						   contract.getContractNumber(),
+						   contract.getContractName(),
+						   otherBaddebt.getPushStatus()));
 		}
 		return result;
 		
@@ -174,7 +175,7 @@ public class PostLoanServiceImpl implements PostLoanService{
 														badDebtInfo.getLoanContractId(),
 														badDebtInfo.getBadMoney().toPlainString(),
 														DateUtil.getDateStr(badDebtInfo.getLossDate(), "yyyy-MM-dd"),
-														badDebtInfo.getBadType().getKey(),
+														badDebtInfo.getBadType().name(),
 														badDebtInfo.getFollowUp());
 		return model;
 	}
