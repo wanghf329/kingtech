@@ -1,10 +1,16 @@
 package com.kingtech.model;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
+import javax.persistence.Column;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.kingtech.enums.PushStatus;
 
 
 /**
@@ -16,19 +22,18 @@ import com.alibaba.fastjson.annotation.JSONField;
 @Data
 public class FinancingRepayPlanModel {
 	
+	private String Id;
+	
 	// 融资编号
 	private String financeNumber;
 	
 	// 还款利息
-	@JSONField(name="interest")
-	private String interest;
+	private BigDecimal interest;
 	
 	// 还款截止日期
-	@JSONField(name="endDate")
-	private String endDate;
+	private Date endDate;
 	
 	// 还款本金（元）
-	@JSONField(name="money")
-	private String money;
+	private BigDecimal money;
 
 }

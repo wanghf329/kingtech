@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 import com.kingtech.dao.entity.base.RecordEntity;
 import com.kingtech.enums.CertType;
 import com.kingtech.enums.EducationEnum;
+import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.SexEnum;
 import com.kingtech.enums.YesNoEnum;
 
@@ -87,8 +88,8 @@ public class Employee extends RecordEntity {
 			String address, String department, SexEnum sex, CertType cardType,
 			String cardNumber, EducationEnum education,
 			YesNoEnum executiveFlag, String position, Date entryTime,
-			Date quitTime) {
-		super();
+			Date quitTime, String reqId, PushStatus pushStatus) {
+		super(reqId, pushStatus);
 		this.name = name;
 		this.phone = phone;
 		this.email = email;
@@ -104,22 +105,5 @@ public class Employee extends RecordEntity {
 		this.quitTime = quitTime;
 	}
 
-	public Employee(String name, String phone, String address,
-			String department, SexEnum sex, CertType cardType,
-			String cardNumber, EducationEnum education,
-			YesNoEnum executiveFlag, String position, Date entryTime) {
-		super();
-		this.name = name;
-		this.phone = phone;
-		this.address = address;
-		this.department = department;
-		this.sex = sex;
-		this.cardType = cardType;
-		this.cardNumber = cardNumber;
-		this.education = education;
-		this.executiveFlag = executiveFlag;
-		this.position = position;
-		this.entryTime = entryTime;
-	}
 	
 }

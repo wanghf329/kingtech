@@ -1,5 +1,8 @@
 package com.kingtech.model;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 import javax.persistence.Column;
 
 import lombok.AllArgsConstructor;
@@ -9,6 +12,7 @@ import lombok.NoArgsConstructor;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.kingtech.common.config.BaseConfig;
 import com.kingtech.common.utils.SignUtils;
+import com.kingtech.enums.PushStatus;
 
 /**
  * @author Tson
@@ -20,24 +24,21 @@ import com.kingtech.common.utils.SignUtils;
 public class RepaymentFinanceModel extends BaseRequestModel{
 	
 	// 融资编号
-	@JSONField(name="financeNumber", label="sign")
 	private String financeNumber;
 	
 	// 还款日期 格式yyyy-MM-dd
-	@JSONField(name="repayDate", label="sign")
-	private String repayDate;
+	private Date repayDate;
 	
 	// 还款本金（元）
-	@JSONField(name="money", label="sign")
-	private String money;
+	private BigDecimal money;
 	
 	// 还款利息（元）
-	@JSONField(name="interest", label="sign")
-	private String interest;
+	private BigDecimal interest;
 	
 	// 其它费用（元）
-	@JSONField(name="charges", label="sign")
-	private String charges;
+	private BigDecimal charges;
+	
+	private PushStatus pushStatus;
 	
 	/**
 	 * 删除
@@ -48,5 +49,19 @@ public class RepaymentFinanceModel extends BaseRequestModel{
 	public RepaymentFinanceModel( String roundStr,String identifier, String reqId) {
 		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), reqId);
 	}
+
+	public RepaymentFinanceModel(String id, String financeNumber,
+			Date repayDate, BigDecimal money, BigDecimal interest,
+			BigDecimal charges, String reqId, PushStatus pushStatus) {
+		super(id, reqId);
+		this.financeNumber = financeNumber;
+		this.repayDate = repayDate;
+		this.money = money;
+		this.interest = interest;
+		this.charges = charges;
+		this.pushStatus = pushStatus;
+	}
+	
+	
 
 }
