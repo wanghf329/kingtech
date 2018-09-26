@@ -3,10 +3,13 @@ package com.kingtech.web.commons.base.service.impl;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -32,6 +35,9 @@ import com.kingtech.enums.PushStatus;
 import com.kingtech.model.ContractDywModel;
 import com.kingtech.model.ContractModel;
 import com.kingtech.model.ContractZywModel;
+import com.kingtech.model.GuaranteeModel;
+import com.kingtech.model.RepayPlanModel;
+import com.kingtech.model.SettledInfoModel;
 import com.kingtech.model.misc.PagedResult;
 import com.kingtech.web.commons.base.CreatRequstId;
 import com.kingtech.web.commons.base.service.ContractService;
@@ -123,8 +129,9 @@ public class ContractServiceImpl implements ContractService{
 	@Transactional
 	public void addDyw(String loanContractId,List<ContractDywModel> dyw){
 		dywDao.deleteByLoanContractId(loanContractId);
+		int index = 1;
 		for(ContractDywModel d : dyw)
-			dywDao.save(new ContractDyw(loanContractId, d.getPledgeType(), 
+			dywDao.save(new ContractDyw(loanContractId, index++, d.getPledgeType(), 
 						d.getName(), d.getWorth(), d.getAddress(), d.getUnit()));
 	}
 	
@@ -132,55 +139,46 @@ public class ContractServiceImpl implements ContractService{
 	@Transactional
 	public void addZyw(String loanContractId,List<ContractZywModel> zyw){
 		zywDao.deleteByLoanContractId(loanContractId);
+		int index = 1;
 		for(ContractZywModel z : zyw)
-			zywDao.save(new ContractZyw(loanContractId, z.getPledgeType(), 
+			zywDao.save(new ContractZyw(loanContractId, index++,z.getPledgeType(), 
 						z.getName(), z.getWorth(), z.getAddress(), z.getUnit()));
 	}
 	
 	@Override
 	@Transactional
-	public void addGuarantee(String loanContractId, String[] name,
-			String[] cardNum, String[] phone, String[] address) {
+	public void addGuarantee(String loanContractId,List<GuaranteeModel> guaranteeList) {
 		guaranteeDAO.deleteByLoanContractId(loanContractId);
-		for (int i = 1; i < name.length; i++) {
-//			Guarantee guarantee = new Guarantee(loanContractId, name[i], cardNum[i], phone[i], address[i]);
-//			guaranteeDAO.save(guarantee);
+		int index = 1;
+		for (GuaranteeModel g : guaranteeList) {
+			guaranteeDAO.save(new Guarantee(loanContractId,index++,g.getName(),g.getCardType(),g.getCardNumber(),g.getAddress()));
 		}
 	}
 
 	@Override
 	@Transactional
-	public void addRepayPlan(String loanContractId, String[] repayDate,
-			BigDecimal[] principal, BigDecimal[] interest) {
-//		try {
-//			repayPlanDAO.deleteByLoanContractId(loanContractId);
-//			for (int i = 1; i < repayDate.length; i++) {
-//				RepayPlan repayPlan = new RepayPlan(loanContractId, 
-//						DateUtils.parseDate(repayDate[i], "yyyy-MM-dd"),
-//						principal[i], interest[i]);
-//				repayPlanDAO.save(repayPlan);
-//			}
-//		} catch (ParseException e) {
-//			e.printStackTrace();
-//		}
+	public void addRepayPlan(String loanContractId, List<RepayPlanModel> repayPlanList) {
+		repayPlanDAO.deleteByLoanContractId(loanContractId);
+		int index = 1;
+		for (RepayPlanModel re : repayPlanList) {
+			repayPlanDAO.save(new RepayPlan(loanContractId,index++,re.getEndDate(),re.getMoney(),re.getInterest()));
+		}
 	}
 
 	@Override
 	@Transactional
-	public void addSettledInfo(String loanContractId, BigDecimal[] money,
-			String[] loanDate, String[] debtStartDate, String[] debtEndDate) {
-//		try {
-//			settledInfoDAO.deleteByLoanContractId(loanContractId);
-//			for (int i = 1; i < money.length; i++) {
-//				SettledInfo settledInfo = new SettledInfo(loanContractId, money[i], 
-//						DateUtils.parseDate(loanDate[i], "yyyy-MM-dd"), 
-//						DateUtils.parseDate(debtStartDate[i], "yyyy-MM-dd"), 
-//						DateUtils.parseDate(debtEndDate[i], "yyyy-MM-dd"));
-//				settledInfoDAO.save(settledInfo);
-//			}
-//		} catch (ParseException e) {
-//			e.printStackTrace();
-//		}
+	public void addSettledInfo(String loanContractId, BigDecimal money, Date loanTime, Date startDate, Date endDate) {
+		SettledInfo entity = settledInfoDAO.findByloanContractId(loanContractId);
+		if (entity == null) {
+			settledInfoDAO.save(new SettledInfo(loanContractId, creatRequstId.getReqId(), 
+												PushStatus.INITATION, money, loanTime, startDate, endDate));
+		} else {
+			entity.setMoney(money);
+			entity.setLoanTime(loanTime);
+			entity.setStartDate(startDate);
+			entity.setEndDate(endDate);
+			settledInfoDAO.save(entity);
+		}
 	}
 	
 	@Override
@@ -203,8 +201,24 @@ public class ContractServiceImpl implements ContractService{
 	}
 	
 	@Override
-	public List<SettledInfo> listSettledInfoByLoanContractId(String loanContractId) {
-		return (List<SettledInfo>)settledInfoDAO.listByloanContractId(loanContractId);
+	public PagedResult<SettledInfoModel> pageListSettledInfo(Pageable pageAble){
+		String sql = " SELECT t1.LOAN_CONTRACT_ID,t2.CONTRACT_NUMBER,t2.CONTRACT_NAME,t1.MONEY,t1.LOAN_TIME,t1.START_DATE,t1.END_DATE,t1.PUSH_STATUS"
+				+ " from TB_LOAN_CONTRACT_SETTLED t1,TB_LOAN_CONTRACT t2 where t1.LOAN_CONTRACT_ID = t2.ID order by t1.CREATE_TIME";
+		String[] params = new String[0];
+		List<Object[]> list = dq.nativeQueryPagingList(Object[].class, pageAble, sql, params);
+		Long count = dq.nativeQueryCount(sql, params);
+		
+		List<SettledInfoModel> result = new ArrayList<SettledInfoModel>();
+		for(Object[] obj : list){
+			result.add(new SettledInfoModel((String) obj[0], (String) obj[2],
+					(String) obj[1], (BigDecimal) obj[3], 
+					DateFormatUtils.format((Date) obj[4], "yyyy-MM-dd"),
+					DateFormatUtils.format((Date) obj[5], "yyyy-MM-dd"),
+					DateFormatUtils.format((Date) obj[6], "yyyy-MM-dd"),
+					PushStatus.valueOf((String)obj[7])));
+		}
+		
+		return new PagedResult(result,count);
 	}
 
 	@Override

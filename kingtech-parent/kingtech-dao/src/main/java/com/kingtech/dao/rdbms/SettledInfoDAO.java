@@ -15,7 +15,7 @@ public interface SettledInfoDAO extends PagingAndSortingRepository<SettledInfo, 
 	public SettledInfo getByloanContractId(@Param("loanContractId")String loanContractId);
 	
 	@Query("select r from SettledInfo r where r.loanContractId = :loanContractId")
-	public List<SettledInfo> listByloanContractId(@Param("loanContractId")String loanContractId);
+	public SettledInfo findByloanContractId(@Param("loanContractId")String loanContractId);
 	
 	@Modifying
 	@Query("delete SettledInfo c where c.loanContractId = :loanContractId")

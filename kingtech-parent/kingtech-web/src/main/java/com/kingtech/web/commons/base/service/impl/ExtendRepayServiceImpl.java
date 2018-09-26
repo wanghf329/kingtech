@@ -84,11 +84,18 @@ public class ExtendRepayServiceImpl implements ExtendRepayService{
 		List<RepayExtendInfoModelExt> result = new ArrayList<RepayExtendInfoModelExt>();
 		for(RepayExtendInfo rf : repayExtendInfoDao.findAll()){
 			Contract ct = contractDAO.findOne(rf.getLoanContractId());
-//			result.add(new RepayExtendInfoModelExt(rf.getId(), rf.getLoanContractId(),
-//					String.valueOf(rf.getExtendNum()), DateFormatUtils.format(rf.getRepayDate(), "yyyy-MM-dd"), 
-//					rf.getRepayAmount().toPlainString(), 
-//					rf.getRepayPrincipalAmount().toPlainString(), 
-//					rf.getRepayInterestAmount().toPlainString(),ct.getLoanContractNo(),ct.getLoanContractName(),rf.getPushStatus()));
+			result.add(new RepayExtendInfoModelExt(rf.getId(),
+					rf.getLoanContractId(), 
+					DateFormatUtils.format(rf.getRepayTime(), "yyyy-MM-dd"), 
+					rf.getMoney().toPlainString(), 
+					rf.getInterest().toPlainString(), 
+					rf.getPenaltyInterest().toPlainString(), 
+					rf.getPenalty().toPlainString(), 
+					rf.getServiceCharge().toPlainString(), 
+					rf.getOtherCharge().toPlainString(), 
+					ct.getContractNumber(), 
+					ct.getContractName(), 
+					rf.getPushStatus()));
 		}
 		return result;
 	}
@@ -96,12 +103,15 @@ public class ExtendRepayServiceImpl implements ExtendRepayService{
 	@Override
 	public RepayExtendInfoModel getById(String id) {
 		RepayExtendInfo rf = repayExtendInfoDao.findOne(id);
-//		return new RepayExtendInfoModel(rf.getId(), rf.getLoanContractId(),
-//										String.valueOf(rf.getExtendNum()), DateFormatUtils.format(rf.getRepayDate(), "yyyy-MM-dd"), 
-//										rf.getRepayAmount().toPlainString(), 
-//										rf.getRepayPrincipalAmount().toPlainString(), 
-//										rf.getRepayInterestAmount().toPlainString());
-		return null;
+		return new RepayExtendInfoModel(rf.getId(), 
+				rf.getLoanContractId(), 
+				DateFormatUtils.format(rf.getRepayTime(), "yyyy-MM-dd"),
+				rf.getMoney().toPlainString(),
+				rf.getInterest().toPlainString(), 
+				rf.getPenaltyInterest().toPlainString(), 
+				rf.getPenalty().toPlainString(), 
+				rf.getServiceCharge().toPlainString(),
+				rf.getOtherCharge().toPlainString());
 	}
 	
 	@Override

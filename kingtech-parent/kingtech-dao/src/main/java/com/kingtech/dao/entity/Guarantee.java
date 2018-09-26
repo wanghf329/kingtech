@@ -6,6 +6,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -38,4 +39,13 @@ public class Guarantee extends PackageEntity {
 	// 联系地址
 	@Column(name="ADDRESS")
 	private String address;
+	
+	public Guarantee(String loanContractId,int orderNum, String name, CardTypeEnum cardType,
+			String cardNumber, String address) {
+		super(loanContractId,orderNum);
+		this.name = name;
+		this.cardType = cardType;
+		this.cardNumber = cardNumber;
+		this.address = address;
+	}
 }
