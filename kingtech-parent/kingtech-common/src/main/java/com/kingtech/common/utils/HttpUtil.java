@@ -108,9 +108,9 @@ public class HttpUtil {
 			UrlEncodedFormEntity entity = new UrlEncodedFormEntity(convert(formParams), ENCODING);
 			httpPost = new HttpPost(url);
 			httpPost.setEntity(entity);
-			for (Map.Entry<String, String> headerEntry : headerMap.entrySet()) {
-                httpPost.addHeader(headerEntry.getKey(), headerEntry.getValue());
-            }
+//			for (Map.Entry<String, String> headerEntry : headerMap.entrySet()) {
+//                httpPost.addHeader(headerEntry.getKey(), headerEntry.getValue());
+//            }
 			HttpResponse response = httpClient.execute(httpPost);
 
 			String responseString = convertInputStream(response.getEntity().getContent(), ENCODING);
@@ -141,6 +141,7 @@ public class HttpUtil {
             httpClient = getSimpleHttpClient(url, httpParameters);
             httpPost = new HttpPost(url);
             httpPost.setEntity(new StringEntity(requestBody, ENCODING));
+            httpPost.setHeader("Content-type", "application/json; charset=UTF-8");
             for (Map.Entry<String, String> headerEntry : headerMap.entrySet()) {
                 httpPost.addHeader(headerEntry.getKey(), headerEntry.getValue());
             }

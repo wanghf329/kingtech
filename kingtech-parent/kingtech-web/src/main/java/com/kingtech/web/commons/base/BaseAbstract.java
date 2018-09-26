@@ -23,7 +23,7 @@ public class BaseAbstract {
 	 * @return
 	 */
 
-	public Map<String, String> getDataAndSign(BaseRequestModel obj) {
+	public  Map<String, String> getDataAndSign(BaseRequestModel obj) {
 
 		String dataStr = JSON.toJSONString(obj); // 请求数据
 		String dataSign = JSON.toJSONString(obj, Labels.includes("sign")); // 验签数据
@@ -44,7 +44,7 @@ public class BaseAbstract {
 	 * @return
 	 */
 
-	public SynResponseModel getResponse(Map<String, String> request,
+	public  SynResponseModel getResponse(Map<String, String> request,
 			String suffixUrl) {
 
 		try {

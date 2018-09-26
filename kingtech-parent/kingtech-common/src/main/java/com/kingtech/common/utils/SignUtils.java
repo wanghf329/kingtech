@@ -21,24 +21,24 @@ public class SignUtils {
 	 * @return
 	 */
 	
-	 public static String getSignStr(Map<String, String> info) {
+	 public static String getSignStr(Map<String, Object> info) {
 
-	        List<Map.Entry<String, String>> infoIds = new ArrayList<Map.Entry<String, String>>(info.entrySet());
-	        Collections.sort(infoIds, new Comparator<Map.Entry<String, String>>() {
+	        List<Map.Entry<String, Object>> infoIds = new ArrayList<Map.Entry<String, Object>>(info.entrySet());
+	        Collections.sort(infoIds, new Comparator<Map.Entry<String, Object>>() {
 	            @Override
-	            public int compare(Entry<String, String> arg0, Entry<String, String> arg1) {
+	            public int compare(Entry<String, Object> arg0, Entry<String, Object> arg1) {
 	                return (arg0.getKey()).compareTo(arg1.getKey());
 	            }
 	        });
 	        StringBuilder ret = new StringBuilder();
 
-	        for (Map.Entry<String, String> entry : infoIds) {
+	        for (Map.Entry<String, Object> entry : infoIds) {
 	        	ret .append(entry.getKey()) ;
 	        	ret .append("=") ;
-	        	ret .append(entry.getValue()) ;
+	        	ret .append(entry.getValue().toString()) ;
 	        	ret .append("&") ;
 	        }
-	      String  result = ret.substring(0, ret.length() - 1)+"&app_key="+BaseConfig.APPKEY;
+	      String  result = ret.substring(0, ret.length() - 1)+"&appKey="+BaseConfig.APPKEY;
 	      log.info("计算验证签名的原始数据result={}",result);
 	      return MD5.MD5Encode(result);
 	    }
@@ -67,10 +67,10 @@ public class SignUtils {
 	    }
 	 public static  String getToken(String roundStr ){
 		 
-		 Map<String, String> map = new HashMap<String, String>();
+		 Map<String, Object> map = new HashMap<String, Object>();
 		 
-		 map.put("round_str", roundStr);
-		 map.put("client_id",BaseConfig.CLIENTID);
+		 map.put("roundStr", roundStr);
+		 map.put("clientId",BaseConfig.CLIENTID);
 		 return getSignStr(map);
 	 }
 	 

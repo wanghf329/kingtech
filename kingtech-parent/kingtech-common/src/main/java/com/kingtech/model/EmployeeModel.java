@@ -27,8 +27,8 @@ public class EmployeeModel extends BaseRequestModel {
 	private String email;
 
 	// 通讯地址
-	@JSONField(name="postal_address")
-	private String postalAddress;
+	@JSONField(name="address")
+	private String address;
 	
 	// 部门
 	@JSONField(name="department")
@@ -36,99 +36,64 @@ public class EmployeeModel extends BaseRequestModel {
 	
 	// 性别
 	@JSONField(name="sex",label="sign")
-	private String sex;
+	private int sex;
+	
+	//证件类型：1）身份证、2）护照、3）驾驶证，（参与签名）
+	@JSONField(name="cardType",label="sign")
+	private int cardType;
 	
 	// 身份证号
-	@JSONField(name="id_number",label="sign")
-	private String idNumber;
+	@JSONField(name="cardNumber",label="sign")
+	private String cardNumber;
 		
 	// 学历
 	@JSONField(name="education")
-	private String education;
+	private int education;
 	
 	// 是否懂监高，0-否，1-是
-	@JSONField(name="executive_flag",label="sign")
-	private String executiveFlag;
+	@JSONField(name="executiveFlag",label="sign")
+	private int executiveFlag;
 	
 	// 职务
-	@JSONField(name="post",label="sign")
-	private String post;
+	@JSONField(name="position",label="sign")
+	private String position;
 	
-	// 批复时间
-	@JSONField(name="reply_time")
-	private String replyTime;
 		
 	// 入职时间
-	@JSONField(name="entry_time")
+	@JSONField(name="entryTime")
 	private String entryTime;
 	
-	// 是否在职，0-离职，1-在职
-	@JSONField(name="status")
-	private String status;
-	
 	// 离职时间
-	@JSONField(name="quit_time")
+	@JSONField(name="quitTime",label="sign")
 	private String quitTime;
-	
-	// 创建时间
-	@JSONField(name="create_time")
-	private String createTime;
-	
-	// 修改时间
-	@JSONField(name="update_time")
-	private String updateTime;
-
-	public EmployeeModel(String roundStr, String identifier, String reqId, String sign,
-			String name, String phone, String email,
-			String postalAddress, String department, String sex,
-			String idNumber, String education, String executiveFlag, String post,
-			String replyTime, String entryTime, String status,
-			String quitTime, String createTime, String updateTime) {
-		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId, sign,null);
-		this.name = name;
-		this.phone = phone;
-		this.email = email;
-		this.postalAddress = postalAddress;
-		this.department = department;
-		this.sex = sex;
-		this.idNumber = idNumber;
-		this.education = education;
-		this.executiveFlag = executiveFlag;
-		this.post = post;
-		this.replyTime = replyTime;
-		this.entryTime = entryTime;
-		this.status = status;
-		this.quitTime = quitTime;
-		this.createTime = createTime;
-		this.updateTime = updateTime;
-	}
-	
-	public EmployeeModel(String id, String name, String phone, String email,
-			String postalAddress, String department, String sex,
-			String idNumber, String education, String executiveFlag, String post,
-			String replyTime, String entryTime, String status,
-			String quitTime) {
-		super(id);
-		this.name = name;
-		this.phone = phone;
-		this.email = email;
-		this.postalAddress = postalAddress;
-		this.department = department;
-		this.sex = sex;
-		this.idNumber = idNumber;
-		this.education = education;
-		this.executiveFlag = executiveFlag;
-		this.post = post;
-		this.replyTime = replyTime;
-		this.entryTime = entryTime;
-		this.status = status;
-		this.quitTime = quitTime;
-	}
 	
 	public EmployeeModel(String clientId, String roundStr,
 			String appKey, String token, String identifier, String reqId,
 			String sign) {
-		super(clientId, roundStr, appKey, token, identifier, reqId, sign,null);
+//		super(clientId, roundStr, appKey, token, identifier, reqId, sign,null);
 	}
+
+	public EmployeeModel( String roundStr, String reqId,
+			String sign, String name, String phone, String email,
+			String address, String department, int sex, int cardType,
+			String cardNumber, int education, int executiveFlag,
+			String position, String entryTime, String quitTime) {
+		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), reqId, sign, null);
+		this.name = name;
+		this.phone = phone;
+		this.email = email;
+		this.address = address;
+		this.department = department;
+		this.sex = sex;
+		this.cardType = cardType;
+		this.cardNumber = cardNumber;
+		this.education = education;
+		this.executiveFlag = executiveFlag;
+		this.position = position;
+		this.entryTime = entryTime;
+		this.quitTime = quitTime;
+	}
+	
+	
 	
 }
