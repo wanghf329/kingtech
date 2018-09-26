@@ -6,9 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.kingtech.common.config.BaseConfig;
 import com.kingtech.common.utils.SignUtils;
+import com.kingtech.enums.PushStatus;
 
 /**
  * @author Tson
@@ -20,23 +20,23 @@ import com.kingtech.common.utils.SignUtils;
 public class BranchAccountBalanceModel extends BaseRequestModel {
 	
 	// 年月，格式YYYYMM
-	@JSONField(name ="dateMonth", label="sign")
 	private String dateMonth;
 	
 	// 账户号
-	@JSONField(name ="account")
 	private String account;
 	
 	// 账户余额（万元）
-	@JSONField(name ="money")
 	private BigDecimal money;
+	
+	private PushStatus pushStatus;
 
 	public BranchAccountBalanceModel(String id, String dateMonth,
-			String account, BigDecimal money) {
-		super(id);
+			String account, BigDecimal money, PushStatus pushStatus, String reqId) {
+		super(id, reqId);
 		this.dateMonth = dateMonth;
 		this.account = account;
 		this.money = money;
+		this.pushStatus = pushStatus;
 	}
 	
 	/**

@@ -2,15 +2,13 @@ package com.kingtech.model;
 
 import java.math.BigDecimal;
 
-import javax.persistence.Column;
-
-import com.alibaba.fastjson.annotation.JSONField;
-import com.kingtech.common.config.BaseConfig;
-import com.kingtech.common.utils.SignUtils;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import com.kingtech.common.config.BaseConfig;
+import com.kingtech.common.utils.SignUtils;
+import com.kingtech.enums.PushStatus;
 
 
 /**
@@ -21,19 +19,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FinanceMonthBalanceModel extends BaseRequestModel {
-	
 	// 融资编号
-	@JSONField(name="financeNumber")
 	private String financeNumber;
 	
 	// 融资年月 格式YYYY-MM
-	@JSONField(name="financeMonth", label="sign")
 	private String financeMonth;
 	
 	// 融资余额（万元）
-	@JSONField(name="balance")
 	private BigDecimal balance;
 	
+	private PushStatus pushStatus;
+
 	/**
 	 * 删除
 	 * @param roundStr
@@ -43,5 +39,16 @@ public class FinanceMonthBalanceModel extends BaseRequestModel {
 	public FinanceMonthBalanceModel( String roundStr,String identifier, String reqId) {
 		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), reqId);
 	}
+
+	public FinanceMonthBalanceModel(String id, String financeNumber,
+			String financeMonth, BigDecimal balance, PushStatus pushStatus, String reqId) {
+		super(id, reqId);
+		this.financeNumber = financeNumber;
+		this.financeMonth = financeMonth;
+		this.balance = balance;
+		this.pushStatus = pushStatus;
+	}
+	
+	
 
 }
