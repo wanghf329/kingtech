@@ -14,11 +14,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kingtech.common.dynamicquery.DynamicQuery;
 import com.kingtech.dao.entity.Contract;
+import com.kingtech.dao.entity.ContractDyw;
 import com.kingtech.dao.entity.ContractZyw;
 import com.kingtech.dao.entity.Guarantee;
 import com.kingtech.dao.entity.RepayPlan;
 import com.kingtech.dao.entity.SettledInfo;
 import com.kingtech.dao.rdbms.ContractDAO;
+import com.kingtech.dao.rdbms.ContractDywDAO;
+import com.kingtech.dao.rdbms.ContractZywDAO;
 import com.kingtech.dao.rdbms.EnterpriseCustomerDAO;
 import com.kingtech.dao.rdbms.GuaranteeDAO;
 import com.kingtech.dao.rdbms.PersonalCustomerDAO;
@@ -59,6 +62,12 @@ public class ContractServiceImpl implements ContractService{
 	
 	@Autowired
 	private EnterpriseCustomerDAO enterpriseDao;
+	
+	@Autowired
+	private ContractZywDAO zywDao;
+	
+	@Autowired
+	private ContractDywDAO dywDao;
 	
 	@Autowired
 	private DynamicQuery dq;
@@ -111,38 +120,23 @@ public class ContractServiceImpl implements ContractService{
 	}
 	
 	@Override
-	public void addDyw(List<ContractDywModel> dyw){
-		
+	@Transactional
+	public void addDyw(String loanContractId,List<ContractDywModel> dyw){
+		dywDao.deleteByLoanContractId(loanContractId);
+		for(ContractDywModel d : dyw)
+			dywDao.save(new ContractDyw(loanContractId, d.getPledgeType(), 
+						d.getName(), d.getWorth(), d.getAddress(), d.getUnit()));
 	}
 	
 	@Override
-	public void addZyw(List<ContractZywModel> zyw){
-		
+	@Transactional
+	public void addZyw(String loanContractId,List<ContractZywModel> zyw){
+		zywDao.deleteByLoanContractId(loanContractId);
+		for(ContractZywModel z : zyw)
+			zywDao.save(new ContractZyw(loanContractId, z.getPledgeType(), 
+						z.getName(), z.getWorth(), z.getAddress(), z.getUnit()));
 	}
 	
-	
-//	@Override
-//	@Transactional
-//	public void addCollateral(String[] ids, String loanContractId, String[] pledgeType,
-//			String[] collateralType, String[] collateralName,
-//			String[] warrantNum, BigDecimal[] evaluationValue, String[] warrantHolder,
-//			String[] collateralAddr, String[] handleDate) {
-//		
-//		try {
-//			collateralDAO.deleteByLoanContractId(loanContractId);
-//			for (int i = 1; i < pledgeType.length; i++) {
-//				ContractZyw collateral= new ContractZyw(loanContractId, 
-//							PledgeTypeEnum.valueOf(pledgeType[i]), 
-//							DywTypeEnum.valueOf(collateralType[i]), collateralName[i],
-//							warrantNum[i], evaluationValue[i], warrantHolder[i], collateralAddr[i], 
-//							StringUtils.isEmpty(handleDate[i]) ? null : DateUtils.parseDate(handleDate[i], "yyyy-MM-dd"));
-//				collateralDAO.save(collateral);
-//			}
-//		} catch (ParseException e) {
-//			e.printStackTrace();
-//		}
-//	}
-
 	@Override
 	@Transactional
 	public void addGuarantee(String loanContractId, String[] name,
@@ -190,8 +184,12 @@ public class ContractServiceImpl implements ContractService{
 	}
 	
 	@Override
-	public List<ContractZyw> listCollateralByLoanContractId(String loanContractId) {
-		return null;//collateralDAO.listByloanContractId(loanContractId);
+	public List<ContractZyw> listContractZyw(String loanContractId){
+		return zywDao.listByloanContractId(loanContractId);
+	}
+	@Override
+	public List<ContractDyw> listContractDyw(String loanContractId){
+		return dywDao.listByloanContractId(loanContractId);
 	}
 
 	@Override

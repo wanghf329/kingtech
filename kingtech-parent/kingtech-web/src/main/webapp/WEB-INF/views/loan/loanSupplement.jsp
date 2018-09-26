@@ -68,7 +68,7 @@
 	                                			<input type="hidden" name="loanContractId" value="${loanContractId}">
 	                                				<div>
 					                                	<%@include file="sub/dyw.jspf" %>			                                		
-			                                			<c:forEach var="it" items="${collateralList}">
+			                                			<c:forEach var="it" items="${dywList}">
 						                                	<%@include file="sub/dyw1.jspf" %>
 						                            	</c:forEach>
 				                                	</div>
@@ -87,7 +87,7 @@
 	                                			<input type="hidden" name="loanContractId" value="${loanContractId}">
 	                                				<div>
 					                                	<%@include file="sub/zyw.jspf" %>			                                		
-			                                			<c:forEach var="it" items="${collateralList}">
+			                                			<c:forEach var="it" items="${zywList}">
 						                                	<%@include file="sub/zyw1.jspf" %>
 						                            	</c:forEach>
 				                                	</div>
@@ -167,14 +167,6 @@
 		<%@include file="../common/footer.jspf" %>   
         <script src="bujs/loan/contract.js" type="text/javascript"></script>   
         <script type="text/javascript">
-        	var collateralTypeOption1 = "";
-        	var collateralTypeOption2 = "";
-			<c:forEach var="collateralType" items="${collateralType1}">
-				collateralTypeOption1 += "<option value='${collateralType}'>${collateralType.getKey()}</option>";
-			</c:forEach>
-			<c:forEach var="collateralType" items="${collateralType2}">
-				collateralTypeOption2 += "<option value='${collateralType}'>${collateralType.getKey()}</option>";
-			</c:forEach>
 			var canEdit = "${contract.pushStatus=='INITATION' or contract.pushStatus=='FAILED'}";
         </script>    
     </body>

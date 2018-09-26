@@ -9,7 +9,7 @@
 						<select
 							class="form-control collateralTypeSelect validate[required]"
 							name="pledgeType">
-							<c:forEach var="collateralType" items="${collateralType2}">
+							<c:forEach var="pledgeType" items="${collateralType2}"> 
 								<option value="${pledgeType}"
 									<c:if test="${it.pledgeType.toString() == pledgeType.toString() }">selected</c:if>>${pledgeType.getKey()}</option>
 							</c:forEach>

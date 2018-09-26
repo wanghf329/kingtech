@@ -96,7 +96,10 @@ public class LoanContractApiController {
 		model.addAttribute("loanContractId", loanContractId);
 		model.addAttribute("collateralType1",DywTypeEnum.values());
 		model.addAttribute("collateralType2",ZywTypeEnum.values());
-		model.addAttribute("collateralList", contractService.listCollateralByLoanContractId(loanContractId));
+		
+		model.addAttribute("dywList", contractService.listContractDyw(loanContractId));
+		model.addAttribute("zywList", contractService.listContractZyw(loanContractId));
+		
 		model.addAttribute("guaranteeList", contractService.listGuaranteeByLoanContractId(loanContractId));
 		model.addAttribute("repayPlanList", contractService.listRepayPlanByLoanContractId(loanContractId));
 		model.addAttribute("settledInfoList", contractService.listSettledInfoByLoanContractId(loanContractId));
@@ -110,7 +113,7 @@ public class LoanContractApiController {
 		for(int i=1;i<pledgeType.length;i++){
 			dyw.add(new ContractDywModel(pledgeType[i],name[i],worth[i],address[i],unit[i]));
 		}
-		contractService.addDyw(dyw);
+		contractService.addDyw(loanContractId,dyw);
 		model.addAttribute("loanContractId", loanContractId);
 		return "redirect:/loan/supplement";
 	}
@@ -121,7 +124,7 @@ public class LoanContractApiController {
 		for(int i=1;i<pledgeType.length;i++){
 			zyw.add(new ContractZywModel(pledgeType[i],name[i],worth[i],address[i],unit[i]));
 		}		
-		contractService.addZyw(zyw);
+		contractService.addZyw(loanContractId,zyw);
 		model.addAttribute("loanContractId", loanContractId);
 		return "redirect:/loan/supplement";
 	}
