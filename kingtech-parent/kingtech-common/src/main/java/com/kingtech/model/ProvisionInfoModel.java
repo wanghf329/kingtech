@@ -98,7 +98,7 @@ public class ProvisionInfoModel extends BaseRequestModel {
 			String lossBalance, String lossRate, String lossReal,
 			String creatTime, String updateTime) {
 		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils
-				.getToken(roundStr), identifier, reqId, sign, null);
+				.getToken(roundStr), reqId, sign, null);
 		this.dateMonth = dateMonth;
 		this.normalBalance = normalBalance;
 		this.normalRate = normalRate;

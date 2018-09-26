@@ -57,7 +57,7 @@ public class AssetTransferModel extends BaseRequestModel {
 			String discountMoney, String acceptUnit, String protocol,
 			String transferDate, String creatTime, String updateTime) {
 		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils
-				.getToken(roundStr), identifier, reqId, sign, null);
+				.getToken(roundStr), reqId, sign, null);
 		this.loanContractId = loanContractId;
 		this.transferNumber = transferNumber;
 		this.transferMoney = transferMoney;

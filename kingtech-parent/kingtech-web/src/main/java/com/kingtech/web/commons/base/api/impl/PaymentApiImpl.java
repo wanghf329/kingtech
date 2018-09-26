@@ -227,7 +227,6 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 		   String roundStr =  RandomUtil.random8Len();
 		   
 		   EmployeeModel employeeModel = null;
-		   if (IdentifierType.A.equals(type)||IdentifierType.U.equals(type)) {
 			   employeeModel = new EmployeeModel(roundStr,
 					   type.name(),
 					   employee.getReqId(), 

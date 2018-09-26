@@ -46,7 +46,7 @@ public class RepaymentFinanceModel extends BaseRequestModel{
 	 * @param reqId
 	 */
 	public RepaymentFinanceModel( String roundStr,String identifier, String reqId) {
-		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId);
+		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), reqId);
 	}
 
 }

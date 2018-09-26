@@ -46,7 +46,7 @@ public class BranchAccountBalanceModel extends BaseRequestModel {
 	 * @param reqId
 	 */
 	public BranchAccountBalanceModel( String roundStr,String identifier, String reqId) {
-		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId);
+		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), reqId);
 	}
 
 

@@ -90,7 +90,7 @@ public class PersonalCustomerModel extends BaseRequestModel {
 	 * @param reqId
 	 */
 	public PersonalCustomerModel( String roundStr,String identifier, String reqId) {
-		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId);
+		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), reqId);
 	}
 
 	//邮政编码

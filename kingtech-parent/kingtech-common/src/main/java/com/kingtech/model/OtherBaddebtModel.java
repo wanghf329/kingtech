@@ -43,7 +43,7 @@ public class OtherBaddebtModel extends BaseRequestModel{
 			String sign, String loanContractId, String badMoney,
 			String lossDate, String badType, String followUp,
 			String creatTime, String updateTime) {
-		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId, sign, null);
+		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), reqId, sign, null);
 		this.loanContractId = loanContractId;
 		this.badMoney = badMoney;
 		this.lossDate = lossDate;

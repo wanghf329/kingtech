@@ -95,7 +95,7 @@ public class BranchInfoModel extends BaseRequestModel {
 			String businessAddr, String siteArea, String organizationCode,
 			String licence, String nationalRegNum, String landRegNum,
 			String businessScope, String createTime, String updateTime) {
-		super(BaseConfig.CLIENTID, roundStr,BaseConfig.APPKEY,SignUtils.getToken(roundStr), identifier, reqId, sign,null);
+		super(BaseConfig.CLIENTID, roundStr,BaseConfig.APPKEY,SignUtils.getToken(roundStr), reqId, sign,null);
 		this.corporateName = corporateName;
 		this.legalRepresentative = legalRepresentative;
 		this.regCapital = regCapital;
@@ -117,7 +117,7 @@ public class BranchInfoModel extends BaseRequestModel {
 	public BranchInfoModel(String clientId, String roundStr,
 			String appKey, String token, String identifier, String reqId,
 			String licence, String sign) {
-		super(clientId, roundStr, appKey, token, identifier, reqId, sign,null);
+		super(clientId, roundStr, appKey, token, reqId, sign,null);
 		this.licence = licence;
 	}
 
@@ -134,7 +134,7 @@ public class BranchInfoModel extends BaseRequestModel {
 	 * @param licence
 	 */
 	public BranchInfoModel( String roundStr, String identifier, String reqId, String licence) {
-		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), identifier, reqId);
+		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), reqId);
 		this.licence = licence;
 	}
 
