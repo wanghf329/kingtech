@@ -15,7 +15,7 @@ import com.kingtech.model.CapitalModel;
 public interface CapitalService {
 	
 	
-	public Capital addNewaddNew(String id, String financeNumber,
+	public Capital addNew(String id, String financeNumber,
 							 String financeName, String lender, ChannelTypeEnum channel,
 							 BigDecimal money, BigDecimal interest, BigDecimal guaranteeMoney,
 							 String remark, Date financeDate, Date endDate, BigDecimal rate,

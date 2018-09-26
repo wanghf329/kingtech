@@ -185,19 +185,19 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 		String roundStr =  RandomUtil.random8Len();
 	    CapitalModel  capitalModel =null;
 		if (IdentifierType.A.equals(type)||IdentifierType.U.equals(type)) {
-			capitalModel = new CapitalModel(
-					roundStr,
-					type.name(), 
-					capital.getReqId(),
-					null, 
-					capital.getFinancingChannel(),
-					capital.getFinancingMoney().setScale(2).toPlainString(),
-					DateUtil.getDateStr(capital.getFinancingTime(), JSON.DEFFAULT_DATE_FORMAT), 
-					DateUtil.getDateStr(capital.getExpirationTime(), JSON.DEFFAULT_DATE_FORMAT),
-					capital.getReplyTime() == null ? null:DateUtil.getDateStr(capital.getReplyTime(), JSON.DEFFAULT_DATE_FORMAT), 
-				    DateUtil.getDateStr(capital.getCreateTime(), JSON.DEFFAULT_DATE_FORMAT),
-				    capital.getUpdateTime() == null ? null:DateUtil.getDateStr(capital.getUpdateTime(), JSON.DEFFAULT_DATE_FORMAT));
-			
+//			capitalModel = new CapitalModel(
+//					roundStr,
+//					type.name(), 
+//					capital.getReqId(),
+//					null, 
+//					capital.getFinancingChannel(),
+//					capital.getFinancingMoney().setScale(2).toPlainString(),
+//					DateUtil.getDateStr(capital.getFinancingTime(), JSON.DEFFAULT_DATE_FORMAT), 
+//					DateUtil.getDateStr(capital.getExpirationTime(), JSON.DEFFAULT_DATE_FORMAT),
+//					capital.getReplyTime() == null ? null:DateUtil.getDateStr(capital.getReplyTime(), JSON.DEFFAULT_DATE_FORMAT), 
+//				    DateUtil.getDateStr(capital.getCreateTime(), JSON.DEFFAULT_DATE_FORMAT),
+//				    capital.getUpdateTime() == null ? null:DateUtil.getDateStr(capital.getUpdateTime(), JSON.DEFFAULT_DATE_FORMAT));
+//			
 			
 		}else {
 //			capitalModel = new CapitalModel(roundStr, type.name(), capital.getReqId());
@@ -226,37 +226,37 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 		   
 		   String roundStr =  RandomUtil.random8Len();
 		   
-		   EmployeeModel employeeModel = null;
-			   employeeModel = new EmployeeModel(roundStr,
-					   type.name(),
-					   employee.getReqId(), 
-					   null, 
-					   employee.getName(), 
-					   employee.getPhone(),
-					   employee.getEmail(),
-					   employee.getPostalAddress(),
-					   employee.getDepartment(),
-					   employee.getSex(), 
-					   employee.getIdNumber(),
-					   employee.getEducation(),
-					   employee.getExecutiveFlag()+"",
-					   employee.getPost(),
-					   DateUtil.getDateStr(employee.getReplyTime(), "yyyy-MM-dd"), 
-					   DateUtil.getDateStr(employee.getEntryTime(), "yyyy-MM-dd"),
-					   employee.getStatus().getKey(), 
-					   DateUtil.getDateStr(employee.getQuitTime(), "yyyy-MM-dd"), 
-					   DateUtil.getDateStr(employee.getCreateTime(), JSON.DEFFAULT_DATE_FORMAT), 
-					   DateUtil.getDateStr(employee.getUpdateTime(), JSON.DEFFAULT_DATE_FORMAT));
-		}else {
-			log.info("机构人员信息暂时不支持删除");
-			return;
-		}
-		   
-		   SynResponseModel responseModel= financeService.branchEmployeeFacade(employeeModel);
-		   if (responseModel.isSuccess()) {
-			   employee.setPushStatus(PushStatus.INPROSESS);
-			   employeeDAO.save(employee);
-		   }
+//		   EmployeeModel employeeModel = null;
+//			   employeeModel = new EmployeeModel(roundStr,
+//					   type.name(),
+//					   employee.getReqId(), 
+//					   null, 
+//					   employee.getName(), 
+//					   employee.getPhone(),
+//					   employee.getEmail(),
+//					   employee.getPostalAddress(),
+//					   employee.getDepartment(),
+//					   employee.getSex(), 
+//					   employee.getIdNumber(),
+//					   employee.getEducation(),
+//					   employee.getExecutiveFlag()+"",
+//					   employee.getPost(),
+//					   DateUtil.getDateStr(employee.getReplyTime(), "yyyy-MM-dd"), 
+//					   DateUtil.getDateStr(employee.getEntryTime(), "yyyy-MM-dd"),
+//					   employee.getStatus().getKey(), 
+//					   DateUtil.getDateStr(employee.getQuitTime(), "yyyy-MM-dd"), 
+//					   DateUtil.getDateStr(employee.getCreateTime(), JSON.DEFFAULT_DATE_FORMAT), 
+//					   DateUtil.getDateStr(employee.getUpdateTime(), JSON.DEFFAULT_DATE_FORMAT));
+//		}else {
+//			log.info("机构人员信息暂时不支持删除");
+//			return;
+//		}
+//		   
+//		   SynResponseModel responseModel= financeService.branchEmployeeFacade(employeeModel);
+//		   if (responseModel.isSuccess()) {
+//			   employee.setPushStatus(PushStatus.INPROSESS);
+//			   employeeDAO.save(employee);
+//		   }
 	}
 
 	@Override
@@ -626,23 +626,23 @@ public class PaymentApiImpl extends BaseAbstract implements PaymentApi {
 		}
 		String roundStr =  RandomUtil.random8Len();
 		ProvisionInfoModel provisionInfoModel = null;
-		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
-			provisionInfoModel = new ProvisionInfoModel(roundStr, 
-					type.name(), 
-					provisionInfo.getReqId(), 
-					null, 
-					provisionInfo.getProvisionMoney().toPlainString(), 
-					DateUtil.getDateStr(provisionInfo.getProvisionDate(),"yyyy-MM-dd"), 
-					provisionInfo.getProvisionScale().toPlainString(),
-					DTOUtils.getNewStr(provisionInfo.getLoanClassification()),
-					provisionInfo.getBalance().toPlainString(), 
-					DateUtil.getDateStr(provisionInfo.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT), 
-                    DateUtil.getDateStr(provisionInfo.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT));
-			
-		}else {
-			log.info("计提暂不支持的操作 provisionInfoId={},IdentifierType={} ",provisionInfoId,type);
-			return;
-		}
+//		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
+//			provisionInfoModel = new ProvisionInfoModel(roundStr, 
+//					type.name(), 
+//					provisionInfo.getReqId(), 
+//					null, 
+//					provisionInfo.getProvisionMoney().toPlainString(), 
+//					DateUtil.getDateStr(provisionInfo.getProvisionDate(),"yyyy-MM-dd"), 
+//					provisionInfo.getProvisionScale().toPlainString(),
+//					DTOUtils.getNewStr(provisionInfo.getLoanClassification()),
+//					provisionInfo.getBalance().toPlainString(), 
+//					DateUtil.getDateStr(provisionInfo.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT), 
+//                    DateUtil.getDateStr(provisionInfo.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT));
+//			
+//		}else {
+//			log.info("计提暂不支持的操作 provisionInfoId={},IdentifierType={} ",provisionInfoId,type);
+//			return;
+//		}
 		SynResponseModel responseModel = financeService.provisionInfoFacade(provisionInfoModel);
 		if (responseModel.isSuccess()) {
 			provisionInfo.setPushStatus(PushStatus.INPROSESS);

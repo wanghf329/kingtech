@@ -30,90 +30,101 @@ public class FinanceServiceImpl  extends BaseAbstract implements FinanceService 
 
 	@Override
 	public SynResponseModel branchInfoFacade(BranchInfoModel institutionInfoModel) {
+		return null;
 		
-		Map<String, String> data = getDataAndSign(institutionInfoModel);
-		SynResponseModel responseModel = getResponse(data, "pushCompanyInformationData");
-//		log.info("responseMode={}",responseModel);
-//		log.info("verfy={}",verifyResponse(responseModel));
-		return responseModel;
+//		Map<String, String> data = getDataAndSign(institutionInfoModel);
+//		SynResponseModel responseModel = getResponse(data, "pushCompanyInformationData");
+////		log.info("responseMode={}",responseModel);
+////		log.info("verfy={}",verifyResponse(responseModel));
+//		return responseModel;
 	}
 	
 
 	@Override
 	public SynResponseModel branchEmployeeFacade(EmployeeModel employeeModel) {
-		Map<String, String> data = getDataAndSign(employeeModel);
-		SynResponseModel responseModel = getResponse(data, "pushCompanyEmployeeData");
-		return responseModel;
+		return null;
+//		Map<String, String> data = getDataAndSign(employeeModel);
+//		SynResponseModel responseModel = getResponse(data, "pushCompanyEmployeeData");
+//		return responseModel;
 	}
 
 	@Override
 	public SynResponseModel branchCapitalFacade(CapitalModel capitalModel) {
-		Map<String, String> data = getDataAndSign(capitalModel);
-		SynResponseModel responseModel = getResponse(data, "pushCompanyCapitalData");
-		return responseModel;
+		return null;
+//		Map<String, String> data = getDataAndSign(capitalModel);
+//		SynResponseModel responseModel = getResponse(data, "pushCompanyCapitalData");
+//		return responseModel;
 	}
 
 	@Override
 	public SynResponseModel branchShareholderFacade(ShareholderModel shareholderModel) {
-		Map<String, String> data = getDataAndSign(shareholderModel);
-		SynResponseModel responseModel = getResponse(data, "pushCompanyPartnerData");
-		return responseModel;
+//		Map<String, String> data = getDataAndSign(shareholderModel);
+//		SynResponseModel responseModel = getResponse(data, "pushCompanyPartnerData");
+//		return responseModel;
+		return null;
 	}
 
 
 	@Override
 	public SynResponseModel contractFacade(ContractModel contractModel) {
-		Map<String, String> data = getDataAndSign(contractModel);
-		SynResponseModel responseModel = getResponse(data, "pushContractData");
-		return responseModel;
+//		Map<String, String> data = getDataAndSign(contractModel);
+//		SynResponseModel responseModel = getResponse(data, "pushContractData");
+//		return responseModel;
+		return null;
 	}
 
 
 	@Override
 	public SynResponseModel repayInfoFacade(RepayInfoModel repayInfoModel) {
-		Map<String, String> data = getDataAndSign(repayInfoModel);
-		SynResponseModel responseModel = getResponse(data, "pushRepayData");
-		return responseModel;
+//		Map<String, String> data = getDataAndSign(repayInfoModel);
+//		SynResponseModel responseModel = getResponse(data, "pushRepayData");
+//		return responseModel;
+		return null;
 	}
 
 
 	@Override
 	public SynResponseModel repayExtendInfoFacade(RepayExtendInfoModel repayExtendInfoModel) {
-		Map<String, String> data = getDataAndSign(repayExtendInfoModel);
-		SynResponseModel responseModel = getResponse(data, "pushExtendRepayData");
-		return responseModel;
+//		Map<String, String> data = getDataAndSign(repayExtendInfoModel);
+//		SynResponseModel responseModel = getResponse(data, "pushExtendRepayData");
+//		return responseModel;
+		return null;
 	}
 
 
 	@Override
 	public SynResponseModel repayExtendPlanFacade(RepayExtendPlanModel repayExtendPlanModel) {
-		Map<String, String> data = getDataAndSign(repayExtendPlanModel);
-		SynResponseModel responseModel = getResponse(data, "pushExtendPlanData");
-		return responseModel;
+//		Map<String, String> data = getDataAndSign(repayExtendPlanModel);
+//		SynResponseModel responseModel = getResponse(data, "pushExtendPlanData");
+//		return responseModel;
+		return null;
 	}
 
 
 	@Override
 	public SynResponseModel otherBaddebtFacade(OtherBaddebtModel otherBaddebtModel) {
-		Map<String, String> data = getDataAndSign(otherBaddebtModel);
-		SynResponseModel responseModel = getResponse(data, "pushBadDebtData");
-		return responseModel;
+//		Map<String, String> data = getDataAndSign(otherBaddebtModel);
+//		SynResponseModel responseModel = getResponse(data, "pushBadDebtData");
+//		return responseModel;
+		return null;
 	}
 
 
 	@Override
 	public SynResponseModel otherOverdueInfoFacade(OtherOverdueInfoModel otherOverdueInfoModel) {
-		Map<String, String> data = getDataAndSign(otherOverdueInfoModel);
-		SynResponseModel responseModel = getResponse(data, "pushOverdueData");
-		return responseModel;
+//		Map<String, String> data = getDataAndSign(otherOverdueInfoModel);
+//		SynResponseModel responseModel = getResponse(data, "pushOverdueData");
+//		return responseModel;
+		return null;
 	}
 
 
 	@Override
 	public SynResponseModel provisionInfoFacade(ProvisionInfoModel provisionInfoModel) {
-		Map<String, String> data = getDataAndSign(provisionInfoModel);
-		SynResponseModel responseModel = getResponse(data, "pushProvisionData");
-		return responseModel;
+//		Map<String, String> data = getDataAndSign(provisionInfoModel);
+//		SynResponseModel responseModel = getResponse(data, "pushProvisionData");
+//		return responseModel;
+		return null;
 	}
 
 }

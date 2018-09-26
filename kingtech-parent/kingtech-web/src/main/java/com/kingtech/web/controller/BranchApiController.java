@@ -101,7 +101,7 @@ public class BranchApiController {
 							 String expirationTime,
 							 String replyTime,
 							 String branch) {
-		Capital cap = capitalService.addNew(id,financingChannel, financingMoney, financingTime, expirationTime, replyTime,branch);
+//		Capital cap = capitalService.addNew(id,financingChannel, financingMoney, financingTime, expirationTime, replyTime,branch);
 		return "redirect:/branch/capitalList";
 	}
 	
@@ -119,10 +119,10 @@ public class BranchApiController {
 							  String department, String sex, String idNumber, String education,
 							  String executiveFlag, String post, String replyTime, String entryTime,
 							  String status, String quitTime, String branch) {
-		employeeService.addNew(id, name, phone, email, postalAddress,
-							   department, sex, idNumber, education,
-							   executiveFlag, post, replyTime, entryTime,
-							   status, quitTime, branch);
+//		employeeService.addNew(id, name, phone, email, postalAddress,
+//							   department, sex, idNumber, education,
+//							   executiveFlag, post, replyTime, entryTime,
+//							   status, quitTime, branch);
 		return "redirect:/branch/personalList";
 	}
 

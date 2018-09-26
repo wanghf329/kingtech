@@ -41,43 +41,43 @@ public class CapitalServiceImpl implements CapitalService{
 						 BigDecimal money, BigDecimal interest, BigDecimal guaranteeMoney,
 						 String remark, Date financeDate, Date endDate, BigDecimal rate,
 						 RateTypeEnum rateType, String loanContractNumber) {
-		try {
-			Capital capital = null;
-			if(StringUtils.isEmpty(id)){
-				
-				capital = new Capital(creatRequstId.getReqId(),  
-									PushStatus.INITATION, 
-									financeNumber, 
-									financeName, 
-									lender, 
-									channel, 
-									money, 
-									interest, 
-									guaranteeMoney, 
-									remark, 
-									financeDate, 
-									endDate, 
-									rate, 
-									rateType, 
-									loanContractNumber);
-			}else{
-				capital = capitalDao.findOne(id);
-				capital.setFinancingChannel(financingChannel);
-				capital.setFinancingMoney(new BigDecimal(financingMoney));
-				capital.setFinancingTime(DateUtils.parseDate(financingTime, "yyyy-MM-dd HH:mm:ss"));
-				capital.setExpirationTime(DateUtils.parseDate(expirationTime, "yyyy-MM-dd HH:mm:ss"));
-				capital.setReplyTime(replyTime == null ? null : DateUtils.parseDate(replyTime, "yyyy-MM-dd HH:mm:ss"));
-				capital.setPushStatus(PushStatus.INITATION);
-			}
-			capital.setId(id);
-			capital = capitalDao.save(capital);
-			
-			paymentApi.capitalInfoApi(capital.getId(), StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
-			
-			return capital;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		try {
+//			Capital capital = null;
+//			if(StringUtils.isEmpty(id)){
+//				
+//				capital = new Capital(creatRequstId.getReqId(),  
+//									PushStatus.INITATION, 
+//									financeNumber, 
+//									financeName, 
+//									lender, 
+//									channel, 
+//									money, 
+//									interest, 
+//									guaranteeMoney, 
+//									remark, 
+//									financeDate, 
+//									endDate, 
+//									rate, 
+//									rateType, 
+//									loanContractNumber);
+//			}else{
+//				capital = capitalDao.findOne(id);
+//				capital.setFinancingChannel(financingChannel);
+//				capital.setFinancingMoney(new BigDecimal(financingMoney));
+//				capital.setFinancingTime(DateUtils.parseDate(financingTime, "yyyy-MM-dd HH:mm:ss"));
+//				capital.setExpirationTime(DateUtils.parseDate(expirationTime, "yyyy-MM-dd HH:mm:ss"));
+//				capital.setReplyTime(replyTime == null ? null : DateUtils.parseDate(replyTime, "yyyy-MM-dd HH:mm:ss"));
+//				capital.setPushStatus(PushStatus.INITATION);
+//			}
+//			capital.setId(id);
+//			capital = capitalDao.save(capital);
+//			
+//			paymentApi.capitalInfoApi(capital.getId(), StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
+//			
+//			return capital;
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 		return null;
 	}
 
@@ -88,11 +88,12 @@ public class CapitalServiceImpl implements CapitalService{
 
 	@Override
 	public CapitalModel getById(String id) {
-		Capital capital =  capitalDao.findOne(id);
-		return new CapitalModel(capital.getId(),capital.getFinancingChannel(),capital.getFinancingMoney().setScale(2).toPlainString(), 
-				DateFormatUtils.format(capital.getFinancingTime(), "yyyy-MM-dd HH:mm:ss"), 
-				DateFormatUtils.format(capital.getExpirationTime(), "yyyy-MM-dd HH:mm:ss"),
-				DateFormatUtils.format(capital.getReplyTime(), "yyyy-MM-dd HH:mm:ss"));
+		return null;
+//		Capital capital =  capitalDao.findOne(id);
+//		return new CapitalModel(capital.getId(),capital.getFinancingChannel(),capital.getFinancingMoney().setScale(2).toPlainString(), 
+//				DateFormatUtils.format(capital.getFinancingTime(), "yyyy-MM-dd HH:mm:ss"), 
+//				DateFormatUtils.format(capital.getExpirationTime(), "yyyy-MM-dd HH:mm:ss"),
+//				DateFormatUtils.format(capital.getReplyTime(), "yyyy-MM-dd HH:mm:ss"));
 	}
 
 	@Override

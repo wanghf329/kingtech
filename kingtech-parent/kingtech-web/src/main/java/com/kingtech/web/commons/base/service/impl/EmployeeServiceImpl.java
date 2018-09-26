@@ -87,21 +87,22 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	public EmployeeModel getById(String id) {
 		Employee employee =  employeeDao.findOne(id);
-		return new EmployeeModel(employee.getId(), 
-								 employee.getName(),
-								 employee.getPhone(),
-								 employee.getEmail(),
-								 employee.getAddress(),
-								 employee.getDepartment(),
-								 DTOUtils.getEnumIntVal(employee.getSex()),
-								 DTOUtils.getEnumIntVal(employee.getCardType()),
-								 employee.getCardNumber(),
-								 DTOUtils.getEnumIntVal(employee.getEducation()),
-								 DTOUtils.getEnumIntVal(employee.getExecutiveFlag()),
-								 employee.getPosition(),
-								 employee.getEntryTime(),
-								 employee.getQuitTime());
-				
+//		return new EmployeeModel(employee.getId(), 
+//								 employee.getName(),
+//								 employee.getPhone(),
+//								 employee.getEmail(),
+//								 employee.getAddress(),
+//								 employee.getDepartment(),
+//								 DTOUtils.getEnumIntVal(employee.getSex()),
+//								 DTOUtils.getEnumIntVal(employee.getCardType()),
+//								 employee.getCardNumber(),
+//								 DTOUtils.getEnumIntVal(employee.getEducation()),
+//								 DTOUtils.getEnumIntVal(employee.getExecutiveFlag()),
+//								 employee.getPosition(),
+//								 employee.getEntryTime(),
+//								 employee.getQuitTime());
+//				
+		return null;
 	}
 
 	@Override
