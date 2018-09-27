@@ -48,8 +48,8 @@
             </a>
             <ul class="treeview-menu">
                 <li id="financeCapitalList"><a href="finance/capitalList"><i class="fa fa-angle-double-right"></i>单笔融资信息</a></li>
-                <li id="financeInfoList"><a href="branch/employeeList"><i class="fa fa-angle-double-right"></i>融资实际还款信息</a></li>
-                <li id="financeInfoList"><a href="branch/employeeList"><i class="fa fa-angle-double-right"></i>月度融资余额信息</a></li>
+                <li id="financeRepaymentList"><a href="finance/repaymentList"><i class="fa fa-angle-double-right"></i>融资实际还款信息</a></li>
+                <li id="financeMonthBalanceList"><a href="finance/monthBalanceList"><i class="fa fa-angle-double-right"></i>月度融资余额信息</a></li>
             </ul>
         </li>
         <li class="treeview active">
