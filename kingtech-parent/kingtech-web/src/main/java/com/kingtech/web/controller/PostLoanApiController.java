@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kingtech.enums.BadTypeEnum;
 import com.kingtech.enums.LoanClassificationEnum;
+import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.RepayStatusEnum;
 import com.kingtech.enums.YesNoEnum;
 import com.kingtech.model.OtherBaddebtModel;
@@ -341,6 +342,20 @@ public class PostLoanApiController {
 		return pi;
 	}
 	
+
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET, value = "provision/detail/{id}")
+	public boolean update(Model model,@PathVariable("id") String id) {
+		RepayExtendInfoModel rf = extendRepayService.getById(id);
+		if (PushStatus.INITATION.name().equals(rf.getPushStatus()) || PushStatus.FAILED.name().equals(rf.getPushStatus())) {
+			//修改状态已删除
+		}
+		if (PushStatus.SUCCESS.name().equals(rf.getPushStatus())) {
+			//
+		}
+		return true;
+	}
+
 	@InitBinder
     protected void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

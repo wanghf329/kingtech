@@ -21,4 +21,6 @@ public interface RepayExtendPlanDAO extends PagingAndSortingRepository<RepayExte
 	@Query("update RepayExtendPlan c set c.pushStatus = :pushStatus  where c.reqId = :reqId")
 	public int updateStatusByReqId(@Param("reqId")String reqId,@Param("pushStatus")PushStatus pushStatus);
 
+	@Query("select r from RepayExtendPlan r where r.loanContractId = :loanContractId and r.count = :count ")
+	public List<RepayExtendPlan> listByloanContractIdAndCount(@Param("loanContractId")String loanContractId,@Param("count") String count);
 }

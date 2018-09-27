@@ -111,7 +111,8 @@ public class ExtendRepayServiceImpl implements ExtendRepayService{
 				rf.getPenaltyInterest().toPlainString(), 
 				rf.getPenalty().toPlainString(), 
 				rf.getServiceCharge().toPlainString(),
-				rf.getOtherCharge().toPlainString());
+				rf.getOtherCharge().toPlainString(),
+				rf.getPushStatus().name());
 	}
 	
 	@Override
