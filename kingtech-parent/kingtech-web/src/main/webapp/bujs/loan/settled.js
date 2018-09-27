@@ -79,10 +79,10 @@ function initDataTables() {
 							return '<span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span>';
 					}
 				}}, 
-				{data : null,render : function(data, type, row) { 
-									if(row.pushStatus=='SUCCESS') { 
-											return '<a href="settled/single?loanContractId='+row.loanContractId+'"><strong>查看</strong></a>'+
-												'<a href="javascirpt:void(0)" class="settled-delete" data-id="'+row.id+'"><i class="text-red fa fa-edit"></i><strong>删除</strong>';
+				{data : null,render : function(data, type, row) {  
+									if(row.pushStatus=='SUCCESS') {
+											return '<a href="settled/single?loanContractId='+row.loanContractId+'"><i class="text-gray fa fa-eye"></i><strong>查看</strong></a>  '+
+												'<a href="javascirpt:void(0)" class="settled-delete" data-id="'+row.id+'"><i class="text-red fa fa-times"></i><strong>删除</strong>';
 										} 
 									}}],
 							"fnDrawCallback" : function(oSettings) {
