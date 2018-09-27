@@ -24,7 +24,7 @@ public interface PaymentApi {
 	 * @param employeeId
 	 * @param type
 	 */
-	public void employeeInfoApi(String employeeId);
+	public void employeeInfoApi(String employeeId,IdentifierType type);
 	/**
 	 * 机构股东信息
 	 * @param holderId
@@ -37,7 +37,7 @@ public interface PaymentApi {
 	 * @param loanIdContract
 	 * @param type
 	 */
-	public SynResponseModel contractInfoApi(String loanIdContract);
+	public SynResponseModel contractInfoApi(String loanIdContract,IdentifierType type);
 	
 	/**
 	 * 还款计划
@@ -51,15 +51,15 @@ public interface PaymentApi {
 	 * 展期还款信息
 	 */
 	
-	public void repayExtendInfoApi(String repayExtendInfoId,IdentifierType type);
+	public SynResponseModel repayExtendInfoApi(String repayExtendInfoId,IdentifierType type);
 	
 	
 
 	/**
-	 * 展期还款计划
+	 * 展期还款计划信息
 	 */
 	
-	public void repayExtendPlanApi(String repayExtendPlanId,IdentifierType type);
+	public SynResponseModel repayExtendPlanApi(String repayExtendPlanId,IdentifierType type);
 	
 	
 	/**
@@ -88,6 +88,21 @@ public interface PaymentApi {
 	 * @param reponseModel
 	 */
 	public void handleResult(AsyReponseModel reponseModel);
+	/**
+	 * 放款信息接口
+	 * @param settleInfoId
+	 * @param type
+	 * @return
+	 */
+	public  SynResponseModel settleInfoApi(String settleInfoId,IdentifierType type);
+	/**
+	 * 
+	 * @param financeInfoId
+	 * @param type
+	 * @return
+	 */
+	
+	public SynResponseModel financeInfoApi(String financeInfoId,IdentifierType type);
 	
 	
 	

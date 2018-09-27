@@ -27,6 +27,7 @@ import com.kingtech.dao.entity.RepayExtendInfo;
 import com.kingtech.dao.entity.RepayExtendPlan;
 import com.kingtech.dao.entity.RepayInfo;
 import com.kingtech.dao.entity.RepayPlan;
+import com.kingtech.dao.entity.SettledInfo;
 import com.kingtech.dao.entity.Shareholder;
 import com.kingtech.dao.rdbms.BranchDAO;
 import com.kingtech.dao.rdbms.CapitalDAO;
@@ -49,6 +50,7 @@ import com.kingtech.dao.rdbms.ShareholderDAO;
 import com.kingtech.enums.BorrowerTypeEnum;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.enums.RecordStatus;
 import com.kingtech.model.BranchInfoModel;
 import com.kingtech.model.CapitalModel;
 import com.kingtech.model.GuaranteeModel;
@@ -65,9 +67,15 @@ import com.kingtech.szsm.model.ContractRequestModel;
 import com.kingtech.szsm.model.ContractZywRequestModel;
 import com.kingtech.szsm.model.EmployeeRequestModel;
 import com.kingtech.szsm.model.EnterpriseCustomerRequestModel;
+import com.kingtech.szsm.model.ExtendPlanRequestModel;
+import com.kingtech.szsm.model.FinanceInfoRequestModel;
+import com.kingtech.szsm.model.FinanceRepayPlanRequest;
 import com.kingtech.szsm.model.GuaranteeRequestModel;
 import com.kingtech.szsm.model.PersonalCustomerRequestModel;
+import com.kingtech.szsm.model.RepayExtendInfoRequestModel;
+import com.kingtech.szsm.model.RepayExtendPlanRequestModel;
 import com.kingtech.szsm.model.RepayPlanRequestModel;
+import com.kingtech.szsm.model.SettledInfoRequestModel;
 import com.kingtech.szsm.model.SynResponseModel;
 import com.kingtech.web.commons.base.CreatRequstId;
 import com.kingtech.web.commons.base.api.PaymentApi;
@@ -230,7 +238,7 @@ public class PaymentApiImpl  implements PaymentApi {
 
 	@Override
 	@Transactional
-	public void employeeInfoApi(String capitalId) {
+	public void employeeInfoApi(String capitalId,IdentifierType type) {
 		
 		
 		   Employee employee = employeeDAO.findOne(capitalId);
@@ -258,9 +266,9 @@ public class PaymentApiImpl  implements PaymentApi {
 				   DateUtil.getSimpleDate(employee.getQuitTime()));
 		   
 		   
-		   SynResponseModel responseModel= financeService.branchEmployeeFacade(employeeRequestModel);
+		   SynResponseModel responseModel= financeService.branchEmployeeFacade(employeeRequestModel,type);
 		   if (responseModel.isSuccess()) {
-			   employee.setPushStatus(PushStatus.SUCCESS);
+			   employee.setPushStatus(PushStatus.INPROSESS);
 			   employeeDAO.save(employee);
 		   }
 	}
@@ -359,7 +367,7 @@ public class PaymentApiImpl  implements PaymentApi {
 
 	@Override
 	@Transactional
-	public SynResponseModel contractInfoApi(String loanIdContractId) {
+	public SynResponseModel contractInfoApi(String loanIdContractId,IdentifierType type) {
 		
 		Contract contract = contractDAO.findOne(loanIdContractId);
 		if (contract == null) {
@@ -467,9 +475,9 @@ public class PaymentApiImpl  implements PaymentApi {
 				repayPlanRequestModels);
 		
 		
-		SynResponseModel responseModel = financeService.contractFacade(contractRequestModel);
+		SynResponseModel responseModel = financeService.contractFacade(contractRequestModel,type);
 		if (responseModel.isSuccess()) {
-			contract.setPushStatus(PushStatus.SUCCESS);
+			contract.setPushStatus(PushStatus.INPROSESS);
 			contractDAO.save(contract);
 		}
 		return responseModel;
@@ -512,16 +520,20 @@ public class PaymentApiImpl  implements PaymentApi {
 
 	@Override
 	@Transactional
-	public void repayExtendInfoApi(String repayExtendInfoId, IdentifierType type) {
+	public SynResponseModel repayExtendInfoApi(String repayExtendInfoId, IdentifierType type) {
 		
 		RepayExtendInfo extendInfo = repayExtendInfoDAO.findOne(repayExtendInfoId);
 		if (extendInfo == null ) {
 			log.info("未获取到展期还款信息相关数据repayInfoId={}",repayExtendInfoId);
-			return;
+			return null;
 		}
 		
+		
+		
 		String roundStr =  RandomUtil.random8Len();
-		RepayExtendInfoModel extendInfoModel = null;
+		RepayExtendInfoRequestModel repayExtendInfoRequestModel = null;
+		
+		
 //		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
 //			extendInfoModel = new RepayExtendInfoModel(roundStr,
 //					type.name(), 
@@ -536,26 +548,37 @@ public class PaymentApiImpl  implements PaymentApi {
 //			log.info("展期还款信息暂不支持的操作 repayExtendInfoId={},IdentifierType={} ",repayExtendInfoId,type);
 //			return;
 //		}
-		SynResponseModel responseModel = financeService.repayExtendInfoFacade(extendInfoModel);
+		SynResponseModel responseModel = financeService.repayExtendInfoFacade(null,null);
 		if (responseModel.isSuccess()) {
 			extendInfo.setPushStatus(PushStatus.INPROSESS);
 			repayExtendInfoDAO.save(extendInfo);
 		}
-		
+		return null;
 	}
 
 	@Override
 	@Transactional
-	public void repayExtendPlanApi(String repayExtendPlanId, IdentifierType type) {
+	public SynResponseModel repayExtendPlanApi(String repayExtendPlanId, IdentifierType type) {
 		
 		RepayExtendPlan extendPlan = repayExtendPlanDAO.findOne(repayExtendPlanId);
 		if (extendPlan == null ) {
 			log.info("未获取到展期还款计划相关数据repayExtendPlanId={}",repayExtendPlanId);
-			return;
+			return null;
+		}
+		
+		List<RepayExtendPlan> repayExtendPlanlist = repayExtendPlanDAO.listByloanContractIdAndCount(extendPlan.getLoanContractId(), extendPlan.getCount());
+		
+		List<ExtendPlanRequestModel> planRequestModels = null;
+		if (repayExtendPlanlist != null && !repayExtendPlanlist.isEmpty()) {
+			
+			planRequestModels = new ArrayList<ExtendPlanRequestModel>();
+			for (RepayExtendPlan plan : repayExtendPlanlist) {
+				planRequestModels.add(new ExtendPlanRequestModel(DateUtil.getSimpleDate(plan.getEndDate()), plan.getPrincipal().toPlainString(), plan.getInterest().toPlainString()));
+			}
 		}
 		
 		String roundStr =  RandomUtil.random8Len();
-		RepayExtendPlanModel repayExtendPlanModel = null;
+		RepayExtendPlanRequestModel repayExtendPlanRequestModel = new RepayExtendPlanRequestModel(roundStr, extendPlan.getReqId(), contractDAO.findOne(extendPlan.getLoanContractId()).getContractNumber(), extendPlan.getCount(), planRequestModels);
 //		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
 //			repayExtendPlanModel = new RepayExtendPlanModel(roundStr,
 //					type.name(), extendPlan.getReqId(), null, contractDAO.findOne(extendPlan.getLoanContractId()).getLoanContractNo(),
@@ -574,11 +597,12 @@ public class PaymentApiImpl  implements PaymentApi {
 //			log.info("展期还款计划暂不支持的操作 repayExtendPlanId={},IdentifierType={} ",repayExtendPlanId,type);
 //			return;
 //		}
-		SynResponseModel responseModel = financeService.repayExtendPlanFacade(repayExtendPlanModel);
-		if (responseModel.isSuccess()) {
-			extendPlan.setPushStatus(PushStatus.INPROSESS);
-			repayExtendPlanDAO.save(extendPlan);
-		}
+//		SynResponseModel responseModel = financeService.repayExtendPlanFacade(repayExtendPlanModel);
+//		if (responseModel.isSuccess()) {
+//			extendPlan.setPushStatus(PushStatus.INPROSESS);
+//			repayExtendPlanDAO.save(extendPlan);
+//		}
+		return null;
 	}
 
 	@Override
@@ -689,6 +713,72 @@ public class PaymentApiImpl  implements PaymentApi {
 			provisionInfo.setPushStatus(PushStatus.INPROSESS);
 			provisionInfoDAO.save(provisionInfo);
 		}
+		
+	}
+
+	@Override
+	public SynResponseModel settleInfoApi(String settleInfoId,
+			IdentifierType type) {
+		SettledInfo settle = settledInfoDAO.findOne(settleInfoId);
+		if (settle == null) {
+			log.info("未获取到放款相关数据settleInfoId={}",settleInfoId);
+			return null;
+		}
+		String roundStr =  RandomUtil.random8Len();
+		
+		SettledInfoRequestModel infoRequestModel = new SettledInfoRequestModel(roundStr,
+				settle.getReqId(),
+				contractDAO.findOne(settle.getLoanContractId()).getContractNumber(),
+				settle.getMoney().toPlainString(), 
+				DateUtil.getDateStr(settle.getLoanTime(),JSON.DEFFAULT_DATE_FORMAT), 
+				DateUtil.getSimpleDate(settle.getStartDate()), 
+				DateUtil.getSimpleDate(settle.getEndDate()));
+		
+		SynResponseModel responseModel = financeService.settleInfoFacade(infoRequestModel, type);
+		if (responseModel.isSuccess()) {
+			settle.setPushStatus(PushStatus.INPROSESS);
+			settledInfoDAO.save(settle);
+		}
+		return responseModel;
+	}
+
+	@Override
+	public SynResponseModel financeInfoApi(String financeInfoId,IdentifierType type) {
+		
+		Capital capital = capitalDAO.findOne(financeInfoId);
+		if (capital ==null) {
+			log.info("未获取到融资信息相关数据financeInfoId={}",financeInfoId);
+			  return null;
+		  }
+		String roundStr =  RandomUtil.random8Len();
+		
+		List<FinanceRepayPlanRequest> financeRepayPlanRequests = null;
+		
+		FinanceInfoRequestModel financeInfoRequestModel = new FinanceInfoRequestModel(roundStr,
+				capital.getReqId(), 
+				capital.getFinanceNumber(), 
+				capital.getFinanceName(),
+				capital.getLender(),
+				DTOUtils.getEnumIntVal(capital.getChannel()), 
+				capital.getMoney().toPlainString(),
+				capital.getInterest().toPlainString(),
+				capital.getCharge().toPlainString(), 
+				capital.getGuaranteeMoney().toPlainString(), 
+				capital.getRemark(), 
+				DateUtil.getSimpleDate(capital.getFinanceDate()),
+				DateUtil.getSimpleDate(capital.getEndDate()),
+				capital.getRate().toPlainString(), 
+				DTOUtils.getEnumIntVal(capital.getRateType()), 
+				capital.getLoanContractNumber(),
+				financeRepayPlanRequests);
+		
+		SynResponseModel responseModel = financeService.financeInfoFacade(financeInfoRequestModel, type);
+		if (responseModel.isSuccess()) {
+			capital.setPushStatus(PushStatus.INPROSESS);
+			capitalDAO.save(capital);
+		}
+		return responseModel;
+		
 		
 	}
 

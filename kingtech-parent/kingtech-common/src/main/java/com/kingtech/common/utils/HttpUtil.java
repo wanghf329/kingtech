@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.Socket;
+import java.net.URI;
 import java.net.UnknownHostException;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
@@ -30,8 +31,10 @@ import org.apache.http.HttpVersion;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.scheme.PlainSocketFactory;
 import org.apache.http.conn.scheme.Scheme;
@@ -136,7 +139,7 @@ public class HttpUtil {
     	HttpClient httpClient = null;
     	HttpPost httpPost = null;
         try {
-            logger.info("requestBody: " + requestBody);
+            logger.info("post requestBody: " + requestBody);
             HttpParams httpParameters = getHttpParamsWithTimeOut();
             httpClient = getSimpleHttpClient(url, httpParameters);
             httpPost = new HttpPost(url);
@@ -147,7 +150,7 @@ public class HttpUtil {
             }
             HttpResponse response = httpClient.execute(httpPost);
             String responseString = convertInputStream(response.getEntity().getContent(), ENCODING);
-            logger.info("responseString: " + responseString);
+            logger.info("post responseString: " + responseString);
             return responseString;
         } finally {
             if (httpPost != null) {
@@ -158,6 +161,95 @@ public class HttpUtil {
             }
         }
     }
+    
+    
+ 		public static String putJsonResponse(String url, String requestBody)throws IOException {
+ 			return putResponseWithHeader(url, requestBody,new HashMap<String, String>());
+ 		}
+      
+         /**
+          * 
+          * @param url
+          * @param requestBody
+          * @param headerMap
+          * @return
+          * @throws IOException
+          */
+         public static String putResponseWithHeader(String url, String requestBody, Map<String, String> headerMap) throws IOException {
+ 			HttpClient httpClient = null;
+ 			HttpPut httpPut = null;
+ 			try {
+ 				logger.info("put requestBody: " + requestBody);
+ 				HttpParams httpParameters = getHttpParamsWithTimeOut();
+ 				httpClient = getSimpleHttpClient(url, httpParameters);
+ 				httpPut = new HttpPut(url);
+ 				httpPut.setEntity(new StringEntity(requestBody, ENCODING));
+ 				httpPut.setHeader("Content-type",
+ 						"application/json; charset=UTF-8");
+ 				for (Map.Entry<String, String> headerEntry : headerMap
+ 						.entrySet()) {
+ 					httpPut.addHeader(headerEntry.getKey(),
+ 							headerEntry.getValue());
+ 				}
+ 				HttpResponse response = httpClient.execute(httpPut);
+ 				String responseString = convertInputStream(response.getEntity()
+ 						.getContent(), ENCODING);
+ 				logger.info("put responseString: " + responseString);
+ 				return responseString;
+ 			} finally {
+ 				if (httpPut != null) {
+ 					httpPut.releaseConnection();
+ 				}
+ 				if (httpClient != null) {
+ 					httpClient.getConnectionManager().shutdown();
+ 				}
+ 			}
+ 		}
+         
+         
+         public static String delJsonResponse(String url, String requestBody)throws IOException {
+  			return delResponseWithHeader(url, requestBody,new HashMap<String, String>());
+  		}
+         
+         
+         /**
+          * 
+          * @param url
+          * @param requestBody
+          * @param headerMap
+          * @return
+          * @throws IOException
+          */
+         public static String delResponseWithHeader(String url, String requestBody, Map<String, String> headerMap) throws IOException {
+        	HttpClient httpClient = null;
+        	HttpDeleteWithBody httpDeleteWithBody = null;
+  			try {
+  				logger.info("delete requestBody: " + requestBody);
+  				HttpParams httpParameters = getHttpParamsWithTimeOut();
+  				httpClient = getSimpleHttpClient(url, httpParameters);
+  				httpDeleteWithBody = new HttpDeleteWithBody(url);
+  				httpDeleteWithBody.setEntity(new StringEntity(requestBody, ENCODING));
+  				httpDeleteWithBody.setHeader("Content-type",
+  						"application/json; charset=UTF-8");
+  				for (Map.Entry<String, String> headerEntry : headerMap
+  						.entrySet()) {
+  					httpDeleteWithBody.addHeader(headerEntry.getKey(),
+  							headerEntry.getValue());
+  				}
+  				HttpResponse response = httpClient.execute(httpDeleteWithBody);
+  				String responseString = convertInputStream(response.getEntity()
+  						.getContent(), ENCODING);
+  				logger.info("delete responseString: " + responseString);
+  				return responseString;
+  			} finally {
+  				if (httpDeleteWithBody != null) {
+  					httpDeleteWithBody.releaseConnection();
+  				}
+  				if (httpClient != null) {
+  					httpClient.getConnectionManager().shutdown();
+  				}
+  			}
+ 		}
 
 
     private static List<NameValuePair> convert(Map<String, String> map) {
@@ -216,6 +308,8 @@ public class HttpUtil {
         }
     }
 
+    
+    
     private static class MySSLSocketFactory extends SSLSocketFactory {
         SSLContext sslContext = SSLContext.getInstance("TLS");
 
@@ -259,5 +353,24 @@ public class HttpUtil {
                 IOException {
             return sslContext.getSocketFactory().createSocket();
         }
+
+        
     }
+    
+    private static  class HttpDeleteWithBody extends HttpEntityEnclosingRequestBase {
+        public static final String METHOD_NAME = "DELETE";
+        public String getMethod() { return METHOD_NAME; }
+
+        public HttpDeleteWithBody(final String uri) {
+            super();
+            setURI(URI.create(uri));
+        }
+        public HttpDeleteWithBody(final URI uri) {
+            super();
+            setURI(uri);
+        }
+        public HttpDeleteWithBody() { super(); }
+    }
+
+
 }

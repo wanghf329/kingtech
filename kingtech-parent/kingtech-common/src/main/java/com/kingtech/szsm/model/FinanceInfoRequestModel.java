@@ -1,5 +1,7 @@
 package com.kingtech.szsm.model;
 
+import java.util.List;
+
 import lombok.Data;
 
 import com.alibaba.fastjson.annotation.JSONField;
@@ -12,7 +14,7 @@ import com.kingtech.common.utils.SignUtils;
  * @version: v1.0
  */
 @Data
-public class CapitalModel extends BaseRequestModel {
+public class FinanceInfoRequestModel extends BaseRequestModel {
 	
 	// 融资编号
 	@JSONField(name="financeNumber", label="sign")
@@ -28,7 +30,7 @@ public class CapitalModel extends BaseRequestModel {
 	
 	// 融资渠道
 	@JSONField(name="channel", label="sign")
-	private String channel;
+	private int channel;
 
 	// 融资金额（元）
 	@JSONField(name="money", label="sign")
@@ -64,18 +66,21 @@ public class CapitalModel extends BaseRequestModel {
 	
 	// 利率类型
 	@JSONField(name="rateType")
-	private String rateType;
+	private int rateType;
 	
 	// 合同编号
 	@JSONField(name="loanContractNumber")
 	private String loanContractNumber;
 	
+	private List<FinanceRepayPlanRequest> repayPlans;
+	
 
-	public CapitalModel( String financeNumber, String financeName,
-			String lender, String channel, String money, String interest,
+	public FinanceInfoRequestModel( String roundStr, String reqId,String financeNumber, String financeName,
+			String lender, int channel, String money, String interest,
 			String charge, String guaranteeMoney, String remark,
-			String financeDate, String endDate, String rate, String rateType,
-			String loanContractNumber) {
+			String financeDate, String endDate, String rate, int rateType,
+			String loanContractNumber,List<FinanceRepayPlanRequest> repayPlans) {
+		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), reqId, null, null);
 		this.financeNumber = financeNumber;
 		this.financeName = financeName;
 		this.lender = lender;
@@ -90,6 +95,7 @@ public class CapitalModel extends BaseRequestModel {
 		this.rate = rate;
 		this.rateType = rateType;
 		this.loanContractNumber = loanContractNumber;
+		this.repayPlans = repayPlans;
 	}
 	
 	

@@ -52,7 +52,7 @@ public class RepayExtendInfoModel extends BaseModel{
 	@JSONField(name="update_time")
 	private String updateTime;
 	
-	private String pushStatus;
+	private String recordStatus;
 
 	public RepayExtendInfoModel(String id, String contractNumber,
 			String repayTime, String money, String interest,
@@ -89,7 +89,7 @@ public class RepayExtendInfoModel extends BaseModel{
 	public RepayExtendInfoModel(String id, String contractNumber,
 			String repayTime, String money, String interest,
 			String penaltyInterest, String penalty, String serviceCharge,
-			String otherCharge, String pushStatus) {
+			String otherCharge, String recordStatus) {
 		super(id);
 		this.contractNumber = contractNumber;
 		this.repayTime = repayTime;
@@ -99,7 +99,7 @@ public class RepayExtendInfoModel extends BaseModel{
 		this.penalty = penalty;
 		this.serviceCharge = serviceCharge;
 		this.otherCharge = otherCharge;
-		this.pushStatus = pushStatus;
+		this.recordStatus = recordStatus;
 	}
 	
 	

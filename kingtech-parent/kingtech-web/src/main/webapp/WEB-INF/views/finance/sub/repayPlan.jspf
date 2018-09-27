@@ -1,0 +1,51 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
+<div class="padding-15 repayPlan repayPlanTemplate hide">
+                               		<div class="col-md-12">   
+										<div>
+			                                <div> 
+													<input type="hidden" name="id" value="">
+													<ul class="list-inline list-group-item" style="height:55px">
+													  <li class="col-sm-1"></li>  
+													  <li class="col-sm-3">  
+															<div class="col-sm-12">  
+																<label for="#endDate" class="control-label col-sm-5"><i class="text-red">*</i> 日期</label>
+																<div class="input-group date col-sm-7">   
+																	<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+																	<input type="text" class="form-control pull-right datepicker validate[required]" readonly name="endDate" data-errormessage="还款日期不能为空"
+																			value="<fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${it.endDate}"></fmt:formatDate>" >
+																</div>
+															</div>																	  
+													  </li>
+													  <li class="col-sm-3">
+															<div class="col-sm-12">  
+																<label for="#principal" class="control-label col-sm-5"><i class="text-red">*</i> 本金</label>
+																<div class="input-group col-sm-7">
+																	<input type="text" class="form-control validate[required,custom[number]]" name="money" data-errormessage="还款本金只能为数字"
+																			value="${it.money}">
+																	<span class="input-group-addon"><i class="fa">元</i></span>
+																</div>
+															</div>		 															  
+													  </li> 
+													  <li class="col-sm-3"> 
+															<div class="col-sm-12">  
+																<label for="#interest" class="control-label col-sm-5"><i class="text-red">*</i> 还款利息</label>
+																<div class="input-group col-sm-7">
+																	<input type="text" class="form-control validate[required,custom[number]]" name="interest" data-errormessage="还款利息只能为数字"
+																			value="${it.interest}">
+																	<span class="input-group-addon"><i class="fa">元</i></span>
+																</div>
+															</div>
+														</li>  
+														<li class="col-sm-2 text-center">  
+															<div class="col-md-12">
+								                            	<a href="javascript:void(0)"  class="edit-href"><i class="text-red fa fa-minus delRepayPlanBtn">删除</i></a>  
+								                            </div>																		
+														</li>
+													</ul>
+			                                </div><!-- /.box-body -->
+			                            </div>  
+                               		</div>
+</div>
+				                            	
+				                            	
+				                            	

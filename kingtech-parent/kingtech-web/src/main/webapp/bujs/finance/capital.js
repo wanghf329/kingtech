@@ -86,6 +86,17 @@ function guaranteeMoneyValidate (field, rules, i, options) {
 	}
 }
 
+$(".addRepayPlanBtn").on("click",function(){ 
+	var clone = $(".repayPlanTemplate").clone().removeClass("repayPlanTemplate hide").addClass("repayPlan");
+	$(".repayPlanTemplate").parent().append(clone);  
+	bindDel("delRepayPlanBtn"); 
+}); 
+
+
+$(".delRepayPlanBtn").on("click",function(){
+	$(this).closest(".repayPlan").remove();
+});
+
 function initDataTables() {
 	this.dt = $("#capitalListTab").DataTable({
 						language : dataTableLang, // 提示信息
@@ -196,7 +207,7 @@ function initDataTables() {
 									}
 									if(row.pushStatus=='INITATION' || row.pushStatus=='FAILED') {
 										return '<a href="finance/capital/edit?id='+row.id+'"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>'
-                                		        +'<a href="finance/capital/edit?id=='+row.id+'" ><i class="text-blue fa fa-plus-square-o"></i><strong>补充</strong></a>'
+                                		        +'<a href="finance/capital/supplement?financeId='+row.id+'" ><i class="text-blue fa fa-plus-square-o"></i><strong>补充</strong></a>'
                                 			    +'<a href="javascirpt:void(0)" class="contract-push" data-id="'+row.id+'"><i class="text-blue fa fa-exchange"></i><strong>推送</strong></a>';
 									}
 								}} ],

@@ -95,7 +95,7 @@ public class ExtendRepayServiceImpl implements ExtendRepayService{
 					rf.getOtherCharge().toPlainString(), 
 					ct.getContractNumber(), 
 					ct.getContractName(), 
-					rf.getPushStatus().name()));
+					rf.getPushStatus()));
 		}
 		return result;
 	}
@@ -139,7 +139,7 @@ public class ExtendRepayServiceImpl implements ExtendRepayService{
 													((BigDecimal) obj[8]).toPlainString(), 
 													(String) obj[9], 
 													(String) obj[10], 
-													PushStatus.valueOf(obj[11].toString()).name()));
+													PushStatus.valueOf(obj[11].toString())));
 		}
 		return new PagedResult(result,count);
 	}

@@ -12,7 +12,7 @@ import com.alibaba.fastjson.annotation.JSONField;
  */
 @Data
 @NoArgsConstructor
-public class RepayExtendInfoModel extends BaseRequestModel{
+public class RepayExtendInfoRequestModel extends BaseRequestModel{
 	//合同编号
 	@JSONField(name="contract_number",label="sign")
 	private String contractNumber;
@@ -51,7 +51,7 @@ public class RepayExtendInfoModel extends BaseRequestModel{
 	@JSONField(name="update_time")
 	private String updateTime;
 
-	public RepayExtendInfoModel(String id, String contractNumber,
+	public RepayExtendInfoRequestModel(String id, String contractNumber,
 			String repayTime, String money, String interest,
 			String penaltyInterest, String penalty, String serviceCharge,
 			String otherCharge) {
@@ -66,7 +66,7 @@ public class RepayExtendInfoModel extends BaseRequestModel{
 		this.otherCharge = otherCharge;
 	}
 
-	public RepayExtendInfoModel(String id, String contractNumber,
+	public RepayExtendInfoRequestModel(String id, String contractNumber,
 			String repayTime, String money, String interest,
 			String penaltyInterest, String penalty, String serviceCharge,
 			String otherCharge, String creatTime, String updateTime) {

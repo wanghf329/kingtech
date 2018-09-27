@@ -11,6 +11,7 @@ import com.kingtech.common.config.BaseConfig;
 import com.kingtech.common.utils.HttpUtil;
 import com.kingtech.common.utils.MD5;
 import com.kingtech.common.utils.SignUtils;
+import com.kingtech.enums.IdentifierType;
 import com.kingtech.szsm.model.BaseRequestModel;
 import com.kingtech.szsm.model.BaseResponsModel;
 import com.kingtech.szsm.model.ContractRequestModel;
@@ -26,7 +27,7 @@ public class BaseAbstract {
 	 * @return
 	 */
 
-	public  SynResponseModel getResponse(BaseRequestModel baseRequestModel,String suffixUrl) {
+	public  SynResponseModel getResponse(BaseRequestModel baseRequestModel,String suffixUrl,IdentifierType type) {
 		String sign = getOtherSign(baseRequestModel);
 		if (sign == null) {
 			String dataSign = JSON.toJSONString(baseRequestModel, Labels.includes("sign")); // 验签数据
@@ -37,7 +38,21 @@ public class BaseAbstract {
 		baseRequestModel.setSign(sign);
 		String data = JSONObject.toJSONString(baseRequestModel);
 		try {
-			String response = HttpUtil.postJsonResponse(BaseConfig.REQUEST_URL	+ "/" + suffixUrl, data);
+			String response = null;
+			switch (type) {
+			case A:
+				response = HttpUtil.postJsonResponse(BaseConfig.REQUEST_URL	+ "/" + suffixUrl, data);
+				break;
+			case U:
+				response = HttpUtil.putJsonResponse(BaseConfig.REQUEST_URL	+ "/" + suffixUrl, data);
+				break;
+			case D:	
+				response = HttpUtil.delJsonResponse(BaseConfig.REQUEST_URL	+ "/" + suffixUrl, data);
+			default:
+				break;
+			}
+				
+				
 			return JSON.parseObject(response, SynResponseModel.class);
 
 		} catch (Exception ex) {
@@ -95,7 +110,6 @@ public class BaseAbstract {
 		      return MD5.MD5Encode(result);
 		}
 		return null;
-		
 	}
 	
 }
