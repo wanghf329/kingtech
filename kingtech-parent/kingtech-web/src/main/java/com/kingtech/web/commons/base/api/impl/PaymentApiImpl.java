@@ -732,14 +732,6 @@ public class PaymentApiImpl  implements PaymentApi {
 			infoRequestModel = new SettledInfoRequestModel(roundStr, settle.getReqId());
 		}
 		
-		 infoRequestModel = new SettledInfoRequestModel(roundStr,
-				settle.getReqId(),
-				contractDAO.findOne(settle.getLoanContractId()).getContractNumber(),
-				settle.getMoney().toPlainString(), 
-				DateUtil.getDateStr(settle.getLoanTime(),JSON.DEFFAULT_DATE_FORMAT), 
-				DateUtil.getSimpleDate(settle.getStartDate()), 
-				DateUtil.getSimpleDate(settle.getEndDate()));
-		
 		SynResponseModel responseModel = financeService.settleInfoFacade(infoRequestModel, type);
 		if (responseModel.isSuccess()) {
 			

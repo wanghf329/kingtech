@@ -10,7 +10,13 @@ $(document).ready(function () {
     	  autoHidePrompt:true,
     	  failure : function() { callFailFunction()  } 
       })
-      initDataTables(); 
+      initDataTables();  
+      
+      if(typeof(canEdit) != "undefined" && canEdit==false){  
+    	  $('.form-horizontal').find('input,textarea,select').attr('disabled',true); 
+    	  $('.form-horizontal').find("button").hide();
+    	  $('body').find(".edit-href").hide(); 
+      } 
 });
 
 $("#addSettledInfoBtn").click(function(){
@@ -73,6 +79,8 @@ function initDataTables() {
 							return '<span class="text-gray"><i class="text-gray fa fa-info-circle"></i>初始</span>';
 						case 'SUCCESS':
 							return '<span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span>';
+						case 'DELETEING': 
+							return '<span class="text-blue"><i class="text-green fa fa-asterisk"></i>删除处理中</span>';
 						case 'INPROSESS':
 							return '<span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span>';
 						case 'FAILED':
@@ -83,7 +91,11 @@ function initDataTables() {
 									if(row.pushStatus=='SUCCESS') {
 											return '<a href="settled/single?loanContractId='+row.loanContractId+'"><i class="text-gray fa fa-eye"></i><strong>查看</strong></a>  '+
 												'<a href="javascirpt:void(0)" class="settled-delete" data-id="'+row.id+'"><i class="text-red fa fa-times"></i><strong>删除</strong>';
-										} 
+									} 
+									if(row.pushStatus=='DELETEING'){
+										return '<a href="settled/single?loanContractId='+row.loanContractId+'"><i class="text-gray fa fa-eye"></i><strong>查看</strong></a>';
+									}
+									
 									}}],
 							"fnDrawCallback" : function(oSettings) {
 								for (var i = 0, iLen = oSettings.aiDisplay.length; i < iLen; i++) {
