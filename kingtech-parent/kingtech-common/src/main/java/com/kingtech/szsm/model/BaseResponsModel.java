@@ -51,6 +51,6 @@ public class BaseResponsModel {
 	
 	@JSONField(serialize = false)
 	public boolean isSuccess(){
-		return "0000".equals(this.resultCode);
+		return "0".equals(this.resultCode);
 	}
 }

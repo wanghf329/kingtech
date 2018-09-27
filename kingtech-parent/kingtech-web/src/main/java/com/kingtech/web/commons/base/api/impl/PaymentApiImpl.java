@@ -382,14 +382,14 @@ public class PaymentApiImpl  implements PaymentApi {
 		}
 		PersonalCustomerRequestModel pcustomerRequestModel = null;
         EnterpriseCustomerRequestModel enterpriseCustomerRequestModel = null;
-		if (BorrowerTypeEnum.S_1.equals(contract.getBorrowerType())) {
+		if (BorrowerTypeEnum.S_2.equals(contract.getBorrowerType())) {
 			PersonalCustomer personalCustomer = personalCustomerDao.findOne(contract.getBorrowerId());
 			pcustomerRequestModel = new PersonalCustomerRequestModel(personalCustomer.getName(),DTOUtils.getEnumIntVal( personalCustomer.getSex()), DTOUtils.getEnumIntVal(personalCustomer.getCardType()), 
 																	personalCustomer.getCardNumber(), personalCustomer.getPhone(), DTOUtils.getEnumIntVal( personalCustomer.getIsFarmer()), DTOUtils.getEnumIntVal( personalCustomer.getEducation()), personalCustomer.getEmail(), 
 																	DTOUtils.getNewStr(personalCustomer.getIsMarry()), personalCustomer.getNationality(),DateUtil.getSimpleDate( personalCustomer.getBirthDate()), personalCustomer.getNation(), 
 																	personalCustomer.getAddress(), personalCustomer.getPostCode(), personalCustomer.getRegisteredAddress(), 
 																	personalCustomer.getNativePlace(), personalCustomer.getWorkUnit(), personalCustomer.getPosition());
-		}else if (BorrowerTypeEnum.S_2.equals(contract.getBorrowerType())) {
+		}else if (BorrowerTypeEnum.S_1.equals(contract.getBorrowerType())) {
 			EnterpriseCustomer enterpriseCustomer = enterpriseCustomerDAO.findOne(contract.getBorrowerId());
 			
 			enterpriseCustomerRequestModel = new EnterpriseCustomerRequestModel(
@@ -403,7 +403,7 @@ public class PaymentApiImpl  implements PaymentApi {
 			return null;
 		}
 		
-		List<ContractZyw> contractZywList = collateralDAO.listByloanContractId(contract.getContractNumber());
+		List<ContractZyw> contractZywList = collateralDAO.listByloanContractId(loanIdContractId);
 	
 		List<ContractZywRequestModel> contractZywRequestModels = null;
 		if (contractZywList != null && !contractZywList.isEmpty()) {
@@ -414,7 +414,7 @@ public class PaymentApiImpl  implements PaymentApi {
 		}
 		
 		
-		List<ContractDyw> contractDywList = contractDywDAO.listByloanContractId(contract.getContractNumber());
+		List<ContractDyw> contractDywList = contractDywDAO.listByloanContractId(loanIdContractId);
 		List<ContractDywRequestModel> contractDywRequestModels = null;
 		if (contractDywList != null && !contractDywList.isEmpty()) {
 			contractDywRequestModels = new ArrayList<ContractDywRequestModel>();
@@ -424,7 +424,7 @@ public class PaymentApiImpl  implements PaymentApi {
 		}
 		
 		
-		List<RepayPlan> repayPlanList = repayPlanDAO.listByloanContractId(contract.getContractNumber());
+		List<RepayPlan> repayPlanList = repayPlanDAO.listByloanContractId(loanIdContractId);
 		List<RepayPlanRequestModel> repayPlanRequestModels = null;
 	
 		if (repayPlanList != null && !repayPlanList.isEmpty()) {
