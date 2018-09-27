@@ -9,7 +9,6 @@ import java.util.List;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -31,7 +30,9 @@ import com.kingtech.dao.rdbms.PersonalCustomerDAO;
 import com.kingtech.dao.rdbms.RepayPlanDAO;
 import com.kingtech.dao.rdbms.SettledInfoDAO;
 import com.kingtech.enums.BorrowerTypeEnum;
+import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.enums.RecordStatus;
 import com.kingtech.model.ContractDywModel;
 import com.kingtech.model.ContractModel;
 import com.kingtech.model.ContractZywModel;
@@ -40,6 +41,7 @@ import com.kingtech.model.RepayPlanModel;
 import com.kingtech.model.SettledInfoModel;
 import com.kingtech.model.misc.PagedResult;
 import com.kingtech.web.commons.base.CreatRequstId;
+import com.kingtech.web.commons.base.api.PaymentApi;
 import com.kingtech.web.commons.base.service.ContractService;
 /**
  * 合同信息
@@ -77,6 +79,9 @@ public class ContractServiceImpl implements ContractService{
 	
 	@Autowired
 	private DynamicQuery dq;
+	
+	@Autowired
+	private PaymentApi api;
 	
 	@Override
 	public List<Contract> listAll(){
@@ -169,16 +174,20 @@ public class ContractServiceImpl implements ContractService{
 	@Transactional
 	public void addSettledInfo(String loanContractId, BigDecimal money, Date loanTime, Date startDate, Date endDate) {
 		SettledInfo entity = settledInfoDAO.findByloanContractId(loanContractId);
+		IdentifierType type = null;
 		if (entity == null) {
-			settledInfoDAO.save(new SettledInfo(loanContractId, creatRequstId.getReqId(), 
-												PushStatus.INITATION, money, loanTime, startDate, endDate));
+			entity = settledInfoDAO.save(new SettledInfo(loanContractId, creatRequstId.getReqId(), 
+												PushStatus.INITATION, money, loanTime, startDate, endDate,RecordStatus.NORMAL));
+			type = IdentifierType.A;
 		} else {
 			entity.setMoney(money);
 			entity.setLoanTime(loanTime);
 			entity.setStartDate(startDate);
 			entity.setEndDate(endDate);
 			settledInfoDAO.save(entity);
+			type = IdentifierType.U;
 		}
+		api.settleInfoApi(entity.getId(), type);
 	}
 	
 	@Override

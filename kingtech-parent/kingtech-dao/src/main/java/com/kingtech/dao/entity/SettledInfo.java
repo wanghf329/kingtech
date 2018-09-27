@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 
 import com.kingtech.dao.entity.base.LoanRecordEntity;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.enums.RecordStatus;
 
 /**
  * 放款信息表
@@ -41,8 +42,8 @@ public class SettledInfo extends LoanRecordEntity {
 
 	public SettledInfo(String loanContractId, String reqId,
 			PushStatus pushStatus, BigDecimal money, Date loanTime,
-			Date startDate, Date endDate) {
-		super(loanContractId, reqId, pushStatus);
+			Date startDate, Date endDate,RecordStatus recordStatus) {
+		super(loanContractId, reqId, pushStatus,recordStatus);
 		this.money = money;
 		this.loanTime = loanTime;
 		this.startDate = startDate;
