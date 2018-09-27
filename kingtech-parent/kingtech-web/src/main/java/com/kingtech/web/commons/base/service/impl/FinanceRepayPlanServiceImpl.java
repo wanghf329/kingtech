@@ -7,15 +7,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kingtech.dao.entity.FinanceRepayPlan;
-import com.kingtech.dao.rdbms.FinancingRepayPlanDAO;
+import com.kingtech.dao.rdbms.FinanceRepayPlanDAO;
 import com.kingtech.model.FinanceRepayPlanModel;
 import com.kingtech.web.commons.base.service.FinanceRepayPlanService;
 
 @Service
-public class FinancingRepayPlanServiceImpl implements FinanceRepayPlanService{
+public class FinanceRepayPlanServiceImpl implements FinanceRepayPlanService{
 	
 	@Autowired
-	private FinancingRepayPlanDAO financingRepayPlanDAO;
+	private FinanceRepayPlanDAO financingRepayPlanDAO;
 
 	@Override
 	public List<FinanceRepayPlan> listfinanceRepayById(String financeId) {

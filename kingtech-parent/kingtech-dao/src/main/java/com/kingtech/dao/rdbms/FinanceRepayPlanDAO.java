@@ -8,8 +8,8 @@ import org.springframework.data.repository.query.Param;
 
 import com.kingtech.dao.entity.FinanceRepayPlan;
 
-public interface FinancingRepayPlanDAO extends PagingAndSortingRepository<FinanceRepayPlan, String> {
+public interface FinanceRepayPlanDAO extends PagingAndSortingRepository<FinanceRepayPlan, String> {
 	
-	@Query("select c from FinancingRepayPlan c where c.financeId = :financeId  order by c.endDate")
+	@Query("select c from FinanceRepayPlan c where c.financeId = :financeId  order by c.endDate")
 	public List<FinanceRepayPlan> listByFinanceId(@Param("financeId")String financeId);
 }
