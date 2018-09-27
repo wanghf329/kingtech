@@ -202,13 +202,13 @@
                                             <th>关注类计提金额(万元)</th>
                                             <th>次级类贷款余额(万元)</th>
                                             <th>次级类计提比例</th> 
-                                            <th>次级类计提金额(万元)</th>
+                                            <!-- <th>次级类计提金额(万元)</th>
                                             <th>可疑类贷款余额(万元)</th>
                                             <th>可疑类计提比例</th> 
                                             <th>可疑类计提金额(万元)</th>
                                             <th>损失类贷款余额(万元)</th>
                                             <th>损失类计提比例</th> 
-                                            <th>损失类计提金额(万元)</th>
+                                            <th>损失类计提金额(万元)</th> -->
                                             <th>状态</th>
                                             <th>操作</th>
                                         </tr>
@@ -224,13 +224,14 @@
 	                                            <td><strong class="text-red"><i class="fa fa-rmb"></i>${it.followReal}</strong></td>
 	                                            <td><strong class="text-red"><i class="fa fa-rmb"></i>${it.minorBalance}</strong></td>
 	                                            <td><strong class="text-green">${it.minorRate}%</strong></td>  
-	                                            <td><strong class="text-red"><i class="fa fa-rmb"></i>${it.minorReal}</strong></td>
+	                                            <%--<td><strong class="text-red"><i class="fa fa-rmb"></i>${it.minorReal}</strong></td>
 	                                            <td><strong class="text-red"><i class="fa fa-rmb"></i>${it.suspiciousBalance}</strong></td>
 	                                            <td><strong class="text-green">${it.suspiciousRate}%</strong></td>  
 	                                            <td><strong class="text-red"><i class="fa fa-rmb"></i>${it.suspiciousReal}</strong></td>
 	                                            <td><strong class="text-red"><i class="fa fa-rmb"></i>${it.lossBalance}</strong></td>
 	                                            <td><strong class="text-green">${it.lossRate}%</strong></td>  
 	                                            <td><strong class="text-red"><i class="fa fa-rmb"></i>${it.lossReal}</strong></td>
+	                                             --%>
 	                                            <td> 
 	                                            	<c:if test="${it.pushStatus=='INITATION'}"><span class="text-gray"><i class="text-gray fa fa-info-circle"></i>初始</span></c:if>
 	                                            	<c:if test="${it.pushStatus=='SUCCESS'}"><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span></c:if>

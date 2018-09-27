@@ -16,6 +16,7 @@ import com.kingtech.dao.entity.base.RecordEntity;
 import com.kingtech.enums.CertType;
 import com.kingtech.enums.EducationEnum;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.enums.RecordStatus;
 import com.kingtech.enums.SexEnum;
 import com.kingtech.enums.YesNoEnum;
 
@@ -89,8 +90,8 @@ public class Employee extends RecordEntity {
 			String address, String department, SexEnum sex, CertType cardType,
 			String cardNumber, EducationEnum education,
 			YesNoEnum executiveFlag, String position, Date entryTime,
-			Date quitTime, String reqId, PushStatus pushStatus) {
-		super(reqId, pushStatus);
+			Date quitTime, String reqId, PushStatus pushStatus,RecordStatus recordStatus) {
+		super(reqId, pushStatus,recordStatus);
 		this.name = name;
 		this.phone = phone;
 		this.email = email;

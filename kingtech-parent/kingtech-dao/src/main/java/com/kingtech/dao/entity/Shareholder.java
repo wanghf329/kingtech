@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 import com.kingtech.dao.entity.base.RecordEntity;
 import com.kingtech.enums.PartnerTypeEnum;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.enums.RecordStatus;
 import com.kingtech.enums.SexEnum;
 
 /**
@@ -62,8 +63,8 @@ public class Shareholder extends RecordEntity {
 	private String branchId;
 
 	public Shareholder(PartnerTypeEnum partnerType, String holder, BigDecimal holdingScale, BigDecimal contributionAmount,
-			Date joinTime, SexEnum gender, Date quitTime, String branchId, String reqId, PushStatus pushStatus) {
-		super(reqId, pushStatus);
+			Date joinTime, SexEnum gender, Date quitTime, String branchId, String reqId, PushStatus pushStatus,RecordStatus recordStatus) {
+		super(reqId, pushStatus,recordStatus);
 		this.partnerType = partnerType;
 		this.holder = holder;
 		this.holdingScale = holdingScale;

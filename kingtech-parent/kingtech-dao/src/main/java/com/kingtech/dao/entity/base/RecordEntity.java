@@ -67,9 +67,10 @@ public abstract class RecordEntity extends BaseEntity {
 		this.updateTime = new Date();
 	}
 
-	public RecordEntity(String reqId, PushStatus pushStatus) {
+	public RecordEntity(String reqId, PushStatus pushStatus,RecordStatus recordStatus) {
 		super();
 		this.reqId = reqId;
 		this.pushStatus = pushStatus;
+		this.recordStatus = recordStatus;
 	}
 }
