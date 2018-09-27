@@ -1,21 +1,26 @@
 package com.kingtech.web.controller;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.kingtech.enums.LoanClassificationEnum;
-import com.kingtech.enums.PushStatus;
+import com.kingtech.enums.BadTypeEnum;
 import com.kingtech.enums.RepayStatusEnum;
 import com.kingtech.enums.YesNoEnum;
+import com.kingtech.model.AssetTransferModel;
 import com.kingtech.model.OtherBaddebtModel;
 import com.kingtech.model.OtherOverdueInfoModel;
 import com.kingtech.model.ProvisionInfoModel;
@@ -26,6 +31,7 @@ import com.kingtech.model.ext.ModelExt;
 import com.kingtech.model.ext.RepayExtendInfoModelExt;
 import com.kingtech.model.misc.PageInfo;
 import com.kingtech.model.misc.PagedResult;
+import com.kingtech.web.commons.base.service.AssetTransferService;
 import com.kingtech.web.commons.base.service.ContractService;
 import com.kingtech.web.commons.base.service.ExtendRepayPlanService;
 import com.kingtech.web.commons.base.service.ExtendRepayService;
@@ -54,6 +60,9 @@ public class PostLoanApiController {
 	
 	@Autowired
 	private RepayInfoService repayInfoService;
+	
+	@Autowired
+	private AssetTransferService assetTransferService;
 	
 	/**
 	 * 还款信息
@@ -198,6 +207,7 @@ public class PostLoanApiController {
 	public String badDebtsInfo(Model model) {
 		model.addAttribute("contracts", postLoanService.listAllContract());
 		model.addAttribute("list", postLoanService.listAllOtherBaddebt());
+		model.addAttribute("badTypes", BadTypeEnum.values());
 		return "/postloan/badDebtsInfo";
 	}
 	
@@ -207,14 +217,16 @@ public class PostLoanApiController {
 	public OtherBaddebtModel getBaddebtsInfo(Model model,@PathVariable String id) {
 		return postLoanService.getBaddebtInfoById(id);
 	}
+	
+	
 	@RequestMapping(method = RequestMethod.POST, value = "add/baddebtsInfo")
 	public String addNewBaddebtsInfo(Model model,String id,
-								    String setDate,
+								    Date lossDate,
 								    BigDecimal badMoney,
-								    String badType,
-								    String followupWork,
+								    BadTypeEnum badType,
+								    String followUp,
 								    String loanContractId){
-		postLoanService.addNewBaddebtInfo(id,setDate,badMoney,badType,followupWork, loanContractId);
+		postLoanService.addNewBaddebtInfo(id,lossDate,badMoney,badType,followUp, loanContractId);
 		return "redirect:/postLoan/baddebtsinfo";
 	}
 
@@ -294,14 +306,14 @@ public class PostLoanApiController {
 	
 	
 	@RequestMapping(method = RequestMethod.POST, value = "provision/edit")
-	public String provisionEdit(Model model, String id, String dateMonth,
+	public String provisionEdit(Model model, String id, Date dateMonth,
 			BigDecimal normalBalance, BigDecimal normalRate, BigDecimal normalReal, 
 			BigDecimal followBalance, BigDecimal followRate, BigDecimal followReal,
 			BigDecimal minorBalance, BigDecimal minorRate, BigDecimal minorReal, 
 			BigDecimal suspiciousBalance, BigDecimal suspiciousRate, BigDecimal suspiciousReal,
 			BigDecimal lossBalance, BigDecimal lossRate, BigDecimal lossReal) {
 		try {
-			provisionService.addOrEdit(id, DateUtils.parseDate(dateMonth, "yyyy-MM"),
+			provisionService.addOrEdit(id, dateMonth,
 					normalBalance, normalRate, normalReal, 
 					followBalance, followRate, followReal,
 					minorBalance, minorRate, minorReal, 
@@ -333,16 +345,46 @@ public class PostLoanApiController {
 		return pi;
 	}
 	
-	@ResponseBody
-	@RequestMapping(method = RequestMethod.GET, value = "provision/detail/{id}")
-	public boolean update(Model model,@PathVariable("id") String id) {
-		RepayExtendInfoModel rf = extendRepayService.getById(id);
-		if (PushStatus.INITATION.name().equals(rf.getPushStatus()) || PushStatus.FAILED.name().equals(rf.getPushStatus())) {
-			//修改状态已删除
-		}
-		if (PushStatus.SUCCESS.name().equals(rf.getPushStatus())) {
-			//
-		}
-		return true;
+	/**
+	 * 资产转让
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.GET, value = "assetTransferInfo")
+	public String assetTransferInfo(Model model) {
+		model.addAttribute("contracts", postLoanService.listAllContract());
+		model.addAttribute("list", postLoanService.listAllAssetTransfer());
+		return "/postloan/assetTransferInfo";
 	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "assetTransfer/edit")
+	public String assetTransferEdit(Model model, String id, String loanContractId, String transferNumber,
+			BigDecimal transferMoney, BigDecimal originalMoney, BigDecimal discountMoney, 
+			String acceptUnit, String protocol, String transferDate) {
+		try {
+			assetTransferService.addOrEdit(id, 
+					loanContractId, transferNumber, transferMoney, 
+					originalMoney, discountMoney, acceptUnit, protocol,
+					DateUtils.parseDate(transferDate, "yyyy-MM-dd"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/postLoan/assetTransferInfo";
+	}
+	
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET, value = "assetTransfer/detail/{id}")
+	public AssetTransferModel assetTransferDetail(Model model,@PathVariable("id") String id) {
+		AssetTransferModel at = assetTransferService.getById(id);
+		return at;
+	}
+
+	@InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        //第二个参数是控制是否支持传入的值是空，这个值很关键，如果指定为false，那么如果前台没有传值的话就会报错
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
 }

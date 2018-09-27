@@ -72,7 +72,7 @@
 										<label for="#badType" class="col-sm-3 control-label"><i class="text-red">*</i> 坏账类型</label>
 										<div class="col-sm-6 input-group"> 
 											<select class="form-control validate[required]" id="badType" name="badType">
-												<c:forEach var="it" items="${badTypeEnum}">
+												<c:forEach var="it" items="${badTypes}">
 			  										<option value ="${it.name()}">${it.getKey()}</option>
 												</c:forEach>
 											</select>

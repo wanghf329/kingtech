@@ -1,12 +1,14 @@
 package com.kingtech.web.commons.base.service;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import com.kingtech.dao.entity.Contract;
 import com.kingtech.dao.entity.OtherBaddebt;
 import com.kingtech.dao.entity.OtherOverdueInfo;
 import com.kingtech.dao.entity.RepayInfo;
+import com.kingtech.enums.BadTypeEnum;
 import com.kingtech.model.OtherBaddebtModel;
 import com.kingtech.model.OtherOverdueInfoModel;
 import com.kingtech.model.RepayInfoModel;
@@ -35,9 +37,9 @@ public interface PostLoanService {
 	public OtherBaddebtModel getBaddebtInfoById(String id);
 	
 	public OtherBaddebt addNewBaddebtInfo(String id,
-									  	  String lossDate,
+									  	  Date lossDate,
 									  	  BigDecimal badMoney,
-									  	  String badType,
+									  	  BadTypeEnum badType,
 									  	  String followUp,
 									  	  String loanContractId );
 	
@@ -52,5 +54,7 @@ public interface PostLoanService {
 										  	  BigDecimal balance,
 										  	  String remarks,
 										  	  String loanContractId);
+	
+	public List<ModelExt> listAllAssetTransfer();
 
 }

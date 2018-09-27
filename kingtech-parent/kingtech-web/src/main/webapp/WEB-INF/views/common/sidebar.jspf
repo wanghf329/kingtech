@@ -48,8 +48,8 @@
             </a>
             <ul class="treeview-menu">
                 <li id="financeCapitalList"><a href="finance/capitalList"><i class="fa fa-angle-double-right"></i>单笔融资信息</a></li>
-                <li id="financeInfoList"><a href="branch/employeeList"><i class="fa fa-angle-double-right"></i>融资实际还款信息</a></li>
-                <li id="financeInfoList"><a href="branch/employeeList"><i class="fa fa-angle-double-right"></i>月度融资余额信息</a></li>
+                <li id="financeRepaymentList"><a href="finance/repaymentList"><i class="fa fa-angle-double-right"></i>融资实际还款信息</a></li>
+                <li id="financeMonthBalanceList"><a href="finance/monthBalanceList"><i class="fa fa-angle-double-right"></i>月度融资余额信息</a></li>
             </ul>
         </li>
         <li class="treeview active">
@@ -87,8 +87,9 @@
                 <li id="extensionrepayplaninfo"><a href="postLoan/extensionrepayplaninfo"><i class="fa fa-angle-double-right"></i>展期还款计划信息</a></li>
                 <li id="extensionrepayinfo"><a href="postLoan/extensionrepayinfo"><i class="fa fa-angle-double-right"></i>展期还款信息</a></li>
                 <li id="baddebtsinfo"><a href="postLoan/baddebtsinfo"><i class="fa fa-angle-double-right"></i>坏账信息</a></li>
-                <li id="overdueinfo"><a href="postLoan/overdueinfo"><i class="fa fa-angle-double-right"></i>逾期信息</a></li>
+                <!-- <li id="overdueinfo"><a href="postLoan/overdueinfo"><i class="fa fa-angle-double-right"></i>逾期信息</a></li>  -->
                 <li id="provisionInfo"><a href="postLoan/provisioninfo"><i class="fa fa-angle-double-right"></i>计提信息</a></li> 
+                <li id="assettransferinfo"><a href="postLoan/assetTransferInfo"><i class="fa fa-angle-double-right"></i>资产转让信息</a></li> 
             </ul>
         </li>   
         <!--      

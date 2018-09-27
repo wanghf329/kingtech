@@ -85,7 +85,7 @@
 												<div class="form-group">
 													<label for="#loanAmount" class="col-sm-2 control-label">合同担保金额（元）</label> 
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[funcCall[guaranteeMoneyValidate], custom[number],min[0],max[99999999999]]" name="guaranteeMoney" id ="guaranteeMoney" value="${capital.guaranteeMoney}" data-errormessage="合同担保金额错误,范围0-99,999,999,999">
+														<input type="text" class="form-control validate[funcCall[guaranteeMoneyValidate], custom[number],min[0],max[99999999999]]" name="guaranteeMoney" id ="guaranteeMoney" value="${capital.guaranteeMoney}" >
 													</div>
 												</div>
 												
@@ -134,7 +134,7 @@
 												<div class="form-group">
 													<label for="#position" class="col-sm-2 control-label">合同编号</label>
 													<div class="col-sm-4 input-group">
-														<input type="text"  class="form-control validate[funcCall[loanContractNumberValidate] ]" id="loanContractNumber" name="loanContractNumber"  value="${capital.loanContractNumber}" data-errormessage="合同编号不能为空"/>
+														<input type="text"  class="form-control validate[funcCall[loanContractNumberValidate] ]" id="loanContractNumber" name="loanContractNumber"  value="${capital.loanContractNumber}" />
 													</div>
 												</div>
 																											
