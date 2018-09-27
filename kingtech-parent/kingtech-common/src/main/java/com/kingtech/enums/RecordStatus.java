@@ -1,7 +1,7 @@
 package com.kingtech.enums;
 
 public enum RecordStatus implements BaseEnum {
-	NORMAL("初始"),	
+	NORMAL("正常"),	
 	DELETEED("删除");
 	
 	private String key;
