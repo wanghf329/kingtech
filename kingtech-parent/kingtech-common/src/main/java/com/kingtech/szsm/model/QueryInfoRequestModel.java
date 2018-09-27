@@ -1,7 +1,5 @@
 package com.kingtech.szsm.model;
 
-import com.kingtech.common.config.BaseConfig;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,7 +11,7 @@ public class QueryInfoRequestModel extends BaseRequestModel {
 	private String api;
 
 	public QueryInfoRequestModel(String reqId,String api) {
-		super(reqId);
+		super(null, null, reqId);
 		this.api = api;
 	}
 	

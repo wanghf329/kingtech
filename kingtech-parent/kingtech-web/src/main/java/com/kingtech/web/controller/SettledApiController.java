@@ -9,6 +9,7 @@ import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -79,10 +80,13 @@ public class SettledApiController {
 	
 	
 	@ResponseBody
+	@Transactional
 	@RequestMapping(method = RequestMethod.GET, value = "/data")
 	public PagedResult<SettledInfoModel> settleInfo(Model model,
 												 @RequestParam("start") Integer firstIndex,
 									 			 @RequestParam("length") Integer pageSize) {
+		
+		contractService.syncSettledInfoPushStatus();
 		return contractService.pageListSettledInfo(PageInfo.page(firstIndex, pageSize));
 	}
 	
