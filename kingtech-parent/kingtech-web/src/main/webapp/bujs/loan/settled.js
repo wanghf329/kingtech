@@ -10,7 +10,13 @@ $(document).ready(function () {
     	  autoHidePrompt:true,
     	  failure : function() { callFailFunction()  } 
       })
-      initDataTables(); 
+      initDataTables();  
+      
+      if(typeof(canEdit) != "undefined" && canEdit==false){  
+    	  $('.form-horizontal').find('input,textarea,select').attr('disabled',true); 
+    	  $('.form-horizontal').find("button").hide();
+    	  $('body').find(".edit-href").hide(); 
+      } 
 });
 
 $("#addSettledInfoBtn").click(function(){
@@ -73,21 +79,24 @@ function initDataTables() {
 							return '<span class="text-gray"><i class="text-gray fa fa-info-circle"></i>初始</span>';
 						case 'SUCCESS':
 							return '<span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span>';
+						case 'DELETEING': 
+							return '<span class="text-blue"><i class="text-green fa fa-asterisk"></i>删除处理中</span>';
 						case 'INPROSESS':
 							return '<span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span>';
 						case 'FAILED':
 							return '<span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span>';
 					}
 				}}, 
-				{data : null,render : function(data, type, row) { 
-						if(row.pushStatus=='SUCCESS' || row.pushStatus=='INPROSESS') { 
-											return '<a href="settled/single?loanContractId='+row.loanContractId+'"><strong>查看</strong></a>'
-										}
-										if(row.pushStatus=='INITATION' || row.pushStatus=='FAILED') { 
-											return '<a href="settled/single?loanContractId='+row.loanContractId+'"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>'
-	                                			    +'<a href="javascirpt:void(0)" class="settled-delete" data-id="'+row.id+'"><i class="text-red fa fa-edit"></i><strong>删除</strong>';
-										}
-									}} ],
+				{data : null,render : function(data, type, row) {  
+									if(row.pushStatus=='SUCCESS') {
+											return '<a href="settled/single?loanContractId='+row.loanContractId+'"><i class="text-gray fa fa-eye"></i><strong>查看</strong></a>  '+
+												'<a href="javascirpt:void(0)" class="settled-delete" data-id="'+row.id+'"><i class="text-red fa fa-times"></i><strong>删除</strong>';
+									} 
+									if(row.pushStatus=='DELETEING'){
+										return '<a href="settled/single?loanContractId='+row.loanContractId+'"><i class="text-gray fa fa-eye"></i><strong>查看</strong></a>';
+									}
+									
+									}}],
 							"fnDrawCallback" : function(oSettings) {
 								for (var i = 0, iLen = oSettings.aiDisplay.length; i < iLen; i++) {
 									$('td:eq(0)',oSettings.aoData[oSettings.aiDisplay[i]].nTr).html(oSettings['_iDisplayStart'] + i+ 1);
@@ -95,17 +104,17 @@ function initDataTables() {
 										var id = $(this).data("id");
 										swal({
 											title : "确定删除吗？",
-											text : "推送前确认数据无误，推送后将无法更改！",
+											text : "删除需要等待金融办确认！",   
 											type : "warning",
 											showCancelButton : true,
 											confirmButtonColor : "#DD6B55",
-											confirmButtonText : "确认推送",
-											cancelButtonText : "取消推送",
+											confirmButtonText : "确认删除",
+											cancelButtonText : "取消删除", 
 											closeOnConfirm : false,
 											closeOnCancel : true 
 										}, function() {  
 											$.ajax({
-												url:"settled/push/"+id,
+												url:"settled/delete/"+id,
 												type:'get',
 												async: false,
 												success:function(res){

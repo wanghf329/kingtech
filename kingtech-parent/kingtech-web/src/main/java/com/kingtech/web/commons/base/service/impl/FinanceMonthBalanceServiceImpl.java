@@ -2,6 +2,8 @@ package com.kingtech.web.commons.base.service.impl;
 
 import java.util.List;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +21,7 @@ import com.kingtech.web.commons.base.CreatRequstId;
 import com.kingtech.web.commons.base.api.PaymentApi;
 import com.kingtech.web.commons.base.service.FinanceMonthBalanceService;
 
+@Slf4j
 @Service
 public class FinanceMonthBalanceServiceImpl implements FinanceMonthBalanceService {
 
