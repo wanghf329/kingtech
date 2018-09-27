@@ -85,4 +85,11 @@ public class SettledApiController {
 									 			 @RequestParam("length") Integer pageSize) {
 		return contractService.pageListSettledInfo(PageInfo.page(firstIndex, pageSize));
 	}
+	
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET,value="/delete/{id}")
+	public SynResponseModel push(Model model,@PathVariable("id") String id) { 
+		SynResponseModel synresponseModel = paymentApi.settleInfoApi(id, IdentifierType.D);
+		return synresponseModel;
+	}  
 }

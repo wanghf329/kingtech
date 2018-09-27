@@ -16,6 +16,10 @@ import com.kingtech.model.ShareholderModel;
 import com.kingtech.szsm.model.ContractRequestModel;
 import com.kingtech.szsm.model.EmployeeRequestModel;
 import com.kingtech.szsm.model.FinanceInfoRequestModel;
+import com.kingtech.szsm.model.OtherBaddebtRequestModel;
+import com.kingtech.szsm.model.ProvisionInfoRequestModel;
+import com.kingtech.szsm.model.QueryInfoRequestModel;
+import com.kingtech.szsm.model.RepayExtendInfoRequestModel;
 import com.kingtech.szsm.model.RepayInfoRequestModel;
 import com.kingtech.szsm.model.SettledInfoRequestModel;
 import com.kingtech.szsm.model.SynResponseModel;
@@ -76,11 +80,9 @@ public class FinanceServiceImpl   extends BaseAbstract implements FinanceService
 
 
 	@Override
-	public SynResponseModel repayExtendInfoFacade(RepayExtendInfoModel repayExtendInfoModel,IdentifierType type) {
-//		Map<String, String> data = getDataAndSign(repayExtendInfoModel);
-//		SynResponseModel responseModel = getResponse(data, "pushExtendRepayData");
-//		return responseModel;
-		return null;
+	public SynResponseModel repayExtendInfoFacade(RepayExtendInfoRequestModel repayExtendInfoModel,IdentifierType type) {
+		SynResponseModel responseModel = getResponse(repayExtendInfoModel, "extend-repay",type);
+		return responseModel;
 	}
 
 
@@ -94,11 +96,9 @@ public class FinanceServiceImpl   extends BaseAbstract implements FinanceService
 
 
 	@Override
-	public SynResponseModel otherBaddebtFacade(OtherBaddebtModel otherBaddebtModel) {
-//		Map<String, String> data = getDataAndSign(otherBaddebtModel);
-//		SynResponseModel responseModel = getResponse(data, "pushBadDebtData");
-//		return responseModel;
-		return null;
+	public SynResponseModel otherBaddebtFacade(OtherBaddebtRequestModel otherBaddebtModel,IdentifierType type) {
+		SynResponseModel responseModel = getResponse(otherBaddebtModel, "contract-loss",type);
+		return responseModel;
 	}
 
 
@@ -112,11 +112,9 @@ public class FinanceServiceImpl   extends BaseAbstract implements FinanceService
 
 
 	@Override
-	public SynResponseModel provisionInfoFacade(ProvisionInfoModel provisionInfoModel) {
-//		Map<String, String> data = getDataAndSign(provisionInfoModel);
-//		SynResponseModel responseModel = getResponse(data, "pushProvisionData");
-//		return responseModel;
-		return null;
+	public SynResponseModel provisionInfoFacade(ProvisionInfoRequestModel provisionInfoModel,IdentifierType type) {
+		SynResponseModel responseModel = getResponse(provisionInfoModel, "asset-loss",type);
+		return responseModel;
 	}
 
 
@@ -130,6 +128,13 @@ public class FinanceServiceImpl   extends BaseAbstract implements FinanceService
 	@Override
 	public SynResponseModel financeInfoFacade(FinanceInfoRequestModel financeInfoRequestModel, IdentifierType type) {
 		SynResponseModel responseModel = getResponse(financeInfoRequestModel, " single-finane",type);
+		return responseModel;
+	}
+
+
+	@Override
+	public SynResponseModel queryInfoFacade(QueryInfoRequestModel queryInfoRequestModel) {
+		SynResponseModel responseModel =  queryResponse(queryInfoRequestModel);
 		return responseModel;
 	}
 

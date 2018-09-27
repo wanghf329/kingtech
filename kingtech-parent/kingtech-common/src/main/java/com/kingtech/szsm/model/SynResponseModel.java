@@ -1,5 +1,6 @@
 package com.kingtech.szsm.model;
 
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 /**
@@ -7,8 +8,11 @@ import lombok.NoArgsConstructor;
  * @author baijt
  *
  */
+
 public class SynResponseModel   extends BaseResponsModel{
 	
-	
+	public SynResponseModel ( String resultCode,String resultMsg){
+		super(resultCode, resultMsg);
+	}
 	
 }

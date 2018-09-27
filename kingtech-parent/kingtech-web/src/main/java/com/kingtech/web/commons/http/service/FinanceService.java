@@ -12,6 +12,10 @@ import com.kingtech.model.ShareholderModel;
 import com.kingtech.szsm.model.ContractRequestModel;
 import com.kingtech.szsm.model.EmployeeRequestModel;
 import com.kingtech.szsm.model.FinanceInfoRequestModel;
+import com.kingtech.szsm.model.OtherBaddebtRequestModel;
+import com.kingtech.szsm.model.ProvisionInfoRequestModel;
+import com.kingtech.szsm.model.QueryInfoRequestModel;
+import com.kingtech.szsm.model.RepayExtendInfoRequestModel;
 import com.kingtech.szsm.model.RepayInfoRequestModel;
 import com.kingtech.szsm.model.SettledInfoRequestModel;
 import com.kingtech.szsm.model.SynResponseModel;
@@ -66,7 +70,7 @@ public interface FinanceService {
 	 * @param repayExtendInfoModel
 	 * @return
 	 */
-	public SynResponseModel repayExtendInfoFacade(RepayExtendInfoModel repayExtendInfoModel,IdentifierType type);
+	public SynResponseModel repayExtendInfoFacade(RepayExtendInfoRequestModel repayExtendInfoModel,IdentifierType type);
 	
 	/**
 	 * 展期还款计划接口
@@ -79,7 +83,7 @@ public interface FinanceService {
 	 * @param otherBaddebtModel
 	 * @return
 	 */
-	public SynResponseModel otherBaddebtFacade(OtherBaddebtModel otherBaddebtModel);
+	public SynResponseModel otherBaddebtFacade(OtherBaddebtRequestModel otherBaddebtModel,IdentifierType type);
 	/**
 	 * 逾期信息
 	 * @param otherOverdueInfoModel
@@ -93,7 +97,7 @@ public interface FinanceService {
 	 * @param personalCustomerModel
 	 * @return
 	 */
-	public SynResponseModel provisionInfoFacade(ProvisionInfoModel provisionInfoModel); 
+	public SynResponseModel provisionInfoFacade(ProvisionInfoRequestModel provisionInfoModel,IdentifierType type); 
 	/**
 	 * 放款信息接口
 	 * @return
@@ -107,4 +111,10 @@ public interface FinanceService {
 	 * @return
 	 */
 	public SynResponseModel  financeInfoFacade (FinanceInfoRequestModel financeInfoRequestModel,IdentifierType type);
+	/**
+	 * 查询接口
+	 * @param queryInfoRequestModel
+	 * @return
+	 */
+	public SynResponseModel  queryInfoFacade(QueryInfoRequestModel queryInfoRequestModel);
 }

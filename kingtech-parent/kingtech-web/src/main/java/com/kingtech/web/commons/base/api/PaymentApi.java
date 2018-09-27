@@ -1,5 +1,6 @@
 package com.kingtech.web.commons.base.api;
 
+import com.kingtech.enums.Cmd;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.szsm.model.AsyReponseModel;
 import com.kingtech.szsm.model.SynResponseModel;
@@ -67,7 +68,7 @@ public interface PaymentApi {
 	 * @param otherBaddebtModel
 	 * @return
 	 */
-	public void otherBaddebtApi(String otherBaddebtId,IdentifierType type);
+	public SynResponseModel otherBaddebtApi(String otherBaddebtId,IdentifierType type);
 	/**
 	 * 逾期信息
 	 * @param otherOverdueInfoModel
@@ -104,6 +105,13 @@ public interface PaymentApi {
 	
 	public SynResponseModel financeInfoApi(String financeInfoId,IdentifierType type);
 	
+	
+	/**
+	 * 查询
+	 * @return
+	 */
+	
+	public void queryTranInfoApi(String id,Cmd cmd);
 	
 	
 	

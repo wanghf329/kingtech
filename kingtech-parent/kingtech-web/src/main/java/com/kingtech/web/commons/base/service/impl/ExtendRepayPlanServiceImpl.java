@@ -7,22 +7,24 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.common.collect.Lists;
 import com.kingtech.common.dynamicquery.DynamicQuery;
 import com.kingtech.dao.entity.Contract;
 import com.kingtech.dao.entity.RepayExtendPlan;
+import com.kingtech.dao.entity.RepayExtendPlanInfo;
 import com.kingtech.dao.rdbms.ContractDAO;
 import com.kingtech.dao.rdbms.RepayExtendPlanDAO;
+import com.kingtech.dao.rdbms.RepayExtendPlanInfoDAO;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.RecordStatus;
+import com.kingtech.model.RepayExtendPlanInfoModel;
 import com.kingtech.model.RepayExtendPlanModel;
-import com.kingtech.model.ext.ModelExt;
 import com.kingtech.model.ext.RepayExtendPlanModelExt;
 import com.kingtech.model.misc.PagedResult;
 import com.kingtech.web.commons.base.CreatRequstId;
@@ -34,6 +36,9 @@ public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 
 	@Autowired
 	private RepayExtendPlanDAO repayExtendPlanDAO;
+	
+	@Autowired
+	private RepayExtendPlanInfoDAO repayExtendPlanInfoDAO;
 
 	@Autowired
 	private CreatRequstId creatRequstId;
@@ -51,30 +56,17 @@ public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 	@Transactional
 	public void addNew(String id, 
 			String loanContractId,
-			String count,
-			String endDate, 
-			String principal, 
-			String interest) {
+			String count) {
 		try {
-			RepayExtendPlan rp = null;
+			RepayExtendPlanInfo rp = null;
 			if (StringUtils.isEmpty(id)) {
-				rp = new RepayExtendPlan(loanContractId,
-						creatRequstId.getReqId(),
-						PushStatus.INITATION, 
-						RecordStatus.NORMAL,
-						count,
-						StringUtils.isEmpty(endDate) ? null : DateUtils.parseDate(endDate, "yyyy-MM-dd"), 
-						new BigDecimal(principal), 
-						new BigDecimal(interest));
+				rp = new RepayExtendPlanInfo(loanContractId, creatRequstId.getReqId(),PushStatus.INITATION,RecordStatus.NORMAL, count);
 			} else {
-				rp = repayExtendPlanDAO.findOne(id);
+				rp = repayExtendPlanInfoDAO.findOne(id);
 				rp.setCount(count);
-				rp.setEndDate(StringUtils.isEmpty(endDate) ? null : DateUtils.parseDate(endDate, "yyyy-MM-dd"));
-				rp.setPrincipal(new BigDecimal(principal));
-				rp.setInterest(new BigDecimal(interest));
 			}
 			
-			rp = repayExtendPlanDAO.save(rp);
+			rp = repayExtendPlanInfoDAO.save(rp);
 			
 			IdentifierType type = StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U;
 //			paymentApi.repayExtendPlanApi(rp.getId(), type);
@@ -88,7 +80,7 @@ public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 	public List<RepayExtendPlanModelExt> listAll() {
 		List<RepayExtendPlanModelExt> result = new ArrayList<RepayExtendPlanModelExt>();
 		for(RepayExtendPlan rf : repayExtendPlanDAO.findAll()){
-			Contract ct = contractDAO.findOne(rf.getLoanContractId());
+//			Contract ct = contractDAO.findOne(rf.getLoanContractId());
 //			result.add(new RepayExtendPlanModelExt(rf.getId(), rf.getLoanContractId(),
 //					String.valueOf(rf.getExtendCount()),rf.getExtendTerm(),DateFormatUtils.format(rf.getRepayDate(), "yyyy-MM-dd"),
 //					rf.getPrincipal().toPlainString(),
@@ -106,39 +98,96 @@ public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 	@Override
 	public RepayExtendPlanModel getById(String id) {
 		RepayExtendPlan rp = repayExtendPlanDAO.findOne(id);
-		return new RepayExtendPlanModel(id, 
-				rp.getLoanContractId(), 
-				rp.getInterest().toPlainString(), 
-				rp.getEndDate()==null ? null : DateFormatUtils.format(rp.getEndDate(), "yyyy-MM-dd"), 
-				rp.getPrincipal().toPlainString(), 
-				rp.getCount());
+//		return new RepayExtendPlanModel(id, 
+//				rp.getLoanContractId(), 
+//				rp.getInterest().toPlainString(), 
+//				rp.getEndDate()==null ? null : DateFormatUtils.format(rp.getEndDate(), "yyyy-MM-dd"), 
+//				rp.getPrincipal().toPlainString(), 
+//				rp.getCount());
+		return null;
 	}
 
 	@Override
-	public PagedResult<ModelExt> pageList(Pageable pageAble) {
-		String sql = "SELECT t1.ID,t1.LOAN_CONTRACT_ID,t1.CREATE_TIME,t1.END_DATE,t1.INTEREST,"
-				+ " t1.PRINCIPAL,t2.CONTRACT_NUMBER,t2.CONTRACT_NAME,t1.PUSH_STATUS,t1.COUNT"
-				+ "		FROM TB_LOAN_REPAY_EXTEND_PLAN t1,TB_LOAN_CONTRACT t2 " 
-				+ "  WHERE t1.LOAN_CONTRACT_ID = t2.ID  ORDER BY t1.LOAN_CONTRACT_ID,t1.COUNT DESC ";
+	public PagedResult<RepayExtendPlanInfoModel> pageList(Pageable pageAble) {
+		StringBuffer sql = new StringBuffer();
+		sql.append(" SELECT ");
+		sql.append(" 	t1.ID, ");
+		sql.append(" 	t1.LOAN_CONTRACT_ID, ");
+		sql.append(" 	t1.CREATE_TIME, ");
+		sql.append(" 	t2.CONTRACT_NUMBER, ");
+		sql.append(" 	t2.CONTRACT_NAME, ");
+		sql.append(" 	t1.PUSH_STATUS, ");
+		sql.append(" 	t1.COUNT, ");
+		sql.append("	t1.RECORD_STATUS ");
+		sql.append(" FROM ");
+		sql.append(" 	TB_LOAN_REPAY_EXTEND_PLAN_INFO t1, ");
+		sql.append(" 	TB_LOAN_CONTRACT t2 ");
+		sql.append(" WHERE ");
+		sql.append(" 	t1.LOAN_CONTRACT_ID = t2.ID ");
+		sql.append(" ORDER BY ");
+		sql.append(" 	t1.LOAN_CONTRACT_ID, ");
+		sql.append(" 	t1.COUNT DESC ");
 		
-		String[] params = new String[0];
-		List<Object[]> list = dq.nativeQueryPagingList(Object[].class, pageAble, sql, params);
-		Long count = dq.nativeQueryCount(sql, params);
+		List<Object[]> list = dq.nativeQueryPagingList(Object[].class, pageAble, sql.toString());
+		Long count = dq.nativeQueryCount(sql.toString());
 		
-		List<ModelExt> result = new ArrayList<ModelExt>();
+		List<RepayExtendPlanInfoModel> result = new ArrayList<RepayExtendPlanInfoModel>();
 		for (Object[] obj : list) {
-			
-			result.add(new ModelExt(new RepayExtendPlanModel((String)obj[0],
+			RepayExtendPlanInfoModel model = new RepayExtendPlanInfoModel((String)obj[0], 
+					(String)obj[1], 
+					(String)obj[3],
+					(String)obj[4], 
 					(String)obj[6], 
-					((BigDecimal)obj[4]).toPlainString(), 
-					DateFormatUtils.format((Date)obj[3], "yyyy-MM-dd"), 
-					((BigDecimal)obj[5]).toPlainString(),
-					(String)obj[9]), 
-					(String) obj[6], 
-					(String) obj[7],
-					PushStatus.valueOf(obj[8].toString())));
+					null, 
+					PushStatus.valueOf(obj[5].toString()),
+					RecordStatus.valueOf(obj[7].toString()));
+			
+			
+			if (!model.getLoanContractId().isEmpty()) {
+				List<RepayExtendPlanModel> plans = listByloanContractIdAndCount(model.getId());
+				model.setPlans(plans);
+			}
+			
+			result.add(model);
 		}
 		return new PagedResult(result,count);
+	}
+	
+	public List<RepayExtendPlanModel> listByloanContractIdAndCount(String repayExtendPlanInfoId){
+		List<RepayExtendPlanModel> result = Lists.newArrayList();
+		List<RepayExtendPlan> plans = repayExtendPlanDAO.listByRepayExtendPlanInfoId( repayExtendPlanInfoId);
+		for (RepayExtendPlan repayExtendPlan : plans) {
+			result.add(new RepayExtendPlanModel(repayExtendPlan.getId(),
+					repayExtendPlan.getInterest().toPlainString(),
+					DateFormatUtils.format(repayExtendPlan.getEndDate(), "yyyy-MM-dd"),
+					repayExtendPlan.getPrincipal().toPlainString(), 
+					repayExtendPlan.getCount()));
+		}
+		
+		return result;
+	}
+
+	@Override
+	public RepayExtendPlanInfoModel getPlanInfoById(String id) {
+		RepayExtendPlanInfo info = repayExtendPlanInfoDAO.findOne(id);
+		Contract contract = contractDAO.findOne(info.getLoanContractId());
+		
+		return new RepayExtendPlanInfoModel(info.getId(), 
+				info.getLoanContractId(), 
+				contract.getContractNumber(), 
+				contract.getContractName(), 
+				info.getCount(), 
+				listByloanContractIdAndCount(info.getId()), 
+				info.getPushStatus(), 
+				info.getRecordStatus());
+		
+	}
+
+	@Override
+	public void addRepayExtendPlan(String id, BigDecimal principal,
+			Date endDate, BigDecimal interest) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
