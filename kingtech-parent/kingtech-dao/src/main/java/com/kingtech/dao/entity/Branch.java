@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 
 import com.kingtech.dao.entity.base.RecordEntity;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.enums.RecordStatus;
 
 /**
  * 机构基本信息表
@@ -78,8 +79,8 @@ public class Branch extends RecordEntity {
 			String legalRepresentative, BigDecimal regDapital, Date buildDate,
 			Date openingDate, String businessAddr, String siteArea,
 			String organizationCode, String licence, String nationalRegNum,
-			String landRegNum, String businessScope) {
-		super(reqId, pushStatus);
+			String landRegNum, String businessScope,RecordStatus recordStatus) {
+		super(reqId, pushStatus,recordStatus);
 		this.corporateName = corporateName;
 		this.legalRepresentative = legalRepresentative;
 		this.regDapital = regDapital;

@@ -17,6 +17,7 @@ import com.kingtech.dao.entity.base.RecordEntity;
 import com.kingtech.enums.ChannelTypeEnum;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.RateTypeEnum;
+import com.kingtech.enums.RecordStatus;
 
 /**
  * 单笔融资信息
@@ -90,8 +91,8 @@ public class Capital extends RecordEntity {
 			String financeName, String lender, ChannelTypeEnum channel,
 			BigDecimal money, BigDecimal interest, Date financeDate,
 			Date endDate, BigDecimal rate, RateTypeEnum rateType,
-			String loanContractNumber) {
-		super(reqId, pushStatus);
+			String loanContractNumber,RecordStatus recordStatus) {
+		super(reqId, pushStatus,recordStatus);
 		this.financeNumber = financeNumber;
 		this.financeName = financeName;
 		this.lender = lender;
@@ -109,8 +110,8 @@ public class Capital extends RecordEntity {
 			String financeName, String lender, ChannelTypeEnum channel,
 			BigDecimal money, BigDecimal interest, BigDecimal guaranteeMoney,
 			String remark, Date financeDate, Date endDate, BigDecimal rate,
-			RateTypeEnum rateType, String loanContractNumber) {
-		super(reqId, pushStatus);
+			RateTypeEnum rateType, String loanContractNumber,RecordStatus recordStatus) {
+		super(reqId, pushStatus,recordStatus);
 		this.financeNumber = financeNumber;
 		this.financeName = financeName;
 		this.lender = lender;

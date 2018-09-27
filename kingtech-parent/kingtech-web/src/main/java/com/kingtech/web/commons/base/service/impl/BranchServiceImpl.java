@@ -18,6 +18,7 @@ import com.kingtech.dao.entity.Branch;
 import com.kingtech.dao.rdbms.BranchDAO;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.enums.RecordStatus;
 import com.kingtech.model.BranchInfoModel;
 import com.kingtech.web.commons.base.CreatRequstId;
 import com.kingtech.web.commons.base.api.PaymentApi;
@@ -63,7 +64,8 @@ public class BranchServiceImpl implements  BranchService {
 								licence, 
 								nationalRegNum, 
 								landRegNum, 
-								businessScope);
+								businessScope,
+								RecordStatus.NORMAL);
 			
 		} else {
 			branch = branchDao.findOne(id);

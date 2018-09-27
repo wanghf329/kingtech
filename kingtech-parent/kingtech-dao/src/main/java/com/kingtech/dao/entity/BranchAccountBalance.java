@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 import com.kingtech.dao.entity.base.RecordEntity;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.enums.RecordStatus;
 
 /**
  * @author Tson
@@ -35,8 +36,8 @@ public class BranchAccountBalance extends RecordEntity {
 	private BigDecimal money;
 
 	public BranchAccountBalance(String reqId, PushStatus pushStatus,
-			String dateMonth, String account, BigDecimal money) {
-		super(reqId, pushStatus);
+			String dateMonth, String account, BigDecimal money,RecordStatus recordStatus) {
+		super(reqId, pushStatus,recordStatus);
 		this.dateMonth = dateMonth;
 		this.account = account;
 		this.money = money;
