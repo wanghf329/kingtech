@@ -556,19 +556,19 @@ public class PaymentApiImpl  implements PaymentApi {
 			return null;
 		}
 		
-		List<RepayExtendPlan> repayExtendPlanlist = repayExtendPlanDAO.listByloanContractIdAndCount(extendPlan.getLoanContractId(), extendPlan.getCount());
+//		List<RepayExtendPlan> repayExtendPlanlist = repayExtendPlanDAO.listByRepayExtendPlanInfoId(extendPlan.get, extendPlan.getCount());
 		
-		List<ExtendPlanRequestModel> planRequestModels = null;
-		if (repayExtendPlanlist != null && !repayExtendPlanlist.isEmpty()) {
-			
-			planRequestModels = new ArrayList<ExtendPlanRequestModel>();
-			for (RepayExtendPlan plan : repayExtendPlanlist) {
-				planRequestModels.add(new ExtendPlanRequestModel(DateUtil.getSimpleDate(plan.getEndDate()), plan.getPrincipal().toPlainString(), plan.getInterest().toPlainString()));
-			}
-		}
+//		List<ExtendPlanRequestModel> planRequestModels = null;
+//		if (repayExtendPlanlist != null && !repayExtendPlanlist.isEmpty()) {
+//			
+//			planRequestModels = new ArrayList<ExtendPlanRequestModel>();
+//			for (RepayExtendPlan plan : repayExtendPlanlist) {
+//				planRequestModels.add(new ExtendPlanRequestModel(DateUtil.getSimpleDate(plan.getEndDate()), plan.getPrincipal().toPlainString(), plan.getInterest().toPlainString()));
+//			}
+//		}
 		
-		String roundStr =  RandomUtil.random8Len();
-		RepayExtendPlanRequestModel repayExtendPlanRequestModel = new RepayExtendPlanRequestModel(roundStr, extendPlan.getReqId(), contractDAO.findOne(extendPlan.getLoanContractId()).getContractNumber(), extendPlan.getCount(), planRequestModels);
+//		String roundStr =  RandomUtil.random8Len();
+//		RepayExtendPlanRequestModel repayExtendPlanRequestModel = new RepayExtendPlanRequestModel(roundStr, extendPlan.getReqId(), contractDAO.findOne(extendPlan.getLoanContractId()).getContractNumber(), extendPlan.getCount(), planRequestModels);
 //		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
 //			repayExtendPlanModel = new RepayExtendPlanModel(roundStr,
 //					type.name(), extendPlan.getReqId(), null, contractDAO.findOne(extendPlan.getLoanContractId()).getLoanContractNo(),

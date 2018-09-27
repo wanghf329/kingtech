@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kingtech.enums.BadTypeEnum;
+import com.kingtech.enums.ChannelTypeEnum;
+import com.kingtech.enums.RateTypeEnum;
 import com.kingtech.enums.RepayStatusEnum;
 import com.kingtech.enums.YesNoEnum;
 import com.kingtech.model.AssetTransferModel;
@@ -25,6 +28,7 @@ import com.kingtech.model.OtherBaddebtModel;
 import com.kingtech.model.OtherOverdueInfoModel;
 import com.kingtech.model.ProvisionInfoModel;
 import com.kingtech.model.RepayExtendInfoModel;
+import com.kingtech.model.RepayExtendPlanInfoModel;
 import com.kingtech.model.RepayExtendPlanModel;
 import com.kingtech.model.RepayInfoModel;
 import com.kingtech.model.ext.ModelExt;
@@ -131,11 +135,8 @@ public class PostLoanApiController {
 	public String saveExtensionRepayPlanInfo(Model model,
 											String id,
 											String loanContractId, 
-											String count,
-											String endDate,
-											String principal, 
-											String interest) {
-		repayExtendPlanService.addNew(id, loanContractId, count, endDate, principal, interest);
+											String count) {
+		repayExtendPlanService.addNew(id, loanContractId, count);
 		
 		return "redirect:/postLoan/extensionrepayplaninfo";
 	}
@@ -192,7 +193,7 @@ public class PostLoanApiController {
 	 */
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST, value = "extendRepayPlan/data")
-	public PagedResult<ModelExt> extendRepayPlan(Model model,
+	public PagedResult<RepayExtendPlanInfoModel> extendRepayPlan(Model model,
 												 @RequestParam("start") Integer firstIndex,
 									 			 @RequestParam("length") Integer pageSize) {
 		return repayExtendPlanService.pageList(PageInfo.page(firstIndex, pageSize));
@@ -390,4 +391,27 @@ public class PostLoanApiController {
         //第二个参数是控制是否支持传入的值是空，这个值很关键，如果指定为false，那么如果前台没有传值的话就会报错
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
+	/**
+	 * 编辑展期计划信息
+	 * @param model
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.GET, value = "planInfo/edit")
+	public String editPlanInfo(Model model,  String id) {
+		
+		model.addAttribute("contracts", contractService.listAll());
+		
+		if(StringUtils.isNotEmpty(id)){
+			model.addAttribute("extendPlan", repayExtendPlanService.getPlanInfoById(id));
+		}
+		return "/postloan/extendPlanInfoEdit";
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "plan/add")
+	public String addExtendPlan(){
+		
+		
+		return "/postloan/extendPlanEdit";
+	}
 }
