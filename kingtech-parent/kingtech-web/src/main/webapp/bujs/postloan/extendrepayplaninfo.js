@@ -40,6 +40,13 @@ function getRepayExtendPlan(id){
 	});
 }
 
+function getRepayExtendPlan(id){
+	 $.post("postLoan/update/extensionrepayplaninfo/", params, function() { 
+         alert('已删除！');
+     });
+}
+
+
 $("select[name='overdueFlag']").change(function(){  
 	initOverdueDays($(this));
 });
@@ -118,6 +125,7 @@ function initDataTables() {
 								},
 								{data : null,render : function(data, type, row) {
 										return '<a href="javascript:void(0)" onclick=getRepayExtendPlan(\''+row.model.id+'\') class="extend-repay-edit"><i class="text-blue fa fa-edit"></i><strong>修改</strong>'
+										+ '<a href="javascript:void(0)" onclick=updateRepayExtendPlan(\''+row.model.id+'\') class="extend-repay-delete"><i class="text-red fa fa-edit"></i><strong>删除</strong>'
 									}
 								} ],
 						"fnDrawCallback" : function(oSettings) {

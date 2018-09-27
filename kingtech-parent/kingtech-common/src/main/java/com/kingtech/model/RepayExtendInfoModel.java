@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.kingtech.enums.PushStatus;
 
 /**
  * 展期还款信息
@@ -50,6 +51,8 @@ public class RepayExtendInfoModel extends BaseModel{
 	
 	@JSONField(name="update_time")
 	private String updateTime;
+	
+	private String pushStatus;
 
 	public RepayExtendInfoModel(String id, String contractNumber,
 			String repayTime, String money, String interest,
@@ -82,5 +85,23 @@ public class RepayExtendInfoModel extends BaseModel{
 		this.creatTime = creatTime;
 		this.updateTime = updateTime;
 	}
+
+	public RepayExtendInfoModel(String id, String contractNumber,
+			String repayTime, String money, String interest,
+			String penaltyInterest, String penalty, String serviceCharge,
+			String otherCharge, String pushStatus) {
+		super(id);
+		this.contractNumber = contractNumber;
+		this.repayTime = repayTime;
+		this.money = money;
+		this.interest = interest;
+		this.penaltyInterest = penaltyInterest;
+		this.penalty = penalty;
+		this.serviceCharge = serviceCharge;
+		this.otherCharge = otherCharge;
+		this.pushStatus = pushStatus;
+	}
+	
+	
 	
 }

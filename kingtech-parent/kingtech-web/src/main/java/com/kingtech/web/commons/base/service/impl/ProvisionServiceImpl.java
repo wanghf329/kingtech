@@ -16,6 +16,7 @@ import com.kingtech.dao.entity.ProvisionInfo;
 import com.kingtech.dao.rdbms.ProvisionInfoDAO;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.enums.RecordStatus;
 import com.kingtech.model.ProvisionInfoModel;
 import com.kingtech.web.commons.base.CreatRequstId;
 import com.kingtech.web.commons.base.api.PaymentApi;
@@ -45,7 +46,7 @@ public class ProvisionServiceImpl implements ProvisionService{
 			BigDecimal lossBalance, BigDecimal lossRate, BigDecimal lossReal) {
 		ProvisionInfo pi = null;
 		if(StringUtils.isEmpty(id)){
-			pi = new ProvisionInfo(creatRequstId.getReqId(), PushStatus.INITATION, dateMonth,
+			pi = new ProvisionInfo(creatRequstId.getReqId(), PushStatus.INITATION, RecordStatus.NORMAL, dateMonth,
 					normalBalance, normalRate, normalReal, 
 					followBalance, followRate, followReal,
 					minorBalance, minorRate, minorReal, 
@@ -83,7 +84,7 @@ public class ProvisionServiceImpl implements ProvisionService{
 	@Override
 	public ProvisionInfoModel getById(String id) {
 		ProvisionInfo pi = provisionDao.findOne(id);
-		return new ProvisionInfoModel(pi.getId(), DateFormatUtils.format(pi.getDateMonth(),"yyyy-MM"), 
+		return new ProvisionInfoModel(pi.getId(), DateFormatUtils.format(pi.getDateMonth(),"yyyy-MM-dd"), 
 									  pi.getNormalBalance().toPlainString(), 
 									  pi.getNormalRate().toPlainString(),
 									  pi.getNormalReal().toPlainString(),

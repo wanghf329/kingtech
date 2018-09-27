@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 
+import com.kingtech.dao.entity.RepayExtendPlan;
 import com.kingtech.model.RepayExtendPlanModel;
 import com.kingtech.model.ext.ModelExt;
 import com.kingtech.model.ext.RepayExtendPlanModelExt;

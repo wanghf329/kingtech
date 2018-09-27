@@ -189,9 +189,9 @@ public class PostLoanServiceImpl implements PostLoanService{
 	@Override
 	@Transactional
 	public OtherBaddebt addNewBaddebtInfo(String id,
-									  	  String lossDate,
+									  	  Date lossDate,
 									  	  BigDecimal badMoney,
-									  	  String badType,
+									  	  BadTypeEnum badType,
 									  	  String followUp,
 									  	  String loanContractId) {
 		OtherBaddebt badDebtInfo = null;
@@ -205,25 +205,24 @@ public class PostLoanServiceImpl implements PostLoanService{
 												creatRequstId.getReqId(), 
 												PushStatus.INITATION, 
 												badMoney,
-												DateUtils.parseDate(lossDate, "yyyy-MM-dd"),
-												BadTypeEnum.valueOf(badType),
+												lossDate,
+												badType,
 												followUp);
 				
 			} else {
 				badDebtInfo = otherBaddebtDAO.findOne(id);
 				badDebtInfo.setBadMoney(badMoney);
 				badDebtInfo.setLoanContractId(loanContractId);
-				badDebtInfo.setLossDate(DateUtils.parseDate(lossDate, "yyyy-MM-dd"));
-				badDebtInfo.setBadType(BadTypeEnum.valueOf(badType));
+				badDebtInfo.setLossDate(lossDate);
+				badDebtInfo.setBadType(badType);
 				badDebtInfo.setFollowUp(followUp);
 				otherBaddebtDAO.save(badDebtInfo);
 			}
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		otherBaddebtDAO.save(badDebtInfo);
-		paymentApi.otherBaddebtApi(badDebtInfo.getId(),StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
+//		paymentApi.otherBaddebtApi(badDebtInfo.getId(),StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
 		return badDebtInfo;
 	}
 
