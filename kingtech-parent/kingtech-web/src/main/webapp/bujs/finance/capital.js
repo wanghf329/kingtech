@@ -1,8 +1,7 @@
 $(document).ready(function () {          
       //调用函数，初始化表格  
       //initTable();  
-	
-      menuChecked("#employeeList");
+      menuChecked("#financeCapitalList");
       initDataTables() ;
       $(".form-horizontal").validationEngine({ 
     	  validationEventTriggers:"keyup blur",
@@ -12,14 +11,12 @@ $(document).ready(function () {
     	  autoHidePrompt:true,
     	  failure : function() { callFailFunction()  } 
       })
-      initDatepicker();
       
       if(typeof(canEdit) != "undefined" && canEdit=="false"){  
     	  $('.form-horizontal').find('input,textarea,select').attr('disabled',true); 
     	  $('.form-horizontal').find("button[type='submit']").hide();
     	  $('body').find(".edit-href").hide(); 
       } 
-    
 });
 
 function formateDate(date, fmt) {
@@ -47,17 +44,6 @@ function formateDate(date, fmt) {
     return fmt;
 }
 
-$("#addEmployeeBtn").click(function(){ 
-	window.location.href = "branch/edit?id=";
-});
-
-
-
-$(".saveRecordBtn").click(function() {
-	$("#form-horizontal").submit();
-});
-
-
 function initDatepicker(){
 	$('.datepicker').datetimepicker({
 		minView: "2", //选择日期后，不会再跳转去选择时分秒 
@@ -68,20 +54,40 @@ function initDatepicker(){
 	    clearBtn: true});   
 }
 
-function positionValidate(field, rules, i, options) {
-	var arr = ['董事长', '执行董事', '董事', '监事长', '监事', '总经理', '副总经理', '风控总监', '财务总监', '业务总监', '其他高管'];
-	var _isLeaders = $("#isLeaders").val();
-	var _position = $("#position").val().trim();
-	if (_isLeaders == 'S_1' ) {
-		if ($.inArray(_position,arr) < 0) {
-			return "是董监高职务类型不对";
+$("#addCapitalBtn").click(function () {
+	window.location.href = "finance/capital/edit?id=";
+})
+
+$(".saveRecordBtn").click(function () {
+	$("#form-horizontal").submit();
+})
+
+function loanContractNumberValidate (field, rules, i, options) {
+	console.log("aaaa")
+	var _channel = $("#channel").val()
+	var _loanContractNumber = $("#loanContractNumber").val().trim();
+	console.log(_channel  + _loanContractNumber) ;
+	if("S_3" == _channel) {
+		if("" == _loanContractNumber || null == _loanContractNumber) {
+			console.log(_channel  + _loanContractNumber ) ;
+			rules.push('required');
+			return "融资渠道为资产转让融资时合同编号不能为空";
 		}
 	}
-	console.log("aaaa");
+}
+function guaranteeMoneyValidate (field, rules, i, options) {
+	var _channel = $("#channel").val()
+	var _guaranteeMoney = $("#guaranteeMoney").val().trim();
+	if("S_3" == _channel) {
+		if("" == _guaranteeMoney || null == _guaranteeMoney) {
+			rules.push('required');
+			return  "融资渠道为资产转让融资时担保金额不能为空";
+		}
+	}
 }
 
 function initDataTables() {
-	this.dt = $("#employeeListTab").DataTable({
+	this.dt = $("#capitalListTab").DataTable({
 						language : dataTableLang, // 提示信息
 						autoWidth : false, // 禁用自动调整列宽
 						processing : true, // 隐藏加载提示,自行处理
@@ -97,7 +103,7 @@ function initDataTables() {
 							console.log(data);
 							// ajax请求数据
 							$.ajax({type : "GET",
-									url : "branch/data",
+									url : "finance/capitalList/data",
 									cache : false, // 禁用缓存
 									data : param, // 传入组装的参数
 									dataType : "json",
@@ -109,6 +115,7 @@ function initDataTables() {
 													returnData.recordsTotal = result.totalSize;// 返回数据全部记录
 													returnData.recordsFiltered = result.totalSize;// 后台不实现过滤功能，每次查询均视作全部结果
 													returnData.data = result.results;// 返回的数据列表
+													console.log(returnData);
 													// 调用DataTables提供的callback方法，代表数据已封装完成并传回DataTables进行渲染
 													// 此时的数据需确保正确无误，异常判断应在执行此回调前自行处理完毕
 													callback(returnData);
@@ -117,55 +124,60 @@ function initDataTables() {
 								});
 						},
 						columns : [
-						        {data : null},
-								{data : "name"},
-								{data : "phone"},
-								{data : "email"},
-								{data : "department"},
-								{data : "sex",render : function(data, type, row) {
+								{data : null},
+								{data : "financeNumber"},
+								{data : "financeName"},
+								{data : "lender"},
+								{data : "channel",render : function(data, type, row) {
 									switch (data) {
 										case 'S_1':
-											return '<span class="text-gray">男</span>';
+											return '<span class="text-gray">金融机构融资</span>';
 										case 'S_2':
-											return '<span class="text-gray">女</span>';
-									}
-								}},
-								{data : "cardType",render : function(data, type, row) {
-									switch (data) {
-										case 'S_1': 
-											return '<span class="text-gray">居民身份证</span>';
-										case 'S_2':
-											return '<span class="text-gray">护照</span>';
+											return '<span class="text-gray">股东借款</span>';
 										case 'S_3':
-											return '<span class="text-gray">驾驶证</span>';
-									}
-								}},
-								{data : "cardNumber"},
-								{data : "education",render : function(data, type, row) {
-									switch (data) {
-										case 'S_1': 
-											return '<span class="text-gray">博士</span>';
-										case 'S_2':
-											return '<span class="text-gray">硕士</span>';
-										case 'S_3':
-											return '<span class="text-gray">本科</span>';
+											return '<span class="text-gray">资产转让融资</span>';
 										case 'S_4':
-											return '<span class="text-gray">专科</span>';
-										case 'S_5':
-											return '<span class="text-gray">高中及以下</span>';
+											return '<span class="text-gray">其他</span>';
 									}
 								}},
-								{data : "position"},
-								{data : "entryTime",render : function(data, type, row) {
+								{data : "money",render : function(data, type, row) {
+									return "<span class=\"text-red bolder\">￥"+ data + "</span>";
+								}},
+								{data : "interest",render : function(data, type, row) {
+									return "<span class=\"text-red bolder\">￥"+ data + "</span>";
+								}},
+								{data : "charge",render : function(data, type, row) {
+									return "<span class=\"text-red bolder\">￥"+ data + "</span>";
+								}},
+								{data : "guaranteeMoney",render : function(data, type, row) {
+									return "<span class=\"text-red bolder\">￥"+ data + "</span>";
+								}},
+								{data : "financeDate",render : function(data, type, row) {
 									return formateDate(new Date(data),"yyyy-MM-dd")
 									
 								 }},
-								{data : "quitTime",render : function(data, type, row) {
-									if (data == null || data == '') {
-										return "";
-									}
-									return formateDate(new Date(data),"yyyy-MM-dd")
+								 {data : "endDate",render : function(data, type, row) {
+										return formateDate(new Date(data),"yyyy-MM-dd")
+								 }},
+								{data : "rate",render : function(data, type, row) {
+									return '<Strong>'+data+'%</Strong></td>' ;   
 								}},
+								
+								{data : "rateType",render : function(data, type, row) {
+									switch (data) {
+										case 'S_1':
+											return '<Strong>日</Strong></td>';
+										case 'S_2':
+											return '<Strong>周</Strong></td>';
+										case 'S_3':
+											return '<Strong>月</Strong></td>';
+										case 'S_4':
+											return '<Strong>季度</Strong></td>';
+										case 'S_5':
+											return '<Strong>年</Strong></td>';
+									}
+								}},
+								{data : "loanContractNumber"},
 								{data : "pushStatus",render : function(data, type, row) {
 									switch (data) {
 									case 'INITATION':
@@ -180,11 +192,11 @@ function initDataTables() {
 								}},
 								{data : null,render : function(data, type, row) {
 									if(row.pushStatus=='SUCCESS' || row.pushStatus=='INPROSESS') {
-										return '<a href="loan/edit?id='+row.id+'"><strong>查看详情</strong></a> <a href="loan/supplement?loanContractId='+row.id+'"><strong>查看补充信息</strong></a>'
+										return '<a href="finance/capital/edit?id='+row.id+'"><strong>查看详情</strong></a> <a href="/capital/edit?id='+row.id+'"><strong>查看补充信息</strong></a>'
 									}
 									if(row.pushStatus=='INITATION' || row.pushStatus=='FAILED') {
-										return '<a href="branch/edit?id='+row.id+'"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>'
-                                		        +'<a href="loan/supplement?loanContractId='+row.id+'" ><i class="text-blue fa fa-plus-square-o"></i><strong>补充</strong></a>'
+										return '<a href="finance/capital/edit?id='+row.id+'"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>'
+                                		        +'<a href="finance/capital/edit?id=='+row.id+'" ><i class="text-blue fa fa-plus-square-o"></i><strong>补充</strong></a>'
                                 			    +'<a href="javascirpt:void(0)" class="contract-push" data-id="'+row.id+'"><i class="text-blue fa fa-exchange"></i><strong>推送</strong></a>';
 									}
 								}} ],

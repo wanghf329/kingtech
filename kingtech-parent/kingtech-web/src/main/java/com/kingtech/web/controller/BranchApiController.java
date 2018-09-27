@@ -59,7 +59,7 @@ public class BranchApiController {
 	
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET, value = "/data")
-	public PagedResult<Employee> repayInfo(Model model,
+	public PagedResult<Employee> employeeListDate(Model model,
 												 @RequestParam("start") Integer firstIndex,
 									 			 @RequestParam("length") Integer pageSize) {
 		return employeeService.pageList(PageInfo.page(firstIndex, pageSize));
