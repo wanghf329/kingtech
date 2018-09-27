@@ -13,6 +13,8 @@ import com.kingtech.enums.PushStatus;
 @NoArgsConstructor 
 public class SettledInfoModel {
 	
+	private String id;
+	
 	private String loanContractId;
 	//合同编号
 	private String contractName;
@@ -35,7 +37,7 @@ public class SettledInfoModel {
 
 	public SettledInfoModel(String loanContractId, String contractName,
 			String contractNumber, BigDecimal money, String loanTime,
-			String startDate, String endDate,PushStatus pushStatus) {
+			String startDate, String endDate,PushStatus pushStatus,String id) {
 		super();
 		this.loanContractId = loanContractId;
 		this.contractName = contractName;
@@ -45,5 +47,6 @@ public class SettledInfoModel {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.pushStatus = pushStatus;
+		this.id = id;
 	}
 }

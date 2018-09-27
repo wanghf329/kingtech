@@ -74,6 +74,7 @@ import com.kingtech.szsm.model.GuaranteeRequestModel;
 import com.kingtech.szsm.model.PersonalCustomerRequestModel;
 import com.kingtech.szsm.model.RepayExtendInfoRequestModel;
 import com.kingtech.szsm.model.RepayExtendPlanRequestModel;
+import com.kingtech.szsm.model.RepayInfoRequestModel;
 import com.kingtech.szsm.model.RepayPlanRequestModel;
 import com.kingtech.szsm.model.SettledInfoRequestModel;
 import com.kingtech.szsm.model.SynResponseModel;
@@ -493,25 +494,18 @@ public class PaymentApiImpl  implements PaymentApi {
 			return;
 		}
 		
-		RepayInfoModel infoModel = null;
+		
 		String roundStr =  RandomUtil.random8Len();
-//		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
-//			infoModel = new RepayInfoModel(roundStr, 
-//					                       type.name(),
-//					                       repayInfo.getReqId(),
-//					                       null,
-//					                       contractDAO.findOne(repayInfo.getLoanContractId()).getLoanContractNo(),
-//					                       repayInfo.getRepayAmount().toPlainString(),
-//					                       repayInfo.getRepayPrincipalAmount().toPlainString(),
-//					                       repayInfo.getRepayInterestAmount().toPlainString(),
-//					                       DateUtil.getDateStr(repayInfo.getRepayDate(), "yyyy-MM-dd"),
-//					                       DateUtil.getDateStr(repayInfo.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT), 
-//					                       DateUtil.getDateStr(repayInfo.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT));
-//		}else {
-//			log.info("还款信息暂不支持的操作 repayInfoId={},IdentifierType={} ",repayInfoId,type);
-//			return;
-//		}
-		SynResponseModel responseModel = financeService.repayInfoFacade(infoModel);
+		RepayInfoRequestModel infoModel = new RepayInfoRequestModel(roundStr,
+																 repayInfo.getReqId(), 
+																 contractDAO.findOne(repayInfo.getLoanContractId()).getContractNumber(),
+																 repayInfo.getMoney().toPlainString(), 
+																 repayInfo.getInterest().toPlainString(), 
+																 repayInfo.getPenaltyInterest().toPlainString(), 
+																 repayInfo.getPenalty().toPlainString(),
+																 repayInfo.getServiceCharge().toPlainString(), 
+																 repayInfo.getOtherCharge().toPlainString());
+		SynResponseModel responseModel = financeService.repayInfoFacade(infoModel,type);
 		if (responseModel.isSuccess()) {
 			repayInfo.setPushStatus(PushStatus.INPROSESS);
 			repayInfoDAO.save(repayInfo);
@@ -725,8 +719,20 @@ public class PaymentApiImpl  implements PaymentApi {
 			return null;
 		}
 		String roundStr =  RandomUtil.random8Len();
+		SettledInfoRequestModel infoRequestModel = null;
+		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)){
+			infoRequestModel = new SettledInfoRequestModel(roundStr,
+										settle.getReqId(),
+										contractDAO.findOne(settle.getLoanContractId()).getContractNumber(),
+										settle.getMoney().toPlainString(), 
+										DateUtil.getDateStr(settle.getLoanTime(),JSON.DEFFAULT_DATE_FORMAT), 
+										DateUtil.getSimpleDate(settle.getStartDate()), 
+										DateUtil.getSimpleDate(settle.getEndDate()));
+		}else {
+			infoRequestModel = new SettledInfoRequestModel(roundStr, settle.getReqId());
+		}
 		
-		SettledInfoRequestModel infoRequestModel = new SettledInfoRequestModel(roundStr,
+		 infoRequestModel = new SettledInfoRequestModel(roundStr,
 				settle.getReqId(),
 				contractDAO.findOne(settle.getLoanContractId()).getContractNumber(),
 				settle.getMoney().toPlainString(), 
@@ -736,9 +742,17 @@ public class PaymentApiImpl  implements PaymentApi {
 		
 		SynResponseModel responseModel = financeService.settleInfoFacade(infoRequestModel, type);
 		if (responseModel.isSuccess()) {
-			settle.setPushStatus(PushStatus.INPROSESS);
+			
+			if (IdentifierType.D.equals(type)) {
+				settle.setPushStatus(PushStatus.DELETEING);
+			}else {
+				settle.setPushStatus(PushStatus.INPROSESS);
+			}
 			settledInfoDAO.save(settle);
+		}else{
+			throw  new RuntimeException();
 		}
+		
 		return responseModel;
 	}
 
@@ -775,6 +789,7 @@ public class PaymentApiImpl  implements PaymentApi {
 		SynResponseModel responseModel = financeService.financeInfoFacade(financeInfoRequestModel, type);
 		if (responseModel.isSuccess()) {
 			capital.setPushStatus(PushStatus.INPROSESS);
+		
 			capitalDAO.save(capital);
 		}
 		return responseModel;

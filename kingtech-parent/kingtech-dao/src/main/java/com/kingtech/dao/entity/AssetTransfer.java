@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 import com.kingtech.dao.entity.base.LoanRecordEntity;
 import com.kingtech.enums.BadTypeEnum;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.enums.RecordStatus;
 
 /**
  * 资产转让接口表
@@ -54,11 +55,11 @@ public class AssetTransfer extends LoanRecordEntity {
 	private Date transferDate;
 
 	public AssetTransfer(String loanContractId, String reqId,
-			PushStatus pushStatus, String transferNumber,
+			PushStatus pushStatus, RecordStatus recordStatus, String transferNumber,
 			BigDecimal transferMoney, BigDecimal originalMoney,
 			BigDecimal discountMoney, String acceptUnit, String protocol,
 			Date transferDate) {
-		super(loanContractId, reqId, pushStatus);
+		super(loanContractId, reqId, pushStatus, recordStatus);
 		this.transferNumber = transferNumber;
 		this.transferMoney = transferMoney;
 		this.originalMoney = originalMoney;

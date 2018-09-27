@@ -15,6 +15,7 @@ import com.kingtech.enums.IdentifierType;
 import com.kingtech.szsm.model.BaseRequestModel;
 import com.kingtech.szsm.model.BaseResponsModel;
 import com.kingtech.szsm.model.ContractRequestModel;
+import com.kingtech.szsm.model.SettledInfoRequestModel;
 import com.kingtech.szsm.model.SynResponseModel;
 
 @Slf4j
@@ -28,7 +29,7 @@ public class BaseAbstract {
 	 */
 
 	public  SynResponseModel getResponse(BaseRequestModel baseRequestModel,String suffixUrl,IdentifierType type) {
-		String sign = getOtherSign(baseRequestModel);
+		String sign = getOtherSign(baseRequestModel, type);
 		if (sign == null) {
 			String dataSign = JSON.toJSONString(baseRequestModel, Labels.includes("sign")); // 验签数据
 			Map<String, Object> signMap = JSON.parseObject(dataSign, Map.class);
@@ -75,7 +76,10 @@ public class BaseAbstract {
 	}
 	
 	
-	public  String getOtherSign(BaseRequestModel baseRequestModel){
+	public  String getOtherSign(BaseRequestModel baseRequestModel,IdentifierType type){
+		if (IdentifierType.D.equals(type)) {
+			return null;
+		}
 		StringBuilder builder = new StringBuilder();
 		if (baseRequestModel instanceof ContractRequestModel) {
 			ContractRequestModel contractRequestModel = (ContractRequestModel) baseRequestModel;
@@ -100,6 +104,17 @@ public class BaseAbstract {
 			builder.append("roundStr=").append(contractRequestModel.getRoundStr()).append("&");
 			builder.append("signTime=").append(contractRequestModel.getSignTime()).append("&");
 			builder.append("token=").append(contractRequestModel.getToken()).append("&");
+			builder.append("appKey=").append(BaseConfig.APPKEY);
+			
+		}else if (baseRequestModel instanceof SettledInfoRequestModel) {
+			SettledInfoRequestModel settle = (SettledInfoRequestModel) baseRequestModel;
+			builder.append("clientId=").append(settle.getClientId()).append("&");
+			builder.append("reqId=").append(settle.getReqId()).append("&");
+			builder.append("roundStr=").append(settle.getRoundStr()).append("&");
+			builder.append("token=").append(settle.getToken()).append("&");
+			builder.append("contractNumber=").append(settle.getContractNumber()).append("&");
+			builder.append("money=").append(settle.getMoney()).append("&");
+			builder.append("loanTime=").append(settle.getLoanTime()).append("&");
 			builder.append("appKey=").append(BaseConfig.APPKEY);
 			
 		}

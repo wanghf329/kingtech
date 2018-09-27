@@ -9,7 +9,6 @@ import java.util.List;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -31,7 +30,9 @@ import com.kingtech.dao.rdbms.PersonalCustomerDAO;
 import com.kingtech.dao.rdbms.RepayPlanDAO;
 import com.kingtech.dao.rdbms.SettledInfoDAO;
 import com.kingtech.enums.BorrowerTypeEnum;
+import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.enums.RecordStatus;
 import com.kingtech.model.ContractDywModel;
 import com.kingtech.model.ContractModel;
 import com.kingtech.model.ContractZywModel;
@@ -40,6 +41,7 @@ import com.kingtech.model.RepayPlanModel;
 import com.kingtech.model.SettledInfoModel;
 import com.kingtech.model.misc.PagedResult;
 import com.kingtech.web.commons.base.CreatRequstId;
+import com.kingtech.web.commons.base.api.PaymentApi;
 import com.kingtech.web.commons.base.service.ContractService;
 /**
  * 合同信息
@@ -77,6 +79,9 @@ public class ContractServiceImpl implements ContractService{
 	
 	@Autowired
 	private DynamicQuery dq;
+	
+	@Autowired
+	private PaymentApi api;
 	
 	@Override
 	public List<Contract> listAll(){
@@ -169,16 +174,20 @@ public class ContractServiceImpl implements ContractService{
 	@Transactional
 	public void addSettledInfo(String loanContractId, BigDecimal money, Date loanTime, Date startDate, Date endDate) {
 		SettledInfo entity = settledInfoDAO.findByloanContractId(loanContractId);
+		IdentifierType type = null;
 		if (entity == null) {
-			settledInfoDAO.save(new SettledInfo(loanContractId, creatRequstId.getReqId(), 
-												PushStatus.INITATION, money, loanTime, startDate, endDate));
+			entity = settledInfoDAO.save(new SettledInfo(loanContractId, creatRequstId.getReqId(), 
+												PushStatus.INITATION, money, loanTime, startDate, endDate,RecordStatus.NORMAL));
+			type = IdentifierType.A;
 		} else {
 			entity.setMoney(money);
 			entity.setLoanTime(loanTime);
 			entity.setStartDate(startDate);
 			entity.setEndDate(endDate);
 			settledInfoDAO.save(entity);
+			type = IdentifierType.U;
 		}
+		api.settleInfoApi(entity.getId(), type);
 	}
 	
 	@Override
@@ -202,7 +211,7 @@ public class ContractServiceImpl implements ContractService{
 	
 	@Override
 	public PagedResult<SettledInfoModel> pageListSettledInfo(Pageable pageAble){
-		String sql = " SELECT t1.LOAN_CONTRACT_ID,t2.CONTRACT_NUMBER,t2.CONTRACT_NAME,t1.MONEY,t1.LOAN_TIME,t1.START_DATE,t1.END_DATE,t1.PUSH_STATUS"
+		String sql = " SELECT t1.LOAN_CONTRACT_ID,t2.CONTRACT_NUMBER,t2.CONTRACT_NAME,t1.MONEY,t1.LOAN_TIME,t1.START_DATE,t1.END_DATE,t1.PUSH_STATUS,t1.ID"
 				+ " from TB_LOAN_CONTRACT_SETTLED t1,TB_LOAN_CONTRACT t2 where t1.LOAN_CONTRACT_ID = t2.ID order by t1.CREATE_TIME";
 		String[] params = new String[0];
 		List<Object[]> list = dq.nativeQueryPagingList(Object[].class, pageAble, sql, params);
@@ -215,7 +224,7 @@ public class ContractServiceImpl implements ContractService{
 					DateFormatUtils.format((Date) obj[4], "yyyy-MM-dd"),
 					DateFormatUtils.format((Date) obj[5], "yyyy-MM-dd"),
 					DateFormatUtils.format((Date) obj[6], "yyyy-MM-dd"),
-					PushStatus.valueOf((String)obj[7])));
+					PushStatus.valueOf((String)obj[7]),(String) obj[8]));
 		}
 		
 		return new PagedResult(result,count);
