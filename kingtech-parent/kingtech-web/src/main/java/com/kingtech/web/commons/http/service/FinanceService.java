@@ -3,17 +3,16 @@ package com.kingtech.web.commons.http.service;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.model.BranchInfoModel;
 import com.kingtech.model.CapitalModel;
-import com.kingtech.model.EmployeeModel;
 import com.kingtech.model.OtherBaddebtModel;
 import com.kingtech.model.OtherOverdueInfoModel;
 import com.kingtech.model.ProvisionInfoModel;
 import com.kingtech.model.RepayExtendInfoModel;
 import com.kingtech.model.RepayExtendPlanModel;
-import com.kingtech.model.RepayInfoModel;
 import com.kingtech.model.ShareholderModel;
 import com.kingtech.szsm.model.ContractRequestModel;
 import com.kingtech.szsm.model.EmployeeRequestModel;
 import com.kingtech.szsm.model.FinanceInfoRequestModel;
+import com.kingtech.szsm.model.RepayInfoRequestModel;
 import com.kingtech.szsm.model.SettledInfoRequestModel;
 import com.kingtech.szsm.model.SynResponseModel;
 /**
@@ -60,7 +59,7 @@ public interface FinanceService {
 	 * @param repayInfoModel
 	 * @return
 	 */
-	public SynResponseModel repayInfoFacade(RepayInfoModel repayInfoModel);
+	public SynResponseModel repayInfoFacade(RepayInfoRequestModel repayInfoModel,IdentifierType type);
 	
 	/**
 	 * 展期还款信息接口

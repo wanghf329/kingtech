@@ -15,6 +15,7 @@ import com.kingtech.enums.IdentifierType;
 import com.kingtech.szsm.model.BaseRequestModel;
 import com.kingtech.szsm.model.BaseResponsModel;
 import com.kingtech.szsm.model.ContractRequestModel;
+import com.kingtech.szsm.model.SettledInfoRequestModel;
 import com.kingtech.szsm.model.SynResponseModel;
 
 @Slf4j
@@ -100,6 +101,17 @@ public class BaseAbstract {
 			builder.append("roundStr=").append(contractRequestModel.getRoundStr()).append("&");
 			builder.append("signTime=").append(contractRequestModel.getSignTime()).append("&");
 			builder.append("token=").append(contractRequestModel.getToken()).append("&");
+			builder.append("appKey=").append(BaseConfig.APPKEY);
+			
+		}else if (baseRequestModel instanceof SettledInfoRequestModel) {
+			SettledInfoRequestModel settle = (SettledInfoRequestModel) baseRequestModel;
+			builder.append("clientId=").append(settle.getClientId()).append("&");
+			builder.append("reqId=").append(settle.getReqId()).append("&");
+			builder.append("roundStr=").append(settle.getRoundStr()).append("&");
+			builder.append("token=").append(settle.getToken()).append("&");
+			builder.append("contractNumber=").append(settle.getContractNumber()).append("&");
+			builder.append("money=").append(settle.getMoney()).append("&");
+			builder.append("loanTime=").append(settle.getLoanTime()).append("&");
 			builder.append("appKey=").append(BaseConfig.APPKEY);
 			
 		}
