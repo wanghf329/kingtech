@@ -68,7 +68,7 @@ public interface PaymentApi {
 	 * @param otherBaddebtModel
 	 * @return
 	 */
-	public void otherBaddebtApi(String otherBaddebtId,IdentifierType type);
+	public SynResponseModel otherBaddebtApi(String otherBaddebtId,IdentifierType type);
 	/**
 	 * 逾期信息
 	 * @param otherOverdueInfoModel

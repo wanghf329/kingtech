@@ -12,6 +12,7 @@ import com.kingtech.model.ShareholderModel;
 import com.kingtech.szsm.model.ContractRequestModel;
 import com.kingtech.szsm.model.EmployeeRequestModel;
 import com.kingtech.szsm.model.FinanceInfoRequestModel;
+import com.kingtech.szsm.model.OtherBaddebtRequestModel;
 import com.kingtech.szsm.model.QueryInfoRequestModel;
 import com.kingtech.szsm.model.RepayExtendInfoRequestModel;
 import com.kingtech.szsm.model.RepayInfoRequestModel;
@@ -81,7 +82,7 @@ public interface FinanceService {
 	 * @param otherBaddebtModel
 	 * @return
 	 */
-	public SynResponseModel otherBaddebtFacade(OtherBaddebtModel otherBaddebtModel);
+	public SynResponseModel otherBaddebtFacade(OtherBaddebtRequestModel otherBaddebtModel,IdentifierType type);
 	/**
 	 * 逾期信息
 	 * @param otherOverdueInfoModel
