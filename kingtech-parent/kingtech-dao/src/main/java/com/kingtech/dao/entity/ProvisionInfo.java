@@ -4,18 +4,15 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import com.kingtech.dao.entity.base.RecordEntity;
-import com.kingtech.enums.LoanClassificationEnum;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.enums.RecordStatus;
 
 /**
  * 计提信息表
@@ -92,7 +89,7 @@ public class ProvisionInfo extends RecordEntity {
 	@Column(name = "LOSS_REAL")
 	private BigDecimal lossReal;
 
-	public ProvisionInfo(String reqId, PushStatus pushStatus, Date dateMonth,
+	public ProvisionInfo(String reqId, PushStatus pushStatus,RecordStatus recordStatus, Date dateMonth,
 			BigDecimal normalBalance, BigDecimal normalRate,
 			BigDecimal normalReal, BigDecimal followBalance,
 			BigDecimal followRate, BigDecimal followReal,
@@ -100,7 +97,7 @@ public class ProvisionInfo extends RecordEntity {
 			BigDecimal minorReal, BigDecimal suspiciousBalance,
 			BigDecimal suspiciousRate, BigDecimal suspiciousReal,
 			BigDecimal lossBalance, BigDecimal lossRate, BigDecimal lossReal) {
-		super(reqId, pushStatus);
+		super(reqId, pushStatus,recordStatus);
 		this.dateMonth = dateMonth;
 		this.normalBalance = normalBalance;
 		this.normalRate = normalRate;

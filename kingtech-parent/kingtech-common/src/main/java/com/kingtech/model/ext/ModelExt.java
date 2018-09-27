@@ -12,18 +12,18 @@ public class ModelExt {
 	
 	private BaseModel model;
 	
-	private String loanContractNo;
+	private String contractNumber;
 	
-	private String loanContractName;
+	private String contractName;
 	
 	private PushStatus pushStatus;
 
-	public ModelExt(BaseModel model, String loanContractNo,
-			String loanContractName, PushStatus pushStatus) {
+	public ModelExt(BaseModel model, String contractNumber,
+			String contractName, PushStatus pushStatus) {
 		super();
 		this.model = model;
-		this.loanContractNo = loanContractNo;
-		this.loanContractName = loanContractName;
+		this.contractNumber = contractNumber;
+		this.contractName = contractName;
 		this.pushStatus = pushStatus;
 	}
 	

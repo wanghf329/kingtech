@@ -22,6 +22,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.kingtech.enums.PushStatus;
+import com.kingtech.enums.RecordStatus;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -53,6 +54,11 @@ public abstract class RecordEntity extends BaseEntity {
 	@Column(name="PUSH_STATUS")
 	private PushStatus pushStatus;
 	
+	// 删除状态
+	@Enumerated(EnumType.STRING)
+	@Column(name="RECORD_STATUS")
+	private RecordStatus recordStatus;
+	
 	
 	@PreUpdate
 	@PrePersist
@@ -61,9 +67,10 @@ public abstract class RecordEntity extends BaseEntity {
 		this.updateTime = new Date();
 	}
 
-	public RecordEntity(String reqId, PushStatus pushStatus) {
+	public RecordEntity(String reqId, PushStatus pushStatus,RecordStatus recordStatus) {
 		super();
 		this.reqId = reqId;
 		this.pushStatus = pushStatus;
+		this.recordStatus = recordStatus;
 	}
 }

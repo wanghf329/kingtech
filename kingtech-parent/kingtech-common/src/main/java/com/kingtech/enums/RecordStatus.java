@@ -1,17 +1,18 @@
 package com.kingtech.enums;
 
-public enum BorrowerTypeEnum implements BaseEnum {
-	S_2("自然人"),
-	S_1("企业");
-
+public enum RecordStatus implements BaseEnum {
+	NORMAL("正常"),	
+	DELETEED("删除");
+	
 	private String key;
 	
-	private BorrowerTypeEnum(String key) {
+	private RecordStatus(String key) {
 		this.key = key;
 	}
-	
+
 	@Override
 	public String getKey() {
 		return key;
 	}
+
 }
