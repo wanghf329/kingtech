@@ -158,9 +158,13 @@ function initDataTables() {
 									return "<span class=\"text-red bolder\">￥"+ data + "</span>";
 								}},
 								{data : "charge",render : function(data, type, row) {
+									
 									return "<span class=\"text-red bolder\">￥"+ data + "</span>";
 								}},
 								{data : "guaranteeMoney",render : function(data, type, row) {
+									if(data == null ) {
+										return "";
+									}
 									return "<span class=\"text-red bolder\">￥"+ data + "</span>";
 								}},
 								{data : "financeDate",render : function(data, type, row) {
@@ -203,49 +207,16 @@ function initDataTables() {
 								}},
 								{data : null,render : function(data, type, row) {
 									if(row.pushStatus=='SUCCESS' || row.pushStatus=='INPROSESS') {
-										return '<a href="finance/capital/edit?id='+row.id+'"><strong>查看详情</strong></a> <a href="/capital/edit?id='+row.id+'"><strong>查看补充信息</strong></a>'
+										return '<a href="finance/capital/edit?id='+row.id+'"><strong>查看详情</strong></a> <a href="finance/capital/supplement?financeId='+row.id+'"><strong>查看补充信息</strong></a>'
 									}
 									if(row.pushStatus=='INITATION' || row.pushStatus=='FAILED') {
 										return '<a href="finance/capital/edit?id='+row.id+'"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>'
-                                		        +'<a href="finance/capital/supplement?financeId='+row.id+'" ><i class="text-blue fa fa-plus-square-o"></i><strong>补充</strong></a>'
-                                			    +'<a href="javascirpt:void(0)" class="contract-push" data-id="'+row.id+'"><i class="text-blue fa fa-exchange"></i><strong>推送</strong></a>';
+                                		        +'<a href="finance/capital/supplement?financeId='+row.id+'" ><i class="text-blue fa fa-plus-square-o"></i><strong>补充</strong></a>';
 									}
 								}} ],
 						"fnDrawCallback" : function(oSettings) {
 							for (var i = 0, iLen = oSettings.aiDisplay.length; i < iLen; i++) {
 								$('td:eq(0)',oSettings.aoData[oSettings.aiDisplay[i]].nTr).html(oSettings['_iDisplayStart'] + i+ 1);
-								$('.contract-push').on("click",function(){
-									var id = $(this).data("id");
-									swal({
-										title : "确定推送吗？",
-										text : "推送前确认数据无误，推送后将无法更改！",
-										type : "warning",
-										showCancelButton : true,
-										confirmButtonColor : "#DD6B55",
-										confirmButtonText : "确认推送",
-										cancelButtonText : "取消推送",
-										closeOnConfirm : false,
-										closeOnCancel : true 
-									}, function() {  
-										$.ajax({
-											url:"loan/push/"+id,
-											type:'get',
-											async: false,
-											success:function(res){
-												if(res==null){
-													swal("推送！", "推送失败。", "error"); 
-												}else{
-													if(res.resultCode=='0000'){
-														swal("推送！", "推送成功。", "success"); 
-														window.location.href = "loan/list"; 
-													}else{
-														swal("推送失败！", res.resultMsg, "error"); 
-													}
-												}
-											}
-										});
-									});
-								})
 							}
 						}
 					});

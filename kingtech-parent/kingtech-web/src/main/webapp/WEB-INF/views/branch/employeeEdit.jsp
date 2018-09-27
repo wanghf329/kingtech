@@ -118,7 +118,7 @@
 												<div class="form-group">
 													<label for="#position" class="col-sm-2 control-label"><i class="text-red">*</i>职务</label>
 													<div class="col-sm-4 input-group">
-														<input type="text"  class="form-control validate[required,funcCall[positionValidate] ]" id="position" name="position"  value="${employee.position}" data-errormessage="职务不能为空"/>
+														<input type="text"  class="form-control validate[required, funcCall[positionValidate] ]" id="position" name="position"  value="${employee.position}" />
 													</div>
 												</div>
 												

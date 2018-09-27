@@ -61,8 +61,6 @@
 													</div>
 												</div>
 												
-												
-												
 												<div class="form-group">
 													<label for="#loanAmount" class="col-sm-2 control-label"><i class="text-red">*</i> 其它费用（元）</label> 
 													<div class="col-sm-4 input-group">
@@ -83,7 +81,7 @@
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
 		<%@include file="../common/footer.jspf" %>   
-        <script src="bujs/finance/capital.js" type="text/javascript"></script>  
+        <script src="bujs/finance/repayment.js" type="text/javascript"></script>  
         <script type="text/javascript">
         	var borrowerId = '${repayment.id}';
         	var canEdit = "${repayment==null or repayment.pushStatus=='INITATION' or repayment.pushStatus=='FAILED'}";

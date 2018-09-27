@@ -127,16 +127,16 @@ function initDataTables() {
 									}
 									if(row.pushStatus=='INITATION' || row.pushStatus=='FAILED') {
 										return '<a href="branchAccount/accountBalance/edit?id='+row.id+'"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>'
-                                			    +'<a href="javascirpt:void(0)" class="contract-push" data-id="'+row.id+'"><i class="text-blue fa fa-exchange"></i><strong>推送</strong></a>';
+										 +'<a href="javascirpt:void(0)" class="accountBalance-delete" data-id="'+row.id+'"><i class="text-red fa fa-edit"></i><strong>删除</strong>';
 									}
 								}} ],
 						"fnDrawCallback" : function(oSettings) {
 							for (var i = 0, iLen = oSettings.aiDisplay.length; i < iLen; i++) {
 								$('td:eq(0)',oSettings.aoData[oSettings.aiDisplay[i]].nTr).html(oSettings['_iDisplayStart'] + i+ 1);
-								$('.contract-push').on("click",function(){
+								$('.accountBalance-delete').on("click",function(){
 									var id = $(this).data("id");
 									swal({
-										title : "确定推送吗？",
+										title : "确定删除吗？",
 										text : "推送前确认数据无误，推送后将无法更改！",
 										type : "warning",
 										showCancelButton : true,
@@ -147,7 +147,7 @@ function initDataTables() {
 										closeOnCancel : true 
 									}, function() {  
 										$.ajax({
-											url:"loan/push/"+id,
+											url:"branchAccount/accountBalance/delete/"+id,
 											type:'get',
 											async: false,
 											success:function(res){
@@ -156,7 +156,7 @@ function initDataTables() {
 												}else{
 													if(res.resultCode=='0000'){
 														swal("推送！", "推送成功。", "success"); 
-														window.location.href = "loan/list"; 
+														window.location.href = "branchAccount/accountBalanceList"; 
 													}else{
 														swal("推送失败！", res.resultMsg, "error"); 
 													}

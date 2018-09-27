@@ -1,6 +1,7 @@
 package com.kingtech.web.commons.base.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,9 @@ import com.kingtech.dao.entity.Capital;
 import com.kingtech.dao.entity.FinanceRepayPlan;
 import com.kingtech.dao.rdbms.CapitalDAO;
 import com.kingtech.dao.rdbms.FinanceRepayPlanDAO;
+import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.enums.RecordStatus;
 import com.kingtech.model.CapitalModel;
 import com.kingtech.model.FinanceRepayPlanModel;
 import com.kingtech.model.misc.PagedResult;
@@ -40,26 +43,31 @@ public class CapitalServiceImpl implements CapitalService{
 	@Autowired
 	private FinanceRepayPlanDAO financeRepayPlanDAO;
 	
-	private static final String LISTCAPITALSQL = "SELECT * from TB_BRANCH_CAPITAL t order by t.CREATE_TIME DESC";
+	private static final String LISTCAPITALSQL = "SELECT * from TB_BRANCH_CAPITAL t where t.RECORD_STATUS = 'NORMAL'  order by t.CREATE_TIME DESC";
 	
 	@Override
 	@Transactional
 	public Capital addNew(CapitalModel model) {
 		Capital capital = null;
+		IdentifierType type = null;
 		try {
 			if (StringUtils.isEmpty(model.getId())) {
 				capital = new Capital();
 				model.setReqId(creatRequstId.getReqId());
 				model.setPushStatus(PushStatus.INITATION);
 				BeanUtils.copyProperties(capital, model);
+				type = IdentifierType.A;
 			} else {
 				capital = capitalDao.findOne(model.getId());
 				String reqId = capital.getReqId();
 				BeanUtils.copyProperties(capital, model);
 				capital.setReqId(reqId);
 				capital.setPushStatus(PushStatus.INITATION);
+				type = IdentifierType.U;
 			}
+			capital.setRecordStatus(RecordStatus.NORMAL);
 			capital = capitalDao.save(capital);
+			paymentApi.capitalInfoApi(capital.getId(), type);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -69,6 +77,10 @@ public class CapitalServiceImpl implements CapitalService{
 	@Override
 	public List<Capital> listAll() {
 		return (List)capitalDao.findAll();
+	}
+	
+	public List<Capital> listFinanceNumberByStatus(RecordStatus status) {
+		return capitalDao.listCapitalByRecordStatus(status);
 	}
 
 	@Override
@@ -91,6 +103,8 @@ public class CapitalServiceImpl implements CapitalService{
 		for (FinanceRepayPlanModel re : repayPlanList) {
 			financeRepayPlanDAO.save(new FinanceRepayPlan(financeId, re.getInterest(), re.getEndDate(), re.getMoney(), re.getOrderNum()));
 		}
+		Capital capital = capitalDao.findOne(financeId);
+		paymentApi.capitalInfoApi(capital.getId(), IdentifierType.U);
 	}
 
 
