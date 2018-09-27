@@ -13,10 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.kingtech.common.utils.DateUtil;
+import com.kingtech.dao.entity.AssetTransfer;
 import com.kingtech.dao.entity.Contract;
 import com.kingtech.dao.entity.OtherBaddebt;
 import com.kingtech.dao.entity.OtherOverdueInfo;
 import com.kingtech.dao.entity.RepayInfo;
+import com.kingtech.dao.rdbms.AssetTransferDAO;
 import com.kingtech.dao.rdbms.ContractDAO;
 import com.kingtech.dao.rdbms.OtherBaddebtDAO;
 import com.kingtech.dao.rdbms.OtherOverdueInfoDAO;
@@ -24,6 +26,7 @@ import com.kingtech.dao.rdbms.RepayInfoDAO;
 import com.kingtech.enums.BadTypeEnum;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.model.AssetTransferModel;
 import com.kingtech.model.OtherBaddebtModel;
 import com.kingtech.model.OtherOverdueInfoModel;
 import com.kingtech.model.RepayInfoModel;
@@ -53,6 +56,9 @@ public class PostLoanServiceImpl implements PostLoanService{
 	
 	@Autowired
 	private OtherOverdueInfoDAO otherOverdueInfoDAO;
+	
+	@Autowired
+	private AssetTransferDAO assetTransferDao;
 
 	@Override
 	public List<Contract> listAllContract() {
@@ -310,5 +316,35 @@ public class PostLoanServiceImpl implements PostLoanService{
 		return overdueInfo;
 	}
 	
+	@Override
+	public List<ModelExt> listAllAssetTransfer() {
+		List<ModelExt> result = new ArrayList<ModelExt>();
+		List<AssetTransfer> assetTransfers= (List<AssetTransfer>) assetTransferDao.findAll();
+		String constractId = "";
+		Contract contract = null;
+		for (AssetTransfer assetTransfer:assetTransfers) {
+			if(constractId.equals(assetTransfer.getLoanContractId())) {
+				constractId = assetTransfer.getLoanContractId();
+			} else {
+				contract = contractDao.findOne(assetTransfer.getLoanContractId());
+			}
+			result.add(new ModelExt(
+						   new AssetTransferModel(assetTransfer.getId(), 
+								   assetTransfer.getLoanContractId(),
+								   assetTransfer.getTransferNumber(),
+								   assetTransfer.getTransferMoney().toPlainString(),
+								   assetTransfer.getOriginalMoney().toPlainString(),
+								   assetTransfer.getDiscountMoney().toPlainString(),
+								   assetTransfer.getAcceptUnit(),
+								   assetTransfer.getProtocol(),
+								   DateUtil.getDateStr(assetTransfer.getTransferDate(), "yyyy-MM-dd")),
+						   
+						   contract.getContractNumber(),
+						   contract.getContractName(),
+						   assetTransfer.getPushStatus()));
+		}
+		return result;
+		
+	}
 
 }

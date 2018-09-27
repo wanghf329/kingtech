@@ -52,5 +52,7 @@ public interface PostLoanService {
 										  	  BigDecimal balance,
 										  	  String remarks,
 										  	  String loanContractId);
+	
+	public List<ModelExt> listAllAssetTransfer();
 
 }

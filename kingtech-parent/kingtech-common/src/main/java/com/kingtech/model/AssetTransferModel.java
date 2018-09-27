@@ -7,7 +7,7 @@ import com.kingtech.common.config.BaseConfig;
 import com.kingtech.common.utils.SignUtils;
 
 /**
- * 坏账信息
+ * 资产转让
  * 
  * @author baijt
  *
@@ -70,9 +70,10 @@ public class AssetTransferModel extends BaseModel {
 		this.updateTime = updateTime;
 	}
 
-	public AssetTransferModel(String id, String transferNumber, String transferMoney, String originalMoney,
+	public AssetTransferModel(String id, String loanContractId, String transferNumber, String transferMoney, String originalMoney,
 			String discountMoney, String acceptUnit, String protocol, String transferDate) {
 		super(id);
+		this.loanContractId = loanContractId;
 		this.transferNumber = transferNumber;
 		this.transferMoney = transferMoney;
 		this.originalMoney = originalMoney;
