@@ -91,48 +91,47 @@ public class PostLoanServiceImpl implements PostLoanService{
 		if(repayInfo == null) {
 			return null;
 		}
-		RepayInfoModel  model = new RepayInfoModel(id, 
-				repayInfo.getLoanContractId(), 
-				repayInfo.getRepayAmount().toPlainString(),
-				repayInfo.getRepayPrincipalAmount().toPlainString(),
-				repayInfo.getRepayInterestAmount().toPlainString(),
-				DateUtil.getDateStr(repayInfo.getRepayDate(), "yyyy-MM-dd"));
+		RepayInfoModel model = new RepayInfoModel(id, repayInfo.getRepayTime(),
+				repayInfo.getMoney(), repayInfo.getInterest(),
+				repayInfo.getPenaltyInterest(), repayInfo.getPenalty(),
+				repayInfo.getServiceCharge(), repayInfo.getOtherCharge());
 		return model;
 	}
 
 	@Override
 	@Transactional
-	public RepayInfo addNewRepayInfo(String id, String repayDate,
-			BigDecimal repayAmount, BigDecimal repayPrincipalAmount,
-			BigDecimal repayInterestAmount, String loanContractId) {
+	public RepayInfo saveRepayInfo(String loanContractId,RepayInfoModel model){
 		RepayInfo repayInfo = null;
 		if(StringUtils.isEmpty(loanContractId)) {
 			return null;
 		}
 		try {
-			if(StringUtils.isEmpty(id)) {
+			if(StringUtils.isEmpty(model.getId())) {
 				repayInfo = new RepayInfo(loanContractId,
-										 creatRequstId.getReqId(), 
-										 PushStatus.INITATION, 
-										 DateUtils.parseDate(repayDate, "yyyy-MM-dd"),
-										 repayAmount,
-										 repayPrincipalAmount, 
-										 repayInterestAmount);
-				
+										  creatRequstId.getReqId(), 
+										  PushStatus.INITATION, 
+										  model.getRepayTime(),
+										  model.getMoney(),
+										  model.getInterest(),
+										  model.getPenaltyInterest(),
+										  model.getPenalty(),
+										  model.getServiceCharge(),
+										  model.getOtherCharge());
 			} else {
-				repayInfo = repayInfoDao.findOne(id);
-				repayInfo.setRepayAmount(repayAmount);
-				repayInfo.setRepayInterestAmount(repayInterestAmount);
-				repayInfo.setRepayPrincipalAmount(repayPrincipalAmount);
-				repayInfo.setLoanContractId(loanContractId);
-				repayInfo.setRepayDate(DateUtils.parseDate(repayDate, "yyyy-MM-dd"));
+				repayInfo = repayInfoDao.findOne(model.getId());
+				repayInfo.setRepayTime(model.getRepayTime());
+				repayInfo.setMoney(model.getMoney());
+				repayInfo.setInterest(model.getInterest());
+				repayInfo.setPenaltyInterest(model.getPenaltyInterest());
+				repayInfo.setPenalty(model.getPenalty());
+				repayInfo.setServiceCharge(model.getServiceCharge());
+				repayInfo.setOtherCharge(model.getOtherCharge());
 			}
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		repayInfoDao.save(repayInfo); 
-		paymentApi.repayInfoApi(repayInfo.getId(), StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
+//		paymentApi.repayInfoApi(repayInfo.getId(), StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
 		return repayInfo;
 	}
 

@@ -25,28 +25,43 @@ public class RepayInfo extends LoanRecordEntity {
 	
 	// 还款日期
 	@Column(name="REPAY_DATE")
-	private Date repayDate;
+	private Date repayTime;
 	
-	// 还款金额
-	@Column(name="REPAY_AMOUNT")
-	private BigDecimal repayAmount;
-
 	// 还款本金
 	@Column(name="REPAY_PRINCIPAL_AMOUNT")
-	private BigDecimal repayPrincipalAmount;
+	private BigDecimal money;
 
 	// 还款利息
 	@Column(name="REPAY_INTEREST_AMOUNT")
-	private BigDecimal repayInterestAmount;
+	private BigDecimal interest;
+	
+	//罚息
+	@Column(name="PENALTY_INTEREST_AMOUNT")
+	private BigDecimal penaltyInterest;
+	
+	//违约金
+	@Column(name="PENALTY_AMOUNT")
+	private BigDecimal penalty;
+	
+	//服务费
+	@Column(name="SERVICE_FEE_AMOUNT")
+	private BigDecimal serviceCharge;
+	
+	//其他费用
+	@Column(name="OTHER_FEE_AMOUNT")
+	private BigDecimal otherCharge;
 
 	public RepayInfo(String loanContractId, String reqId,
-			PushStatus pushStatus, Date repayDate, BigDecimal repayAmount,
-			BigDecimal repayPrincipalAmount, BigDecimal repayInterestAmount) {
+			PushStatus pushStatus, Date repayTime, BigDecimal money,
+			BigDecimal interest, BigDecimal penaltyInterest,
+			BigDecimal penalty, BigDecimal serviceCharge, BigDecimal otherCharge) {
 		super(loanContractId, reqId, pushStatus);
-		this.repayDate = repayDate;
-		this.repayAmount = repayAmount;
-		this.repayPrincipalAmount = repayPrincipalAmount;
-		this.repayInterestAmount = repayInterestAmount;
+		this.repayTime = repayTime;
+		this.money = money;
+		this.interest = interest;
+		this.penaltyInterest = penaltyInterest;
+		this.penalty = penalty;
+		this.serviceCharge = serviceCharge;
+		this.otherCharge = otherCharge;
 	}
-
 }

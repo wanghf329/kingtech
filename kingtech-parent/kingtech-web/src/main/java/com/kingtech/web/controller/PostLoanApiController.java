@@ -78,14 +78,17 @@ public class PostLoanApiController {
 	public RepayInfoModel getRepayInfo(Model model,@PathVariable String id) {
 		return postLoanService.getRepayInfoById(id);
 	}
-	@RequestMapping(method = RequestMethod.POST, value = "add/repayInfo")
-	public String addNewRepayInfo(Model model,String id,
-								  String repayDate,
-								  BigDecimal repayAmount,
-								  BigDecimal repayPrincipalAmount,
-								  BigDecimal repayInterestAmount,
-								  String loanContractId){
-		postLoanService.addNewRepayInfo(id, repayDate, repayAmount, repayPrincipalAmount, repayInterestAmount, loanContractId);
+	
+	/**
+	 * 保存还款信息
+	 * @param model
+	 * @param repayInfo
+	 * @param loanContractId
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.POST, value = "save/repayInfo")
+	public String saveRepayInfo(Model model,RepayInfoModel repayInfo,String loanContractId){
+		postLoanService.saveRepayInfo(loanContractId,repayInfo);
 		return "redirect:/postLoan/repayinfo";
 	}
 
