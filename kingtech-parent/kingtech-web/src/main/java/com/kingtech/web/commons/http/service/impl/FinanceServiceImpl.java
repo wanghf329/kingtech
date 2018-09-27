@@ -17,6 +17,7 @@ import com.kingtech.model.RepayInfoModel;
 import com.kingtech.model.ShareholderModel;
 import com.kingtech.szsm.model.ContractRequestModel;
 import com.kingtech.szsm.model.EmployeeRequestModel;
+import com.kingtech.szsm.model.FinanceInfoRequestModel;
 import com.kingtech.szsm.model.SettledInfoRequestModel;
 import com.kingtech.szsm.model.SynResponseModel;
 import com.kingtech.web.commons.base.BaseAbstract;
@@ -125,6 +126,13 @@ public class FinanceServiceImpl   extends BaseAbstract implements FinanceService
 	@Override
 	public SynResponseModel settleInfoFacade(SettledInfoRequestModel settledInfoRequestModel, IdentifierType type) {
 		SynResponseModel responseModel = getResponse(settledInfoRequestModel, "loan-info",type);
+		return responseModel;
+	}
+
+
+	@Override
+	public SynResponseModel financeInfoFacade(FinanceInfoRequestModel financeInfoRequestModel, IdentifierType type) {
+		SynResponseModel responseModel = getResponse(financeInfoRequestModel, " single-finane",type);
 		return responseModel;
 	}
 

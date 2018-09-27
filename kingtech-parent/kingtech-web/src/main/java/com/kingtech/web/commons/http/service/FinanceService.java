@@ -13,6 +13,7 @@ import com.kingtech.model.RepayInfoModel;
 import com.kingtech.model.ShareholderModel;
 import com.kingtech.szsm.model.ContractRequestModel;
 import com.kingtech.szsm.model.EmployeeRequestModel;
+import com.kingtech.szsm.model.FinanceInfoRequestModel;
 import com.kingtech.szsm.model.SettledInfoRequestModel;
 import com.kingtech.szsm.model.SynResponseModel;
 /**
@@ -99,4 +100,12 @@ public interface FinanceService {
 	 * @return
 	 */
 	public SynResponseModel settleInfoFacade(SettledInfoRequestModel settledInfoRequestModel,IdentifierType type);
+	
+	/**
+	 * 单笔融资信息接口
+	 * @param financeInfoRequestModel
+	 * @param type
+	 * @return
+	 */
+	public SynResponseModel  financeInfoFacade (FinanceInfoRequestModel financeInfoRequestModel,IdentifierType type);
 }

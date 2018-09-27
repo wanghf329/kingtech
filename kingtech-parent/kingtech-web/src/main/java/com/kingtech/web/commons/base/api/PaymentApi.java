@@ -95,9 +95,14 @@ public interface PaymentApi {
 	 * @return
 	 */
 	public  SynResponseModel settleInfoApi(String settleInfoId,IdentifierType type);
+	/**
+	 * 
+	 * @param financeInfoId
+	 * @param type
+	 * @return
+	 */
 	
-	
-	public SynResponseModel 
+	public SynResponseModel financeInfoApi(String financeInfoId,IdentifierType type)
 	
 	
 	

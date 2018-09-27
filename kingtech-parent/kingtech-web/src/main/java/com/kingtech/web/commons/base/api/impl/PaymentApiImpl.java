@@ -68,6 +68,8 @@ import com.kingtech.szsm.model.ContractZywRequestModel;
 import com.kingtech.szsm.model.EmployeeRequestModel;
 import com.kingtech.szsm.model.EnterpriseCustomerRequestModel;
 import com.kingtech.szsm.model.ExtendPlanRequestModel;
+import com.kingtech.szsm.model.FinanceInfoRequestModel;
+import com.kingtech.szsm.model.FinanceRepayPlanRequest;
 import com.kingtech.szsm.model.GuaranteeRequestModel;
 import com.kingtech.szsm.model.PersonalCustomerRequestModel;
 import com.kingtech.szsm.model.RepayExtendInfoRequestModel;
@@ -738,6 +740,46 @@ public class PaymentApiImpl  implements PaymentApi {
 			settledInfoDAO.save(settle);
 		}
 		return responseModel;
+	}
+
+	@Override
+	public SynResponseModel financeInfoApi(String financeInfoId,IdentifierType type) {
+		
+		Capital capital = capitalDAO.findOne(financeInfoId);
+		if (capital ==null) {
+			log.info("未获取到融资信息相关数据financeInfoId={}",financeInfoId);
+			  return null;
+		  }
+		String roundStr =  RandomUtil.random8Len();
+		
+		List<FinanceRepayPlanRequest> financeRepayPlanRequests = null;
+		
+		FinanceInfoRequestModel financeInfoRequestModel = new FinanceInfoRequestModel(roundStr,
+				capital.getReqId(), 
+				capital.getFinanceNumber(), 
+				capital.getFinanceName(),
+				capital.getLender(),
+				DTOUtils.getEnumIntVal(capital.getChannel()), 
+				capital.getMoney().toPlainString(),
+				capital.getInterest().toPlainString(),
+				capital.getCharge().toPlainString(), 
+				capital.getGuaranteeMoney().toPlainString(), 
+				capital.getRemark(), 
+				DateUtil.getSimpleDate(capital.getFinanceDate()),
+				DateUtil.getSimpleDate(capital.getEndDate()),
+				capital.getRate().toPlainString(), 
+				DTOUtils.getEnumIntVal(capital.getRateType()), 
+				capital.getLoanContractNumber(),
+				financeRepayPlanRequests);
+		
+		SynResponseModel responseModel = financeService.financeInfoFacade(financeInfoRequestModel, type);
+		if (responseModel.isSuccess()) {
+			capital.setPushStatus(PushStatus.INPROSESS);
+			capitalDAO.save(capital);
+		}
+		return responseModel;
+		
+		
 	}
 
 }
