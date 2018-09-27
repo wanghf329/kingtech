@@ -21,15 +21,16 @@ public class RepayExtendPlanModelExt extends RepayExtendPlanModel{
 	
 	private PushStatus pushStatus;
 
-	public RepayExtendPlanModelExt(String id, String contractNumber,
-			String interest, String endDate, String principal,
-			String creatTime, String updateTime, String loanContractNo,
+	public RepayExtendPlanModelExt(String id, String interest, String endDate,
+			String principal, String count, String loanContractNo,
 			String loanContractName, PushStatus pushStatus) {
-		super(id, contractNumber, interest, endDate, principal, creatTime,
-				updateTime);
+		super(id, interest, endDate, principal, count);
 		this.loanContractNo = loanContractNo;
 		this.loanContractName = loanContractName;
 		this.pushStatus = pushStatus;
 	}
+	
+	
+
 	
 }

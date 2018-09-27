@@ -22,6 +22,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.kingtech.enums.PushStatus;
+import com.kingtech.enums.RecordStatus;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -55,6 +56,11 @@ public abstract class LoanRecordEntity extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	@Column(name="PUSH_STATUS")
 	private PushStatus pushStatus;
+	
+	// 删除状态
+	@Enumerated(EnumType.STRING)
+	@Column(name="RECORD_STATUS")
+	private RecordStatus recordStatus;
 	
 	@PrePersist
 	@PreUpdate

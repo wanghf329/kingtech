@@ -576,7 +576,7 @@ public class PaymentApiImpl  implements PaymentApi {
 //		}
 		SynResponseModel responseModel = financeService.repayExtendPlanFacade(repayExtendPlanModel);
 		if (responseModel.isSuccess()) {
-			extendPlan.setPushStatus(PushStatus.INPROSESS);
+//			extendPlan.setPushStatus(PushStatus.INPROSESS);
 			repayExtendPlanDAO.save(extendPlan);
 		}
 	}

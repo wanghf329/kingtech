@@ -16,10 +16,10 @@ import com.kingtech.enums.PushStatus;
  */
 @Data
 @Entity
-@Table(name="TB_LOAN_REPAY_EXTEND_PLAN")
+@Table(name="TB_LOAN_REPAY_EXTEND_PLAN_INFO")
 @NoArgsConstructor
 public class RepayExtendPlanInfo extends LoanRecordEntity {
-
+	
 	// 第几次展期
 	@Column(name="COUNT")
 	private String count;

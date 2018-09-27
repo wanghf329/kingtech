@@ -1,10 +1,13 @@
 package com.kingtech.web.commons.base.service;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 
 import com.kingtech.dao.entity.RepayExtendPlan;
+import com.kingtech.model.RepayExtendPlanInfoModel;
 import com.kingtech.model.RepayExtendPlanModel;
 import com.kingtech.model.ext.ModelExt;
 import com.kingtech.model.ext.RepayExtendPlanModelExt;
@@ -22,10 +25,17 @@ public interface ExtendRepayPlanService {
 	 */
 	public void addNew(String id, 
 						String loanContractId, 
-						String count,
-						String endDate, 
-						String principal,
-						String interest);
+						String count);
+	/**
+	 * 添加展期计划
+	 * @param id
+	 * @param principal
+	 * @param endDate
+	 * @param interest
+	 */
+	public void addRepayExtendPlan(String id,BigDecimal principal ,Date endDate,BigDecimal interest);
+	
+	public RepayExtendPlanInfoModel getPlanInfoById(String id);
 				
 	/**
 	 * 
@@ -41,5 +51,5 @@ public interface ExtendRepayPlanService {
 	public RepayExtendPlanModel getById(String id);
 	
 	
-	public PagedResult<ModelExt> pageList(Pageable pageAble);
+	public PagedResult<RepayExtendPlanInfoModel> pageList(Pageable pageAble);
 }
