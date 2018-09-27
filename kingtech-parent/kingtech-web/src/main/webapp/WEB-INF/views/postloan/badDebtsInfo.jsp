@@ -43,7 +43,7 @@
 										<div class="col-sm-6 input-group">
 											<select class="form-control validate[required]" id="loanContractId" name="loanContractId">
 												<c:forEach var="it" items="${contracts}">
-			  										<option value ="${it.id}">${it.loanContractNo}</option>
+			  										<option value ="${it.id}">${it.contractNumber}</option>
 												</c:forEach>
 											</select>
 										</div>
@@ -123,8 +123,8 @@
                                         <c:forEach var="it" varStatus="status"  items="${list}">
 	                                        <tr>
 	                                            <td>${status.index+1}</td>
-	                                            <td>${it.loanContractNo}</td>  
-	                                            <td>${it.loanContractName}</td>  
+	                                            <td>${it.contractNumber}</td>  
+	                                            <td>${it.contractName}</td>  
 	                                            <td class="text-red"><i class="text-red fa  fa-rmb"></i><strong>${it.model.badMoney}</strong></td>
 	                                            <td>${it.model.lossDate}</td>
 	                                            

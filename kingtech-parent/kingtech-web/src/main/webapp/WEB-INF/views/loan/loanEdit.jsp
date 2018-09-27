@@ -73,7 +73,7 @@
 													<div class="col-sm-4 input-group">
 														<select class="form-control validate[required]" id="termType" name="termType" data-errormessage="贷款期限类型不能为空">
 															<c:forEach var="it" items="${termType}">
-						  										<option value ="${it.name()}" <c:if test="${it.name() eq contract.termType}"></c:if> >${it.getKey()}</option>
+						  										<option value ="${it.name()}" <c:if test="${it.name() eq contract.termType}">selected</c:if> >${it.getKey()}</option>
 															</c:forEach>
 														</select>
 													</div>
@@ -125,7 +125,7 @@
 												<div class="form-group">
 													<label for="#platformCost" class="col-sm-2 control-label"><i class="text-red">*</i> 平台费</label> 
 													<div class="col-sm-4 input-group"> 
-														<input type="text" class="form-control validate[required,custom[number],min[1],max[99999999999]]" name="platformCost" value="${contract.platformCost}">
+														<input type="text" class="form-control validate[required,custom[number],min[0],max[9999999999]]" name="platformCost" value="${contract.platformCost}">
 													</div>
 												</div>									
 												<div class="form-group">

@@ -4,8 +4,8 @@ public enum RateTypeEnum implements BaseEnum {
 	S_1("日"),
 	S_2("周"),
 	S_3("月"),
-	S_4("年"),
-	S_5("季");
+	S_4("季"),
+	S_5("年");
 
 	private String key;
 	
