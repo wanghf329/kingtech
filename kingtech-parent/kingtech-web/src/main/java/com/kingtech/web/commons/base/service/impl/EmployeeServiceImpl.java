@@ -16,6 +16,7 @@ import com.kingtech.dao.entity.Employee;
 import com.kingtech.dao.rdbms.EmployeeDAO;
 import com.kingtech.enums.BorrowerTypeEnum;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.enums.RecordStatus;
 import com.kingtech.model.EmployeeModel;
 import com.kingtech.model.misc.PagedResult;
 import com.kingtech.web.commons.base.CreatRequstId;
@@ -56,7 +57,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 				employee.setReqId(reqId);
 				employee.setPushStatus(PushStatus.INITATION);
 			}
-			
+			employee.setRecordStatus(RecordStatus.NORMAL);
 			employee = employeeDao.save(employee);
 			return employee;
 		} catch (Exception e) {
