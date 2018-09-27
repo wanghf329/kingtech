@@ -102,7 +102,7 @@ public interface PaymentApi {
 	 * @return
 	 */
 	
-	public SynResponseModel financeInfoApi(String financeInfoId,IdentifierType type)
+	public SynResponseModel financeInfoApi(String financeInfoId,IdentifierType type);
 	
 	
 	
