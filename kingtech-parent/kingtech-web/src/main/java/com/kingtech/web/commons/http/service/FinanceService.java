@@ -1,5 +1,6 @@
 package com.kingtech.web.commons.http.service;
 
+import com.kingtech.enums.IdentifierType;
 import com.kingtech.model.BranchInfoModel;
 import com.kingtech.model.CapitalModel;
 import com.kingtech.model.EmployeeModel;
@@ -29,7 +30,7 @@ public interface FinanceService {
 	 * 机构人员信息接口
 	 */
 	
-	public SynResponseModel branchEmployeeFacade(EmployeeRequestModel employeeModel);
+	public SynResponseModel branchEmployeeFacade(EmployeeRequestModel employeeModel,IdentifierType type);
 	
 	/**
 	 * 
@@ -50,7 +51,7 @@ public interface FinanceService {
 	 * @param shareholderModel
 	 * @return
 	 */
-	public SynResponseModel contractFacade(ContractRequestModel contractModel);
+	public SynResponseModel contractFacade(ContractRequestModel contractModel,IdentifierType type);
 	
 	/**
 	 * 还款信息接口

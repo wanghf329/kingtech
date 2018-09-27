@@ -67,6 +67,8 @@ import com.kingtech.szsm.model.EmployeeRequestModel;
 import com.kingtech.szsm.model.EnterpriseCustomerRequestModel;
 import com.kingtech.szsm.model.GuaranteeRequestModel;
 import com.kingtech.szsm.model.PersonalCustomerRequestModel;
+import com.kingtech.szsm.model.RepayExtendInfoRequestModel;
+import com.kingtech.szsm.model.RepayExtendPlanRequestModel;
 import com.kingtech.szsm.model.RepayPlanRequestModel;
 import com.kingtech.szsm.model.SynResponseModel;
 import com.kingtech.web.commons.base.CreatRequstId;
@@ -230,7 +232,7 @@ public class PaymentApiImpl  implements PaymentApi {
 
 	@Override
 	@Transactional
-	public void employeeInfoApi(String capitalId) {
+	public void employeeInfoApi(String capitalId,IdentifierType type) {
 		
 		
 		   Employee employee = employeeDAO.findOne(capitalId);
@@ -258,9 +260,9 @@ public class PaymentApiImpl  implements PaymentApi {
 				   DateUtil.getSimpleDate(employee.getQuitTime()));
 		   
 		   
-		   SynResponseModel responseModel= financeService.branchEmployeeFacade(employeeRequestModel);
+		   SynResponseModel responseModel= financeService.branchEmployeeFacade(employeeRequestModel,type);
 		   if (responseModel.isSuccess()) {
-			   employee.setPushStatus(PushStatus.SUCCESS);
+			   employee.setPushStatus(PushStatus.INPROSESS);
 			   employeeDAO.save(employee);
 		   }
 	}
@@ -359,7 +361,7 @@ public class PaymentApiImpl  implements PaymentApi {
 
 	@Override
 	@Transactional
-	public SynResponseModel contractInfoApi(String loanIdContractId) {
+	public SynResponseModel contractInfoApi(String loanIdContractId,IdentifierType type) {
 		
 		Contract contract = contractDAO.findOne(loanIdContractId);
 		if (contract == null) {
@@ -467,9 +469,9 @@ public class PaymentApiImpl  implements PaymentApi {
 				repayPlanRequestModels);
 		
 		
-		SynResponseModel responseModel = financeService.contractFacade(contractRequestModel);
+		SynResponseModel responseModel = financeService.contractFacade(contractRequestModel,type);
 		if (responseModel.isSuccess()) {
-			contract.setPushStatus(PushStatus.SUCCESS);
+			contract.setPushStatus(PushStatus.INPROSESS);
 			contractDAO.save(contract);
 		}
 		return responseModel;
@@ -521,7 +523,7 @@ public class PaymentApiImpl  implements PaymentApi {
 		}
 		
 		String roundStr =  RandomUtil.random8Len();
-		RepayExtendInfoModel extendInfoModel = null;
+		RepayExtendInfoRequestModel repayExtendInfoRequestModel = null;
 //		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
 //			extendInfoModel = new RepayExtendInfoModel(roundStr,
 //					type.name(), 
@@ -555,7 +557,7 @@ public class PaymentApiImpl  implements PaymentApi {
 		}
 		
 		String roundStr =  RandomUtil.random8Len();
-		RepayExtendPlanModel repayExtendPlanModel = null;
+		RepayExtendPlanRequestModel repayExtendPlanRequestModel = null;
 //		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
 //			repayExtendPlanModel = new RepayExtendPlanModel(roundStr,
 //					type.name(), extendPlan.getReqId(), null, contractDAO.findOne(extendPlan.getLoanContractId()).getLoanContractNo(),

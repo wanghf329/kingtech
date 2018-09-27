@@ -176,7 +176,7 @@ public class LoanContractApiController {
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET,value="/push/{id}")
 	public SynResponseModel push(Model model,@PathVariable("id") String id) { 
-		SynResponseModel synresponseModel = paymentApi.contractInfoApi(id);
+		SynResponseModel synresponseModel = paymentApi.contractInfoApi(id,IdentifierType.A);
 		return synresponseModel;
 	}  
 	

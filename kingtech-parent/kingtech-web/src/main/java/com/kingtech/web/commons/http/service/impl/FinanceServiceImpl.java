@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.stereotype.Service;
 
+import com.kingtech.enums.IdentifierType;
 import com.kingtech.model.BranchInfoModel;
 import com.kingtech.model.CapitalModel;
 import com.kingtech.model.EmployeeModel;
@@ -37,8 +38,8 @@ public class FinanceServiceImpl   extends BaseAbstract implements FinanceService
 	
 
 	@Override
-	public SynResponseModel branchEmployeeFacade(EmployeeRequestModel employeeModel) {
-		SynResponseModel responseModel = getResponse(employeeModel, "pushCompanyEmployeeData");
+	public SynResponseModel branchEmployeeFacade(EmployeeRequestModel employeeModel,IdentifierType type) {
+		SynResponseModel responseModel = getResponse(employeeModel, "pushCompanyEmployeeData",type);
 		return responseModel;
 	}
 
@@ -60,8 +61,8 @@ public class FinanceServiceImpl   extends BaseAbstract implements FinanceService
 
 
 	@Override
-	public SynResponseModel contractFacade(ContractRequestModel contractModel) {
-		SynResponseModel responseModel = getResponse(contractModel, "loan-contract");
+	public SynResponseModel contractFacade(ContractRequestModel contractModel,IdentifierType type) {
+		SynResponseModel responseModel = getResponse(contractModel, "loan-contract",type);
 		return responseModel;
 	}
 
