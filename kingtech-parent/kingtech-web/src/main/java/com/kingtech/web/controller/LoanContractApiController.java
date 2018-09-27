@@ -161,7 +161,7 @@ public class LoanContractApiController {
 								 BigDecimal money, Date loanTime, Date startDate, Date endDate)
 								 throws ParseException {
 		contractService.addSettledInfo(loanContractId, money, loanTime,startDate, endDate);
-		return "redirect:/settled/single?loanContractId="+loanContractId;
+		return "redirect:/settled/list";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/save")
