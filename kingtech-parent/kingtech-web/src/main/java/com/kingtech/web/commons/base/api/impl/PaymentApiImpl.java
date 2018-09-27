@@ -74,6 +74,7 @@ import com.kingtech.szsm.model.GuaranteeRequestModel;
 import com.kingtech.szsm.model.PersonalCustomerRequestModel;
 import com.kingtech.szsm.model.RepayExtendInfoRequestModel;
 import com.kingtech.szsm.model.RepayExtendPlanRequestModel;
+import com.kingtech.szsm.model.RepayInfoRequestModel;
 import com.kingtech.szsm.model.RepayPlanRequestModel;
 import com.kingtech.szsm.model.SettledInfoRequestModel;
 import com.kingtech.szsm.model.SynResponseModel;
@@ -493,25 +494,18 @@ public class PaymentApiImpl  implements PaymentApi {
 			return;
 		}
 		
-		RepayInfoModel infoModel = null;
+		
 		String roundStr =  RandomUtil.random8Len();
-//		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
-//			infoModel = new RepayInfoModel(roundStr, 
-//					                       type.name(),
-//					                       repayInfo.getReqId(),
-//					                       null,
-//					                       contractDAO.findOne(repayInfo.getLoanContractId()).getLoanContractNo(),
-//					                       repayInfo.getRepayAmount().toPlainString(),
-//					                       repayInfo.getRepayPrincipalAmount().toPlainString(),
-//					                       repayInfo.getRepayInterestAmount().toPlainString(),
-//					                       DateUtil.getDateStr(repayInfo.getRepayDate(), "yyyy-MM-dd"),
-//					                       DateUtil.getDateStr(repayInfo.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT), 
-//					                       DateUtil.getDateStr(repayInfo.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT));
-//		}else {
-//			log.info("还款信息暂不支持的操作 repayInfoId={},IdentifierType={} ",repayInfoId,type);
-//			return;
-//		}
-		SynResponseModel responseModel = financeService.repayInfoFacade(infoModel);
+		RepayInfoRequestModel infoModel = new RepayInfoRequestModel(roundStr,
+																 repayInfo.getReqId(), 
+																 contractDAO.findOne(repayInfo.getLoanContractId()).getContractNumber(),
+																 repayInfo.getMoney().toPlainString(), 
+																 repayInfo.getInterest().toPlainString(), 
+																 repayInfo.getPenaltyInterest().toPlainString(), 
+																 repayInfo.getPenalty().toPlainString(),
+																 repayInfo.getServiceCharge().toPlainString(), 
+																 repayInfo.getOtherCharge().toPlainString());
+		SynResponseModel responseModel = financeService.repayInfoFacade(infoModel,type);
 		if (responseModel.isSuccess()) {
 			repayInfo.setPushStatus(PushStatus.INPROSESS);
 			repayInfoDAO.save(repayInfo);
