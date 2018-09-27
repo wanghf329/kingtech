@@ -18,10 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kingtech.enums.BadTypeEnum;
-import com.kingtech.enums.LoanClassificationEnum;
-import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.RepayStatusEnum;
 import com.kingtech.enums.YesNoEnum;
+import com.kingtech.model.AssetTransferModel;
 import com.kingtech.model.OtherBaddebtModel;
 import com.kingtech.model.OtherOverdueInfoModel;
 import com.kingtech.model.ProvisionInfoModel;
@@ -32,6 +31,7 @@ import com.kingtech.model.ext.ModelExt;
 import com.kingtech.model.ext.RepayExtendInfoModelExt;
 import com.kingtech.model.misc.PageInfo;
 import com.kingtech.model.misc.PagedResult;
+import com.kingtech.web.commons.base.service.AssetTransferService;
 import com.kingtech.web.commons.base.service.ContractService;
 import com.kingtech.web.commons.base.service.ExtendRepayPlanService;
 import com.kingtech.web.commons.base.service.ExtendRepayService;
@@ -60,6 +60,9 @@ public class PostLoanApiController {
 	
 	@Autowired
 	private RepayInfoService repayInfoService;
+	
+	@Autowired
+	private AssetTransferService assetTransferService;
 	
 	/**
 	 * 还款信息
@@ -345,6 +348,40 @@ public class PostLoanApiController {
 		return pi;
 	}
 	
+	/**
+	 * 资产转让
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.GET, value = "assetTransferInfo")
+	public String assetTransferInfo(Model model) {
+		model.addAttribute("contracts", postLoanService.listAllContract());
+		model.addAttribute("list", postLoanService.listAllAssetTransfer());
+		return "/postloan/assetTransferInfo";
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "assetTransfer/edit")
+	public String assetTransferEdit(Model model, String id, String loanContractId, String transferNumber,
+			BigDecimal transferMoney, BigDecimal originalMoney, BigDecimal discountMoney, 
+			String acceptUnit, String protocol, String transferDate) {
+		try {
+			assetTransferService.addOrEdit(id, 
+					loanContractId, transferNumber, transferMoney, 
+					originalMoney, discountMoney, acceptUnit, protocol,
+					DateUtils.parseDate(transferDate, "yyyy-MM-dd"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/postLoan/assetTransferInfo";
+	}
+	
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET, value = "assetTransfer/detail/{id}")
+	public AssetTransferModel assetTransferDetail(Model model,@PathVariable("id") String id) {
+		AssetTransferModel at = assetTransferService.getById(id);
+		return at;
+	}
 
 	@InitBinder
     protected void initBinder(WebDataBinder binder) {

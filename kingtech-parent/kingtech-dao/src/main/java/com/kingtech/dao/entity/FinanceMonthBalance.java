@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import com.kingtech.dao.entity.base.RecordEntity;
+import com.kingtech.enums.PushStatus;
 
 /**
  * @author Tson
@@ -21,9 +22,6 @@ import com.kingtech.dao.entity.base.RecordEntity;
 @NoArgsConstructor
 public class FinanceMonthBalance extends RecordEntity{
 	
-	// 融资编号
-	@Column(name="FINANCE_NUMBER", nullable = false)
-	private String financeNumber;
 	
 	// 融资年月 格式YYYY-MM
 	@Column(name="FINANCE_MOTTH", nullable = false)
@@ -32,6 +30,8 @@ public class FinanceMonthBalance extends RecordEntity{
 	// 融资余额（万元）
 	@Column(name="BALANCE", nullable = false)
 	private BigDecimal balance;
+	
+	
 
 
 }

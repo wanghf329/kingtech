@@ -1,7 +1,7 @@
 $(document).ready(function () {          
       //调用函数，初始化表格  
       //initTable();  
-      menuChecked("#financeCapitalList");
+      menuChecked("#financeRepaymentList");
       initDataTables() ;
       $(".form-horizontal").validationEngine({ 
     	  validationEventTriggers:"keyup blur",
@@ -54,40 +54,16 @@ function initDatepicker(){
 	    clearBtn: true});   
 }
 
-$("#addCapitalBtn").click(function () {
-	window.location.href = "finance/capital/edit?id=";
+$("#addRepaymentBtn").click(function () {
+	window.location.href = "finance/repayment/edit?id=";
 })
 
 $(".saveRecordBtn").click(function () {
 	$("#form-horizontal").submit();
 })
 
-function loanContractNumberValidate (field, rules, i, options) {
-	console.log("aaaa")
-	var _channel = $("#channel").val()
-	var _loanContractNumber = $("#loanContractNumber").val().trim();
-	console.log(_channel  + _loanContractNumber) ;
-	if("S_3" == _channel) {
-		if("" == _loanContractNumber || null == _loanContractNumber) {
-			console.log(_channel  + _loanContractNumber ) ;
-			rules.push('required');
-			return;
-		}
-	}
-}
-function guaranteeMoneyValidate (field, rules, i, options) {
-	var _channel = $("#channel").val()
-	var _guaranteeMoney = $("#guaranteeMoney").val().trim();
-	if("S_3" == _channel) {
-		if("" == _guaranteeMoney || null == _guaranteeMoney) {
-			rules.push('required');
-			return;
-		}
-	}
-}
-
 function initDataTables() {
-	this.dt = $("#capitalListTab").DataTable({
+	this.dt = $("#repaymentListTab").DataTable({
 						language : dataTableLang, // 提示信息
 						autoWidth : false, // 禁用自动调整列宽
 						processing : true, // 隐藏加载提示,自行处理
@@ -103,7 +79,7 @@ function initDataTables() {
 							console.log(data);
 							// ajax请求数据
 							$.ajax({type : "GET",
-									url : "finance/capitalList/data",
+									url : "finance/repaymentList/data",
 									cache : false, // 禁用缓存
 									data : param, // 传入组装的参数
 									dataType : "json",
@@ -126,58 +102,18 @@ function initDataTables() {
 						columns : [
 								{data : null},
 								{data : "financeNumber"},
-								{data : "financeName"},
-								{data : "lender"},
-								{data : "channel",render : function(data, type, row) {
-									switch (data) {
-										case 'S_1':
-											return '<span class="text-gray">金融机构融资</span>';
-										case 'S_2':
-											return '<span class="text-gray">股东借款</span>';
-										case 'S_3':
-											return '<span class="text-gray">资产转让融资</span>';
-										case 'S_4':
-											return '<span class="text-gray">其他</span>';
-									}
-								}},
-								{data : "money",render : function(data, type, row) {
+								{data : "repayDate",render : function(data, type, row) {
+									return formateDate(new Date(data),"yyyy-MM-dd")
+							    }},
+							    {data : "money",render : function(data, type, row) {
 									return "<span class=\"text-red bolder\">￥"+ data + "</span>";
 								}},
 								{data : "interest",render : function(data, type, row) {
 									return "<span class=\"text-red bolder\">￥"+ data + "</span>";
 								}},
-								{data : "charge",render : function(data, type, row) {
+								{data : "charges",render : function(data, type, row) {
 									return "<span class=\"text-red bolder\">￥"+ data + "</span>";
 								}},
-								{data : "guaranteeMoney",render : function(data, type, row) {
-									return "<span class=\"text-red bolder\">￥"+ data + "</span>";
-								}},
-								{data : "financeDate",render : function(data, type, row) {
-									return formateDate(new Date(data),"yyyy-MM-dd")
-									
-								 }},
-								 {data : "endDate",render : function(data, type, row) {
-										return formateDate(new Date(data),"yyyy-MM-dd")
-								 }},
-								{data : "rate",render : function(data, type, row) {
-									return '<Strong>'+data+'%</Strong></td>' ;   
-								}},
-								
-								{data : "rateType",render : function(data, type, row) {
-									switch (data) {
-										case 'S_1':
-											return '<Strong>日</Strong></td>';
-										case 'S_2':
-											return '<Strong>周</Strong></td>';
-										case 'S_3':
-											return '<Strong>月</Strong></td>';
-										case 'S_4':
-											return '<Strong>季度</Strong></td>';
-										case 'S_5':
-											return '<Strong>年</Strong></td>';
-									}
-								}},
-								{data : "loanContractNumber"},
 								{data : "pushStatus",render : function(data, type, row) {
 									switch (data) {
 									case 'INITATION':
@@ -192,11 +128,10 @@ function initDataTables() {
 								}},
 								{data : null,render : function(data, type, row) {
 									if(row.pushStatus=='SUCCESS' || row.pushStatus=='INPROSESS') {
-										return '<a href="finance/capital/edit?id='+row.id+'"><strong>查看详情</strong></a> <a href="/capital/edit?id='+row.id+'"><strong>查看补充信息</strong></a>'
+										return '<a href="finance/repayment/edit?id='+row.id+'"><strong>查看详情</strong></a> '
 									}
 									if(row.pushStatus=='INITATION' || row.pushStatus=='FAILED') {
-										return '<a href="finance/capital/edit?id='+row.id+'"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>'
-                                		        +'<a href="finance/capital/edit?id=='+row.id+'" ><i class="text-blue fa fa-plus-square-o"></i><strong>补充</strong></a>'
+										return '<a href="finance/repayment/edit?id='+row.id+'"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>'
                                 			    +'<a href="javascirpt:void(0)" class="contract-push" data-id="'+row.id+'"><i class="text-blue fa fa-exchange"></i><strong>推送</strong></a>';
 									}
 								}} ],
