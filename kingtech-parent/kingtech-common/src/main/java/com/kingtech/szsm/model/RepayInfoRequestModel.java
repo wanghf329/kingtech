@@ -1,5 +1,7 @@
 package com.kingtech.szsm.model;
 
+import java.util.Date;
+
 import lombok.Data;
 
 import com.alibaba.fastjson.annotation.JSONField;
@@ -15,8 +17,10 @@ import com.kingtech.common.utils.SignUtils;
 public class RepayInfoRequestModel extends BaseRequestModel{
 	
 	@JSONField(label="sign")
-	private String contractNumber;
+	private String repayTime;
 	
+	@JSONField(label="sign")
+	private String contractNumber;
 	
 	//还款本金
 	@JSONField(label="sign")
@@ -45,10 +49,11 @@ public class RepayInfoRequestModel extends BaseRequestModel{
 	private String otherCharge;
 
 
-	public RepayInfoRequestModel( String roundStr, String reqId, String contractNumber,
+	public RepayInfoRequestModel(String roundStr, String reqId, String contractNumber,String repayTime,
 			String money, String interest, String penaltyInterest,
 			String penalty, String serviceCharge, String otherCharge) {
 		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), reqId, null, null);
+		this.repayTime = repayTime;
 		this.contractNumber = contractNumber;
 		this.money = money;
 		this.interest = interest;

@@ -499,6 +499,7 @@ public class PaymentApiImpl  implements PaymentApi {
 		RepayInfoRequestModel infoModel = new RepayInfoRequestModel(roundStr,
 																 repayInfo.getReqId(), 
 																 contractDAO.findOne(repayInfo.getLoanContractId()).getContractNumber(),
+																 DateUtil.getDateStr(repayInfo.getRepayTime(), "yyyy-MM-dd"), 
 																 repayInfo.getMoney().toPlainString(), 
 																 repayInfo.getInterest().toPlainString(), 
 																 repayInfo.getPenaltyInterest().toPlainString(), 

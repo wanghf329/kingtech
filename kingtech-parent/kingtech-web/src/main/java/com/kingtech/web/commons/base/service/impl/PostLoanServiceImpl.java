@@ -60,6 +60,9 @@ public class PostLoanServiceImpl implements PostLoanService{
 	
 	@Autowired
 	private AssetTransferDAO assetTransferDao;
+	
+	@Autowired
+	private PaymentApi api;
 
 	@Override
 	public List<Contract> listAllContract() {
@@ -139,7 +142,10 @@ public class PostLoanServiceImpl implements PostLoanService{
 			e.printStackTrace();
 		}
 		repayInfoDao.save(repayInfo); 
-//		paymentApi.repayInfoApi(repayInfo.getId(), StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
+		
+		if(PushStatus.INITATION.equals(repayInfo.getPushStatus())){
+			api.repayInfoApi(repayInfo.getId(), IdentifierType.A);
+		}
 		return repayInfo;
 	}
 
