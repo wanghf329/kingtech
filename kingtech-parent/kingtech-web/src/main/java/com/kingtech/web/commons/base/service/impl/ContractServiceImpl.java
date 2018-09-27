@@ -231,7 +231,7 @@ public class ContractServiceImpl implements ContractService{
 		
 		List<Contract> result = new ArrayList<Contract>();
 		for(Contract ct : list){
-			if(BorrowerTypeEnum.S_1.equals(ct.getBorrowerType())){
+			if(BorrowerTypeEnum.S_2.equals(ct.getBorrowerType())){
 				ct.setBorrowerName(enterpriseDao.findOne(ct.getBorrowerId()).getName());
 			}else{
 				ct.setBorrowerName(personalCustomerDao.findOne(ct.getBorrowerId()).getName());

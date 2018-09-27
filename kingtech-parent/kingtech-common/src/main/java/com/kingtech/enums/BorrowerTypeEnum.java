@@ -1,8 +1,8 @@
 package com.kingtech.enums;
 
 public enum BorrowerTypeEnum implements BaseEnum {
-	S_0("自然人"),
-	S_1("企业");
+	S_1("自然人"),
+	S_2("企业");
 
 	private String key;
 	

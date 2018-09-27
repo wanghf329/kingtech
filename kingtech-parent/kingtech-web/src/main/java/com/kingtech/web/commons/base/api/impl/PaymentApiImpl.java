@@ -382,14 +382,14 @@ public class PaymentApiImpl  implements PaymentApi {
 		}
 		PersonalCustomerRequestModel pcustomerRequestModel = null;
         EnterpriseCustomerRequestModel enterpriseCustomerRequestModel = null;
-		if (BorrowerTypeEnum.S_0.equals(contract.getBorrowerType())) {
+		if (BorrowerTypeEnum.S_1.equals(contract.getBorrowerType())) {
 			PersonalCustomer personalCustomer = personalCustomerDao.findOne(contract.getBorrowerId());
 			pcustomerRequestModel = new PersonalCustomerRequestModel(personalCustomer.getName(),DTOUtils.getEnumIntVal( personalCustomer.getSex()), DTOUtils.getEnumIntVal(personalCustomer.getCardType()), 
 																	personalCustomer.getCardNumber(), personalCustomer.getPhone(), DTOUtils.getEnumIntVal( personalCustomer.getIsFarmer()), DTOUtils.getEnumIntVal( personalCustomer.getEducation()), personalCustomer.getEmail(), 
 																	DTOUtils.getNewStr(personalCustomer.getIsMarry()), personalCustomer.getNationality(),DateUtil.getSimpleDate( personalCustomer.getBirthDate()), personalCustomer.getNation(), 
 																	personalCustomer.getAddress(), personalCustomer.getPostCode(), personalCustomer.getRegisteredAddress(), 
 																	personalCustomer.getNativePlace(), personalCustomer.getWorkUnit(), personalCustomer.getPosition());
-		}else if (BorrowerTypeEnum.S_1.equals(contract.getBorrowerType())) {
+		}else if (BorrowerTypeEnum.S_2.equals(contract.getBorrowerType())) {
 			EnterpriseCustomer enterpriseCustomer = enterpriseCustomerDAO.findOne(contract.getBorrowerId());
 			
 			enterpriseCustomerRequestModel = new EnterpriseCustomerRequestModel(
@@ -456,7 +456,7 @@ public class PaymentApiImpl  implements PaymentApi {
 				DTOUtils.getEnumIntVal(contract.getBusiness()),
 				DTOUtils.getNewStr(contract.getLoanMethod()),
 				DTOUtils.getEnumIntVal(contract.getRepayMethod()),
-				DateUtil.getDateStr(contract.getSignTime(),"yyyy-MM-dd"),
+				DateUtil.getDateStr(contract.getSignTime(),"yyyy-MM-dd HH:mm:ss"),
 				contract.getRepaySource(),
 				contract.getDistrictCode(),
 				pcustomerRequestModel, 

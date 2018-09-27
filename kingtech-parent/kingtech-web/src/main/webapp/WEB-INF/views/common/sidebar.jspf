@@ -31,16 +31,36 @@
         </li>
          -->
         <li class="treeview active">
-            <a href="branch">
+            <a href="#">
                 <i class="fa fa-bar-chart-o"></i> 
                 <span>机构信息</span> 
                 <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="treeview-menu">
-                <li id="branch1"><a href="branch"><i class="fa fa-angle-double-right"></i>基本信息</a></li>
-                <li id="personalList"><a href="branch/personalList"><i class="fa fa-angle-double-right"></i>人员信息</a></li>
-                <li id="shareholderList"><a href="branch/shareholderList"><i class="fa fa-angle-double-right"></i>股东信息</a></li>
-                <li id="capitalList"><a href="branch/capitalList"><i class="fa fa-angle-double-right"></i>资本信息</a></li>
+                <li id="employeeList"><a href="branch/employeeList"><i class="fa fa-angle-double-right"></i>人员信息</a></li>
+            </ul>
+        </li>
+        <li class="treeview active">
+            <a href="#">
+                <i class="fa fa-bar-chart-o"></i> 
+                <span>融资信息</span> 
+                <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu">
+                <li id="financeCapitalList"><a href="finance/capitalList"><i class="fa fa-angle-double-right"></i>单笔融资信息</a></li>
+                <li id="financeInfoList"><a href="branch/employeeList"><i class="fa fa-angle-double-right"></i>融资实际还款信息</a></li>
+                <li id="financeInfoList"><a href="branch/employeeList"><i class="fa fa-angle-double-right"></i>月度融资余额信息</a></li>
+            </ul>
+        </li>
+        <li class="treeview active">
+            <a href="#">
+                <i class="fa fa-bar-chart-o"></i> 
+                <span>机构银行信息</span> 
+                <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu">
+                <li id="financeInfoList"><a href="branch/employeeList"><i class="fa fa-angle-double-right"></i>机构银行账户信息</a></li>
+                <li id="financeInfoList"><a href="branch/employeeList"><i class="fa fa-angle-double-right"></i>机构银行账户月度余额信息</a></li>
             </ul>
         </li>
         <li class="treeview active">

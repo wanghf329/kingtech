@@ -1,21 +1,35 @@
 package com.kingtech.web.controller;
 
-import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.kingtech.dao.entity.Branch;
-import com.kingtech.dao.entity.Capital;
 import com.kingtech.dao.entity.Employee;
-import com.kingtech.model.BranchInfoModel;
-import com.kingtech.model.ShareholderModel;
+import com.kingtech.enums.CertType;
+import com.kingtech.enums.EducationEnum;
+import com.kingtech.enums.IndustryEnum;
+import com.kingtech.enums.LoanMethodEnum;
+import com.kingtech.enums.LoanPurposeEnum;
+import com.kingtech.enums.LoanstatusEnum;
+import com.kingtech.enums.PayTypeEnum;
+import com.kingtech.enums.SexEnum;
+import com.kingtech.enums.UnionFlagEnum;
+import com.kingtech.enums.YesNoEnum;
+import com.kingtech.model.EmployeeModel;
+import com.kingtech.model.misc.PageInfo;
+import com.kingtech.model.misc.PagedResult;
 import com.kingtech.web.commons.base.service.BranchService;
 import com.kingtech.web.commons.base.service.CapitalService;
 import com.kingtech.web.commons.base.service.EmployeeService;
@@ -38,121 +52,47 @@ public class BranchApiController {
 	@Autowired
 	private EmployeeService employeeService;
 	
-	@RequestMapping(method = RequestMethod.GET,value="")
-	public String branchBaseInfo(Model model) { 
-		model.addAttribute("list",branchService.listByInstitutionInfo());
-		model.addAttribute("branchs",branchService.listByInstitutionInfo());
-		return "/branch/branchBaseList";
-	} 
-	
-	@RequestMapping(method = RequestMethod.GET,value="/personalList")
-	public String personalList(Model model) { 
-		model.addAttribute("list", employeeService.listAll());
-		model.addAttribute("branchs",branchService.listByInstitutionInfo());
-		return "/branch/personalList";
-	}  
-	
-	@RequestMapping(method = RequestMethod.GET,value="/shareholderList")
-	public String shareholderList(Model model) { 
-		model.addAttribute("list",shareholderService.listAll());
-		model.addAttribute("branchs",branchService.listByInstitutionInfo());
-		return "/branch/shareholderList";
+	@RequestMapping(method = RequestMethod.GET,value="/employeeList")
+	public String employeeList(Model model) { 
+		return "/branch/employeeList";
 	}  
 	
 	@ResponseBody
-	@RequestMapping(value = "/getShareholder/{id}", method = RequestMethod.GET)
-	public ShareholderModel getShareholder(Model model,@PathVariable("id") String id) {
-		return shareholderService.getById(id);
+	@RequestMapping(method = RequestMethod.GET, value = "/data")
+	public PagedResult<Employee> employeeListDate(Model model,
+												 @RequestParam("start") Integer firstIndex,
+									 			 @RequestParam("length") Integer pageSize) {
+		return employeeService.pageList(PageInfo.page(firstIndex, pageSize));
 	}
 	
+	@RequestMapping(method = RequestMethod.GET, value = "/edit")
+	public String editEmployee(Model model,  String id) {
+		
+		model.addAttribute("sexTypes", SexEnum.values());
+		model.addAttribute("cardTypes", CertType.values());
+		model.addAttribute("educations", EducationEnum.values());
+		model.addAttribute("isLeaders", YesNoEnum.values());
+		
+		if(StringUtils.isNotEmpty(id)){
+			model.addAttribute("employee", employeeService.getById(id));
+		}
+		return "/branch/employeeEdit";
+	}
 	
-	@RequestMapping(method = RequestMethod.GET,value="/capitalList")
-	public String capitalList(Model model) { 
-		model.addAttribute("list",capitalService.listAll());
-		model.addAttribute("branchs",branchService.listByInstitutionInfo());
-		return "/branch/capitalList";
-	}  
+	@RequestMapping(method = RequestMethod.POST, value = "/save")
+	public String saveEmployee(Model model, EmployeeModel employeeModel) {
+		employeeService.addNew(employeeModel);
+		return "redirect:/branch/employeeList";
+	}
 	
-    @RequestMapping(value = "/add/branch", method=RequestMethod.POST )
-    public String addBranchInfo(Model model,
-    							 String id,
-    							 @RequestParam("corporateName") String corporateName,
-    							 @RequestParam("legalRepresentative") String legalRepresentative,
-    							 BigDecimal regCapital,
-						   		 @RequestParam("buildDate") String buildDate,
-						   		 @RequestParam("openingDate") String openingDate,
-						   		 @RequestParam("siteArea") String siteArea,
-						   		 @RequestParam("businessAddr") String businessAddr,
-						   		 @RequestParam("organizationCode") String organizationCode,
-						   		 @RequestParam("licence") String licence,
-						   		 @RequestParam("nationalRegNum") String nationalRegNum,
-						   		 @RequestParam("landRegNum") String landRegNum,
-						   		 @RequestParam("businessScope") String businessScope) {
-    	Branch branch = branchService.addNewBranchInfo(id,corporateName, legalRepresentative, regCapital, buildDate, openingDate, siteArea, businessAddr, organizationCode, licence, nationalRegNum, landRegNum, businessScope);
-    	return "redirect:/branch";
-    	
+	@InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        //第二个参数是控制是否支持传入的值是空，这个值很关键，如果指定为false，那么如果前台没有传值的话就会报错
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
 	
-    
-	@RequestMapping(value = "/add/capital", method = RequestMethod.POST)
-	public String addCapital(Model model, String id,String financingChannel,
-							 double financingMoney, String financingTime, 
-							 String expirationTime,
-							 String replyTime,
-							 String branch) {
-//		Capital cap = capitalService.addNew(id,financingChannel, financingMoney, financingTime, expirationTime, replyTime,branch);
-		return "redirect:/branch/capitalList";
-	}
 	
-	@RequestMapping(value = "/add/shareholder", method = RequestMethod.POST)
-	public String addShareholder(Model model, String id, String partnerType,
-								String holder, String holdingScale, String contributionAmount,
-								String joinTime, String gender, String quitTime, String branch) {
-		shareholderService.addNew(id, partnerType, holder, holdingScale, contributionAmount,
-								  joinTime, gender, quitTime, branch);
-		return "redirect:/branch/shareholderList";
-	}
-	
-	@RequestMapping(value = "/add/employee", method = RequestMethod.POST)
-	public String addEmployee(Model model, String id, String name, String loginName, String phone, String email, String postalAddress,
-							  String department, String sex, String idNumber, String education,
-							  String executiveFlag, String post, String replyTime, String entryTime,
-							  String status, String quitTime, String branch) {
-//		employeeService.addNew(id, name, phone, email, postalAddress,
-//							   department, sex, idNumber, education,
-//							   executiveFlag, post, replyTime, entryTime,
-//							   status, quitTime, branch);
-		return "redirect:/branch/personalList";
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/getCapital/{id}", method = RequestMethod.GET)
-	public Capital addCapital(Model model,@PathVariable("id") String id) {
-		return capitalService.getById(id);
-	}
-	
-	@ResponseBody
-	@RequestMapping(value = "/getBranchInfo/{id}", method = RequestMethod.GET)
-	public BranchInfoModel changeBranch(Model model,@PathVariable("id") String id) {
-		return branchService.getBranchInfoById(id);
-	}
-
-	@RequestMapping(value = "/delCapital/{id}", method = RequestMethod.GET)
-	public String delCapital(Model model,@PathVariable("id") String id) {
-		//capitalService.delById(id);
-		return "redirect:/branch/capitalList";
-	}
-	
-	@ResponseBody
-	@RequestMapping(value = "/getEmployee/{id}", method = RequestMethod.GET)
-	public Employee getEmployee(Model model,@PathVariable("id") String id) {
-		return employeeService.getById(id);
-	}
-	
-	/*@RequestMapping(value = "/delEmployee/{id}", method = RequestMethod.GET)
-	public String delEmployee(Model model,@PathVariable("id") String id) {
-		employeeService.delById(id);
-		return "redirect:/branch/personalList";
-	}*/
 	
 }
