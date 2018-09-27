@@ -12,7 +12,7 @@ import com.kingtech.enums.PushStatus;
 
 public interface RepayInfoDAO extends PagingAndSortingRepository<RepayInfo, String> {
 	
-	@Query("select r from RepayInfo r where r.loanContractId = :loanContractId order by r.repayDate ")
+	@Query("select r from RepayInfo r where r.loanContractId = :loanContractId order by r.repayTime ")
 	public List<RepayInfo> listByloanContractId(@Param("loanContractId")String loanContractId);
 	
 	@Modifying

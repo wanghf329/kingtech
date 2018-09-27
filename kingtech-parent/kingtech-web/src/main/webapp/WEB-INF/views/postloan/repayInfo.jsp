@@ -35,57 +35,87 @@
 								<h4 class="modal-title" >还款信息录入</h4>
 							</div>
 							<div class="modal-body">
-								<form class="form-horizontal" id = "addRepayInfoForm" action="postLoan/add/repayInfo" method="POST">
+								<form class="form-horizontal" id = "addRepayInfoForm" action="postLoan/save/repayInfo" method="POST">
 									<input type="hidden" name="id" value="">
 									<div class="form-group">
 										<label for="#loanContractId" class="col-sm-3 control-label"><i class="text-red">*</i>合同编号</label> 
 										<div class="col-sm-6 input-group">
 											<select class="form-control validate[required]" id="loanContractId" name="loanContractId">
 												<c:forEach var="it" items="${contracts}">
-			  										<option value ="${it.id}">${it.loanContractNo}</option> 
+			  										<option value ="${it.id}">${it.contractNumber}</option> 
 												</c:forEach>
 											</select>
 										</div>
 									</div>
 									
 									<div class="form-group">
-										<label for="#repayAmount" class="col-sm-3 control-label"><i class="text-red">*</i> 还款金额</label>
+										<label for="#repayTime" class="col-sm-3 control-label"><i class="text-red">*</i> 还款日期</label>
+										<div class="col-sm-6 input-group date">
+											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+											<input type="text" class="form-control pull-right datepicker validate[required]" name="repayTime"
+												readonly id="repayTime" data-errormessage="还款日期不能为空">
+										</div>
+									</div>									
+									
+									<div class="form-group">
+										<label for="#money" class="col-sm-3 control-label"><i class="text-red">*</i> 还款本金</label>
 										<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
-										<input type="text" class="form-control validate[required,custom[number]]" name = "repayAmount" id="repayAmount" 
-											data-errormessage-value-missing="还款金额不能为空"  data-errormessage-custom-error="还款金额必须是数字" >
-										<span class="input-group-addon"><i class="fa ">元</i></span>
-										</div>
+										<input type="text" class="form-control validate[required]" name = "money" 
+													id="money"  data-errormessage-value-missing="还款本金不能为空" >
+										<span class="input-group-addon"><i class="fa ">元</i></span> 
+										</div> 
 									</div>
 									
 									<div class="form-group">
-										<label for="#repayPrincipalAmount" class="col-sm-3 control-label"><i class="text-red">*</i> 还款本金</label>
+										<label for="#interest" class="col-sm-3 control-label"><i class="text-red">*</i> 还款利息</label>
 										<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
-										<input type="text" class="form-control validate[required,funcCall[validataPrincipal]]" name = "repayPrincipalAmount" 
-													id="repayPrincipalAmount"  data-errormessage-value-missing="还款本金不能为空" >
-										<span class="input-group-addon"><i class="fa ">元</i></span>
-										</div>
-									</div>
-									
-									<div class="form-group">
-										<label for="#repayInterestAmount" class="col-sm-3 control-label"><i class="text-red">*</i> 还款利息</label>
-										<div class="col-sm-6 input-group">
-										<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
-										<input type="text" class="form-control validate[required,funcCall[validataInterest]]" name = "repayInterestAmount" id="repayInterestAmount" 
+										<input type="text" class="form-control validate[required]" name = "interest" id="interest" 
 														 data-errormessage-value-missing="还款利息不能为空" >
 										<span class="input-group-addon"><i class="fa ">元</i></span>
 										</div>
 									</div>
 									
 									<div class="form-group">
-										<label for="#repayDate" class="col-sm-3 control-label"><i class="text-red">*</i> 还款日期</label>
-										<div class="col-sm-6 input-group date">
-											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-											<input type="text" class="form-control pull-right datepicker validate[required]" name="repayDate"
-												readonly id="repayDate" data-errormessage="还款日期不能为空">
+										<label for="#penaltyInterest" class="col-sm-3 control-label"><i class="text-red">*</i> 罚息</label>
+										<div class="col-sm-6 input-group">
+										<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
+										<input type="text" class="form-control validate[required]" name = "penaltyInterest" id="penaltyInterest" 
+														 data-errormessage-value-missing="罚息不能为空" >
+										<span class="input-group-addon"><i class="fa ">元</i></span>
 										</div>
 									</div>
+									
+									<div class="form-group">
+										<label for="#penalty" class="col-sm-3 control-label"><i class="text-red">*</i> 违约金</label>
+										<div class="col-sm-6 input-group">
+										<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
+										<input type="text" class="form-control validate[required]" name = "penalty" id="penalty" 
+														 data-errormessage-value-missing="违约金不能为空" >
+										<span class="input-group-addon"><i class="fa ">元</i></span>
+										</div>
+									</div>	
+									
+									<div class="form-group">
+										<label for="#serviceCharge" class="col-sm-3 control-label"><i class="text-red">*</i> 服务费</label>
+										<div class="col-sm-6 input-group">
+										<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
+										<input type="text" class="form-control validate[required]" name = "serviceCharge" id="serviceCharge" 
+														 data-errormessage-value-missing="服务费不能为空" >
+										<span class="input-group-addon"><i class="fa ">元</i></span>
+										</div>
+									</div>	
+									
+									<div class="form-group">
+										<label for="#otherCharge" class="col-sm-3 control-label"><i class="text-red">*</i> 其它费用</label>
+										<div class="col-sm-6 input-group">
+										<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
+										<input type="text" class="form-control validate[required]" name = "otherCharge" id="otherCharge" 
+														 data-errormessage-value-missing="其它费用不能为空" >
+										<span class="input-group-addon"><i class="fa ">元</i></span>
+										</div>
+									</div>																																			
 								</form>						
 							</div>
 							<div class="modal-footer">
@@ -113,9 +143,12 @@
 	                                            <th>主合同编号</th>
 	                                            <th>主合同名称</th>
 	                                            <th>还款日期</th> 
-	                                            <th>还款金额(元)</th> 
-	                                            <th>还款本金(元)</th>
+	                                            <th>还款本金(元)</th> 
 	                                            <th>还款利息(元)</th>
+	                                            <th>还款罚息(元)</th>
+	                                            <th>还款违约金(元)</th>
+	                                            <th>服务费(元)</th>
+	                                            <th>其他费用(元)</th>
 	                                            <th>状态</th>
 	                                            <th>操作</th>
 	                                        </tr>

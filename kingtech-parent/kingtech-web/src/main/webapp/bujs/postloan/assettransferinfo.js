@@ -1,5 +1,5 @@
 $(document).ready(function () {          
-      menuChecked("#assetTransferInfo");
+      menuChecked("#assettransferinfo");
       
       $(".form-horizontal").validationEngine({ 
     	  validationEventTriggers:"keyup blur",

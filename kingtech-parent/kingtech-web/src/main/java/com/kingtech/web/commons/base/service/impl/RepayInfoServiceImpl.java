@@ -12,7 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.kingtech.common.dynamicquery.DynamicQuery;
-import com.kingtech.common.utils.DateUtil;
 import com.kingtech.dao.rdbms.RepayInfoDAO;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.model.RepayInfoModel;
@@ -32,7 +31,8 @@ public class RepayInfoServiceImpl implements RepayInfoService{
 
 	@Override
 	public PagedResult<ModelExt> pageList(Pageable pageAble) {
-		String sql = "SELECT t1.ID,t1.LOAN_CONTRACT_ID,t1.REPAY_DATE,t1.REPAY_AMOUNT,t1.REPAY_PRINCIPAL_AMOUNT,t1.REPAY_INTEREST_AMOUNT,t2.LOAN_CONTRACT_NO,t2.LOAN_CONTRACT_NAME,t1.PUSH_STATUS "
+		String sql = "SELECT t1.ID,t1.LOAN_CONTRACT_ID,t1.REPAY_DATE,t1.REPAY_PRINCIPAL_AMOUNT,t1.REPAY_INTEREST_AMOUNT,t1.PENALTY_INTEREST_AMOUNT,"
+				+ " 		 t1.PENALTY_AMOUNT,t1.SERVICE_FEE_AMOUNT,t1.OTHER_FEE_AMOUNT,t2.CONTRACT_NUMBER,t2.CONTRACT_NAME,t2.PUSH_STATUS "
 				+ "		FROM TB_LOAN_REPAY_INFO t1,TB_LOAN_CONTRACT t2 "
 				+ "   WHERE t1.LOAN_CONTRACT_ID = t2.ID ORDER BY t1.LOAN_CONTRACT_ID,t1.REPAY_DATE DESC ";
 		
@@ -44,14 +44,13 @@ public class RepayInfoServiceImpl implements RepayInfoService{
 		for (Object[] obj : list) {
 			result.add(new ModelExt(
 					   new RepayInfoModel((String)obj[0], 
-							   			  (String)obj[1],
-							   			((BigDecimal)obj[3]).toPlainString(),
-							   			((BigDecimal)obj[4]).toPlainString(),
-							   			((BigDecimal)obj[5]).toPlainString(),
-							      DateUtil.getDateStr((Date)obj[2], "yyyy-MM-dd")),
-							      (String)obj[6],
-							      (String)obj[7],
-							      PushStatus.valueOf((String)obj[8])));
+							   			  (Date)obj[2],
+							   			(BigDecimal)obj[3],
+							   			(BigDecimal)obj[4],
+							   			(BigDecimal)obj[5],(BigDecimal)obj[6],(BigDecimal)obj[7],(BigDecimal)obj[8]),
+							      (String)obj[9],
+							      (String)obj[10],
+							      PushStatus.valueOf((String)obj[11])));
 		}
 		return new PagedResult(result,count);
 	}
