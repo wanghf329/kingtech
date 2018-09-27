@@ -202,7 +202,7 @@ public class ContractServiceImpl implements ContractService{
 	
 	@Override
 	public PagedResult<SettledInfoModel> pageListSettledInfo(Pageable pageAble){
-		String sql = " SELECT t1.LOAN_CONTRACT_ID,t2.CONTRACT_NUMBER,t2.CONTRACT_NAME,t1.MONEY,t1.LOAN_TIME,t1.START_DATE,t1.END_DATE,t1.PUSH_STATUS"
+		String sql = " SELECT t1.LOAN_CONTRACT_ID,t2.CONTRACT_NUMBER,t2.CONTRACT_NAME,t1.MONEY,t1.LOAN_TIME,t1.START_DATE,t1.END_DATE,t1.PUSH_STATUS,t1.ID"
 				+ " from TB_LOAN_CONTRACT_SETTLED t1,TB_LOAN_CONTRACT t2 where t1.LOAN_CONTRACT_ID = t2.ID order by t1.CREATE_TIME";
 		String[] params = new String[0];
 		List<Object[]> list = dq.nativeQueryPagingList(Object[].class, pageAble, sql, params);
@@ -215,7 +215,7 @@ public class ContractServiceImpl implements ContractService{
 					DateFormatUtils.format((Date) obj[4], "yyyy-MM-dd"),
 					DateFormatUtils.format((Date) obj[5], "yyyy-MM-dd"),
 					DateFormatUtils.format((Date) obj[6], "yyyy-MM-dd"),
-					PushStatus.valueOf((String)obj[7])));
+					PushStatus.valueOf((String)obj[7]),(String) obj[8]));
 		}
 		
 		return new PagedResult(result,count);

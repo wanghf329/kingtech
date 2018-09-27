@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kingtech.dao.entity.Contract;
 import com.kingtech.dao.entity.SettledInfo;
 import com.kingtech.dao.rdbms.SettledInfoDAO;
+import com.kingtech.enums.IdentifierType;
 import com.kingtech.model.SettledInfoModel;
 import com.kingtech.model.misc.PageInfo;
 import com.kingtech.model.misc.PagedResult;
@@ -88,7 +89,7 @@ public class SettledApiController {
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET,value="/push/{id}")
 	public SynResponseModel push(Model model,@PathVariable("id") String id) { 
-		SynResponseModel synresponseModel = paymentApi.contractInfoApi(id);
+		SynResponseModel synresponseModel = paymentApi.settleInfoApi(id, IdentifierType.A);
 		return synresponseModel;
 	}  
 }
