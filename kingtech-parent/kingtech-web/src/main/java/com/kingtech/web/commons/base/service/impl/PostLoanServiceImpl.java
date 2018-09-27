@@ -13,10 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.kingtech.common.utils.DateUtil;
+import com.kingtech.dao.entity.AssetTransfer;
 import com.kingtech.dao.entity.Contract;
 import com.kingtech.dao.entity.OtherBaddebt;
 import com.kingtech.dao.entity.OtherOverdueInfo;
 import com.kingtech.dao.entity.RepayInfo;
+import com.kingtech.dao.rdbms.AssetTransferDAO;
 import com.kingtech.dao.rdbms.ContractDAO;
 import com.kingtech.dao.rdbms.OtherBaddebtDAO;
 import com.kingtech.dao.rdbms.OtherOverdueInfoDAO;
@@ -24,6 +26,7 @@ import com.kingtech.dao.rdbms.RepayInfoDAO;
 import com.kingtech.enums.BadTypeEnum;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.model.AssetTransferModel;
 import com.kingtech.model.OtherBaddebtModel;
 import com.kingtech.model.OtherOverdueInfoModel;
 import com.kingtech.model.RepayInfoModel;
@@ -53,6 +56,9 @@ public class PostLoanServiceImpl implements PostLoanService{
 	
 	@Autowired
 	private OtherOverdueInfoDAO otherOverdueInfoDAO;
+	
+	@Autowired
+	private AssetTransferDAO assetTransferDao;
 
 	@Override
 	public List<Contract> listAllContract() {
@@ -91,48 +97,47 @@ public class PostLoanServiceImpl implements PostLoanService{
 		if(repayInfo == null) {
 			return null;
 		}
-		RepayInfoModel  model = new RepayInfoModel(id, 
-				repayInfo.getLoanContractId(), 
-				repayInfo.getRepayAmount().toPlainString(),
-				repayInfo.getRepayPrincipalAmount().toPlainString(),
-				repayInfo.getRepayInterestAmount().toPlainString(),
-				DateUtil.getDateStr(repayInfo.getRepayDate(), "yyyy-MM-dd"));
+		RepayInfoModel model = new RepayInfoModel(id, repayInfo.getRepayTime(),
+				repayInfo.getMoney(), repayInfo.getInterest(),
+				repayInfo.getPenaltyInterest(), repayInfo.getPenalty(),
+				repayInfo.getServiceCharge(), repayInfo.getOtherCharge());
 		return model;
 	}
 
 	@Override
 	@Transactional
-	public RepayInfo addNewRepayInfo(String id, String repayDate,
-			BigDecimal repayAmount, BigDecimal repayPrincipalAmount,
-			BigDecimal repayInterestAmount, String loanContractId) {
+	public RepayInfo saveRepayInfo(String loanContractId,RepayInfoModel model){
 		RepayInfo repayInfo = null;
 		if(StringUtils.isEmpty(loanContractId)) {
 			return null;
 		}
 		try {
-			if(StringUtils.isEmpty(id)) {
+			if(StringUtils.isEmpty(model.getId())) {
 				repayInfo = new RepayInfo(loanContractId,
-										 creatRequstId.getReqId(), 
-										 PushStatus.INITATION, 
-										 DateUtils.parseDate(repayDate, "yyyy-MM-dd"),
-										 repayAmount,
-										 repayPrincipalAmount, 
-										 repayInterestAmount);
-				
+										  creatRequstId.getReqId(), 
+										  PushStatus.INITATION, 
+										  model.getRepayTime(),
+										  model.getMoney(),
+										  model.getInterest(),
+										  model.getPenaltyInterest(),
+										  model.getPenalty(),
+										  model.getServiceCharge(),
+										  model.getOtherCharge());
 			} else {
-				repayInfo = repayInfoDao.findOne(id);
-				repayInfo.setRepayAmount(repayAmount);
-				repayInfo.setRepayInterestAmount(repayInterestAmount);
-				repayInfo.setRepayPrincipalAmount(repayPrincipalAmount);
-				repayInfo.setLoanContractId(loanContractId);
-				repayInfo.setRepayDate(DateUtils.parseDate(repayDate, "yyyy-MM-dd"));
+				repayInfo = repayInfoDao.findOne(model.getId());
+				repayInfo.setRepayTime(model.getRepayTime());
+				repayInfo.setMoney(model.getMoney());
+				repayInfo.setInterest(model.getInterest());
+				repayInfo.setPenaltyInterest(model.getPenaltyInterest());
+				repayInfo.setPenalty(model.getPenalty());
+				repayInfo.setServiceCharge(model.getServiceCharge());
+				repayInfo.setOtherCharge(model.getOtherCharge());
 			}
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		repayInfoDao.save(repayInfo); 
-		paymentApi.repayInfoApi(repayInfo.getId(), StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
+//		paymentApi.repayInfoApi(repayInfo.getId(), StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
 		return repayInfo;
 	}
 
@@ -309,5 +314,35 @@ public class PostLoanServiceImpl implements PostLoanService{
 		return overdueInfo;
 	}
 	
+	@Override
+	public List<ModelExt> listAllAssetTransfer() {
+		List<ModelExt> result = new ArrayList<ModelExt>();
+		List<AssetTransfer> assetTransfers= (List<AssetTransfer>) assetTransferDao.findAll();
+		String constractId = "";
+		Contract contract = null;
+		for (AssetTransfer assetTransfer:assetTransfers) {
+			if(constractId.equals(assetTransfer.getLoanContractId())) {
+				constractId = assetTransfer.getLoanContractId();
+			} else {
+				contract = contractDao.findOne(assetTransfer.getLoanContractId());
+			}
+			result.add(new ModelExt(
+						   new AssetTransferModel(assetTransfer.getId(), 
+								   assetTransfer.getLoanContractId(),
+								   assetTransfer.getTransferNumber(),
+								   assetTransfer.getTransferMoney().toPlainString(),
+								   assetTransfer.getOriginalMoney().toPlainString(),
+								   assetTransfer.getDiscountMoney().toPlainString(),
+								   assetTransfer.getAcceptUnit(),
+								   assetTransfer.getProtocol(),
+								   DateUtil.getDateStr(assetTransfer.getTransferDate(), "yyyy-MM-dd")),
+						   
+						   contract.getContractNumber(),
+						   contract.getContractName(),
+						   assetTransfer.getPushStatus()));
+		}
+		return result;
+		
+	}
 
 }

@@ -99,7 +99,8 @@ function initDataTables() {
 						},
 						columns : [
 								{data : null},
-								{data : "loanContractNo"},
+								{data : "contractNumber"},
+								{data : "contractName"},
 								{data : "model.count"},
 								{data : "model.endDate"},
 								{data : "model.principal",render : function(data, type, row) {

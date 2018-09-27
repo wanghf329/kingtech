@@ -20,7 +20,7 @@ import com.kingtech.enums.PushStatus;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class FinancingRepayPlanModel {
+public class FinanceRepayPlanModel {
 	
 	private String Id;
 	

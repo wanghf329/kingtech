@@ -24,12 +24,7 @@ public interface PostLoanService {
 	public RepayInfoModel getRepayInfoById(String id);
 	
 	
-	public RepayInfo addNewRepayInfo(String id,
-								  	 String repayDate,
-								  	 BigDecimal repayAmount,
-								  	 BigDecimal repayPrincipalAmount,
-								  	 BigDecimal repayInterestAmount,
-								  	 String loanContractId );
+	public RepayInfo saveRepayInfo(String loanContractId,RepayInfoModel repayInfo);
 	
 	
 	public List<ModelExt> listAllOtherBaddebt();
@@ -54,5 +49,7 @@ public interface PostLoanService {
 										  	  BigDecimal balance,
 										  	  String remarks,
 										  	  String loanContractId);
+	
+	public List<ModelExt> listAllAssetTransfer();
 
 }
