@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 
 import com.kingtech.dao.entity.base.LoanRecordEntity;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.enums.RecordStatus;
 
 /**
  * 展期还款计划表
@@ -40,18 +41,18 @@ public class RepayExtendPlan extends LoanRecordEntity {
 	private BigDecimal interest;
 
 	public RepayExtendPlan(String loanContractId, String reqId,
-			PushStatus pushStatus, Date endDate, BigDecimal principal,
+			PushStatus pushStatus, RecordStatus recordStatus, Date endDate, BigDecimal principal,
 			BigDecimal interest) {
-		super(loanContractId, reqId, pushStatus);
+		super(loanContractId, reqId, pushStatus, recordStatus);
 		this.endDate = endDate;
 		this.principal = principal;
 		this.interest = interest;
 	}
 
 	public RepayExtendPlan(String loanContractId, String reqId,
-			PushStatus pushStatus, String count, Date endDate,
+			PushStatus pushStatus, RecordStatus recordStatus, String count, Date endDate,
 			BigDecimal principal, BigDecimal interest) {
-		super(loanContractId, reqId, pushStatus);
+		super(loanContractId, reqId, pushStatus, recordStatus);
 		this.count = count;
 		this.endDate = endDate;
 		this.principal = principal;

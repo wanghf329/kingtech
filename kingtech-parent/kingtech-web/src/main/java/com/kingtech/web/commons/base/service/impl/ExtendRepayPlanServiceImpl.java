@@ -20,6 +20,7 @@ import com.kingtech.dao.rdbms.ContractDAO;
 import com.kingtech.dao.rdbms.RepayExtendPlanDAO;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.enums.RecordStatus;
 import com.kingtech.model.RepayExtendPlanModel;
 import com.kingtech.model.ext.ModelExt;
 import com.kingtech.model.ext.RepayExtendPlanModelExt;
@@ -60,6 +61,7 @@ public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 				rp = new RepayExtendPlan(loanContractId,
 						creatRequstId.getReqId(),
 						PushStatus.INITATION, 
+						RecordStatus.NORMAL,
 						count,
 						StringUtils.isEmpty(endDate) ? null : DateUtils.parseDate(endDate, "yyyy-MM-dd"), 
 						new BigDecimal(principal), 

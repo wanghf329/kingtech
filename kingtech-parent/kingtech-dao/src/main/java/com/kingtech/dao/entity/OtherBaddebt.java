@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 import com.kingtech.dao.entity.base.LoanRecordEntity;
 import com.kingtech.enums.BadTypeEnum;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.enums.RecordStatus;
 
 /**
  * 坏账信息接口表
@@ -44,9 +45,9 @@ public class OtherBaddebt extends LoanRecordEntity {
 	private String followUp;
 
 	public OtherBaddebt(String loanContractId, String reqId,
-			PushStatus pushStatus, BigDecimal badMoney, Date lossDate,
+			PushStatus pushStatus, RecordStatus recordStatus, BigDecimal badMoney, Date lossDate,
 			BadTypeEnum badType, String followUp) {
-		super(loanContractId, reqId, pushStatus);
+		super(loanContractId, reqId, pushStatus, recordStatus);
 		this.badMoney = badMoney;
 		this.lossDate = lossDate;
 		this.badType = badType;
