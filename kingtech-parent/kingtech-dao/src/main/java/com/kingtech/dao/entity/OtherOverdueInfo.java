@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 
 import com.kingtech.dao.entity.base.LoanRecordEntity;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.enums.RecordStatus;
 
 /**
  * 逾期信息表
@@ -44,9 +45,9 @@ public class OtherOverdueInfo extends LoanRecordEntity {
 	private String remarks;
 
 	public OtherOverdueInfo(String loanContractId, String reqId,
-			PushStatus pushStatus, BigDecimal overdueMoney, Date overdueDate,
+			PushStatus pushStatus, RecordStatus recordStatus, BigDecimal overdueMoney, Date overdueDate,
 			BigDecimal overdueInterest, BigDecimal balance, String remarks) {
-		super(loanContractId, reqId, pushStatus);
+		super(loanContractId, reqId, pushStatus, recordStatus);
 		this.overdueMoney = overdueMoney;
 		this.overdueDate = overdueDate;
 		this.overdueInterest = overdueInterest;

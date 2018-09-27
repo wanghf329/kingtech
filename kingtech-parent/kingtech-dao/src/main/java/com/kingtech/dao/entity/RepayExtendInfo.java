@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 
 import com.kingtech.dao.entity.base.LoanRecordEntity;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.enums.RecordStatus;
 
 /**
  * 展期还款信息表
@@ -52,10 +53,10 @@ public class RepayExtendInfo extends LoanRecordEntity {
 	private BigDecimal otherCharge;
 
 	public RepayExtendInfo(String loanContractId, String reqId,
-			PushStatus pushStatus, Date repayTime, BigDecimal money,
+			PushStatus pushStatus, RecordStatus recordStatus, Date repayTime, BigDecimal money,
 			BigDecimal interest, BigDecimal penaltyInterest,
 			BigDecimal penalty, BigDecimal serviceCharge, BigDecimal otherCharge) {
-		super(loanContractId, reqId, pushStatus);
+		super(loanContractId, reqId, pushStatus, recordStatus);
 		this.repayTime = repayTime;
 		this.money = money;
 		this.interest = interest;
