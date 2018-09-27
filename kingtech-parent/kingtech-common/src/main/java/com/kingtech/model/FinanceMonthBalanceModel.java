@@ -19,8 +19,6 @@ import com.kingtech.enums.PushStatus;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FinanceMonthBalanceModel extends BaseModel {
-	// 融资编号
-	private String financeNumber;
 	
 	// 融资年月 格式YYYY-MM
 	private String financeMonth;
@@ -40,10 +38,9 @@ public class FinanceMonthBalanceModel extends BaseModel {
 		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), reqId);
 	}
 
-	public FinanceMonthBalanceModel(String id, String financeNumber,
+	public FinanceMonthBalanceModel(String id, 
 			String financeMonth, BigDecimal balance, PushStatus pushStatus, String reqId) {
 		super(id, reqId);
-		this.financeNumber = financeNumber;
 		this.financeMonth = financeMonth;
 		this.balance = balance;
 		this.pushStatus = pushStatus;

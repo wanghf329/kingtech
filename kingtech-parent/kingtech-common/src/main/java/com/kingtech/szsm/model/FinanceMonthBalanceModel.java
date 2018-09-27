@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.kingtech.common.config.BaseConfig;
 import com.kingtech.common.utils.SignUtils;
+import com.kingtech.enums.PushStatus;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,6 +34,8 @@ public class FinanceMonthBalanceModel extends BaseRequestModel {
 	// 融资余额（万元）
 	@JSONField(name="balance")
 	private BigDecimal balance;
+	
+	private PushStatus pushstatus;
 	
 	/**
 	 * 删除
