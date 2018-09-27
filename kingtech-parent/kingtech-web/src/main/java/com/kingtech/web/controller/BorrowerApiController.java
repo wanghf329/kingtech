@@ -73,7 +73,7 @@ public class BorrowerApiController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(method = RequestMethod.GET,value="list/S_0")
+	@RequestMapping(method = RequestMethod.GET,value="list/S_2")
 	public List<PersonalCustomer> listByType2(Model model) {
 			return borrowerService.listAllPersonal();
 	}
