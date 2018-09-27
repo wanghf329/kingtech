@@ -1,7 +1,10 @@
 package com.kingtech.web.controller;
 
+import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.common.collect.Lists;
 import com.kingtech.dao.entity.Capital;
 import com.kingtech.dao.entity.FinanceMonthBalance;
 import com.kingtech.dao.entity.RepaymentFinance;
@@ -22,11 +26,14 @@ import com.kingtech.enums.ChannelTypeEnum;
 import com.kingtech.enums.RateTypeEnum;
 import com.kingtech.model.CapitalModel;
 import com.kingtech.model.FinanceMonthBalanceModel;
+import com.kingtech.model.FinanceRepayPlanModel;
+import com.kingtech.model.RepayPlanModel;
 import com.kingtech.model.RepaymentFinanceModel;
 import com.kingtech.model.misc.PageInfo;
 import com.kingtech.model.misc.PagedResult;
 import com.kingtech.web.commons.base.service.CapitalService;
 import com.kingtech.web.commons.base.service.FinanceMonthBalanceService;
+import com.kingtech.web.commons.base.service.FinanceRepayPlanService;
 import com.kingtech.web.commons.base.service.RepaymentFinanceService;
 
 @RequestMapping("/finance")
@@ -41,6 +48,9 @@ public class FinanceApiController {
 	
 	@Autowired
 	private FinanceMonthBalanceService financeMonthBalanceService;
+	
+	@Autowired
+	private FinanceRepayPlanService financeRepayPlanService;
 	
 	
 	@RequestMapping(method = RequestMethod.GET,value="/capitalList")
@@ -57,6 +67,15 @@ public class FinanceApiController {
 	public String monthBalanceList(Model model) { 
 		return "/finance/monthBalanceList";
 	} 
+	
+	@RequestMapping(method = RequestMethod.GET,value="/capital/supplement")
+	public String supplement(Model model, @RequestParam("financeId") String financeId) { 
+		model.addAttribute("capital", capitalService.getById(financeId));
+		model.addAttribute("financeId", financeId);
+		model.addAttribute("repayPlanList", financeRepayPlanService.listfinanceRepayById(financeId));
+		
+		return "/finance/capitalSupplement";
+	}
 	
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET, value = "/capitalList/data")
@@ -126,6 +145,18 @@ public class FinanceApiController {
 	public String saveFinanceBalance(Model model, FinanceMonthBalanceModel financeBalance) {
 		financeMonthBalanceService.addNew(financeBalance);
 		return "redirect:/finance/monthBalanceList";
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/supplement/addRepayPlan")
+	public String addRepayPlan(Model model,String financeId,
+							   Date[] endDate, BigDecimal[] money, BigDecimal[] interest) throws ParseException {
+		List<FinanceRepayPlanModel> repayPlanList = Lists.newArrayList();
+		for (int i = 1; i < endDate.length; i++) {
+			repayPlanList.add(new FinanceRepayPlanModel(interest[i], endDate[i], money[i], i));
+		}
+		capitalService.addRepayPlan(financeId, repayPlanList);
+		model.addAttribute("financeId", financeId);
+		return "redirect:/finance/capital/supplement";
 	}
 	
 	@InitBinder

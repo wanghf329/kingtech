@@ -11,10 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.druid.util.StringUtils;
 import com.kingtech.common.dynamicquery.DynamicQuery;
 import com.kingtech.dao.entity.Capital;
-import com.kingtech.dao.entity.Employee;
+import com.kingtech.dao.entity.FinanceRepayPlan;
 import com.kingtech.dao.rdbms.CapitalDAO;
+import com.kingtech.dao.rdbms.FinanceRepayPlanDAO;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.model.CapitalModel;
+import com.kingtech.model.FinanceRepayPlanModel;
 import com.kingtech.model.misc.PagedResult;
 import com.kingtech.web.commons.base.CreatRequstId;
 import com.kingtech.web.commons.base.api.PaymentApi;
@@ -34,6 +36,9 @@ public class CapitalServiceImpl implements CapitalService{
 	
 	@Autowired
 	private DynamicQuery dq;
+	
+	@Autowired
+	private FinanceRepayPlanDAO financeRepayPlanDAO;
 	
 	private static final String LISTCAPITALSQL = "SELECT * from TB_BRANCH_CAPITAL t order by t.CREATE_TIME DESC";
 	
@@ -77,6 +82,15 @@ public class CapitalServiceImpl implements CapitalService{
 		List<Capital> list = dq.nativeQueryPagingList(Capital.class, pageAble, LISTCAPITALSQL, params);
 		Long count = dq.nativeQueryCount(LISTCAPITALSQL, params);
 		return new PagedResult(list,count);
+	}
+	
+	@Override
+	@Transactional
+	public void addRepayPlan(String financeId, List<FinanceRepayPlanModel> repayPlanList) {
+		financeRepayPlanDAO.delectByFinanceId(financeId);
+		for (FinanceRepayPlanModel re : repayPlanList) {
+			financeRepayPlanDAO.save(new FinanceRepayPlan(financeId, re.getInterest(), re.getEndDate(), re.getMoney(), re.getOrderNum()));
+		}
 	}
 
 

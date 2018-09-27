@@ -35,5 +35,18 @@ public class FinanceRepayPlanModel {
 	
 	// 还款本金（元）
 	private BigDecimal money;
+	
+	private int orderNum;
+
+	public FinanceRepayPlanModel(BigDecimal interest, Date endDate,
+			BigDecimal money, int orderNum) {
+		super();
+		this.interest = interest;
+		this.endDate = endDate;
+		this.money = money;
+		this.orderNum = orderNum;
+	}
+	
+	
 
 }

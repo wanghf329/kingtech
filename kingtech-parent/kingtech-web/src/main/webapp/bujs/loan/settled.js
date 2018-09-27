@@ -105,7 +105,7 @@ function initDataTables() {
 											closeOnCancel : true 
 										}, function() {  
 											$.ajax({
-												url:"loan/push/"+id,
+												url:"settled/push/"+id,
 												type:'get',
 												async: false,
 												success:function(res){
