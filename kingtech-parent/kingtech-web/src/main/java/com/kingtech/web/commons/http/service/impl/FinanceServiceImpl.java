@@ -17,6 +17,7 @@ import com.kingtech.szsm.model.ContractRequestModel;
 import com.kingtech.szsm.model.EmployeeRequestModel;
 import com.kingtech.szsm.model.FinanceInfoRequestModel;
 import com.kingtech.szsm.model.OtherBaddebtRequestModel;
+import com.kingtech.szsm.model.ProvisionInfoRequestModel;
 import com.kingtech.szsm.model.QueryInfoRequestModel;
 import com.kingtech.szsm.model.RepayExtendInfoRequestModel;
 import com.kingtech.szsm.model.RepayInfoRequestModel;
@@ -111,11 +112,9 @@ public class FinanceServiceImpl   extends BaseAbstract implements FinanceService
 
 
 	@Override
-	public SynResponseModel provisionInfoFacade(ProvisionInfoModel provisionInfoModel) {
-//		Map<String, String> data = getDataAndSign(provisionInfoModel);
-//		SynResponseModel responseModel = getResponse(data, "pushProvisionData");
-//		return responseModel;
-		return null;
+	public SynResponseModel provisionInfoFacade(ProvisionInfoRequestModel provisionInfoModel,IdentifierType type) {
+		SynResponseModel responseModel = getResponse(provisionInfoModel, "asset-loss",type);
+		return responseModel;
 	}
 
 

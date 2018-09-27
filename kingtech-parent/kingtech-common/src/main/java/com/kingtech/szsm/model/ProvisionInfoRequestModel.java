@@ -109,5 +109,8 @@ public class ProvisionInfoRequestModel extends BaseRequestModel {
 		this.lossReal = lossReal;
 	}
 	
+	public ProvisionInfoRequestModel(String roundStr, String reqId) {
+		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), reqId, null, null);
+	}
 	
 }

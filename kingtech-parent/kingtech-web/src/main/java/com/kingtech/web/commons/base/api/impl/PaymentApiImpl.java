@@ -75,6 +75,7 @@ import com.kingtech.szsm.model.FinanceRepayPlanRequest;
 import com.kingtech.szsm.model.GuaranteeRequestModel;
 import com.kingtech.szsm.model.OtherBaddebtRequestModel;
 import com.kingtech.szsm.model.PersonalCustomerRequestModel;
+import com.kingtech.szsm.model.ProvisionInfoRequestModel;
 import com.kingtech.szsm.model.QueryInfoRequestModel;
 import com.kingtech.szsm.model.RepayExtendInfoRequestModel;
 import com.kingtech.szsm.model.RepayExtendPlanRequestModel;
@@ -679,28 +680,36 @@ public class PaymentApiImpl  implements PaymentApi {
 			return;
 		}
 		String roundStr =  RandomUtil.random8Len();
-		ProvisionInfoModel provisionInfoModel = null;
-//		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
-//			provisionInfoModel = new ProvisionInfoModel(roundStr, 
-//					type.name(), 
-//					provisionInfo.getReqId(), 
-//					null, 
-//					provisionInfo.getProvisionMoney().toPlainString(), 
-//					DateUtil.getDateStr(provisionInfo.getProvisionDate(),"yyyy-MM-dd"), 
-//					provisionInfo.getProvisionScale().toPlainString(),
-//					DTOUtils.getNewStr(provisionInfo.getLoanClassification()),
-//					provisionInfo.getBalance().toPlainString(), 
-//					DateUtil.getDateStr(provisionInfo.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT), 
-//                    DateUtil.getDateStr(provisionInfo.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT));
-//			
-//		}else {
-//			log.info("计提暂不支持的操作 provisionInfoId={},IdentifierType={} ",provisionInfoId,type);
-//			return;
-//		}
-		SynResponseModel responseModel = financeService.provisionInfoFacade(provisionInfoModel);
-		if (responseModel.isSuccess()) {
+		ProvisionInfoRequestModel provisionInfoModel = null;
+		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
+			provisionInfoModel = new ProvisionInfoRequestModel(roundStr,
+					provisionInfo.getReqId(),
+					DateUtil.getDateStr(provisionInfo.getDateMonth(),"YYYYMM"),
+					provisionInfo.getNormalBalance().toPlainString(), 
+					provisionInfo.getNormalRate().toPlainString(), 
+					provisionInfo.getNormalReal().toPlainString(),
+					provisionInfo.getFollowBalance().toPlainString(),
+					provisionInfo.getFollowRate().toPlainString(), 
+					provisionInfo.getFollowReal().toPlainString(), 
+					provisionInfo.getMinorBalance().toPlainString(),
+					provisionInfo.getMinorRate().toPlainString(),
+					provisionInfo.getMinorReal().toPlainString(), 
+					provisionInfo.getSuspiciousBalance().toPlainString(),
+					provisionInfo.getSuspiciousRate().toPlainString(), 
+					provisionInfo.getSuspiciousReal().toPlainString(),
+					provisionInfo.getLossBalance().toPlainString(), 
+					provisionInfo.getLossRate().toPlainString(), 
+					provisionInfo.getLossReal().toPlainString());
 			provisionInfo.setPushStatus(PushStatus.INPROSESS);
+		}else {
+			provisionInfoModel = new ProvisionInfoRequestModel(roundStr,provisionInfo.getReqId()) ;
+			provisionInfo.setPushStatus(PushStatus.DELETEING);
+		}
+		SynResponseModel responseModel = financeService.provisionInfoFacade(provisionInfoModel,type);
+		if (responseModel.isSuccess()) {
 			provisionInfoDAO.save(provisionInfo);
+		}else {
+			throw  new RuntimeException();
 		}
 		
 	}
