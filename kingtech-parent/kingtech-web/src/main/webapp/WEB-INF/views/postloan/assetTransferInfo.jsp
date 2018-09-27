@@ -135,8 +135,8 @@
                                         <c:forEach var="it" varStatus="status" items="${list}">
 	                                        <tr>
 	                                        	<td>${status.index+1}</td>
-	                                        	<td>${it.loanContractNo}</td>  
-	                                            <td>${it.loanContractName}</td> 
+	                                        	<td>${it.contractNumber}</td>  
+	                                            <td>${it.contractName}</td> 
 	                                            <td>${it.model.transferNumber}</td>
 	                                            <td><strong class="text-red"><i class="fa fa-rmb"></i>${it.model.transferMoney}</strong></td>
 	                                            <td><strong class="text-red"><i class="fa fa-rmb"></i>${it.model.originalMoney}</strong></td>

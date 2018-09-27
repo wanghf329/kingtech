@@ -60,10 +60,13 @@ function validataInterest(field, rules, i, options) {
 function getRepayInfo(id){
 	$.get('postLoan/getRepayInfo/'+id,null,function(res){
 		$("input[name='id']").val(res.id);
-		$("input[name='repayDate']").val(res.repayDate);
-		$("input[name='repayAmount']").val(res.repayAmount);
-		$("input[name='repayPrincipalAmount']").val(res.repayPrincipalAmount);
-		$("input[name='repayInterestAmount']").val(res.repayInterestAmount);
+		$("input[name='repayTime']").val(formateDate(new Date(res.repayTime),'yyyy-MM-dd'));
+		$("input[name='money']").val(res.money);
+		$("input[name='penaltyInterest']").val(res.penaltyInterest);
+		$("input[name='interest']").val(res.interest);
+		$("input[name='penalty']").val(res.penalty);
+		$("input[name='serviceCharge']").val(res.serviceCharge);
+		$("input[name='otherCharge']").val(res.otherCharge);
 		$("#loanContractId option[value='"+res.loanContractId+"']").attr("selected",true); 
 		$("#newRepayInfo").modal();
 	});
@@ -120,21 +123,33 @@ function initDataTables() {
 						},
 						columns : [
 								{data : null},
-								{data : "loanContractNo"},
-								{data : "loanContractName"},
-								{data : "model.repayDate"},
-								{data : "model.repayAmount",render : function(data, type, row) {
+								{data : "contractNumber"},
+								{data : "contractName"},
+								{data : "model.repayTime"},
+								{data : "model.money",render : function(data, type, row) {
 										return "<span class=\"text-red bolder\">￥"+ data + "</span>";
 									}
 								},
-								{data : "model.repayPrincipalAmount",render : function(data, type, row) {
+								{data : "model.interest",render : function(data, type, row) {
 										return "<span class=\"text-red bolder\">￥"+ data + "</span>";
 									}
 								},
-								{data : "model.repayInterestAmount",render : function(data, type, row) {
+								{data : "model.penaltyInterest",render : function(data, type, row) {
 										return "<span class=\"text-red bolder\">￥"+ data + "</span>";
 									}
 								},
+								{data : "model.penalty",render : function(data, type, row) {
+									return "<span class=\"text-red bolder\">￥"+ data + "</span>";
+									}
+								},
+								{data : "model.serviceCharge",render : function(data, type, row) {
+									return "<span class=\"text-red bolder\">￥"+ data + "</span>";
+									}
+								},
+								{data : "model.otherCharge",render : function(data, type, row) {
+									return "<span class=\"text-red bolder\">￥"+ data + "</span>";
+									}
+								},								
 								{data : "pushStatus",render : function(data, type, row) {
 										switch (data) {
 										case 'INITATION':
@@ -159,3 +174,29 @@ function initDataTables() {
 						}
 					});
 };
+
+
+function formateDate(date, fmt) {
+    // Examples: 
+    // formatDate(new Date(), "yyyy-MM-dd hh:mm:ss.S") ==> 2013-08-06 08:09:04.423 
+    // formatDate(new Date(), "yyyy-M-d h:m:s.S")      ==> 2013-8-6 8:9:4.18 
+    // formatDate(new Date(), "yyyy年M月d日")           ==> 2013年8月6日 
+    var o = {
+        "M+": date.getMonth() + 1, //月份 
+        "d+": date.getDate(), //日 
+        "h+": date.getHours(), //小时 
+        "m+": date.getMinutes(), //分
+        "s+": date.getSeconds(), //秒 
+        "q+": Math.floor((date.getMonth() + 3) / 3), //季度 
+        "S": date.getMilliseconds()                     //毫秒 
+    };
+    if (/(y+)/.test(fmt)) {
+        fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
+    }
+    for (var k in o) {
+        if (new RegExp("(" + k + ")").test(fmt)) {
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        }
+    }
+    return fmt;
+}
