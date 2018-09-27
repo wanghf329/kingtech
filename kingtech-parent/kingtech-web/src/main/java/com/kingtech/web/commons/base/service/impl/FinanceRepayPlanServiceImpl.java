@@ -22,12 +22,7 @@ public class FinanceRepayPlanServiceImpl implements FinanceRepayPlanService{
 		return financingRepayPlanDAO.listByFinanceId(financeId);
 	}
 
-	@Override
-	@Transactional
-	public void deleteFinanceRepayPlan(String id) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	@Override
 	public FinanceRepayPlan addNew(FinanceRepayPlanModel model) {
@@ -39,6 +34,14 @@ public class FinanceRepayPlanServiceImpl implements FinanceRepayPlanService{
 	public FinanceRepayPlan getFinanceRepayPlanById(String id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+
+	@Override
+	@Transactional
+	public void deleteFinanceRepayPlanByFinanceId(String financeId) {
+		financingRepayPlanDAO.delectByFinanceId(financeId);
 	}
 
 	

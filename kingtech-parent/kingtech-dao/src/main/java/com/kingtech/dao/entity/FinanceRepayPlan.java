@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,8 +19,9 @@ import com.kingtech.dao.entity.base.UuidEntity;
  */
 @Data
 @Entity
-@Table(name="TTB_FINANCING_REPAY_PLAN")
+@Table(name="TB_FINANCING_REPAY_PLAN")
 @NoArgsConstructor
+@AllArgsConstructor
 public class FinanceRepayPlan extends UuidEntity{
 	
 	// 融资编号
@@ -37,5 +39,8 @@ public class FinanceRepayPlan extends UuidEntity{
 	// 还款本金（元）
 	@Column(name="MONEY", nullable = false)
 	private BigDecimal money;
+	
+	@Column(name="ORDER_NUM", nullable = false)
+	private int orderNum;
 
 }

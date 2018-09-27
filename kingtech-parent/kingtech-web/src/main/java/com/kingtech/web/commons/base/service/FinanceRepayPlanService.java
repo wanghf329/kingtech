@@ -7,9 +7,9 @@ import com.kingtech.model.FinanceRepayPlanModel;
 
 public interface FinanceRepayPlanService {
 	
-	public List<FinanceRepayPlan> listfinanceRepayById(String financingId);
+	public List<FinanceRepayPlan> listfinanceRepayById(String financeId);
 	
-	public void deleteFinanceRepayPlan (String id);
+	public void deleteFinanceRepayPlanByFinanceId (String financeId);
 	
 	public FinanceRepayPlan addNew(FinanceRepayPlanModel model);
 	
