@@ -786,7 +786,7 @@ public class PaymentApiImpl  implements PaymentApi {
 
 	@Override
 	@Transactional
-	public SynResponseModel queryTranInfoApi(String id , Cmd cmd) {
+	public void queryTranInfoApi(String id , Cmd cmd) {
 		QueryInfoRequestModel infoRequestModel = null;
 		String api="";
 		switch (cmd) {
@@ -811,8 +811,6 @@ public class PaymentApiImpl  implements PaymentApi {
 			break;
 		}
 		
-		
-		return null;
 	}
 
 }

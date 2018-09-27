@@ -111,7 +111,7 @@ public interface PaymentApi {
 	 * @return
 	 */
 	
-	public SynResponseModel queryTranInfoApi(String id,Cmd cmd);
+	public void queryTranInfoApi(String id,Cmd cmd);
 	
 	
 	
