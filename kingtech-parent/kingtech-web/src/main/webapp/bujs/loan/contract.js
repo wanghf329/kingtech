@@ -239,15 +239,15 @@ function initDataTables() {
 								{data : "termType",render : function(data, type, row) {
 									switch (data) {
 										case 'S_1':
-											return '<Strong>'+data+'日</Strong></td>';
+											return '<Strong>'+row.term+'日</Strong></td>';
 										case 'S_2':
-											return '<Strong>'+data+'周</Strong></td>';
+											return '<Strong>'+row.term+'周</Strong></td>';
 										case 'S_3':
-											return '<Strong>'+data+'月</Strong></td>';
+											return '<Strong>'+row.term+'月</Strong></td>';
 										case 'S_4':
-											return '<Strong>'+data+'季度</Strong></td>';
+											return '<Strong>'+row.term+'季度</Strong></td>';
 										case 'S_5':
-											return '<Strong>'+data+'年</Strong></td>';
+											return '<Strong>'+row.term+'年</Strong></td>'; 
 									}
 								}},
 								{data : "startDate",render : function(data, type, row) {
