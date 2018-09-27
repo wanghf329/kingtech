@@ -16,6 +16,8 @@ import com.kingtech.model.ShareholderModel;
 import com.kingtech.szsm.model.ContractRequestModel;
 import com.kingtech.szsm.model.EmployeeRequestModel;
 import com.kingtech.szsm.model.FinanceInfoRequestModel;
+import com.kingtech.szsm.model.QueryInfoRequestModel;
+import com.kingtech.szsm.model.RepayExtendInfoRequestModel;
 import com.kingtech.szsm.model.RepayInfoRequestModel;
 import com.kingtech.szsm.model.SettledInfoRequestModel;
 import com.kingtech.szsm.model.SynResponseModel;
@@ -76,11 +78,9 @@ public class FinanceServiceImpl   extends BaseAbstract implements FinanceService
 
 
 	@Override
-	public SynResponseModel repayExtendInfoFacade(RepayExtendInfoModel repayExtendInfoModel,IdentifierType type) {
-//		Map<String, String> data = getDataAndSign(repayExtendInfoModel);
-//		SynResponseModel responseModel = getResponse(data, "pushExtendRepayData");
-//		return responseModel;
-		return null;
+	public SynResponseModel repayExtendInfoFacade(RepayExtendInfoRequestModel repayExtendInfoModel,IdentifierType type) {
+		SynResponseModel responseModel = getResponse(repayExtendInfoModel, "extend-repay",type);
+		return responseModel;
 	}
 
 
@@ -130,6 +130,13 @@ public class FinanceServiceImpl   extends BaseAbstract implements FinanceService
 	@Override
 	public SynResponseModel financeInfoFacade(FinanceInfoRequestModel financeInfoRequestModel, IdentifierType type) {
 		SynResponseModel responseModel = getResponse(financeInfoRequestModel, " single-finane",type);
+		return responseModel;
+	}
+
+
+	@Override
+	public SynResponseModel queryInfoFacade(QueryInfoRequestModel queryInfoRequestModel) {
+		SynResponseModel responseModel =  queryResponse(queryInfoRequestModel);
 		return responseModel;
 	}
 

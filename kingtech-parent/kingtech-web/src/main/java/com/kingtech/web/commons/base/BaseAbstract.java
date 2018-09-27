@@ -1,5 +1,6 @@
 package com.kingtech.web.commons.base;
 
+import java.io.IOException;
 import java.util.Map;
 
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,7 @@ import com.kingtech.enums.IdentifierType;
 import com.kingtech.szsm.model.BaseRequestModel;
 import com.kingtech.szsm.model.BaseResponsModel;
 import com.kingtech.szsm.model.ContractRequestModel;
+import com.kingtech.szsm.model.QueryInfoRequestModel;
 import com.kingtech.szsm.model.SettledInfoRequestModel;
 import com.kingtech.szsm.model.SynResponseModel;
 
@@ -125,6 +127,23 @@ public class BaseAbstract {
 		      return MD5.MD5Encode(result);
 		}
 		return null;
+	}
+	
+	
+	public SynResponseModel queryResponse(QueryInfoRequestModel infoRequestModel){
+		String url = BaseConfig.QUERY_URL+"/process-result?clientId="+BaseConfig.CLIENTID+"&appKey="+BaseConfig.APPKEY+"&reqId="+infoRequestModel.getReqId()+"&api="+infoRequestModel.getApi();
+		String result;
+		try {
+			result = HttpUtil.getGetResponseByUrl(url);
+		} catch (IOException e) {
+			log.info("",e);
+			return null;
+	
+		}
+		JSONObject jsonObject = JSON.parseObject(result);
+		return new SynResponseModel(jsonObject.getString("resultCode"), jsonObject.getString("resultMsg"));
+	
+		
 	}
 	
 }

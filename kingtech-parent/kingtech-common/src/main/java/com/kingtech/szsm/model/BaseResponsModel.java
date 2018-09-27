@@ -53,4 +53,13 @@ public class BaseResponsModel {
 	public boolean isSuccess(){
 		return "0".equals(this.resultCode);
 	}
+
+
+	public BaseResponsModel(String resultCode, String resultMsg) {
+		super();
+		this.resultCode = resultCode;
+		this.resultMsg = resultMsg;
+	}
+	
+	
 }

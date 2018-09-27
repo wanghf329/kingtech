@@ -5,6 +5,7 @@ import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
 
+import org.hamcrest.core.Is;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,6 +49,7 @@ import com.kingtech.dao.rdbms.RepayPlanDAO;
 import com.kingtech.dao.rdbms.SettledInfoDAO;
 import com.kingtech.dao.rdbms.ShareholderDAO;
 import com.kingtech.enums.BorrowerTypeEnum;
+import com.kingtech.enums.Cmd;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.RecordStatus;
@@ -72,6 +74,7 @@ import com.kingtech.szsm.model.FinanceInfoRequestModel;
 import com.kingtech.szsm.model.FinanceRepayPlanRequest;
 import com.kingtech.szsm.model.GuaranteeRequestModel;
 import com.kingtech.szsm.model.PersonalCustomerRequestModel;
+import com.kingtech.szsm.model.QueryInfoRequestModel;
 import com.kingtech.szsm.model.RepayExtendInfoRequestModel;
 import com.kingtech.szsm.model.RepayExtendPlanRequestModel;
 import com.kingtech.szsm.model.RepayInfoRequestModel;
@@ -522,32 +525,23 @@ public class PaymentApiImpl  implements PaymentApi {
 			return null;
 		}
 		
-		
-		
 		String roundStr =  RandomUtil.random8Len();
-		RepayExtendInfoRequestModel repayExtendInfoRequestModel = null;
-		
-		
-//		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
-//			extendInfoModel = new RepayExtendInfoModel(roundStr,
-//					type.name(), 
-//					extendInfo.getReqId(), null, contractDAO.findOne(extendInfo.getLoanContractId()).getLoanContractNo(),
-//					DateUtil.getDateStr(extendInfo.getRepayTime(), "yyyy-MM-dd"),
-//					extendInfo.getMoney().toPlainString(),
-//					extendInfo.getInterest().toPlainString(),
-//					extendInfo.getPenaltyInterest().toPlainString(),
-//					DateUtil.getDateStr(extendInfo.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT), 
-//                    DateUtil.getDateStr(extendInfo.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT));
-//		}else {
-//			log.info("展期还款信息暂不支持的操作 repayExtendInfoId={},IdentifierType={} ",repayExtendInfoId,type);
-//			return;
-//		}
-		SynResponseModel responseModel = financeService.repayExtendInfoFacade(null,null);
+		RepayExtendInfoRequestModel repayExtendInfoRequestModel = new RepayExtendInfoRequestModel(roundStr,
+				extendInfo.getReqId(),
+				contractDAO.findOne(extendInfo.getLoanContractId()).getContractNumber(),
+				DateUtil.getSimpleDate(extendInfo.getRepayTime()),
+				extendInfo.getMoney().toPlainString(),
+				extendInfo.getInterest().toPlainString(),
+				extendInfo.getPenaltyInterest().toPlainString(),
+				extendInfo.getPenalty().toPlainString(),
+				extendInfo.getServiceCharge().toPlainString(), 
+				extendInfo.getOtherCharge().toPlainString());
+		SynResponseModel responseModel = financeService.repayExtendInfoFacade(repayExtendInfoRequestModel,type);
 		if (responseModel.isSuccess()) {
 			extendInfo.setPushStatus(PushStatus.INPROSESS);
 			repayExtendInfoDAO.save(extendInfo);
 		}
-		return null;
+		return responseModel;
 	}
 
 	@Override
@@ -795,6 +789,37 @@ public class PaymentApiImpl  implements PaymentApi {
 		return responseModel;
 		
 		
+	}
+
+	@Override
+	@Transactional
+	public SynResponseModel queryTranInfoApi(String id , Cmd cmd) {
+		QueryInfoRequestModel infoRequestModel = null;
+		String api="";
+		switch (cmd) {
+		case loanInfo:
+			SettledInfo settle = settledInfoDAO.findOne(id);
+			if (PushStatus.DELETEING.equals(settle.getPushStatus())) {
+				api = "delete/loan-info";
+				settle.setRecordStatus(RecordStatus.DELETEED);
+			}else if (PushStatus.INPROSESS.equals(settle.getPushStatus())) {
+				api = "post/loan-info";
+			}
+			
+			infoRequestModel = new QueryInfoRequestModel(settle.getReqId(), api);
+			SynResponseModel synResponseModel = financeService.queryInfoFacade(infoRequestModel);
+			if (synResponseModel.isSuccess()) {
+				settle.setPushStatus(PushStatus.SUCCESS);
+				settledInfoDAO.save(settle);
+			}
+			break;
+
+		default:
+			break;
+		}
+		
+		
+		return null;
 	}
 
 }
