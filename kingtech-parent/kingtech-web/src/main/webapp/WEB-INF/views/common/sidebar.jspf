@@ -59,8 +59,8 @@
                 <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="treeview-menu">
-                <li id="financeInfoList"><a href="branch/employeeList"><i class="fa fa-angle-double-right"></i>机构银行账户信息</a></li>
-                <li id="financeInfoList"><a href="branch/employeeList"><i class="fa fa-angle-double-right"></i>机构银行账户月度余额信息</a></li>
+                <li id="branchAccountInfoList"><a href="branchAccount/accountInfoList"><i class="fa fa-angle-double-right"></i>机构银行账户信息</a></li>
+                <li id="branchAccountMonthBalance"><a href="branchAccount/accountBalanceList"><i class="fa fa-angle-double-right"></i>机构银行账户月度余额信息</a></li>
             </ul>
         </li>
         <li class="treeview active">
