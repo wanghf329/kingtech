@@ -30,10 +30,10 @@ public class RepayExtendPlanRequestModel extends BaseRequestModel{
 	private String count;
 	
 	//展期计划包
-	private List<RepayExtendPlanModel> plans;
+	private List<ExtendPlanRequestModel> plans;
 
 	public RepayExtendPlanRequestModel( String roundStr, String reqId,String contractNumber,
-			String count, List<RepayExtendPlanModel> plans) {
+			String count, List<ExtendPlanRequestModel> plans) {
 		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), reqId, null, null);
 		this.contractNumber = contractNumber;
 		this.count = count;

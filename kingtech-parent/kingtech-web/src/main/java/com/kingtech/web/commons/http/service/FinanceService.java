@@ -13,6 +13,7 @@ import com.kingtech.model.RepayInfoModel;
 import com.kingtech.model.ShareholderModel;
 import com.kingtech.szsm.model.ContractRequestModel;
 import com.kingtech.szsm.model.EmployeeRequestModel;
+import com.kingtech.szsm.model.SettledInfoRequestModel;
 import com.kingtech.szsm.model.SynResponseModel;
 /**
  * 对接监管系统接口
@@ -65,7 +66,7 @@ public interface FinanceService {
 	 * @param repayExtendInfoModel
 	 * @return
 	 */
-	public SynResponseModel repayExtendInfoFacade(RepayExtendInfoModel repayExtendInfoModel);
+	public SynResponseModel repayExtendInfoFacade(RepayExtendInfoModel repayExtendInfoModel,IdentifierType type);
 	
 	/**
 	 * 展期还款计划接口
@@ -93,4 +94,9 @@ public interface FinanceService {
 	 * @return
 	 */
 	public SynResponseModel provisionInfoFacade(ProvisionInfoModel provisionInfoModel); 
+	/**
+	 * 放款信息接口
+	 * @return
+	 */
+	public SynResponseModel settleInfoFacade(SettledInfoRequestModel settledInfoRequestModel,IdentifierType type);
 }

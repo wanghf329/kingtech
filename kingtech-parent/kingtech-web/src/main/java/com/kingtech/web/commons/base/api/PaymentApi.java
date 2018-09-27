@@ -51,7 +51,7 @@ public interface PaymentApi {
 	 * 展期还款信息
 	 */
 	
-	public void repayExtendInfoApi(String repayExtendInfoId,IdentifierType type);
+	public SynResponseModel repayExtendInfoApi(String repayExtendInfoId,IdentifierType type);
 	
 	
 
@@ -59,7 +59,7 @@ public interface PaymentApi {
 	 * 展期还款计划信息
 	 */
 	
-	public void repayExtendPlanApi(String repayExtendPlanId,IdentifierType type);
+	public SynResponseModel repayExtendPlanApi(String repayExtendPlanId,IdentifierType type);
 	
 	
 	/**
@@ -88,6 +88,13 @@ public interface PaymentApi {
 	 * @param reponseModel
 	 */
 	public void handleResult(AsyReponseModel reponseModel);
+	/**
+	 * 放款信息接口
+	 * @param settleInfoId
+	 * @param type
+	 * @return
+	 */
+	public  SynResponseModel settleInfoApi(String settleInfoId,IdentifierType type);
 	
 	
 	
