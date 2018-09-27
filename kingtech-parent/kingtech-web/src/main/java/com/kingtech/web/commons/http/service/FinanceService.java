@@ -1,5 +1,6 @@
 package com.kingtech.web.commons.http.service;
 
+import com.kingtech.enums.IdentifierType;
 import com.kingtech.model.BranchInfoModel;
 import com.kingtech.model.CapitalModel;
 import com.kingtech.model.EmployeeModel;
@@ -12,6 +13,8 @@ import com.kingtech.model.RepayInfoModel;
 import com.kingtech.model.ShareholderModel;
 import com.kingtech.szsm.model.ContractRequestModel;
 import com.kingtech.szsm.model.EmployeeRequestModel;
+import com.kingtech.szsm.model.FinanceInfoRequestModel;
+import com.kingtech.szsm.model.SettledInfoRequestModel;
 import com.kingtech.szsm.model.SynResponseModel;
 /**
  * 对接监管系统接口
@@ -29,7 +32,7 @@ public interface FinanceService {
 	 * 机构人员信息接口
 	 */
 	
-	public SynResponseModel branchEmployeeFacade(EmployeeRequestModel employeeModel);
+	public SynResponseModel branchEmployeeFacade(EmployeeRequestModel employeeModel,IdentifierType type);
 	
 	/**
 	 * 
@@ -50,7 +53,7 @@ public interface FinanceService {
 	 * @param shareholderModel
 	 * @return
 	 */
-	public SynResponseModel contractFacade(ContractRequestModel contractModel);
+	public SynResponseModel contractFacade(ContractRequestModel contractModel,IdentifierType type);
 	
 	/**
 	 * 还款信息接口
@@ -64,7 +67,7 @@ public interface FinanceService {
 	 * @param repayExtendInfoModel
 	 * @return
 	 */
-	public SynResponseModel repayExtendInfoFacade(RepayExtendInfoModel repayExtendInfoModel);
+	public SynResponseModel repayExtendInfoFacade(RepayExtendInfoModel repayExtendInfoModel,IdentifierType type);
 	
 	/**
 	 * 展期还款计划接口
@@ -92,4 +95,17 @@ public interface FinanceService {
 	 * @return
 	 */
 	public SynResponseModel provisionInfoFacade(ProvisionInfoModel provisionInfoModel); 
+	/**
+	 * 放款信息接口
+	 * @return
+	 */
+	public SynResponseModel settleInfoFacade(SettledInfoRequestModel settledInfoRequestModel,IdentifierType type);
+	
+	/**
+	 * 单笔融资信息接口
+	 * @param financeInfoRequestModel
+	 * @param type
+	 * @return
+	 */
+	public SynResponseModel  financeInfoFacade (FinanceInfoRequestModel financeInfoRequestModel,IdentifierType type);
 }

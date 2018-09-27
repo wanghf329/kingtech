@@ -14,7 +14,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class FinancingRepayPlanModel {
+public class FinanceRepayPlanRequest {
 	
 	// 融资编号ID
 	private String financeId;
