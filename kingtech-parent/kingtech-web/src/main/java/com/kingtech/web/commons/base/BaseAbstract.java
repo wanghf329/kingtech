@@ -29,7 +29,7 @@ public class BaseAbstract {
 	 */
 
 	public  SynResponseModel getResponse(BaseRequestModel baseRequestModel,String suffixUrl,IdentifierType type) {
-		String sign = getOtherSign(baseRequestModel);
+		String sign = getOtherSign(baseRequestModel, type);
 		if (sign == null) {
 			String dataSign = JSON.toJSONString(baseRequestModel, Labels.includes("sign")); // 验签数据
 			Map<String, Object> signMap = JSON.parseObject(dataSign, Map.class);
@@ -76,7 +76,10 @@ public class BaseAbstract {
 	}
 	
 	
-	public  String getOtherSign(BaseRequestModel baseRequestModel){
+	public  String getOtherSign(BaseRequestModel baseRequestModel,IdentifierType type){
+		if (IdentifierType.D.equals(type)) {
+			return null;
+		}
 		StringBuilder builder = new StringBuilder();
 		if (baseRequestModel instanceof ContractRequestModel) {
 			ContractRequestModel contractRequestModel = (ContractRequestModel) baseRequestModel;

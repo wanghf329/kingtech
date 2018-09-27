@@ -4,6 +4,7 @@ public enum PushStatus implements BaseEnum {
 	INITATION("初始"),	
 	SUCCESS("推送成功"),
 	INPROSESS("推送处理中"),
+	DELETEING("删除中"),
 	FAILED("推送失败");
 	
 	private String key;

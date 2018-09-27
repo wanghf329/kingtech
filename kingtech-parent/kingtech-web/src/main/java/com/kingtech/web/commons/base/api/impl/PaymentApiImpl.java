@@ -719,8 +719,20 @@ public class PaymentApiImpl  implements PaymentApi {
 			return null;
 		}
 		String roundStr =  RandomUtil.random8Len();
+		SettledInfoRequestModel infoRequestModel = null;
+		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)){
+			infoRequestModel = new SettledInfoRequestModel(roundStr,
+										settle.getReqId(),
+										contractDAO.findOne(settle.getLoanContractId()).getContractNumber(),
+										settle.getMoney().toPlainString(), 
+										DateUtil.getDateStr(settle.getLoanTime(),JSON.DEFFAULT_DATE_FORMAT), 
+										DateUtil.getSimpleDate(settle.getStartDate()), 
+										DateUtil.getSimpleDate(settle.getEndDate()));
+		}else {
+			infoRequestModel = new SettledInfoRequestModel(roundStr, settle.getReqId());
+		}
 		
-		SettledInfoRequestModel infoRequestModel = new SettledInfoRequestModel(roundStr,
+		 infoRequestModel = new SettledInfoRequestModel(roundStr,
 				settle.getReqId(),
 				contractDAO.findOne(settle.getLoanContractId()).getContractNumber(),
 				settle.getMoney().toPlainString(), 
@@ -730,9 +742,17 @@ public class PaymentApiImpl  implements PaymentApi {
 		
 		SynResponseModel responseModel = financeService.settleInfoFacade(infoRequestModel, type);
 		if (responseModel.isSuccess()) {
-			settle.setPushStatus(PushStatus.INPROSESS);
+			
+			if (IdentifierType.D.equals(type)) {
+				settle.setPushStatus(PushStatus.DELETEING);
+			}else {
+				settle.setPushStatus(PushStatus.INPROSESS);
+			}
 			settledInfoDAO.save(settle);
+		}else{
+			throw  new RuntimeException();
 		}
+		
 		return responseModel;
 	}
 
@@ -769,6 +789,7 @@ public class PaymentApiImpl  implements PaymentApi {
 		SynResponseModel responseModel = financeService.financeInfoFacade(financeInfoRequestModel, type);
 		if (responseModel.isSuccess()) {
 			capital.setPushStatus(PushStatus.INPROSESS);
+		
 			capitalDAO.save(capital);
 		}
 		return responseModel;
