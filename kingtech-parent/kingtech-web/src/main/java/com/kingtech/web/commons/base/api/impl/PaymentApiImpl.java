@@ -50,6 +50,7 @@ import com.kingtech.dao.rdbms.ShareholderDAO;
 import com.kingtech.enums.BorrowerTypeEnum;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.enums.RecordStatus;
 import com.kingtech.model.BranchInfoModel;
 import com.kingtech.model.CapitalModel;
 import com.kingtech.model.GuaranteeModel;

@@ -97,6 +97,9 @@ public interface PaymentApi {
 	public  SynResponseModel settleInfoApi(String settleInfoId,IdentifierType type);
 	
 	
+	public SynResponseModel 
+	
+	
 	
 	
 
