@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,9 +19,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kingtech.dao.entity.Contract;
 import com.kingtech.dao.entity.SettledInfo;
 import com.kingtech.dao.rdbms.SettledInfoDAO;
+import com.kingtech.enums.IdentifierType;
 import com.kingtech.model.SettledInfoModel;
 import com.kingtech.model.misc.PageInfo;
 import com.kingtech.model.misc.PagedResult;
+import com.kingtech.szsm.model.SynResponseModel;
+import com.kingtech.web.commons.base.api.PaymentApi;
 import com.kingtech.web.commons.base.service.ContractService;
 
 @Controller
@@ -32,6 +36,9 @@ public class SettledApiController {
 	
 	@Autowired
 	private SettledInfoDAO settledInfoDAO;
+	
+	@Autowired
+	private PaymentApi paymentApi;
 	
 	/**
 	 * 放款信息列表
@@ -78,4 +85,11 @@ public class SettledApiController {
 									 			 @RequestParam("length") Integer pageSize) {
 		return contractService.pageListSettledInfo(PageInfo.page(firstIndex, pageSize));
 	}
+	
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET,value="/delete/{id}")
+	public SynResponseModel push(Model model,@PathVariable("id") String id) { 
+		SynResponseModel synresponseModel = paymentApi.settleInfoApi(id, IdentifierType.D);
+		return synresponseModel;
+	}  
 }

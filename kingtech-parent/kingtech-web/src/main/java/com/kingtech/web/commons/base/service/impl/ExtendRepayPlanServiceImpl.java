@@ -60,8 +60,7 @@ public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 		try {
 			RepayExtendPlanInfo rp = null;
 			if (StringUtils.isEmpty(id)) {
-				rp = new RepayExtendPlanInfo(loanContractId, creatRequstId.getReqId(), PushStatus.INITATION, count);
-				rp.setRecordStatus(RecordStatus.NORMAL);
+				rp = new RepayExtendPlanInfo(loanContractId, creatRequstId.getReqId(),PushStatus.INITATION,RecordStatus.NORMAL, count);
 			} else {
 				rp = repayExtendPlanInfoDAO.findOne(id);
 				rp.setCount(count);

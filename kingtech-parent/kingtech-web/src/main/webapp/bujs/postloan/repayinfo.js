@@ -69,6 +69,12 @@ function getRepayInfo(id){
 		$("input[name='otherCharge']").val(res.otherCharge);
 		$("#loanContractId option[value='"+res.loanContractId+"']").attr("selected",true); 
 		$("#newRepayInfo").modal();
+		
+		if(res.pushStatus!='INITATION'){ 
+	    	$('.saveRecordBtn').hide(); 
+		}else{ 
+			$('.saveRecordBtn').show();
+		}
 	});
 }
 
@@ -164,7 +170,11 @@ function initDataTables() {
 									}
 								},
 								{data : null,render : function(data, type, row) {
-										return '<a href="javascript:void(0)" onclick=getRepayInfo(\''+row.model.id+'\') class="extend-repay-edit"><i class="text-blue fa fa-edit"></i><strong>修改</strong>'
+										if(row.pushStatus=='INITATION') {
+											return '<a href="javascript:void(0)" onclick=getRepayInfo(\''+row.model.id+'\') class="extend-repay-edit"><i class="text-blue fa fa-edit"></i><strong>修改</strong>'
+										}else{ 
+											return '<a href="javascript:void(0)" onclick=getRepayInfo(\''+row.model.id+'\') class="extend-repay-edit"><i class="text-blue fa fa-eye"></i><strong>查看</strong>'
+										}
 									}
 								} ],
 						"fnDrawCallback" : function(oSettings) {

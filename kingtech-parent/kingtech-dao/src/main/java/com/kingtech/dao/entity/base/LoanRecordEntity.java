@@ -69,11 +69,12 @@ public abstract class LoanRecordEntity extends BaseEntity {
 		this.updateTime = new Date();
 	}
 	
-	public LoanRecordEntity(String loanContractId, String reqId, PushStatus pushStatus) {
+	public LoanRecordEntity(String loanContractId, String reqId, PushStatus pushStatus,RecordStatus recordStatus) {
 		super();
 		this.loanContractId = loanContractId;
 		this.reqId = reqId;
 		this.pushStatus = pushStatus;
+		this.recordStatus = recordStatus;
 	}
 	
 }

@@ -14,7 +14,7 @@ public class RepayPlanRequestModel {
 	private String endDate;
 
 	// 还款本金（元）
-	private String money;
+	private String principal;
 
 	// 还款利息（元）
 	private String interest;

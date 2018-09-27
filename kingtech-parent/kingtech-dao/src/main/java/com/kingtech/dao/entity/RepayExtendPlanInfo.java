@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import com.kingtech.dao.entity.base.LoanRecordEntity;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.enums.RecordStatus;
 
 /**
  * 展期还款计划信息表
@@ -25,8 +26,8 @@ public class RepayExtendPlanInfo extends LoanRecordEntity {
 	private String count;
 
 	public RepayExtendPlanInfo(String loanContractId, String reqId,
-			PushStatus pushStatus, String count) {
-		super(loanContractId, reqId, pushStatus);
+			PushStatus pushStatus, RecordStatus recordStatus, String count) {
+		super(loanContractId, reqId, pushStatus, recordStatus);
 		this.count = count;
 	}
 	

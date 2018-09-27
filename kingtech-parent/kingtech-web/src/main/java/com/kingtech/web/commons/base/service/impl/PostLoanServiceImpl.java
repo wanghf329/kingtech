@@ -26,6 +26,7 @@ import com.kingtech.dao.rdbms.RepayInfoDAO;
 import com.kingtech.enums.BadTypeEnum;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.enums.RecordStatus;
 import com.kingtech.model.AssetTransferModel;
 import com.kingtech.model.OtherBaddebtModel;
 import com.kingtech.model.OtherOverdueInfoModel;
@@ -59,6 +60,9 @@ public class PostLoanServiceImpl implements PostLoanService{
 	
 	@Autowired
 	private AssetTransferDAO assetTransferDao;
+	
+	@Autowired
+	private PaymentApi api;
 
 	@Override
 	public List<Contract> listAllContract() {
@@ -116,6 +120,7 @@ public class PostLoanServiceImpl implements PostLoanService{
 				repayInfo = new RepayInfo(loanContractId,
 										  creatRequstId.getReqId(), 
 										  PushStatus.INITATION, 
+										  RecordStatus.NORMAL,
 										  model.getRepayTime(),
 										  model.getMoney(),
 										  model.getInterest(),
@@ -137,7 +142,10 @@ public class PostLoanServiceImpl implements PostLoanService{
 			e.printStackTrace();
 		}
 		repayInfoDao.save(repayInfo); 
-//		paymentApi.repayInfoApi(repayInfo.getId(), StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
+		
+		if(PushStatus.INITATION.equals(repayInfo.getPushStatus())){
+			api.repayInfoApi(repayInfo.getId(), IdentifierType.A);
+		}
 		return repayInfo;
 	}
 
@@ -203,6 +211,7 @@ public class PostLoanServiceImpl implements PostLoanService{
 				badDebtInfo = new OtherBaddebt(loanContractId, 
 												creatRequstId.getReqId(), 
 												PushStatus.INITATION, 
+												RecordStatus.NORMAL,
 												badMoney,
 												lossDate,
 												badType,
@@ -290,6 +299,7 @@ public class PostLoanServiceImpl implements PostLoanService{
 				overdueInfo = new OtherOverdueInfo(loanContractId,
 												   creatRequstId.getReqId(), 
 												   PushStatus.INITATION,  
+												   RecordStatus.NORMAL,
 												   overdueMoney, 
 												   DateUtils.parseDate(overdueDate, "yyyy-MM-dd"),
 												   overdueInterest, 

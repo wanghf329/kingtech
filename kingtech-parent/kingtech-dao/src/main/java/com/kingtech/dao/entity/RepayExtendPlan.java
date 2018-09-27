@@ -10,9 +10,7 @@ import javax.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import com.kingtech.dao.entity.base.LoanRecordEntity;
 import com.kingtech.dao.entity.base.UuidEntity;
-import com.kingtech.enums.PushStatus;
 
 /**
  * 展期还款计划表
@@ -43,15 +41,6 @@ public class RepayExtendPlan extends UuidEntity {
 	@Column(name="INTEREST")
 	private BigDecimal interest;
 
-	public RepayExtendPlan(String count, Date endDate, BigDecimal principal,
-			BigDecimal interest) {
-		super();
-		this.count = count;
-		this.endDate = endDate;
-		this.principal = principal;
-		this.interest = interest;
-	}
-
 	public RepayExtendPlan(String repayExtendPlanInfoId, String count,
 			Date endDate, BigDecimal principal, BigDecimal interest) {
 		super();
@@ -61,6 +50,5 @@ public class RepayExtendPlan extends UuidEntity {
 		this.principal = principal;
 		this.interest = interest;
 	}
-
 
 }

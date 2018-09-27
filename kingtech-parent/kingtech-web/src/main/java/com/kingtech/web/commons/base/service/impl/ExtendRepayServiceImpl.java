@@ -22,6 +22,7 @@ import com.kingtech.dao.rdbms.ContractDAO;
 import com.kingtech.dao.rdbms.RepayExtendInfoDAO;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.enums.RecordStatus;
 import com.kingtech.model.RepayExtendInfoModel;
 import com.kingtech.model.ext.RepayExtendInfoModelExt;
 import com.kingtech.model.misc.PagedResult;
@@ -58,6 +59,7 @@ public class ExtendRepayServiceImpl implements ExtendRepayService{
 			ri = new RepayExtendInfo(loanContractId,
 									creatRequstId.getReqId(),
 									PushStatus.INITATION,
+									RecordStatus.NORMAL,
 									repayTime,
 									money,
 									interest,

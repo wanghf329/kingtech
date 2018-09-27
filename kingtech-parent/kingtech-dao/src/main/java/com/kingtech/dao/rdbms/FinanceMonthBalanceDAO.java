@@ -11,7 +11,11 @@ import com.kingtech.enums.PushStatus;
 public interface FinanceMonthBalanceDAO extends PagingAndSortingRepository<FinanceMonthBalance, String> {
 	
 	@Modifying
-	@Query("update RepaymentFinance c set c.pushStatus = :pushStatus  where c.reqId = :reqId")
+	@Query("update FinanceMonthBalance c set c.pushStatus = :pushStatus  where c.reqId = :reqId")
 	public int updateStatusByReqId(@Param("reqId")String reqId,@Param("pushStatus")PushStatus pushStatus);
+	
+	@Modifying
+	@Query("delete FinanceMonthBalance c where c.financeMonth = :financeMonth")
+	public void deleteByMonth(@Param("financeMonth")String financeMonth);
 
 }

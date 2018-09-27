@@ -1,5 +1,6 @@
 package com.kingtech.web.commons.base;
 
+import java.io.IOException;
 import java.util.Map;
 
 import lombok.extern.slf4j.Slf4j;
@@ -11,9 +12,12 @@ import com.kingtech.common.config.BaseConfig;
 import com.kingtech.common.utils.HttpUtil;
 import com.kingtech.common.utils.MD5;
 import com.kingtech.common.utils.SignUtils;
+import com.kingtech.enums.IdentifierType;
 import com.kingtech.szsm.model.BaseRequestModel;
 import com.kingtech.szsm.model.BaseResponsModel;
 import com.kingtech.szsm.model.ContractRequestModel;
+import com.kingtech.szsm.model.QueryInfoRequestModel;
+import com.kingtech.szsm.model.SettledInfoRequestModel;
 import com.kingtech.szsm.model.SynResponseModel;
 
 @Slf4j
@@ -26,8 +30,8 @@ public class BaseAbstract {
 	 * @return
 	 */
 
-	public  SynResponseModel getResponse(BaseRequestModel baseRequestModel,String suffixUrl) {
-		String sign = getOtherSign(baseRequestModel);
+	public  SynResponseModel getResponse(BaseRequestModel baseRequestModel,String suffixUrl,IdentifierType type) {
+		String sign = getOtherSign(baseRequestModel, type);
 		if (sign == null) {
 			String dataSign = JSON.toJSONString(baseRequestModel, Labels.includes("sign")); // 验签数据
 			Map<String, Object> signMap = JSON.parseObject(dataSign, Map.class);
@@ -37,7 +41,21 @@ public class BaseAbstract {
 		baseRequestModel.setSign(sign);
 		String data = JSONObject.toJSONString(baseRequestModel);
 		try {
-			String response = HttpUtil.postJsonResponse(BaseConfig.REQUEST_URL	+ "/" + suffixUrl, data);
+			String response = null;
+			switch (type) {
+			case A:
+				response = HttpUtil.postJsonResponse(BaseConfig.REQUEST_URL	+ "/" + suffixUrl, data);
+				break;
+			case U:
+				response = HttpUtil.putJsonResponse(BaseConfig.REQUEST_URL	+ "/" + suffixUrl, data);
+				break;
+			case D:	
+				response = HttpUtil.delJsonResponse(BaseConfig.REQUEST_URL	+ "/" + suffixUrl, data);
+			default:
+				break;
+			}
+				
+				
 			return JSON.parseObject(response, SynResponseModel.class);
 
 		} catch (Exception ex) {
@@ -60,7 +78,10 @@ public class BaseAbstract {
 	}
 	
 	
-	public  String getOtherSign(BaseRequestModel baseRequestModel){
+	public  String getOtherSign(BaseRequestModel baseRequestModel,IdentifierType type){
+		if (IdentifierType.D.equals(type)) {
+			return null;
+		}
 		StringBuilder builder = new StringBuilder();
 		if (baseRequestModel instanceof ContractRequestModel) {
 			ContractRequestModel contractRequestModel = (ContractRequestModel) baseRequestModel;
@@ -87,6 +108,17 @@ public class BaseAbstract {
 			builder.append("token=").append(contractRequestModel.getToken()).append("&");
 			builder.append("appKey=").append(BaseConfig.APPKEY);
 			
+		}else if (baseRequestModel instanceof SettledInfoRequestModel) {
+			SettledInfoRequestModel settle = (SettledInfoRequestModel) baseRequestModel;
+			builder.append("clientId=").append(settle.getClientId()).append("&");
+			builder.append("reqId=").append(settle.getReqId()).append("&");
+			builder.append("roundStr=").append(settle.getRoundStr()).append("&");
+			builder.append("token=").append(settle.getToken()).append("&");
+			builder.append("contractNumber=").append(settle.getContractNumber()).append("&");
+			builder.append("money=").append(settle.getMoney()).append("&");
+			builder.append("loanTime=").append(settle.getLoanTime()).append("&");
+			builder.append("appKey=").append(BaseConfig.APPKEY);
+			
 		}
 		
 		if (builder.length() > 0) {
@@ -95,6 +127,22 @@ public class BaseAbstract {
 		      return MD5.MD5Encode(result);
 		}
 		return null;
+	}
+	
+	
+	public SynResponseModel queryResponse(QueryInfoRequestModel infoRequestModel){
+		String url = BaseConfig.QUERY_URL+"/process-result?clientId="+BaseConfig.CLIENTID+"&appKey="+BaseConfig.APPKEY+"&reqId="+infoRequestModel.getReqId()+"&api="+infoRequestModel.getApi();
+		String result;
+		try {
+			result = HttpUtil.getGetResponseByUrl(url);
+		} catch (IOException e) {
+			log.info("",e);
+			return null;
+	
+		}
+		JSONObject jsonObject = JSON.parseObject(result);
+		return new SynResponseModel(jsonObject.getString("resultCode"), jsonObject.getString("resultMsg"));
+	
 		
 	}
 	

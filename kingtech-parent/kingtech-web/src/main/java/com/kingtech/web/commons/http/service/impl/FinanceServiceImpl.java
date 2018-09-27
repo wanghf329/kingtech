@@ -4,18 +4,22 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.stereotype.Service;
 
+import com.kingtech.enums.IdentifierType;
 import com.kingtech.model.BranchInfoModel;
 import com.kingtech.model.CapitalModel;
-import com.kingtech.model.EmployeeModel;
 import com.kingtech.model.OtherBaddebtModel;
 import com.kingtech.model.OtherOverdueInfoModel;
 import com.kingtech.model.ProvisionInfoModel;
 import com.kingtech.model.RepayExtendInfoModel;
 import com.kingtech.model.RepayExtendPlanModel;
-import com.kingtech.model.RepayInfoModel;
 import com.kingtech.model.ShareholderModel;
 import com.kingtech.szsm.model.ContractRequestModel;
 import com.kingtech.szsm.model.EmployeeRequestModel;
+import com.kingtech.szsm.model.FinanceInfoRequestModel;
+import com.kingtech.szsm.model.QueryInfoRequestModel;
+import com.kingtech.szsm.model.RepayExtendInfoRequestModel;
+import com.kingtech.szsm.model.RepayInfoRequestModel;
+import com.kingtech.szsm.model.SettledInfoRequestModel;
 import com.kingtech.szsm.model.SynResponseModel;
 import com.kingtech.web.commons.base.BaseAbstract;
 import com.kingtech.web.commons.http.service.FinanceService;
@@ -37,8 +41,8 @@ public class FinanceServiceImpl   extends BaseAbstract implements FinanceService
 	
 
 	@Override
-	public SynResponseModel branchEmployeeFacade(EmployeeRequestModel employeeModel) {
-		SynResponseModel responseModel = getResponse(employeeModel, "pushCompanyEmployeeData");
+	public SynResponseModel branchEmployeeFacade(EmployeeRequestModel employeeModel,IdentifierType type) {
+		SynResponseModel responseModel = getResponse(employeeModel, "pushCompanyEmployeeData",type);
 		return responseModel;
 	}
 
@@ -60,27 +64,23 @@ public class FinanceServiceImpl   extends BaseAbstract implements FinanceService
 
 
 	@Override
-	public SynResponseModel contractFacade(ContractRequestModel contractModel) {
-		SynResponseModel responseModel = getResponse(contractModel, "loan-contract");
+	public SynResponseModel contractFacade(ContractRequestModel contractModel,IdentifierType type) {
+		SynResponseModel responseModel = getResponse(contractModel, "loan-contract",type);
 		return responseModel;
 	}
 
 
 	@Override
-	public SynResponseModel repayInfoFacade(RepayInfoModel repayInfoModel) {
-//		Map<String, String> data = getDataAndSign(repayInfoModel);
-//		SynResponseModel responseModel = getResponse(data, "pushRepayData");
-//		return responseModel;
-		return null;
+	public SynResponseModel repayInfoFacade(RepayInfoRequestModel repayInfoModel,IdentifierType type) {
+		SynResponseModel responseModel = getResponse(repayInfoModel, "repay",type);
+		return responseModel;
 	}
 
 
 	@Override
-	public SynResponseModel repayExtendInfoFacade(RepayExtendInfoModel repayExtendInfoModel) {
-//		Map<String, String> data = getDataAndSign(repayExtendInfoModel);
-//		SynResponseModel responseModel = getResponse(data, "pushExtendRepayData");
-//		return responseModel;
-		return null;
+	public SynResponseModel repayExtendInfoFacade(RepayExtendInfoRequestModel repayExtendInfoModel,IdentifierType type) {
+		SynResponseModel responseModel = getResponse(repayExtendInfoModel, "extend-repay",type);
+		return responseModel;
 	}
 
 
@@ -117,6 +117,27 @@ public class FinanceServiceImpl   extends BaseAbstract implements FinanceService
 //		SynResponseModel responseModel = getResponse(data, "pushProvisionData");
 //		return responseModel;
 		return null;
+	}
+
+
+	@Override
+	public SynResponseModel settleInfoFacade(SettledInfoRequestModel settledInfoRequestModel, IdentifierType type) {
+		SynResponseModel responseModel = getResponse(settledInfoRequestModel, "loan-info",type);
+		return responseModel;
+	}
+
+
+	@Override
+	public SynResponseModel financeInfoFacade(FinanceInfoRequestModel financeInfoRequestModel, IdentifierType type) {
+		SynResponseModel responseModel = getResponse(financeInfoRequestModel, " single-finane",type);
+		return responseModel;
+	}
+
+
+	@Override
+	public SynResponseModel queryInfoFacade(QueryInfoRequestModel queryInfoRequestModel) {
+		SynResponseModel responseModel =  queryResponse(queryInfoRequestModel);
+		return responseModel;
 	}
 
 }

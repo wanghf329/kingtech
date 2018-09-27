@@ -102,7 +102,7 @@
 		<%@include file="../../common/footer.jspf" %>   
         <script src="bujs/loan/settled.js" type="text/javascript"></script> 
         <script type="text/javascript"> 
-        	var canEdit = '${canEdit}';
+        	var canEdit = false;
         </script>          
     </body>
 </html>

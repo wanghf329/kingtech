@@ -19,6 +19,7 @@ import com.kingtech.dao.entity.Contract;
 import com.kingtech.dao.entity.OtherBaddebt;
 import com.kingtech.dao.rdbms.AssetTransferDAO;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.enums.RecordStatus;
 import com.kingtech.model.AssetTransferModel;
 import com.kingtech.model.OtherBaddebtModel;
 import com.kingtech.model.ext.ModelExt;
@@ -46,7 +47,7 @@ public class AssetTransferServiceImpl implements AssetTransferService{
 			Date transferDate) {
 		AssetTransfer at = null;
 		if(StringUtils.isEmpty(id)){
-			at = new AssetTransfer(loanContractId, creatRequstId.getReqId(), PushStatus.INITATION,
+			at = new AssetTransfer(loanContractId, creatRequstId.getReqId(), PushStatus.INITATION, RecordStatus.NORMAL,
 					transferNumber, transferMoney, originalMoney, discountMoney, acceptUnit, protocol,
 					transferDate);
 		}else{
