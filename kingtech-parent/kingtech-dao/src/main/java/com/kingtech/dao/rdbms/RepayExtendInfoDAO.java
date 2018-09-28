@@ -19,5 +19,8 @@ public interface RepayExtendInfoDAO extends PagingAndSortingRepository<RepayExte
 	@Modifying
 	@Query("update RepayExtendInfo c set c.pushStatus = :pushStatus  where c.reqId = :reqId")
 	public int updateStatusByReqId(@Param("reqId")String reqId,@Param("pushStatus")PushStatus pushStatus);
+	
+	@Query("select r from RepayExtendInfo r where r.pushStatus in :pushStatus ")
+	public List<RepayExtendInfo> listByPushStatus(@Param("pushStatus")List<PushStatus> pushStatus);
 
 }

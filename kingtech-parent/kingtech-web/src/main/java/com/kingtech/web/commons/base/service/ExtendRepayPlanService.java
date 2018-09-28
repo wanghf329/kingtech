@@ -58,4 +58,6 @@ public interface ExtendRepayPlanService {
 	 * @param id
 	 */
 	public void pushRepayExtendPlanInfo(String id);
+	
+	public void syncextendRepayPlanInfoPushStatus();
  }

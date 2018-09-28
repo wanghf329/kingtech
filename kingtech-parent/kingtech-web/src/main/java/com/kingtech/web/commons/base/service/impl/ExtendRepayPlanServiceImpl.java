@@ -17,6 +17,7 @@ import com.kingtech.dao.entity.RepayExtendPlanInfo;
 import com.kingtech.dao.rdbms.ContractDAO;
 import com.kingtech.dao.rdbms.RepayExtendPlanDAO;
 import com.kingtech.dao.rdbms.RepayExtendPlanInfoDAO;
+import com.kingtech.enums.Cmd;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.RecordStatus;
@@ -208,6 +209,14 @@ public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 	@Override
 	public void pushRepayExtendPlanInfo(String id) {
 		
+		
+	}
+
+	@Override
+	public void syncextendRepayPlanInfoPushStatus() {
+		repayExtendPlanInfoDAO.listByPushStatus(Lists.newArrayList(PushStatus.INPROSESS)).forEach(s->{
+			paymentApi.queryTranInfoApi(s.getId(), Cmd.extendRepayPlan, s.getReqId(),s.getPushStatus());
+		});
 		
 	}
 

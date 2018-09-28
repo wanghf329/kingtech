@@ -46,4 +46,10 @@ public interface ExtendRepayService {
 	
 	
 	public PagedResult<RepayExtendInfoModelExt> pageList(Pageable pageAble);
+	
+	
+	//查询
+	public void syncextendRepayInfoPushStatus();
+	
+	
 }

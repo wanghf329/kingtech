@@ -115,6 +115,7 @@ public class PostLoanApiController {
 	@RequestMapping(method = RequestMethod.GET, value = "extensionrepayplaninfo")
 	public String extensionRepayPlanInfo(Model model) {
 		model.addAttribute("contracts", contractService.listAll());
+		repayExtendPlanService.syncextendRepayPlanInfoPushStatus();
 		return "/postloan/extensionRepayPlanInfo";
 	}
 	
@@ -152,6 +153,7 @@ public class PostLoanApiController {
 	@RequestMapping(method = RequestMethod.GET, value = "extensionrepayinfo")
 	public String extensionRepayInfo(Model model) {
 		model.addAttribute("contracts", contractService.listAll());
+		extendRepayService.syncextendRepayInfoPushStatus();
 		return "/postloan/extensionRepayInfo";
 	}
 	
@@ -315,6 +317,8 @@ public class PostLoanApiController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
 		return "redirect:/postLoan/extensionrepayinfo";
 	}
 	
@@ -459,6 +463,12 @@ public class PostLoanApiController {
 		return "/postloan/extensionRepayPlanInfo";
 	}
 	
+	/**
+	 * 推送展期还款计划信息
+	 * @param model
+	 * @param id
+	 * @return
+	 */
 	public String pushRepayExtendPlanInfo(Model model, String id){
 		
 		

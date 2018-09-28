@@ -14,12 +14,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.common.collect.Lists;
 import com.kingtech.common.dynamicquery.DynamicQuery;
 import com.kingtech.dao.entity.Contract;
 import com.kingtech.dao.entity.RepayExtendInfo;
-import com.kingtech.dao.entity.RepayExtendPlan;
 import com.kingtech.dao.rdbms.ContractDAO;
 import com.kingtech.dao.rdbms.RepayExtendInfoDAO;
+import com.kingtech.enums.Cmd;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.RecordStatus;
@@ -78,7 +79,7 @@ public class ExtendRepayServiceImpl implements ExtendRepayService{
 			ri.setOtherCharge(otherCharge);
 		}
 		repayExtendInfoDao.save(ri);
-//		paymentApi.repayExtendInfoApi(ri.getId(), StringUtils.isEmpty(id) ?  IdentifierType.A : IdentifierType.U);
+		paymentApi.repayExtendInfoApi(ri.getId(), IdentifierType.A);
 	}
 
 	@Override
@@ -144,5 +145,13 @@ public class ExtendRepayServiceImpl implements ExtendRepayService{
 													PushStatus.valueOf(obj[11].toString())));
 		}
 		return new PagedResult(result,count);
+	}
+	
+	@Override
+	public void syncextendRepayInfoPushStatus() {
+			repayExtendInfoDao.listByPushStatus(Lists.newArrayList(PushStatus.INPROSESS)).forEach(s->{
+				paymentApi.queryTranInfoApi(s.getId(), Cmd.extendRepay, s.getReqId(),s.getPushStatus());
+			});
+		
 	}
 }
