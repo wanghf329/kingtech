@@ -28,5 +28,5 @@ public interface CapitalService {
 	
 	public List<Capital> listFinanceNumberByStatus(RecordStatus status);
 	
-	public void syncEmployeePushStatus();
+	public void syncCapitalPushStatus();
 }

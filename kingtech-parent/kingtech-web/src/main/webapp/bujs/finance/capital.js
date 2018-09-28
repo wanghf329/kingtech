@@ -206,18 +206,51 @@ function initDataTables() {
 									}
 								}},
 								{data : null,render : function(data, type, row) {
-									if(row.pushStatus=='SUCCESS' || row.pushStatus=='INPROSESS') {
-										return '<a href="finance/capital/edit?id='+row.id+'"><strong>查看详情</strong></a> <a href="finance/capital/supplement?financeId='+row.id+'"><strong>查看补充信息</strong></a>'
+									if (row.pushStatus=='INITATION' ){
+										return '<a href="finance/capital/edit?id='+row.id+'"><strong><i class="text-blue fa fa-edit"></i>修改详情</strong></a>'
+										+ '<a href="finance/capital/supplement?financeId='+row.id+'"><strong><i class="text-blue fa fa-plus-square-o"></i>补充信息</strong></a>'
+										+ '<a href="javascirpt:void(0)" class="capital-push" data-id="'+row.id+'"><i class="text-blue fa fa-exchange"></i><strong>推送</strong></a>';
+									} else {
+										return '<a href="finance/capital/edit?id='+row.id+'"><strong><i class="text-gray fa fa-eye"></i>看见详情</strong></a> <a href="finance/capital/supplement?financeId='+row.id+'"><strong>查看补充信息</strong></a>'
 									}
-									if(row.pushStatus=='INITATION' || row.pushStatus=='FAILED') {
-										return '<a href="finance/capital/edit?id='+row.id+'"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>'
-                                		        +'<a href="finance/capital/supplement?financeId='+row.id+'" ><i class="text-blue fa fa-plus-square-o"></i><strong>补充</strong></a>';
-									}
+									
 								}} ],
 						"fnDrawCallback" : function(oSettings) {
 							for (var i = 0, iLen = oSettings.aiDisplay.length; i < iLen; i++) {
 								$('td:eq(0)',oSettings.aoData[oSettings.aiDisplay[i]].nTr).html(oSettings['_iDisplayStart'] + i+ 1);
 							}
+							$('.capital-push').on("click",function(){
+								var id = $(this).data("id");
+								swal({
+									title : "确定推送吗？",
+									text : "推送前确认数据无误，推送后将无法更改！",
+									type : "warning",
+									showCancelButton : true,
+									confirmButtonColor : "#DD6B55",
+									confirmButtonText : "确认推送",
+									cancelButtonText : "取消推送",
+									closeOnConfirm : false,
+									closeOnCancel : true 
+								}, function() {  
+									$.ajax({
+										url:"finance/capital/push/"+id,
+										type:'get',
+										async: false,
+										success:function(res){
+											if(res==null){
+												swal("推送！", "推送失败。", "error"); 
+											}else{
+												if(res.resultCode=='0'){
+													swal("推送！", "推送成功。", "success"); 
+													window.location.href = "loan/list"; 
+												}else{
+													swal("推送失败！", res.resultMsg, "error"); 
+												}
+											}
+										}
+									});
+								});
+							})
 						}
 					});
 };

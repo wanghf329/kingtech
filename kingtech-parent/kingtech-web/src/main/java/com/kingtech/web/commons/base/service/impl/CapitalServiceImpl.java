@@ -69,7 +69,6 @@ public class CapitalServiceImpl implements CapitalService{
 			}
 			capital.setRecordStatus(RecordStatus.NORMAL);
 			capital = capitalDao.save(capital);
-			paymentApi.capitalInfoApi(capital.getId(), type);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -110,7 +109,7 @@ public class CapitalServiceImpl implements CapitalService{
 	}
 
 	@Override
-	public void syncEmployeePushStatus() {
+	public void syncCapitalPushStatus() {
 		capitalDao.listBypushStatus(Lists.newArrayList(PushStatus.INPROSESS)).forEach(s->{
 			paymentApi.queryTranInfoApi(s.getId(), Cmd.singleFinance, s.getReqId(),s.getPushStatus());
 		});

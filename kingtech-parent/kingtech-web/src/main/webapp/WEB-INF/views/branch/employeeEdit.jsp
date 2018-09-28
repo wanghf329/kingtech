@@ -135,7 +135,7 @@
 													<label for="#quitTime" class="col-sm-2 control-label"> 离职日期</label>
 													<div class="col-sm-4 input-group">
 														<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-														<input type="text" class="form-control pull-right datepicker validate[required]"
+														<input type="text" class="form-control pull-right datepicker "
 														readonly name="quitTime" value="<fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${employee.quitTime}"></fmt:formatDate>" >
 													</div>
 												</div>
@@ -155,7 +155,6 @@
 		<%@include file="../common/footer.jspf" %>   
         <script src="bujs/branch/employee.js" type="text/javascript"></script>  
         <script type="text/javascript">
-        	var borrowerId = '${employee.id}';
         	var canEdit = "${employee==null or employee.pushStatus=='INITATION' or employee.pushStatus=='FAILED'}";
         </script>     
     </body>
