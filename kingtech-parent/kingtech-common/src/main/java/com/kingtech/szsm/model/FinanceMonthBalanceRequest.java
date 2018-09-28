@@ -19,13 +19,9 @@ import lombok.NoArgsConstructor;
  * 月度融资余额信息
  */
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class FinanceMonthBalanceModel extends BaseRequestModel {
+public class FinanceMonthBalanceRequest extends BaseRequestModel {
 	
-	// 融资编号
-	@JSONField(name="financeNumber")
-	private String financeNumber;
 	
 	// 融资年月 格式YYYY-MM
 	@JSONField(name="financeMonth", label="sign")
@@ -33,18 +29,19 @@ public class FinanceMonthBalanceModel extends BaseRequestModel {
 	
 	// 融资余额（万元）
 	@JSONField(name="balance")
-	private BigDecimal balance;
+	private String balance;
 	
-	private PushStatus pushstatus;
-	
-	/**
-	 * 删除
-	 * @param roundStr
-	 * @param identifier
-	 * @param reqId
-	 */
-	public FinanceMonthBalanceModel( String roundStr,String identifier, String reqId) {
-		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), reqId);
+
+	public FinanceMonthBalanceRequest(String roundStr, String reqId,String financeMonth, String balance) {
+		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), reqId, null, null);
+		this.financeMonth = financeMonth;
+		this.balance = balance;
 	}
+	
+	public FinanceMonthBalanceRequest(String roundStr, String reqId) {
+		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), reqId, null, null);
+	}
+	
+
 
 }

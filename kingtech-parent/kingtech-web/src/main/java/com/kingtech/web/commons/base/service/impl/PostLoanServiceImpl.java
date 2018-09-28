@@ -324,7 +324,7 @@ public class PostLoanServiceImpl implements PostLoanService{
 			e.printStackTrace();
 		}
 		otherOverdueInfoDAO.save(overdueInfo);
-		paymentApi.otherOverdueInfoApi(overdueInfo.getId(), StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
+//		paymentApi.otherOverdueInfoApi(overdueInfo.getId(), StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
 		return overdueInfo;
 	}
 	

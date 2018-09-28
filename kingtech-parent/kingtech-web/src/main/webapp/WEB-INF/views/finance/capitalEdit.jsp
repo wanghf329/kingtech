@@ -153,8 +153,7 @@
 		<%@include file="../common/footer.jspf" %>   
         <script src="bujs/finance/capital.js" type="text/javascript"></script>  
         <script type="text/javascript">
-        	var borrowerId = '${capital.id}';
-        	var canEdit = "${capital==null or capital.pushStatus=='INITATION' or capital.pushStatus=='FAILED'}";
+        	var canEdit = "${capital==null or capital.pushStatus=='INITATION' }";
         </script>     
     </body>
 </html>

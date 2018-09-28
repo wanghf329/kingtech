@@ -32,7 +32,7 @@
          -->
         <li class="treeview active">
             <a href="#">
-                <i class="fa fa-bar-chart-o"></i> 
+                <i class="fa  fa-sitemap"></i> 
                 <span>机构信息</span> 
                 <i class="fa fa-angle-left pull-right"></i>
             </a>
@@ -54,7 +54,7 @@
         </li>
         <li class="treeview active">
             <a href="#">
-                <i class="fa fa-bar-chart-o"></i> 
+                <i class="fa fa-gears"></i> 
                 <span>机构银行信息</span> 
                 <i class="fa fa-angle-left pull-right"></i>
             </a>

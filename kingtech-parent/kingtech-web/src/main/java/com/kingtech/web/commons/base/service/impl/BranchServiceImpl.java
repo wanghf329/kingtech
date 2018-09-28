@@ -88,7 +88,7 @@ public class BranchServiceImpl implements  BranchService {
 		try {
 			branch = branchDao.save(branch);
 			
-			paymentApi.branchInfoApi(branch.getId(), StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
+//			paymentApi.branchInfoApi(branch.getId(), StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
 			return branch;
 		}catch (Exception e) {
 			e.printStackTrace();

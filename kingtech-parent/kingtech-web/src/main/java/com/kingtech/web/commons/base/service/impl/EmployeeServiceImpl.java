@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.druid.util.StringUtils;
+import com.google.common.collect.Lists;
 import com.kingtech.common.dynamicquery.DynamicQuery;
 import com.kingtech.dao.entity.Employee;
 import com.kingtech.dao.rdbms.EmployeeDAO;
+import com.kingtech.enums.Cmd;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.RecordStatus;
@@ -85,6 +87,14 @@ public class EmployeeServiceImpl implements EmployeeService{
 		List<Employee> list = dq.nativeQueryPagingList(Employee.class, pageAble, LISTEMPLOYEE, params);
 		Long count = dq.nativeQueryCount(LISTEMPLOYEE, params);
 		return new PagedResult(list,count);
+	}
+
+	@Override
+	public void syncEmployeePushStatus() {
+		employeeDao.listBypushStatus(Lists.newArrayList(PushStatus.INPROSESS)).forEach(s->{
+			paymentApi.queryTranInfoApi(s.getId(), Cmd.pushCompanyEmployeeData, s.getReqId(),s.getPushStatus());
+		});
+		
 	}
 
 }

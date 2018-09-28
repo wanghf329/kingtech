@@ -80,7 +80,7 @@ public class FinanceApiController {
 		model.addAttribute("capital", capitalService.getById(financeId));
 		model.addAttribute("financeId", financeId);
 		model.addAttribute("repayPlanList", financeRepayPlanService.listfinanceRepayById(financeId));
-		
+		capitalService.syncCapitalPushStatus();
 		return "/finance/capitalSupplement";
 	}
 	
@@ -167,12 +167,12 @@ public class FinanceApiController {
 		return "redirect:/finance/capital/supplement";
 	}
 	
-/*	@ResponseBody
-	@RequestMapping(method = RequestMethod.GET,value="/capital/delete/{id}")
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET,value="/capital/push/{id}")
 	public SynResponseModel capitalDelete(Model model,@PathVariable("id") String id) { 
-		 paymentApi.capitalInfoApi(id,IdentifierType.D);
-		return synresponseModel;
-	}  */
+		SynResponseModel result = paymentApi.financeInfoApi(id,IdentifierType.A);
+		return result;
+	}  
 	
 /*	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET,value="/repayment/delete//{id}")

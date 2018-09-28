@@ -37,7 +37,7 @@
 											<c:forEach var="it" items="${contracts}">
 <%-- 											<option value ="${it.name()}" <c:if test="${it eq capital.channel}">selected</c:if>>${it.getKey()}</option> --%>
 												<option value="${it.contractNumber}">
-													<c:if test="${it eq extendPlan.contractNumber}">selected</c:if>${it.contractNumber}
+<%-- 													<c:if test="${it eq extendPlan.contractNumber}">selected</c:if>${it.contractNumber} --%>
 												</option>
 											</c:forEach>
 										</select>
