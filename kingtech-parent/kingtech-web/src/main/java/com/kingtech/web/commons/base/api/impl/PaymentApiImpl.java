@@ -19,6 +19,7 @@ import com.kingtech.dao.entity.Capital;
 import com.kingtech.dao.entity.Contract;
 import com.kingtech.dao.entity.ContractDyw;
 import com.kingtech.dao.entity.ContractZyw;
+import com.kingtech.dao.entity.DayEndDz;
 import com.kingtech.dao.entity.Employee;
 import com.kingtech.dao.entity.EnterpriseCustomer;
 import com.kingtech.dao.entity.FinanceMonthBalance;
@@ -41,6 +42,7 @@ import com.kingtech.dao.rdbms.CapitalDAO;
 import com.kingtech.dao.rdbms.ContractDAO;
 import com.kingtech.dao.rdbms.ContractDywDAO;
 import com.kingtech.dao.rdbms.ContractZywDAO;
+import com.kingtech.dao.rdbms.DayEndDzDAO;
 import com.kingtech.dao.rdbms.EmployeeDAO;
 import com.kingtech.dao.rdbms.EnterpriseCustomerDAO;
 import com.kingtech.dao.rdbms.FinanceMonthBalanceDAO;
@@ -75,6 +77,7 @@ import com.kingtech.szsm.model.BranchAccountInfoRequest;
 import com.kingtech.szsm.model.ContractDywRequestModel;
 import com.kingtech.szsm.model.ContractRequestModel;
 import com.kingtech.szsm.model.ContractZywRequestModel;
+import com.kingtech.szsm.model.DayEndDzRequestModel;
 import com.kingtech.szsm.model.EmployeeRequestModel;
 import com.kingtech.szsm.model.EnterpriseCustomerRequestModel;
 import com.kingtech.szsm.model.FinanceInfoRequestModel;
@@ -178,6 +181,9 @@ public class PaymentApiImpl  implements PaymentApi {
 	
 	@Autowired
 	private FinanceRepayPlanDAO financeRepayPlanDAO;
+	
+	@Autowired
+	private DayEndDzDAO dayEndDzDAO;
 	
 	
 
@@ -946,12 +952,49 @@ public class PaymentApiImpl  implements PaymentApi {
 		}else {
 			branchAccountBalanceRequest = new BranchAccountBalanceRequest(roundStr,branchAccountBalance.getReqId());
 		
-			branchAccountBalance.setPushStatus(PushStatus.INPROSESS);
+			branchAccountBalance.setPushStatus(PushStatus.DELETEING);
 		}
 		
 		SynResponseModel responseModel = financeService.branchAccountBalanceFacade(branchAccountBalanceRequest, type);
 		if (responseModel.isSuccess()) {
 			branchAccountBalanceDAO.save(branchAccountBalance);
+		}else{
+			throw  new RuntimeException();
+		}
+		return responseModel;
+	}
+
+	@Override
+	@Transactional
+	public SynResponseModel dayEndDzApi(String dayEndDzId, IdentifierType type) {
+		DayEndDz dayEndDz = dayEndDzDAO.findOne(dayEndDzId);
+		if (dayEndDz == null) {
+			log.info("未获日结数据对账相关数据dayEndDzId={}",dayEndDzId);
+			return null;
+		}
+         String roundStr =  RandomUtil.random8Len();
+		
+		DayEndDzRequestModel dayEndDzRequestModel = null;
+		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
+			dayEndDzRequestModel = new DayEndDzRequestModel(roundStr,
+					dayEndDz.getReqId(), 
+					DateUtil.getSimpleDate(dayEndDz.getCheckDate()),
+					dayEndDz.getDayCount(),
+					dayEndDz.getDayMoney().toPlainString(), 
+					dayEndDz.getDayLoan().toPlainString(), 
+					dayEndDz.getDayRepay().toPlainString(),
+					dayEndDz.getLoanBalance().toPlainString(), 
+					dayEndDz.getLoanMoney().toPlainString(), 
+					dayEndDz.getLoanCount());
+			dayEndDz.setPushStatus(PushStatus.DELETEING);
+		}else {
+			dayEndDzRequestModel = new DayEndDzRequestModel(roundStr,dayEndDz.getReqId());
+			dayEndDz.setPushStatus(PushStatus.DELETEING);
+		}
+		
+		SynResponseModel responseModel = financeService.dayEndDzApi(dayEndDzRequestModel, type);
+		if (responseModel.isSuccess()) {
+			dayEndDzDAO.save(dayEndDz);
 		}else{
 			throw  new RuntimeException();
 		}
