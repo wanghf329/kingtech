@@ -26,14 +26,6 @@ public interface ExtendRepayPlanService {
 	public void addNew(String id, 
 						String loanContractId, 
 						String count);
-	/**
-	 * 添加展期计划
-	 * @param id
-	 * @param principal
-	 * @param endDate
-	 * @param interest
-	 */
-	public void addRepayExtendPlan(String id,BigDecimal principal ,Date endDate,BigDecimal interest);
 	
 	public RepayExtendPlanInfoModel getPlanInfoById(String id);
 				
@@ -52,4 +44,18 @@ public interface ExtendRepayPlanService {
 	
 	
 	public PagedResult<RepayExtendPlanInfoModel> pageList(Pageable pageAble);
-}
+	
+	
+	public List<RepayExtendPlanModel> listByPlanInfoId(String infoId);
+	
+	/**
+	 * 添加还款计划
+	 * @param plans
+	 */
+	public void addRepayExtendPlan(List<RepayExtendPlanModel> plans);
+	/**
+	 * 推送
+	 * @param id
+	 */
+	public void pushRepayExtendPlanInfo(String id);
+ }

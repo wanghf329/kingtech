@@ -25,10 +25,6 @@ public class RepayExtendPlan extends UuidEntity {
 	@Column(name="REPAY_EXTEND_PLAN_INFO_ID")
 	private String repayExtendPlanInfoId;
 	
-	// 第几次展期
-	@Column(name="COUNT")
-	private String count;
-
 	// 展期后的新还款日期,格式YYYY-MM-DD
 	@Column(name="END_DATE")
 	private Date endDate;
@@ -41,11 +37,10 @@ public class RepayExtendPlan extends UuidEntity {
 	@Column(name="INTEREST")
 	private BigDecimal interest;
 
-	public RepayExtendPlan(String repayExtendPlanInfoId, String count,
+	public RepayExtendPlan(String repayExtendPlanInfoId, 
 			Date endDate, BigDecimal principal, BigDecimal interest) {
 		super();
 		this.repayExtendPlanInfoId = repayExtendPlanInfoId;
-		this.count = count;
 		this.endDate = endDate;
 		this.principal = principal;
 		this.interest = interest;
