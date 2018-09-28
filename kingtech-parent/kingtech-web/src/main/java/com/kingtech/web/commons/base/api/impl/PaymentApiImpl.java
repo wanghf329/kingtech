@@ -805,32 +805,40 @@ public class PaymentApiImpl  implements PaymentApi {
 
 	@Override
 	@Transactional
-	public void queryTranInfoApi(String id , Cmd cmd) {
+	public void queryTranInfoApi(String id , Cmd cmd ,String reqId, PushStatus pushStatus) {
 		QueryInfoRequestModel infoRequestModel = null;
 		String api="";
+		if (PushStatus.DELETEING.equals(pushStatus)) {
+			api = "delete/"+cmd.getKey();
+		}else if (PushStatus.INPROSESS.equals(pushStatus)) {
+			api = "post/"+cmd.getKey();
+		}
+		infoRequestModel = new QueryInfoRequestModel(reqId, api);
+		SynResponseModel synResponseModel = financeService.queryInfoFacade(infoRequestModel);
+		if (!synResponseModel.isSuccess()) {
+			return;
+		}
+		
 		switch (cmd) {
-		case loanInfo:
-			SettledInfo settle = settledInfoDAO.findOne(id);
-			if (PushStatus.DELETEING.equals(settle.getPushStatus())) {
-				api = "delete/loan-info";
-			}else if (PushStatus.INPROSESS.equals(settle.getPushStatus())) {
-				api = "post/loan-info";
-			}
-			
-			infoRequestModel = new QueryInfoRequestModel(settle.getReqId(), api);
-			SynResponseModel synResponseModel = financeService.queryInfoFacade(infoRequestModel);
-			if (synResponseModel.isSuccess()) {
-				if (PushStatus.DELETEING.equals(settle.getPushStatus())) {
+			case loanInfo:
+				if (PushStatus.DELETEING.equals(pushStatus)) {
 					settledInfoDAO.delete(id);
-				}else if (PushStatus.INPROSESS.equals(settle.getPushStatus())) {
+				} else if (PushStatus.INPROSESS.equals(pushStatus)) {
+					SettledInfo settle = settledInfoDAO.findOne(id);
 					settle.setPushStatus(PushStatus.SUCCESS);
 					settledInfoDAO.save(settle);
 				}
-			}
-			break;
-
-		default:
-			break;
+				break;
+			case repay:
+				if (PushStatus.DELETEING.equals(pushStatus)) {
+					settledInfoDAO.delete(id);
+				} else if (PushStatus.INPROSESS.equals(pushStatus)) {
+					RepayInfo repay = repayInfoDAO.findOne(id);
+					repay.setPushStatus(PushStatus.SUCCESS);
+					repayInfoDAO.save(repay);
+				}
+			default:
+				break;
 		}
 		
 	}
