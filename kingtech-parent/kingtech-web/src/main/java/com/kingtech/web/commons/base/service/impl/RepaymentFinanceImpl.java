@@ -13,7 +13,9 @@ import com.kingtech.common.dynamicquery.DynamicQuery;
 import com.kingtech.dao.entity.Capital;
 import com.kingtech.dao.entity.RepaymentFinance;
 import com.kingtech.dao.rdbms.RepaymentFinanceDao;
+import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.enums.RecordStatus;
 import com.kingtech.model.RepaymentFinanceModel;
 import com.kingtech.model.misc.PagedResult;
 import com.kingtech.web.commons.base.CreatRequstId;
@@ -35,26 +37,31 @@ public class RepaymentFinanceImpl implements RepaymentFinanceService{
 	@Autowired
 	private DynamicQuery dq;
 	
-	private static final String LISTREPAYMENTFINANCESQL = "SELECT * from TB_REPAYMENT_FINANCE t order by t.REPAY_DATE DESC";
+	private static final String LISTREPAYMENTFINANCESQL = "SELECT * from TB_REPAYMENT_FINANCE t where record_status ='NORMAL'  order by t.REPAY_DATE DESC";
 	
 	@Override
 	@Transactional
 	public RepaymentFinance addNew(RepaymentFinanceModel model) {
 		RepaymentFinance repaymentFinance = null;
+		IdentifierType type = null;
 		try {
 			if (StringUtils.isEmpty(model.getId())) {
 				repaymentFinance = new RepaymentFinance();
 				model.setReqId(creatRequstId.getReqId());
 				model.setPushStatus(PushStatus.INITATION);
 				BeanUtils.copyProperties(repaymentFinance, model);
+				type = IdentifierType.A;
 			} else {
 				repaymentFinance = repaymentFinanceDao.findOne(model.getId());
 				String reqId = repaymentFinance.getReqId();
 				BeanUtils.copyProperties(repaymentFinance, model);
 				repaymentFinance.setReqId(reqId);
 				repaymentFinance.setPushStatus(PushStatus.INITATION);
+				type = IdentifierType.U;
 			}
+			repaymentFinance.setRecordStatus(RecordStatus.NORMAL);
 			repaymentFinance = repaymentFinanceDao.save(repaymentFinance);
+			//paymentApi.financeInfoApi(financeInfoId, type)
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -813,7 +813,6 @@ public class PaymentApiImpl  implements PaymentApi {
 			SettledInfo settle = settledInfoDAO.findOne(id);
 			if (PushStatus.DELETEING.equals(settle.getPushStatus())) {
 				api = "delete/loan-info";
-				settle.setRecordStatus(RecordStatus.DELETEED);
 			}else if (PushStatus.INPROSESS.equals(settle.getPushStatus())) {
 				api = "post/loan-info";
 			}
@@ -821,8 +820,12 @@ public class PaymentApiImpl  implements PaymentApi {
 			infoRequestModel = new QueryInfoRequestModel(settle.getReqId(), api);
 			SynResponseModel synResponseModel = financeService.queryInfoFacade(infoRequestModel);
 			if (synResponseModel.isSuccess()) {
-				settle.setPushStatus(PushStatus.SUCCESS);
-				settledInfoDAO.save(settle);
+				if (PushStatus.DELETEING.equals(settle.getPushStatus())) {
+					settledInfoDAO.delete(id);
+				}else if (PushStatus.INPROSESS.equals(settle.getPushStatus())) {
+					settle.setPushStatus(PushStatus.SUCCESS);
+					settledInfoDAO.save(settle);
+				}
 			}
 			break;
 

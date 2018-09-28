@@ -34,7 +34,7 @@ public class RepayInfoServiceImpl implements RepayInfoService{
 		String sql = "SELECT t1.ID,t1.LOAN_CONTRACT_ID,t1.REPAY_DATE,t1.REPAY_PRINCIPAL_AMOUNT,t1.REPAY_INTEREST_AMOUNT,t1.PENALTY_INTEREST_AMOUNT,"
 				+ " 		 t1.PENALTY_AMOUNT,t1.SERVICE_FEE_AMOUNT,t1.OTHER_FEE_AMOUNT,t2.CONTRACT_NUMBER,t2.CONTRACT_NAME,t1.PUSH_STATUS "
 				+ "		FROM TB_LOAN_REPAY_INFO t1,TB_LOAN_CONTRACT t2 "
-				+ "   WHERE t1.LOAN_CONTRACT_ID = t2.ID ORDER BY t1.LOAN_CONTRACT_ID,t1.REPAY_DATE DESC ";
+				+ "   WHERE t1.LOAN_CONTRACT_ID = t2.ID  and t1.RECORD_STATUS != 'DELETEED' ORDER BY t1.LOAN_CONTRACT_ID,t1.REPAY_DATE DESC ";
 		
 		String[] params = new String[0];
 		List<Object[]> list = dq.nativeQueryPagingList(Object[].class, pageAble, sql, params);

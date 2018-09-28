@@ -104,7 +104,7 @@ function initDataTables() {
 										var id = $(this).data("id");
 										swal({
 											title : "确定删除吗？",
-											text : "删除需要等待金融办确认！",   
+											text : "删除需要等待金融办确认,确认后数据将删除！",   
 											type : "warning",
 											showCancelButton : true,
 											confirmButtonColor : "#DD6B55",
@@ -119,13 +119,13 @@ function initDataTables() {
 												async: false,
 												success:function(res){
 													if(res==null){
-														swal("推送！", "推送失败。", "error"); 
+														swal("删除！", "删除失败。", "error"); 
 													}else{
-														if(res.resultCode=='0000'){
-															swal("推送！", "推送成功。", "success"); 
-															window.location.href = "loan/list"; 
+														if(res.resultCode=='0'){ 
+															swal("删除！", "删除成功。", "success"); 
+															window.location.href = "settled/list";  
 														}else{
-															swal("推送失败！", res.resultMsg, "error"); 
+															swal("删除失败！", res.resultMsg, "error"); 
 														}
 													}
 												}

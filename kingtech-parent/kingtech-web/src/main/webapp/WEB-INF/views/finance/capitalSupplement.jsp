@@ -32,7 +32,7 @@
                             <div class="col-xs-12">
                                 <div class="tabbable">
                                 	<ul id="myTab" class="inbox-tabs nav nav-tabs tab-size-bigger tab-space-1">
-										<li data-type="repayPlan">
+										<li data-type="repayPlan" class="active">
 											<a data-toggle="tab" href="#repayPlanTab">
 												还款计划
 											</a>
