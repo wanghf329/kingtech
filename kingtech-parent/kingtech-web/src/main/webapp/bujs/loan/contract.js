@@ -310,7 +310,7 @@ function initDataTables() {
 											if(res==null){
 												swal("推送！", "推送失败。", "error"); 
 											}else{
-												if(res.resultCode=='0000'){
+												if(res.resultCode=='0'){
 													swal("推送！", "推送成功。", "success"); 
 													window.location.href = "loan/list"; 
 												}else{
@@ -345,8 +345,8 @@ function initDataTables() {
 											}else{
 												if(res.resultCode=='0'){ 
 													swal("删除！", "删除成功。", "success"); 
-													window.location.href = "postLoan/repayinfo";  
-												}else{
+													window.location.href = "loan/list";  
+												}else{ 
 													swal("删除失败！", res.resultMsg, "error"); 
 												}
 											}

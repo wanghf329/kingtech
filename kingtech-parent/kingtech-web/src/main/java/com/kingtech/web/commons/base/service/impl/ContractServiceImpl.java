@@ -111,6 +111,7 @@ public class ContractServiceImpl implements ContractService{
 			if(StringUtils.isEmpty(model.getId())){
 				ct = new Contract();
 				BeanUtils.copyProperties(ct, model);
+				ct.setRecordStatus(RecordStatus.NORMAL);
 				ct.setPushStatus(PushStatus.INITATION);
 				ct.setReqId(creatRequstId.getReqId());
 			}else{
