@@ -21,6 +21,7 @@ import com.kingtech.szsm.model.OtherBaddebtRequestModel;
 import com.kingtech.szsm.model.ProvisionInfoRequestModel;
 import com.kingtech.szsm.model.QueryInfoRequestModel;
 import com.kingtech.szsm.model.RepayExtendInfoRequestModel;
+import com.kingtech.szsm.model.RepayExtendPlanRequestModel;
 import com.kingtech.szsm.model.RepayInfoRequestModel;
 import com.kingtech.szsm.model.RepaymentFinanceRequestModel;
 import com.kingtech.szsm.model.SettledInfoRequestModel;
@@ -83,7 +84,7 @@ public interface FinanceService {
 	 * @param repayExtendInfoModel
 	 * @return
 	 */
-	public SynResponseModel repayExtendPlanFacade(RepayExtendPlanModel repayExtendPlanModel);
+	public SynResponseModel repayExtendPlanFacade(RepayExtendPlanRequestModel extendPlanRequestModel,IdentifierType type);
 	/**
 	 * 坏账信息接口
 	 * @param otherBaddebtModel

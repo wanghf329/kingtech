@@ -40,7 +40,7 @@ public class EnterpriseCustomer extends UuidEntity{
 	//所属行业：1）居民服务和其他服务业,2）建筑业, 3）交通运输、仓储和邮政业, 4）农、林、牧、渔业, 5）采矿业, 6）制造业, 7）电力、燃气及水的生产和供应业, 8）信息传输、计算机服务和软件业, 9）批发和零售业,10）住宿和餐饮业, 11）房地产业, 12）租赁和商务服务业, 13）其他
 	@Enumerated(EnumType.STRING)
 	@Column(name="INDUSTRY_INVOLVED",nullable = false)
-	private IndustryEnum  industryinvolved;
+	private IndustryEnum  industryInvolved;
 		
 	//组织机构代码
 	@Column(name="ORGANIZATION_CODE")
@@ -72,7 +72,7 @@ public class EnterpriseCustomer extends UuidEntity{
 		
 	//营业执照截止日期，格式YYYY-MM-DD
 	@Column(name="LICENCE_END_DATE",nullable = false)
-	private Date  licenceEndDate;
+	private Date  licenseEndDate;
 		
 	//法定代表人
 	@Column(name="LEGAL_PERSON")
