@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.fastjson.JSON;
 import com.kingtech.common.utils.DateUtil;
 import com.kingtech.common.utils.RandomUtil;
+import com.kingtech.dao.entity.AssetTransfer;
 import com.kingtech.dao.entity.Branch;
 import com.kingtech.dao.entity.Capital;
 import com.kingtech.dao.entity.Contract;
@@ -30,6 +31,7 @@ import com.kingtech.dao.entity.RepayInfo;
 import com.kingtech.dao.entity.RepayPlan;
 import com.kingtech.dao.entity.SettledInfo;
 import com.kingtech.dao.entity.Shareholder;
+import com.kingtech.dao.rdbms.AssetTransferDAO;
 import com.kingtech.dao.rdbms.BranchDAO;
 import com.kingtech.dao.rdbms.CapitalDAO;
 import com.kingtech.dao.rdbms.ContractDAO;
@@ -63,6 +65,7 @@ import com.kingtech.model.RepayExtendInfoModel;
 import com.kingtech.model.RepayExtendPlanModel;
 import com.kingtech.model.RepayInfoModel;
 import com.kingtech.model.ShareholderModel;
+import com.kingtech.szsm.model.AssetTransferRequestModel;
 import com.kingtech.szsm.model.AsyReponseModel;
 import com.kingtech.szsm.model.ContractDywRequestModel;
 import com.kingtech.szsm.model.ContractRequestModel;
@@ -152,6 +155,10 @@ public class PaymentApiImpl  implements PaymentApi {
 	
 	@Autowired 
 	private ContractDywDAO contractDywDAO;
+	
+	@Autowired 
+	private AssetTransferDAO assetTransferDAO;
+	
 	
 	
 	
@@ -244,39 +251,46 @@ public class PaymentApiImpl  implements PaymentApi {
 
 	@Override
 	@Transactional
-	public void employeeInfoApi(String capitalId,IdentifierType type) {
+	public SynResponseModel employeeInfoApi(String capitalId,IdentifierType type) {
 		
 		
 		   Employee employee = employeeDAO.findOne(capitalId);
 		   if (employee ==null) {
-				  return ;
+				  return null;
 			 }
 		   
 		   String roundStr =  RandomUtil.random8Len();
-		   
-		   EmployeeRequestModel employeeRequestModel = new EmployeeRequestModel(roundStr,
-				   employee.getReqId(),
-				   null, 
-				   employee.getName(), 
-				   employee.getPhone(),
-				   employee.getEmail(), 
-				   employee.getAddress(), 
-				   employee.getDepartment(),
-				   DTOUtils.getEnumIntVal(employee.getSex()), 
-				   DTOUtils.getEnumIntVal(employee.getCardType()),
-				   employee.getCardNumber(), 
-				   DTOUtils.getEnumIntVal(employee.getEducation()),
-				   DTOUtils.getEnumIntVal(employee.getExecutiveFlag()), 
-				   employee.getPosition(),
-				   DateUtil.getSimpleDate(employee.getEntryTime()), 
-				   DateUtil.getSimpleDate(employee.getQuitTime()));
-		   
-		   
+		   EmployeeRequestModel employeeRequestModel = null;
+		   if (IdentifierType.A.equals(type)||IdentifierType.U.equals(type)) {
+			     employeeRequestModel = new EmployeeRequestModel(roundStr,
+					   employee.getReqId(),
+					   null, 
+					   employee.getName(), 
+					   employee.getPhone(),
+					   employee.getEmail(), 
+					   employee.getAddress(), 
+					   employee.getDepartment(),
+					   DTOUtils.getEnumIntVal(employee.getSex()), 
+					   DTOUtils.getEnumIntVal(employee.getCardType()),
+					   employee.getCardNumber(), 
+					   DTOUtils.getEnumIntVal(employee.getEducation()),
+					   DTOUtils.getEnumIntVal(employee.getExecutiveFlag()), 
+					   employee.getPosition(),
+					   DateUtil.getSimpleDate(employee.getEntryTime()), 
+					   DateUtil.getSimpleDate(employee.getQuitTime()));
+			     employee.setPushStatus(PushStatus.INPROSESS);
+			   
+		   }else{
+			   employeeRequestModel = new EmployeeRequestModel(roundStr,employee.getReqId());
+			   employee.setPushStatus(PushStatus.DELETEING);
+		   }
 		   SynResponseModel responseModel= financeService.branchEmployeeFacade(employeeRequestModel,type);
 		   if (responseModel.isSuccess()) {
-			   employee.setPushStatus(PushStatus.INPROSESS);
 			   employeeDAO.save(employee);
-		   }
+		   }else {
+			   throw new RuntimeException();
+		}
+		   return responseModel;
 	}
 
 	@Override
@@ -816,6 +830,46 @@ public class PaymentApiImpl  implements PaymentApi {
 			break;
 		}
 		
+	}
+
+	@Override
+	public SynResponseModel assetTransferApi(String assetId, IdentifierType type) {
+		
+		AssetTransfer assetTransfer = assetTransferDAO.findOne(assetId);
+		
+		if (assetTransfer == null) {
+			log.info("未获取资产转让信息相关数据assetId={}",assetId);
+			return null;
+		}
+		
+		String roundStr =  RandomUtil.random8Len();
+		
+		AssetTransferRequestModel assetTransferRequestModel = null;
+		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)){
+			assetTransferRequestModel = new AssetTransferRequestModel(roundStr,
+					assetTransfer.getReqId(),
+					contractDAO.findOne(assetTransfer.getLoanContractId()).getContractNumber(),
+					assetTransfer.getTransferNumber(),
+					assetTransfer.getTransferMoney().toPlainString(), 
+					assetTransfer.getOriginalMoney().toPlainString(), 
+					assetTransfer.getDiscountMoney().toPlainString(), 
+					assetTransfer.getAcceptUnit(),
+					assetTransfer.getProtocol(), 
+					DateUtil.getSimpleDate(assetTransfer.getTransferDate()));
+			assetTransfer.setPushStatus(PushStatus.INPROSESS);
+		}else {
+			assetTransferRequestModel = new AssetTransferRequestModel(roundStr,assetTransfer.getReqId());
+			assetTransfer.setPushStatus(PushStatus.DELETEING);
+			
+		}
+		SynResponseModel responseModel = financeService.assetTransferFacade(assetTransferRequestModel, type);
+		if (responseModel.isSuccess()) {
+			assetTransferDAO.save(assetTransfer);
+		}else{
+			throw  new RuntimeException();
+		}
+		
+		return responseModel;
 	}
 
 }

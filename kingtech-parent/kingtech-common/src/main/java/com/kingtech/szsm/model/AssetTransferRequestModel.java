@@ -13,7 +13,7 @@ import com.kingtech.common.utils.SignUtils;
  *
  */
 @Data
-public class AssetTransferModel extends BaseRequestModel {
+public class AssetTransferRequestModel extends BaseRequestModel {
 
 	@JSONField( label = "sign")
 	private String loanContractNumber;
@@ -43,7 +43,7 @@ public class AssetTransferModel extends BaseRequestModel {
 	@JSONField( label = "sign")
 	private String transferDate;
 
-	public AssetTransferModel(String roundStr, String reqId,String loanContractNumber,
+	public AssetTransferRequestModel(String roundStr, String reqId,String loanContractNumber,
 			String transferNumber, String transferMoney, String originalMoney,
 			String discountMoney, String acceptUnit, String protocol,
 			String transferDate) {
@@ -58,7 +58,9 @@ public class AssetTransferModel extends BaseRequestModel {
 		this.transferDate = transferDate;
 	}
 	
-	
+	public AssetTransferRequestModel(String roundStr, String reqId) {
+		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), reqId, null, null);
+	}
 	
 
 

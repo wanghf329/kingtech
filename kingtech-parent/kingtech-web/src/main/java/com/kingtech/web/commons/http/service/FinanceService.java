@@ -9,6 +9,7 @@ import com.kingtech.model.ProvisionInfoModel;
 import com.kingtech.model.RepayExtendInfoModel;
 import com.kingtech.model.RepayExtendPlanModel;
 import com.kingtech.model.ShareholderModel;
+import com.kingtech.szsm.model.AssetTransferRequestModel;
 import com.kingtech.szsm.model.ContractRequestModel;
 import com.kingtech.szsm.model.EmployeeRequestModel;
 import com.kingtech.szsm.model.FinanceInfoRequestModel;
@@ -117,4 +118,12 @@ public interface FinanceService {
 	 * @return
 	 */
 	public SynResponseModel  queryInfoFacade(QueryInfoRequestModel queryInfoRequestModel);
+	
+	/**
+	 * 资产转让接口
+	 * @param assetTransferRequestModel
+	 * @param type
+	 * @return
+	 */
+	public  SynResponseModel assetTransferFacade(AssetTransferRequestModel assetTransferRequestModel,IdentifierType type);
 }
