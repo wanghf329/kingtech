@@ -92,7 +92,7 @@ function initDataTables() {
 											return '<a href="settled/single?loanContractId='+row.loanContractId+'"><i class="text-gray fa fa-eye"></i><strong>查看</strong></a>  '+
 												'<a href="javascirpt:void(0)" class="settled-delete" data-id="'+row.id+'"><i class="text-red fa fa-times"></i><strong>删除</strong>';
 									} 
-									if(row.pushStatus=='DELETEING'){
+									if(row.pushStatus=='INPROSESS' || row.pushStatus=='DELETEING'){
 										return '<a href="settled/single?loanContractId='+row.loanContractId+'"><i class="text-gray fa fa-eye"></i><strong>查看</strong></a>';
 									}
 									

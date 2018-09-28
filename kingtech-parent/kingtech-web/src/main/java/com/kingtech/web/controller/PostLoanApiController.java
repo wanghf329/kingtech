@@ -180,6 +180,7 @@ public class PostLoanApiController {
 	public PagedResult<ModelExt> repayInfo(Model model,
 												 @RequestParam("start") Integer firstIndex,
 									 			 @RequestParam("length") Integer pageSize) {
+		repayInfoService.syncRepayInfoPushStatus();
 		return repayInfoService.pageList(PageInfo.page(firstIndex, pageSize));
 	}
 	

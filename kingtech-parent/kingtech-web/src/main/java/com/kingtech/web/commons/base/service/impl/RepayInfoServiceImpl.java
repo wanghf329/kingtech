@@ -11,12 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.google.common.collect.Lists;
 import com.kingtech.common.dynamicquery.DynamicQuery;
 import com.kingtech.dao.rdbms.RepayInfoDAO;
+import com.kingtech.enums.Cmd;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.model.RepayInfoModel;
 import com.kingtech.model.ext.ModelExt;
 import com.kingtech.model.misc.PagedResult;
+import com.kingtech.web.commons.base.api.PaymentApi;
 import com.kingtech.web.commons.base.service.RepayInfoService;
 
 @Slf4j
@@ -28,6 +31,9 @@ public class RepayInfoServiceImpl implements RepayInfoService{
 	
 	@Autowired
 	private DynamicQuery dq;
+	
+	@Autowired
+	private PaymentApi api;
 
 	@Override
 	public PagedResult<ModelExt> pageList(Pageable pageAble) {
@@ -53,5 +59,12 @@ public class RepayInfoServiceImpl implements RepayInfoService{
 							      PushStatus.valueOf((String)obj[11])));
 		}
 		return new PagedResult(result,count);
+	}
+
+	@Override
+	public void syncRepayInfoPushStatus() {
+		repayInfoDao.listByPushStatus(Lists.newArrayList(PushStatus.INPROSESS,PushStatus.DELETEING)).forEach(c->{
+			api.queryTranInfoApi(c.getId(), Cmd.repay, c.getReqId(),c.getPushStatus());
+		});;
 	}
 }
