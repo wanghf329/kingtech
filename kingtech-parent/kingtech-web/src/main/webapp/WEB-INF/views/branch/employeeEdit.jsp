@@ -39,7 +39,7 @@
 												<div class="form-group">
 													<label for="#phone" class="col-sm-2 control-label"><i class="text-red">*</i>联系电话</label>
 													<div class="col-sm-4 input-group">
-														<input type="text"  class="form-control validate[required, custom[phone]]" id="phone" name="phone" value="${employee.phone}" data-errormessage="联系电话不能为空"/>
+														<input type="text"  class="form-control validate[required, custom[phone]]" id="phone" name="phone" value="${employee.phone}" />
 													</div>
 												</div>	
 												
@@ -118,7 +118,7 @@
 												<div class="form-group">
 													<label for="#position" class="col-sm-2 control-label"><i class="text-red">*</i>职务</label>
 													<div class="col-sm-4 input-group">
-														<input type="text"  class="form-control validate[required,funcCall[positionValidate] ]" id="position" name="position"  value="${employee.position}" data-errormessage="职务不能为空"/>
+														<input type="text"  class="form-control validate[required, funcCall[positionValidate] ]" id="position" name="position"  value="${employee.position}" />
 													</div>
 												</div>
 												
@@ -153,7 +153,7 @@
             </aside><!-- /.right-side -->
         </div><!-- ./wrapper -->
 		<%@include file="../common/footer.jspf" %>   
-        <script src="bujs/loan/contract.js" type="text/javascript"></script>  
+        <script src="bujs/branch/employee.js" type="text/javascript"></script>  
         <script type="text/javascript">
         	var borrowerId = '${employee.id}';
         	var canEdit = "${employee==null or employee.pushStatus=='INITATION' or employee.pushStatus=='FAILED'}";

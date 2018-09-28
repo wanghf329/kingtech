@@ -11,6 +11,7 @@ import com.alibaba.druid.util.StringUtils;
 import com.kingtech.common.dynamicquery.DynamicQuery;
 import com.kingtech.dao.entity.BranchAccountBalance;
 import com.kingtech.dao.rdbms.BranchAccountBalanceDAO;
+import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.RecordStatus;
 import com.kingtech.model.BranchAccountBalanceModel;
@@ -34,23 +35,26 @@ public class BranchAccountBalanceServiceImpl implements BranchAccountBalanceServ
 	@Autowired
 	private DynamicQuery dq;
 	
-	private static final String LISTACOUNTMONTHBALANCESQL = "SELECT * from TB_BRANCH_ACCOUNT_BALANCE t order by t.DATE_MONTH DESC";
+	private static final String LISTACOUNTMONTHBALANCESQL = "SELECT * from TB_BRANCH_ACCOUNT_BALANCE t where t.RECORD_STATUS ='NORMAL' order by t.DATE_MONTH DESC";
 
 	@Override
 	public BranchAccountBalance addNew(BranchAccountBalanceModel model) {
 		BranchAccountBalance branchAccountBalance = null;
 		try {
+			IdentifierType type = null;
 			if (StringUtils.isEmpty(model.getId())) {
 				branchAccountBalance = new BranchAccountBalance();
 				model.setReqId(creatRequstId.getReqId());
 				model.setPushStatus(PushStatus.INITATION);
 				BeanUtils.copyProperties(branchAccountBalance, model);
+				type = IdentifierType.A;
 			} else {
 				branchAccountBalance = branchAccountBalanceDao.findOne(model.getId());
 				String reqId = branchAccountBalance.getReqId();
 				BeanUtils.copyProperties(branchAccountBalance, model);
 				branchAccountBalance.setReqId(reqId);
 				branchAccountBalance.setPushStatus(PushStatus.INITATION);
+				type = IdentifierType.U;
 			}
 			branchAccountBalance.setRecordStatus(RecordStatus.NORMAL);
 			branchAccountBalance = branchAccountBalanceDao.save(branchAccountBalance);

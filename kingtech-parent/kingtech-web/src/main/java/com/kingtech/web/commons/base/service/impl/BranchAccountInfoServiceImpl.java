@@ -11,6 +11,7 @@ import com.alibaba.druid.util.StringUtils;
 import com.kingtech.common.dynamicquery.DynamicQuery;
 import com.kingtech.dao.entity.BranchAccountInfo;
 import com.kingtech.dao.rdbms.BranchAccountInfoDAO;
+import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.RecordStatus;
 import com.kingtech.model.BranchAccountInfoModel;
@@ -33,23 +34,26 @@ public class BranchAccountInfoServiceImpl implements BranchAccountInfoService{
 	@Autowired
 	private DynamicQuery dq;
 	
-	private static final String LISTBRANCHACCOUNTLISTSQL = "SELECT * from TB_BRANCH_ACCOUNT_INFO t order by t.CREATE_TIME DESC";
+	private static final String LISTBRANCHACCOUNTLISTSQL = "SELECT * from TB_BRANCH_ACCOUNT_INFO t where t.RECORD_STATUS ='NORMAL'  order by t.CREATE_TIME DESC";
 
 	@Override
 	public BranchAccountInfo addNew(BranchAccountInfoModel model) {
 		BranchAccountInfo branchAccountInfo = null;
 		try {
+			IdentifierType type = null;
 			if (StringUtils.isEmpty(model.getId())) {
 				branchAccountInfo = new BranchAccountInfo();
 				model.setReqId(creatRequstId.getReqId());
 				model.setPushStatus(PushStatus.INITATION);
 				BeanUtils.copyProperties(branchAccountInfo, model);
+				type = IdentifierType.A;
 			} else {
 				branchAccountInfo = branchAccountInfoDao.findOne(model.getId());
 				String reqId = branchAccountInfo.getReqId();
 				BeanUtils.copyProperties(branchAccountInfo, model);
 				branchAccountInfo.setReqId(reqId);
 				branchAccountInfo.setPushStatus(PushStatus.INITATION);
+				type = IdentifierType.U;
 			}
 			branchAccountInfo.setRecordStatus(RecordStatus.NORMAL);
 			branchAccountInfo = branchAccountInfoDao.save(branchAccountInfo);

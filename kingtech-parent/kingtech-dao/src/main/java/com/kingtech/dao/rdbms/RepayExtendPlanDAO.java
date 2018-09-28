@@ -12,15 +12,15 @@ import com.kingtech.enums.PushStatus;
 
 public interface RepayExtendPlanDAO extends PagingAndSortingRepository<RepayExtendPlan, String> {
 	
-	@Query("select r from RepayExtendPlan r where r.loanContractId = :loanContractId order by loanContractId ")
-	public List<RepayExtendPlan> listByloanContractId(@Param("loanContractId")String loanContractId);
-	
+//	@Query("select r from RepayExtendPlan r where r.loanContractId = :loanContractId order by loanContractId ")
+//	public List<RepayExtendPlan> listByloanContractId(@Param("loanContractId")String loanContractId);
+//	
 	
 
-	@Modifying
-	@Query("update RepayExtendPlan c set c.pushStatus = :pushStatus  where c.reqId = :reqId")
-	public int updateStatusByReqId(@Param("reqId")String reqId,@Param("pushStatus")PushStatus pushStatus);
+//	@Modifying
+//	@Query("update RepayExtendPlan c set c.pushStatus = :pushStatus  where c.reqId = :reqId")
+//	public int updateStatusByReqId(@Param("reqId")String reqId,@Param("pushStatus")PushStatus pushStatus);
 
-	@Query("select r from RepayExtendPlan r where r.loanContractId = :loanContractId and r.count = :count ")
-	public List<RepayExtendPlan> listByloanContractIdAndCount(@Param("loanContractId")String loanContractId,@Param("count") String count);
+	@Query("select r from RepayExtendPlan r where r.repayExtendPlanInfoId = :repayExtendPlanInfoId ")
+	public List<RepayExtendPlan> listByRepayExtendPlanInfoId(@Param("repayExtendPlanInfoId") String repayExtendPlanInfoId);
 }

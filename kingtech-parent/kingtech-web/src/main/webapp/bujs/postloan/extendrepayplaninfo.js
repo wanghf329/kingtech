@@ -11,9 +11,9 @@ $(document).ready(function () {
     })
     
     initDataTables(); 
-    if(canEdit=="false"){ 
+    /*if(canEdit=="false"){ 
   	  $('#form-horizontal').find('input,textarea,select,button').attr('disabled',true); 
-    }
+    }*/
 });
 
 $(".saveRecordBtn").click(function(){ 
@@ -101,16 +101,10 @@ function initDataTables() {
 								{data : null},
 								{data : "contractNumber"},
 								{data : "contractName"},
-								{data : "model.count"},
-								{data : "model.endDate"},
-								{data : "model.principal",render : function(data, type, row) {
-										return "<span class=\"text-red bolder\">￥"+ data + "</span>";
-									}
-								},
-								{data : "model.interest",render : function(data, type, row) {
-										return "<span class=\"text-red bolder\">￥"+ data + "</span>";
-									}
-								},
+								{data : "count"},
+								{data : "id",render:function(data, type, row){
+									return '<a href="" <strong>详情</strong>';
+								}},
 								{data : "pushStatus",render : function(data, type, row) {
 										switch (data) {
 										case 'INITATION':
@@ -125,8 +119,15 @@ function initDataTables() {
 									}
 								},
 								{data : null,render : function(data, type, row) {
-										return '<a href="javascript:void(0)" onclick=getRepayExtendPlan(\''+row.model.id+'\') class="extend-repay-edit"><i class="text-blue fa fa-edit"></i><strong>修改</strong>'
-										+ '<a href="javascript:void(0)" onclick=updateRepayExtendPlan(\''+row.model.id+'\') class="extend-repay-delete"><i class="text-red fa fa-edit"></i><strong>删除</strong>'
+									if(row.pushStatus=='SUCCESS' || row.pushStatus=='INPROSESS') {
+										return '<a href="postLoan/planInfo/edit?id='+row.id+'"><strong>查看详情</strong></a> <a href="loan/supplement?loanContractId='+row.id+'"><strong>查看补充信息</strong></a>'
+									}
+									if(row.pushStatus=='INITATION' || row.pushStatus=='FAILED') {
+										return '<a href="postLoan/planInfo/edit?id='+row.id+'"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>'
+                                		        +'<a href="postLoan/plan/add?repayExtendPlanInfoId='+row.id+'" ><i class="text-blue fa fa-plus-square-o"></i><strong>补充</strong></a>';
+									}
+									
+									
 									}
 								} ],
 						"fnDrawCallback" : function(oSettings) {

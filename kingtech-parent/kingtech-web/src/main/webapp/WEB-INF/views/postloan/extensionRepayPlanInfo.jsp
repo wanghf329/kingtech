@@ -54,32 +54,6 @@
 												name="count">
 										</div>									
 									</div>
-									<div class="form-group">
-										<label for="#repayDate" class="col-sm-3 control-label"><i class="text-red">*</i> 展期后还款日期</label> 
-										<div class="col-sm-6 input-group">
-											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-											<input type="text" class="form-control pull-right datepicker validate[required]" name="endDate"
-												readonly data-errormessage="展期后还款日期不能为空">
-										</div>
-									</div>
-									<div class="form-group">
-										<label for="#principal" class="col-sm-3 control-label"><i class="text-red">*</i> 展期后还款本金</label>
-										<div class="col-sm-6 input-group">
-											<span class="input-group-addon"><i class="fa fa-rmb"></i></span> 
-											<input type="text" class="form-control validate[required,custom[number]]" data-errormessage="展期后还款本金只能为数字"
-												name="principal">
-											<span class="input-group-addon"><i class="fa">元</i></span>
-										</div>
-									</div>
-									<div class="form-group">
-										<label for="#interest" class="col-sm-3 control-label"><i class="text-red">*</i> 展期后还款利息</label>
-										<div class="col-sm-6 input-group">
-											<span class="input-group-addon"><i class="fa fa-rmb"></i></span> 
-											<input type="text" class="form-control validate[required,custom[number]]" data-errormessage="展期后还款利息只能为数字"
-												name="interest">
-											<span class="input-group-addon"><i class="fa">元</i></span>
-										</div>
-									</div>
 								</form>						
 							</div>
 							<div class="modal-footer">
@@ -107,9 +81,7 @@
                                             <th>主合同编号</th>
                                             <th>主合同名称</th>
                                             <th>展期次数</th> 
-                                            <th>新还款日期</th>
-                                            <th>新还款本金(元)</th>
-                                            <th>新还款利息(元)</th>
+                                            <th>计划详情</th>
                                             <th>状态</th>
                                             <th>操作</th>
                                         </tr>

@@ -28,7 +28,6 @@
                         <div class="col-md-12 no-padding">
                             <div class="box">
                                 <div class="box-header">
-                                    <h3 class="box-title">机构信息列表</h3>
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
                                 	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addEmployeeBtn">新增人员信息</button>  
@@ -63,5 +62,6 @@
 
 		<%@include file="../common/footer.jspf" %>   
         <script src="bujs/branch/employee.js" type="text/javascript"></script>     
+        
     </body>
 </html>

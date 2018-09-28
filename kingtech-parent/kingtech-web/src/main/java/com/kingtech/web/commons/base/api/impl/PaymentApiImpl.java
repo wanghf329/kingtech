@@ -73,7 +73,9 @@ import com.kingtech.szsm.model.ExtendPlanRequestModel;
 import com.kingtech.szsm.model.FinanceInfoRequestModel;
 import com.kingtech.szsm.model.FinanceRepayPlanRequest;
 import com.kingtech.szsm.model.GuaranteeRequestModel;
+import com.kingtech.szsm.model.OtherBaddebtRequestModel;
 import com.kingtech.szsm.model.PersonalCustomerRequestModel;
+import com.kingtech.szsm.model.ProvisionInfoRequestModel;
 import com.kingtech.szsm.model.QueryInfoRequestModel;
 import com.kingtech.szsm.model.RepayExtendInfoRequestModel;
 import com.kingtech.szsm.model.RepayExtendPlanRequestModel;
@@ -555,19 +557,19 @@ public class PaymentApiImpl  implements PaymentApi {
 			return null;
 		}
 		
-		List<RepayExtendPlan> repayExtendPlanlist = repayExtendPlanDAO.listByloanContractIdAndCount(extendPlan.getLoanContractId(), extendPlan.getCount());
+//		List<RepayExtendPlan> repayExtendPlanlist = repayExtendPlanDAO.listByRepayExtendPlanInfoId(extendPlan.get, extendPlan.getCount());
 		
-		List<ExtendPlanRequestModel> planRequestModels = null;
-		if (repayExtendPlanlist != null && !repayExtendPlanlist.isEmpty()) {
-			
-			planRequestModels = new ArrayList<ExtendPlanRequestModel>();
-			for (RepayExtendPlan plan : repayExtendPlanlist) {
-				planRequestModels.add(new ExtendPlanRequestModel(DateUtil.getSimpleDate(plan.getEndDate()), plan.getPrincipal().toPlainString(), plan.getInterest().toPlainString()));
-			}
-		}
+//		List<ExtendPlanRequestModel> planRequestModels = null;
+//		if (repayExtendPlanlist != null && !repayExtendPlanlist.isEmpty()) {
+//			
+//			planRequestModels = new ArrayList<ExtendPlanRequestModel>();
+//			for (RepayExtendPlan plan : repayExtendPlanlist) {
+//				planRequestModels.add(new ExtendPlanRequestModel(DateUtil.getSimpleDate(plan.getEndDate()), plan.getPrincipal().toPlainString(), plan.getInterest().toPlainString()));
+//			}
+//		}
 		
-		String roundStr =  RandomUtil.random8Len();
-		RepayExtendPlanRequestModel repayExtendPlanRequestModel = new RepayExtendPlanRequestModel(roundStr, extendPlan.getReqId(), contractDAO.findOne(extendPlan.getLoanContractId()).getContractNumber(), extendPlan.getCount(), planRequestModels);
+//		String roundStr =  RandomUtil.random8Len();
+//		RepayExtendPlanRequestModel repayExtendPlanRequestModel = new RepayExtendPlanRequestModel(roundStr, extendPlan.getReqId(), contractDAO.findOne(extendPlan.getLoanContractId()).getContractNumber(), extendPlan.getCount(), planRequestModels);
 //		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
 //			repayExtendPlanModel = new RepayExtendPlanModel(roundStr,
 //					type.name(), extendPlan.getReqId(), null, contractDAO.findOne(extendPlan.getLoanContractId()).getLoanContractNo(),
@@ -596,38 +598,37 @@ public class PaymentApiImpl  implements PaymentApi {
 
 	@Override
 	@Transactional
-	public void otherBaddebtApi(String otherBaddebtId, IdentifierType type) {
+	public SynResponseModel otherBaddebtApi(String otherBaddebtId, IdentifierType type) {
 		OtherBaddebt otherBaddebt = otherBaddebtDAO.findOne(otherBaddebtId);
 		if (otherBaddebt == null ) {
 			log.info("未获取到坏账相关数据otherBaddebtId={}",otherBaddebtId);
-			return;
+			return null;
 		}
 		String roundStr =  RandomUtil.random8Len();
 		
-		OtherBaddebtModel otherBaddebtModel = null;
-//		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
-//			otherBaddebtModel = new OtherBaddebtModel(roundStr,
-//					type.name(),
-//					otherBaddebt.getReqId(),
-//					null,
-//					contractDAO.findOne(otherBaddebt.getLoanContractId()).getLoanContractNo(),
-//					otherBaddebt.getBadMoney().toPlainString(),
-//					DateUtil.getDateStr(otherBaddebt.getSetDate(),"yyyy-MM-dd"), 
-//					otherBaddebt.getFollowupWork(),
-//					DateUtil.getDateStr(otherBaddebt.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT), 
-//                    DateUtil.getDateStr(otherBaddebt.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT));
-//
-//			
-//		}else {
-//			log.info("坏账暂不支持的操作 otherBaddebtId={},IdentifierType={} ",otherBaddebtId,type);
-//			return;
-//		}
-		
-		SynResponseModel responseModel = financeService.otherBaddebtFacade(otherBaddebtModel);
-		if (responseModel.isSuccess()) {
+		OtherBaddebtRequestModel otherBaddebtModel = null;
+		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
+			otherBaddebtModel = new  OtherBaddebtRequestModel(roundStr, 
+					                                        otherBaddebt.getReqId(),
+					                                        contractDAO.findOne(otherBaddebt.getLoanContractId()).getContractNumber(),
+					                                        otherBaddebt.getBadMoney().toPlainString(),
+					                                        DateUtil.getSimpleDate(otherBaddebt.getLossDate()),
+					                                        DTOUtils.getEnumIntVal(otherBaddebt.getBadType()), 
+					                                        otherBaddebt.getFollowUp());
 			otherBaddebt.setPushStatus(PushStatus.INPROSESS);
-			otherBaddebtDAO.save(otherBaddebt);
+		}else {
+			otherBaddebtModel = new OtherBaddebtRequestModel(roundStr, otherBaddebt.getReqId());
+			otherBaddebt.setPushStatus(PushStatus.DELETEING);
 		}
+
+		
+		SynResponseModel responseModel = financeService.otherBaddebtFacade(otherBaddebtModel,type);
+		if (responseModel.isSuccess()) {
+			otherBaddebtDAO.save(otherBaddebt);
+		}else {
+			throw  new RuntimeException();
+		}
+		return responseModel;
 	}
 
 	@Override
@@ -679,28 +680,36 @@ public class PaymentApiImpl  implements PaymentApi {
 			return;
 		}
 		String roundStr =  RandomUtil.random8Len();
-		ProvisionInfoModel provisionInfoModel = null;
-//		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
-//			provisionInfoModel = new ProvisionInfoModel(roundStr, 
-//					type.name(), 
-//					provisionInfo.getReqId(), 
-//					null, 
-//					provisionInfo.getProvisionMoney().toPlainString(), 
-//					DateUtil.getDateStr(provisionInfo.getProvisionDate(),"yyyy-MM-dd"), 
-//					provisionInfo.getProvisionScale().toPlainString(),
-//					DTOUtils.getNewStr(provisionInfo.getLoanClassification()),
-//					provisionInfo.getBalance().toPlainString(), 
-//					DateUtil.getDateStr(provisionInfo.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT), 
-//                    DateUtil.getDateStr(provisionInfo.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT));
-//			
-//		}else {
-//			log.info("计提暂不支持的操作 provisionInfoId={},IdentifierType={} ",provisionInfoId,type);
-//			return;
-//		}
-		SynResponseModel responseModel = financeService.provisionInfoFacade(provisionInfoModel);
-		if (responseModel.isSuccess()) {
+		ProvisionInfoRequestModel provisionInfoModel = null;
+		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
+			provisionInfoModel = new ProvisionInfoRequestModel(roundStr,
+					provisionInfo.getReqId(),
+					DateUtil.getDateStr(provisionInfo.getDateMonth(),"YYYYMM"),
+					provisionInfo.getNormalBalance().toPlainString(), 
+					provisionInfo.getNormalRate().toPlainString(), 
+					provisionInfo.getNormalReal().toPlainString(),
+					provisionInfo.getFollowBalance().toPlainString(),
+					provisionInfo.getFollowRate().toPlainString(), 
+					provisionInfo.getFollowReal().toPlainString(), 
+					provisionInfo.getMinorBalance().toPlainString(),
+					provisionInfo.getMinorRate().toPlainString(),
+					provisionInfo.getMinorReal().toPlainString(), 
+					provisionInfo.getSuspiciousBalance().toPlainString(),
+					provisionInfo.getSuspiciousRate().toPlainString(), 
+					provisionInfo.getSuspiciousReal().toPlainString(),
+					provisionInfo.getLossBalance().toPlainString(), 
+					provisionInfo.getLossRate().toPlainString(), 
+					provisionInfo.getLossReal().toPlainString());
 			provisionInfo.setPushStatus(PushStatus.INPROSESS);
+		}else {
+			provisionInfoModel = new ProvisionInfoRequestModel(roundStr,provisionInfo.getReqId()) ;
+			provisionInfo.setPushStatus(PushStatus.DELETEING);
+		}
+		SynResponseModel responseModel = financeService.provisionInfoFacade(provisionInfoModel,type);
+		if (responseModel.isSuccess()) {
 			provisionInfoDAO.save(provisionInfo);
+		}else {
+			throw  new RuntimeException();
 		}
 		
 	}
@@ -723,18 +732,14 @@ public class PaymentApiImpl  implements PaymentApi {
 										DateUtil.getDateStr(settle.getLoanTime(),JSON.DEFFAULT_DATE_FORMAT), 
 										DateUtil.getSimpleDate(settle.getStartDate()), 
 										DateUtil.getSimpleDate(settle.getEndDate()));
+			settle.setPushStatus(PushStatus.INPROSESS);
 		}else {
 			infoRequestModel = new SettledInfoRequestModel(roundStr, settle.getReqId());
+			settle.setPushStatus(PushStatus.DELETEING);
 		}
 		
 		SynResponseModel responseModel = financeService.settleInfoFacade(infoRequestModel, type);
 		if (responseModel.isSuccess()) {
-			
-			if (IdentifierType.D.equals(type)) {
-				settle.setPushStatus(PushStatus.DELETEING);
-			}else {
-				settle.setPushStatus(PushStatus.INPROSESS);
-			}
 			settledInfoDAO.save(settle);
 		}else{
 			throw  new RuntimeException();
