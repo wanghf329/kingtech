@@ -89,9 +89,15 @@ function guaranteeMoneyValidate (field, rules, i, options) {
 $(".addRepayPlanBtn").on("click",function(){ 
 	var clone = $(".repayPlanTemplate").clone().removeClass("repayPlanTemplate hide").addClass("repayPlan");
 	$(".repayPlanTemplate").parent().append(clone);  
-	bindDel("delRepayPlanBtn"); 
+	bindDel("delSettledInfoBtn");
 }); 
 
+function bindDel(btn){
+	$("."+btn).on("click",function(){
+		$(this).closest(".repayPlan").remove();
+	});
+	initDatepicker();
+}
 
 $(".delRepayPlanBtn").on("click",function(){
 	$(this).closest(".repayPlan").remove();

@@ -58,14 +58,12 @@ public class CapitalServiceImpl implements CapitalService{
 				model.setReqId(creatRequstId.getReqId());
 				model.setPushStatus(PushStatus.INITATION);
 				BeanUtils.copyProperties(capital, model);
-				type = IdentifierType.A;
 			} else {
 				capital = capitalDao.findOne(model.getId());
 				String reqId = capital.getReqId();
 				BeanUtils.copyProperties(capital, model);
 				capital.setReqId(reqId);
 				capital.setPushStatus(PushStatus.INITATION);
-				type = IdentifierType.U;
 			}
 			capital.setRecordStatus(RecordStatus.NORMAL);
 			capital = capitalDao.save(capital);
@@ -105,7 +103,6 @@ public class CapitalServiceImpl implements CapitalService{
 			financeRepayPlanDAO.save(new FinanceRepayPlan(financeId, re.getInterest(), re.getEndDate(), re.getMoney(), re.getOrderNum()));
 		}
 		Capital capital = capitalDao.findOne(financeId);
-		paymentApi.capitalInfoApi(capital.getId(), IdentifierType.U);
 	}
 
 	@Override
