@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
  * @author baijt
  *
  */
-
+@NoArgsConstructor
 public class SynResponseModel   extends BaseResponsModel{
 	
 	public SynResponseModel ( String resultCode,String resultMsg){

@@ -14,7 +14,9 @@ import com.alibaba.druid.util.StringUtils;
 import com.kingtech.common.dynamicquery.DynamicQuery;
 import com.kingtech.dao.entity.FinanceMonthBalance;
 import com.kingtech.dao.rdbms.FinanceMonthBalanceDAO;
+import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.enums.RecordStatus;
 import com.kingtech.model.FinanceMonthBalanceModel;
 import com.kingtech.model.misc.PagedResult;
 import com.kingtech.web.commons.base.CreatRequstId;
@@ -37,26 +39,30 @@ public class FinanceMonthBalanceServiceImpl implements FinanceMonthBalanceServic
 	@Autowired
 	private DynamicQuery dq;
 	
-	private static final String LISTFINANCEMONTHBALANCESQL = "SELECT * from TB_FINANCE_MONTH_BALANCE t order by t.FINANCE_MOTTH DESC";
+	private static final String LISTFINANCEMONTHBALANCESQL = "SELECT * from TB_FINANCE_MONTH_BALANCE t where RECORD_STATUS = 'NORMAL' order by t.FINANCE_MOTTH DESC";
 	
 	@Override
 	@Transactional
 	public FinanceMonthBalance addNew(FinanceMonthBalanceModel model) {
 		FinanceMonthBalance financeMonthBalance = null;
+		IdentifierType type = null;
 		try {
 			if (StringUtils.isEmpty(model.getId())) {
 				financeMonthBalance = new FinanceMonthBalance();
 				model.setReqId(creatRequstId.getReqId());
 				model.setPushStatus(PushStatus.INITATION);
 				BeanUtils.copyProperties(financeMonthBalance, model);
+				type = IdentifierType.A;
 			} else {
 				financeMonthBalance = financeMonthBalanceDao.findOne(model.getId());
 				String reqId = financeMonthBalance.getReqId();
 				BeanUtils.copyProperties(financeMonthBalance, model);
 				financeMonthBalance.setReqId(reqId);
 				financeMonthBalance.setPushStatus(PushStatus.INITATION);
+				type = IdentifierType.U;
 			}
 			financeMonthBalance = financeMonthBalanceDao.save(financeMonthBalance);
+			financeMonthBalance.setRecordStatus(RecordStatus.NORMAL);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

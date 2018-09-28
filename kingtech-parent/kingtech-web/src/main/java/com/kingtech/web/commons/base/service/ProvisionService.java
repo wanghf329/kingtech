@@ -35,4 +35,6 @@ public interface ProvisionService {
 	 * @return
 	 */
 	public ProvisionInfoModel getById(String id);
+	
+	public void syncProvisionInfoPushStatus();
 }

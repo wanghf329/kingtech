@@ -12,8 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.common.collect.Lists;
 import com.kingtech.dao.entity.ProvisionInfo;
 import com.kingtech.dao.rdbms.ProvisionInfoDAO;
+import com.kingtech.enums.Cmd;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.RecordStatus;
@@ -100,5 +102,13 @@ public class ProvisionServiceImpl implements ProvisionService{
 									  pi.getLossBalance().toPlainString(),
 									  pi.getLossRate().toPlainString(),
 									  pi.getLossReal().toPlainString());
+	}
+	
+	@Override
+	@Transactional
+	public void syncProvisionInfoPushStatus(){
+		provisionDao.listBypushStatus(Lists.newArrayList(PushStatus.INPROSESS,PushStatus.DELETEING)).forEach(s->{
+			paymentApi.queryTranInfoApi(s.getId(), Cmd.loanInfo, s.getReqId(),s.getPushStatus());
+		});;
 	}
 }

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.fastjson.JSON;
 import com.kingtech.common.utils.DateUtil;
 import com.kingtech.common.utils.RandomUtil;
+import com.kingtech.dao.entity.AssetTransfer;
 import com.kingtech.dao.entity.Branch;
 import com.kingtech.dao.entity.Capital;
 import com.kingtech.dao.entity.Contract;
@@ -20,6 +21,7 @@ import com.kingtech.dao.entity.ContractDyw;
 import com.kingtech.dao.entity.ContractZyw;
 import com.kingtech.dao.entity.Employee;
 import com.kingtech.dao.entity.EnterpriseCustomer;
+import com.kingtech.dao.entity.FinanceMonthBalance;
 import com.kingtech.dao.entity.OtherBaddebt;
 import com.kingtech.dao.entity.OtherOverdueInfo;
 import com.kingtech.dao.entity.PersonalCustomer;
@@ -28,8 +30,10 @@ import com.kingtech.dao.entity.RepayExtendInfo;
 import com.kingtech.dao.entity.RepayExtendPlan;
 import com.kingtech.dao.entity.RepayInfo;
 import com.kingtech.dao.entity.RepayPlan;
+import com.kingtech.dao.entity.RepaymentFinance;
 import com.kingtech.dao.entity.SettledInfo;
 import com.kingtech.dao.entity.Shareholder;
+import com.kingtech.dao.rdbms.AssetTransferDAO;
 import com.kingtech.dao.rdbms.BranchDAO;
 import com.kingtech.dao.rdbms.CapitalDAO;
 import com.kingtech.dao.rdbms.ContractDAO;
@@ -37,6 +41,7 @@ import com.kingtech.dao.rdbms.ContractDywDAO;
 import com.kingtech.dao.rdbms.ContractZywDAO;
 import com.kingtech.dao.rdbms.EmployeeDAO;
 import com.kingtech.dao.rdbms.EnterpriseCustomerDAO;
+import com.kingtech.dao.rdbms.FinanceMonthBalanceDAO;
 import com.kingtech.dao.rdbms.GuaranteeDAO;
 import com.kingtech.dao.rdbms.OtherBaddebtDAO;
 import com.kingtech.dao.rdbms.OtherOverdueInfoDAO;
@@ -46,6 +51,7 @@ import com.kingtech.dao.rdbms.RepayExtendInfoDAO;
 import com.kingtech.dao.rdbms.RepayExtendPlanDAO;
 import com.kingtech.dao.rdbms.RepayInfoDAO;
 import com.kingtech.dao.rdbms.RepayPlanDAO;
+import com.kingtech.dao.rdbms.RepaymentFinanceDao;
 import com.kingtech.dao.rdbms.SettledInfoDAO;
 import com.kingtech.dao.rdbms.ShareholderDAO;
 import com.kingtech.enums.BorrowerTypeEnum;
@@ -63,6 +69,7 @@ import com.kingtech.model.RepayExtendInfoModel;
 import com.kingtech.model.RepayExtendPlanModel;
 import com.kingtech.model.RepayInfoModel;
 import com.kingtech.model.ShareholderModel;
+import com.kingtech.szsm.model.AssetTransferRequestModel;
 import com.kingtech.szsm.model.AsyReponseModel;
 import com.kingtech.szsm.model.ContractDywRequestModel;
 import com.kingtech.szsm.model.ContractRequestModel;
@@ -71,14 +78,18 @@ import com.kingtech.szsm.model.EmployeeRequestModel;
 import com.kingtech.szsm.model.EnterpriseCustomerRequestModel;
 import com.kingtech.szsm.model.ExtendPlanRequestModel;
 import com.kingtech.szsm.model.FinanceInfoRequestModel;
+import com.kingtech.szsm.model.FinanceMonthBalanceRequest;
 import com.kingtech.szsm.model.FinanceRepayPlanRequest;
 import com.kingtech.szsm.model.GuaranteeRequestModel;
+import com.kingtech.szsm.model.OtherBaddebtRequestModel;
 import com.kingtech.szsm.model.PersonalCustomerRequestModel;
+import com.kingtech.szsm.model.ProvisionInfoRequestModel;
 import com.kingtech.szsm.model.QueryInfoRequestModel;
 import com.kingtech.szsm.model.RepayExtendInfoRequestModel;
 import com.kingtech.szsm.model.RepayExtendPlanRequestModel;
 import com.kingtech.szsm.model.RepayInfoRequestModel;
 import com.kingtech.szsm.model.RepayPlanRequestModel;
+import com.kingtech.szsm.model.RepaymentFinanceRequestModel;
 import com.kingtech.szsm.model.SettledInfoRequestModel;
 import com.kingtech.szsm.model.SynResponseModel;
 import com.kingtech.web.commons.base.CreatRequstId;
@@ -151,56 +162,16 @@ public class PaymentApiImpl  implements PaymentApi {
 	@Autowired 
 	private ContractDywDAO contractDywDAO;
 	
+	@Autowired 
+	private AssetTransferDAO assetTransferDAO;
+	
+	@Autowired
+	private RepaymentFinanceDao repaymentFinanceDao;
+	
+	@Autowired
+	private FinanceMonthBalanceDAO financeMonthBalanceDAO;
 	
 	
-	
-
-	@Override
-	public void branchInfoApi(String branchId, IdentifierType type) {
-		
-	   Branch branch =	branchDAO.findOne(branchId);
-	   if (branch ==null) {
-		  return ;
-	  }
-	   
-	   String roundStr =  RandomUtil.random8Len();
-	   BranchInfoModel branchInfoModel =null;
-	   if (IdentifierType.A.equals(type)||IdentifierType.U.equals(type)) {
-		        branchInfoModel = new BranchInfoModel(
-		           roundStr, 
-                   type.name(), 
-                   branch.getReqId(), 
-                   null, 
-                   branch.getCorporateName(),
-                   branch.getLegalRepresentative(),
-                   branch.getRegDapital().setScale(2).toPlainString(),
-                   DateUtil.getDateStr(branch.getBuildDate(), "yyyy-MM-dd"),
-                   DateUtil.getDateStr(branch.getOpeningDate(), "yyyy-MM-dd"), 
-                   branch.getBusinessAddr(), 
-                   branch.getSiteArea(),
-                   branch.getOrganizationCode(),
-                   branch.getLicence(), 
-                   branch.getNationalRegNum(), 
-                   branch.getLandRegNum(), 
-                   branch.getBusinessScope(), 
-                   DateUtil.getDateStr(branch.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT),
-                   branch.getUpdateTime() == null? null:DateUtil.getDateStr(branch.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT));
-		}else {
-//			branchInfoModel = new BranchInfoModel( roundStr, type.name(), branch.getReqId(), branch.getLicence());
-			log.info("机构基本信息暂时不支持删除");
-			return;
-			
-		}
-		   
-	   SynResponseModel responseModel= financeService.branchInfoFacade(branchInfoModel);
-	   if (responseModel.isSuccess()) {
-		   branch.setPushStatus(PushStatus.INPROSESS);
-		   branchDAO.save(branch);
-	   }
-	   
-	  
-
-	}
 
 	@Override
 	public void capitalInfoApi(String capitalId, IdentifierType type) {
@@ -242,39 +213,46 @@ public class PaymentApiImpl  implements PaymentApi {
 
 	@Override
 	@Transactional
-	public void employeeInfoApi(String capitalId,IdentifierType type) {
+	public SynResponseModel employeeInfoApi(String capitalId,IdentifierType type) {
 		
 		
 		   Employee employee = employeeDAO.findOne(capitalId);
 		   if (employee ==null) {
-				  return ;
+				  return null;
 			 }
 		   
 		   String roundStr =  RandomUtil.random8Len();
-		   
-		   EmployeeRequestModel employeeRequestModel = new EmployeeRequestModel(roundStr,
-				   employee.getReqId(),
-				   null, 
-				   employee.getName(), 
-				   employee.getPhone(),
-				   employee.getEmail(), 
-				   employee.getAddress(), 
-				   employee.getDepartment(),
-				   DTOUtils.getEnumIntVal(employee.getSex()), 
-				   DTOUtils.getEnumIntVal(employee.getCardType()),
-				   employee.getCardNumber(), 
-				   DTOUtils.getEnumIntVal(employee.getEducation()),
-				   DTOUtils.getEnumIntVal(employee.getExecutiveFlag()), 
-				   employee.getPosition(),
-				   DateUtil.getSimpleDate(employee.getEntryTime()), 
-				   DateUtil.getSimpleDate(employee.getQuitTime()));
-		   
-		   
+		   EmployeeRequestModel employeeRequestModel = null;
+		   if (IdentifierType.A.equals(type)||IdentifierType.U.equals(type)) {
+			     employeeRequestModel = new EmployeeRequestModel(roundStr,
+					   employee.getReqId(),
+					   null, 
+					   employee.getName(), 
+					   employee.getPhone(),
+					   employee.getEmail(), 
+					   employee.getAddress(), 
+					   employee.getDepartment(),
+					   DTOUtils.getEnumIntVal(employee.getSex()), 
+					   DTOUtils.getEnumIntVal(employee.getCardType()),
+					   employee.getCardNumber(), 
+					   DTOUtils.getEnumIntVal(employee.getEducation()),
+					   DTOUtils.getEnumIntVal(employee.getExecutiveFlag()), 
+					   employee.getPosition(),
+					   DateUtil.getSimpleDate(employee.getEntryTime()), 
+					   DateUtil.getSimpleDate(employee.getQuitTime()));
+			     employee.setPushStatus(PushStatus.INPROSESS);
+			   
+		   }else{
+			   employeeRequestModel = new EmployeeRequestModel(roundStr,employee.getReqId());
+			   employee.setPushStatus(PushStatus.DELETEING);
+		   }
 		   SynResponseModel responseModel= financeService.branchEmployeeFacade(employeeRequestModel,type);
 		   if (responseModel.isSuccess()) {
-			   employee.setPushStatus(PushStatus.INPROSESS);
 			   employeeDAO.save(employee);
-		   }
+		   }else {
+			   throw new RuntimeException();
+		}
+		   return responseModel;
 	}
 
 	@Override
@@ -489,12 +467,12 @@ public class PaymentApiImpl  implements PaymentApi {
 
 	@Override
 	@Transactional
-	public void repayInfoApi(String repayInfoId, IdentifierType type) {
+	public SynResponseModel repayInfoApi(String repayInfoId, IdentifierType type) {
 		
 		RepayInfo repayInfo = repayInfoDAO.findOne(repayInfoId);
 		if (repayInfo == null ) {
 			log.info("未获取到还款信息相关数据repayInfoId={}",repayInfoId);
-			return;
+			return null;
 		}
 		
 		
@@ -514,6 +492,7 @@ public class PaymentApiImpl  implements PaymentApi {
 			repayInfo.setPushStatus(PushStatus.INPROSESS);
 			repayInfoDAO.save(repayInfo);
 		}
+		return responseModel;
 	}
 
 	@Override
@@ -596,78 +575,37 @@ public class PaymentApiImpl  implements PaymentApi {
 
 	@Override
 	@Transactional
-	public void otherBaddebtApi(String otherBaddebtId, IdentifierType type) {
+	public SynResponseModel otherBaddebtApi(String otherBaddebtId, IdentifierType type) {
 		OtherBaddebt otherBaddebt = otherBaddebtDAO.findOne(otherBaddebtId);
 		if (otherBaddebt == null ) {
 			log.info("未获取到坏账相关数据otherBaddebtId={}",otherBaddebtId);
-			return;
+			return null;
 		}
 		String roundStr =  RandomUtil.random8Len();
 		
-		OtherBaddebtModel otherBaddebtModel = null;
-//		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
-//			otherBaddebtModel = new OtherBaddebtModel(roundStr,
-//					type.name(),
-//					otherBaddebt.getReqId(),
-//					null,
-//					contractDAO.findOne(otherBaddebt.getLoanContractId()).getLoanContractNo(),
-//					otherBaddebt.getBadMoney().toPlainString(),
-//					DateUtil.getDateStr(otherBaddebt.getSetDate(),"yyyy-MM-dd"), 
-//					otherBaddebt.getFollowupWork(),
-//					DateUtil.getDateStr(otherBaddebt.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT), 
-//                    DateUtil.getDateStr(otherBaddebt.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT));
-//
-//			
-//		}else {
-//			log.info("坏账暂不支持的操作 otherBaddebtId={},IdentifierType={} ",otherBaddebtId,type);
-//			return;
-//		}
-		
-		SynResponseModel responseModel = financeService.otherBaddebtFacade(otherBaddebtModel);
-		if (responseModel.isSuccess()) {
-			otherBaddebt.setPushStatus(PushStatus.INPROSESS);
-			otherBaddebtDAO.save(otherBaddebt);
-		}
-	}
-
-	@Override
-	@Transactional
-	public void otherOverdueInfoApi(String otherOverdueInfoId,IdentifierType type) {
-		OtherOverdueInfo otherOverdueInfo = otherOverdueInfoDAO.findOne(otherOverdueInfoId);
-		if (otherOverdueInfo == null ) {
-			log.info("未获取到逾期相关数据otherOverdueInfoId={}",otherOverdueInfoId);
-			return;
-		}
-		String roundStr =  RandomUtil.random8Len();
-		
-		OtherOverdueInfoModel otherOverdueInfoModel = null;
+		OtherBaddebtRequestModel otherBaddebtModel = null;
 		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
-			otherOverdueInfoModel = new OtherOverdueInfoModel(roundStr, 
-					
-					
-					type.name(), 
-					otherOverdueInfo.getReqId(), 
-					null, 
-					contractDAO.findOne(otherOverdueInfo.getLoanContractId()).getContractNumber(),
-					otherOverdueInfo.getOverdueMoney().toPlainString(), 
-					DateUtil.getDateStr(otherOverdueInfo.getOverdueDate(),"yyyy-MM-dd"), 
-					otherOverdueInfo.getOverdueInterest().toPlainString(), 
-					otherOverdueInfo.getBalance().toPlainString(),
-					otherOverdueInfo.getRemarks(), 
-					DateUtil.getDateStr(otherOverdueInfo.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT), 
-                    DateUtil.getDateStr(otherOverdueInfo.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT));
-			
+			otherBaddebtModel = new  OtherBaddebtRequestModel(roundStr, 
+					                                        otherBaddebt.getReqId(),
+					                                        contractDAO.findOne(otherBaddebt.getLoanContractId()).getContractNumber(),
+					                                        otherBaddebt.getBadMoney().toPlainString(),
+					                                        DateUtil.getSimpleDate(otherBaddebt.getLossDate()),
+					                                        DTOUtils.getEnumIntVal(otherBaddebt.getBadType()), 
+					                                        otherBaddebt.getFollowUp());
+			otherBaddebt.setPushStatus(PushStatus.INPROSESS);
 		}else {
-			log.info("逾期暂不支持的操作 otherOverdueInfoId={},IdentifierType={} ",otherOverdueInfoId,type);
-			return;
+			otherBaddebtModel = new OtherBaddebtRequestModel(roundStr, otherBaddebt.getReqId());
+			otherBaddebt.setPushStatus(PushStatus.DELETEING);
 		}
+
 		
-		SynResponseModel responseModel = financeService.otherOverdueInfoFacade(otherOverdueInfoModel);
+		SynResponseModel responseModel = financeService.otherBaddebtFacade(otherBaddebtModel,type);
 		if (responseModel.isSuccess()) {
-			otherOverdueInfo.setPushStatus(PushStatus.INPROSESS);
-			otherOverdueInfoDAO.save(otherOverdueInfo);
+			otherBaddebtDAO.save(otherBaddebt);
+		}else {
+			throw  new RuntimeException();
 		}
-		
+		return responseModel;
 	}
 
 	@Override
@@ -679,28 +617,36 @@ public class PaymentApiImpl  implements PaymentApi {
 			return;
 		}
 		String roundStr =  RandomUtil.random8Len();
-		ProvisionInfoModel provisionInfoModel = null;
-//		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
-//			provisionInfoModel = new ProvisionInfoModel(roundStr, 
-//					type.name(), 
-//					provisionInfo.getReqId(), 
-//					null, 
-//					provisionInfo.getProvisionMoney().toPlainString(), 
-//					DateUtil.getDateStr(provisionInfo.getProvisionDate(),"yyyy-MM-dd"), 
-//					provisionInfo.getProvisionScale().toPlainString(),
-//					DTOUtils.getNewStr(provisionInfo.getLoanClassification()),
-//					provisionInfo.getBalance().toPlainString(), 
-//					DateUtil.getDateStr(provisionInfo.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT), 
-//                    DateUtil.getDateStr(provisionInfo.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT));
-//			
-//		}else {
-//			log.info("计提暂不支持的操作 provisionInfoId={},IdentifierType={} ",provisionInfoId,type);
-//			return;
-//		}
-		SynResponseModel responseModel = financeService.provisionInfoFacade(provisionInfoModel);
-		if (responseModel.isSuccess()) {
+		ProvisionInfoRequestModel provisionInfoModel = null;
+		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
+			provisionInfoModel = new ProvisionInfoRequestModel(roundStr,
+					provisionInfo.getReqId(),
+					DateUtil.getDateStr(provisionInfo.getDateMonth(),"YYYYMM"),
+					provisionInfo.getNormalBalance().toPlainString(), 
+					provisionInfo.getNormalRate().toPlainString(), 
+					provisionInfo.getNormalReal().toPlainString(),
+					provisionInfo.getFollowBalance().toPlainString(),
+					provisionInfo.getFollowRate().toPlainString(), 
+					provisionInfo.getFollowReal().toPlainString(), 
+					provisionInfo.getMinorBalance().toPlainString(),
+					provisionInfo.getMinorRate().toPlainString(),
+					provisionInfo.getMinorReal().toPlainString(), 
+					provisionInfo.getSuspiciousBalance().toPlainString(),
+					provisionInfo.getSuspiciousRate().toPlainString(), 
+					provisionInfo.getSuspiciousReal().toPlainString(),
+					provisionInfo.getLossBalance().toPlainString(), 
+					provisionInfo.getLossRate().toPlainString(), 
+					provisionInfo.getLossReal().toPlainString());
 			provisionInfo.setPushStatus(PushStatus.INPROSESS);
+		}else {
+			provisionInfoModel = new ProvisionInfoRequestModel(roundStr,provisionInfo.getReqId()) ;
+			provisionInfo.setPushStatus(PushStatus.DELETEING);
+		}
+		SynResponseModel responseModel = financeService.provisionInfoFacade(provisionInfoModel,type);
+		if (responseModel.isSuccess()) {
 			provisionInfoDAO.save(provisionInfo);
+		}else {
+			throw  new RuntimeException();
 		}
 		
 	}
@@ -723,18 +669,14 @@ public class PaymentApiImpl  implements PaymentApi {
 										DateUtil.getDateStr(settle.getLoanTime(),JSON.DEFFAULT_DATE_FORMAT), 
 										DateUtil.getSimpleDate(settle.getStartDate()), 
 										DateUtil.getSimpleDate(settle.getEndDate()));
+			settle.setPushStatus(PushStatus.INPROSESS);
 		}else {
 			infoRequestModel = new SettledInfoRequestModel(roundStr, settle.getReqId());
+			settle.setPushStatus(PushStatus.DELETEING);
 		}
 		
 		SynResponseModel responseModel = financeService.settleInfoFacade(infoRequestModel, type);
 		if (responseModel.isSuccess()) {
-			
-			if (IdentifierType.D.equals(type)) {
-				settle.setPushStatus(PushStatus.DELETEING);
-			}else {
-				settle.setPushStatus(PushStatus.INPROSESS);
-			}
 			settledInfoDAO.save(settle);
 		}else{
 			throw  new RuntimeException();
@@ -786,31 +728,152 @@ public class PaymentApiImpl  implements PaymentApi {
 
 	@Override
 	@Transactional
-	public void queryTranInfoApi(String id , Cmd cmd) {
+	public void queryTranInfoApi(String id , Cmd cmd ,String reqId, PushStatus pushStatus) {
 		QueryInfoRequestModel infoRequestModel = null;
 		String api="";
+		if (PushStatus.DELETEING.equals(pushStatus)) {
+			api = "delete/"+cmd.getKey();
+		}else if (PushStatus.INPROSESS.equals(pushStatus)) {
+			api = "post/"+cmd.getKey();
+		}
+		infoRequestModel = new QueryInfoRequestModel(reqId, api);
+		SynResponseModel synResponseModel = financeService.queryInfoFacade(infoRequestModel);
+		if (!synResponseModel.isSuccess()) {
+			return;
+		}
+		
 		switch (cmd) {
-		case loanInfo:
-			SettledInfo settle = settledInfoDAO.findOne(id);
-			if (PushStatus.DELETEING.equals(settle.getPushStatus())) {
-				api = "delete/loan-info";
-				settle.setRecordStatus(RecordStatus.DELETEED);
-			}else if (PushStatus.INPROSESS.equals(settle.getPushStatus())) {
-				api = "post/loan-info";
-			}
-			
-			infoRequestModel = new QueryInfoRequestModel(settle.getReqId(), api);
-			SynResponseModel synResponseModel = financeService.queryInfoFacade(infoRequestModel);
-			if (synResponseModel.isSuccess()) {
-				settle.setPushStatus(PushStatus.SUCCESS);
-				settledInfoDAO.save(settle);
-			}
-			break;
-
-		default:
-			break;
+			case loanInfo:
+				if (PushStatus.DELETEING.equals(pushStatus)) {
+					settledInfoDAO.delete(id);
+				} else if (PushStatus.INPROSESS.equals(pushStatus)) {
+					SettledInfo settle = settledInfoDAO.findOne(id);
+					settle.setPushStatus(PushStatus.SUCCESS);
+					settledInfoDAO.save(settle);
+				}
+				break;
+			case repay:
+				if (PushStatus.DELETEING.equals(pushStatus)) {
+					settledInfoDAO.delete(id);
+				} else if (PushStatus.INPROSESS.equals(pushStatus)) {
+					RepayInfo repay = repayInfoDAO.findOne(id);
+					repay.setPushStatus(PushStatus.SUCCESS);
+					repayInfoDAO.save(repay);
+				}
+			default:
+				break;
 		}
 		
 	}
+
+	@Override
+	public SynResponseModel assetTransferApi(String assetId, IdentifierType type) {
+		
+		AssetTransfer assetTransfer = assetTransferDAO.findOne(assetId);
+		
+		if (assetTransfer == null) {
+			log.info("未获取资产转让信息相关数据assetId={}",assetId);
+			return null;
+		}
+		
+		String roundStr =  RandomUtil.random8Len();
+		
+		AssetTransferRequestModel assetTransferRequestModel = null;
+		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)){
+			assetTransferRequestModel = new AssetTransferRequestModel(roundStr,
+					assetTransfer.getReqId(),
+					contractDAO.findOne(assetTransfer.getLoanContractId()).getContractNumber(),
+					assetTransfer.getTransferNumber(),
+					assetTransfer.getTransferMoney().toPlainString(), 
+					assetTransfer.getOriginalMoney().toPlainString(), 
+					assetTransfer.getDiscountMoney().toPlainString(), 
+					assetTransfer.getAcceptUnit(),
+					assetTransfer.getProtocol(), 
+					DateUtil.getSimpleDate(assetTransfer.getTransferDate()));
+			assetTransfer.setPushStatus(PushStatus.INPROSESS);
+		}else {
+			assetTransferRequestModel = new AssetTransferRequestModel(roundStr,assetTransfer.getReqId());
+			assetTransfer.setPushStatus(PushStatus.DELETEING);
+			
+		}
+		SynResponseModel responseModel = financeService.assetTransferFacade(assetTransferRequestModel, type);
+		if (responseModel.isSuccess()) {
+			assetTransferDAO.save(assetTransfer);
+		}else{
+			throw  new RuntimeException();
+		}
+		
+		return responseModel;
+	}
+
+	@Override
+	public SynResponseModel financePaymentApi(String paymentId,IdentifierType type) {
+		RepaymentFinance repaymentFinance = repaymentFinanceDao.findOne(paymentId);
+		if (repaymentFinance == null) {
+			log.info("未获取融资实际还款信息相关数据paymentId={}",paymentId);
+			return null;
+		}
+		String roundStr =  RandomUtil.random8Len();
+
+		RepaymentFinanceRequestModel financeRequestModel = null;
+		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)){
+			financeRequestModel = new RepaymentFinanceRequestModel(roundStr,
+					repaymentFinance.getReqId(), 
+					repaymentFinance.getFinanceNumber(),
+					DateUtil.getSimpleDate(repaymentFinance.getRepayDate()), 
+					repaymentFinance.getMoney().toPlainString(), 
+					repaymentFinance.getInterest().toPlainString(),
+					repaymentFinance.getCharges().toPlainString());
+			repaymentFinance.setPushStatus(PushStatus.INPROSESS);
+			
+		}else {
+			financeRequestModel = new RepaymentFinanceRequestModel(roundStr,
+					repaymentFinance.getReqId());
+			repaymentFinance.setPushStatus(PushStatus.DELETEING);
+		}
+		
+		
+		SynResponseModel responseModel = financeService.financePaymentFacade(financeRequestModel, type);
+		if (responseModel.isSuccess()) {
+			repaymentFinanceDao.save(repaymentFinance);
+		}else{
+			throw  new RuntimeException();
+		}
+		
+		return responseModel;
+	}
+
+	@Override
+	public SynResponseModel financeMonthBalanceApi(String financeMonthId,IdentifierType type) {
+		
+		FinanceMonthBalance financeMonthBalance = financeMonthBalanceDAO.findOne(financeMonthId);
+		
+		if (financeMonthBalance == null) {
+			log.info("未获月度融资余额信息相关数据financeMonthId={}",financeMonthId);
+			return null;
+		}
+		String roundStr =  RandomUtil.random8Len();
+		FinanceMonthBalanceRequest financeMonthBalanceRequest = null;
+		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)){
+			financeMonthBalanceRequest = new FinanceMonthBalanceRequest(roundStr, financeMonthBalance.getReqId(),
+					financeMonthBalance.getFinanceMonth(), 
+					financeMonthBalance.getBalance().toPlainString());
+			financeMonthBalance.setPushStatus(PushStatus.INPROSESS);
+		}else {
+			financeMonthBalanceRequest = new FinanceMonthBalanceRequest(roundStr, financeMonthBalance.getReqId());
+			financeMonthBalance.setPushStatus(PushStatus.DELETEING);
+		}
+		
+		SynResponseModel responseModel = financeService.financeMonthBalanceFacade(financeMonthBalanceRequest, type);
+		if (responseModel.isSuccess()) {
+			financeMonthBalanceDAO.save(financeMonthBalance);
+		}else{
+			throw  new RuntimeException();
+		}
+		
+		return responseModel;
+	}
+	
+	
 
 }

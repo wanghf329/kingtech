@@ -12,4 +12,9 @@ public interface RepayInfoService {
 	 * @return
 	 */
 	public PagedResult<ModelExt> pageList(Pageable pageAble);
+	
+	/**
+	 * 
+	 */
+	public void syncRepayInfoPushStatus();
 }

@@ -9,6 +9,7 @@ import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import com.kingtech.dao.entity.Contract;
 import com.kingtech.dao.entity.SettledInfo;
 import com.kingtech.dao.rdbms.SettledInfoDAO;
 import com.kingtech.enums.IdentifierType;
+import com.kingtech.enums.RecordStatus;
 import com.kingtech.model.SettledInfoModel;
 import com.kingtech.model.misc.PageInfo;
 import com.kingtech.model.misc.PagedResult;
@@ -63,7 +65,9 @@ public class SettledApiController {
 		
 		Map<String,SettledInfo> map = new HashedMap();
 		for(SettledInfo s : settledInfoDAO.findAll()){
-			map.put(s.getLoanContractId(), s);
+			if(RecordStatus.NORMAL.equals(s.getRecordStatus())){
+				map.put(s.getLoanContractId(), s);
+			}
 		}
 		
 		List<Contract> all = contractService.listAll();
@@ -79,10 +83,13 @@ public class SettledApiController {
 	
 	
 	@ResponseBody
+	@Transactional
 	@RequestMapping(method = RequestMethod.GET, value = "/data")
 	public PagedResult<SettledInfoModel> settleInfo(Model model,
 												 @RequestParam("start") Integer firstIndex,
 									 			 @RequestParam("length") Integer pageSize) {
+		
+		contractService.syncSettledInfoPushStatus();
 		return contractService.pageListSettledInfo(PageInfo.page(firstIndex, pageSize));
 	}
 	

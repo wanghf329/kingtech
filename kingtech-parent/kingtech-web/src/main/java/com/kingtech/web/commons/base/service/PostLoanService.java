@@ -51,5 +51,9 @@ public interface PostLoanService {
 										  	  String loanContractId);
 	
 	public List<ModelExt> listAllAssetTransfer();
+	
+	public void syncOtherBaddebtPushStatus();
+	
+	public void syncAssetTransferPushStatus();
 
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,14 +24,17 @@ import com.kingtech.dao.entity.Capital;
 import com.kingtech.dao.entity.FinanceMonthBalance;
 import com.kingtech.dao.entity.RepaymentFinance;
 import com.kingtech.enums.ChannelTypeEnum;
+import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.RateTypeEnum;
+import com.kingtech.enums.RecordStatus;
 import com.kingtech.model.CapitalModel;
 import com.kingtech.model.FinanceMonthBalanceModel;
 import com.kingtech.model.FinanceRepayPlanModel;
-import com.kingtech.model.RepayPlanModel;
 import com.kingtech.model.RepaymentFinanceModel;
 import com.kingtech.model.misc.PageInfo;
 import com.kingtech.model.misc.PagedResult;
+import com.kingtech.szsm.model.SynResponseModel;
+import com.kingtech.web.commons.base.api.PaymentApi;
 import com.kingtech.web.commons.base.service.CapitalService;
 import com.kingtech.web.commons.base.service.FinanceMonthBalanceService;
 import com.kingtech.web.commons.base.service.FinanceRepayPlanService;
@@ -51,6 +55,9 @@ public class FinanceApiController {
 	
 	@Autowired
 	private FinanceRepayPlanService financeRepayPlanService;
+	
+	@Autowired
+	private PaymentApi paymentApi;
 	
 	
 	@RequestMapping(method = RequestMethod.GET,value="/capitalList")
@@ -115,6 +122,7 @@ public class FinanceApiController {
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/repayment/edit")
 	public String editRepayment(Model model,  String id) {
+		model.addAttribute("financeNumbers", capitalService.listFinanceNumberByStatus(RecordStatus.NORMAL));
 		if(StringUtils.isNotEmpty(id)){
 			model.addAttribute("repayment", repaymentFinanceService.getById(id));
 		}
@@ -132,7 +140,7 @@ public class FinanceApiController {
 	@RequestMapping(method = RequestMethod.POST, value = "/capital/save")
 	public String saveCapital(Model model, CapitalModel capitalModel) {
 		capitalService.addNew(capitalModel);
-		return "redirect:/finance/monthBalanceList";
+		return "redirect:/finance/capitalList";
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/repayment/save")
@@ -158,6 +166,21 @@ public class FinanceApiController {
 		model.addAttribute("financeId", financeId);
 		return "redirect:/finance/capital/supplement";
 	}
+	
+/*	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET,value="/capital/delete/{id}")
+	public SynResponseModel capitalDelete(Model model,@PathVariable("id") String id) { 
+		 paymentApi.capitalInfoApi(id,IdentifierType.D);
+		return synresponseModel;
+	}  */
+	
+/*	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET,value="/repayment/delete//{id}")
+	public SynResponseModel repaymentDelete(Model model,@PathVariable("id") String id) { 
+		 paymentApi.capitalInfoApi(id,IdentifierType.D);
+		return synresponseModel;
+	}  */
+	
 	
 	@InitBinder
     protected void initBinder(WebDataBinder binder) {

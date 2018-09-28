@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.common.collect.Lists;
 import com.kingtech.common.dynamicquery.DynamicQuery;
 import com.kingtech.dao.entity.Contract;
 import com.kingtech.dao.entity.ContractDyw;
@@ -30,6 +31,7 @@ import com.kingtech.dao.rdbms.PersonalCustomerDAO;
 import com.kingtech.dao.rdbms.RepayPlanDAO;
 import com.kingtech.dao.rdbms.SettledInfoDAO;
 import com.kingtech.enums.BorrowerTypeEnum;
+import com.kingtech.enums.Cmd;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.RecordStatus;
@@ -212,7 +214,7 @@ public class ContractServiceImpl implements ContractService{
 	@Override
 	public PagedResult<SettledInfoModel> pageListSettledInfo(Pageable pageAble){
 		String sql = " SELECT t1.LOAN_CONTRACT_ID,t2.CONTRACT_NUMBER,t2.CONTRACT_NAME,t1.MONEY,t1.LOAN_TIME,t1.START_DATE,t1.END_DATE,t1.PUSH_STATUS,t1.ID"
-				+ " from TB_LOAN_CONTRACT_SETTLED t1,TB_LOAN_CONTRACT t2 where t1.LOAN_CONTRACT_ID = t2.ID order by t1.CREATE_TIME";
+				+ " from TB_LOAN_CONTRACT_SETTLED t1,TB_LOAN_CONTRACT t2 where t1.LOAN_CONTRACT_ID = t2.ID and t1.RECORD_STATUS != 'DELETEED' order by t1.CREATE_TIME";
 		String[] params = new String[0];
 		List<Object[]> list = dq.nativeQueryPagingList(Object[].class, pageAble, sql, params);
 		Long count = dq.nativeQueryCount(sql, params);
@@ -249,5 +251,13 @@ public class ContractServiceImpl implements ContractService{
 		}
 		
 		return new PagedResult(result,count);
+	}
+	
+	@Override
+	@Transactional
+	public void syncSettledInfoPushStatus(){
+		settledInfoDAO.listBypushStatus(Lists.newArrayList(PushStatus.INPROSESS,PushStatus.DELETEING)).forEach(s->{
+			api.queryTranInfoApi(s.getId(), Cmd.loanInfo, s.getReqId(),s.getPushStatus());
+		});;
 	}
 }

@@ -141,8 +141,12 @@ public class BaseAbstract {
 	
 		}
 		JSONObject jsonObject = JSON.parseObject(result);
-		return new SynResponseModel(jsonObject.getString("resultCode"), jsonObject.getString("resultMsg"));
+		if ("0".equals(jsonObject.getString("resultCode"))) {
+			JSONObject jsonObject1 = JSON.parseObject(jsonObject.getString("data"));
+			return new SynResponseModel(jsonObject1.getString("resultCode"), jsonObject1.getString("resultMsg"));
+		}
 	
+		return  new SynResponseModel(jsonObject.getString("resultCode"), jsonObject .getString("resultMsg"));
 		
 	}
 	
