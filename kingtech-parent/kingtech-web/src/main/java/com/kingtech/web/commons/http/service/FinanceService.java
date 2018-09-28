@@ -10,6 +10,8 @@ import com.kingtech.model.RepayExtendInfoModel;
 import com.kingtech.model.RepayExtendPlanModel;
 import com.kingtech.model.ShareholderModel;
 import com.kingtech.szsm.model.AssetTransferRequestModel;
+import com.kingtech.szsm.model.BranchAccountBalanceRequest;
+import com.kingtech.szsm.model.BranchAccountInfoRequest;
 import com.kingtech.szsm.model.ContractRequestModel;
 import com.kingtech.szsm.model.EmployeeRequestModel;
 import com.kingtech.szsm.model.FinanceInfoRequestModel;
@@ -135,5 +137,17 @@ public interface FinanceService {
 	 * @return
 	 */
 	public SynResponseModel financeMonthBalanceFacade(FinanceMonthBalanceRequest financeMonthBalanceRequest,IdentifierType type);
+	
+	/**
+	 * @param branchAccountInfoId
+	 * @param type
+	 * @return
+	 */
+	public SynResponseModel branchAccountInfoFacade(BranchAccountInfoRequest branchAccountInfoRequest,IdentifierType type);
+	
+	/**机构银行账户月度余额信息
+	 * @return
+	 */
+	public  SynResponseModel branchAccountBalanceFacade(BranchAccountBalanceRequest branchAccountBalanceRequest,IdentifierType type);
 	
 }

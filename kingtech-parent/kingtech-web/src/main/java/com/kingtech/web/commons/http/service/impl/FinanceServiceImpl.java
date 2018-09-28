@@ -14,6 +14,8 @@ import com.kingtech.model.RepayExtendInfoModel;
 import com.kingtech.model.RepayExtendPlanModel;
 import com.kingtech.model.ShareholderModel;
 import com.kingtech.szsm.model.AssetTransferRequestModel;
+import com.kingtech.szsm.model.BranchAccountBalanceRequest;
+import com.kingtech.szsm.model.BranchAccountInfoRequest;
 import com.kingtech.szsm.model.ContractRequestModel;
 import com.kingtech.szsm.model.EmployeeRequestModel;
 import com.kingtech.szsm.model.FinanceInfoRequestModel;
@@ -151,6 +153,20 @@ public class FinanceServiceImpl   extends BaseAbstract implements FinanceService
 	@Override
 	public SynResponseModel financeMonthBalanceFacade(FinanceMonthBalanceRequest financeMonthBalanceRequest,IdentifierType type) {
 		SynResponseModel responseModel =  getResponse(financeMonthBalanceRequest, "month-finane",type);
+		return responseModel;
+	}
+
+
+	@Override
+	public SynResponseModel branchAccountInfoFacade(BranchAccountInfoRequest branchAccountInfoRequest,IdentifierType type) {
+		SynResponseModel responseModel =  getResponse(branchAccountInfoRequest, "account",type);
+		return responseModel;
+	}
+
+
+	@Override
+	public SynResponseModel branchAccountBalanceFacade(BranchAccountBalanceRequest branchAccountBalanceRequest,IdentifierType type) {
+		SynResponseModel responseModel =  getResponse(branchAccountBalanceRequest, "bank-balance",type);
 		return responseModel;
 	}
 

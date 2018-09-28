@@ -5,7 +5,6 @@ import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.hamcrest.core.Is;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +13,8 @@ import com.alibaba.fastjson.JSON;
 import com.kingtech.common.utils.DateUtil;
 import com.kingtech.common.utils.RandomUtil;
 import com.kingtech.dao.entity.AssetTransfer;
-import com.kingtech.dao.entity.Branch;
+import com.kingtech.dao.entity.BranchAccountBalance;
+import com.kingtech.dao.entity.BranchAccountInfo;
 import com.kingtech.dao.entity.Capital;
 import com.kingtech.dao.entity.Contract;
 import com.kingtech.dao.entity.ContractDyw;
@@ -23,7 +23,6 @@ import com.kingtech.dao.entity.Employee;
 import com.kingtech.dao.entity.EnterpriseCustomer;
 import com.kingtech.dao.entity.FinanceMonthBalance;
 import com.kingtech.dao.entity.OtherBaddebt;
-import com.kingtech.dao.entity.OtherOverdueInfo;
 import com.kingtech.dao.entity.PersonalCustomer;
 import com.kingtech.dao.entity.ProvisionInfo;
 import com.kingtech.dao.entity.RepayExtendInfo;
@@ -34,6 +33,8 @@ import com.kingtech.dao.entity.RepaymentFinance;
 import com.kingtech.dao.entity.SettledInfo;
 import com.kingtech.dao.entity.Shareholder;
 import com.kingtech.dao.rdbms.AssetTransferDAO;
+import com.kingtech.dao.rdbms.BranchAccountBalanceDAO;
+import com.kingtech.dao.rdbms.BranchAccountInfoDAO;
 import com.kingtech.dao.rdbms.BranchDAO;
 import com.kingtech.dao.rdbms.CapitalDAO;
 import com.kingtech.dao.rdbms.ContractDAO;
@@ -58,25 +59,18 @@ import com.kingtech.enums.BorrowerTypeEnum;
 import com.kingtech.enums.Cmd;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
-import com.kingtech.enums.RecordStatus;
-import com.kingtech.model.BranchInfoModel;
 import com.kingtech.model.CapitalModel;
 import com.kingtech.model.GuaranteeModel;
-import com.kingtech.model.OtherBaddebtModel;
-import com.kingtech.model.OtherOverdueInfoModel;
-import com.kingtech.model.ProvisionInfoModel;
-import com.kingtech.model.RepayExtendInfoModel;
-import com.kingtech.model.RepayExtendPlanModel;
-import com.kingtech.model.RepayInfoModel;
 import com.kingtech.model.ShareholderModel;
 import com.kingtech.szsm.model.AssetTransferRequestModel;
 import com.kingtech.szsm.model.AsyReponseModel;
+import com.kingtech.szsm.model.BranchAccountBalanceRequest;
+import com.kingtech.szsm.model.BranchAccountInfoRequest;
 import com.kingtech.szsm.model.ContractDywRequestModel;
 import com.kingtech.szsm.model.ContractRequestModel;
 import com.kingtech.szsm.model.ContractZywRequestModel;
 import com.kingtech.szsm.model.EmployeeRequestModel;
 import com.kingtech.szsm.model.EnterpriseCustomerRequestModel;
-import com.kingtech.szsm.model.ExtendPlanRequestModel;
 import com.kingtech.szsm.model.FinanceInfoRequestModel;
 import com.kingtech.szsm.model.FinanceMonthBalanceRequest;
 import com.kingtech.szsm.model.FinanceRepayPlanRequest;
@@ -86,7 +80,6 @@ import com.kingtech.szsm.model.PersonalCustomerRequestModel;
 import com.kingtech.szsm.model.ProvisionInfoRequestModel;
 import com.kingtech.szsm.model.QueryInfoRequestModel;
 import com.kingtech.szsm.model.RepayExtendInfoRequestModel;
-import com.kingtech.szsm.model.RepayExtendPlanRequestModel;
 import com.kingtech.szsm.model.RepayInfoRequestModel;
 import com.kingtech.szsm.model.RepayPlanRequestModel;
 import com.kingtech.szsm.model.RepaymentFinanceRequestModel;
@@ -170,6 +163,12 @@ public class PaymentApiImpl  implements PaymentApi {
 	
 	@Autowired
 	private FinanceMonthBalanceDAO financeMonthBalanceDAO;
+	
+	@Autowired
+	private BranchAccountInfoDAO branchAccountInfoDAO;
+	
+	@Autowired
+	private BranchAccountBalanceDAO branchAccountBalanceDAO;
 	
 	
 
@@ -652,6 +651,7 @@ public class PaymentApiImpl  implements PaymentApi {
 	}
 
 	@Override
+	@Transactional
 	public SynResponseModel settleInfoApi(String settleInfoId,
 			IdentifierType type) {
 		SettledInfo settle = settledInfoDAO.findOne(settleInfoId);
@@ -686,6 +686,7 @@ public class PaymentApiImpl  implements PaymentApi {
 	}
 
 	@Override
+	@Transactional
 	public SynResponseModel financeInfoApi(String financeInfoId,IdentifierType type) {
 		
 		Capital capital = capitalDAO.findOne(financeInfoId);
@@ -767,6 +768,7 @@ public class PaymentApiImpl  implements PaymentApi {
 	}
 
 	@Override
+	@Transactional
 	public SynResponseModel assetTransferApi(String assetId, IdentifierType type) {
 		
 		AssetTransfer assetTransfer = assetTransferDAO.findOne(assetId);
@@ -807,6 +809,7 @@ public class PaymentApiImpl  implements PaymentApi {
 	}
 
 	@Override
+	@Transactional
 	public SynResponseModel financePaymentApi(String paymentId,IdentifierType type) {
 		RepaymentFinance repaymentFinance = repaymentFinanceDao.findOne(paymentId);
 		if (repaymentFinance == null) {
@@ -844,6 +847,7 @@ public class PaymentApiImpl  implements PaymentApi {
 	}
 
 	@Override
+	@Transactional
 	public SynResponseModel financeMonthBalanceApi(String financeMonthId,IdentifierType type) {
 		
 		FinanceMonthBalance financeMonthBalance = financeMonthBalanceDAO.findOne(financeMonthId);
@@ -871,6 +875,78 @@ public class PaymentApiImpl  implements PaymentApi {
 			throw  new RuntimeException();
 		}
 		
+		return responseModel;
+	}
+
+	@Override
+	@Transactional
+	public SynResponseModel branchAccountInfoApi(String branchAccountInfoId,IdentifierType type) {
+		
+	   BranchAccountInfo branchAccountInfo = branchAccountInfoDAO.findOne(branchAccountInfoId);
+		
+		if (branchAccountInfo == null) {
+			log.info("未获机构银行账户信息相关数据branchAccountInfoId={}",branchAccountInfoId);
+			return null;
+		}
+		
+		String roundStr =  RandomUtil.random8Len();
+		
+		BranchAccountInfoRequest branchAccountInfoRequest = null;
+		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
+			branchAccountInfoRequest = new BranchAccountInfoRequest(roundStr,
+					branchAccountInfo.getReqId(),
+					branchAccountInfo.getBank(),
+					branchAccountInfo.getAccount(),
+					DTOUtils.getEnumIntVal(branchAccountInfo.getType()),
+					branchAccountInfo.getAccountStatus().name(),
+					DateUtil.getSimpleDate(branchAccountInfo.getOpenTime()));
+			branchAccountInfo.setPushStatus(PushStatus.DELETEING);
+		}else {
+			branchAccountInfoRequest = new BranchAccountInfoRequest(roundStr,branchAccountInfo.getReqId());
+			branchAccountInfo.setPushStatus(PushStatus.DELETEING);
+		}
+		SynResponseModel responseModel = financeService.branchAccountInfoFacade(branchAccountInfoRequest, type);
+		if (responseModel.isSuccess()) {
+			branchAccountInfoDAO.save(branchAccountInfo);
+		}else{
+			throw  new RuntimeException();
+		}
+		return responseModel;
+	}
+
+	@Override
+	@Transactional
+	public SynResponseModel branchAccountBalanceApi(String branchAccountBalanceId, IdentifierType type) {
+	
+		BranchAccountBalance branchAccountBalance = branchAccountBalanceDAO.findOne(branchAccountBalanceId);
+		
+		if (branchAccountBalance == null) {
+			log.info("未获机构银行账户月度余额信息相关数据branchAccountBalanceId={}",branchAccountBalanceId);
+			return null;
+		}
+		
+		String roundStr =  RandomUtil.random8Len();
+		
+		BranchAccountBalanceRequest branchAccountBalanceRequest = null;
+		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
+			branchAccountBalanceRequest = new BranchAccountBalanceRequest(roundStr,
+					branchAccountBalance.getReqId(), 
+					branchAccountBalance.getDateMonth(), 
+					branchAccountBalance.getAccount(), 
+					branchAccountBalance.getMoney().toPlainString());
+			branchAccountBalance.setPushStatus(PushStatus.INPROSESS);
+		}else {
+			branchAccountBalanceRequest = new BranchAccountBalanceRequest(roundStr,branchAccountBalance.getReqId());
+		
+			branchAccountBalance.setPushStatus(PushStatus.INPROSESS);
+		}
+		
+		SynResponseModel responseModel = financeService.branchAccountBalanceFacade(branchAccountBalanceRequest, type);
+		if (responseModel.isSuccess()) {
+			branchAccountBalanceDAO.save(branchAccountBalance);
+		}else{
+			throw  new RuntimeException();
+		}
 		return responseModel;
 	}
 	

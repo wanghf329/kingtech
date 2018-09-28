@@ -48,14 +48,11 @@ public interface PaymentApi {
 	
 	public SynResponseModel repayExtendInfoApi(String repayExtendInfoId,IdentifierType type);
 	
-	
-
 	/**
 	 * 展期还款计划信息
 	 */
 	
 	public SynResponseModel repayExtendPlanApi(String repayExtendPlanId,IdentifierType type);
-	
 	
 	/**
 	 * 坏账信息接口
@@ -123,6 +120,21 @@ public interface PaymentApi {
 	 * @return
 	 */
 	public SynResponseModel financeMonthBalanceApi(String financeMonthId,IdentifierType type);
+	/**
+	 * 机构银行账户信息
+	 * @param branchAccountInfoId
+	 * @param type
+	 * @return
+	 */
+	
+	public  SynResponseModel branchAccountInfoApi(String branchAccountInfoId,IdentifierType type);
+	
+	/**机构银行账户月度余额信息
+	 * @return
+	 */
+	public  SynResponseModel branchAccountBalanceApi(String branchAccountBalanceId,IdentifierType type);
+	
+	
 	
 
 }
