@@ -67,7 +67,7 @@ public class CapitalServiceImpl implements CapitalService{
 			}
 			capital.setRecordStatus(RecordStatus.NORMAL);
 			capital = capitalDao.save(capital);
-			paymentApi.capitalInfoApi(capital.getId(), type);
+//			paymentApi.capitalInfoApi(capital.getId(), type);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -104,7 +104,7 @@ public class CapitalServiceImpl implements CapitalService{
 			financeRepayPlanDAO.save(new FinanceRepayPlan(financeId, re.getInterest(), re.getEndDate(), re.getMoney(), re.getOrderNum()));
 		}
 		Capital capital = capitalDao.findOne(financeId);
-		paymentApi.capitalInfoApi(capital.getId(), IdentifierType.U);
+//		paymentApi.capitalInfoApi(capital.getId(), IdentifierType.U);
 	}
 
 

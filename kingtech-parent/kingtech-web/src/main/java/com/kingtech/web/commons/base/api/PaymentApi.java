@@ -7,12 +7,6 @@ import com.kingtech.szsm.model.AsyReponseModel;
 import com.kingtech.szsm.model.SynResponseModel;
 
 public interface PaymentApi {
-	/**
-	 * 资本信息
-	 * @param capitalId
-	 * @param type
-	 */
-	public void capitalInfoApi(String capitalId,IdentifierType type);
 	
 	/**
 	 * 机构人员信息

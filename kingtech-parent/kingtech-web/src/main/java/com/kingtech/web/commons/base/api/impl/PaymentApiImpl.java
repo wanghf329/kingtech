@@ -172,43 +172,6 @@ public class PaymentApiImpl  implements PaymentApi {
 	
 	
 
-	@Override
-	public void capitalInfoApi(String capitalId, IdentifierType type) {
-		Capital capital = capitalDAO.findOne(capitalId);
-		if (capital ==null) {
-			  return ;
-		  }
-		String roundStr =  RandomUtil.random8Len();
-	    CapitalModel  capitalModel =null;
-		if (IdentifierType.A.equals(type)||IdentifierType.U.equals(type)) {
-//			capitalModel = new CapitalModel(
-//					roundStr,
-//					type.name(), 
-//					capital.getReqId(),
-//					null, 
-//					capital.getFinancingChannel(),
-//					capital.getFinancingMoney().setScale(2).toPlainString(),
-//					DateUtil.getDateStr(capital.getFinancingTime(), JSON.DEFFAULT_DATE_FORMAT), 
-//					DateUtil.getDateStr(capital.getExpirationTime(), JSON.DEFFAULT_DATE_FORMAT),
-//					capital.getReplyTime() == null ? null:DateUtil.getDateStr(capital.getReplyTime(), JSON.DEFFAULT_DATE_FORMAT), 
-//				    DateUtil.getDateStr(capital.getCreateTime(), JSON.DEFFAULT_DATE_FORMAT),
-//				    capital.getUpdateTime() == null ? null:DateUtil.getDateStr(capital.getUpdateTime(), JSON.DEFFAULT_DATE_FORMAT));
-//			
-			
-		}else {
-//			capitalModel = new CapitalModel(roundStr, type.name(), capital.getReqId());
-			
-			log.info("机构资本信息暂时不支持删除");
-			return;
-		}
-		
-		SynResponseModel responseModel= financeService.branchCapitalFacade(capitalModel);
-		   if (responseModel.isSuccess()) {
-			   capital.setPushStatus(PushStatus.INPROSESS);
-			   capitalDAO.save(capital);
-		   }
-		   
-	}
 
 	@Override
 	@Transactional
