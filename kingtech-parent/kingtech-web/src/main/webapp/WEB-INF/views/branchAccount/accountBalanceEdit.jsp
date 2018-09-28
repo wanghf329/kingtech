@@ -46,7 +46,7 @@
 													<div class="col-sm-4 input-group">
 														<select class="form-control validate[required] " id="account" value="${accountBalance.account}" name="account" data-errormessage="账户号不能为空">
 														<c:forEach items="${accountInfos}" var="accountInfo">
-															<option value="${accountInfo.id}">${accountInfo.account}</option>
+															<option value="${accountInfo.account}">${accountInfo.account}</option>
 														</c:forEach>
 														</select>
 													</div>
