@@ -439,8 +439,14 @@ public class PostLoanApiController {
 	
 	@RequestMapping(method = RequestMethod.GET, value = "plan/add")
 	public String addExtendPlan(){
-		
-		
 		return "/postloan/extendPlanEdit";
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET,value="/repay/delete/{id}")
+	public SynResponseModel push(Model model,@PathVariable("id") String id) { 
+		SynResponseModel synresponseModel = api.repayInfoApi(id, IdentifierType.D);
+		return synresponseModel;
+	}  
 }

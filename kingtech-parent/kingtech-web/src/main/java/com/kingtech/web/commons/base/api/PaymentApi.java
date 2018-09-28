@@ -47,7 +47,7 @@ public interface PaymentApi {
 	 * @param type
 	 */
 	
-	public void repayInfoApi(String repayInfoId,IdentifierType type);
+	public SynResponseModel repayInfoApi(String repayInfoId,IdentifierType type);
 	
 	/**
 	 * 展期还款信息
