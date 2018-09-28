@@ -208,8 +208,7 @@ public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 
 	@Override
 	public void pushRepayExtendPlanInfo(String id) {
-		
-		
+		paymentApi.repayExtendPlanApi(id, IdentifierType.A);
 	}
 
 	@Override

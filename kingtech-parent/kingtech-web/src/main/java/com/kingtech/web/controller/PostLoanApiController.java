@@ -22,10 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.common.collect.Lists;
 import com.kingtech.enums.BadTypeEnum;
 import com.kingtech.enums.IdentifierType;
-import com.kingtech.enums.RepayStatusEnum;
-import com.kingtech.enums.YesNoEnum;
 import com.kingtech.model.AssetTransferModel;
-import com.kingtech.model.FinanceRepayPlanModel;
 import com.kingtech.model.OtherBaddebtModel;
 import com.kingtech.model.OtherOverdueInfoModel;
 import com.kingtech.model.ProvisionInfoModel;
@@ -436,7 +433,12 @@ public class PostLoanApiController {
 		}
 		return "/postloan/extendPlanInfoEdit";
 	}
-	
+	/**
+	 * 添加展期还款计划页面
+	 * @param model
+	 * @param infoId
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = "plan/add")
 	public String addExtendPlan(Model model,  @RequestParam("infoId") String infoId){
 		model.addAttribute("contracts", contractService.listAll());
@@ -449,7 +451,15 @@ public class PostLoanApiController {
 		
 		return "/postloan/extendPlanInfoAdd";
 	}
-	
+	/**
+	 * 添加展期还款计划
+	 * @param model
+	 * @param infoId
+	 * @param interest
+	 * @param endDate
+	 * @param principal
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.POST, value = "extendRepay/addRepayPlan")
 	public String addRepayExtendPlan(Model model, String infoId,BigDecimal[] interest,Date[] endDate,BigDecimal[] principal){
 		
@@ -469,8 +479,9 @@ public class PostLoanApiController {
 	 * @param id
 	 * @return
 	 */
-	public String pushRepayExtendPlanInfo(Model model, String id){
-		
+	@RequestMapping(method = RequestMethod.GET, value = "plan/push")
+	public String pushRepayExtendPlanInfo(Model model,  @RequestParam("id") String id){
+		repayExtendPlanService.pushRepayExtendPlanInfo(id);
 		
 		return "/postloan/extensionRepayPlanInfo";
 	}
