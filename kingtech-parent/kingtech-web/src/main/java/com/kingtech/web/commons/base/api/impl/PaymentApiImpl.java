@@ -572,11 +572,11 @@ public class PaymentApiImpl  implements PaymentApi {
 
 	@Override
 	@Transactional
-	public void provisionInfoApi(String provisionInfoId, IdentifierType type) {
+	public SynResponseModel provisionInfoApi(String provisionInfoId, IdentifierType type) {
 		ProvisionInfo provisionInfo = provisionInfoDAO.findOne(provisionInfoId);
 		if (provisionInfo == null ) {
 			log.info("未获取到计提相关数据provisionInfoId={}",provisionInfoId);
-			return;
+			return null;
 		}
 		String roundStr =  RandomUtil.random8Len();
 		ProvisionInfoRequestModel provisionInfoModel = null;
@@ -610,7 +610,7 @@ public class PaymentApiImpl  implements PaymentApi {
 		}else {
 			throw  new RuntimeException();
 		}
-		
+		return responseModel;
 	}
 
 	@Override

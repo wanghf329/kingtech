@@ -60,7 +60,7 @@ public interface PaymentApi {
 	 * @param personalCustomerModel
 	 * @return
 	 */
-	public void provisionInfoApi(String provisionInfoId,IdentifierType type); 
+	public SynResponseModel provisionInfoApi(String provisionInfoId,IdentifierType type); 
 	
 	/**
 	 * 处理回调数据
