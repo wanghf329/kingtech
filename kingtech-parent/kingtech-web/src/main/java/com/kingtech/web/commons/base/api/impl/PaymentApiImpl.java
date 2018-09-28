@@ -63,11 +63,6 @@ import com.kingtech.enums.BorrowerTypeEnum;
 import com.kingtech.enums.Cmd;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
-import com.kingtech.model.BranchInfoModel;
-import com.kingtech.model.CapitalModel;
-import com.kingtech.model.GuaranteeModel;
-import com.kingtech.model.OtherOverdueInfoModel;
-import com.kingtech.model.CapitalModel;
 import com.kingtech.model.GuaranteeModel;
 import com.kingtech.model.ShareholderModel;
 import com.kingtech.szsm.model.AssetTransferRequestModel;
@@ -789,6 +784,13 @@ public class PaymentApiImpl  implements PaymentApi {
 					capitalDAO.save(capital);
 				}
 				break;
+			case dayEndReport:	
+				if (PushStatus.INPROSESS.equals(pushStatus)) {
+					DayEndDz dz = dayEndDzDAO.findOne(id);
+					dz.setPushStatus(PushStatus.SUCCESS);
+					dayEndDzDAO.save(dz);
+				}
+				break;				
 			default:
 				break;
 		}
@@ -1000,7 +1002,7 @@ public class PaymentApiImpl  implements PaymentApi {
 					dayEndDz.getLoanBalance().toPlainString(), 
 					dayEndDz.getLoanMoney().toPlainString(), 
 					dayEndDz.getLoanCount());
-			dayEndDz.setPushStatus(PushStatus.DELETEING);
+			dayEndDz.setPushStatus(PushStatus.INPROSESS);
 		}else {
 			dayEndDzRequestModel = new DayEndDzRequestModel(roundStr,dayEndDz.getReqId());
 			dayEndDz.setPushStatus(PushStatus.DELETEING);
