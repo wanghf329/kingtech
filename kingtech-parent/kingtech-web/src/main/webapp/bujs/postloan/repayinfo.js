@@ -158,29 +158,66 @@ function initDataTables() {
 								},								
 								{data : "pushStatus",render : function(data, type, row) {
 										switch (data) {
-										case 'INITATION':
-											return '<span class="text-gray"><i class="text-gray fa fa-info-circle"></i>初始</span>';
-										case 'SUCCESS':
-											return '<span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span>';
-										case 'INPROSESS':
-											return '<span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span>';
-										case 'FAILED':
-											return '<span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span>';
+											case 'INITATION':
+												return '<span class="text-gray"><i class="text-gray fa fa-info-circle"></i>初始</span>';
+											case 'SUCCESS':
+												return '<span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span>';
+											case 'DELETEING': 
+												return '<span class="text-blue"><i class="text-green fa fa-asterisk"></i>删除处理中</span>';
+											case 'INPROSESS':
+												return '<span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span>';
+											case 'FAILED':
+												return '<span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span>';
 										}
 									}
 								},
 								{data : null,render : function(data, type, row) {
-										if(row.pushStatus=='INITATION') {
-											return '<a href="javascript:void(0)" onclick=getRepayInfo(\''+row.model.id+'\') class="extend-repay-edit"><i class="text-blue fa fa-edit"></i><strong>修改</strong>'
-										}else{ 
-											return '<a href="javascript:void(0)" onclick=getRepayInfo(\''+row.model.id+'\') class="extend-repay-edit"><i class="text-blue fa fa-eye"></i><strong>查看</strong>'
-										}
+										if(row.pushStatus=='SUCCESS') { 
+											return '<a href="javascript:void(0)" onclick=getRepayInfo(\''+row.model.id+'\') class="extend-repay-edit"><i class="text-blue fa fa-eye"></i><strong>查看</strong>';
+												   //'<a href="javascirpt:void(0)" class="item-delete" data-id="'+row.model.id+'"><i class="text-red fa fa-times"></i><strong>删除</strong>';
+										} 
+										if(row.pushStatus=='INPROSESS' || row.pushStatus=='DELETEING'){
+											return '<a href="javascript:void(0)" onclick=getRepayInfo(\''+row.model.id+'\') class="extend-repay-edit"><i class="text-blue fa fa-eye"></i><strong>查看</strong>';
+										}										
 									}
 								} ],
 						"fnDrawCallback" : function(oSettings) {
 							for (var i = 0, iLen = oSettings.aiDisplay.length; i < iLen; i++) {
 								$('td:eq(0)',oSettings.aoData[oSettings.aiDisplay[i]].nTr).html(oSettings['_iDisplayStart'] + i+ 1);
 							}
+							
+							$('.item-delete').on("click",function(){
+								var id = $(this).data("id");
+								swal({
+									title : "确定删除吗？",
+									text : "删除需要等待金融办确认,确认后数据将删除！",   
+									type : "warning",
+									showCancelButton : true,
+									confirmButtonColor : "#DD6B55",
+									confirmButtonText : "确认删除",
+									cancelButtonText : "取消删除", 
+									closeOnConfirm : false,
+									closeOnCancel : true 
+								}, function() {  
+									$.ajax({
+										url:"postLoan/repay/delete/"+id,
+										type:'get',
+										async: false,
+										success:function(res){
+											if(res==null){
+												swal("删除！", "删除失败。", "error"); 
+											}else{
+												if(res.resultCode=='0'){ 
+													swal("删除！", "删除成功。", "success"); 
+													window.location.href = "postLoan/repayinfo";  
+												}else{
+													swal("删除失败！", res.resultMsg, "error"); 
+												}
+											}
+										}
+									});
+								});
+							});							
 						}
 					});
 };

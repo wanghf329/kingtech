@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kingtech.enums.BadTypeEnum;
 import com.kingtech.enums.ChannelTypeEnum;
+import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.RateTypeEnum;
 import com.kingtech.enums.RepayStatusEnum;
 import com.kingtech.enums.YesNoEnum;
@@ -35,6 +36,8 @@ import com.kingtech.model.ext.ModelExt;
 import com.kingtech.model.ext.RepayExtendInfoModelExt;
 import com.kingtech.model.misc.PageInfo;
 import com.kingtech.model.misc.PagedResult;
+import com.kingtech.szsm.model.SynResponseModel;
+import com.kingtech.web.commons.base.api.PaymentApi;
 import com.kingtech.web.commons.base.service.AssetTransferService;
 import com.kingtech.web.commons.base.service.ContractService;
 import com.kingtech.web.commons.base.service.ExtendRepayPlanService;
@@ -67,6 +70,9 @@ public class PostLoanApiController {
 	
 	@Autowired
 	private AssetTransferService assetTransferService;
+	
+	@Autowired
+	private PaymentApi api;
 	
 	/**
 	 * 还款信息
@@ -411,8 +417,14 @@ public class PostLoanApiController {
 	
 	@RequestMapping(method = RequestMethod.GET, value = "plan/add")
 	public String addExtendPlan(){
-		
-		
 		return "/postloan/extendPlanEdit";
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET,value="/repay/delete/{id}")
+	public SynResponseModel push(Model model,@PathVariable("id") String id) { 
+		SynResponseModel synresponseModel = api.repayInfoApi(id, IdentifierType.D);
+		return synresponseModel;
+	}  
 }

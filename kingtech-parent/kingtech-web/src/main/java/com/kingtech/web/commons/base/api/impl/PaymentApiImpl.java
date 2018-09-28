@@ -505,12 +505,12 @@ public class PaymentApiImpl  implements PaymentApi {
 
 	@Override
 	@Transactional
-	public void repayInfoApi(String repayInfoId, IdentifierType type) {
+	public SynResponseModel repayInfoApi(String repayInfoId, IdentifierType type) {
 		
 		RepayInfo repayInfo = repayInfoDAO.findOne(repayInfoId);
 		if (repayInfo == null ) {
 			log.info("未获取到还款信息相关数据repayInfoId={}",repayInfoId);
-			return;
+			return null;
 		}
 		
 		
@@ -530,6 +530,7 @@ public class PaymentApiImpl  implements PaymentApi {
 			repayInfo.setPushStatus(PushStatus.INPROSESS);
 			repayInfoDAO.save(repayInfo);
 		}
+		return responseModel;
 	}
 
 	@Override
