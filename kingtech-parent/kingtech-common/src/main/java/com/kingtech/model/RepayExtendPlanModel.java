@@ -1,9 +1,10 @@
 package com.kingtech.model;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import com.alibaba.fastjson.annotation.JSONField;
 
 /**
  * 展期还款计划
@@ -15,25 +16,36 @@ import com.alibaba.fastjson.annotation.JSONField;
 public class RepayExtendPlanModel extends BaseModel{
 	
 	// 展期后的新还款利息（元）
-	private String interest;
+	private BigDecimal interest;
 	
 	//展期后的新还款日期
-	private String endDate;
+	private Date endDate;
 	
 	// 展期后的新还款本金（元）
-	private String principal;
+	private BigDecimal principal;
 	
-	//第几次展期
-	private String count;
+	private String repayExtendPlanInfoId;
+	
+	private int orderNumber;
 
 
-	public RepayExtendPlanModel(String id, String interest, String endDate,
-			String principal, String count) {
+	public RepayExtendPlanModel(String id, BigDecimal interest, Date endDate,
+			BigDecimal principal) {
 		super(id);
 		this.interest = interest;
 		this.endDate = endDate;
 		this.principal = principal;
-		this.count = count;
+	}
+
+
+	public RepayExtendPlanModel(BigDecimal interest, Date endDate,
+			BigDecimal principal, String repayExtendPlanInfoId,
+			int orderNumber) {
+		this.interest = interest;
+		this.endDate = endDate;
+		this.principal = principal;
+		this.repayExtendPlanInfoId = repayExtendPlanInfoId;
+		this.orderNumber = orderNumber;
 	}
 	
 	
