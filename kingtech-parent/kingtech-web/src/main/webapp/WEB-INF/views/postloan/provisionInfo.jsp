@@ -242,7 +242,7 @@
 	                                            <td> 
 	                                            	<c:if test="${it.pushStatus=='SUCCESS'}">
 	                                            		<a href="javascript:void(0)" class="provision-edit" data-id="${it.id}"><i class="text-gray fa fa-eye"></i><strong>查看</strong></a>
-	                                            		<a href="javascript:void(0)" onclick="deleteProvisionInfo('${it.id}')"><i class="text-red fa fa-times"></i><strong>删除</strong></a>
+	                                            		<a href="javascript:void(0)" class="provision-delete" data-id="${it.id}"><i class="text-red fa fa-times"></i><strong>删除</strong></a>
 	                                            	</c:if>
 	                                            	<c:if test="${it.pushStatus=='INPROSESS' || it.pushStatus=='DELETEING'}">
 	                                            		<a href="javascript:void(0)" class="provision-edit" data-id="${it.id}"><i class="text-gray fa fa-eye"></i><strong>查看</strong></a>

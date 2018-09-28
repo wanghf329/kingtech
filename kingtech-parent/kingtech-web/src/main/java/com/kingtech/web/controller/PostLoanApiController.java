@@ -3,9 +3,7 @@ package com.kingtech.web.controller;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
@@ -21,11 +19,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.common.collect.Lists;
 import com.kingtech.enums.BadTypeEnum;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.RepayStatusEnum;
 import com.kingtech.enums.YesNoEnum;
 import com.kingtech.model.AssetTransferModel;
+import com.kingtech.model.FinanceRepayPlanModel;
 import com.kingtech.model.OtherBaddebtModel;
 import com.kingtech.model.OtherOverdueInfoModel;
 import com.kingtech.model.ProvisionInfoModel;
@@ -115,8 +115,6 @@ public class PostLoanApiController {
 	@RequestMapping(method = RequestMethod.GET, value = "extensionrepayplaninfo")
 	public String extensionRepayPlanInfo(Model model) {
 		model.addAttribute("contracts", contractService.listAll());
-		model.addAttribute("repayStatus", RepayStatusEnum.values());
-		model.addAttribute("overdueFlags", YesNoEnum.values());
 		return "/postloan/extensionRepayPlanInfo";
 	}
 	
@@ -139,10 +137,8 @@ public class PostLoanApiController {
 	 * @return
 	 */
 	@RequestMapping(value = "/add/extensionrepayplaninfo", method = RequestMethod.POST)
-	public String saveExtensionRepayPlanInfo(HttpServletRequest request,
-			HttpServletResponse response,Model model,
-			RepayExtendPlanInfoModel data) {
-//		repayExtendPlanService.addNew(id, loanContractId, count);
+	public String saveExtensionRepayPlanInfo(String id,String loanContractId,String count) {
+		repayExtendPlanService.addNew(id, loanContractId, count);
 		
 		return "redirect:/postLoan/extensionrepayplaninfo";
 	}
@@ -363,12 +359,12 @@ public class PostLoanApiController {
 		return pi;
 	}
 	
-//	@ResponseBody
-//	@RequestMapping(method = RequestMethod.GET,value="provision/delete/{id}")
-//	public SynResponseModel provisionDelete(Model model,@PathVariable("id") String id) { 
-//		SynResponseModel synresponseModel = api.provisionInfoApi(id, IdentifierType.D);
-//		return synresponseModel;
-//	}
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET,value="provision/delete/{id}")
+	public SynResponseModel provisionDelete(Model model,@PathVariable("id") String id) { 
+		SynResponseModel synresponseModel = api.provisionInfoApi(id, IdentifierType.D);
+		return synresponseModel;
+	}
 	
 	/**
 	 * 资产转让
@@ -432,16 +428,41 @@ public class PostLoanApiController {
 		model.addAttribute("contracts", contractService.listAll());
 		
 		if(StringUtils.isNotEmpty(id)){
-			model.addAttribute("extendPlan", repayExtendPlanService.getPlanInfoById(id));
+			model.addAttribute("extendPlanInfo", repayExtendPlanService.getPlanInfoById(id));
 		}
 		return "/postloan/extendPlanInfoEdit";
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "plan/add")
-	public String addExtendPlan(){
+	public String addExtendPlan(Model model,  @RequestParam("infoId") String infoId){
+		model.addAttribute("contracts", contractService.listAll());
+		model.addAttribute("planInfo", repayExtendPlanService.getPlanInfoById(infoId));
+		model.addAttribute("infoId", infoId);
 		
+		if(StringUtils.isNotEmpty(infoId)){
+			model.addAttribute("extendPlans", repayExtendPlanService.listByPlanInfoId(infoId));
+		}
 		
 		return "/postloan/extendPlanInfoAdd";
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "extendRepay/addRepayPlan")
+	public String addRepayExtendPlan(Model model, String infoId,BigDecimal[] interest,Date[] endDate,BigDecimal[] principal){
+		
+		List<RepayExtendPlanModel> plans = Lists.newArrayList();
+		for (int i = 1; i < endDate.length; i++) {
+			plans.add(new RepayExtendPlanModel(interest[i], endDate[i], principal[i], infoId, i));
+		}
+		
+		repayExtendPlanService.addRepayExtendPlan(plans);
+		
+		return "/postloan/extensionRepayPlanInfo";
+	}
+	
+	public String pushRepayExtendPlanInfo(Model model, String id){
+		
+		
+		return "/postloan/extensionRepayPlanInfo";
 	}
 	
 	

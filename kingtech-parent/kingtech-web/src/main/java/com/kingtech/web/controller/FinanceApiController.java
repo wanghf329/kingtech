@@ -25,6 +25,7 @@ import com.kingtech.dao.entity.FinanceMonthBalance;
 import com.kingtech.dao.entity.RepaymentFinance;
 import com.kingtech.enums.ChannelTypeEnum;
 import com.kingtech.enums.IdentifierType;
+import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.RateTypeEnum;
 import com.kingtech.enums.RecordStatus;
 import com.kingtech.model.CapitalModel;
@@ -62,16 +63,19 @@ public class FinanceApiController {
 	
 	@RequestMapping(method = RequestMethod.GET,value="/capitalList")
 	public String captailList(Model model) { 
+		capitalService.syncCapitalPushStatus();
 		return "/finance/capitalList";
 	} 
 	
 	@RequestMapping(method = RequestMethod.GET,value="/repaymentList")
 	public String repaymentList(Model model) { 
+		repaymentFinanceService.syncRepaymentPushStatus();
 		return "/finance/repaymentList";
 	} 
 	
 	@RequestMapping(method = RequestMethod.GET,value="/monthBalanceList")
-	public String monthBalanceList(Model model) { 
+	public String monthBalanceList(Model model) {
+		financeMonthBalanceService.syncMonthBalancePushStatus();
 		return "/finance/monthBalanceList";
 	} 
 	
@@ -80,7 +84,6 @@ public class FinanceApiController {
 		model.addAttribute("capital", capitalService.getById(financeId));
 		model.addAttribute("financeId", financeId);
 		model.addAttribute("repayPlanList", financeRepayPlanService.listfinanceRepayById(financeId));
-		capitalService.syncCapitalPushStatus();
 		return "/finance/capitalSupplement";
 	}
 	
@@ -122,7 +125,7 @@ public class FinanceApiController {
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/repayment/edit")
 	public String editRepayment(Model model,  String id) {
-		model.addAttribute("financeNumbers", capitalService.listFinanceNumberByStatus(RecordStatus.NORMAL));
+		model.addAttribute("financeNumbers", capitalService.listByPushStatus(Lists.newArrayList(PushStatus.SUCCESS)));
 		if(StringUtils.isNotEmpty(id)){
 			model.addAttribute("repayment", repaymentFinanceService.getById(id));
 		}
@@ -174,12 +177,17 @@ public class FinanceApiController {
 		return result;
 	}  
 	
-/*	@ResponseBody
-	@RequestMapping(method = RequestMethod.GET,value="/repayment/delete//{id}")
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET,value="/monthBalance/delete/{id}")
+	public SynResponseModel monthBalanceDelete(Model model,@PathVariable("id") String id) { 
+		return paymentApi.financeMonthBalanceApi(id, IdentifierType.D);
+	} 
+	
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET,value="/repayment/delete/{id}")
 	public SynResponseModel repaymentDelete(Model model,@PathVariable("id") String id) { 
-		 paymentApi.capitalInfoApi(id,IdentifierType.D);
-		return synresponseModel;
-	}  */
+		return paymentApi.financePaymentApi(id, IdentifierType.D);
+	} 
 	
 	
 	@InitBinder

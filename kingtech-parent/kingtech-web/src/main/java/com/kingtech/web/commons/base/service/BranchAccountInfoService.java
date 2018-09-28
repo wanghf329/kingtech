@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Pageable;
 
 import com.kingtech.dao.entity.BranchAccountInfo;
+import com.kingtech.enums.PushStatus;
 import com.kingtech.model.BranchAccountInfoModel;
 import com.kingtech.model.misc.PagedResult;
 
@@ -17,6 +18,10 @@ public interface BranchAccountInfoService {
 	public BranchAccountInfo getById(String id);
 	
 	public PagedResult<BranchAccountInfo> pageList(Pageable pageAble);
+	
+	public List<BranchAccountInfo> listAccountInfoByStatus(List<PushStatus> pushStatus);
+	
+	public void syncAccountInfoPushStatus();
 	
 
 }

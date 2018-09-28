@@ -25,6 +25,7 @@ import com.kingtech.szsm.model.OtherBaddebtRequestModel;
 import com.kingtech.szsm.model.ProvisionInfoRequestModel;
 import com.kingtech.szsm.model.QueryInfoRequestModel;
 import com.kingtech.szsm.model.RepayExtendInfoRequestModel;
+import com.kingtech.szsm.model.RepayExtendPlanRequestModel;
 import com.kingtech.szsm.model.RepayInfoRequestModel;
 import com.kingtech.szsm.model.RepaymentFinanceRequestModel;
 import com.kingtech.szsm.model.SettledInfoRequestModel;
@@ -93,11 +94,10 @@ public class FinanceServiceImpl   extends BaseAbstract implements FinanceService
 
 
 	@Override
-	public SynResponseModel repayExtendPlanFacade(RepayExtendPlanModel repayExtendPlanModel) {
-//		Map<String, String> data = getDataAndSign(repayExtendPlanModel);
-//		SynResponseModel responseModel = getResponse(data, "pushExtendPlanData");
-//		return responseModel;
-		return null;
+    public SynResponseModel repayExtendPlanFacade(RepayExtendPlanRequestModel extendPlanRequestModel,IdentifierType type) {
+	
+		SynResponseModel responseModel = getResponse(extendPlanRequestModel, "extend-repay-plan",type);
+		return responseModel;
 	}
 
 

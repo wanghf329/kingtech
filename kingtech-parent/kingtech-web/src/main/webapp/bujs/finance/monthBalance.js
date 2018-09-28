@@ -121,12 +121,11 @@ function initDataTables() {
 									}
 								}},
 								{data : null,render : function(data, type, row) {
-									if(row.pushStatus=='SUCCESS' || row.pushStatus=='INPROSESS') {
-										return '<a href="finance/monthBalance/edit?id='+row.id+'"><strong>查看详情</strong></a> '
-									}
-									if(row.pushStatus=='INITATION' || row.pushStatus=='FAILED') {
-										return '<a href="finance/monthBalance/edit?id='+row.id+'"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>'
-										 +'<a href="javascirpt:void(0)" class="monthBalance-delete" data-id="'+row.id+'"><i class="text-red fa fa-edit"></i><strong>删除</strong>';
+									if(row.pushStatus=='SUCCESS') {
+										return '<a href="finance/monthBalance/edit?id='+row.id+'"><i class="text-gray fa fa-eye"></i><strong>查看</strong></a>  '+
+											'<a href="javascirpt:void(0)" class="monthBalance-delete" data-id="'+row.id+'"><i class="text-red fa fa-times"></i><strong>删除</strong>';
+									} else {
+										return '<a href="finance/monthBalance/edit?id='+row.id+'"><i class="text-gray fa fa-eye"></i><strong>查看</strong></a>';
 									}
 								}} ],
 						"fnDrawCallback" : function(oSettings) {
@@ -153,7 +152,7 @@ function initDataTables() {
 												if(res==null){
 													swal("推送！", "推送失败。", "error"); 
 												}else{
-													if(res.resultCode=='0000'){
+													if(res.resultCode=='0'){
 														swal("推送！", "推送成功。", "success"); 
 														window.location.href = "finance/monthBalanceList"; 
 													}else{

@@ -1,5 +1,7 @@
 package com.kingtech.dao.rdbms;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -17,5 +19,8 @@ public interface FinanceMonthBalanceDAO extends PagingAndSortingRepository<Finan
 	@Modifying
 	@Query("delete FinanceMonthBalance c where c.financeMonth = :financeMonth")
 	public void deleteByMonth(@Param("financeMonth")String financeMonth);
+	
+	@Query("select c from FinanceMonthBalance c where c.pushStatus in :pushStatus")
+	public List<FinanceMonthBalance>listBypushStatus(@Param("pushStatus")List<PushStatus> pushStatus);
 
 }

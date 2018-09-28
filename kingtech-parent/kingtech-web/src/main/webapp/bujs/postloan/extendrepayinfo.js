@@ -10,6 +10,12 @@ $(document).ready(function () {
     	  failure : function() { callFailFunction()  } 
       })
       initDataTables();
+      
+      if(typeof(canEdit) != "undefined" && canEdit=="false"){  
+    	  $('.form-horizontal').find('input,textarea,select').attr('disabled',true); 
+    	  $('.form-horizontal').find("button[type='submit']").hide();
+    	  $('body').find(".edit-href").hide(); 
+      } 
 });
 
 $("#editExtendRepayPlanBtn").click(function(){

@@ -8,9 +8,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.druid.util.StringUtils;
+import com.google.common.collect.Lists;
 import com.kingtech.common.dynamicquery.DynamicQuery;
 import com.kingtech.dao.entity.BranchAccountInfo;
 import com.kingtech.dao.rdbms.BranchAccountInfoDAO;
+import com.kingtech.enums.Cmd;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.RecordStatus;
@@ -57,6 +59,7 @@ public class BranchAccountInfoServiceImpl implements BranchAccountInfoService{
 			}
 			branchAccountInfo.setRecordStatus(RecordStatus.NORMAL);
 			branchAccountInfo = branchAccountInfoDao.save(branchAccountInfo);
+			paymentApi.branchAccountInfoApi(branchAccountInfo.getId(), type);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -80,6 +83,22 @@ public class BranchAccountInfoServiceImpl implements BranchAccountInfoService{
 		Long count = dq.nativeQueryCount(LISTBRANCHACCOUNTLISTSQL, params);
 		return new PagedResult(list,count);
 	}
+
+	@Override
+	public List<BranchAccountInfo> listAccountInfoByStatus(
+			List<PushStatus> pushStatus) {
+		return branchAccountInfoDao.listBypushStatus(pushStatus);
+	}
+
+	@Override
+	public void syncAccountInfoPushStatus() {
+		branchAccountInfoDao.listBypushStatus(Lists.newArrayList(PushStatus.INPROSESS)).forEach(s->{
+			paymentApi.queryTranInfoApi(s.getId(), Cmd.account, s.getReqId(),s.getPushStatus());
+		});
+		
+	}
+	
+	
 	
 
 }

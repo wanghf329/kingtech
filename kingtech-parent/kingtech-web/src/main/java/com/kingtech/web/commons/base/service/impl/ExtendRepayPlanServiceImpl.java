@@ -1,12 +1,9 @@
 package com.kingtech.web.commons.base.service.impl;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -144,7 +141,7 @@ public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 			
 			
 			if (!model.getLoanContractId().isEmpty()) {
-				List<RepayExtendPlanModel> plans = listByloanContractIdAndCount(model.getId());
+				List<RepayExtendPlanModel> plans = listByPlanInfoId(model.getId());
 				model.setPlans(plans);
 			}
 			
@@ -153,15 +150,15 @@ public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 		return new PagedResult(result,count);
 	}
 	
-	public List<RepayExtendPlanModel> listByloanContractIdAndCount(String repayExtendPlanInfoId){
+	@Override
+	public List<RepayExtendPlanModel> listByPlanInfoId(String repayExtendPlanInfoId){
 		List<RepayExtendPlanModel> result = Lists.newArrayList();
 		List<RepayExtendPlan> plans = repayExtendPlanDAO.listByRepayExtendPlanInfoId( repayExtendPlanInfoId);
 		for (RepayExtendPlan repayExtendPlan : plans) {
 			result.add(new RepayExtendPlanModel(repayExtendPlan.getId(),
-					repayExtendPlan.getInterest().toPlainString(),
-					DateFormatUtils.format(repayExtendPlan.getEndDate(), "yyyy-MM-dd"),
-					repayExtendPlan.getPrincipal().toPlainString(), 
-					repayExtendPlan.getCount()));
+					repayExtendPlan.getInterest(),
+					repayExtendPlan.getEndDate(), 
+					repayExtendPlan.getPrincipal()));
 		}
 		
 		return result;
@@ -177,16 +174,40 @@ public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 				contract.getContractNumber(), 
 				contract.getContractName(), 
 				info.getCount(), 
-				listByloanContractIdAndCount(info.getId()), 
+				listByPlanInfoId(info.getId()), 
 				info.getPushStatus(), 
 				info.getRecordStatus());
 		
 	}
 
 	@Override
-	public void addRepayExtendPlan(String id, BigDecimal principal,
-			Date endDate, BigDecimal interest) {
+	@Transactional
+	public void addRepayExtendPlan(List<RepayExtendPlanModel> planModel) {
+		for (RepayExtendPlanModel model : planModel) {
+			RepayExtendPlan entity = null;
+			if (StringUtils.isNotEmpty(model.getId())) {
+				//修改
+				entity = repayExtendPlanDAO.findOne(model.getId());
+				entity.setEndDate(model.getEndDate());
+				entity.setPrincipal(model.getPrincipal());
+				entity.setInterest(model.getInterest());
+			} else {
+				entity = new RepayExtendPlan(model.getRepayExtendPlanInfoId(),
+						model.getEndDate(), 
+						model.getPrincipal(),
+						model.getInterest());
+			}
+			
+			repayExtendPlanDAO.save(entity);
+		}
+		
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pushRepayExtendPlanInfo(String id) {
+		
 		
 	}
 

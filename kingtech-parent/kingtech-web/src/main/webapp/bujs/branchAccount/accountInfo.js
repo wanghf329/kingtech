@@ -20,10 +20,6 @@ $(document).ready(function () {
 });
 
 function formateDate(date, fmt) {
-    // Examples: 
-    // formatDate(new Date(), "yyyy-MM-dd hh:mm:ss.S") ==> 2013-08-06 08:09:04.423 
-    // formatDate(new Date(), "yyyy-M-d h:m:s.S")      ==> 2013-8-6 8:9:4.18 
-    // formatDate(new Date(), "yyyy年M月d日")           ==> 2013年8月6日 
     var o = {
         "M+": date.getMonth() + 1, //月份 
         "d+": date.getDate(), //日 
@@ -78,7 +74,6 @@ function initDataTables() {
 							var param = {};
 							param.length = data.length;// 页面显示记录条数，在页面显示每页显示多少项的时候
 							param.start = data.start;// 开始的记录序号
-							console.log(data);
 							// ajax请求数据
 							$.ajax({type : "GET",
 									url : "branchAccount/accountInfoList/data",
@@ -107,11 +102,11 @@ function initDataTables() {
 								{data : "account"},
 								{data : "type",render : function(data, type, row) {
 									switch (data) {
-										case 'S_0':
-											return '<span class="text-gray">账户类型</span>';
 										case 'S_1':
-											return '<span class="text-gray">一般户</span>';
+											return '<span class="text-gray">账户类型</span>';
 										case 'S_2':
+											return '<span class="text-gray">一般户</span>';
+										case 'S_3':
 											return '<span class="text-gray">监管专用户</span>';
 									}
 								}},
@@ -143,17 +138,16 @@ function initDataTables() {
 										return '<span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span>';
 									case 'INPROSESS':
 										return '<span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span>';
+									case 'DELETEING':
+										return '<span class="text-blue"><i class="text-blue fa fa-asterisk"></i>删除处理中</span>';
 									case 'FAILED':
 										return '<span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span>';
 									}
+									return data;
 								}},
 								{data : null,render : function(data, type, row) {
 									if(row.pushStatus=='SUCCESS' || row.pushStatus=='INPROSESS') {
 										return '<a href="branchAccount/accountInfo/edit?id='+row.id+'"><strong>查看详情</strong></a> '
-									}
-									if(row.pushStatus=='INITATION' || row.pushStatus=='FAILED') {
-										return '<a href="branchAccount/accountInfo/edit?id='+row.id+'"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>'
-										 +'<a href="javascirpt:void(0)" class="accountInfo-delete" data-id="'+row.id+'"><i class="text-red fa fa-edit"></i><strong>删除</strong>';
 									}
 								}} ],
 						"fnDrawCallback" : function(oSettings) {
