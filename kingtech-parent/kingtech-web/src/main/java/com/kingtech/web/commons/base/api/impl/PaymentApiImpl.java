@@ -121,7 +121,7 @@ public class PaymentApiImpl  implements PaymentApi {
 	private ContractDAO contractDAO;
 	
 	@Autowired 
-	private ContractZywDAO collateralDAO;
+	private ContractZywDAO contractZywDAO;
 	
 	@Autowired 
 	private EnterpriseCustomerDAO enterpriseCustomerDAO;
@@ -366,7 +366,7 @@ public class PaymentApiImpl  implements PaymentApi {
 					return null;
 				}
 				
-				List<ContractZyw> contractZywList = collateralDAO.listByloanContractId(loanIdContractId);
+				List<ContractZyw> contractZywList = contractZywDAO.listByloanContractId(loanIdContractId);
 				
 				List<ContractZywRequestModel> contractZywRequestModels = null;
 				if (contractZywList != null && !contractZywList.isEmpty()) {
@@ -729,6 +729,20 @@ public class PaymentApiImpl  implements PaymentApi {
 		}
 		
 		switch (cmd) {
+			case contractInfo:
+				if (PushStatus.DELETEING.equals(pushStatus)) {
+					contractDAO.delete(id);
+					contractZywDAO.deleteByLoanContractId(id);
+					contractDywDAO.deleteByLoanContractId(id);
+					guaranteeDAO.deleteByLoanContractId(id);
+					repayPlanDAO.deleteByLoanContractId(id);
+					
+				} else if (PushStatus.INPROSESS.equals(pushStatus)) {
+					Contract contract = contractDAO.findOne(id);
+					contract.setPushStatus(PushStatus.SUCCESS);
+					contractDAO.save(contract);
+				}
+				break;
 			case loanInfo:
 				if (PushStatus.DELETEING.equals(pushStatus)) {
 					settledInfoDAO.delete(id);
@@ -788,6 +802,13 @@ public class PaymentApiImpl  implements PaymentApi {
 					branchAccountBalanceDAO.save(accountBalance);
 				}
 				break;
+			case dayEndReport:	
+				if (PushStatus.INPROSESS.equals(pushStatus)) {
+					DayEndDz dz = dayEndDzDAO.findOne(id);
+					dz.setPushStatus(PushStatus.SUCCESS);
+					dayEndDzDAO.save(dz);
+				}
+				break;				
 			default:
 				break;
 		}
@@ -927,7 +948,7 @@ public class PaymentApiImpl  implements PaymentApi {
 					DTOUtils.getEnumIntVal(branchAccountInfo.getType()),
 					branchAccountInfo.getAccountStatus().name(),
 					DateUtil.getSimpleDate(branchAccountInfo.getOpenTime()));
-			branchAccountInfo.setPushStatus(PushStatus.DELETEING);
+			branchAccountInfo.setPushStatus(PushStatus.INPROSESS);
 		}else {
 			branchAccountInfoRequest = new BranchAccountInfoRequest(roundStr,branchAccountInfo.getReqId());
 			branchAccountInfo.setPushStatus(PushStatus.DELETEING);
@@ -999,7 +1020,7 @@ public class PaymentApiImpl  implements PaymentApi {
 					dayEndDz.getLoanBalance().toPlainString(), 
 					dayEndDz.getLoanMoney().toPlainString(), 
 					dayEndDz.getLoanCount());
-			dayEndDz.setPushStatus(PushStatus.DELETEING);
+			dayEndDz.setPushStatus(PushStatus.INPROSESS);
 		}else {
 			dayEndDzRequestModel = new DayEndDzRequestModel(roundStr,dayEndDz.getReqId());
 			dayEndDz.setPushStatus(PushStatus.DELETEING);

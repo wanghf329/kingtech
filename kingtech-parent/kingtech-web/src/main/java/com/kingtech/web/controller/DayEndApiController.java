@@ -46,7 +46,7 @@ public class DayEndApiController {
 	public PagedResult<DayEndDzModel> dayendInfo(Model model,
 												 @RequestParam("start") Integer firstIndex,
 									 			 @RequestParam("length") Integer pageSize) {
-		
+		dayEndService.syncDayendPushStatus();
 		return dayEndService.pageListDayEndInfo(PageInfo.page(firstIndex, pageSize));
 	}
 	
