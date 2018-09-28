@@ -90,6 +90,7 @@
                 <!-- <li id="overdueinfo"><a href="postLoan/overdueinfo"><i class="fa fa-angle-double-right"></i>逾期信息</a></li>  -->
                 <li id="provisionInfo"><a href="postLoan/provisioninfo"><i class="fa fa-angle-double-right"></i>计提信息</a></li> 
                 <li id="assettransferinfo"><a href="postLoan/assetTransferInfo"><i class="fa fa-angle-double-right"></i>资产转让信息</a></li> 
+                <li id="dayendList"><a href="dayend/list"><i class="fa fa-angle-double-right"></i>日终对账</a></li> 
             </ul>
         </li>   
         <!--      
