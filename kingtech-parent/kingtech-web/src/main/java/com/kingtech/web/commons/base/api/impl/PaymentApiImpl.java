@@ -914,7 +914,7 @@ public class PaymentApiImpl  implements PaymentApi {
 					DTOUtils.getEnumIntVal(branchAccountInfo.getType()),
 					branchAccountInfo.getAccountStatus().name(),
 					DateUtil.getSimpleDate(branchAccountInfo.getOpenTime()));
-			branchAccountInfo.setPushStatus(PushStatus.DELETEING);
+			branchAccountInfo.setPushStatus(PushStatus.INPROSESS);
 		}else {
 			branchAccountInfoRequest = new BranchAccountInfoRequest(roundStr,branchAccountInfo.getReqId());
 			branchAccountInfo.setPushStatus(PushStatus.DELETEING);
