@@ -102,9 +102,6 @@ function initDataTables() {
 								{data : "contractNumber"},
 								{data : "contractName"},
 								{data : "count"},
-								{data : "id",render:function(data, type, row){
-									return '<a href="" <strong>详情</strong>';
-								}},
 								{data : "pushStatus",render : function(data, type, row) {
 										switch (data) {
 										case 'INITATION':
@@ -120,11 +117,12 @@ function initDataTables() {
 								},
 								{data : null,render : function(data, type, row) {
 									if(row.pushStatus=='SUCCESS' || row.pushStatus=='INPROSESS') {
-										return '<a href="postLoan/planInfo/edit?id='+row.id+'"><strong>查看详情</strong></a> <a href="loan/supplement?loanContractId='+row.id+'"><strong>查看补充信息</strong></a>'
+										return '<a href="postLoan/planInfo/edit?id='+row.id+'"><strong>查看详情</strong></a> <a href="postLoan/plan/add?infoId='+row.id+'"><strong>查看补充信息</strong></a>'
 									}
 									if(row.pushStatus=='INITATION' || row.pushStatus=='FAILED') {
 										return '<a href="postLoan/planInfo/edit?id='+row.id+'"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>'
-                                		        +'<a href="postLoan/plan/add?repayExtendPlanInfoId='+row.id+'" ><i class="text-blue fa fa-plus-square-o"></i><strong>补充</strong></a>';
+                                		        +'<a href="postLoan/plan/add?infoId='+row.id+'" ><i class="text-blue fa fa-plus-square-o"></i><strong>补充</strong></a>'
+                                		        +'<a href="postLoan/plan/add?infoId='+row.id+'" ><i class="fa fa-fw fa-mail-forward"></i><strong>推送</strong></a>';
 									}
 									
 									

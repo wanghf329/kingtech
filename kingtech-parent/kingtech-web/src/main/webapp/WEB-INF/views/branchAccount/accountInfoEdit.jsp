@@ -70,7 +70,7 @@
 													<div class="col-sm-4 input-group">
 														<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 														<input type="text" class="form-control pull-right datepicker validate[required]"
-														readonly name="openTime" value="<fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${capital.openTime}"></fmt:formatDate>" data-errormessage="开户日期 不能为空">
+														readonly name="openTime" value="<fmt:formatDate type="date" pattern = "yyyy-MM-dd" value="${accountInfo.openTime}"></fmt:formatDate>" data-errormessage="开户日期 不能为空">
 													</div>
 												</div>
 																											

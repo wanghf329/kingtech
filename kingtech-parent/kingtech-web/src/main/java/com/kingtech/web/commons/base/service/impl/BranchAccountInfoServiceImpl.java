@@ -8,9 +8,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.druid.util.StringUtils;
+import com.google.common.collect.Lists;
 import com.kingtech.common.dynamicquery.DynamicQuery;
 import com.kingtech.dao.entity.BranchAccountInfo;
 import com.kingtech.dao.rdbms.BranchAccountInfoDAO;
+import com.kingtech.enums.Cmd;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.RecordStatus;
@@ -86,6 +88,14 @@ public class BranchAccountInfoServiceImpl implements BranchAccountInfoService{
 	public List<BranchAccountInfo> listAccountInfoByStatus(
 			List<PushStatus> pushStatus) {
 		return branchAccountInfoDao.listBypushStatus(pushStatus);
+	}
+
+	@Override
+	public void syncAccountInfoPushStatus() {
+		branchAccountInfoDao.listBypushStatus(Lists.newArrayList(PushStatus.INPROSESS)).forEach(s->{
+			paymentApi.queryTranInfoApi(s.getId(), Cmd.account, s.getReqId(),s.getPushStatus());
+		});
+		
 	}
 	
 	

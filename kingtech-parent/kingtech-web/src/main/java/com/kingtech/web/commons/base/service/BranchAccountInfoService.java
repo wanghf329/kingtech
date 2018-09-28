@@ -21,5 +21,7 @@ public interface BranchAccountInfoService {
 	
 	public List<BranchAccountInfo> listAccountInfoByStatus(List<PushStatus> pushStatus);
 	
+	public void syncAccountInfoPushStatus();
+	
 
 }

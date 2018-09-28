@@ -826,7 +826,14 @@ public class PaymentApiImpl  implements PaymentApi {
 					dz.setPushStatus(PushStatus.SUCCESS);
 					dayEndDzDAO.save(dz);
 				}
-				break;				
+				break;
+			case account:	
+				if (PushStatus.INPROSESS.equals(pushStatus)) {
+					BranchAccountInfo accountInfo = branchAccountInfoDAO.findOne(id);
+					accountInfo.setPushStatus(PushStatus.SUCCESS);
+					branchAccountInfoDAO.save(accountInfo);
+				}
+				break;
 			default:
 				break;
 		}
