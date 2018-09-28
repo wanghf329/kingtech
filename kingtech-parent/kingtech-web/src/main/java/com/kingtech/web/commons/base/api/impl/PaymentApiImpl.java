@@ -22,6 +22,7 @@ import com.kingtech.dao.entity.ContractZyw;
 import com.kingtech.dao.entity.Employee;
 import com.kingtech.dao.entity.EnterpriseCustomer;
 import com.kingtech.dao.entity.FinanceMonthBalance;
+import com.kingtech.dao.entity.FinanceRepayPlan;
 import com.kingtech.dao.entity.OtherBaddebt;
 import com.kingtech.dao.entity.PersonalCustomer;
 import com.kingtech.dao.entity.ProvisionInfo;
@@ -43,6 +44,7 @@ import com.kingtech.dao.rdbms.ContractZywDAO;
 import com.kingtech.dao.rdbms.EmployeeDAO;
 import com.kingtech.dao.rdbms.EnterpriseCustomerDAO;
 import com.kingtech.dao.rdbms.FinanceMonthBalanceDAO;
+import com.kingtech.dao.rdbms.FinanceRepayPlanDAO;
 import com.kingtech.dao.rdbms.GuaranteeDAO;
 import com.kingtech.dao.rdbms.OtherBaddebtDAO;
 import com.kingtech.dao.rdbms.OtherOverdueInfoDAO;
@@ -169,6 +171,9 @@ public class PaymentApiImpl  implements PaymentApi {
 	
 	@Autowired
 	private BranchAccountBalanceDAO branchAccountBalanceDAO;
+	
+	@Autowired
+	private FinanceRepayPlanDAO financeRepayPlanDAO;
 	
 	
 
@@ -661,6 +666,14 @@ public class PaymentApiImpl  implements PaymentApi {
 		
 		List<FinanceRepayPlanRequest> financeRepayPlanRequests = null;
 		
+		List<FinanceRepayPlan> financeRepayPlanList = financeRepayPlanDAO.listByFinanceId(financeInfoId);
+		if (financeRepayPlanList != null && !financeRepayPlanList.isEmpty()) {
+			financeRepayPlanRequests =  new ArrayList<FinanceRepayPlanRequest>();
+			for (FinanceRepayPlan financeRepayPlan : financeRepayPlanList) {
+				financeRepayPlanRequests.add(new FinanceRepayPlanRequest( financeRepayPlan.getInterest().toPlainString(), DateUtil.getSimpleDate(financeRepayPlan.getEndDate()), financeRepayPlan.getMoney().toPlainString()));
+			}
+		}
+		
 		FinanceInfoRequestModel financeInfoRequestModel = new FinanceInfoRequestModel(roundStr,
 				capital.getReqId(), 
 				capital.getFinanceNumber(), 
@@ -682,7 +695,6 @@ public class PaymentApiImpl  implements PaymentApi {
 		SynResponseModel responseModel = financeService.financeInfoFacade(financeInfoRequestModel, type);
 		if (responseModel.isSuccess()) {
 			capital.setPushStatus(PushStatus.INPROSESS);
-		
 			capitalDAO.save(capital);
 		}
 		return responseModel;

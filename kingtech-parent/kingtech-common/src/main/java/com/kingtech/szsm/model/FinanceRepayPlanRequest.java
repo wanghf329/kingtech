@@ -16,8 +16,6 @@ import com.alibaba.fastjson.annotation.JSONField;
 @Data
 public class FinanceRepayPlanRequest {
 	
-	// 融资编号ID
-	private String financeId;
 	
 	// 还款利息
 	@JSONField(name="interest")
