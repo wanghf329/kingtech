@@ -41,7 +41,44 @@ $(".assetTransfer-edit").click(function(){
 			$("input[name='protocol']").val(res.protocol);
 			$("input[name='transferDate']").val(res.transferDate);
 			$("#loanContractId option[value='"+res.loanContractId+"']").attr("selected",true);
+			
+			if(res != null && res.pushStatus != 'INITATION'){
+				$('.form-horizontal').find('input,textarea,select').attr('disabled',true); 
+				$('.saveRecordBtn').hide();
+			}
 			$("#editModel").modal();
 		}
 	});
 });
+
+function deleteAssetTransferInfo(id){
+	swal({
+		title : "确定删除吗？",
+		text : "删除需要等待金融办确认,确认后数据将删除！",   
+		type : "warning",
+		showCancelButton : true,
+		confirmButtonColor : "#DD6B55",
+		confirmButtonText : "确认删除",
+		cancelButtonText : "取消删除", 
+		closeOnConfirm : false,
+		closeOnCancel : true 
+	}, function() {  
+		$.ajax({
+			url:"postLoan/assetTransfer/delete/"+id,
+			type:'get',
+			async: false,
+			success:function(res){
+				if(res==null){
+					swal("删除！", "删除失败。", "error"); 
+				}else{
+					if(res.resultCode=='0'){ 
+						swal("删除！", "删除成功。", "success"); 
+						window.location.href = "postLoan/assetTransferInfo";  
+					}else{
+						swal("删除失败！", res.resultMsg, "error"); 
+					}
+				}
+			}
+		});
+	});
+}

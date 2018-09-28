@@ -170,7 +170,8 @@ public class PostLoanServiceImpl implements PostLoanService{
 												 otherBaddebt.getBadMoney().toPlainString(),
 												 DateUtil.getDateStr(otherBaddebt.getLossDate(), "yyyy-MM-dd"),
 												 otherBaddebt.getBadType().name(),
-												 otherBaddebt.getFollowUp()),
+												 otherBaddebt.getFollowUp(),
+												 otherBaddebt.getPushStatus().name()),
 						   
 						   contract.getContractNumber(),
 						   contract.getContractName(),
@@ -191,7 +192,8 @@ public class PostLoanServiceImpl implements PostLoanService{
 														badDebtInfo.getBadMoney().toPlainString(),
 														DateUtil.getDateStr(badDebtInfo.getLossDate(), "yyyy-MM-dd"),
 														badDebtInfo.getBadType().name(),
-														badDebtInfo.getFollowUp());
+														badDebtInfo.getFollowUp(),
+														badDebtInfo.getPushStatus().name());
 		return model;
 	}
 
@@ -369,7 +371,7 @@ public class PostLoanServiceImpl implements PostLoanService{
 	@Transactional
 	public void syncAssetTransferPushStatus(){
 		assetTransferDao.listBypushStatus(Lists.newArrayList(PushStatus.INPROSESS,PushStatus.DELETEING)).forEach(s->{
-			api.queryTranInfoApi(s.getId(), Cmd.loanInfo, s.getReqId(),s.getPushStatus());
+			api.queryTranInfoApi(s.getId(), Cmd.baddebt, s.getReqId(),s.getPushStatus());
 		});;
 	}
 

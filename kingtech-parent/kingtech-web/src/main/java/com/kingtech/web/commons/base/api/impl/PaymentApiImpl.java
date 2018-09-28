@@ -838,6 +838,16 @@ public class PaymentApiImpl  implements PaymentApi {
 					repay.setPushStatus(PushStatus.SUCCESS);
 					repayInfoDAO.save(repay);
 				}
+				break;
+			case baddebt:
+				if (PushStatus.DELETEING.equals(pushStatus)) {
+					otherBaddebtDAO.delete(id);
+				} else if (PushStatus.INPROSESS.equals(pushStatus)) {
+					OtherBaddebt otherBaddebt = otherBaddebtDAO.findOne(id);
+					otherBaddebt.setPushStatus(PushStatus.SUCCESS);
+					otherBaddebtDAO.save(otherBaddebt);
+				}
+				break;
 			default:
 				break;
 		}

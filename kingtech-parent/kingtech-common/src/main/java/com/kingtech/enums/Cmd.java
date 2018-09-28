@@ -9,7 +9,8 @@ public enum Cmd implements  BaseEnum{
 	
 	
 	loanInfo("loan-info"),//放款信息
-	repay("repay");//还款信息
+	repay("repay"),//还款信息
+	baddebt("baddebt");//坏账信息
 	
 	
 	

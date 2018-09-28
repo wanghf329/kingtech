@@ -235,11 +235,18 @@
 	                                            <td> 
 	                                            	<c:if test="${it.pushStatus=='INITATION'}"><span class="text-gray"><i class="text-gray fa fa-info-circle"></i>初始</span></c:if>
 	                                            	<c:if test="${it.pushStatus=='SUCCESS'}"><span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span></c:if>
+	                                            	<c:if test="${it.pushStatus=='DELETEING'}"><span class="text-blue"><i class="text-green fa fa-asterisk"></i>删除处理中</span></c:if>
 	                                            	<c:if test="${it.pushStatus=='INPROSESS'}"><span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span></c:if>
 	                                            	<c:if test="${it.pushStatus=='FAILED'}"><span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span></c:if>
 	                                            </td>
 	                                            <td> 
-	                                            	<a href="javascript:void(0)" class="provision-edit" data-id="${it.id}"><i class="text-blue fa  fa-edit"></i><strong>修改</strong></a>
+	                                            	<c:if test="${it.pushStatus=='SUCCESS'}">
+	                                            		<a href="javascript:void(0)" class="provision-edit" data-id="${it.id}"><i class="text-gray fa fa-eye"></i><strong>查看</strong></a>
+	                                            		<a href="javascript:void(0)" onclick="deleteProvisionInfo('${it.id}')"><i class="text-red fa fa-times"></i><strong>删除</strong></a>
+	                                            	</c:if>
+	                                            	<c:if test="${it.pushStatus=='INPROSESS' || it.pushStatus=='DELETEING'}">
+	                                            		<a href="javascript:void(0)" class="provision-edit" data-id="${it.id}"><i class="text-gray fa fa-eye"></i><strong>查看</strong></a>
+	                                            	</c:if>
 	                                            </td>	                                            
 	                                        </tr>
                                         </c:forEach>

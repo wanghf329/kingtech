@@ -5,6 +5,7 @@ import lombok.Data;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.kingtech.common.config.BaseConfig;
 import com.kingtech.common.utils.SignUtils;
+import com.kingtech.enums.PushStatus;
 
 /**
  * 坏账信息
@@ -38,6 +39,8 @@ public class OtherBaddebtModel extends BaseModel{
 	
 	@JSONField(name="update_time")
 	private String updateTime;
+	
+	private String pushStatus;
 
 	public OtherBaddebtModel(String roundStr, String identifier, String reqId,
 			String sign, String loanContractId, String badMoney,
@@ -54,13 +57,14 @@ public class OtherBaddebtModel extends BaseModel{
 	}
 
 	public OtherBaddebtModel(String id, String loanContractId, String badMoney,
-			String lossDate, String badType, String followUp) {
+			String lossDate, String badType, String followUp, String pushStatus) {
 		super(id);
 		this.loanContractId = loanContractId;
 		this.badMoney = badMoney;
 		this.lossDate = lossDate;
 		this.badType = badType;
 		this.followUp = followUp;
+		this.pushStatus = pushStatus;
 	}
 	
 	
