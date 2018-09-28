@@ -21,6 +21,7 @@ import com.kingtech.dao.entity.Contract;
 import com.kingtech.dao.entity.SettledInfo;
 import com.kingtech.dao.rdbms.SettledInfoDAO;
 import com.kingtech.enums.IdentifierType;
+import com.kingtech.enums.RecordStatus;
 import com.kingtech.model.SettledInfoModel;
 import com.kingtech.model.misc.PageInfo;
 import com.kingtech.model.misc.PagedResult;
@@ -64,7 +65,9 @@ public class SettledApiController {
 		
 		Map<String,SettledInfo> map = new HashedMap();
 		for(SettledInfo s : settledInfoDAO.findAll()){
-			map.put(s.getLoanContractId(), s);
+			if(RecordStatus.NORMAL.equals(s.getRecordStatus())){
+				map.put(s.getLoanContractId(), s);
+			}
 		}
 		
 		List<Contract> all = contractService.listAll();
