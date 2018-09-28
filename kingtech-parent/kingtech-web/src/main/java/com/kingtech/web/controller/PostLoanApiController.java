@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kingtech.enums.BadTypeEnum;
-import com.kingtech.enums.ChannelTypeEnum;
-import com.kingtech.enums.RateTypeEnum;
 import com.kingtech.enums.RepayStatusEnum;
 import com.kingtech.enums.YesNoEnum;
 import com.kingtech.model.AssetTransferModel;
@@ -132,11 +133,10 @@ public class PostLoanApiController {
 	 * @return
 	 */
 	@RequestMapping(value = "/add/extensionrepayplaninfo", method = RequestMethod.POST)
-	public String saveExtensionRepayPlanInfo(Model model,
-											String id,
-											String loanContractId, 
-											String count) {
-		repayExtendPlanService.addNew(id, loanContractId, count);
+	public String saveExtensionRepayPlanInfo(HttpServletRequest request,
+			HttpServletResponse response,Model model,
+			RepayExtendPlanInfoModel data) {
+//		repayExtendPlanService.addNew(id, loanContractId, count);
 		
 		return "redirect:/postLoan/extensionrepayplaninfo";
 	}
@@ -412,6 +412,6 @@ public class PostLoanApiController {
 	public String addExtendPlan(){
 		
 		
-		return "/postloan/extendPlanEdit";
+		return "/postloan/extendPlanInfoAdd";
 	}
 }
