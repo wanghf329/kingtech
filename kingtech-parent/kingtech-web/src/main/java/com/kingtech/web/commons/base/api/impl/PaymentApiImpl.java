@@ -770,6 +770,24 @@ public class PaymentApiImpl  implements PaymentApi {
 					otherBaddebtDAO.save(otherBaddebt);
 				}
 				break;
+			case provision:
+				if (PushStatus.DELETEING.equals(pushStatus)) {
+					provisionInfoDAO.delete(id);
+				} else if (PushStatus.INPROSESS.equals(pushStatus)) {
+					ProvisionInfo provisionInfo = provisionInfoDAO.findOne(id);
+					provisionInfo.setPushStatus(PushStatus.SUCCESS);
+					provisionInfoDAO.save(provisionInfo);
+				}
+				break;
+			case assetTransfer:
+				if (PushStatus.DELETEING.equals(pushStatus)) {
+					assetTransferDAO.delete(id);
+				} else if (PushStatus.INPROSESS.equals(pushStatus)) {
+					AssetTransfer assetTransferInfo = assetTransferDAO.findOne(id);
+					assetTransferInfo.setPushStatus(PushStatus.SUCCESS);
+					assetTransferDAO.save(assetTransferInfo);
+				}
+				break;
 			case pushCompanyEmployeeData:
 				if (PushStatus.INPROSESS.equals(pushStatus)) {
 					Employee employee = employeeDAO.findOne(id);

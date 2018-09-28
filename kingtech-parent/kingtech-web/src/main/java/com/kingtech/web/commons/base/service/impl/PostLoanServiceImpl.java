@@ -363,7 +363,7 @@ public class PostLoanServiceImpl implements PostLoanService{
 	@Transactional
 	public void syncOtherBaddebtPushStatus(){
 		otherBaddebtDAO.listBypushStatus(Lists.newArrayList(PushStatus.INPROSESS,PushStatus.DELETEING)).forEach(s->{
-			api.queryTranInfoApi(s.getId(), Cmd.loanInfo, s.getReqId(),s.getPushStatus());
+			api.queryTranInfoApi(s.getId(), Cmd.baddebt, s.getReqId(),s.getPushStatus());
 		});;
 	}
 	
@@ -371,7 +371,7 @@ public class PostLoanServiceImpl implements PostLoanService{
 	@Transactional
 	public void syncAssetTransferPushStatus(){
 		assetTransferDao.listBypushStatus(Lists.newArrayList(PushStatus.INPROSESS,PushStatus.DELETEING)).forEach(s->{
-			api.queryTranInfoApi(s.getId(), Cmd.baddebt, s.getReqId(),s.getPushStatus());
+			api.queryTranInfoApi(s.getId(), Cmd.assetTransfer, s.getReqId(),s.getPushStatus());
 		});;
 	}
 
