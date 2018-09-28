@@ -48,6 +48,7 @@ public class BranchAccountApiContoller {
 	
 	@RequestMapping(method = RequestMethod.GET,value="/accountInfoList")
 	public String accountInfoList(Model model) { 
+		branchAccountInfoService.syncAccountInfoPushStatus();
 		return "/branchAccount/accountInfoList";
 	}  
 	

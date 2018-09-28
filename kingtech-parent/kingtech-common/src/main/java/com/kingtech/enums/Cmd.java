@@ -16,6 +16,7 @@ public enum Cmd implements  BaseEnum{
 	monthFinance("month-finane"), // 月度融资余额信息
 	bankBalance("bank-balance"),// 机构银行账户月度余额信息
 	dayEndReport("day-report"),//日终数据对账
+	account("account"), // 机构银行账户信息
 	singleFinance("single-finane");// 单笔融资信息
 	
 	
