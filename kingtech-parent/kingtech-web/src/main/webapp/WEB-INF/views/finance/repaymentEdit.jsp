@@ -34,7 +34,13 @@
 												<div class="form-group">
 													<label for="#financeNumber" class="col-sm-2 control-label"><i class="text-red">*</i> 融资编号</label>
 													<div class="col-sm-4 input-group">
-														<input class="form-control validate[required] maxSize[20]" id="financeNumber" value="${repayment.financeNumber}" name="financeNumber" data-errormessage="融资编号不能为空"/>
+														<select class="form-control validate[required] " id="financeNumber"  name="financeNumber" >
+														<c:forEach items="${financeNumbers}" var="financeNumber">
+															<option value="${financeNumber.financeNumber}" 
+																<c:if test="${repayment.financeNumber == financeNumber.financeNumber}">selected</c:if> >${financeNumber.financeNumber}
+															</option>
+														</c:forEach>
+														</select>
 													</div>
 												</div>
 												

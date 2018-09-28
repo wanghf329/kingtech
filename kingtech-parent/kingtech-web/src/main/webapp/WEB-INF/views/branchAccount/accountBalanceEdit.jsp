@@ -44,9 +44,9 @@
 												<div class="form-group">
 													<label for="#financeNumber" class="col-sm-2 control-label"><i class="text-red">*</i> 账户号</label>
 													<div class="col-sm-4 input-group">
-														<select class="form-control validate[required] " id="account" value="${accountBalance.account}" name="account" data-errormessage="账户号不能为空">
+														<select class="form-control validate[required] " id="account"  name="account" data-errormessage="账户号不能为空">
 														<c:forEach items="${accountInfos}" var="accountInfo">
-															<option value="${accountInfo.account}">${accountInfo.account}</option>
+															<option value="${accountInfo.account}" <c:if test="${accountBalance.account == accountInfo.account}">selected</c:if>>${accountInfo.account}</option>
 														</c:forEach>
 														</select>
 													</div>

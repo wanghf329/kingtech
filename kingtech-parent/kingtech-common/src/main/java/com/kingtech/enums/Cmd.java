@@ -19,6 +19,7 @@ public enum Cmd implements  BaseEnum{
 	bankBalance("bank-balance"),// 机构银行账户月度余额信息
 	dayEndReport("day-report"),//日终数据对账
 	account("account"), // 机构银行账户信息
+	repaymentFinance("repayment-finance"), // 融资实际还款信息
 	singleFinance("single-finane");// 单笔融资信息
 	
 	
