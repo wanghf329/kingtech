@@ -257,7 +257,7 @@ public class ContractServiceImpl implements ContractService{
 	@Transactional
 	public void syncSettledInfoPushStatus(){
 		settledInfoDAO.listBypushStatus(Lists.newArrayList(PushStatus.INPROSESS,PushStatus.DELETEING)).forEach(s->{
-			api.queryTranInfoApi(s.getId(), Cmd.loanInfo);
+			api.queryTranInfoApi(s.getId(), Cmd.loanInfo, s.getReqId(),s.getPushStatus());
 		});;
 	}
 }

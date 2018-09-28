@@ -2,6 +2,7 @@ package com.kingtech.web.commons.base.api;
 
 import com.kingtech.enums.Cmd;
 import com.kingtech.enums.IdentifierType;
+import com.kingtech.enums.PushStatus;
 import com.kingtech.szsm.model.AsyReponseModel;
 import com.kingtech.szsm.model.SynResponseModel;
 
@@ -39,7 +40,7 @@ public interface PaymentApi {
 	 * @param type
 	 */
 	
-	public void repayInfoApi(String repayInfoId,IdentifierType type);
+	public SynResponseModel repayInfoApi(String repayInfoId,IdentifierType type);
 	
 	/**
 	 * 展期还款信息
@@ -97,7 +98,7 @@ public interface PaymentApi {
 	 * @return
 	 */
 	
-	public void queryTranInfoApi(String id,Cmd cmd);
+	public void queryTranInfoApi(String id,Cmd cmd,String reqId, PushStatus pushStatus);
 	
 	/**
 	 * 资产转让接口

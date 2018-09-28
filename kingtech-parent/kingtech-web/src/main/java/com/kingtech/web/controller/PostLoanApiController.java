@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kingtech.enums.BadTypeEnum;
 import com.kingtech.enums.ChannelTypeEnum;
+import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.RateTypeEnum;
 import com.kingtech.enums.RepayStatusEnum;
 import com.kingtech.enums.YesNoEnum;
@@ -35,6 +36,8 @@ import com.kingtech.model.ext.ModelExt;
 import com.kingtech.model.ext.RepayExtendInfoModelExt;
 import com.kingtech.model.misc.PageInfo;
 import com.kingtech.model.misc.PagedResult;
+import com.kingtech.szsm.model.SynResponseModel;
+import com.kingtech.web.commons.base.api.PaymentApi;
 import com.kingtech.web.commons.base.service.AssetTransferService;
 import com.kingtech.web.commons.base.service.ContractService;
 import com.kingtech.web.commons.base.service.ExtendRepayPlanService;
@@ -67,6 +70,9 @@ public class PostLoanApiController {
 	
 	@Autowired
 	private AssetTransferService assetTransferService;
+	
+	@Autowired
+	private PaymentApi api;
 	
 	/**
 	 * 还款信息
@@ -180,6 +186,7 @@ public class PostLoanApiController {
 	public PagedResult<ModelExt> repayInfo(Model model,
 												 @RequestParam("start") Integer firstIndex,
 									 			 @RequestParam("length") Integer pageSize) {
+		repayInfoService.syncRepayInfoPushStatus();
 		return repayInfoService.pageList(PageInfo.page(firstIndex, pageSize));
 	}
 	
@@ -209,6 +216,7 @@ public class PostLoanApiController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "baddebtsinfo")
 	public String badDebtsInfo(Model model) {
+		postLoanService.syncOtherBaddebtPushStatus();
 		model.addAttribute("contracts", postLoanService.listAllContract());
 		model.addAttribute("list", postLoanService.listAllOtherBaddebt());
 		model.addAttribute("badTypes", BadTypeEnum.values());
@@ -234,7 +242,12 @@ public class PostLoanApiController {
 		return "redirect:/postLoan/baddebtsinfo";
 	}
 
-	
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET,value="delete/baddebtsInfo/{id}")
+	public SynResponseModel deleteBaddebtsInfo(Model model,@PathVariable("id") String id) { 
+		SynResponseModel synresponseModel = api.otherBaddebtApi(id, IdentifierType.D);
+		return synresponseModel;
+	}  
 
 	/**
 	 * 逾期信息
@@ -274,6 +287,7 @@ public class PostLoanApiController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "provisioninfo")
 	public String accruedInfo(Model model) {
+		provisionService.syncProvisionInfoPushStatus();
 		model.addAttribute("list", provisionService.listAll());
 		return "/postloan/provisionInfo";
 	}
@@ -349,6 +363,13 @@ public class PostLoanApiController {
 		return pi;
 	}
 	
+//	@ResponseBody
+//	@RequestMapping(method = RequestMethod.GET,value="provision/delete/{id}")
+//	public SynResponseModel provisionDelete(Model model,@PathVariable("id") String id) { 
+//		SynResponseModel synresponseModel = api.provisionInfoApi(id, IdentifierType.D);
+//		return synresponseModel;
+//	}
+	
 	/**
 	 * 资产转让
 	 * 
@@ -357,6 +378,7 @@ public class PostLoanApiController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "assetTransferInfo")
 	public String assetTransferInfo(Model model) {
+		postLoanService.syncAssetTransferPushStatus();
 		model.addAttribute("contracts", postLoanService.listAllContract());
 		model.addAttribute("list", postLoanService.listAllAssetTransfer());
 		return "/postloan/assetTransferInfo";
@@ -382,6 +404,13 @@ public class PostLoanApiController {
 	public AssetTransferModel assetTransferDetail(Model model,@PathVariable("id") String id) {
 		AssetTransferModel at = assetTransferService.getById(id);
 		return at;
+	}
+	
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET,value="assetTransfer/delete/{id}")
+	public SynResponseModel assetTransferDelete(Model model,@PathVariable("id") String id) { 
+		SynResponseModel synresponseModel = api.assetTransferApi(id, IdentifierType.D);
+		return synresponseModel;
 	}
 
 	@InitBinder
@@ -410,8 +439,14 @@ public class PostLoanApiController {
 	
 	@RequestMapping(method = RequestMethod.GET, value = "plan/add")
 	public String addExtendPlan(){
-		
-		
 		return "/postloan/extendPlanEdit";
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET,value="/repay/delete/{id}")
+	public SynResponseModel push(Model model,@PathVariable("id") String id) { 
+		SynResponseModel synresponseModel = api.repayInfoApi(id, IdentifierType.D);
+		return synresponseModel;
+	}  
 }
