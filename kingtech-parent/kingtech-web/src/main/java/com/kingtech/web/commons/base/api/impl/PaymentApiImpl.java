@@ -29,6 +29,7 @@ import com.kingtech.dao.entity.PersonalCustomer;
 import com.kingtech.dao.entity.ProvisionInfo;
 import com.kingtech.dao.entity.RepayExtendInfo;
 import com.kingtech.dao.entity.RepayExtendPlan;
+import com.kingtech.dao.entity.RepayExtendPlanInfo;
 import com.kingtech.dao.entity.RepayInfo;
 import com.kingtech.dao.entity.RepayPlan;
 import com.kingtech.dao.entity.RepaymentFinance;
@@ -54,6 +55,7 @@ import com.kingtech.dao.rdbms.PersonalCustomerDAO;
 import com.kingtech.dao.rdbms.ProvisionInfoDAO;
 import com.kingtech.dao.rdbms.RepayExtendInfoDAO;
 import com.kingtech.dao.rdbms.RepayExtendPlanDAO;
+import com.kingtech.dao.rdbms.RepayExtendPlanInfoDAO;
 import com.kingtech.dao.rdbms.RepayInfoDAO;
 import com.kingtech.dao.rdbms.RepayPlanDAO;
 import com.kingtech.dao.rdbms.RepaymentFinanceDao;
@@ -75,6 +77,7 @@ import com.kingtech.szsm.model.ContractZywRequestModel;
 import com.kingtech.szsm.model.DayEndDzRequestModel;
 import com.kingtech.szsm.model.EmployeeRequestModel;
 import com.kingtech.szsm.model.EnterpriseCustomerRequestModel;
+import com.kingtech.szsm.model.ExtendPlanRequestModel;
 import com.kingtech.szsm.model.FinanceInfoRequestModel;
 import com.kingtech.szsm.model.FinanceMonthBalanceRequest;
 import com.kingtech.szsm.model.FinanceRepayPlanRequest;
@@ -84,6 +87,7 @@ import com.kingtech.szsm.model.PersonalCustomerRequestModel;
 import com.kingtech.szsm.model.ProvisionInfoRequestModel;
 import com.kingtech.szsm.model.QueryInfoRequestModel;
 import com.kingtech.szsm.model.RepayExtendInfoRequestModel;
+import com.kingtech.szsm.model.RepayExtendPlanRequestModel;
 import com.kingtech.szsm.model.RepayInfoRequestModel;
 import com.kingtech.szsm.model.RepayPlanRequestModel;
 import com.kingtech.szsm.model.RepaymentFinanceRequestModel;
@@ -180,6 +184,8 @@ public class PaymentApiImpl  implements PaymentApi {
 	@Autowired
 	private DayEndDzDAO dayEndDzDAO;
 	
+	@Autowired
+	private RepayExtendPlanInfoDAO repayExtendPlanInfoDAO;
 	
 
 
@@ -505,49 +511,37 @@ public class PaymentApiImpl  implements PaymentApi {
 	@Transactional
 	public SynResponseModel repayExtendPlanApi(String repayExtendPlanId, IdentifierType type) {
 		
-		RepayExtendPlan extendPlan = repayExtendPlanDAO.findOne(repayExtendPlanId);
-		if (extendPlan == null ) {
+		RepayExtendPlanInfo repayExtendPlanInfo = repayExtendPlanInfoDAO.findOne(repayExtendPlanId);
+		if (repayExtendPlanInfo ==null) {
 			log.info("未获取到展期还款计划相关数据repayExtendPlanId={}",repayExtendPlanId);
 			return null;
 		}
 		
-//		List<RepayExtendPlan> repayExtendPlanlist = repayExtendPlanDAO.listByRepayExtendPlanInfoId(extendPlan.get, extendPlan.getCount());
+		List<RepayExtendPlan> repayExtendPlanlist = repayExtendPlanDAO.listByRepayExtendPlanInfoId(repayExtendPlanInfo.getId());
+		List<ExtendPlanRequestModel> extendPlanRequestModels = null;
+		if (repayExtendPlanlist !=null &&  !repayExtendPlanlist.isEmpty() ) {
+			extendPlanRequestModels = new ArrayList<ExtendPlanRequestModel>();
+			for (RepayExtendPlan extendPlan : repayExtendPlanlist) {
+				extendPlanRequestModels.add(new ExtendPlanRequestModel(extendPlan.getInterest().toPlainString(), DateUtil.getSimpleDate(extendPlan.getEndDate()), extendPlan.getPrincipal().toPlainString()));
+			}
+			
+		}
+		String roundStr =  RandomUtil.random8Len();
+		RepayExtendPlanRequestModel extendPlanRequestModel = null;
+		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
+			extendPlanRequestModel = new RepayExtendPlanRequestModel(roundStr,
+					repayExtendPlanInfo.getReqId(), 
+					contractDAO.findOne(repayExtendPlanInfo.getLoanContractId()).getContractNumber(), 
+					repayExtendPlanInfo.getCount(), 
+					extendPlanRequestModels);
+		}
 		
-//		List<ExtendPlanRequestModel> planRequestModels = null;
-//		if (repayExtendPlanlist != null && !repayExtendPlanlist.isEmpty()) {
-//			
-//			planRequestModels = new ArrayList<ExtendPlanRequestModel>();
-//			for (RepayExtendPlan plan : repayExtendPlanlist) {
-//				planRequestModels.add(new ExtendPlanRequestModel(DateUtil.getSimpleDate(plan.getEndDate()), plan.getPrincipal().toPlainString(), plan.getInterest().toPlainString()));
-//			}
-//		}
-		
-//		String roundStr =  RandomUtil.random8Len();
-//		RepayExtendPlanRequestModel repayExtendPlanRequestModel = new RepayExtendPlanRequestModel(roundStr, extendPlan.getReqId(), contractDAO.findOne(extendPlan.getLoanContractId()).getContractNumber(), extendPlan.getCount(), planRequestModels);
-//		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
-//			repayExtendPlanModel = new RepayExtendPlanModel(roundStr,
-//					type.name(), extendPlan.getReqId(), null, contractDAO.findOne(extendPlan.getLoanContractId()).getLoanContractNo(),
-//					extendPlan.getExtendCount()+"", extendPlan.getExtendTerm(),
-//					DateUtil.getDateStr(extendPlan.getEndDate(), "yyyy-MM-dd"),
-//					extendPlan.getPrincipal().toPlainString(), 
-//					extendPlan.getReturnPrincipal().toPlainString(),
-//					extendPlan.getInterest().toPlainString(),
-//					extendPlan.getReturnInterest().toPlainString(),
-//					DTOUtils.getNewStr(extendPlan.getStatus()), 
-//					DTOUtils.getNewStr(extendPlan.getOverdueFlag()), 
-//					extendPlan.getOverdueDays()+"",
-//					DateUtil.getDateStr(extendPlan.getCreateTime(),JSON.DEFFAULT_DATE_FORMAT), 
-//                    DateUtil.getDateStr(extendPlan.getUpdateTime(),JSON.DEFFAULT_DATE_FORMAT));
-//		}else {
-//			log.info("展期还款计划暂不支持的操作 repayExtendPlanId={},IdentifierType={} ",repayExtendPlanId,type);
-//			return;
-//		}
-//		SynResponseModel responseModel = financeService.repayExtendPlanFacade(repayExtendPlanModel);
-//		if (responseModel.isSuccess()) {
-//			extendPlan.setPushStatus(PushStatus.INPROSESS);
-//			repayExtendPlanDAO.save(extendPlan);
-//		}
-		return null;
+		SynResponseModel responseModel = financeService.repayExtendPlanFacade(extendPlanRequestModel, type);
+		if (responseModel.isSuccess()) {
+			repayExtendPlanInfo.setPushStatus(PushStatus.INPROSESS);
+			repayExtendPlanInfoDAO.save(repayExtendPlanInfo);
+		}
+		return responseModel;
 	}
 
 	@Override
