@@ -5,7 +5,6 @@ import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.hamcrest.core.Is;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,16 +53,10 @@ import com.kingtech.enums.BorrowerTypeEnum;
 import com.kingtech.enums.Cmd;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
-import com.kingtech.enums.RecordStatus;
 import com.kingtech.model.BranchInfoModel;
 import com.kingtech.model.CapitalModel;
 import com.kingtech.model.GuaranteeModel;
-import com.kingtech.model.OtherBaddebtModel;
 import com.kingtech.model.OtherOverdueInfoModel;
-import com.kingtech.model.ProvisionInfoModel;
-import com.kingtech.model.RepayExtendInfoModel;
-import com.kingtech.model.RepayExtendPlanModel;
-import com.kingtech.model.RepayInfoModel;
 import com.kingtech.model.ShareholderModel;
 import com.kingtech.szsm.model.AssetTransferRequestModel;
 import com.kingtech.szsm.model.AsyReponseModel;
@@ -72,7 +65,6 @@ import com.kingtech.szsm.model.ContractRequestModel;
 import com.kingtech.szsm.model.ContractZywRequestModel;
 import com.kingtech.szsm.model.EmployeeRequestModel;
 import com.kingtech.szsm.model.EnterpriseCustomerRequestModel;
-import com.kingtech.szsm.model.ExtendPlanRequestModel;
 import com.kingtech.szsm.model.FinanceInfoRequestModel;
 import com.kingtech.szsm.model.FinanceRepayPlanRequest;
 import com.kingtech.szsm.model.GuaranteeRequestModel;
@@ -81,7 +73,6 @@ import com.kingtech.szsm.model.PersonalCustomerRequestModel;
 import com.kingtech.szsm.model.ProvisionInfoRequestModel;
 import com.kingtech.szsm.model.QueryInfoRequestModel;
 import com.kingtech.szsm.model.RepayExtendInfoRequestModel;
-import com.kingtech.szsm.model.RepayExtendPlanRequestModel;
 import com.kingtech.szsm.model.RepayInfoRequestModel;
 import com.kingtech.szsm.model.RepayPlanRequestModel;
 import com.kingtech.szsm.model.SettledInfoRequestModel;
@@ -837,6 +828,21 @@ public class PaymentApiImpl  implements PaymentApi {
 					repay.setPushStatus(PushStatus.SUCCESS);
 					repayInfoDAO.save(repay);
 				}
+				break;
+			case pushCompanyEmployeeData:
+				if (PushStatus.INPROSESS.equals(pushStatus)) {
+					Employee employee = employeeDAO.findOne(id);
+					employee.setPushStatus(PushStatus.SUCCESS);
+					employeeDAO.save(employee);
+				}
+				break;
+			case singleFinance:
+				if (PushStatus.INPROSESS.equals(pushStatus)) {
+					Capital capital = capitalDAO.findOne(id);
+					capital.setPushStatus(PushStatus.SUCCESS);
+					capitalDAO.save(capital);
+				}
+				break;
 			default:
 				break;
 		}

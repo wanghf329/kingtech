@@ -10,11 +10,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.druid.util.StringUtils;
+import com.google.common.collect.Lists;
 import com.kingtech.common.dynamicquery.DynamicQuery;
 import com.kingtech.dao.entity.Capital;
 import com.kingtech.dao.entity.FinanceRepayPlan;
 import com.kingtech.dao.rdbms.CapitalDAO;
 import com.kingtech.dao.rdbms.FinanceRepayPlanDAO;
+import com.kingtech.enums.Cmd;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.RecordStatus;
@@ -105,6 +107,14 @@ public class CapitalServiceImpl implements CapitalService{
 		}
 		Capital capital = capitalDao.findOne(financeId);
 		paymentApi.capitalInfoApi(capital.getId(), IdentifierType.U);
+	}
+
+	@Override
+	public void syncEmployeePushStatus() {
+		capitalDao.listBypushStatus(Lists.newArrayList(PushStatus.INPROSESS)).forEach(s->{
+			paymentApi.queryTranInfoApi(s.getId(), Cmd.singleFinance, s.getReqId(),s.getPushStatus());
+		});
+		
 	}
 
 

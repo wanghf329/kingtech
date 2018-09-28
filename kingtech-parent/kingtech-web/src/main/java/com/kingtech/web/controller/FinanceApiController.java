@@ -80,7 +80,7 @@ public class FinanceApiController {
 		model.addAttribute("capital", capitalService.getById(financeId));
 		model.addAttribute("financeId", financeId);
 		model.addAttribute("repayPlanList", financeRepayPlanService.listfinanceRepayById(financeId));
-		
+		capitalService.syncEmployeePushStatus();
 		return "/finance/capitalSupplement";
 	}
 	
