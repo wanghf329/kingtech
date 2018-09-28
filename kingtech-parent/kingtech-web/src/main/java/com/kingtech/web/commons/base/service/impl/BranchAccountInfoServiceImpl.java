@@ -57,6 +57,7 @@ public class BranchAccountInfoServiceImpl implements BranchAccountInfoService{
 			}
 			branchAccountInfo.setRecordStatus(RecordStatus.NORMAL);
 			branchAccountInfo = branchAccountInfoDao.save(branchAccountInfo);
+			paymentApi.branchAccountInfoApi(branchAccountInfo.getId(), type);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -80,6 +81,14 @@ public class BranchAccountInfoServiceImpl implements BranchAccountInfoService{
 		Long count = dq.nativeQueryCount(LISTBRANCHACCOUNTLISTSQL, params);
 		return new PagedResult(list,count);
 	}
+
+	@Override
+	public List<BranchAccountInfo> listAccountInfoByStatus(
+			List<PushStatus> pushStatus) {
+		return branchAccountInfoDao.listBypushStatus(pushStatus);
+	}
+	
+	
 	
 
 }

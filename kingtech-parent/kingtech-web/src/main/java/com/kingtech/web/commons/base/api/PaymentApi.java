@@ -4,6 +4,7 @@ import com.kingtech.enums.Cmd;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.szsm.model.AsyReponseModel;
+import com.kingtech.szsm.model.DayEndDzRequestModel;
 import com.kingtech.szsm.model.SynResponseModel;
 
 public interface PaymentApi {
@@ -127,6 +128,14 @@ public interface PaymentApi {
 	 * @return
 	 */
 	public  SynResponseModel branchAccountBalanceApi(String branchAccountBalanceId,IdentifierType type);
+	
+	/**
+	 * 日结数据对账
+	 * @param dayEndDzId
+	 * @param type
+	 * @return
+	 */
+	public  SynResponseModel dayEndDzApi(String dayEndDzId,IdentifierType type);
 	
 	
 	

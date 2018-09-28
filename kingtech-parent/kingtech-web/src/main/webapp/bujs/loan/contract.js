@@ -258,64 +258,102 @@ function initDataTables() {
 										return formateDate(new Date(data),"yyyy-MM-dd")
 										
 								}},
-								{data : "pushStatus",render : function(data, type, row) {
+								{data : "pushStatus",render : function(data, type, row) { 
 									switch (data) {
-									case 'INITATION':
-										return '<span class="text-gray"><i class="text-gray fa fa-info-circle"></i>初始</span>';
-									case 'SUCCESS':
-										return '<span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span>';
-									case 'INPROSESS':
-										return '<span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span>';
-									case 'FAILED':
-										return '<span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span>';
+										case 'INITATION':
+											return '<span class="text-gray"><i class="text-gray fa fa-info-circle"></i>初始</span>';
+										case 'SUCCESS':
+											return '<span class="text-green"><i class="text-green fa fa-check-square"></i>推送成功</span>';
+										case 'DELETEING': 
+											return '<span class="text-blue"><i class="text-green fa fa-asterisk"></i>删除处理中</span>';
+										case 'INPROSESS':
+											return '<span class="text-blue"><i class="text-blue fa fa-asterisk"></i>推送处理中</span>';
+										case 'FAILED':
+											return '<span class="text-red"><i class="text-red fa fa-minus-circle"></i>推送失败</span>';
 									}
 								}},
 								{data : null,render : function(data, type, row) {
-									if(row.pushStatus=='SUCCESS' || row.pushStatus=='INPROSESS') {
+									if(row.pushStatus=='INPROSESS' || row.pushStatus=='DELETEING') {
 										return '<a href="loan/edit?id='+row.id+'"><strong>查看详情</strong></a> <a href="loan/supplement?loanContractId='+row.id+'"><strong>查看补充信息</strong></a>'
 									}
-									if(row.pushStatus=='INITATION' || row.pushStatus=='FAILED') {
+									if(row.pushStatus=='INITATION') {
 										return '<a href="loan/edit?id='+row.id+'"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>'
                                 		        +'<a href="loan/supplement?loanContractId='+row.id+'" ><i class="text-blue fa fa-plus-square-o"></i><strong>补充</strong></a>'
                                 			    +'<a href="javascirpt:void(0)" class="contract-push" data-id="'+row.id+'"><i class="text-blue fa fa-exchange"></i><strong>推送</strong></a>';
+									}
+									if(row.pushStatus=='SUCCESS'){
+										return '<a href="javascirpt:void(0)" class="item-delete" data-id="'+row.id+'"><i class="text-red fa fa-times"></i><strong>删除</strong>';
 									}
 								}} ],
 						"fnDrawCallback" : function(oSettings) {
 							for (var i = 0, iLen = oSettings.aiDisplay.length; i < iLen; i++) {
 								$('td:eq(0)',oSettings.aoData[oSettings.aiDisplay[i]].nTr).html(oSettings['_iDisplayStart'] + i+ 1);
-								$('.contract-push').on("click",function(){
-									var id = $(this).data("id");
-									swal({
-										title : "确定推送吗？",
-										text : "推送前确认数据无误，推送后将无法更改！",
-										type : "warning",
-										showCancelButton : true,
-										confirmButtonColor : "#DD6B55",
-										confirmButtonText : "确认推送",
-										cancelButtonText : "取消推送",
-										closeOnConfirm : false,
-										closeOnCancel : true 
-									}, function() {  
-										$.ajax({
-											url:"loan/push/"+id,
-											type:'get',
-											async: false,
-											success:function(res){
-												if(res==null){
-													swal("推送！", "推送失败。", "error"); 
+							}
+							$('.contract-push').on("click",function(){
+								var id = $(this).data("id");
+								swal({
+									title : "确定推送吗？",
+									text : "推送前确认数据无误，推送后将无法更改！",
+									type : "warning",
+									showCancelButton : true,
+									confirmButtonColor : "#DD6B55",
+									confirmButtonText : "确认推送",
+									cancelButtonText : "取消推送",
+									closeOnConfirm : false,
+									closeOnCancel : true 
+								}, function() {  
+									$.ajax({
+										url:"loan/push/"+id,
+										type:'get',
+										async: false,
+										success:function(res){
+											if(res==null){
+												swal("推送！", "推送失败。", "error"); 
+											}else{
+												if(res.resultCode=='0000'){
+													swal("推送！", "推送成功。", "success"); 
+													window.location.href = "loan/list"; 
 												}else{
-													if(res.resultCode=='0000'){
-														swal("推送！", "推送成功。", "success"); 
-														window.location.href = "loan/list"; 
-													}else{
-														swal("推送失败！", res.resultMsg, "error"); 
-													}
+													swal("推送失败！", res.resultMsg, "error"); 
 												}
 											}
-										});
+										}
 									});
-								})
-							}
+								});
+							})
+							
+							$('.item-delete').on("click",function(){
+								var id = $(this).data("id");
+								swal({
+									title : "确定删除吗？",
+									text : "删除需要等待金融办确认,确认后数据将删除！",   
+									type : "warning",
+									showCancelButton : true,
+									confirmButtonColor : "#DD6B55",
+									confirmButtonText : "确认删除",
+									cancelButtonText : "取消删除", 
+									closeOnConfirm : false,
+									closeOnCancel : true 
+								}, function() {  
+									$.ajax({
+										url:"loan/delete/"+id,
+										type:'get',
+										async: false,
+										success:function(res){
+											if(res==null){
+												swal("删除！", "删除失败。", "error"); 
+											}else{
+												if(res.resultCode=='0'){ 
+													swal("删除！", "删除成功。", "success"); 
+													window.location.href = "postLoan/repayinfo";  
+												}else{
+													swal("删除失败！", res.resultMsg, "error"); 
+												}
+											}
+										}
+									});
+								});
+							});	
 						}
 					});
 };

@@ -62,8 +62,7 @@
 		<%@include file="../common/footer.jspf" %>   
         <script src="bujs/finance/monthBalance.js" type="text/javascript"></script>  
         <script type="text/javascript">
-        	var borrowerId = '${monthBalance.id}';
-        	var canEdit = "${monthBalance==null or monthBalance.pushStatus=='INITATION' or monthBalance.pushStatus=='FAILED'}";
+        	var canEdit = "${monthBalance==null}";
         </script>     
     </body>
 </html>

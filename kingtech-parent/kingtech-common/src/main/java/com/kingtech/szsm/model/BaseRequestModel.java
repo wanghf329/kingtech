@@ -15,12 +15,12 @@ public class BaseRequestModel implements Serializable {
 	/**
 	 * 非现场监管系统分配给接入方的账号
 	 */
-	@JSONField(name="clientId",label="sign")
+	@JSONField(name="clientId",label="sign_d")
 	private String clientId;
 	/**
 	 * 随机数
 	 */
-	@JSONField(name="roundStr",label="sign")
+	@JSONField(name="roundStr",label="sign_d")
 	private String roundStr;
 	/**
 	 * 非现场监管系统分配给接入方的key值
@@ -30,12 +30,12 @@ public class BaseRequestModel implements Serializable {
 	/**
 	 * 生成的token值
 	 */
-	@JSONField(name="token",label="sign")
+	@JSONField(name="token",label="sign_d")
 	private String token;
 	/**
 	 * 外部系统记录id
 	 */
-	@JSONField(name="reqId",label="sign")
+	@JSONField(name="reqId",label="sign_d")
 	private String reqId;
 	
 	@JSONField(name="sign")

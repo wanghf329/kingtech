@@ -8,9 +8,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.druid.util.StringUtils;
+import com.google.common.collect.Lists;
 import com.kingtech.common.dynamicquery.DynamicQuery;
 import com.kingtech.dao.entity.BranchAccountBalance;
 import com.kingtech.dao.rdbms.BranchAccountBalanceDAO;
+import com.kingtech.enums.Cmd;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.RecordStatus;
@@ -58,6 +60,7 @@ public class BranchAccountBalanceServiceImpl implements BranchAccountBalanceServ
 			}
 			branchAccountBalance.setRecordStatus(RecordStatus.NORMAL);
 			branchAccountBalance = branchAccountBalanceDao.save(branchAccountBalance);
+			paymentApi.branchAccountBalanceApi(branchAccountBalance.getId(), type);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -80,6 +83,13 @@ public class BranchAccountBalanceServiceImpl implements BranchAccountBalanceServ
 		List<BranchAccountBalance> list = dq.nativeQueryPagingList(BranchAccountBalance.class, pageAble, LISTACOUNTMONTHBALANCESQL, params);
 		Long count = dq.nativeQueryCount(LISTACOUNTMONTHBALANCESQL, params);
 		return new PagedResult(list,count);
+	}
+
+	@Override
+	public void syncAccountBalancePushStatus() {
+		branchAccountBalanceDao.listBypushStatus(Lists.newArrayList(PushStatus.INPROSESS, PushStatus.DELETEING)).forEach(s->{
+			paymentApi.queryTranInfoApi(s.getId(), Cmd.bankBalance, s.getReqId(),s.getPushStatus());
+		});
 	}
 
 }

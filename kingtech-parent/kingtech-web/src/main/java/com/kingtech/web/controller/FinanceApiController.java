@@ -62,6 +62,7 @@ public class FinanceApiController {
 	
 	@RequestMapping(method = RequestMethod.GET,value="/capitalList")
 	public String captailList(Model model) { 
+		capitalService.syncCapitalPushStatus();
 		return "/finance/capitalList";
 	} 
 	
@@ -71,7 +72,8 @@ public class FinanceApiController {
 	} 
 	
 	@RequestMapping(method = RequestMethod.GET,value="/monthBalanceList")
-	public String monthBalanceList(Model model) { 
+	public String monthBalanceList(Model model) {
+		financeMonthBalanceService.syncMonthBalancePushStatus();
 		return "/finance/monthBalanceList";
 	} 
 	
@@ -80,7 +82,6 @@ public class FinanceApiController {
 		model.addAttribute("capital", capitalService.getById(financeId));
 		model.addAttribute("financeId", financeId);
 		model.addAttribute("repayPlanList", financeRepayPlanService.listfinanceRepayById(financeId));
-		capitalService.syncCapitalPushStatus();
 		return "/finance/capitalSupplement";
 	}
 	
@@ -174,12 +175,11 @@ public class FinanceApiController {
 		return result;
 	}  
 	
-/*	@ResponseBody
-	@RequestMapping(method = RequestMethod.GET,value="/repayment/delete//{id}")
-	public SynResponseModel repaymentDelete(Model model,@PathVariable("id") String id) { 
-		 paymentApi.capitalInfoApi(id,IdentifierType.D);
-		return synresponseModel;
-	}  */
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET,value="/monthBalance/delete/{id}")
+	public SynResponseModel monthBalanceDelete(Model model,@PathVariable("id") String id) { 
+		return paymentApi.financeMonthBalanceApi(id, IdentifierType.D);
+	}  
 	
 	
 	@InitBinder

@@ -9,11 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.google.common.collect.Lists;
 import com.kingtech.common.dynamicquery.DynamicQuery;
 import com.kingtech.dao.entity.Contract;
 import com.kingtech.dao.entity.DayEndDz;
 import com.kingtech.dao.rdbms.DayEndDzDAO;
 import com.kingtech.enums.BorrowerTypeEnum;
+import com.kingtech.enums.Cmd;
+import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.RecordStatus;
 import com.kingtech.model.DayEndDzModel;
@@ -29,7 +32,7 @@ public class DayendServiceImpl implements DayEndService{
 	private DynamicQuery dq;
 	
 	@Autowired
-	private DayEndDzDAO DayEndDzDao;
+	private DayEndDzDAO dayEndDzDao;
 	
 	@Autowired
 	private CreatRequstId creatRequstId;
@@ -54,8 +57,16 @@ public class DayendServiceImpl implements DayEndService{
 
 	@Override
 	public void save(DayEndDzModel model) {
-		DayEndDzDao.save(new DayEndDz(creatRequstId.getReqId(),PushStatus.INITATION,RecordStatus.NORMAL,
+		DayEndDz dz = dayEndDzDao.save(new DayEndDz(creatRequstId.getReqId(),PushStatus.INITATION,RecordStatus.NORMAL,
 				model.getCheckDate(),model.getDayCount(),model.getDayMoney(),model.getDayLoan(),model.getDayRepay(),
 				model.getLoanBalance(),model.getLoanMoney(),model.getLoanCount()));
+		api.dayEndDzApi(dz.getId(), IdentifierType.A);
+	}
+
+	@Override
+	public void syncDayendPushStatus() {
+		dayEndDzDao.listBypushStatus(Lists.newArrayList(PushStatus.INPROSESS,PushStatus.DELETEING)).forEach(s->{
+			api.queryTranInfoApi(s.getId(), Cmd.dayEndReport, s.getReqId(),s.getPushStatus());
+		});
 	}
 }
