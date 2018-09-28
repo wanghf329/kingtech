@@ -127,50 +127,51 @@ function initDataTables() {
 									}
 								}},
 								{data : null,render : function(data, type, row) {
-									if(row.pushStatus=='SUCCESS' || row.pushStatus=='INPROSESS') {
+									if(row.pushStatus=='SUCCESS') {
+										return '<a href="finance/repayment/edit?id='+row.id+'"><strong>查看详情</strong></a> '
+										+ '<a href="javascirpt:void(0)" class="repayment-delete" data-id="'+row.id+'"><i class="text-red fa fa-times"></i><strong>删除</strong>';
+									} else {
 										return '<a href="finance/repayment/edit?id='+row.id+'"><strong>查看详情</strong></a> '
 									}
-									if(row.pushStatus=='INITATION' || row.pushStatus=='FAILED') {
-										return '<a href="finance/repayment/edit?id='+row.id+'"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>'
-										 +'<a href="javascirpt:void(0)" class="repayment-delete" data-id="'+row.id+'"><i class="text-red fa fa-edit"></i><strong>删除</strong>';
-									}
+									
 								}} ],
 						"fnDrawCallback" : function(oSettings) {
 							for (var i = 0, iLen = oSettings.aiDisplay.length; i < iLen; i++) {
 								$('td:eq(0)',oSettings.aoData[oSettings.aiDisplay[i]].nTr).html(oSettings['_iDisplayStart'] + i+ 1);
-								$('.repayment-push').on("click",function(){
-									var id = $(this).data("id");
-									swal({
-										title : "确定推送吗？",
-										text : "推送前确认数据无误，推送后将无法更改！",
-										type : "warning",
-										showCancelButton : true,
-										confirmButtonColor : "#DD6B55",
-										confirmButtonText : "确认推送",
-										cancelButtonText : "取消推送",
-										closeOnConfirm : false,
-										closeOnCancel : true 
-									}, function() {  
-										$.ajax({
-											url:"finance/repayment/delete/"+id,
-											type:'get',
-											async: false,
-											success:function(res){
-												if(res==null){
-													swal("推送！", "推送失败。", "error"); 
+							}
+							$('.repayment-delete').on("click",function(){
+								var id = $(this).data("id");
+								swal({
+									title : "确定删除吗？",
+									text : "推送前确认数据无误，推送后将无法更改！",
+									type : "warning",
+									showCancelButton : true,
+									confirmButtonColor : "#DD6B55",
+									confirmButtonText : "确认推送",
+									cancelButtonText : "取消推送",
+									closeOnConfirm : false,
+									closeOnCancel : true 
+								}, function() {  
+									$.ajax({
+										url:"finance/repayment/delete/"+id,
+										type:'get',
+										async: false,
+										success:function(res){
+											if(res==null){
+												swal("推送！", "推送失败。", "error"); 
+											}else{
+												if(res.resultCode=='0'){
+													swal("推送！", "推送成功。", "success"); 
+													window.location.href = "finance/repaymentList"; 
 												}else{
-													if(res.resultCode=='0000'){
-														swal("推送！", "推送成功。", "success"); 
-														window.location.href = "loan/list"; 
-													}else{
-														swal("推送失败！", res.resultMsg, "error"); 
-													}
+													swal("推送失败！", res.resultMsg, "error"); 
 												}
 											}
-										});
+										}
 									});
-								})
-							}
+								});
+							})
+
 						}
 					});
 };

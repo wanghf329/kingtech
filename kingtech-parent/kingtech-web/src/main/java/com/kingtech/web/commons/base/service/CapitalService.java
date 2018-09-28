@@ -1,11 +1,11 @@
 package com.kingtech.web.commons.base.service;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.data.domain.Pageable;
 
 import com.kingtech.dao.entity.Capital;
+import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.RecordStatus;
 import com.kingtech.model.CapitalModel;
 import com.kingtech.model.FinanceRepayPlanModel;
@@ -27,6 +27,8 @@ public interface CapitalService {
 	public void addRepayPlan(String financeId, List<FinanceRepayPlanModel> repayPlanList);
 	
 	public List<Capital> listFinanceNumberByStatus(RecordStatus status);
+	
+	public List<Capital> listByPushStatus(List<PushStatus> status);
 	
 	public void syncCapitalPushStatus();
 }
