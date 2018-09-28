@@ -1,5 +1,8 @@
 package com.kingtech.model.ext;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,16 +24,13 @@ public class RepayExtendPlanModelExt extends RepayExtendPlanModel{
 	
 	private PushStatus pushStatus;
 
-	public RepayExtendPlanModelExt(String id, String interest, String endDate,
-			String principal, String count, String loanContractNo,
+	public RepayExtendPlanModelExt(String id, BigDecimal interest,
+			Date endDate, BigDecimal principal, String loanContractNo,
 			String loanContractName, PushStatus pushStatus) {
-		super(id, interest, endDate, principal, count);
+		super(id, interest, endDate, principal);
 		this.loanContractNo = loanContractNo;
 		this.loanContractName = loanContractName;
 		this.pushStatus = pushStatus;
 	}
-	
-	
 
-	
 }
