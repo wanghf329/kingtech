@@ -19,17 +19,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kingtech.dao.entity.Employee;
 import com.kingtech.enums.CertType;
 import com.kingtech.enums.EducationEnum;
-import com.kingtech.enums.IndustryEnum;
-import com.kingtech.enums.LoanMethodEnum;
-import com.kingtech.enums.LoanPurposeEnum;
-import com.kingtech.enums.LoanstatusEnum;
-import com.kingtech.enums.PayTypeEnum;
+import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.SexEnum;
-import com.kingtech.enums.UnionFlagEnum;
 import com.kingtech.enums.YesNoEnum;
 import com.kingtech.model.EmployeeModel;
 import com.kingtech.model.misc.PageInfo;
 import com.kingtech.model.misc.PagedResult;
+import com.kingtech.szsm.model.SynResponseModel;
+import com.kingtech.web.commons.base.api.PaymentApi;
 import com.kingtech.web.commons.base.service.BranchService;
 import com.kingtech.web.commons.base.service.CapitalService;
 import com.kingtech.web.commons.base.service.EmployeeService;
@@ -52,6 +49,9 @@ public class BranchApiController {
 	@Autowired
 	private EmployeeService employeeService;
 	
+	@Autowired
+	private PaymentApi paymentApi;
+	
 	@RequestMapping(method = RequestMethod.GET,value="/employeeList")
 	public String employeeList(Model model) { 
 		return "/branch/employeeList";
@@ -62,6 +62,7 @@ public class BranchApiController {
 	public PagedResult<Employee> employeeListDate(Model model,
 												 @RequestParam("start") Integer firstIndex,
 									 			 @RequestParam("length") Integer pageSize) {
+		employeeService.syncEmployeePushStatus();
 		return employeeService.pageList(PageInfo.page(firstIndex, pageSize));
 	}
 	
@@ -78,6 +79,14 @@ public class BranchApiController {
 		}
 		return "/branch/employeeEdit";
 	}
+	
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET,value="/delete/{id}")
+	public SynResponseModel push(Model model,@PathVariable("id") String id) { 
+		SynResponseModel synresponseModel = paymentApi.employeeInfoApi(id, IdentifierType.D);
+		return synresponseModel;
+	}  
+	
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/save")
 	public String saveEmployee(Model model, EmployeeModel employeeModel) {

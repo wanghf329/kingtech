@@ -18,5 +18,8 @@ public interface OtherBaddebtDAO extends PagingAndSortingRepository<OtherBaddebt
 	@Modifying
 	@Query("update OtherBaddebt c set c.pushStatus = :pushStatus  where c.reqId = :reqId")
 	public int updateStatusByReqId(@Param("reqId")String reqId,@Param("pushStatus")PushStatus pushStatus);
+	
+	@Query("select c from OtherBaddebt c where c.pushStatus in :pushStatus")
+	public List<OtherBaddebt> listBypushStatus(@Param("pushStatus") List<PushStatus> pushStatus);
 
 }

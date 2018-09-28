@@ -11,16 +11,15 @@ import com.kingtech.common.config.BaseConfig;
 import com.kingtech.common.utils.SignUtils;
 
 /**
- * @author Tson
  * 机构银行账户月度余额信息
  */
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class BranchAccountBalanceModel extends BaseRequestModel {
+public class BranchAccountBalanceRequest extends BaseRequestModel {
 	
 	// 年月，格式YYYYMM
-	@JSONField(name ="dateMonth", label="sign")
+	@JSONField(label="sign")
 	private String dateMonth;
 	
 	// 账户号
@@ -29,24 +28,18 @@ public class BranchAccountBalanceModel extends BaseRequestModel {
 	
 	// 账户余额（万元）
 	@JSONField(name ="money")
-	private BigDecimal money;
+	private String money;
 
-	public BranchAccountBalanceModel(String id, String dateMonth,
-			String account, BigDecimal money) {
+	public BranchAccountBalanceRequest(String roundStr, String reqId, String dateMonth,
+			String account, String money) {
+		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), reqId, null, null);
 		this.dateMonth = dateMonth;
 		this.account = account;
 		this.money = money;
 	}
 	
-	/**
-	 * 删除
-	 * @param roundStr
-	 * @param identifier
-	 * @param reqId
-	 */
-	public BranchAccountBalanceModel( String roundStr,String identifier, String reqId) {
-		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), reqId);
+	public BranchAccountBalanceRequest(String roundStr, String reqId) {
+		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), reqId, null, null);
+	
 	}
-
-
 }

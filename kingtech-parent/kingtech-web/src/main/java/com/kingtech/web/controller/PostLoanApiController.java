@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kingtech.enums.BadTypeEnum;
-import com.kingtech.enums.ChannelTypeEnum;
 import com.kingtech.enums.IdentifierType;
-import com.kingtech.enums.RateTypeEnum;
 import com.kingtech.enums.RepayStatusEnum;
 import com.kingtech.enums.YesNoEnum;
 import com.kingtech.model.AssetTransferModel;
@@ -138,11 +139,10 @@ public class PostLoanApiController {
 	 * @return
 	 */
 	@RequestMapping(value = "/add/extensionrepayplaninfo", method = RequestMethod.POST)
-	public String saveExtensionRepayPlanInfo(Model model,
-											String id,
-											String loanContractId, 
-											String count) {
-		repayExtendPlanService.addNew(id, loanContractId, count);
+	public String saveExtensionRepayPlanInfo(HttpServletRequest request,
+			HttpServletResponse response,Model model,
+			RepayExtendPlanInfoModel data) {
+//		repayExtendPlanService.addNew(id, loanContractId, count);
 		
 		return "redirect:/postLoan/extensionrepayplaninfo";
 	}
@@ -216,6 +216,7 @@ public class PostLoanApiController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "baddebtsinfo")
 	public String badDebtsInfo(Model model) {
+		postLoanService.syncOtherBaddebtPushStatus();
 		model.addAttribute("contracts", postLoanService.listAllContract());
 		model.addAttribute("list", postLoanService.listAllOtherBaddebt());
 		model.addAttribute("badTypes", BadTypeEnum.values());
@@ -241,7 +242,12 @@ public class PostLoanApiController {
 		return "redirect:/postLoan/baddebtsinfo";
 	}
 
-	
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET,value="delete/baddebtsInfo/{id}")
+	public SynResponseModel deleteBaddebtsInfo(Model model,@PathVariable("id") String id) { 
+		SynResponseModel synresponseModel = api.otherBaddebtApi(id, IdentifierType.D);
+		return synresponseModel;
+	}  
 
 	/**
 	 * 逾期信息
@@ -281,6 +287,7 @@ public class PostLoanApiController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "provisioninfo")
 	public String accruedInfo(Model model) {
+		provisionService.syncProvisionInfoPushStatus();
 		model.addAttribute("list", provisionService.listAll());
 		return "/postloan/provisionInfo";
 	}
@@ -356,6 +363,13 @@ public class PostLoanApiController {
 		return pi;
 	}
 	
+//	@ResponseBody
+//	@RequestMapping(method = RequestMethod.GET,value="provision/delete/{id}")
+//	public SynResponseModel provisionDelete(Model model,@PathVariable("id") String id) { 
+//		SynResponseModel synresponseModel = api.provisionInfoApi(id, IdentifierType.D);
+//		return synresponseModel;
+//	}
+	
 	/**
 	 * 资产转让
 	 * 
@@ -364,6 +378,7 @@ public class PostLoanApiController {
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "assetTransferInfo")
 	public String assetTransferInfo(Model model) {
+		postLoanService.syncAssetTransferPushStatus();
 		model.addAttribute("contracts", postLoanService.listAllContract());
 		model.addAttribute("list", postLoanService.listAllAssetTransfer());
 		return "/postloan/assetTransferInfo";
@@ -389,6 +404,13 @@ public class PostLoanApiController {
 	public AssetTransferModel assetTransferDetail(Model model,@PathVariable("id") String id) {
 		AssetTransferModel at = assetTransferService.getById(id);
 		return at;
+	}
+	
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET,value="assetTransfer/delete/{id}")
+	public SynResponseModel assetTransferDelete(Model model,@PathVariable("id") String id) { 
+		SynResponseModel synresponseModel = api.assetTransferApi(id, IdentifierType.D);
+		return synresponseModel;
 	}
 
 	@InitBinder
@@ -417,7 +439,9 @@ public class PostLoanApiController {
 	
 	@RequestMapping(method = RequestMethod.GET, value = "plan/add")
 	public String addExtendPlan(){
-		return "/postloan/extendPlanEdit";
+		
+		
+		return "/postloan/extendPlanInfoAdd";
 	}
 	
 	

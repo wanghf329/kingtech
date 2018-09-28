@@ -9,19 +9,6 @@ import com.kingtech.szsm.model.SynResponseModel;
 public interface PaymentApi {
 	
 	/**
-	 * 机构基本信息
-	 * @param branchId
-	 * @param type
-	 */
-	public void branchInfoApi(String branchId,IdentifierType type);
-	/**
-	 * 资本信息
-	 * @param capitalId
-	 * @param type
-	 */
-	public void capitalInfoApi(String capitalId,IdentifierType type);
-	
-	/**
 	 * 机构人员信息
 	 * @param employeeId
 	 * @param type
@@ -55,14 +42,11 @@ public interface PaymentApi {
 	
 	public SynResponseModel repayExtendInfoApi(String repayExtendInfoId,IdentifierType type);
 	
-	
-
 	/**
 	 * 展期还款计划信息
 	 */
 	
 	public SynResponseModel repayExtendPlanApi(String repayExtendPlanId,IdentifierType type);
-	
 	
 	/**
 	 * 坏账信息接口
@@ -70,20 +54,13 @@ public interface PaymentApi {
 	 * @return
 	 */
 	public SynResponseModel otherBaddebtApi(String otherBaddebtId,IdentifierType type);
-	/**
-	 * 逾期信息
-	 * @param otherOverdueInfoModel
-	 * @return
-	 */
-	
-	public void otherOverdueInfoApi(String otherOverdueInfoId,IdentifierType type);
 
 	/**
 	 * 计提信息接口
 	 * @param personalCustomerModel
 	 * @return
 	 */
-	public void provisionInfoApi(String provisionInfoId,IdentifierType type); 
+	public SynResponseModel provisionInfoApi(String provisionInfoId,IdentifierType type); 
 	
 	/**
 	 * 处理回调数据
@@ -121,6 +98,37 @@ public interface PaymentApi {
 	 * @return
 	 */
 	public SynResponseModel assetTransferApi(String  assetId,IdentifierType type);
+	
+	/**
+	 * repayment-finance
+	 * @param paymentId
+	 * @param type
+	 * @return
+	 */
+	public SynResponseModel financePaymentApi(String  paymentId,IdentifierType type);
+	
+	/**
+	 * 月度融资余额信息
+	 * @param financeMonthId
+	 * @param type
+	 * @return
+	 */
+	public SynResponseModel financeMonthBalanceApi(String financeMonthId,IdentifierType type);
+	/**
+	 * 机构银行账户信息
+	 * @param branchAccountInfoId
+	 * @param type
+	 * @return
+	 */
+	
+	public  SynResponseModel branchAccountInfoApi(String branchAccountInfoId,IdentifierType type);
+	
+	/**机构银行账户月度余额信息
+	 * @return
+	 */
+	public  SynResponseModel branchAccountBalanceApi(String branchAccountBalanceId,IdentifierType type);
+	
+	
 	
 
 }

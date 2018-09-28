@@ -66,7 +66,7 @@ public class EmployeeRequestModel extends BaseRequestModel {
 	private String entryTime;
 	
 	// 离职时间
-	@JSONField(name="quitTime",label="sign")
+	@JSONField(name="quitTime")
 	private String quitTime;
 	
 	public EmployeeRequestModel(String clientId, String roundStr,

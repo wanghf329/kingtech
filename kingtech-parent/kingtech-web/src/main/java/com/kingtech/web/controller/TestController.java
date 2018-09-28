@@ -22,7 +22,7 @@ public class TestController {
 	
 	@RequestMapping(method = RequestMethod.GET,value="/data")
 	public String getData(){
-		paymentApi.branchInfoApi("5a846a26-ed18-4147-bc07-dc80d152ca26",IdentifierType.A);
+//		paymentApi.branchInfoApi("5a846a26-ed18-4147-bc07-dc80d152ca26",IdentifierType.A);
 		return null;
 	}
 

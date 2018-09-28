@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import com.google.common.collect.Lists;
 import com.kingtech.common.utils.DateUtil;
 import com.kingtech.dao.entity.AssetTransfer;
 import com.kingtech.dao.entity.Contract;
@@ -24,6 +25,7 @@ import com.kingtech.dao.rdbms.OtherBaddebtDAO;
 import com.kingtech.dao.rdbms.OtherOverdueInfoDAO;
 import com.kingtech.dao.rdbms.RepayInfoDAO;
 import com.kingtech.enums.BadTypeEnum;
+import com.kingtech.enums.Cmd;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.RecordStatus;
@@ -168,7 +170,8 @@ public class PostLoanServiceImpl implements PostLoanService{
 												 otherBaddebt.getBadMoney().toPlainString(),
 												 DateUtil.getDateStr(otherBaddebt.getLossDate(), "yyyy-MM-dd"),
 												 otherBaddebt.getBadType().name(),
-												 otherBaddebt.getFollowUp()),
+												 otherBaddebt.getFollowUp(),
+												 otherBaddebt.getPushStatus().name()),
 						   
 						   contract.getContractNumber(),
 						   contract.getContractName(),
@@ -189,7 +192,8 @@ public class PostLoanServiceImpl implements PostLoanService{
 														badDebtInfo.getBadMoney().toPlainString(),
 														DateUtil.getDateStr(badDebtInfo.getLossDate(), "yyyy-MM-dd"),
 														badDebtInfo.getBadType().name(),
-														badDebtInfo.getFollowUp());
+														badDebtInfo.getFollowUp(),
+														badDebtInfo.getPushStatus().name());
 		return model;
 	}
 
@@ -230,7 +234,7 @@ public class PostLoanServiceImpl implements PostLoanService{
 			e.printStackTrace();
 		}
 		otherBaddebtDAO.save(badDebtInfo);
-//		paymentApi.otherBaddebtApi(badDebtInfo.getId(),StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
+		paymentApi.otherBaddebtApi(badDebtInfo.getId(),StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
 		return badDebtInfo;
 	}
 
@@ -320,7 +324,7 @@ public class PostLoanServiceImpl implements PostLoanService{
 			e.printStackTrace();
 		}
 		otherOverdueInfoDAO.save(overdueInfo);
-		paymentApi.otherOverdueInfoApi(overdueInfo.getId(), StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
+//		paymentApi.otherOverdueInfoApi(overdueInfo.getId(), StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
 		return overdueInfo;
 	}
 	
@@ -353,6 +357,22 @@ public class PostLoanServiceImpl implements PostLoanService{
 		}
 		return result;
 		
+	}
+	
+	@Override
+	@Transactional
+	public void syncOtherBaddebtPushStatus(){
+		otherBaddebtDAO.listBypushStatus(Lists.newArrayList(PushStatus.INPROSESS,PushStatus.DELETEING)).forEach(s->{
+			api.queryTranInfoApi(s.getId(), Cmd.loanInfo, s.getReqId(),s.getPushStatus());
+		});;
+	}
+	
+	@Override
+	@Transactional
+	public void syncAssetTransferPushStatus(){
+		assetTransferDao.listBypushStatus(Lists.newArrayList(PushStatus.INPROSESS,PushStatus.DELETEING)).forEach(s->{
+			api.queryTranInfoApi(s.getId(), Cmd.baddebt, s.getReqId(),s.getPushStatus());
+		});;
 	}
 
 }
