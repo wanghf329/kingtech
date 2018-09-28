@@ -6,13 +6,6 @@ import com.kingtech.szsm.model.AsyReponseModel;
 import com.kingtech.szsm.model.SynResponseModel;
 
 public interface PaymentApi {
-	
-	/**
-	 * 机构基本信息
-	 * @param branchId
-	 * @param type
-	 */
-	public void branchInfoApi(String branchId,IdentifierType type);
 	/**
 	 * 资本信息
 	 * @param capitalId
@@ -69,13 +62,6 @@ public interface PaymentApi {
 	 * @return
 	 */
 	public SynResponseModel otherBaddebtApi(String otherBaddebtId,IdentifierType type);
-	/**
-	 * 逾期信息
-	 * @param otherOverdueInfoModel
-	 * @return
-	 */
-	
-	public void otherOverdueInfoApi(String otherOverdueInfoId,IdentifierType type);
 
 	/**
 	 * 计提信息接口
@@ -120,6 +106,22 @@ public interface PaymentApi {
 	 * @return
 	 */
 	public SynResponseModel assetTransferApi(String  assetId,IdentifierType type);
+	
+	/**
+	 * repayment-finance
+	 * @param paymentId
+	 * @param type
+	 * @return
+	 */
+	public SynResponseModel financePaymentApi(String  paymentId,IdentifierType type);
+	
+	/**
+	 * 月度融资余额信息
+	 * @param financeMonthId
+	 * @param type
+	 * @return
+	 */
+	public SynResponseModel financeMonthBalanceApi(String financeMonthId,IdentifierType type);
 	
 
 }
