@@ -9,10 +9,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.druid.util.StringUtils;
+import com.google.common.collect.Lists;
 import com.kingtech.common.dynamicquery.DynamicQuery;
 import com.kingtech.dao.entity.Capital;
 import com.kingtech.dao.entity.RepaymentFinance;
 import com.kingtech.dao.rdbms.RepaymentFinanceDao;
+import com.kingtech.enums.Cmd;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.RecordStatus;
@@ -61,7 +63,7 @@ public class RepaymentFinanceImpl implements RepaymentFinanceService{
 			}
 			repaymentFinance.setRecordStatus(RecordStatus.NORMAL);
 			repaymentFinance = repaymentFinanceDao.save(repaymentFinance);
-			//paymentApi.financeInfoApi(financeInfoId, type)
+			paymentApi.financePaymentApi(repaymentFinance.getId(), type);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -84,6 +86,21 @@ public class RepaymentFinanceImpl implements RepaymentFinanceService{
 		List<RepaymentFinance> list = dq.nativeQueryPagingList(RepaymentFinance.class, pageAble, LISTREPAYMENTFINANCESQL, params);
 		Long count = dq.nativeQueryCount(LISTREPAYMENTFINANCESQL, params);
 		return new PagedResult(list,count);
+	}
+
+	@Override
+	public void syncRepaymentPushStatus() {
+		
+		repaymentFinanceDao.listByPushStatus(Lists.newArrayList(PushStatus.INPROSESS, PushStatus.DELETEING)).forEach(s->{
+			paymentApi.queryTranInfoApi(s.getId(), Cmd.repaymentFinance, s.getReqId(),s.getPushStatus());
+		});
+		
+		
+	}
+
+	@Override
+	public List<RepaymentFinance> listByPushStatus(List<PushStatus> pushStatus) {
+		return repaymentFinanceDao.listByPushStatus(pushStatus);
 	}
 
 }

@@ -149,10 +149,6 @@ function initDataTables() {
 									if(row.pushStatus=='SUCCESS' || row.pushStatus=='INPROSESS') {
 										return '<a href="branchAccount/accountInfo/edit?id='+row.id+'"><strong>查看详情</strong></a> '
 									}
-									if(row.pushStatus=='INITATION' || row.pushStatus=='FAILED') {
-										return '<a href="branchAccount/accountInfo/edit?id='+row.id+'"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>'
-										 +'<a href="javascirpt:void(0)" class="accountInfo-delete" data-id="'+row.id+'"><i class="text-red fa fa-edit"></i><strong>删除</strong>';
-									}
 								}} ],
 						"fnDrawCallback" : function(oSettings) {
 							for (var i = 0, iLen = oSettings.aiDisplay.length; i < iLen; i++) {

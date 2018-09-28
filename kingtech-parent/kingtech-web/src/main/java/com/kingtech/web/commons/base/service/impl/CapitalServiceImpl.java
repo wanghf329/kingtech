@@ -110,8 +110,14 @@ public class CapitalServiceImpl implements CapitalService{
 		capitalDao.listBypushStatus(Lists.newArrayList(PushStatus.INPROSESS)).forEach(s->{
 			paymentApi.queryTranInfoApi(s.getId(), Cmd.singleFinance, s.getReqId(),s.getPushStatus());
 		});
-		
 	}
+
+	@Override
+	public List<Capital> listByPushStatus(List<PushStatus> status) {
+		return capitalDao.listBypushStatus(status);
+	}
+	
+	
 
 
 }

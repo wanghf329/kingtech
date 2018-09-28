@@ -828,6 +828,15 @@ public class PaymentApiImpl  implements PaymentApi {
 					branchAccountInfoDAO.save(accountInfo);
 				}
 				break;
+			case repaymentFinance:	
+				if (PushStatus.DELETEING.equals(pushStatus)) {
+					repaymentFinanceDao.delete(id);
+				} else if (PushStatus.INPROSESS.equals(pushStatus)) {
+					RepaymentFinance repayment = repaymentFinanceDao.findOne(id);
+					repayment.setPushStatus(PushStatus.SUCCESS);
+					repaymentFinanceDao.save(repayment);
+				}
+				break;
 			default:
 				break;
 		}
