@@ -33,7 +33,12 @@ public class BaseAbstract {
 	public  SynResponseModel getResponse(BaseRequestModel baseRequestModel,String suffixUrl,IdentifierType type) {
 		String sign = getOtherSign(baseRequestModel, type);
 		if (sign == null) {
-			String dataSign = JSON.toJSONString(baseRequestModel, Labels.includes("sign")); // 验签数据
+			String dataSign = null; // 验签数据
+			if(IdentifierType.D.equals(type)){
+				dataSign = JSON.toJSONString(baseRequestModel, Labels.includes("sign_d")); // 验签数据
+			}else{
+				dataSign = JSON.toJSONString(baseRequestModel, Labels.includes("sign","sign_d")); // 验签数据
+			}
 			Map<String, Object> signMap = JSON.parseObject(dataSign, Map.class);
 			sign = SignUtils.getSignStr(signMap);
 		}

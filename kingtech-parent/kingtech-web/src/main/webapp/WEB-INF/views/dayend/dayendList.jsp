@@ -39,7 +39,7 @@
 									<input type="hidden" name="id" value="">
 
 									<div class="form-group">
-										<label for="#checkDate" class="col-sm-3 control-label"><i class="text-red">*</i> 日期</label>
+										<label for="#checkDate" class="col-sm-4 control-label"><i class="text-red">*</i> 日期</label>
 										<div class="col-sm-6 input-group date">
 											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 											<input type="text" class="form-control pull-right datepicker validate[required]" name="checkDate"
@@ -48,7 +48,7 @@
 									</div>									
 									
 									<div class="form-group">
-										<label for="#dayCount" class="col-sm-3 control-label"><i class="text-red">*</i> 上传合同笔数</label>
+										<label for="#dayCount" class="col-sm-4 control-label"><i class="text-red">*</i> 上传合同笔数</label>
 										<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
 										<input type="text" class="form-control validate[required,custom[number],min[0],max[999999]]" name = "dayCount" 
@@ -58,7 +58,7 @@
 									</div>
 									
 									<div class="form-group">
-										<label for="#dayMoney" class="col-sm-3 control-label"><i class="text-red">*</i> 上传合同总金额（元）</label>
+										<label for="#dayMoney" class="col-sm-4 control-label"><i class="text-red">*</i> 上传合同总金额（元）</label>
 										<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
 										<input type="text" class="form-control validate[required,custom[number],min[0],max[999999999999]]" name = "dayMoney" 
@@ -68,7 +68,7 @@
 									</div>		
 									
 									<div class="form-group">
-										<label for="#dayLoan" class="col-sm-3 control-label"><i class="text-red">*</i> 当日放款总金额（元）</label>
+										<label for="#dayLoan" class="col-sm-4 control-label"><i class="text-red">*</i> 当日放款总金额（元）</label>
 										<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
 										<input type="text" class="form-control validate[required,custom[number],min[0],max[999999999999]" name = "dayLoan" 
@@ -78,7 +78,7 @@
 									</div>	
 									
 									<div class="form-group">
-										<label for="#dayRepay" class="col-sm-3 control-label"><i class="text-red">*</i> 当日还款金额（元）</label>
+										<label for="#dayRepay" class="col-sm-4 control-label"><i class="text-red">*</i> 当日还款金额（元）</label>
 										<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
 										<input type="text" class="form-control validate[required,custom[number],min[0],max[999999999999]]" name = "dayRepay" 
@@ -88,7 +88,7 @@
 									</div>
 									
 									<div class="form-group">
-										<label for="#loanBalance" class="col-sm-3 control-label"><i class="text-red">*</i> 贷款余额（元）</label>
+										<label for="#loanBalance" class="col-sm-4 control-label"><i class="text-red">*</i> 贷款余额（元）</label>
 										<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
 										<input type="text" class="form-control validate[required,custom[number],min[0],max[999999999999]]" name = "loanBalance" 
@@ -98,7 +98,7 @@
 									</div>
 									
 									<div class="form-group">
-										<label for="#loanMoney" class="col-sm-3 control-label"><i class="text-red">*</i> 贷款总额（元）</label>
+										<label for="#loanMoney" class="col-sm-4 control-label"><i class="text-red">*</i> 贷款总额（元）</label>
 										<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
 										<input type="text" class="form-control validate[required,custom[number],min[0],max[999999999999]]" name = "loanMoney" 
@@ -108,7 +108,7 @@
 									</div>
 									
 									<div class="form-group">
-										<label for="#loanCount" class="col-sm-3 control-label"><i class="text-red">*</i> 贷款总笔数</label>
+										<label for="#loanCount" class="col-sm-4 control-label"><i class="text-red">*</i> 贷款总笔数</label>
 										<div class="col-sm-6 input-group">
 										<span class="input-group-addon"><i class="fa fa-rmb"></i></span>
 										<input type="text" class="form-control validate[required,custom[number],min[0],max[999999]]" name = "loanCount" 
