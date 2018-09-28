@@ -51,5 +51,5 @@ public interface ContractService {
 	public PagedResult<ContractModel> pageList(Pageable pageAble);
 	
 	public void syncSettledInfoPushStatus();
-	
+	public void syncContractPushStatus();
 }

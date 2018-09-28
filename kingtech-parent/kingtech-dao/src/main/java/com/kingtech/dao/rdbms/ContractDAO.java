@@ -8,6 +8,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.kingtech.dao.entity.Contract;
+import com.kingtech.dao.entity.SettledInfo;
 import com.kingtech.enums.PushStatus;
 
 public interface ContractDAO extends PagingAndSortingRepository<Contract, String> {
@@ -17,4 +18,7 @@ public interface ContractDAO extends PagingAndSortingRepository<Contract, String
 	
 	@Query("from Contract c where c.borrowerId = :borrowerId and c.pushStatus in :pushStatus ")
 	public List<Contract> listByUserIdAndPushstatus(@Param("borrowerId") String borrowerId,@Param("pushStatus") List<PushStatus> pushStatus);
+	
+	@Query("select c from Contract c where c.pushStatus in :pushStatus")
+	public List<Contract> listBypushStatus(@Param("pushStatus") List<PushStatus> pushStatus);
 }

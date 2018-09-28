@@ -181,16 +181,43 @@ function initDataTables() {
 									}
 								}},
 								{data : null,render : function(data, type, row) {
-									if(row.pushStatus=='SUCCESS' || row.pushStatus=='INPROSESS') {
-										return '<a href="branch/edit?id='+row.id+'"><strong>查看详情</strong></a>'
-									}
-									if(row.pushStatus=='INITATION' || row.pushStatus=='FAILED') {
-										return '<a href="branch/edit?id='+row.id+'"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>';
-									}
+									return '<a href="branch/edit?id='+row.id+'"><i class="text-gray fa fa-eye"></i><strong>查看</strong></a>  '
 								}} ],
 						"fnDrawCallback" : function(oSettings) {
 							for (var i = 0, iLen = oSettings.aiDisplay.length; i < iLen; i++) {
 								$('td:eq(0)',oSettings.aoData[oSettings.aiDisplay[i]].nTr).html(oSettings['_iDisplayStart'] + i+ 1);
+								$('.employee-delete').on("click",function(){
+									var id = $(this).data("id");
+									swal({
+										title : "确定删除吗？",
+										text : "删除需要等待金融办确认,确认后数据将删除！",   
+										type : "warning",
+										showCancelButton : true,
+										confirmButtonColor : "#DD6B55",
+										confirmButtonText : "确认删除",
+										cancelButtonText : "取消删除", 
+										closeOnConfirm : false,
+										closeOnCancel : true 
+									}, function() {  
+										$.ajax({
+											url:"branch/delete/"+id,
+											type:'get',
+											async: false,
+											success:function(res){
+												if(res==null){
+													swal("删除！", "删除失败。", "error"); 
+												}else{
+													if(res.resultCode=='0'){ 
+														swal("删除！", "删除成功。", "success"); 
+														window.location.href = "branch/employeeList";  
+													}else{
+														swal("删除失败！", res.resultMsg, "error"); 
+													}
+												}
+											}
+										});
+									});
+								})
 							}
 						}
 					});

@@ -186,8 +186,16 @@ public class LoanContractApiController {
 	public PagedResult<ContractModel> repayInfo(Model model,
 												 @RequestParam("start") Integer firstIndex,
 									 			 @RequestParam("length") Integer pageSize) {
+		contractService.syncContractPushStatus();
 		return contractService.pageList(PageInfo.page(firstIndex, pageSize));
 	}
+	
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET,value="/delete/{id}")
+	public SynResponseModel delete(Model model,@PathVariable("id") String id) { 
+		SynResponseModel synresponseModel = paymentApi.contractInfoApi(id, IdentifierType.D);
+		return synresponseModel;
+	}  
 	
 	@InitBinder
     protected void initBinder(WebDataBinder binder) {

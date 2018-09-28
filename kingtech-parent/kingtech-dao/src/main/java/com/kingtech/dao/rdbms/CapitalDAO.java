@@ -1,7 +1,6 @@
 package com.kingtech.dao.rdbms;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -20,5 +19,8 @@ public interface CapitalDAO extends PagingAndSortingRepository<Capital, String> 
 	
 	@Query("select c.id, c.financeNumber from Capital c   where c.recordStatus = :status")
 	public List<Capital> listCapitalByRecordStatus(@Param("status")RecordStatus status);
+	
+	@Query("select c from Capital c   where c.pushStatus in :pushStatus")
+	public List<Capital> listBypushStatus(@Param("pushStatus")List<PushStatus> pushStatus);
 	
 }

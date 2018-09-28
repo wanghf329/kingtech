@@ -17,5 +17,7 @@ public interface BranchAccountBalanceService {
 	public BranchAccountBalance getById(String id);
 	
 	public PagedResult<BranchAccountBalance> pageList(Pageable pageAble);
+	
+	public void syncAccountBalancePushStatus();
 
 }

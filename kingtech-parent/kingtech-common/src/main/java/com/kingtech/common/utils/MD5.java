@@ -30,7 +30,7 @@ public class MD5 {
 			resultString = new String(origin);
 			MessageDigest md = MessageDigest.getInstance("MD5");
 			resultString = byteArrayToHexString(md.digest(resultString
-					.getBytes()));
+					.getBytes("UTF-8")));
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

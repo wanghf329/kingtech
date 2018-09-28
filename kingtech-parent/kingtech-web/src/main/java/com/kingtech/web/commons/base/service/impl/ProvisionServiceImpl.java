@@ -75,7 +75,7 @@ public class ProvisionServiceImpl implements ProvisionService{
 		}
 		provisionDao.save(pi);
 		
-//		paymentApi.provisionInfoApi(pi.getId(),StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
+		paymentApi.provisionInfoApi(pi.getId(),StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
 	}
 
 	@Override
@@ -108,7 +108,7 @@ public class ProvisionServiceImpl implements ProvisionService{
 	@Transactional
 	public void syncProvisionInfoPushStatus(){
 		provisionDao.listBypushStatus(Lists.newArrayList(PushStatus.INPROSESS,PushStatus.DELETEING)).forEach(s->{
-			paymentApi.queryTranInfoApi(s.getId(), Cmd.loanInfo, s.getReqId(),s.getPushStatus());
+			paymentApi.queryTranInfoApi(s.getId(), Cmd.provision, s.getReqId(),s.getPushStatus());
 		});;
 	}
 }

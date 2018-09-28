@@ -33,9 +33,9 @@ public class SignUtils {
 	        StringBuilder ret = new StringBuilder();
 
 	        for (Map.Entry<String, Object> entry : infoIds) {
-	        	ret .append(entry.getKey()) ;
+	        	ret .append(entry.getKey().trim()) ;
 	        	ret .append("=") ;
-	        	ret .append(entry.getValue().toString()) ;
+	        	ret .append(entry.getValue().toString().trim()) ;
 	        	ret .append("&") ;
 	        }
 	      String  result = ret.substring(0, ret.length() - 1)+"&appKey="+BaseConfig.APPKEY;

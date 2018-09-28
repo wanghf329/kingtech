@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.druid.util.StringUtils;
+import com.google.common.collect.Lists;
 import com.kingtech.common.dynamicquery.DynamicQuery;
 import com.kingtech.dao.entity.FinanceMonthBalance;
 import com.kingtech.dao.rdbms.FinanceMonthBalanceDAO;
+import com.kingtech.enums.Cmd;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.RecordStatus;
@@ -61,8 +63,10 @@ public class FinanceMonthBalanceServiceImpl implements FinanceMonthBalanceServic
 				financeMonthBalance.setPushStatus(PushStatus.INITATION);
 				type = IdentifierType.U;
 			}
-			financeMonthBalance = financeMonthBalanceDao.save(financeMonthBalance);
 			financeMonthBalance.setRecordStatus(RecordStatus.NORMAL);
+			financeMonthBalance = financeMonthBalanceDao.save(financeMonthBalance);
+			paymentApi.financeMonthBalanceApi(financeMonthBalance.getId(), type);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -85,6 +89,14 @@ public class FinanceMonthBalanceServiceImpl implements FinanceMonthBalanceServic
 		List<FinanceMonthBalance> list = dq.nativeQueryPagingList(FinanceMonthBalance.class, pageAble, LISTFINANCEMONTHBALANCESQL, params);
 		Long count = dq.nativeQueryCount(LISTFINANCEMONTHBALANCESQL, params);
 		return new PagedResult(list,count);
+	}
+
+	@Override
+	public void syncMonthBalancePushStatus() {
+		financeMonthBalanceDao.listBypushStatus(Lists.newArrayList(PushStatus.INPROSESS, PushStatus.DELETEING)).forEach(s->{
+			paymentApi.queryTranInfoApi(s.getId(), Cmd.monthFinance, s.getReqId(),s.getPushStatus());
+		});
+		
 	}
 
 }

@@ -5,7 +5,6 @@ import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.hamcrest.core.Is;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,16 +13,18 @@ import com.alibaba.fastjson.JSON;
 import com.kingtech.common.utils.DateUtil;
 import com.kingtech.common.utils.RandomUtil;
 import com.kingtech.dao.entity.AssetTransfer;
-import com.kingtech.dao.entity.Branch;
+import com.kingtech.dao.entity.BranchAccountBalance;
+import com.kingtech.dao.entity.BranchAccountInfo;
 import com.kingtech.dao.entity.Capital;
 import com.kingtech.dao.entity.Contract;
 import com.kingtech.dao.entity.ContractDyw;
 import com.kingtech.dao.entity.ContractZyw;
+import com.kingtech.dao.entity.DayEndDz;
 import com.kingtech.dao.entity.Employee;
 import com.kingtech.dao.entity.EnterpriseCustomer;
 import com.kingtech.dao.entity.FinanceMonthBalance;
+import com.kingtech.dao.entity.FinanceRepayPlan;
 import com.kingtech.dao.entity.OtherBaddebt;
-import com.kingtech.dao.entity.OtherOverdueInfo;
 import com.kingtech.dao.entity.PersonalCustomer;
 import com.kingtech.dao.entity.ProvisionInfo;
 import com.kingtech.dao.entity.RepayExtendInfo;
@@ -34,14 +35,18 @@ import com.kingtech.dao.entity.RepaymentFinance;
 import com.kingtech.dao.entity.SettledInfo;
 import com.kingtech.dao.entity.Shareholder;
 import com.kingtech.dao.rdbms.AssetTransferDAO;
+import com.kingtech.dao.rdbms.BranchAccountBalanceDAO;
+import com.kingtech.dao.rdbms.BranchAccountInfoDAO;
 import com.kingtech.dao.rdbms.BranchDAO;
 import com.kingtech.dao.rdbms.CapitalDAO;
 import com.kingtech.dao.rdbms.ContractDAO;
 import com.kingtech.dao.rdbms.ContractDywDAO;
 import com.kingtech.dao.rdbms.ContractZywDAO;
+import com.kingtech.dao.rdbms.DayEndDzDAO;
 import com.kingtech.dao.rdbms.EmployeeDAO;
 import com.kingtech.dao.rdbms.EnterpriseCustomerDAO;
 import com.kingtech.dao.rdbms.FinanceMonthBalanceDAO;
+import com.kingtech.dao.rdbms.FinanceRepayPlanDAO;
 import com.kingtech.dao.rdbms.GuaranteeDAO;
 import com.kingtech.dao.rdbms.OtherBaddebtDAO;
 import com.kingtech.dao.rdbms.OtherOverdueInfoDAO;
@@ -58,25 +63,18 @@ import com.kingtech.enums.BorrowerTypeEnum;
 import com.kingtech.enums.Cmd;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
-import com.kingtech.enums.RecordStatus;
-import com.kingtech.model.BranchInfoModel;
-import com.kingtech.model.CapitalModel;
 import com.kingtech.model.GuaranteeModel;
-import com.kingtech.model.OtherBaddebtModel;
-import com.kingtech.model.OtherOverdueInfoModel;
-import com.kingtech.model.ProvisionInfoModel;
-import com.kingtech.model.RepayExtendInfoModel;
-import com.kingtech.model.RepayExtendPlanModel;
-import com.kingtech.model.RepayInfoModel;
 import com.kingtech.model.ShareholderModel;
 import com.kingtech.szsm.model.AssetTransferRequestModel;
 import com.kingtech.szsm.model.AsyReponseModel;
+import com.kingtech.szsm.model.BranchAccountBalanceRequest;
+import com.kingtech.szsm.model.BranchAccountInfoRequest;
 import com.kingtech.szsm.model.ContractDywRequestModel;
 import com.kingtech.szsm.model.ContractRequestModel;
 import com.kingtech.szsm.model.ContractZywRequestModel;
+import com.kingtech.szsm.model.DayEndDzRequestModel;
 import com.kingtech.szsm.model.EmployeeRequestModel;
 import com.kingtech.szsm.model.EnterpriseCustomerRequestModel;
-import com.kingtech.szsm.model.ExtendPlanRequestModel;
 import com.kingtech.szsm.model.FinanceInfoRequestModel;
 import com.kingtech.szsm.model.FinanceMonthBalanceRequest;
 import com.kingtech.szsm.model.FinanceRepayPlanRequest;
@@ -86,7 +84,6 @@ import com.kingtech.szsm.model.PersonalCustomerRequestModel;
 import com.kingtech.szsm.model.ProvisionInfoRequestModel;
 import com.kingtech.szsm.model.QueryInfoRequestModel;
 import com.kingtech.szsm.model.RepayExtendInfoRequestModel;
-import com.kingtech.szsm.model.RepayExtendPlanRequestModel;
 import com.kingtech.szsm.model.RepayInfoRequestModel;
 import com.kingtech.szsm.model.RepayPlanRequestModel;
 import com.kingtech.szsm.model.RepaymentFinanceRequestModel;
@@ -124,7 +121,7 @@ public class PaymentApiImpl  implements PaymentApi {
 	private ContractDAO contractDAO;
 	
 	@Autowired 
-	private ContractZywDAO collateralDAO;
+	private ContractZywDAO contractZywDAO;
 	
 	@Autowired 
 	private EnterpriseCustomerDAO enterpriseCustomerDAO;
@@ -171,45 +168,20 @@ public class PaymentApiImpl  implements PaymentApi {
 	@Autowired
 	private FinanceMonthBalanceDAO financeMonthBalanceDAO;
 	
+	@Autowired
+	private BranchAccountInfoDAO branchAccountInfoDAO;
+	
+	@Autowired
+	private BranchAccountBalanceDAO branchAccountBalanceDAO;
+	
+	@Autowired
+	private FinanceRepayPlanDAO financeRepayPlanDAO;
+	
+	@Autowired
+	private DayEndDzDAO dayEndDzDAO;
+	
 	
 
-	@Override
-	public void capitalInfoApi(String capitalId, IdentifierType type) {
-		Capital capital = capitalDAO.findOne(capitalId);
-		if (capital ==null) {
-			  return ;
-		  }
-		String roundStr =  RandomUtil.random8Len();
-	    CapitalModel  capitalModel =null;
-		if (IdentifierType.A.equals(type)||IdentifierType.U.equals(type)) {
-//			capitalModel = new CapitalModel(
-//					roundStr,
-//					type.name(), 
-//					capital.getReqId(),
-//					null, 
-//					capital.getFinancingChannel(),
-//					capital.getFinancingMoney().setScale(2).toPlainString(),
-//					DateUtil.getDateStr(capital.getFinancingTime(), JSON.DEFFAULT_DATE_FORMAT), 
-//					DateUtil.getDateStr(capital.getExpirationTime(), JSON.DEFFAULT_DATE_FORMAT),
-//					capital.getReplyTime() == null ? null:DateUtil.getDateStr(capital.getReplyTime(), JSON.DEFFAULT_DATE_FORMAT), 
-//				    DateUtil.getDateStr(capital.getCreateTime(), JSON.DEFFAULT_DATE_FORMAT),
-//				    capital.getUpdateTime() == null ? null:DateUtil.getDateStr(capital.getUpdateTime(), JSON.DEFFAULT_DATE_FORMAT));
-//			
-			
-		}else {
-//			capitalModel = new CapitalModel(roundStr, type.name(), capital.getReqId());
-			
-			log.info("机构资本信息暂时不支持删除");
-			return;
-		}
-		
-		SynResponseModel responseModel= financeService.branchCapitalFacade(capitalModel);
-		   if (responseModel.isSuccess()) {
-			   capital.setPushStatus(PushStatus.INPROSESS);
-			   capitalDAO.save(capital);
-		   }
-		   
-	}
 
 	@Override
 	@Transactional
@@ -351,115 +323,120 @@ public class PaymentApiImpl  implements PaymentApi {
 	@Transactional
 	public SynResponseModel contractInfoApi(String loanIdContractId,IdentifierType type) {
 		
-		Contract contract = contractDAO.findOne(loanIdContractId);
-		if (contract == null) {
-			log.info("未获取到相关数据loanIdContractId={}",loanIdContractId);
-			return null;
-		}
-		
+		ContractRequestModel contractRequestModel = null;
 		String roundStr =  RandomUtil.random8Len();
+		Contract contract = contractDAO.findOne(loanIdContractId);
 		
-	
-		
-		List<GuaranteeModel> guaranteeModels  = DTOUtils.getGuaranteeModels(guaranteeDAO.listByloanContractId(loanIdContractId));
-		
-		List<GuaranteeRequestModel> guaranteeRequestModels = null;
-		if (!guaranteeModels.isEmpty()) {
-			guaranteeRequestModels = new ArrayList<GuaranteeRequestModel>();
-			for (GuaranteeModel s:guaranteeModels) {
-				guaranteeRequestModels.add(new GuaranteeRequestModel(s.getName(), DTOUtils.getEnumIntVal(s.getCardType()), s.getCardNumber(), s.getAddress())); 
-			}
+		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
+
+				if (contract == null) {
+					log.info("未获取到相关数据loanIdContractId={}",loanIdContractId);
+					return null;
+				}
+				
+				List<GuaranteeModel> guaranteeModels  = DTOUtils.getGuaranteeModels(guaranteeDAO.listByloanContractId(loanIdContractId));
+				
+				List<GuaranteeRequestModel> guaranteeRequestModels = null;
+				if (!guaranteeModels.isEmpty()) {
+					guaranteeRequestModels = new ArrayList<GuaranteeRequestModel>();
+					for (GuaranteeModel s:guaranteeModels) {
+						guaranteeRequestModels.add(new GuaranteeRequestModel(s.getName(), DTOUtils.getEnumIntVal(s.getCardType()), s.getCardNumber(), s.getAddress())); 
+					}
+				}
+				PersonalCustomerRequestModel pcustomerRequestModel = null;
+				EnterpriseCustomerRequestModel enterpriseCustomerRequestModel = null;
+				if (BorrowerTypeEnum.S_2.equals(contract.getBorrowerType())) {
+					PersonalCustomer personalCustomer = personalCustomerDao.findOne(contract.getBorrowerId());
+					pcustomerRequestModel = new PersonalCustomerRequestModel(personalCustomer.getName(),DTOUtils.getEnumIntVal( personalCustomer.getSex()), DTOUtils.getEnumIntVal(personalCustomer.getCardType()), 
+							personalCustomer.getCardNumber(), personalCustomer.getPhone(), DTOUtils.getEnumIntVal( personalCustomer.getIsFarmer()), DTOUtils.getEnumIntVal( personalCustomer.getEducation()), personalCustomer.getEmail(), 
+							DTOUtils.getNewStr(personalCustomer.getIsMarry()), personalCustomer.getNationality(),DateUtil.getSimpleDate( personalCustomer.getBirthDate()), personalCustomer.getNation(), 
+							personalCustomer.getAddress(), personalCustomer.getPostCode(), personalCustomer.getRegisteredAddress(), 
+							personalCustomer.getNativePlace(), personalCustomer.getWorkUnit(), personalCustomer.getPosition());
+				}else if (BorrowerTypeEnum.S_1.equals(contract.getBorrowerType())) {
+					EnterpriseCustomer enterpriseCustomer = enterpriseCustomerDAO.findOne(contract.getBorrowerId());
+					
+					enterpriseCustomerRequestModel = new EnterpriseCustomerRequestModel(
+							enterpriseCustomer.getName(), DTOUtils.getEnumIntVal( enterpriseCustomer.getScale()), DTOUtils.getEnumIntVal( enterpriseCustomer.getIndustryType()),  DTOUtils.getEnumIntVal(enterpriseCustomer.getIndustryinvolved()),
+							enterpriseCustomer.getOrganizationcode(), enterpriseCustomer.getRegistCode(), enterpriseCustomer.getRegistOffice(),DateUtil.getSimpleDate(enterpriseCustomer.getRegistDate()), 
+							enterpriseCustomer.getNationalTaxCode(), enterpriseCustomer.getLandTaxCode(), enterpriseCustomer.getLicenseCode(), DateUtil.getSimpleDate(enterpriseCustomer.getLicenceEndDate()),
+							enterpriseCustomer.getLegalPerson(), DateUtil.getSimpleDate(enterpriseCustomer.getFoundDate()), enterpriseCustomer.getController(), enterpriseCustomer.getReallyCapital().toPlainString(), enterpriseCustomer.getBusinessScope(), 
+							enterpriseCustomer.getRegisterAddress(), enterpriseCustomer.getAddress(), enterpriseCustomer.getPhone(), enterpriseCustomer.getLinkman(), enterpriseCustomer.getEmail(), enterpriseCustomer.getWebSite());
+				}else {
+					log.info("借款人类型存在 BorrowerType ={}",contract.getBorrowerType());
+					return null;
+				}
+				
+				List<ContractZyw> contractZywList = contractZywDAO.listByloanContractId(loanIdContractId);
+				
+				List<ContractZywRequestModel> contractZywRequestModels = null;
+				if (contractZywList != null && !contractZywList.isEmpty()) {
+					contractZywRequestModels = new ArrayList<ContractZywRequestModel>();
+					for (ContractZyw contractZyw : contractZywList) {
+						contractZywRequestModels.add(new ContractZywRequestModel(DTOUtils.getEnumIntVal(contractZyw.getPledgeType()), contractZyw.getName(), contractZyw.getWorth().toPlainString(), contractZyw.getAddress(), contractZyw.getUnit()));
+					}
+				}
+				
+				
+				List<ContractDyw> contractDywList = contractDywDAO.listByloanContractId(loanIdContractId);
+				List<ContractDywRequestModel> contractDywRequestModels = null;
+				if (contractDywList != null && !contractDywList.isEmpty()) {
+					contractDywRequestModels = new ArrayList<ContractDywRequestModel>();
+					for (ContractDyw contractDyw : contractDywList) {
+						contractDywRequestModels.add(new ContractDywRequestModel(DTOUtils.getEnumIntVal(contractDyw.getPledgeType()), contractDyw.getName(), contractDyw.getWorth().toPlainString(), contractDyw.getAddress(), contractDyw.getUnit()));
+					}
+				}
+				
+				
+				List<RepayPlan> repayPlanList = repayPlanDAO.listByloanContractId(loanIdContractId);
+				List<RepayPlanRequestModel> repayPlanRequestModels = null;
+				
+				if (repayPlanList != null && !repayPlanList.isEmpty()) {
+					repayPlanRequestModels  = new ArrayList<RepayPlanRequestModel>();
+					for (RepayPlan repayPlan :repayPlanList) {
+						repayPlanRequestModels.add(new RepayPlanRequestModel(DateUtil.getSimpleDate(repayPlan.getEndDate()), repayPlan.getMoney().toPlainString(), repayPlan.getInterest().toPlainString()));
+					}
+				}
+				
+				
+				contractRequestModel = new ContractRequestModel(
+						roundStr,
+						contract.getReqId(),
+						null,
+						contract.getContractNumber(),
+						contract.getContractName(), 
+						DTOUtils.getEnumIntVal(contract.getBorrowerType()), 
+						contract.getMoney().toPlainString(), 
+						DTOUtils.getEnumIntVal(contract.getTermType()), 
+						contract.getTerm(), 
+						DateUtil.getDateStr(contract.getStartDate(),"yyyy-MM-dd"), 
+						DateUtil.getDateStr(contract.getEndDate(),"yyyy-MM-dd"),
+						DTOUtils.getEnumIntVal(contract.getRateType()),
+						contract.getRate().toPlainString(), 
+						contract.getAnnualRate().toPlainString(),
+						contract.getPlatformCost().toPlainString(),
+						DTOUtils.getEnumIntVal(contract.getIsEntrust()), 
+						DTOUtils.getEnumIntVal(contract.getPurpose()), 
+						DTOUtils.getEnumIntVal(contract.getBusiness()),
+						DTOUtils.getNewStr(contract.getLoanMethod()),
+						DTOUtils.getEnumIntVal(contract.getRepayMethod()),
+						DateUtil.getDateStr(contract.getSignTime(),"yyyy-MM-dd HH:mm:ss"),
+						contract.getRepaySource(),
+						contract.getDistrictCode(),
+						pcustomerRequestModel, 
+						enterpriseCustomerRequestModel,
+						contractDywRequestModels, 
+						contractZywRequestModels, 
+						guaranteeRequestModels,
+						repayPlanRequestModels);
+			contract.setPushStatus(PushStatus.INPROSESS);
+		}else{
+			contractRequestModel = new ContractRequestModel(roundStr,contract.getReqId());
+			contract.setPushStatus(PushStatus.DELETEING);
 		}
-		PersonalCustomerRequestModel pcustomerRequestModel = null;
-        EnterpriseCustomerRequestModel enterpriseCustomerRequestModel = null;
-		if (BorrowerTypeEnum.S_2.equals(contract.getBorrowerType())) {
-			PersonalCustomer personalCustomer = personalCustomerDao.findOne(contract.getBorrowerId());
-			pcustomerRequestModel = new PersonalCustomerRequestModel(personalCustomer.getName(),DTOUtils.getEnumIntVal( personalCustomer.getSex()), DTOUtils.getEnumIntVal(personalCustomer.getCardType()), 
-																	personalCustomer.getCardNumber(), personalCustomer.getPhone(), DTOUtils.getEnumIntVal( personalCustomer.getIsFarmer()), DTOUtils.getEnumIntVal( personalCustomer.getEducation()), personalCustomer.getEmail(), 
-																	DTOUtils.getNewStr(personalCustomer.getIsMarry()), personalCustomer.getNationality(),DateUtil.getSimpleDate( personalCustomer.getBirthDate()), personalCustomer.getNation(), 
-																	personalCustomer.getAddress(), personalCustomer.getPostCode(), personalCustomer.getRegisteredAddress(), 
-																	personalCustomer.getNativePlace(), personalCustomer.getWorkUnit(), personalCustomer.getPosition());
-		}else if (BorrowerTypeEnum.S_1.equals(contract.getBorrowerType())) {
-			EnterpriseCustomer enterpriseCustomer = enterpriseCustomerDAO.findOne(contract.getBorrowerId());
-			
-			enterpriseCustomerRequestModel = new EnterpriseCustomerRequestModel(
-					enterpriseCustomer.getName(), DTOUtils.getEnumIntVal( enterpriseCustomer.getScale()), DTOUtils.getEnumIntVal( enterpriseCustomer.getIndustryType()),  DTOUtils.getEnumIntVal(enterpriseCustomer.getIndustryinvolved()),
-					enterpriseCustomer.getOrganizationcode(), enterpriseCustomer.getRegistCode(), enterpriseCustomer.getRegistOffice(),DateUtil.getSimpleDate(enterpriseCustomer.getRegistDate()), 
-					enterpriseCustomer.getNationalTaxCode(), enterpriseCustomer.getLandTaxCode(), enterpriseCustomer.getLicenseCode(), DateUtil.getSimpleDate(enterpriseCustomer.getLicenceEndDate()),
-					enterpriseCustomer.getLegalPerson(), DateUtil.getSimpleDate(enterpriseCustomer.getFoundDate()), enterpriseCustomer.getController(), enterpriseCustomer.getReallyCapital().toPlainString(), enterpriseCustomer.getBusinessScope(), 
-					enterpriseCustomer.getRegisterAddress(), enterpriseCustomer.getAddress(), enterpriseCustomer.getPhone(), enterpriseCustomer.getLinkman(), enterpriseCustomer.getEmail(), enterpriseCustomer.getWebSite());
-		}else {
-			log.info("借款人类型存在 BorrowerType ={}",contract.getBorrowerType());
-			return null;
-		}
-		
-		List<ContractZyw> contractZywList = collateralDAO.listByloanContractId(loanIdContractId);
-	
-		List<ContractZywRequestModel> contractZywRequestModels = null;
-		if (contractZywList != null && !contractZywList.isEmpty()) {
-			contractZywRequestModels = new ArrayList<ContractZywRequestModel>();
-			for (ContractZyw contractZyw : contractZywList) {
-				contractZywRequestModels.add(new ContractZywRequestModel(DTOUtils.getEnumIntVal(contractZyw.getPledgeType()), contractZyw.getName(), contractZyw.getWorth().toPlainString(), contractZyw.getAddress(), contractZyw.getUnit()));
-			}
-		}
-		
-		
-		List<ContractDyw> contractDywList = contractDywDAO.listByloanContractId(loanIdContractId);
-		List<ContractDywRequestModel> contractDywRequestModels = null;
-		if (contractDywList != null && !contractDywList.isEmpty()) {
-			contractDywRequestModels = new ArrayList<ContractDywRequestModel>();
-			for (ContractDyw contractDyw : contractDywList) {
-				contractDywRequestModels.add(new ContractDywRequestModel(DTOUtils.getEnumIntVal(contractDyw.getPledgeType()), contractDyw.getName(), contractDyw.getWorth().toPlainString(), contractDyw.getAddress(), contractDyw.getUnit()));
-			}
-		}
-		
-		
-		List<RepayPlan> repayPlanList = repayPlanDAO.listByloanContractId(loanIdContractId);
-		List<RepayPlanRequestModel> repayPlanRequestModels = null;
-	
-		if (repayPlanList != null && !repayPlanList.isEmpty()) {
-			repayPlanRequestModels  = new ArrayList<RepayPlanRequestModel>();
-			for (RepayPlan repayPlan :repayPlanList) {
-				repayPlanRequestModels.add(new RepayPlanRequestModel(DateUtil.getSimpleDate(repayPlan.getEndDate()), repayPlan.getMoney().toPlainString(), repayPlan.getInterest().toPlainString()));
-			}
-		}
-		
-		
-		ContractRequestModel  contractRequestModel = new ContractRequestModel(
-				roundStr,
-				contract.getReqId(),
-				null,
-				contract.getContractNumber(),
-				contract.getContractName(), 
-				DTOUtils.getEnumIntVal(contract.getBorrowerType()), 
-				contract.getMoney().toPlainString(), 
-				DTOUtils.getEnumIntVal(contract.getTermType()), 
-				contract.getTerm(), 
-				DateUtil.getDateStr(contract.getStartDate(),"yyyy-MM-dd"), 
-				DateUtil.getDateStr(contract.getEndDate(),"yyyy-MM-dd"),
-				DTOUtils.getEnumIntVal(contract.getRateType()),
-				contract.getRate().toPlainString(), 
-				contract.getAnnualRate().toPlainString(),
-				contract.getPlatformCost().toPlainString(),
-				DTOUtils.getEnumIntVal(contract.getIsEntrust()), 
-				DTOUtils.getEnumIntVal(contract.getPurpose()), 
-				DTOUtils.getEnumIntVal(contract.getBusiness()),
-				DTOUtils.getNewStr(contract.getLoanMethod()),
-				DTOUtils.getEnumIntVal(contract.getRepayMethod()),
-				DateUtil.getDateStr(contract.getSignTime(),"yyyy-MM-dd HH:mm:ss"),
-				contract.getRepaySource(),
-				contract.getDistrictCode(),
-				pcustomerRequestModel, 
-				enterpriseCustomerRequestModel,
-				contractDywRequestModels, 
-				contractZywRequestModels, 
-				guaranteeRequestModels,
-				repayPlanRequestModels);
 		
 		
 		SynResponseModel responseModel = financeService.contractFacade(contractRequestModel,type);
 		if (responseModel.isSuccess()) {
-			contract.setPushStatus(PushStatus.INPROSESS);
 			contractDAO.save(contract);
 		}
 		return responseModel;
@@ -610,11 +587,11 @@ public class PaymentApiImpl  implements PaymentApi {
 
 	@Override
 	@Transactional
-	public void provisionInfoApi(String provisionInfoId, IdentifierType type) {
+	public SynResponseModel provisionInfoApi(String provisionInfoId, IdentifierType type) {
 		ProvisionInfo provisionInfo = provisionInfoDAO.findOne(provisionInfoId);
 		if (provisionInfo == null ) {
 			log.info("未获取到计提相关数据provisionInfoId={}",provisionInfoId);
-			return;
+			return null;
 		}
 		String roundStr =  RandomUtil.random8Len();
 		ProvisionInfoRequestModel provisionInfoModel = null;
@@ -648,10 +625,11 @@ public class PaymentApiImpl  implements PaymentApi {
 		}else {
 			throw  new RuntimeException();
 		}
-		
+		return responseModel;
 	}
 
 	@Override
+	@Transactional
 	public SynResponseModel settleInfoApi(String settleInfoId,
 			IdentifierType type) {
 		SettledInfo settle = settledInfoDAO.findOne(settleInfoId);
@@ -686,6 +664,7 @@ public class PaymentApiImpl  implements PaymentApi {
 	}
 
 	@Override
+	@Transactional
 	public SynResponseModel financeInfoApi(String financeInfoId,IdentifierType type) {
 		
 		Capital capital = capitalDAO.findOne(financeInfoId);
@@ -696,6 +675,14 @@ public class PaymentApiImpl  implements PaymentApi {
 		String roundStr =  RandomUtil.random8Len();
 		
 		List<FinanceRepayPlanRequest> financeRepayPlanRequests = null;
+		
+		List<FinanceRepayPlan> financeRepayPlanList = financeRepayPlanDAO.listByFinanceId(financeInfoId);
+		if (financeRepayPlanList != null && !financeRepayPlanList.isEmpty()) {
+			financeRepayPlanRequests =  new ArrayList<FinanceRepayPlanRequest>();
+			for (FinanceRepayPlan financeRepayPlan : financeRepayPlanList) {
+				financeRepayPlanRequests.add(new FinanceRepayPlanRequest( financeRepayPlan.getInterest().toPlainString(), DateUtil.getSimpleDate(financeRepayPlan.getEndDate()), financeRepayPlan.getMoney().toPlainString()));
+			}
+		}
 		
 		FinanceInfoRequestModel financeInfoRequestModel = new FinanceInfoRequestModel(roundStr,
 				capital.getReqId(), 
@@ -718,7 +705,6 @@ public class PaymentApiImpl  implements PaymentApi {
 		SynResponseModel responseModel = financeService.financeInfoFacade(financeInfoRequestModel, type);
 		if (responseModel.isSuccess()) {
 			capital.setPushStatus(PushStatus.INPROSESS);
-		
 			capitalDAO.save(capital);
 		}
 		return responseModel;
@@ -743,6 +729,20 @@ public class PaymentApiImpl  implements PaymentApi {
 		}
 		
 		switch (cmd) {
+			case contractInfo:
+				if (PushStatus.DELETEING.equals(pushStatus)) {
+					contractDAO.delete(id);
+					contractZywDAO.deleteByLoanContractId(id);
+					contractDywDAO.deleteByLoanContractId(id);
+					guaranteeDAO.deleteByLoanContractId(id);
+					repayPlanDAO.deleteByLoanContractId(id);
+					
+				} else if (PushStatus.INPROSESS.equals(pushStatus)) {
+					Contract contract = contractDAO.findOne(id);
+					contract.setPushStatus(PushStatus.SUCCESS);
+					contractDAO.save(contract);
+				}
+				break;
 			case loanInfo:
 				if (PushStatus.DELETEING.equals(pushStatus)) {
 					settledInfoDAO.delete(id);
@@ -760,6 +760,80 @@ public class PaymentApiImpl  implements PaymentApi {
 					repay.setPushStatus(PushStatus.SUCCESS);
 					repayInfoDAO.save(repay);
 				}
+				break;
+			case baddebt:
+				if (PushStatus.DELETEING.equals(pushStatus)) {
+					otherBaddebtDAO.delete(id);
+				} else if (PushStatus.INPROSESS.equals(pushStatus)) {
+					OtherBaddebt otherBaddebt = otherBaddebtDAO.findOne(id);
+					otherBaddebt.setPushStatus(PushStatus.SUCCESS);
+					otherBaddebtDAO.save(otherBaddebt);
+				}
+				break;
+			case provision:
+				if (PushStatus.DELETEING.equals(pushStatus)) {
+					provisionInfoDAO.delete(id);
+				} else if (PushStatus.INPROSESS.equals(pushStatus)) {
+					ProvisionInfo provisionInfo = provisionInfoDAO.findOne(id);
+					provisionInfo.setPushStatus(PushStatus.SUCCESS);
+					provisionInfoDAO.save(provisionInfo);
+				}
+				break;
+			case assetTransfer:
+				if (PushStatus.DELETEING.equals(pushStatus)) {
+					assetTransferDAO.delete(id);
+				} else if (PushStatus.INPROSESS.equals(pushStatus)) {
+					AssetTransfer assetTransferInfo = assetTransferDAO.findOne(id);
+					assetTransferInfo.setPushStatus(PushStatus.SUCCESS);
+					assetTransferDAO.save(assetTransferInfo);
+				}
+				break;
+			case pushCompanyEmployeeData:
+				if (PushStatus.INPROSESS.equals(pushStatus)) {
+					Employee employee = employeeDAO.findOne(id);
+					employee.setPushStatus(PushStatus.SUCCESS);
+					employeeDAO.save(employee);
+				}
+				break;
+			case singleFinance:
+				if (PushStatus.INPROSESS.equals(pushStatus)) {
+					Capital capital = capitalDAO.findOne(id);
+					capital.setPushStatus(PushStatus.SUCCESS);
+					capitalDAO.save(capital);
+				}
+				break;
+			case monthFinance:
+				if (PushStatus.DELETEING.equals(pushStatus)) {
+					financeMonthBalanceDAO.delete(id);
+				} else if (PushStatus.INPROSESS.equals(pushStatus)) {
+					FinanceMonthBalance monthBalance = financeMonthBalanceDAO.findOne(id);
+					monthBalance.setPushStatus(PushStatus.SUCCESS);
+					financeMonthBalanceDAO.save(monthBalance);
+				}
+				break;
+			case bankBalance:
+				if (PushStatus.DELETEING.equals(pushStatus)) {
+					branchAccountBalanceDAO.delete(id);
+				} else if (PushStatus.INPROSESS.equals(pushStatus)) {
+					BranchAccountBalance accountBalance = branchAccountBalanceDAO.findOne(id);
+					accountBalance.setPushStatus(PushStatus.SUCCESS);
+					branchAccountBalanceDAO.save(accountBalance);
+				}
+				break;
+			case dayEndReport:	
+				if (PushStatus.INPROSESS.equals(pushStatus)) {
+					DayEndDz dz = dayEndDzDAO.findOne(id);
+					dz.setPushStatus(PushStatus.SUCCESS);
+					dayEndDzDAO.save(dz);
+				}
+				break;
+			case account:	
+				if (PushStatus.INPROSESS.equals(pushStatus)) {
+					BranchAccountInfo accountInfo = branchAccountInfoDAO.findOne(id);
+					accountInfo.setPushStatus(PushStatus.SUCCESS);
+					branchAccountInfoDAO.save(accountInfo);
+				}
+				break;
 			default:
 				break;
 		}
@@ -767,6 +841,7 @@ public class PaymentApiImpl  implements PaymentApi {
 	}
 
 	@Override
+	@Transactional
 	public SynResponseModel assetTransferApi(String assetId, IdentifierType type) {
 		
 		AssetTransfer assetTransfer = assetTransferDAO.findOne(assetId);
@@ -807,6 +882,7 @@ public class PaymentApiImpl  implements PaymentApi {
 	}
 
 	@Override
+	@Transactional
 	public SynResponseModel financePaymentApi(String paymentId,IdentifierType type) {
 		RepaymentFinance repaymentFinance = repaymentFinanceDao.findOne(paymentId);
 		if (repaymentFinance == null) {
@@ -844,6 +920,7 @@ public class PaymentApiImpl  implements PaymentApi {
 	}
 
 	@Override
+	@Transactional
 	public SynResponseModel financeMonthBalanceApi(String financeMonthId,IdentifierType type) {
 		
 		FinanceMonthBalance financeMonthBalance = financeMonthBalanceDAO.findOne(financeMonthId);
@@ -871,6 +948,115 @@ public class PaymentApiImpl  implements PaymentApi {
 			throw  new RuntimeException();
 		}
 		
+		return responseModel;
+	}
+
+	@Override
+	@Transactional
+	public SynResponseModel branchAccountInfoApi(String branchAccountInfoId,IdentifierType type) {
+		
+	   BranchAccountInfo branchAccountInfo = branchAccountInfoDAO.findOne(branchAccountInfoId);
+		
+		if (branchAccountInfo == null) {
+			log.info("未获机构银行账户信息相关数据branchAccountInfoId={}",branchAccountInfoId);
+			return null;
+		}
+		
+		String roundStr =  RandomUtil.random8Len();
+		
+		BranchAccountInfoRequest branchAccountInfoRequest = null;
+		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
+			branchAccountInfoRequest = new BranchAccountInfoRequest(roundStr,
+					branchAccountInfo.getReqId(),
+					branchAccountInfo.getBank(),
+					branchAccountInfo.getAccount(),
+					DTOUtils.getEnumIntVal(branchAccountInfo.getType()),
+					branchAccountInfo.getAccountStatus().name(),
+					DateUtil.getSimpleDate(branchAccountInfo.getOpenTime()));
+			branchAccountInfo.setPushStatus(PushStatus.INPROSESS);
+		}else {
+			branchAccountInfoRequest = new BranchAccountInfoRequest(roundStr,branchAccountInfo.getReqId());
+			branchAccountInfo.setPushStatus(PushStatus.DELETEING);
+		}
+		SynResponseModel responseModel = financeService.branchAccountInfoFacade(branchAccountInfoRequest, type);
+		if (responseModel.isSuccess()) {
+			branchAccountInfoDAO.save(branchAccountInfo);
+		}else{
+			throw  new RuntimeException();
+		}
+		return responseModel;
+	}
+
+	@Override
+	@Transactional
+	public SynResponseModel branchAccountBalanceApi(String branchAccountBalanceId, IdentifierType type) {
+	
+		BranchAccountBalance branchAccountBalance = branchAccountBalanceDAO.findOne(branchAccountBalanceId);
+		
+		if (branchAccountBalance == null) {
+			log.info("未获机构银行账户月度余额信息相关数据branchAccountBalanceId={}",branchAccountBalanceId);
+			return null;
+		}
+		
+		String roundStr =  RandomUtil.random8Len();
+		
+		BranchAccountBalanceRequest branchAccountBalanceRequest = null;
+		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
+			branchAccountBalanceRequest = new BranchAccountBalanceRequest(roundStr,
+					branchAccountBalance.getReqId(), 
+					branchAccountBalance.getDateMonth(), 
+					branchAccountBalance.getAccount(), 
+					branchAccountBalance.getMoney().toPlainString());
+			branchAccountBalance.setPushStatus(PushStatus.INPROSESS);
+		}else {
+			branchAccountBalanceRequest = new BranchAccountBalanceRequest(roundStr,branchAccountBalance.getReqId());
+		
+			branchAccountBalance.setPushStatus(PushStatus.DELETEING);
+		}
+		
+		SynResponseModel responseModel = financeService.branchAccountBalanceFacade(branchAccountBalanceRequest, type);
+		if (responseModel.isSuccess()) {
+			branchAccountBalanceDAO.save(branchAccountBalance);
+		}else{
+			throw  new RuntimeException();
+		}
+		return responseModel;
+	}
+
+	@Override
+	@Transactional
+	public SynResponseModel dayEndDzApi(String dayEndDzId, IdentifierType type) {
+		DayEndDz dayEndDz = dayEndDzDAO.findOne(dayEndDzId);
+		if (dayEndDz == null) {
+			log.info("未获日结数据对账相关数据dayEndDzId={}",dayEndDzId);
+			return null;
+		}
+         String roundStr =  RandomUtil.random8Len();
+		
+		DayEndDzRequestModel dayEndDzRequestModel = null;
+		if (IdentifierType.A.equals(type) || IdentifierType.U.equals(type)) {
+			dayEndDzRequestModel = new DayEndDzRequestModel(roundStr,
+					dayEndDz.getReqId(), 
+					DateUtil.getSimpleDate(dayEndDz.getCheckDate()),
+					dayEndDz.getDayCount(),
+					dayEndDz.getDayMoney().toPlainString(), 
+					dayEndDz.getDayLoan().toPlainString(), 
+					dayEndDz.getDayRepay().toPlainString(),
+					dayEndDz.getLoanBalance().toPlainString(), 
+					dayEndDz.getLoanMoney().toPlainString(), 
+					dayEndDz.getLoanCount());
+			dayEndDz.setPushStatus(PushStatus.INPROSESS);
+		}else {
+			dayEndDzRequestModel = new DayEndDzRequestModel(roundStr,dayEndDz.getReqId());
+			dayEndDz.setPushStatus(PushStatus.DELETEING);
+		}
+		
+		SynResponseModel responseModel = financeService.dayEndDzApi(dayEndDzRequestModel, type);
+		if (responseModel.isSuccess()) {
+			dayEndDzDAO.save(dayEndDz);
+		}else{
+			throw  new RuntimeException();
+		}
 		return responseModel;
 	}
 	
