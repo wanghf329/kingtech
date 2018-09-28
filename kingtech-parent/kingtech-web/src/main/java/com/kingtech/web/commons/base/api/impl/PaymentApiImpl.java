@@ -61,11 +61,6 @@ import com.kingtech.enums.BorrowerTypeEnum;
 import com.kingtech.enums.Cmd;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
-import com.kingtech.model.BranchInfoModel;
-import com.kingtech.model.CapitalModel;
-import com.kingtech.model.GuaranteeModel;
-import com.kingtech.model.OtherOverdueInfoModel;
-import com.kingtech.model.CapitalModel;
 import com.kingtech.model.GuaranteeModel;
 import com.kingtech.model.ShareholderModel;
 import com.kingtech.szsm.model.AssetTransferRequestModel;
@@ -753,6 +748,24 @@ public class PaymentApiImpl  implements PaymentApi {
 					Capital capital = capitalDAO.findOne(id);
 					capital.setPushStatus(PushStatus.SUCCESS);
 					capitalDAO.save(capital);
+				}
+				break;
+			case monthFinance:
+				if (PushStatus.DELETEING.equals(pushStatus)) {
+					financeMonthBalanceDAO.delete(id);
+				} else if (PushStatus.INPROSESS.equals(pushStatus)) {
+					FinanceMonthBalance monthBalance = financeMonthBalanceDAO.findOne(id);
+					monthBalance.setPushStatus(PushStatus.SUCCESS);
+					financeMonthBalanceDAO.save(monthBalance);
+				}
+				break;
+			case bankBalance:
+				if (PushStatus.DELETEING.equals(pushStatus)) {
+					branchAccountBalanceDAO.delete(id);
+				} else if (PushStatus.INPROSESS.equals(pushStatus)) {
+					BranchAccountBalance accountBalance = branchAccountBalanceDAO.findOne(id);
+					accountBalance.setPushStatus(PushStatus.SUCCESS);
+					branchAccountBalanceDAO.save(accountBalance);
 				}
 				break;
 			default:

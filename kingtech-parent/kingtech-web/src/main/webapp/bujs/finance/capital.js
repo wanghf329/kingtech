@@ -248,7 +248,7 @@ function initDataTables() {
 											}else{
 												if(res.resultCode=='0'){
 													swal("推送！", "推送成功。", "success"); 
-													window.location.href = "loan/list"; 
+													window.location.href = "finance/capitalList"; 
 												}else{
 													swal("推送失败！", res.resultMsg, "error"); 
 												}

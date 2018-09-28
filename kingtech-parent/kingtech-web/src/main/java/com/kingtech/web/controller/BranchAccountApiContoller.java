@@ -2,6 +2,7 @@ package com.kingtech.web.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,19 +11,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.common.collect.Lists;
 import com.kingtech.dao.entity.BranchAccountBalance;
 import com.kingtech.dao.entity.BranchAccountInfo;
 import com.kingtech.enums.AccountStatusEmun;
 import com.kingtech.enums.AccountTypeEnum;
+import com.kingtech.enums.IdentifierType;
+import com.kingtech.enums.PushStatus;
 import com.kingtech.model.BranchAccountBalanceModel;
 import com.kingtech.model.BranchAccountInfoModel;
 import com.kingtech.model.misc.PageInfo;
 import com.kingtech.model.misc.PagedResult;
+import com.kingtech.szsm.model.SynResponseModel;
+import com.kingtech.web.commons.base.api.PaymentApi;
 import com.kingtech.web.commons.base.service.BranchAccountBalanceService;
 import com.kingtech.web.commons.base.service.BranchAccountInfoService;
 
@@ -36,6 +43,9 @@ public class BranchAccountApiContoller {
 	@Autowired
 	private BranchAccountBalanceService branchAccountBalanceService;
 	
+	@Autowired
+	private PaymentApi paymentApi;
+	
 	@RequestMapping(method = RequestMethod.GET,value="/accountInfoList")
 	public String accountInfoList(Model model) { 
 		return "/branchAccount/accountInfoList";
@@ -43,6 +53,7 @@ public class BranchAccountApiContoller {
 	
 	@RequestMapping(method = RequestMethod.GET,value="/accountBalanceList")
 	public String accountBalanceList(Model model) { 
+		branchAccountBalanceService.syncAccountBalancePushStatus();
 		return "/branchAccount/accountBalanceList";
 	}  
 	
@@ -77,6 +88,11 @@ public class BranchAccountApiContoller {
 	@RequestMapping(method = RequestMethod.GET, value = "/accountBalance/edit")
 	public String editAccountBalance(Model model,  String id) {
 		
+		List<BranchAccountInfo> accountInfos = 
+				branchAccountInfoService.listAccountInfoByStatus(Lists.newArrayList(PushStatus.SUCCESS));
+		
+		model.addAttribute("accountInfos", accountInfos);
+		
 		if(StringUtils.isNotEmpty(id)){
 			model.addAttribute("accountBalance", branchAccountBalanceService.getById(id));
 		}
@@ -94,6 +110,13 @@ public class BranchAccountApiContoller {
 		branchAccountBalanceService.addNew(accountInfo);
 		return "redirect:/branchAccount/accountBalanceList";
 	}
+	
+
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET,value="/accountBalance/delete/{id}")
+	public SynResponseModel accountBalanceDelete(Model model,@PathVariable("id") String id) { 
+		return paymentApi.branchAccountBalanceApi(id, IdentifierType.D);
+	}  
 	
 	@InitBinder
     protected void initBinder(WebDataBinder binder) {

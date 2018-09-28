@@ -17,4 +17,6 @@ public interface FinanceMonthBalanceService {
 	public FinanceMonthBalance getById(String id);
 	
 	public PagedResult<FinanceMonthBalance> pageList(Pageable pageAble);
+	
+	public void syncMonthBalancePushStatus();
 }

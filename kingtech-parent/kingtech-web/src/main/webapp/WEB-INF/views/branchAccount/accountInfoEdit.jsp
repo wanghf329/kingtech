@@ -89,8 +89,7 @@
 		<%@include file="../common/footer.jspf" %>   
         <script src="bujs/branchAccount/accountInfo.js" type="text/javascript"></script>  
         <script type="text/javascript">
-        	var borrowerId = '${accountInfo.id}';
-        	var canEdit = "${accountInfo==null or accountInfo.pushStatus=='INITATION' or accountInfo.pushStatus=='FAILED'}";
+        	var canEdit = "${accountInfo==null}";
         </script> 
     </body>
 </html>
