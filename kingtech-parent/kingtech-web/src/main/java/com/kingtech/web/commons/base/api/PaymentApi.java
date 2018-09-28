@@ -26,7 +26,7 @@ public interface PaymentApi {
 	 * @param employeeId
 	 * @param type
 	 */
-	public void employeeInfoApi(String employeeId,IdentifierType type);
+	public SynResponseModel employeeInfoApi(String employeeId,IdentifierType type);
 	/**
 	 * 机构股东信息
 	 * @param holderId
@@ -114,7 +114,13 @@ public interface PaymentApi {
 	
 	public void queryTranInfoApi(String id,Cmd cmd,String reqId, PushStatus pushStatus);
 	
-	
+	/**
+	 * 资产转让接口
+	 * @param assetId
+	 * @param type
+	 * @return
+	 */
+	public SynResponseModel assetTransferApi(String  assetId,IdentifierType type);
 	
 
 }

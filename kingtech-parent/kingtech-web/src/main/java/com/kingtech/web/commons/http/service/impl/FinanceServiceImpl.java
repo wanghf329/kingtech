@@ -13,6 +13,7 @@ import com.kingtech.model.ProvisionInfoModel;
 import com.kingtech.model.RepayExtendInfoModel;
 import com.kingtech.model.RepayExtendPlanModel;
 import com.kingtech.model.ShareholderModel;
+import com.kingtech.szsm.model.AssetTransferRequestModel;
 import com.kingtech.szsm.model.ContractRequestModel;
 import com.kingtech.szsm.model.EmployeeRequestModel;
 import com.kingtech.szsm.model.FinanceInfoRequestModel;
@@ -135,6 +136,13 @@ public class FinanceServiceImpl   extends BaseAbstract implements FinanceService
 	@Override
 	public SynResponseModel queryInfoFacade(QueryInfoRequestModel queryInfoRequestModel) {
 		SynResponseModel responseModel =  queryResponse(queryInfoRequestModel);
+		return responseModel;
+	}
+
+
+	@Override
+	public SynResponseModel assetTransferFacade(AssetTransferRequestModel assetTransferRequestModel,IdentifierType type) {
+		SynResponseModel responseModel =  getResponse(assetTransferRequestModel, " asset-transfer",type);
 		return responseModel;
 	}
 

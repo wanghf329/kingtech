@@ -95,6 +95,12 @@ public class EmployeeRequestModel extends BaseRequestModel {
 		this.entryTime = entryTime;
 		this.quitTime = quitTime;
 	}
+	
+	
+
+	public EmployeeRequestModel( String roundStr, String reqId) {
+		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), reqId,null, null);
+	}
 	}
 	
 	
