@@ -260,4 +260,12 @@ public class ContractServiceImpl implements ContractService{
 			api.queryTranInfoApi(s.getId(), Cmd.loanInfo, s.getReqId(),s.getPushStatus());
 		});;
 	}
+	
+	@Override
+	@Transactional	
+	public void syncContractPushStatus(){
+		contractDao.listBypushStatus(Lists.newArrayList(PushStatus.INPROSESS,PushStatus.DELETEING)).forEach(s->{
+			api.queryTranInfoApi(s.getId(), Cmd.contractInfo, s.getReqId(),s.getPushStatus());
+		});
+	}
 }

@@ -63,11 +63,6 @@ import com.kingtech.enums.BorrowerTypeEnum;
 import com.kingtech.enums.Cmd;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
-import com.kingtech.model.BranchInfoModel;
-import com.kingtech.model.CapitalModel;
-import com.kingtech.model.GuaranteeModel;
-import com.kingtech.model.OtherOverdueInfoModel;
-import com.kingtech.model.CapitalModel;
 import com.kingtech.model.GuaranteeModel;
 import com.kingtech.model.ShareholderModel;
 import com.kingtech.szsm.model.AssetTransferRequestModel;
@@ -126,7 +121,7 @@ public class PaymentApiImpl  implements PaymentApi {
 	private ContractDAO contractDAO;
 	
 	@Autowired 
-	private ContractZywDAO collateralDAO;
+	private ContractZywDAO contractZywDAO;
 	
 	@Autowired 
 	private EnterpriseCustomerDAO enterpriseCustomerDAO;
@@ -371,7 +366,7 @@ public class PaymentApiImpl  implements PaymentApi {
 					return null;
 				}
 				
-				List<ContractZyw> contractZywList = collateralDAO.listByloanContractId(loanIdContractId);
+				List<ContractZyw> contractZywList = contractZywDAO.listByloanContractId(loanIdContractId);
 				
 				List<ContractZywRequestModel> contractZywRequestModels = null;
 				if (contractZywList != null && !contractZywList.isEmpty()) {
@@ -734,6 +729,20 @@ public class PaymentApiImpl  implements PaymentApi {
 		}
 		
 		switch (cmd) {
+			case contractInfo:
+				if (PushStatus.DELETEING.equals(pushStatus)) {
+					contractDAO.delete(id);
+					contractZywDAO.deleteByLoanContractId(id);
+					contractDywDAO.deleteByLoanContractId(id);
+					guaranteeDAO.deleteByLoanContractId(id);
+					repayPlanDAO.deleteByLoanContractId(id);
+					
+				} else if (PushStatus.INPROSESS.equals(pushStatus)) {
+					Contract contract = contractDAO.findOne(id);
+					contract.setPushStatus(PushStatus.SUCCESS);
+					contractDAO.save(contract);
+				}
+				break;
 			case loanInfo:
 				if (PushStatus.DELETEING.equals(pushStatus)) {
 					settledInfoDAO.delete(id);
@@ -775,6 +784,13 @@ public class PaymentApiImpl  implements PaymentApi {
 					capitalDAO.save(capital);
 				}
 				break;
+			case dayEndReport:	
+				if (PushStatus.INPROSESS.equals(pushStatus)) {
+					DayEndDz dz = dayEndDzDAO.findOne(id);
+					dz.setPushStatus(PushStatus.SUCCESS);
+					dayEndDzDAO.save(dz);
+				}
+				break;				
 			default:
 				break;
 		}
@@ -986,7 +1002,7 @@ public class PaymentApiImpl  implements PaymentApi {
 					dayEndDz.getLoanBalance().toPlainString(), 
 					dayEndDz.getLoanMoney().toPlainString(), 
 					dayEndDz.getLoanCount());
-			dayEndDz.setPushStatus(PushStatus.DELETEING);
+			dayEndDz.setPushStatus(PushStatus.INPROSESS);
 		}else {
 			dayEndDzRequestModel = new DayEndDzRequestModel(roundStr,dayEndDz.getReqId());
 			dayEndDz.setPushStatus(PushStatus.DELETEING);

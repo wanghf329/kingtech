@@ -186,6 +186,7 @@ public class LoanContractApiController {
 	public PagedResult<ContractModel> repayInfo(Model model,
 												 @RequestParam("start") Integer firstIndex,
 									 			 @RequestParam("length") Integer pageSize) {
+		contractService.syncContractPushStatus();
 		return contractService.pageList(PageInfo.page(firstIndex, pageSize));
 	}
 	

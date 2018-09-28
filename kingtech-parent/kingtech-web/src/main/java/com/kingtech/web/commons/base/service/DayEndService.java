@@ -9,4 +9,6 @@ public interface DayEndService {
 	PagedResult<DayEndDzModel> pageListDayEndInfo(Pageable pageAble);
 	
 	public void save(DayEndDzModel model);
+	
+	public void syncDayendPushStatus();
 }
