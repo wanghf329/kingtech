@@ -59,7 +59,8 @@ $(".provision-edit").click(function(){
 	});
 });
 
-function deleteProvisionInfo(id){
+$(".provision-delete").click(function(){ 
+	var id = $(this).data("id");
 	swal({
 		title : "确定删除吗？",
 		text : "删除需要等待金融办确认,确认后数据将删除！",   
@@ -89,4 +90,4 @@ function deleteProvisionInfo(id){
 			}
 		});
 	});
-}
+});

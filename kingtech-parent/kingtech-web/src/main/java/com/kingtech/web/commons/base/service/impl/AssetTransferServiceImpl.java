@@ -1,7 +1,6 @@
 package com.kingtech.web.commons.base.service.impl;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,16 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.kingtech.common.utils.DateUtil;
 import com.kingtech.dao.entity.AssetTransfer;
-import com.kingtech.dao.entity.Contract;
-import com.kingtech.dao.entity.OtherBaddebt;
 import com.kingtech.dao.rdbms.AssetTransferDAO;
+import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.RecordStatus;
 import com.kingtech.model.AssetTransferModel;
-import com.kingtech.model.OtherBaddebtModel;
-import com.kingtech.model.ext.ModelExt;
 import com.kingtech.web.commons.base.CreatRequstId;
 import com.kingtech.web.commons.base.api.PaymentApi;
 import com.kingtech.web.commons.base.service.AssetTransferService;
@@ -62,7 +57,7 @@ public class AssetTransferServiceImpl implements AssetTransferService{
 		}
 		assetTransferDao.save(at);
 		
-//		paymentApi.provisionInfoApi(pi.getId(),StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
+		paymentApi.assetTransferApi(at.getId(),StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U);
 	}
 
 	@Override
