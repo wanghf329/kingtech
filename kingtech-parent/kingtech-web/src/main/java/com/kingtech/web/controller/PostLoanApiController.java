@@ -359,12 +359,12 @@ public class PostLoanApiController {
 		return pi;
 	}
 	
-//	@ResponseBody
-//	@RequestMapping(method = RequestMethod.GET,value="provision/delete/{id}")
-//	public SynResponseModel provisionDelete(Model model,@PathVariable("id") String id) { 
-//		SynResponseModel synresponseModel = api.provisionInfoApi(id, IdentifierType.D);
-//		return synresponseModel;
-//	}
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET,value="provision/delete/{id}")
+	public SynResponseModel provisionDelete(Model model,@PathVariable("id") String id) { 
+		SynResponseModel synresponseModel = api.provisionInfoApi(id, IdentifierType.D);
+		return synresponseModel;
+	}
 	
 	/**
 	 * 资产转让
