@@ -24,4 +24,6 @@ public interface EmployeeService {
 	public Employee getById(String id);
 	
 	public PagedResult<Employee> pageList(Pageable pageAble);
+	
+	public void syncEmployeePushStatus();
 }

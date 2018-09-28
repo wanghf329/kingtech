@@ -61,6 +61,10 @@ import com.kingtech.enums.BorrowerTypeEnum;
 import com.kingtech.enums.Cmd;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
+import com.kingtech.model.BranchInfoModel;
+import com.kingtech.model.CapitalModel;
+import com.kingtech.model.GuaranteeModel;
+import com.kingtech.model.OtherOverdueInfoModel;
 import com.kingtech.model.CapitalModel;
 import com.kingtech.model.GuaranteeModel;
 import com.kingtech.model.ShareholderModel;
@@ -736,6 +740,21 @@ public class PaymentApiImpl  implements PaymentApi {
 					repay.setPushStatus(PushStatus.SUCCESS);
 					repayInfoDAO.save(repay);
 				}
+				break;
+			case pushCompanyEmployeeData:
+				if (PushStatus.INPROSESS.equals(pushStatus)) {
+					Employee employee = employeeDAO.findOne(id);
+					employee.setPushStatus(PushStatus.SUCCESS);
+					employeeDAO.save(employee);
+				}
+				break;
+			case singleFinance:
+				if (PushStatus.INPROSESS.equals(pushStatus)) {
+					Capital capital = capitalDAO.findOne(id);
+					capital.setPushStatus(PushStatus.SUCCESS);
+					capitalDAO.save(capital);
+				}
+				break;
 			default:
 				break;
 		}

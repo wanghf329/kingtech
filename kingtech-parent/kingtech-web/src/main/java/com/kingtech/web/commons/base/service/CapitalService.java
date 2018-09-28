@@ -27,4 +27,6 @@ public interface CapitalService {
 	public void addRepayPlan(String financeId, List<FinanceRepayPlanModel> repayPlanList);
 	
 	public List<Capital> listFinanceNumberByStatus(RecordStatus status);
+	
+	public void syncCapitalPushStatus();
 }

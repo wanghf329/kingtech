@@ -67,7 +67,7 @@
         </div><!-- ./wrapper -->
         
 		<%@include file="../common/footer.jspf" %>   
-        <script src="bujs/loan/contract.js" type="text/javascript"></script>   
+        <script src="bujs/finance/capital.js" type="text/javascript"></script>   
         <script type="text/javascript">
 			var canEdit = "${capital.pushStatus=='INITATION' or capital.pushStatus=='FAILED'}";
         </script>    
