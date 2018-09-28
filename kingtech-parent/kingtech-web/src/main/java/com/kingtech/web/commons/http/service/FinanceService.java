@@ -13,6 +13,7 @@ import com.kingtech.szsm.model.AssetTransferRequestModel;
 import com.kingtech.szsm.model.BranchAccountBalanceRequest;
 import com.kingtech.szsm.model.BranchAccountInfoRequest;
 import com.kingtech.szsm.model.ContractRequestModel;
+import com.kingtech.szsm.model.DayEndDzRequestModel;
 import com.kingtech.szsm.model.EmployeeRequestModel;
 import com.kingtech.szsm.model.FinanceInfoRequestModel;
 import com.kingtech.szsm.model.FinanceMonthBalanceRequest;
@@ -149,5 +150,12 @@ public interface FinanceService {
 	 * @return
 	 */
 	public  SynResponseModel branchAccountBalanceFacade(BranchAccountBalanceRequest branchAccountBalanceRequest,IdentifierType type);
+	/**
+	 * 日结数据对账
+	 * @param dayEndDzRequestModel
+	 * @param type
+	 * @return
+	 */
+	public  SynResponseModel dayEndDzApi(DayEndDzRequestModel dayEndDzRequestModel,IdentifierType type);
 	
 }

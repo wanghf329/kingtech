@@ -196,6 +196,8 @@ public class ContractRequestModel  extends BaseRequestModel{
 	}
 	
 	
-	
+	public ContractRequestModel( String roundStr, String reqId) {
+		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), reqId, null, null);
+	}
 	
 }

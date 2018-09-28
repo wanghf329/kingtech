@@ -189,6 +189,13 @@ public class LoanContractApiController {
 		return contractService.pageList(PageInfo.page(firstIndex, pageSize));
 	}
 	
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET,value="/delete/{id}")
+	public SynResponseModel delete(Model model,@PathVariable("id") String id) { 
+		SynResponseModel synresponseModel = paymentApi.contractInfoApi(id, IdentifierType.D);
+		return synresponseModel;
+	}  
+	
 	@InitBinder
     protected void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

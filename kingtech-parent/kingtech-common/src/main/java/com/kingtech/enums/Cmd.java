@@ -10,6 +10,7 @@ public enum Cmd implements  BaseEnum{
 	
 	loanInfo("loan-info"),//放款信息
 	repay("repay"),//还款信息
+	baddebt("baddebt"),//坏账信息
 	pushCompanyEmployeeData("pushCompanyEmployeeData"),// 机构人员信息
 	singleFinance("single-finane"),// 单笔融资信息
 	monthFinance("month-finane"), // 月度融资余额信息
