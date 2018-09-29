@@ -36,6 +36,10 @@ public class RepayExtendPlan extends UuidEntity {
 	// 展期后的新还款利息（元）
 	@Column(name="INTEREST")
 	private BigDecimal interest;
+	
+	//期数
+	@Column(name="ORDER_NUMBER")
+	private int orderNumber;
 
 	public RepayExtendPlan(String repayExtendPlanInfoId, 
 			Date endDate, BigDecimal principal, BigDecimal interest) {

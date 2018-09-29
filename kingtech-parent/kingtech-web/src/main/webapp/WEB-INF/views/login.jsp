@@ -22,7 +22,7 @@
      <body class="bg-gray"> 
 
         <div class="form-box" id="login-box">  
-            <div class="header">数据对接平台 Beta1.0</div>
+            <div class="header">数据对接平台 Beta2.0</div>
             <form action="login" method="post">
                 <div class="body">
 				  	<div class="form-group">

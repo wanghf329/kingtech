@@ -25,6 +25,7 @@ import com.kingtech.model.RepayExtendPlanInfoModel;
 import com.kingtech.model.RepayExtendPlanModel;
 import com.kingtech.model.ext.RepayExtendPlanModelExt;
 import com.kingtech.model.misc.PagedResult;
+import com.kingtech.szsm.model.SynResponseModel;
 import com.kingtech.web.commons.base.CreatRequstId;
 import com.kingtech.web.commons.base.api.PaymentApi;
 import com.kingtech.web.commons.base.service.ExtendRepayPlanService;
@@ -65,9 +66,6 @@ public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 			}
 			
 			rp = repayExtendPlanInfoDAO.save(rp);
-			
-			IdentifierType type = StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U;
-//			paymentApi.repayExtendPlanApi(rp.getId(), type);
 			
 		}  catch (Exception e) {
 			e.printStackTrace();
@@ -190,29 +188,19 @@ public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 		
 		for (RepayExtendPlanModel model : planModel) {
 			RepayExtendPlan entity = null;
-			if (StringUtils.isNotEmpty(model.getId())) {
-				//修改
-				entity = repayExtendPlanDAO.findOne(model.getId());
-				entity.setEndDate(model.getEndDate());
-				entity.setPrincipal(model.getPrincipal());
-				entity.setInterest(model.getInterest());
-			} else {
 				entity = new RepayExtendPlan(model.getRepayExtendPlanInfoId(),
 						model.getEndDate(), 
 						model.getPrincipal(),
 						model.getInterest());
-			}
+				entity.setOrderNumber(model.getOrderNumber());
 			
 			repayExtendPlanDAO.save(entity);
 		}
-		
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public void pushRepayExtendPlanInfo(String id) {
-		paymentApi.repayExtendPlanApi(id, IdentifierType.A);
+	public SynResponseModel pushRepayExtendPlanInfo(String id) {
+		return paymentApi.repayExtendPlanApi(id, IdentifierType.A);
 	}
 
 	@Override
