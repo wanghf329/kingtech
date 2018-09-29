@@ -18,6 +18,9 @@ $(document).ready(function () {
     	  $('.form-horizontal').find("button[type='submit']").hide();
     	  $('body').find(".edit-href").hide(); 
       } 
+      
+      initArae1(districtCode);
+      initArea2(districtCode);
 });
 
 $(".saveRecordBtn").click(function(){ 
@@ -172,6 +175,58 @@ function initDatepicker(){
 	    todayBtn:  1,  
 	    autoclose: 1, 
 	    clearBtn: true});   
+} 
+
+
+$("#area1").change(function(){
+	initArae1('');
+	initArea2('');
+});
+
+$("#area2").change(function(){
+	initArea2('');   
+});
+
+function initArae1(districtCode){
+	
+	var area1 = districtCode!='' ? districtCode : $("#area1").val()
+	area1 = area1.substring(0,2); 
+	if(districtCode!=''){
+		$("#area1").val(area1+"0000"); 
+	}
+	$.ajax({
+		method:'GET',
+		async:false, 
+		url:'loan/area/list/'+area1, 
+		success:function(res){
+			$("#area2").empty();
+			for(var i in res){ 
+				$("#area2").append("<option value ='"+res[i].code+"'>"+res[i].name+"</option>");
+			} 
+		}
+	});
+}
+
+function initArea2(districtCode){
+	var area1 = districtCode!='' ? districtCode : $("#area2").val()
+	area2 = area1.substring(0,4);
+	if(districtCode!=''){ 
+		$("#area2").val(area2+"00"); 
+	}
+	$.ajax({
+		method:'GET',
+		async:false, 
+		url:'loan/area/list/'+area2, 
+		success:function(res){
+			$("#districtCode").empty();    
+			for(var i in res){   
+				$("#districtCode").append("<option value ='"+res[i].code+"'>"+res[i].name+"</option>");
+			} 
+			if(districtCode!=''){  
+				$("#districtCode").val(districtCode); 
+			}			
+		}
+	});
 }
 
 function initDataTables() {
@@ -282,7 +337,7 @@ function initDataTables() {
                                 			    +'<a href="javascirpt:void(0)" class="contract-push" data-id="'+row.id+'"><i class="text-blue fa fa-exchange"></i><strong>推送</strong></a>';
 									}
 									if(row.pushStatus=='SUCCESS'){
-										return '<a href="javascirpt:void(0)" class="item-delete" data-id="'+row.id+'"><i class="text-red fa fa-times"></i><strong>删除</strong>';
+										return '<a href="loan/edit?id='+row.id+'"><strong>查看详情</strong></a> <a href="loan/supplement?loanContractId='+row.id+'"><strong>查看补充信息</strong></a><a href="javascirpt:void(0)" class="item-delete" data-id="'+row.id+'"><i class="text-red fa fa-times"></i><strong>删除</strong>';
 									}
 								}} ],
 						"fnDrawCallback" : function(oSettings) {

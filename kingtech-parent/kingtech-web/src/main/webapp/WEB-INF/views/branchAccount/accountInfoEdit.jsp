@@ -89,7 +89,7 @@
 		<%@include file="../common/footer.jspf" %>   
         <script src="bujs/branchAccount/accountInfo.js" type="text/javascript"></script>  
         <script type="text/javascript">
-        	var canEdit = "${accountInfo==null}";
+        	var canEdit = "${accountInfo==null or accountInfo.pushStatus=='SUCCESS' or accountInfo.pushStatus=='INITATION'}";
         </script> 
     </body>
 </html>

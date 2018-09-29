@@ -22,5 +22,9 @@ public interface RepayExtendInfoDAO extends PagingAndSortingRepository<RepayExte
 	
 	@Query("select r from RepayExtendInfo r where r.pushStatus in :pushStatus ")
 	public List<RepayExtendInfo> listByPushStatus(@Param("pushStatus")List<PushStatus> pushStatus);
-
+	
+	
+	@Modifying
+	@Query("delete RepayExtendInfo c where c.loanContractId = :loanContractId")
+	public int deleteByLoanContractId(@Param("loanContractId") String loanContractId);
 }

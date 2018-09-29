@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.common.collect.Lists;
+import com.kingtech.dao.entity.SysAreaCode;
+import com.kingtech.dao.rdbms.SysAreaCodeDAO;
 import com.kingtech.enums.BorrowerTypeEnum;
 import com.kingtech.enums.CardTypeEnum;
 import com.kingtech.enums.DywTypeEnum;
@@ -63,6 +65,9 @@ public class LoanContractApiController {
 	
 	@Autowired
 	private BorrowerService borrowerService;
+	
+	@Autowired
+	private SysAreaCodeDAO sysAreaCodeDAO;
 
 	/**
 	 * 合同列表
@@ -87,6 +92,7 @@ public class LoanContractApiController {
 		model.addAttribute("status", LoanstatusEnum.values());
 		model.addAttribute("yesNoEnum", YesNoEnum.values());
 		model.addAttribute("repayMethod", PayTypeEnum.values());
+		model.addAttribute("allProvince", sysAreaCodeDAO.listAllProvince());
 		
 		if(StringUtils.isNotEmpty(id)){
 			model.addAttribute("contract",contractService.getById(id));
@@ -204,5 +210,18 @@ public class LoanContractApiController {
         //第二个参数是控制是否支持传入的值是空，这个值很关键，如果指定为false，那么如果前台没有传值的话就会报错
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
+	
+	
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET,value="/area/all")
+	public List<SysAreaCode> listAllProvince(Model model) { 
+		return sysAreaCodeDAO.listAllProvince();
+	}  
+	
+	@ResponseBody
+	@RequestMapping(method = RequestMethod.GET,value="/area/list/{code}")
+	public List<SysAreaCode> listAllProvince(Model model,@PathVariable("code") String code) { 
+		return sysAreaCodeDAO.listAllOther(code + '%', code.length() == 2 ? "2"  : "3");
+	}  
 }
 

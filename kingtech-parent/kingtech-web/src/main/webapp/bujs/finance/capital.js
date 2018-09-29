@@ -217,7 +217,7 @@ function initDataTables() {
 										+ '<a href="finance/capital/supplement?financeId='+row.id+'"><strong><i class="text-blue fa fa-plus-square-o"></i>补充信息</strong></a>'
 										+ '<a href="javascirpt:void(0)" class="capital-push" data-id="'+row.id+'"><i class="text-blue fa fa-exchange"></i><strong>推送</strong></a>';
 									} else {
-										return '<a href="finance/capital/edit?id='+row.id+'"><strong><i class="text-gray fa fa-eye"></i>看见详情</strong></a> <a href="finance/capital/supplement?financeId='+row.id+'"><strong>查看补充信息</strong></a>'
+										return '<a href="finance/capital/edit?id='+row.id+'"><strong><i class="text-gray fa fa-eye"></i>查看详情</strong></a> <a href="finance/capital/supplement?financeId='+row.id+'"><strong>查看补充信息</strong></a>'
 									}
 									
 								}} ],

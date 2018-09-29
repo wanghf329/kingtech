@@ -38,7 +38,7 @@
 								<form class="form-horizontal" id="form-horizontal" action="postLoan/provision/edit" method="POST"> 
 									<input type="hidden" name="id" value="">
 									<div class="form-group">
-										<label for="#dateMonth" class="col-sm-3 control-label"><i class="text-red">*</i> 计提日期</label>
+										<label for="#dateMonth" class="col-sm-3 control-label"><i class="text-red">*</i> 计提月份</label>
 										<div class="col-sm-6 input-group">
 											<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 											<input type="text" class="form-control pull-right datepicker validate[required]" 
