@@ -195,7 +195,15 @@
 												<div class="form-group">
 													<label for="#districtCode" class="col-sm-2 control-label"><i class="text-red">*</i> 区域代码</label>
 													<div class="col-sm-4 input-group">
-														<input type="text" class="form-control validate[required]" name="districtCode" value="${contract.districtCode}" data-errormessage="还款来源不能为空">
+														<select class="form-control validate[required]" id="area1" name="area1" style="width:150px">
+															<c:forEach var="it" items="${allProvince}">
+						  										<option value ="${it.code}">${it.name}</option>
+															</c:forEach>
+														</select>	
+														<select class="form-control validate[required]" id="area2" name="area2" style="width:150px">
+														</select>
+														<select class="form-control validate[required]" id="districtCode" name="districtCode" style="width:150px">
+														</select>																																									
 													</div>
 												</div>																								
 												<div class="form-group">
@@ -214,6 +222,7 @@
         <script src="bujs/loan/contract.js" type="text/javascript"></script>  
         <script type="text/javascript">
         	var borrowerId = '${contract.borrowerId}';
+        	var districtCode = '${contract.districtCode}';
         	var canEdit = "${contract==null or contract.pushStatus=='INITATION' or contract.pushStatus=='FAILED'}";
         </script>     
     </body>

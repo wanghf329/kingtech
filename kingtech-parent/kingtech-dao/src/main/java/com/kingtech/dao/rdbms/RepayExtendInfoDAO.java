@@ -27,5 +27,4 @@ public interface RepayExtendInfoDAO extends PagingAndSortingRepository<RepayExte
 	@Modifying
 	@Query("delete RepayExtendInfo c where c.loanContractId = :loanContractId")
 	public int deleteByLoanContractId(@Param("loanContractId") String loanContractId);
-
 }
