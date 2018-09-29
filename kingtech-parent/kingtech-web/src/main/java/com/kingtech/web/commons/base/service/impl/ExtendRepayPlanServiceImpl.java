@@ -187,25 +187,14 @@ public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 		
 		for (RepayExtendPlanModel model : planModel) {
 			RepayExtendPlan entity = null;
-			if (StringUtils.isNotEmpty(model.getId())) {
-				//修改
-				entity = repayExtendPlanDAO.findOne(model.getId());
-				entity.setEndDate(model.getEndDate());
-				entity.setPrincipal(model.getPrincipal());
-				entity.setInterest(model.getInterest());
-				entity.setOrderNumber(model.getOrderNumber());
-			} else {
 				entity = new RepayExtendPlan(model.getRepayExtendPlanInfoId(),
 						model.getEndDate(), 
 						model.getPrincipal(),
 						model.getInterest());
-			}
+				entity.setOrderNumber(model.getOrderNumber());
 			
 			repayExtendPlanDAO.save(entity);
 		}
-		
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

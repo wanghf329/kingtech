@@ -483,7 +483,7 @@ public class PostLoanApiController {
 	public String pushRepayExtendPlanInfo(Model model,  @RequestParam("id") String id){
 		repayExtendPlanService.pushRepayExtendPlanInfo(id);
 		
-		return "/postloan/extensionRepayPlanInfo";
+		return "redirect:/postLoan/extensionrepayplaninfo";
 	}
 	
 	
