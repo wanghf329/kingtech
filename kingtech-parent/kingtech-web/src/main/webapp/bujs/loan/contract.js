@@ -215,7 +215,7 @@ function initArea2(districtCode){
 	}
 	$.ajax({
 		method:'GET',
-		async:false, 
+		async:false,  
 		url:'loan/area/list/'+area2, 
 		success:function(res){
 			$("#districtCode").empty();    
