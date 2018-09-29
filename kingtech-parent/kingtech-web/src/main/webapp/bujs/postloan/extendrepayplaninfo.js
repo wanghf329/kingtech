@@ -1,7 +1,7 @@
 $(document).ready(function () {          
     menuChecked("#extensionrepayplaninfo"); 
     
-    $("#form-horizontal").validationEngine({ 
+    $(".form-horizontal").validationEngine({ 
   	  validationEventTriggers:"keyup blur",
   	  inlineValidation: true,
   	  showOneMessage:true,
@@ -122,7 +122,7 @@ function initDataTables() {
 									if(row.pushStatus=='INITATION' || row.pushStatus=='FAILED') {
 										return '<a href="postLoan/planInfo/edit?id='+row.id+'"><i class="text-blue fa fa-edit"></i><strong>修改</strong></a>'
                                 		        +'<a href="postLoan/plan/add?infoId='+row.id+'" ><i class="text-blue fa fa-plus-square-o"></i><strong>补充</strong></a>'
-                                		        +'<a href="postLoan/plan/push?infoId='+row.id+'" ><i class="fa fa-fw fa-mail-forward"></i><strong>推送</strong></a>';
+                                		        +'<a href="postLoan/plan/push?id='+row.id+'" ><i class="fa fa-fw fa-mail-forward"></i><strong>推送</strong></a>';
 									}
 									
 									

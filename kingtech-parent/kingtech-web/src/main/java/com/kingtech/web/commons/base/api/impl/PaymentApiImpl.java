@@ -869,6 +869,20 @@ public class PaymentApiImpl  implements PaymentApi {
 					repaymentFinanceDao.save(repayment);
 				}
 				break;
+			case extendRepayPlan:	
+				if (PushStatus.INPROSESS.equals(pushStatus)) {
+					RepayExtendPlanInfo repayPlanInfo = repayExtendPlanInfoDAO.findOne(id);
+					repayPlanInfo.setPushStatus(PushStatus.SUCCESS);
+					repayExtendPlanInfoDAO.save(repayPlanInfo);
+				}
+				break;
+			case extendRepay:	
+				if (PushStatus.INPROSESS.equals(pushStatus)) {
+					RepayExtendInfo repayInfo = repayExtendInfoDAO.findOne(id);
+					repayInfo.setPushStatus(PushStatus.SUCCESS);
+					repayExtendInfoDAO.save(repayInfo);
+				}
+				break;
 			default:
 				break;
 		}
