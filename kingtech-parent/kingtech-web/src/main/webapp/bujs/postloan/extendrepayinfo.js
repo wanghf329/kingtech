@@ -164,12 +164,13 @@ function initDataTables() {
 										}
 									}
 								},
-								{
-									data : null,
-									render : function(data, type, row) {
-										return '<a href="javascript:void(0)" onclick=getExtendRepay(\''+row.id+'\') class="extend-repay-edit"><i class="text-blue fa fa-edit"></i><strong>修改</strong>'
-									}
-								} ],
+//								{
+//									data : null,
+//									render : function(data, type, row) {
+//										return '<a href="javascript:void(0)" onclick=getExtendRepay(\''+row.id+'\') class="extend-repay-edit"><i class="text-blue fa fa-edit"></i><strong>修改</strong>'
+//									}
+//								} 
+					],
 						"fnDrawCallback" : function(oSettings) {
 							for (var i = 0, iLen = oSettings.aiDisplay.length; i < iLen; i++) {
 								$(
