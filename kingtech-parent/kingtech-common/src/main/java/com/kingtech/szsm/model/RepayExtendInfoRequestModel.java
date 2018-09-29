@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.kingtech.common.config.BaseConfig;
+import com.kingtech.common.utils.SignUtils;
 
 /**
  * 展期还款信息
@@ -49,6 +51,7 @@ public class RepayExtendInfoRequestModel extends BaseRequestModel{
 			String repayTime, String money, String interest,
 			String penaltyInterest, String penalty, String serviceCharge,
 			String otherCharge) {
+		super(BaseConfig.CLIENTID, roundStr, BaseConfig.APPKEY, SignUtils.getToken(roundStr), reqId, null, null);
 		this.contractNumber = contractNumber;
 		this.repayTime = repayTime;
 		this.money = money;
@@ -58,6 +61,7 @@ public class RepayExtendInfoRequestModel extends BaseRequestModel{
 		this.serviceCharge = serviceCharge;
 		this.otherCharge = otherCharge;
 	}
+	
 	
 	
 	

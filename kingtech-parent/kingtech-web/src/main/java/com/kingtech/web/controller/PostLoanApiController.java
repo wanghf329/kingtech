@@ -22,10 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.common.collect.Lists;
 import com.kingtech.enums.BadTypeEnum;
 import com.kingtech.enums.IdentifierType;
-import com.kingtech.enums.RepayStatusEnum;
-import com.kingtech.enums.YesNoEnum;
 import com.kingtech.model.AssetTransferModel;
-import com.kingtech.model.FinanceRepayPlanModel;
 import com.kingtech.model.OtherBaddebtModel;
 import com.kingtech.model.OtherOverdueInfoModel;
 import com.kingtech.model.ProvisionInfoModel;
@@ -115,6 +112,7 @@ public class PostLoanApiController {
 	@RequestMapping(method = RequestMethod.GET, value = "extensionrepayplaninfo")
 	public String extensionRepayPlanInfo(Model model) {
 		model.addAttribute("contracts", contractService.listAll());
+		repayExtendPlanService.syncextendRepayPlanInfoPushStatus();
 		return "/postloan/extensionRepayPlanInfo";
 	}
 	
@@ -152,6 +150,7 @@ public class PostLoanApiController {
 	@RequestMapping(method = RequestMethod.GET, value = "extensionrepayinfo")
 	public String extensionRepayInfo(Model model) {
 		model.addAttribute("contracts", contractService.listAll());
+		extendRepayService.syncextendRepayInfoPushStatus();
 		return "/postloan/extensionRepayInfo";
 	}
 	
@@ -315,6 +314,8 @@ public class PostLoanApiController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
 		return "redirect:/postLoan/extensionrepayinfo";
 	}
 	
@@ -432,7 +433,12 @@ public class PostLoanApiController {
 		}
 		return "/postloan/extendPlanInfoEdit";
 	}
-	
+	/**
+	 * 添加展期还款计划页面
+	 * @param model
+	 * @param infoId
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = "plan/add")
 	public String addExtendPlan(Model model,  @RequestParam("infoId") String infoId){
 		model.addAttribute("contracts", contractService.listAll());
@@ -445,7 +451,15 @@ public class PostLoanApiController {
 		
 		return "/postloan/extendPlanInfoAdd";
 	}
-	
+	/**
+	 * 添加展期还款计划
+	 * @param model
+	 * @param infoId
+	 * @param interest
+	 * @param endDate
+	 * @param principal
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.POST, value = "extendRepay/addRepayPlan")
 	public String addRepayExtendPlan(Model model, String infoId,BigDecimal[] interest,Date[] endDate,BigDecimal[] principal){
 		
@@ -459,10 +473,17 @@ public class PostLoanApiController {
 		return "/postloan/extensionRepayPlanInfo";
 	}
 	
-	public String pushRepayExtendPlanInfo(Model model, String id){
+	/**
+	 * 推送展期还款计划信息
+	 * @param model
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.GET, value = "plan/push")
+	@ResponseBody
+	public SynResponseModel pushRepayExtendPlanInfo(Model model,  @RequestParam("id") String id){
 		
-		
-		return "/postloan/extensionRepayPlanInfo";
+		return repayExtendPlanService.pushRepayExtendPlanInfo(id);
 	}
 	
 	

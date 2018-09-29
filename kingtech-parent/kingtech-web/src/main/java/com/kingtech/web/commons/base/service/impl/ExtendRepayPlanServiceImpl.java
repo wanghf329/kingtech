@@ -17,6 +17,7 @@ import com.kingtech.dao.entity.RepayExtendPlanInfo;
 import com.kingtech.dao.rdbms.ContractDAO;
 import com.kingtech.dao.rdbms.RepayExtendPlanDAO;
 import com.kingtech.dao.rdbms.RepayExtendPlanInfoDAO;
+import com.kingtech.enums.Cmd;
 import com.kingtech.enums.IdentifierType;
 import com.kingtech.enums.PushStatus;
 import com.kingtech.enums.RecordStatus;
@@ -24,6 +25,7 @@ import com.kingtech.model.RepayExtendPlanInfoModel;
 import com.kingtech.model.RepayExtendPlanModel;
 import com.kingtech.model.ext.RepayExtendPlanModelExt;
 import com.kingtech.model.misc.PagedResult;
+import com.kingtech.szsm.model.SynResponseModel;
 import com.kingtech.web.commons.base.CreatRequstId;
 import com.kingtech.web.commons.base.api.PaymentApi;
 import com.kingtech.web.commons.base.service.ExtendRepayPlanService;
@@ -64,9 +66,6 @@ public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 			}
 			
 			rp = repayExtendPlanInfoDAO.save(rp);
-			
-			IdentifierType type = StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U;
-//			paymentApi.repayExtendPlanApi(rp.getId(), type);
 			
 		}  catch (Exception e) {
 			e.printStackTrace();
@@ -183,31 +182,32 @@ public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 	@Override
 	@Transactional
 	public void addRepayExtendPlan(List<RepayExtendPlanModel> planModel) {
+		if(planModel!= null &&  !planModel.isEmpty() ) {
+			repayExtendPlanDAO.deleteByPlanInfoId(planModel.get(0).getRepayExtendPlanInfoId());
+		}
+		
 		for (RepayExtendPlanModel model : planModel) {
 			RepayExtendPlan entity = null;
-			if (StringUtils.isNotEmpty(model.getId())) {
-				//修改
-				entity = repayExtendPlanDAO.findOne(model.getId());
-				entity.setEndDate(model.getEndDate());
-				entity.setPrincipal(model.getPrincipal());
-				entity.setInterest(model.getInterest());
-			} else {
 				entity = new RepayExtendPlan(model.getRepayExtendPlanInfoId(),
 						model.getEndDate(), 
 						model.getPrincipal(),
 						model.getInterest());
-			}
+				entity.setOrderNumber(model.getOrderNumber());
 			
 			repayExtendPlanDAO.save(entity);
 		}
-		
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public void pushRepayExtendPlanInfo(String id) {
-		
+	public SynResponseModel pushRepayExtendPlanInfo(String id) {
+		return paymentApi.repayExtendPlanApi(id, IdentifierType.A);
+	}
+
+	@Override
+	public void syncextendRepayPlanInfoPushStatus() {
+		repayExtendPlanInfoDAO.listByPushStatus(Lists.newArrayList(PushStatus.INPROSESS)).forEach(s->{
+			paymentApi.queryTranInfoApi(s.getId(), Cmd.extendRepayPlan, s.getReqId(),s.getPushStatus());
+		});
 		
 	}
 

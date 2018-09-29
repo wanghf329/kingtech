@@ -77,4 +77,5 @@ public abstract class LoanRecordEntity extends BaseEntity {
 		this.recordStatus = recordStatus;
 	}
 	
+	
 }

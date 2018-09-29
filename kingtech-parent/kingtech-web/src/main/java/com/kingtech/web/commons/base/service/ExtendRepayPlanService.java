@@ -1,17 +1,14 @@
 package com.kingtech.web.commons.base.service;
 
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 
-import com.kingtech.dao.entity.RepayExtendPlan;
 import com.kingtech.model.RepayExtendPlanInfoModel;
 import com.kingtech.model.RepayExtendPlanModel;
-import com.kingtech.model.ext.ModelExt;
 import com.kingtech.model.ext.RepayExtendPlanModelExt;
 import com.kingtech.model.misc.PagedResult;
+import com.kingtech.szsm.model.SynResponseModel;
 
 public interface ExtendRepayPlanService {
 	/**
@@ -57,5 +54,7 @@ public interface ExtendRepayPlanService {
 	 * 推送
 	 * @param id
 	 */
-	public void pushRepayExtendPlanInfo(String id);
+	public SynResponseModel pushRepayExtendPlanInfo(String id);
+	
+	public void syncextendRepayPlanInfoPushStatus();
  }
