@@ -45,6 +45,7 @@ public class BaseAbstract {
 	
 		baseRequestModel.setSign(sign);
 		String data = JSONObject.toJSONString(baseRequestModel);
+		log.info("请求URL:{}",BaseConfig.REQUEST_URL	+ "/" + suffixUrl);
 		try {
 			String response = null;
 			switch (type) {
