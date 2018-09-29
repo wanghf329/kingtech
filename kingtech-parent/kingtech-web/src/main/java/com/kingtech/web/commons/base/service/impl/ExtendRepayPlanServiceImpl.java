@@ -66,9 +66,6 @@ public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 			
 			rp = repayExtendPlanInfoDAO.save(rp);
 			
-			IdentifierType type = StringUtils.isEmpty(id) ? IdentifierType.A : IdentifierType.U;
-//			paymentApi.repayExtendPlanApi(rp.getId(), type);
-			
 		}  catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -192,6 +189,7 @@ public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 				entity.setEndDate(model.getEndDate());
 				entity.setPrincipal(model.getPrincipal());
 				entity.setInterest(model.getInterest());
+				entity.setOrderNumber(model.getOrderNumber());
 			} else {
 				entity = new RepayExtendPlan(model.getRepayExtendPlanInfoId(),
 						model.getEndDate(), 
