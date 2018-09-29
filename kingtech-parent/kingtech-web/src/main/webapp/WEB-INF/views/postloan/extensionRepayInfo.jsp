@@ -137,7 +137,6 @@
 											<th>服务费</th>
 											<th>其他费用</th>
 											<th>状态</th>
-											<th>操作</th>
 	                                        </tr>
 	                                     </thead>
 	                                     <tbody></tbody>
