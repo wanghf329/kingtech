@@ -117,8 +117,7 @@
 												
 												<div class="form-group">
 													<label for="#position" class="col-sm-2 control-label"><i class="text-red">*</i>职务</label>
-													<div class="col-sm-4 input-group">
-														<input type="text"  class="form-control validate[required, funcCall[positionValidate] ]" id="position" name="position"  value="${employee.position}" />
+													<div class="col-sm-4 input-group" id="positionDiv">
 													</div>
 												</div>
 												
@@ -146,6 +145,20 @@
 												</div>												
 											</form>						
                                 </div>
+                                <input type="text"  class="form-control validate[required] hide" id="positionInput" name="position"  value="${employee.position}" />
+                                <select class="form-control validate[required] hide" id="positionSelect" name="position" >
+                                	<option value ="董事长" <c:if test="${employee.position == '董事长' }">selected </c:if>>董事长</option>
+                                	<option value ="执行董事" <c:if test="${employee.position == '执行董事' }">selected </c:if> >执行董事</option>
+                                	<option value ="董事"  <c:if test="${employee.position == '董事' }">selected </c:if> >董事</option>
+                                	<option value ="监事长" <c:if test="${employee.position == '监事长' }">selected </c:if> >监事长</option>
+                                	<option value ="监事" <c:if test="${employee.position == '监事' }">selected  </c:if>>监事</option>
+                                	<option value ="总经理" <c:if test="${employee.position == '总经理' }">selected </c:if> >总经理</option>
+                                	<option value ="副总经理" <c:if test="${employee.position == '副总经理' }">selected </c:if> >副总经理</option>
+                                	<option value ="风控总监" <c:if test="${employee.position == '风控总监' }">selected </c:if> >风控总监</option>
+                                	<option value ="财务总监" <c:if test="${employee.position == '财务总监' }">selected </c:if> >财务总监</option>
+                                	<option value ="业务总监" <c:if test="${employee.position == '业务总监' }">selected  </c:if>>业务总监</option>
+                                	<option value ="其他高管" <c:if test="${employee.position == '其他高管' }">selected  </c:if>>其他高管</option>
+                                </select>
                             </div><!-- /.box -->
                         </div><!-- /.col -->
                     </div><!-- /.row --> 
@@ -155,7 +168,9 @@
 		<%@include file="../common/footer.jspf" %>   
         <script src="bujs/branch/employee.js" type="text/javascript"></script>  
         <script type="text/javascript">
-        	var canEdit = "${employee==null or employee.pushStatus=='INITATION' or employee.pushStatus=='FAILED'}";
+       		var _executiveFlag ="${employee.executiveFlag}";
+    		var _employeeId ="${employee.id}";
+        	var canEdit = "${employee==null or employee.pushStatus=='SUCCESS' }";
         </script>     
     </body>
 </html>

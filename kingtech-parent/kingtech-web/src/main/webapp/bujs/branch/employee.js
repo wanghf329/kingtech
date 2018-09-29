@@ -14,6 +14,8 @@ $(document).ready(function () {
       })
       initDatepicker();
       
+      
+      initPositionDiv();
       if(typeof(canEdit) != "undefined" && canEdit=="false"){  
     	  $('.form-horizontal').find('input,textarea,select').attr('disabled',true); 
     	  $('.form-horizontal').find("button[type='submit']").hide();
@@ -51,6 +53,32 @@ $("#addEmployeeBtn").click(function(){
 	window.location.href = "branch/edit?id=";
 });
 
+function initPositionDiv() {
+	$("#positionDiv").empty();
+	if(typeof(_employeeId) != "undefined" && _employeeId != null && _executiveFlag == 'S_1') {
+		var clone = $("#positionSelect").clone().removeClass("hide");
+		$("#positionDiv").append(clone);
+	} else {
+		var clone1 = $("#positionInput").clone().removeClass("hide");
+		$("#positionDiv").append(clone1);
+	}
+}
+
+$("#executiveFlag").change( function() {
+	
+	$("#positionDiv").empty();
+	var executiveFlag = $("#executiveFlag").val();
+	console.log(executiveFlag);
+	if(executiveFlag == 'S_1') {
+		var clone = $("#positionSelect").clone().removeClass("hide");
+		console.log(clone);
+		$("#positionDiv").append(clone);
+	} else {
+		var clone1 = $("#positionInput").clone().removeClass("hide");
+		console.log(clone1);
+		$("#positionDiv").append(clone1);
+	}
+});
 
 
 $(".saveRecordBtn").click(function() {
@@ -67,6 +95,8 @@ function initDatepicker(){
 	    autoclose: 1, 
 	    clearBtn: true});   
 }
+
+
 
 function positionValidate(field, rules, i, options) {
 	console.log("aaaaa");
@@ -181,7 +211,11 @@ function initDataTables() {
 									}
 								}},
 								{data : null,render : function(data, type, row) {
-									return '<a href="branch/edit?id='+row.id+'"><i class="text-gray fa fa-eye"></i><strong>查看</strong></a>  '
+									if(row.pushStatus == 'SUCCESS' || row.pushStatus == 'INITATION' ) {
+										return '<a href="branch/edit?id='+row.id+'"><i class="text-red fa fa-edit"></i><strong>修改</strong></a>  '
+									} else {
+										return '<a href="branch/edit?id='+row.id+'"><i class="text-gray fa fa-eye"></i><strong>查看</strong></a>  '
+									}
 								}} ],
 						"fnDrawCallback" : function(oSettings) {
 							for (var i = 0, iLen = oSettings.aiDisplay.length; i < iLen; i++) {

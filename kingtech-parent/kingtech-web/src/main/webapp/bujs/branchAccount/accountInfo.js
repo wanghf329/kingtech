@@ -146,9 +146,7 @@ function initDataTables() {
 									return data;
 								}},
 								{data : null,render : function(data, type, row) {
-									if(row.pushStatus=='SUCCESS' || row.pushStatus=='INPROSESS') {
 										return '<a href="branchAccount/accountInfo/edit?id='+row.id+'"><strong>查看详情</strong></a> '
-									}
 								}} ],
 						"fnDrawCallback" : function(oSettings) {
 							for (var i = 0, iLen = oSettings.aiDisplay.length; i < iLen; i++) {
