@@ -190,7 +190,7 @@
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
                                 	<button class="btn btn-primary btn-sm" data-toggle="modal" id="editProvisiontBtn">新增计提信息</button>  
-                                    <table class="table"> 
+                                    <table class="table table-bordered" role="grid" > 
                                         <tr>
                                             <th>编号</th> 
                                             <th>计提月份</th> 
