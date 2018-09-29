@@ -58,8 +58,12 @@ public class EmployeeServiceImpl implements EmployeeService{
 				String reqId = employee.getReqId();
 				BeanUtils.copyProperties(employee, model);
 				employee.setReqId(reqId);
+				if (PushStatus.INITATION.equals(employee.getPushStatus())) {
+					type = IdentifierType.A;
+				} else {
+					type = IdentifierType.U;
+				}
 				employee.setPushStatus(PushStatus.INITATION);
-				type = IdentifierType.U;
 			}
 			employee.setRecordStatus(RecordStatus.NORMAL);
 			employee = employeeDao.save(employee);

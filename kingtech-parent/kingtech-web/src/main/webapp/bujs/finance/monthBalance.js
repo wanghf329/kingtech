@@ -46,7 +46,6 @@ function formateDate(date, fmt) {
 }
 
 function initDatepicker(){
-	console
 	$('#datepickerMonth').datetimepicker({
 		language:  'zh-CN',
         format: 'yyyy-mm',
