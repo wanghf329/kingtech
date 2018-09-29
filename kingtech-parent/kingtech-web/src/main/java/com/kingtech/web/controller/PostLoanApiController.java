@@ -480,10 +480,10 @@ public class PostLoanApiController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "plan/push")
-	public String pushRepayExtendPlanInfo(Model model,  @RequestParam("id") String id){
-		repayExtendPlanService.pushRepayExtendPlanInfo(id);
+	@ResponseBody
+	public SynResponseModel pushRepayExtendPlanInfo(Model model,  @RequestParam("id") String id){
 		
-		return "redirect:/postLoan/extensionrepayplaninfo";
+		return repayExtendPlanService.pushRepayExtendPlanInfo(id);
 	}
 	
 	

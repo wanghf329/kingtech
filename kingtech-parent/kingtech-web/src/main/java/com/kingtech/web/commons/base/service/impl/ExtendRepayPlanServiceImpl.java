@@ -25,6 +25,7 @@ import com.kingtech.model.RepayExtendPlanInfoModel;
 import com.kingtech.model.RepayExtendPlanModel;
 import com.kingtech.model.ext.RepayExtendPlanModelExt;
 import com.kingtech.model.misc.PagedResult;
+import com.kingtech.szsm.model.SynResponseModel;
 import com.kingtech.web.commons.base.CreatRequstId;
 import com.kingtech.web.commons.base.api.PaymentApi;
 import com.kingtech.web.commons.base.service.ExtendRepayPlanService;
@@ -198,8 +199,8 @@ public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 	}
 
 	@Override
-	public void pushRepayExtendPlanInfo(String id) {
-		paymentApi.repayExtendPlanApi(id, IdentifierType.A);
+	public SynResponseModel pushRepayExtendPlanInfo(String id) {
+		return paymentApi.repayExtendPlanApi(id, IdentifierType.A);
 	}
 
 	@Override
