@@ -184,6 +184,10 @@ public class ExtendRepayPlanServiceImpl implements ExtendRepayPlanService {
 	@Override
 	@Transactional
 	public void addRepayExtendPlan(List<RepayExtendPlanModel> planModel) {
+		if(planModel!= null &&  !planModel.isEmpty() ) {
+			repayExtendPlanDAO.deleteByPlanInfoId(planModel.get(0).getRepayExtendPlanInfoId());
+		}
+		
 		for (RepayExtendPlanModel model : planModel) {
 			RepayExtendPlan entity = null;
 			if (StringUtils.isNotEmpty(model.getId())) {
