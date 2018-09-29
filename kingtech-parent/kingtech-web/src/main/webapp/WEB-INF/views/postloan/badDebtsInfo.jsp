@@ -109,7 +109,7 @@
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
                                 	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addbaddebtInfoBtn">新增坏账信息</button>  
-                                    <table class="table"> 
+                                    <table class="table table-bordered" role="grid" > 
                                         <tr>
                                         	<th>编号</th> 
                                             <th>主合同编号</th>

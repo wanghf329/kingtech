@@ -117,7 +117,7 @@
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
                                 	<button class="btn btn-primary btn-sm" data-toggle="modal" id="editAssetTransferBtn">新增资产转让</button>  
-                                    <table class="table"> 
+                                    <table class="table table-bordered" role="grid" > 
                                         <tr>
                                             <th>编号</th> 
                                             <th>主合同编号</th>
