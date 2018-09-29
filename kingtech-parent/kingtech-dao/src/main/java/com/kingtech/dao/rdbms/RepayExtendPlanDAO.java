@@ -18,4 +18,8 @@ public interface RepayExtendPlanDAO extends PagingAndSortingRepository<RepayExte
 	@Modifying
 	@Query("delete RepayExtendPlan c where c.repayExtendPlanInfoId = :repayExtendPlanInfoId ")
 	public void deleteByPlanInfoId(@Param("repayExtendPlanInfoId") String repayExtendPlanInfoId);
+	
+	@Modifying
+	@Query("delete RepayExtendPlan c where c.loanContractId = :loanContractId")
+	public int deleteByLoanContractId(@Param("loanContractId") String loanContractId);
 }

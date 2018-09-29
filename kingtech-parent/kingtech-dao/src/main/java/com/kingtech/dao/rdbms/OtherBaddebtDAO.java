@@ -21,5 +21,9 @@ public interface OtherBaddebtDAO extends PagingAndSortingRepository<OtherBaddebt
 	
 	@Query("select c from OtherBaddebt c where c.pushStatus in :pushStatus")
 	public List<OtherBaddebt> listBypushStatus(@Param("pushStatus") List<PushStatus> pushStatus);
+	
+	@Modifying
+	@Query("delete OtherBaddebt c where c.loanContractId = :loanContractId")
+	public int deleteByLoanContractId(@Param("loanContractId") String loanContractId);
 
 }

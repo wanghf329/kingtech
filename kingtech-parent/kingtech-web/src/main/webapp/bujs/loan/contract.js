@@ -282,7 +282,7 @@ function initDataTables() {
                                 			    +'<a href="javascirpt:void(0)" class="contract-push" data-id="'+row.id+'"><i class="text-blue fa fa-exchange"></i><strong>推送</strong></a>';
 									}
 									if(row.pushStatus=='SUCCESS'){
-										return '<a href="javascirpt:void(0)" class="item-delete" data-id="'+row.id+'"><i class="text-red fa fa-times"></i><strong>删除</strong>';
+										return '<a href="loan/edit?id='+row.id+'"><strong>查看详情</strong></a> <a href="loan/supplement?loanContractId='+row.id+'"><strong>查看补充信息</strong></a><a href="javascirpt:void(0)" class="item-delete" data-id="'+row.id+'"><i class="text-red fa fa-times"></i><strong>删除</strong>';
 									}
 								}} ],
 						"fnDrawCallback" : function(oSettings) {

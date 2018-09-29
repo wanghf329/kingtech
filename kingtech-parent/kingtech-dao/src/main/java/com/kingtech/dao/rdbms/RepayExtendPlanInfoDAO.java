@@ -2,6 +2,7 @@ package com.kingtech.dao.rdbms;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
@@ -14,4 +15,8 @@ public interface RepayExtendPlanInfoDAO extends PagingAndSortingRepository<Repay
 	@Query("select r from RepayExtendPlanInfo r where r.pushStatus in :pushStatus ")
 	public List<RepayExtendPlanInfo> listByPushStatus(@Param("pushStatus")List<PushStatus> pushStatus);
 	
+	
+	@Modifying
+	@Query("delete RepayExtendPlanInfo c where c.loanContractId = :loanContractId")
+	public int deleteByLoanContractId(@Param("loanContractId") String loanContractId);
 }

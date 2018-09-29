@@ -762,6 +762,12 @@ public class PaymentApiImpl  implements PaymentApi {
 					contractDywDAO.deleteByLoanContractId(id);
 					guaranteeDAO.deleteByLoanContractId(id);
 					repayPlanDAO.deleteByLoanContractId(id);
+					repayExtendInfoDAO.listByloanContractId(id).forEach(c->{
+						repayExtendPlanDAO.delete(c.getId());;
+					});
+					repayExtendInfoDAO.deleteByLoanContractId(id);
+					repayExtendPlanInfoDAO.deleteByLoanContractId(id);
+					otherBaddebtDAO.deleteByLoanContractId(id);
 					
 				} else if (PushStatus.INPROSESS.equals(pushStatus)) {
 					Contract contract = contractDAO.findOne(id);
