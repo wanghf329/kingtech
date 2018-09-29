@@ -170,7 +170,7 @@
         <script type="text/javascript">
        		var _executiveFlag ="${employee.executiveFlag}";
     		var _employeeId ="${employee.id}";
-        	var canEdit = "${employee==null or employee.pushStatus=='SUCCESS' }";
+        	var canEdit = "${employee==null or employee.pushStatus=='SUCCESS' or employee.pushStatus=='INITATION'}";
         </script>     
     </body>
 </html>

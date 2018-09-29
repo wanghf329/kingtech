@@ -146,7 +146,11 @@ function initDataTables() {
 									return data;
 								}},
 								{data : null,render : function(data, type, row) {
-										return '<a href="branchAccount/accountInfo/edit?id='+row.id+'"><strong>查看详情</strong></a> '
+									if(row.pushStatus == 'SUCCESS' || row.pushStatus == 'INITATION' ) {
+										return '<a href="branchAccount/accountInfo/edit?id='+row.id+'"><i class="text-red fa fa-edit"></i><strong>修改</strong></a> '
+									} else {
+										return '<a href="branchAccount/accountInfo/edit?id='+row.id+'"><i class="text-gray fa fa-eye"></i><strong>查看详情</strong></a> '
+									}
 								}} ],
 						"fnDrawCallback" : function(oSettings) {
 							for (var i = 0, iLen = oSettings.aiDisplay.length; i < iLen; i++) {

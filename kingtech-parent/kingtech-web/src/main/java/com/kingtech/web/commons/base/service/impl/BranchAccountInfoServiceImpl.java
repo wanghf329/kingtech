@@ -54,8 +54,12 @@ public class BranchAccountInfoServiceImpl implements BranchAccountInfoService{
 				String reqId = branchAccountInfo.getReqId();
 				BeanUtils.copyProperties(branchAccountInfo, model);
 				branchAccountInfo.setReqId(reqId);
+				if (PushStatus.INITATION.equals(branchAccountInfo.getPushStatus())) {
+					type = IdentifierType.A;
+				} else {
+					type = IdentifierType.U;
+				}
 				branchAccountInfo.setPushStatus(PushStatus.INITATION);
-				type = IdentifierType.U;
 			}
 			branchAccountInfo.setRecordStatus(RecordStatus.NORMAL);
 			branchAccountInfo = branchAccountInfoDao.save(branchAccountInfo);
