@@ -18,7 +18,7 @@
                     <ol class="breadcrumb">
                         <li><a href="branch"><i class="fa fa-dashboard"></i> 首页</a></li>
                         <li><a href="branch">合同管理</a></li>
-                        <li class="active">合同信息</li> 
+                        <li class="active">放款信息</li> 
                     </ol>
                 </section>
 
@@ -28,7 +28,7 @@
                         <div class="col-md-12 no-padding">
                             <div class="box">
                                 <div class="box-header">
-                                    <h3 class="box-title">合同信息列表</h3>
+                                    <h3 class="box-title">放款信息列表</h3>
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
                                 	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addSettledInfoBtn">新增放款信息</button>  

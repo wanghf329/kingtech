@@ -12,13 +12,13 @@
             <aside class="right-side">                
                 <section class="content-header">
                     <h1>
-                                                                        还款信息列表
+                                                                        日终对账
                         <small></small>
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="branch"><i class="fa fa-dashboard"></i> 首页</a></li>
                         <li><a href="postLoan/repayinfo">贷后管理</a></li>
-                        <li class="active">还款信息</li> 
+                        <li class="active">日终对账</li> 
                     </ol>
                 </section>
                 
@@ -32,7 +32,7 @@
 									aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 								</button>
-								<h4 class="modal-title" >还款信息录入</h4>
+								<h4 class="modal-title" >日终对账</h4>
 							</div>
 							<div class="modal-body">
 								<form class="form-horizontal" id = "addRepayInfoForm" action="dayend/save" method="POST">
@@ -132,7 +132,7 @@
                         <div class="col-md-12 no-padding">
                             <div class="box">
                                 <div class="box-header">
-                                    <h3 class="box-title">还款信息列表</h3>
+                                    <h3 class="box-title">日终对账</h3> 
                                 </div><!-- /.box-header --> 
                                 <div class="box-body">
                                 	<button class="btn btn-primary btn-sm" data-toggle="modal" id="addDayendInfoBtn">新增日终信息</button>  
